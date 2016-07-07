@@ -1,0 +1,10 @@
+target
+
+/bb-aem-integration-tests/logs/default_*
+
+.classpath
+.project
+.settings
+
+*.iml
+.idea

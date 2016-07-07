@@ -1,0 +1,52 @@
+package com.cognifide.qa.bb.jcr;
+
+/*-
+ * #%L
+ * Bobcat Parent
+ * %%
+ * Copyright (C) 2016 Cognifide Ltd.
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
+
+import javax.jcr.Session;
+
+import com.cognifide.qa.bb.provider.jcr.properties.InstanceProperties;
+import com.google.inject.Provider;
+
+/**
+ * Provides JcrHelper instance for desired environment.
+ */
+public class JcrHelperProvider implements Provider<JcrHelper> {
+
+  private Session session;
+
+  /**
+   * Constructor. Initializes JcrHelperProvider.
+   *
+   * @param session    JCR session
+   */
+  public JcrHelperProvider(Session session) {
+    this.session = session;
+  }
+
+  /**
+   * @return JcrHelper instance
+   */
+  @Override
+  public JcrHelper get() {
+    return new JcrHelper(session);
+  }
+}

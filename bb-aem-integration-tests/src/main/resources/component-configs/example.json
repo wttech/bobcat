@@ -1,0 +1,66 @@
+{
+  "component": "Component",
+  "name": "Example",
+  "config": [
+    {
+      "tab": "General",
+      "type": "text area",
+      "label": "Text Area",
+      "value": "textarea"
+    },
+    {
+      "tab": "Tab1",
+      "type": "text field",
+      "label": "Text Field",
+      "value": "textfield"
+    },
+    {
+      "tab": "Tab1",
+      "type": "path field",
+      "label": "Path Field",
+      "value": "Node1/Node2/Node3"
+    },
+    {
+      "tab": "Tab2",
+      "type": "dropdown",
+      "label": "Dropdown",
+      "value": "dropdown"
+    },
+    {
+      "tab": "Tab3",
+      "type": "checkbox",
+      "label": "Checkbox",
+      "value": "TRUE"
+    },
+    {
+      "tab": "Tab4",
+      "type": "rich text",
+      "label": "Rich Text",
+      "value": "richtext"
+    },
+    {
+      "tab": "Tab4",
+      "type": "tags",
+      "label": "Tags",
+      "value": "Namespace:Tag1/Tag2"
+    },
+    {
+      "tab": "Tab4",
+      "type": "radio group",
+      "label": "Radio Group",
+      "value": "radiogroup"
+    },
+    {
+      "tab": "Tab4",
+      "type": "multifield#1#radio group",
+      "label": "Multifield#Radio Group",
+      "value": "radiogroup"
+    },
+    {
+      "tab": "Tab4",
+      "type": "fieldset#radio group",
+      "label": "Fieldset#Radio Group",
+      "value": "radiogroup"
+    }
+  ]
+}

@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  Bobcat Parent
+  %%
+  Copyright (C) 2016 Cognifide Ltd.
+  %%
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  #L%
+  -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>bobcat-parent</artifactId>
+        <groupId>com.cognifide.qa.bb</groupId>
+        <version>0.9.3-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>bb-aem-integration-tests</artifactId>
+
+    <name>Bobcat AEM Integration Tests</name>
+
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <distributionManagement>
+        <repository>
+            <id>sonatype-nexus-staging</id>
+            <name>Nexus Release Repository</name>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+        <snapshotRepository>
+            <id>sonatype-nexus-snapshots</id>
+            <name>Sonatype Nexus Snapshots</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <properties>
+        <runSuite>**/AuthorSuite.java,**/MiscSuite.java,**/MobileSuite.java</runSuite>
+        <c>src/main/config</c>
+        <configuration.paths>${c}/common;${c}/dev</configuration.paths>
+        <content.path>src/main/content</content.path>
+        <cucumber.version>1.1.5</cucumber.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.cognifide.qa.bb</groupId>
+            <artifactId>bb-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.cognifide.qa.bb</groupId>
+            <artifactId>bb-aem-classic</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.cognifide.qa.bb</groupId>
+            <artifactId>bb-reports</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.cognifide.qa.bb</groupId>
+            <artifactId>bb-cumber</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.cognifide.qa.bb</groupId>
+            <artifactId>bb-junit</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.cognifide.qa.bb</groupId>
+            <artifactId>bb-traffic</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+            <version>1.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.googlecode.zohhak</groupId>
+            <artifactId>zohhak</artifactId>
+            <version>1.1.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>1.10.19</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.4.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.github.ekryd.sortpom</groupId>
+                <artifactId>sortpom-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <configuration>
+                    <destFile>target/jacoco-it.exec</destFile>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.16</version>
+                <configuration>
+                    <systemPropertyVariables>
+                        <webdriver.type>${webdriver.type}</webdriver.type>
+                        <configuration.paths>${configuration.paths}</configuration.paths>
+                        <content.path>${content.path}</content.path>
+                        <thread.count>${thread.count}</thread.count>
+                    </systemPropertyVariables>
+                    <includes>
+                        <include>${runSuite}</include>
+                    </includes>
+                    <testFailureIgnore>true</testFailureIgnore>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>aem61-integration</id>
+            <properties>
+                <configuration.paths>${c}/common;${c}/jenkins;${c}/aem61-integration</configuration.paths>
+            </properties>
+        </profile>
+        <profile>
+            <id>aem61-android-galaxy-tab3</id>
+            <properties>
+                <configuration.paths>${c}/common;${c}/mobile-android-galaxy-tab3;${c}/aem61-integration</configuration.paths>
+            </properties>
+        </profile>
+        <profile>
+            <id>aem61-android-galaxy-s5</id>
+            <properties>
+                <configuration.paths>${c}/common;${c}/mobile-android-galaxy-s5;${c}/aem61-integration</configuration.paths>
+            </properties>
+        </profile>
+        <profile>
+            <id>aem61-android-nexus9</id>
+            <properties>
+                <configuration.paths>${c}/common;${c}/mobile-android-nexus9;${c}/aem61-integration</configuration.paths>
+            </properties>
+        </profile>
+        <profile>
+            <id>aem61-android-emulator</id>
+            <properties>
+                <configuration.paths>${c}/common;${c}/mobile-android-emulator;${c}/aem61-integration</configuration.paths>
+            </properties>
+        </profile>
+        <profile>
+            <id>aem61-iphone</id>
+            <properties>
+                <configuration.paths>${c}/common;${c}/mobile-iphone;${c}/aem61-integration</configuration.paths>
+            </properties>
+        </profile>
+        <profile>
+            <id>aem61-ipad</id>
+            <properties>
+                <configuration.paths>${c}/common;${c}/mobile-ipad;${c}/aem61-integration</configuration.paths>
+            </properties>
+        </profile>
+        <profile>
+            <id>aem61-iphone-emulator</id>
+            <properties>
+                <configuration.paths>${c}/common;${c}/mobile-iphone-emulator;${c}/aem61-integration</configuration.paths>
+            </properties>
+        </profile>
+        <profile>
+            <id>aem61-chrome-emulator</id>
+            <properties>
+                <configuration.paths>${c}/common;${c}/mobile-chrome-emulator;${c}/aem61-integration</configuration.paths>
+            </properties>
+        </profile>
+        <profile>
+            <id>aem61-integration-chrome</id>
+            <properties>
+                <configuration.paths>${c}/common;${c}/chrome;${c}/aem61-integration</configuration.paths>
+            </properties>
+        </profile>
+        <profile>
+            <id>aem61-integration-ie</id>
+            <properties>
+                <configuration.paths>${c}/common;${c}/ie;${c}/aem61-integration</configuration.paths>
+            </properties>
+        </profile>
+        <profile>
+            <id>aem61-integration-xvfb-firefox</id>
+            <properties>
+                <configuration.paths>${c}/common;${c}/xvfb-firefox;${c}/aem61-integration</configuration.paths>
+            </properties>
+        </profile>
+        <profile>
+            <id>cbt-firefox</id>
+            <properties>
+                <configuration.paths>${c}/common;${c}/cbt-firefox;${c}/aem61-integration</configuration.paths>
+            </properties>
+        </profile>
+        <profile>
+            <id>mobile</id>
+            <properties>
+                <runSuite>**/MobileSuite.java</runSuite>
+            </properties>
+        </profile>
+        <profile>
+            <id>bobcumberAem</id>
+            <properties>
+                <test>**/bobcumber/**/*Test.java</test>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>bb-core</id>
+            <properties>
+                <runSuite>**/BbCoreSuite.java</runSuite>
+            </properties>
+        </profile>
+        <profile>
+            <id>bb-aem-classic</id>
+            <properties>
+                <runSuite>**/BbAemClassicSuite.java</runSuite>
+            </properties>
+        </profile>
+        <profile>
+            <id>bb-aem-common</id>
+            <properties>
+                <runSuite>**/BbAemCommonSuite.java</runSuite>
+            </properties>
+        </profile>
+        <profile>
+            <id>bb-traffic</id>
+            <properties>
+                <runSuite>**/BbTrafficSuite.java</runSuite>
+            </properties>
+        </profile>
+        <profile>
+            <id>unstable</id>
+            <properties>
+                <runSuite>**/UnstableSuite.java</runSuite>
+            </properties>
+        </profile>
+        <profile>
+            <id>all-tests</id>
+            <properties>
+                <runSuite>**/BbCoreSuite.java,**/BbAemClassicSuite.java,**/BbAemCommonSuite.java,**/BbTrafficSuite.java</runSuite>
+            </properties>
+        </profile>
+    </profiles>
+</project>
