@@ -57,7 +57,7 @@
         <connection>scm:git:git@github.com:cogbobcat/bobcat.git</connection>
         <developerConnection>scm:git:git@github.com:cogbobcat/bobcat.git</developerConnection>
         <tag>HEAD</tag>
-        <url>git@github.com:cogbobcat/bobcat.git</url>
+        <url>https://github.com/cogbobcat/bobcat</url>
     </scm>
 
     <distributionManagement>
@@ -165,6 +165,20 @@
             </plugins>
         </pluginManagement>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.2</version>
+                <configuration>
+                    <username>${scm.username}</username>
+                    <password>${scm.password}</password>
+                    <preparationGoals>clean install</preparationGoals>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <arguments>-Psonatype-oss-release</arguments>
+                    <mavenExecutorId>forked-path</mavenExecutorId>
+                    <tagNameFormat>@{project.version}</tagNameFormat>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>com.github.ekryd.sortpom</groupId>
                 <artifactId>sortpom-maven-plugin</artifactId>
