@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.provider.selenium.webdriver.close;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.provider.selenium.webdriver.close;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.provider.selenium.webdriver.close;
+
 
 
 import static org.hamcrest.CoreMatchers.is;

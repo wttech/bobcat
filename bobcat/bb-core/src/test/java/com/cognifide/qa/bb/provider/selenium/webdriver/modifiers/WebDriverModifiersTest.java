@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.provider.selenium.webdriver.modifiers;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.provider.selenium.webdriver.modifiers;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.provider.selenium.webdriver.modifiers;
+
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.inOrder;

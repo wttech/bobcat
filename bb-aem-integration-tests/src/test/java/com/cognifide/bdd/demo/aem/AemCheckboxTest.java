@@ -1,5 +1,3 @@
-package com.cognifide.bdd.demo.aem;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.bdd.demo.aem;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.bdd.demo.aem;
+
 
 import static org.junit.Assert.assertTrue;
 

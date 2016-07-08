@@ -1,5 +1,3 @@
-package com.cognifide.bdd.demo.po.zg.components;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.bdd.demo.po.zg.components;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.bdd.demo.po.zg.components;
+
 
 
 import org.openqa.selenium.support.FindBy;

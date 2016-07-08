@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.mapper.field;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.mapper.field;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.mapper.field;
+
 
 
 import java.lang.reflect.Field;

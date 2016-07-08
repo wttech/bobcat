@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.aem.dialog.classic.field;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -9,9 +7,9 @@ package com.cognifide.qa.bb.aem.dialog.classic.field;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.aem.dialog.classic.field;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.aem.dialog.classic.field;
+
 
 
 import org.apache.commons.lang3.StringUtils;
@@ -101,10 +101,10 @@ public class AemRichText implements Configurable {
   public AemRichText click(final RtButton button) {
     if (!buttonSelected(button)) {
       bobcatWait.withTimeout(Timeouts.BIG).until(driver -> {
-        String valueBefore = getInnerHtml();
+        String valueBefore = getTextAreaInnerHtml();
         enableRichTextIfDisabled();
         webDriver.findElement(By.cssSelector(RT_BUTTON_CSS + button.getCss())).click();
-        return !valueBefore.equals(getInnerHtml());
+        return !valueBefore.equals(getTextAreaInnerHtml());
       }, 2);
     }
     return this;
@@ -281,7 +281,7 @@ public class AemRichText implements Configurable {
     frameSwitcher.switchTo("/$cq/" + frameName);
   }
 
-  private String getInnerHtml() {
+  private String getTextAreaInnerHtml() {
     switchToTextArea();
     String value = webDriver.switchTo().activeElement().getAttribute(INNER_HTML_ATTRIBUTE);
     frameSwitcher.switchBack();

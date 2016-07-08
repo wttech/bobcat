@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.logging;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.logging;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.logging;
+
 
 
 import java.io.File;

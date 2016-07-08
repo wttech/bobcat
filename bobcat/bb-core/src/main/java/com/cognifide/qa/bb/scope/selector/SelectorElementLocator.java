@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.scope.selector;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.scope.selector;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.scope.selector;
+
 
 
 import java.util.List;

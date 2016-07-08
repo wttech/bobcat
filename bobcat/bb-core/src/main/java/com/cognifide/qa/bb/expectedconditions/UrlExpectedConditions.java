@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.expectedconditions;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.expectedconditions;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.expectedconditions;
+
 
 
 import org.apache.commons.lang3.StringUtils;

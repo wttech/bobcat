@@ -1,5 +1,3 @@
-package com.cognifide.bdd.demo.suite;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.bdd.demo.suite;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.bdd.demo.suite;
+
 
 
 import org.junit.runner.RunWith;

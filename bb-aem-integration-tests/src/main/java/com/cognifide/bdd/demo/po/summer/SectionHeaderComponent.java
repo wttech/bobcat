@@ -1,5 +1,3 @@
-package com.cognifide.bdd.demo.po.summer;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.bdd.demo.po.summer;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.bdd.demo.po.summer;
+
 
 
 import org.openqa.selenium.Keys;

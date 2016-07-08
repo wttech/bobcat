@@ -1,5 +1,3 @@
-package com.cognifide.bdd.demo.traffic;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.bdd.demo.traffic;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.bdd.demo.traffic;
+
 
 
 import com.cognifide.qa.bb.constants.AemConfigKeys;

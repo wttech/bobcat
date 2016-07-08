@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.test.actions;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.test.actions;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.test.actions;
+
 
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;

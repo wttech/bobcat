@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.aem.ui.wcm.windows;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.aem.ui.wcm.windows;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.aem.ui.wcm.windows;
+
 
 import java.util.ArrayList;
 import java.util.List;

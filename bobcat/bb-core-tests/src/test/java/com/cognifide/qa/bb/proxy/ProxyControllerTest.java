@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.proxy;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.proxy;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.proxy;
+
 
 
 import static org.mockito.Matchers.any;

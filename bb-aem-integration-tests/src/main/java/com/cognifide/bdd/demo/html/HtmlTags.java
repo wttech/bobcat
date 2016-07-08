@@ -1,5 +1,3 @@
-package com.cognifide.bdd.demo.html;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.bdd.demo.html;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.bdd.demo.html;
+
 
 public final class HtmlTags {
 

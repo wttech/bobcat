@@ -1,5 +1,3 @@
-package com.cognifide.bdd.demo.po;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.bdd.demo.po;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.bdd.demo.po;
+
 
 
 import com.cognifide.qa.bb.aem.ui.AemDialog;

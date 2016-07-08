@@ -1,5 +1,3 @@
-package com.cognifide.bdd.demo.subreports;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.bdd.demo.subreports;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.bdd.demo.subreports;
+
 
 
 import org.junit.Test;

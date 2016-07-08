@@ -1,5 +1,3 @@
-package com.cognifide.bdd.demo.aem.wcm.api;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.bdd.demo.aem.wcm.api;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.bdd.demo.aem.wcm.api;
+
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

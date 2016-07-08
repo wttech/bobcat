@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.logging.entries;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.logging.entries;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.logging.entries;
+
 
 /**
  * This entry class represents a soft assertion that failed.

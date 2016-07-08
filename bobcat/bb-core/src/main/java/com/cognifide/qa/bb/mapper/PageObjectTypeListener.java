@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.mapper;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.mapper;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.mapper;
+
 
 
 import com.cognifide.qa.bb.qualifier.PageObject;

@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.proxy.analyzer.predicate;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.proxy.analyzer.predicate;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.proxy.analyzer.predicate;
+
 
 
 import static org.junit.Assert.assertTrue;

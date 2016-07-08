@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.traffic.aspects;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.traffic.aspects;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.traffic.aspects;
+
 
 
 import org.aopalliance.intercept.MethodInterceptor;

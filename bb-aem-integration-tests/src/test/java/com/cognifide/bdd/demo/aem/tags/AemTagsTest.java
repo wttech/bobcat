@@ -1,5 +1,3 @@
-package com.cognifide.bdd.demo.aem.tags;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.bdd.demo.aem.tags;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.bdd.demo.aem.tags;
+
 
 
 import static org.hamcrest.CoreMatchers.notNullValue;

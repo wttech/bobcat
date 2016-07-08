@@ -1,5 +1,3 @@
-package com.cognifide.qa.bobcumber.aem.login;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bobcumber.aem.login;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bobcumber.aem.login;
+
 
 
 import org.junit.runner.RunWith;

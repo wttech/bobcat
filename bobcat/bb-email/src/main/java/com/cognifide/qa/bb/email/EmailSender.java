@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.email;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.email;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.email;
+
 
 
 import org.apache.commons.mail.DefaultAuthenticator;

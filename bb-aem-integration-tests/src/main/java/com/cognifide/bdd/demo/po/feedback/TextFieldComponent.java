@@ -1,5 +1,3 @@
-package com.cognifide.bdd.demo.po.feedback;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.bdd.demo.po.feedback;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.bdd.demo.po.feedback;
+
 
 
 import org.openqa.selenium.WebElement;

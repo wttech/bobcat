@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.provider.selenium.webdriver;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.provider.selenium.webdriver;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.provider.selenium.webdriver;
+
 
 
 import java.io.File;

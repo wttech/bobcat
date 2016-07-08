@@ -1,5 +1,3 @@
-package com.cognifide.bdd.demo.po.login;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.bdd.demo.po.login;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.bdd.demo.po.login;
+
 
 
 import org.openqa.selenium.TimeoutException;

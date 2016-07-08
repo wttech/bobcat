@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.actions;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.actions;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.actions;
+
 
 
 import static org.junit.Assert.assertTrue;

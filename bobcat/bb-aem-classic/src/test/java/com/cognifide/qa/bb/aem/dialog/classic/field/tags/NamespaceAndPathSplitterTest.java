@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.aem.dialog.classic.field.tags;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.aem.dialog.classic.field.tags;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.aem.dialog.classic.field.tags;
+
 
 import static org.junit.Assert.assertEquals;
 

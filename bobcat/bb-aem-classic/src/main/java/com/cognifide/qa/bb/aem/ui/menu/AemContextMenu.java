@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.aem.ui.menu;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -9,9 +7,9 @@ package com.cognifide.qa.bb.aem.ui.menu;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,12 +17,16 @@ package com.cognifide.qa.bb.aem.ui.menu;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.aem.ui.menu;
+
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.constants.ConfigKeys;
 import com.cognifide.qa.bb.constants.Timeouts;
@@ -42,6 +44,8 @@ import com.google.inject.name.Named;
 @PageObject
 @Frame("$cq")
 public class AemContextMenu {
+
+  private static final Logger LOG = LoggerFactory.getLogger(AemContextMenu.class);
 
   private static final String MENU_OPTION_XPATH = "//span[text()=%s]";
 
@@ -75,6 +79,7 @@ public class AemContextMenu {
         currentScope.isDisplayed();
         return false;
       } catch (NoSuchElementException e) {
+        LOG.debug("MenuOption is not present: ", e);
         return true;
       }
     });
@@ -94,6 +99,7 @@ public class AemContextMenu {
         actions.contextClick(webElement).perform();
         return currentScope.isDisplayed();
       } catch (NoSuchElementException | StaleElementReferenceException e) {
+        LOG.debug("Context menu could not be opened: ", e);
         return false;
       }
     }, 2);

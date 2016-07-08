@@ -17,30 +17,27 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.test.pageobjects.current.scope;
+package com.cognifide.qa.bb.exceptions;
 
-
-
-import org.openqa.selenium.support.FindBy;
-
-import com.cognifide.qa.bb.qualifier.PageObject;
-
-@PageObject
-public class ScopedElements {
-
-  public static final String CSS = ".container";
-
-  @FindBy(css = CurrentScopeElementPageObject.CSS)
-  private CurrentScopeElementPageObject currentScopeElement;
-
-  @FindBy(css = CurrentScopeListPageObject.CSS)
-  private CurrentScopeListPageObject currentScopeList;
-
-  public CurrentScopeElementPageObject getCurrentScopeElement() {
-    return currentScopeElement;
+public class BobcatRuntimeException extends RuntimeException {
+  public BobcatRuntimeException() {
+    super();
   }
 
-  public CurrentScopeListPageObject getCurrentScopeList() {
-    return currentScopeList;
+  public BobcatRuntimeException(String message) {
+    super(message);
+  }
+
+  public BobcatRuntimeException(String message, Throwable cause) {
+    super(message, cause);
+  }
+
+  public BobcatRuntimeException(Throwable cause) {
+    super(cause);
+  }
+
+  public BobcatRuntimeException(String message, Throwable cause, boolean enableSuppression,
+      boolean writableStackTrace) {
+    super(message, cause, enableSuppression, writableStackTrace);
   }
 }

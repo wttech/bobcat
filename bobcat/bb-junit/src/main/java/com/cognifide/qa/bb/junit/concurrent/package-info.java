@@ -1,17 +1,3 @@
-/**
- * Code in this package was originally created by Mathieu Carbou (mathieu.carbou@gmail.com).
- * He was asked about license of that code because there wasn't any:
- * <p>
- * Mail quote:
- * <p>
- * There is no license. Do what you want with it :)
- * <p>
- * Mathieu Carbou
- * +1 514-660-4287
- * mathieu.carbou.me
- */
-package com.cognifide.qa.bb.junit.concurrent;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -31,4 +17,18 @@ package com.cognifide.qa.bb.junit.concurrent;
  * limitations under the License.
  * #L%
  */
+/**
+ * Code in this package was originally created by Mathieu Carbou (mathieu.carbou@gmail.com).
+ * He was asked about license of that code because there wasn't any:
+ * <p>
+ * Mail quote:
+ * <p>
+ * There is no license. Do what you want with it :)
+ * <p>
+ * Mathieu Carbou
+ * +1 514-660-4287
+ * mathieu.carbou.me
+ */
+package com.cognifide.qa.bb.junit.concurrent;
+
 

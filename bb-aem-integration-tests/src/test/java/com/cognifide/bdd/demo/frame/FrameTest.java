@@ -1,5 +1,3 @@
-package com.cognifide.bdd.demo.frame;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.bdd.demo.frame;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.bdd.demo.frame;
+
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;

@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.constants;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.constants;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.constants;
+
 
 
 public final class AemConfigFilenames {

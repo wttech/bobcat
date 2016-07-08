@@ -1,5 +1,3 @@
-package com.cognifide.qa.bobcumber.traffic;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bobcumber.traffic;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bobcumber.traffic;
+
 
 
 import org.junit.runner.RunWith;

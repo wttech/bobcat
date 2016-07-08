@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.aem.dialog.configurer;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.aem.dialog.configurer;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.aem.dialog.configurer;
+
 
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -36,7 +36,10 @@ public class ConfigurationEntry {
 
   private String value;
 
-  public ConfigurationEntry() {}
+  public ConfigurationEntry() {
+    // There is default constructor being generated for this class, hence the explicit definition
+    // is needed
+  }
 
   /**
    * @param tab   dialog tab name
@@ -127,13 +130,10 @@ public class ConfigurationEntry {
 
   @Override
   public boolean equals(Object obj) {
-    if (obj == null) {
-      return false;
-    }
     if (obj == this) {
       return true;
     }
-    if (obj.getClass() != getClass()) {
+    if (obj == null || obj.getClass() != getClass()) {
       return false;
     }
     ConfigurationEntry rhs = (ConfigurationEntry) obj;

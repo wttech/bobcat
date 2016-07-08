@@ -1,5 +1,3 @@
-package com.cognifide.bdd.demo.po.user;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.bdd.demo.po.user;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.bdd.demo.po.user;
+
 
 
 import org.openqa.selenium.support.FindBy;

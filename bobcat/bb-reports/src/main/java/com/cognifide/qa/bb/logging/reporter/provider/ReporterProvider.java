@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.logging.reporter.provider;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.logging.reporter.provider;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.logging.reporter.provider;
+
 
 
 import java.util.LinkedHashSet;

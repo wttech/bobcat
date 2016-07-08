@@ -1,5 +1,3 @@
-package com.cognifide.qa.bobcumber;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bobcumber;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bobcumber;
+
 
 
 import com.cognifide.bdd.demo.po.customersurvey.RadioComponent;

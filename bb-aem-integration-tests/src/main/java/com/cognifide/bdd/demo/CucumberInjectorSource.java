@@ -1,5 +1,3 @@
-package com.cognifide.bdd.demo;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.bdd.demo;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.bdd.demo;
+
 
 
 import com.google.inject.Guice;

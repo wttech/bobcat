@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.test.expectedconditions;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.test.expectedconditions;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.test.expectedconditions;
+
 
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;

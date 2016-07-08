@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.logging;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -9,9 +7,9 @@ package com.cognifide.qa.bb.logging;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.logging;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.logging;
+
 
 import java.io.IOException;
 import java.util.Collection;
@@ -62,18 +62,14 @@ public class TestInfo {
   /**
    * Comparator of test entries, for sorting TestInfo by date.
    */
-  public static final Comparator<TestInfo> BY_START_DATE_COMPARATOR = new Comparator<TestInfo>() {
-    @Override
-    public int compare(TestInfo o1, TestInfo o2) {
-      return o1.getStart().compareTo(o2.getStart());
-    }
-  };
+  public static final Comparator<TestInfo> BY_START_DATE_COMPARATOR =
+      (o1, o2) -> o1.getStart().compareTo(o2.getStart());
 
   private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(TestInfo.class);
 
   private Date start;
 
-  private Date end;
+  private Date endDate;
 
   private SortedSet<LogEntry> logEntries;
 
@@ -81,7 +77,7 @@ public class TestInfo {
 
   private TestResult testResult;
 
-  private boolean isLast;
+  private boolean last;
 
   private Deque<String> subreports;
 
@@ -105,7 +101,7 @@ public class TestInfo {
     this.logEntries = new TreeSet<>(new LogEntryComparator());
     this.testResult = new Success();
     this.start = new Date();
-    this.isLast = false;
+    this.last = false;
     this.subreports = new LinkedList<String>();
   }
 
@@ -132,10 +128,10 @@ public class TestInfo {
    * @return End date of the test.
    */
   public Date getEnd() {
-    if (end == null) {
+    if (endDate == null) {
       return null;
     }
-    return (Date) end.clone();
+    return (Date) endDate.clone();
   }
 
   /**
@@ -189,7 +185,7 @@ public class TestInfo {
       String subreport = subreports.pop();
       addLogEntry(new SubreportEndEntry(subreport));
     }
-    this.end = new Date();
+    this.endDate = new Date();
   }
 
   /**
@@ -339,7 +335,7 @@ public class TestInfo {
    * @return True if the test is last in the suite. False otherwise.
    */
   public boolean isLast() {
-    return isLast;
+    return last;
   }
 
   /**
@@ -348,7 +344,7 @@ public class TestInfo {
    * @param isLast True means last test in suite.
    */
   public void setLast(boolean isLast) {
-    this.isLast = isLast;
+    this.last = isLast;
   }
 
   /**
@@ -387,7 +383,7 @@ public class TestInfo {
    * @return Duration of the test, calculated as the difference between end and start timestamps.
    */
   public long getDuration() {
-    return getDateDiff(start, end, TimeUnit.SECONDS);
+    return getDateDiff(start, endDate, TimeUnit.SECONDS);
   }
 
   /**

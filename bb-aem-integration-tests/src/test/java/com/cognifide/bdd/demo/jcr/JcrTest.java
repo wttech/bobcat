@@ -1,5 +1,3 @@
-package com.cognifide.bdd.demo.jcr;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.bdd.demo.jcr;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.bdd.demo.jcr;
+
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;

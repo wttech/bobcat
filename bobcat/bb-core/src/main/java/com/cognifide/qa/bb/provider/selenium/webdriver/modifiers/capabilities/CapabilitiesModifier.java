@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.capabilities;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.capabilities;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.capabilities;
+
 
 import org.openqa.selenium.Capabilities;
 

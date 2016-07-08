@@ -1,5 +1,3 @@
-package com.cognifide.bdd.demo.misc;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.bdd.demo.misc;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.bdd.demo.misc;
+
 
 import static org.assertj.core.api.Assertions.assertThat;
 

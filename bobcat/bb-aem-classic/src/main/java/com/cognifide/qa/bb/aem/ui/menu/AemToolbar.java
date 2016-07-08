@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.aem.ui.menu;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -9,9 +7,9 @@ package com.cognifide.qa.bb.aem.ui.menu;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.aem.ui.menu;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.aem.ui.menu;
+
 
 
 import org.openqa.selenium.By;
@@ -37,7 +37,7 @@ import com.cognifide.qa.bb.utils.XpathUtils;
 public class AemToolbar {
 
   @FindBy(css = ".x-toolbar.x-small-editor.x-toolbar-layout-ct")
-  private WebElement aemToolbar;
+  private WebElement toolbar;
 
   /**
    * Clicks the "edit" button.
@@ -75,7 +75,7 @@ public class AemToolbar {
    * @param menuOption options in context menu
    */
   public void click(MenuOption menuOption) {
-    aemToolbar
+    toolbar
         .findElement(
                 By.xpath(String.format(".//button[text()=%s]",
                         XpathUtils.quote(menuOption.getLabel())))).click();
@@ -87,7 +87,7 @@ public class AemToolbar {
    * @param menuOption options in context menu
    */
   public void clickSubmenu(MenuOption menuOption) {
-    aemToolbar.findElement(
+    toolbar.findElement(
             By.xpath(String.format("//span[text()=%s]", XpathUtils.quote(menuOption.getLabel()))))
         .click();
   }
@@ -96,6 +96,6 @@ public class AemToolbar {
    * @return True if the toolbar is displayed, false otherwise.
    */
   public boolean isToolbarVisible() {
-    return aemToolbar.isDisplayed();
+    return toolbar.isDisplayed();
   }
 }

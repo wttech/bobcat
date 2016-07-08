@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.aem.utils;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.aem.utils;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.aem.utils;
+
 
 
 import org.openqa.selenium.By;

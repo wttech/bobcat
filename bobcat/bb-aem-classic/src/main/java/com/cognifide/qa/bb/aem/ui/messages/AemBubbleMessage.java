@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.aem.ui.messages;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.aem.ui.messages;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.aem.ui.messages;
+
 
 
 import org.openqa.selenium.By;

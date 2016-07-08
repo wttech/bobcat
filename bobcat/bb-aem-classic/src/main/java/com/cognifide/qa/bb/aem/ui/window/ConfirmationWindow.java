@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.aem.ui.window;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -9,9 +7,9 @@ package com.cognifide.qa.bb.aem.ui.window;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.aem.ui.window;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.aem.ui.window;
+
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -59,16 +59,16 @@ public class ConfirmationWindow {
   private int defaultTimeout;
 
   @FindBy(xpath = "//div[contains(@id, 'cq-msgbox-') and contains(@style, 'visibility: visible')]")
-  private WebElement confirmationWindow;
+  private WebElement window;
 
   /**
    * @return True if the confirmation window is displayed, false otherwise.
    */
   public boolean isDisplayed() {
     try {
-      return confirmationWindow.isDisplayed();
+      return window.isDisplayed();
     } catch (NoSuchElementException e) {
-      LOG.info("Confirmation window is unavailable");
+      LOG.info("Confirmation window is unavailable", e);
       return false;
     }
   }
@@ -91,7 +91,7 @@ public class ConfirmationWindow {
 
   private void clickButton(final String buttonLabel) {
     final WebElement button =
-        bobcatWait.withTimeout(Timeouts.BIG).until(input -> confirmationWindow.findElement(
+        bobcatWait.withTimeout(Timeouts.BIG).until(input -> window.findElement(
             By.xpath(String.format(BUTTON_XPATH_FORMATTED, buttonLabel))));
 
     bobcatWait.withTimeout(Timeouts.MEDIUM).until(ExpectedConditions.elementToBeClickable(button));
@@ -100,9 +100,9 @@ public class ConfirmationWindow {
       boolean confirmationWindowClosed;
       try {
         button.click();
-        confirmationWindowClosed = !confirmationWindow.isDisplayed();
+        confirmationWindowClosed = !window.isDisplayed();
       } catch (NoSuchElementException | StaleElementReferenceException e) {
-        LOG.debug("Confirmation window is not available");
+        LOG.debug("Confirmation window is not available", e);
         confirmationWindowClosed = true;
       }
       return confirmationWindowClosed;

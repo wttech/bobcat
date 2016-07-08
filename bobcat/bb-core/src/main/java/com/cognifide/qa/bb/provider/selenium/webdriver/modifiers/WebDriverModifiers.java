@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.provider.selenium.webdriver.modifiers;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.provider.selenium.webdriver.modifiers;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.provider.selenium.webdriver.modifiers;
+
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -47,16 +47,16 @@ public class WebDriverModifiers {
 
   private final List<CapabilitiesModifier> capabilitiesModifiers;
 
-  private final List<WebDriverModifier> webDriverModifiers;
+  private final List<WebDriverModifier> driverModifiers;
 
   @Inject
   public WebDriverModifiers(Set<CapabilitiesModifier> capabilitiesModifiers,
-      Set<WebDriverModifier> webDriverModifiers) {
+      Set<WebDriverModifier> driverModifiers) {
     this.capabilitiesModifiers = capabilitiesModifiers.stream() //
         .filter(CapabilitiesModifier::shouldModify) //
         .sorted(Comparator.comparing(CapabilitiesModifier::getOrder)) //
         .collect(Collectors.toList());
-    this.webDriverModifiers = webDriverModifiers.stream() //
+    this.driverModifiers = driverModifiers.stream() //
         .filter(WebDriverModifier::shouldModify) //
         .sorted(Comparator.comparing(WebDriverModifier::getOrder))//
         .collect(Collectors.toList());
@@ -82,7 +82,7 @@ public class WebDriverModifiers {
    * @return modified WebDriver instance
    */
   public WebDriver modifyWebDriver(WebDriver webDriver) {
-    return webDriverModifiers.stream().collect(modifyDrivers(webDriver));
+    return driverModifiers.stream().collect(modifyDrivers(webDriver));
   }
 
   private Collector<? super WebDriverModifier, WebDriver, WebDriver> modifyDrivers(

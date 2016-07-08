@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.scope;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.scope;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.scope;
+
 
 
 import org.openqa.selenium.support.pagefactory.ElementLocator;

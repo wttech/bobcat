@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.webdriver;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.webdriver;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.webdriver;
+
 
 import java.util.concurrent.TimeUnit;
 

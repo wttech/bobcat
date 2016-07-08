@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.aem.publish;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.aem.publish;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.aem.publish;
+
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;

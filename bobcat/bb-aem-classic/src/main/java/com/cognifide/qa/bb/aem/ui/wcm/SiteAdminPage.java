@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.aem.ui.wcm;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -9,9 +7,9 @@ package com.cognifide.qa.bb.aem.ui.wcm;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.aem.ui.wcm;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.aem.ui.wcm;
+
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.not;
 import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
@@ -443,7 +443,7 @@ public class SiteAdminPage {
         grid.getActionBar().clickOnButton(SiteAdminButtons.NEW);
         return createPageWindow.isDisplayed();
       } catch (NoSuchElementException | StaleElementReferenceException e) {
-        LOG.debug("Create page window is not available at the moment: {}", e.getMessage());
+        LOG.debug("Create page window is not available at the moment: {}", e);
         return false;
       }
     }, 2);

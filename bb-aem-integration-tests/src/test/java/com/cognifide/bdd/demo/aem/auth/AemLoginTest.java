@@ -1,5 +1,3 @@
-package com.cognifide.bdd.demo.aem.auth;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.bdd.demo.aem.auth;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.bdd.demo.aem.auth;
+
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;

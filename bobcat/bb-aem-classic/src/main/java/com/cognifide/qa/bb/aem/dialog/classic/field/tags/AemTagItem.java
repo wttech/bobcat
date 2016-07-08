@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.aem.dialog.classic.field.tags;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -9,9 +7,9 @@ package com.cognifide.qa.bb.aem.dialog.classic.field.tags;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,12 +17,16 @@ package com.cognifide.qa.bb.aem.dialog.classic.field.tags;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.aem.dialog.classic.field.tags;
+
 
 
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
@@ -39,6 +41,8 @@ import com.google.inject.Inject;
 @PageObject
 @Frame("$cq")
 public class AemTagItem {
+
+  private static final Logger LOG = LoggerFactory.getLogger(AemTagItem.class);
 
   private static final String CLASS_ATTRIBUTE = "class";
 
@@ -75,6 +79,7 @@ public class AemTagItem {
         tagName.click();
         actions.moveToElement(removeButton).click().perform();
       } catch (StaleElementReferenceException e) {
+        LOG.debug("Button is not available at the moment: ", e);
         return true;
       }
       return false;

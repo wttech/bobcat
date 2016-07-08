@@ -1,5 +1,3 @@
-package com.cognifide.bdd.demo.pageobjects;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.bdd.demo.pageobjects;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.bdd.demo.pageobjects;
+
 
 
 import com.cognifide.bdd.demo.po.ComponentWithDialog;
