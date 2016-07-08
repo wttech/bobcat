@@ -174,7 +174,7 @@
                     <password>${scm.password}</password>
                     <preparationGoals>clean install</preparationGoals>
                     <useReleaseProfile>false</useReleaseProfile>
-                    <arguments>-Psonatype-oss-release</arguments>
+                    <arguments>-Psonatype-oss-release -DskipTests</arguments>
                     <mavenExecutorId>forked-path</mavenExecutorId>
                     <tagNameFormat>@{project.version}</tagNameFormat>
                 </configuration>
