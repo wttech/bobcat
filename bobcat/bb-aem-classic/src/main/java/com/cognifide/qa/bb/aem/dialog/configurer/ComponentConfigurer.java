@@ -132,17 +132,12 @@ public class ComponentConfigurer {
         NestedFieldTypes type = parseType(entry);
         switch (type) {
           case FIELDSET:
-            FieldsetConfig fieldsetConfig = new FieldsetConfig(entry, dialogFieldMap);
-            ConfigurationEntry fieldsetConfigurationEntry = new ConfigurationEntry(
-                entry.getTab(), entry.getType(), entry.getLabel(),
-                getFieldSetValue(fieldsetConfig));
+            ConfigurationEntry fieldsetConfigurationEntry = getFieldsetConfigurationEntry(entry);
             dialogConfiguration.add(fieldsetConfigurationEntry);
             break;
           case MULTIFIELD:
-            MultifieldConfig multifieldConfig = new MultifieldConfig(entry, dialogFieldMap);
-            ConfigurationEntry multifieldConfigurationEntry = new ConfigurationEntry(
-                entry.getTab(), entry.getType(), entry.getLabel(),
-                getMultifieldValue(multifieldConfig));
+            ConfigurationEntry multifieldConfigurationEntry =
+                getMultifieldConfigurationEntry(entry);
             dialogConfiguration.add(multifieldConfigurationEntry);
             break;
           default:
@@ -155,6 +150,20 @@ public class ComponentConfigurer {
       }
     }
     return dialogConfiguration;
+  }
+
+  private ConfigurationEntry getFieldsetConfigurationEntry(ConfigurationEntry entry) {
+    FieldsetConfig fieldsetConfig = new FieldsetConfig(entry, dialogFieldMap);
+    return new ConfigurationEntry(
+        entry.getTab(), entry.getType(), entry.getLabel(),
+        getFieldSetValue(fieldsetConfig));
+  }
+
+  private ConfigurationEntry getMultifieldConfigurationEntry(ConfigurationEntry entry) {
+    MultifieldConfig multifieldConfig = new MultifieldConfig(entry, dialogFieldMap);
+    return new ConfigurationEntry(
+        entry.getTab(), entry.getType(), entry.getLabel(),
+        getMultifieldValue(multifieldConfig));
   }
 
   private void setDialogValue(ConfigurationEntry entry) {

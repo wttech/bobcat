@@ -19,7 +19,6 @@
  */
 package com.cognifide.qa.bb.aem.ui.parsys;
 
-
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -35,13 +34,13 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cognifide.qa.bb.aem.ui.component.AemComponentHandler;
-import com.cognifide.qa.bb.constants.AemConfigKeys;
-import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.aem.exception.NoSuchComponentException;
+import com.cognifide.qa.bb.aem.ui.component.AemComponentHandler;
 import com.cognifide.qa.bb.aem.ui.menu.AemContextMenu;
 import com.cognifide.qa.bb.aem.ui.menu.MenuOption;
 import com.cognifide.qa.bb.aem.ui.window.ConfirmationWindow;
+import com.cognifide.qa.bb.constants.AemConfigKeys;
+import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.dragdrop.DragAndDropFactory;
 import com.cognifide.qa.bb.dragdrop.Droppable;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
@@ -238,8 +237,8 @@ public class AemParsys {
     if (firstComponentTypeInParsys) {
       By componentLocator = getComponentLocator(componentClass);
       openInsertWindow().insertComponent(componentClass);
-      wait.withTimeout(Timeouts.SMALL).until(driver -> currentScope
-          .findElements(componentLocator).size() > 0);
+      wait.withTimeout(Timeouts.SMALL).until(driver -> !currentScope
+          .findElements(componentLocator).isEmpty());
 
       return (T) pageObjectInjector
           .inject(componentClass, getComponentScope(componentClass, 0),
@@ -459,7 +458,8 @@ public class AemParsys {
   }
 
   private WebElement getClickableParsys() {
-    bobcatWait.withTimeout(Timeouts.SMALL).until(webDriver -> getParsysStream().count() >= 1, Timeouts.MINIMAL);
+    bobcatWait.withTimeout(Timeouts.SMALL)
+        .until(webDriver -> getParsysStream().count() >= 1, Timeouts.MINIMAL);
     return getParsysStream().findFirst().get();
   }
 
