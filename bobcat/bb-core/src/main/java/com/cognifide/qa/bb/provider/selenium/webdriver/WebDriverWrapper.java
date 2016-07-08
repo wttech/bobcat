@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bb.provider.selenium.webdriver;
 
-
-
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -74,11 +72,10 @@ import io.appium.java_client.ios.IOSDeviceActionShortcuts;
  */
 public class WebDriverWrapper extends EventFiringWebDriver implements FindsById, FindsByClassName,
     FindsByLinkText, FindsByName, FindsByCssSelector, FindsByTagName, FindsByXPath, HasCapabilities,
-    MobileDriver, ContextAware, Rotatable, FindsByAccessibilityId, LocationContext,
-    DeviceActionShortcuts, TouchShortcuts, InteractsWithFiles, InteractsWithApps, ScrollsTo,
-    AndroidDeviceActionShortcuts, HasAppStrings, HasNetworkConnection, PushesFiles, StartsActivity,
-    FindsByAndroidUIAutomator, IOSDeviceActionShortcuts, GetsNamedTextField,
-    FindsByIosUIAutomation {
+    MobileDriver, Rotatable, FindsByAccessibilityId, LocationContext, TouchShortcuts,
+    InteractsWithApps, ScrollsTo, AndroidDeviceActionShortcuts, HasAppStrings, HasNetworkConnection,
+    PushesFiles, StartsActivity, FindsByAndroidUIAutomator, IOSDeviceActionShortcuts,
+    GetsNamedTextField, FindsByIosUIAutomation {
 
   private final FrameSwitcher frameSwitcher;
 

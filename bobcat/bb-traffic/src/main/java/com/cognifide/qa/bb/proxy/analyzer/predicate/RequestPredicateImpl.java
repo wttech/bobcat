@@ -19,7 +19,6 @@
  */
 package com.cognifide.qa.bb.proxy.analyzer.predicate;
 
-
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
@@ -57,11 +56,13 @@ public class RequestPredicateImpl implements RequestPredicate {
   public boolean accepts(HttpRequest request) {
     boolean result = false;
     URI uri = URI.create(request.getUri());
-    if (uri.getPath() != null && uri.getPath().startsWith(urlPrefix)) {
-      if (expectedParams.isEmpty() && StringUtils.isEmpty(uri.getQuery())) {
+    String path = uri.getPath();
+    if (path != null && path.startsWith(urlPrefix)) {
+      String query = uri.getQuery();
+      if (expectedParams.isEmpty() && StringUtils.isEmpty(query)) {
         result = true;
-      } else if (StringUtils.isNotEmpty(uri.getQuery())) {
-        List<NameValuePair> params = URLEncodedUtils.parse(uri.getQuery(), Charsets.UTF_8);
+      } else if (StringUtils.isNotEmpty(query)) {
+        List<NameValuePair> params = URLEncodedUtils.parse(query, Charsets.UTF_8);
         result = hasAllExpectedParams(expectedParams, params);
       }
     }

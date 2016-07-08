@@ -24,7 +24,7 @@ package com.cognifide.qa.bb.email.connector;
 /**
  * Connector for IMAPS.
  */
-public class ImapSecureConnector extends ImapConnector implements Connector {
+public class ImapSecureConnector extends ImapConnector {
 
   /**
    * Constructor. Initializes IMAPS connector.

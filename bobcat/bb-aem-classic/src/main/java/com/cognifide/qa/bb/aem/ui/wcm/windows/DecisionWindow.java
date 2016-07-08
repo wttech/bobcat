@@ -29,10 +29,10 @@ public interface DecisionWindow {
   /**
    * Method responsible for confirming dialog.
    */
-  public void confirm();
+  void confirm();
 
   /**
    * Method responsible for canceling dialog.
    */
-  public void cancel();
+  void cancel();
 }

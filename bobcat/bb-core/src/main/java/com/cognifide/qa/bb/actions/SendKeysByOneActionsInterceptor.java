@@ -61,7 +61,7 @@ final class SendKeysByOneActionsInterceptor implements MethodInterceptor {
       WebElement webElement = webElementFromArguments(args);
       Arrays.asList(args).stream()
           .filter(o -> o instanceof CharSequence[]).map(o -> (CharSequence[]) o).flatMap(Stream::of)
-          .flatMap(c -> splitIntoCharsIfPossible(c))
+          .flatMap(this::splitIntoCharsIfPossible)
           .forEach(c -> actions.sendKeys(webElement, c));
     } else {
       method.invoke(actions, args);

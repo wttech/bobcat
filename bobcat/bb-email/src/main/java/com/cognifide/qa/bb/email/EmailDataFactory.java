@@ -94,8 +94,7 @@ public final class EmailDataFactory {
 
   private String getAddressFrom(final Message message) throws MessagingException {
     Address address = message.getFrom()[0];
-    String addressSimple = matchEmailAddress(address.toString());
-    return addressSimple;
+    return matchEmailAddress(address.toString());
   }
 
   private String matchEmailAddress(String text) {

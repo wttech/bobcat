@@ -220,7 +220,7 @@ public class AemParsys {
     wait.withTimeout(Timeouts.SMALL).until(driver -> currentScope
         .findElements(componentLocator).size() > componentTypeCount);
 
-    return (T) pageObjectInjector
+    return pageObjectInjector
         .inject(componentClass, getComponentScope(componentClass, componentTypeCount),
             currentFrame);
   }
@@ -240,7 +240,7 @@ public class AemParsys {
       wait.withTimeout(Timeouts.SMALL).until(driver -> !currentScope
           .findElements(componentLocator).isEmpty());
 
-      return (T) pageObjectInjector
+      return pageObjectInjector
           .inject(componentClass, getComponentScope(componentClass, 0),
               currentFrame);
     } else {
@@ -342,7 +342,7 @@ public class AemParsys {
    * @return object of a componentClass injected with a proper scope
    */
   public <T> T getNthComponentOfType(Class<T> componentClass, int n) {
-    return (T) pageObjectInjector
+    return pageObjectInjector
         .inject(componentClass, getComponentScope(componentClass, n), currentFrame);
   }
 
@@ -355,7 +355,7 @@ public class AemParsys {
    * @return object of a componentClass injected with a proper scope
    */
   public <T> T getComponent(Class<T> componentClass, int globalIndex) {
-    return (T) pageObjectInjector.inject(componentClass,
+    return pageObjectInjector.inject(componentClass,
         currentScope.findElements(By.cssSelector(SELECTOR_FOR_COMPONENT_IN_PARSYS))
             .get(globalIndex),
         currentFrame);
