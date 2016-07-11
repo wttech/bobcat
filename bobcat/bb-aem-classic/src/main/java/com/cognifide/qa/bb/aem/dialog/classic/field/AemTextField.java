@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.aem.dialog.classic.field;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.aem.dialog.classic.field;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.aem.dialog.classic.field;
+
 
 
 import org.openqa.selenium.WebElement;

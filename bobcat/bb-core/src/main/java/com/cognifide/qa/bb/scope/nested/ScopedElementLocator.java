@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.scope.nested;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.scope.nested;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.scope.nested;
+
 
 
 import static java.util.stream.Collectors.toList;

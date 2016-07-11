@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.proxy.record;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.proxy.record;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.proxy.record;
+
 
 
 import java.util.LinkedList;

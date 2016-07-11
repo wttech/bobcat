@@ -1,5 +1,3 @@
-package com.cognifide.qa.bobcumber.steps.common;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bobcumber.steps.common;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bobcumber.steps.common;
+
 
 
 import static org.hamcrest.CoreMatchers.is;

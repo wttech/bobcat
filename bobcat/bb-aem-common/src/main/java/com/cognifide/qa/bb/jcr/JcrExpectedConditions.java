@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.jcr;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.jcr;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.jcr;
+
 
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;

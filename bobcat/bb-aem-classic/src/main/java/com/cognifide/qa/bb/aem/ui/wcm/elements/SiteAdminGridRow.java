@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.aem.ui.wcm.elements;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.aem.ui.wcm.elements;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.aem.ui.wcm.elements;
+
 
 
 import org.openqa.selenium.WebElement;

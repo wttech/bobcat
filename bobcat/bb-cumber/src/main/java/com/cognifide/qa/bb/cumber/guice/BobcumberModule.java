@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.cumber.guice;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.cumber.guice;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.cumber.guice;
+
 
 
 import com.cognifide.qa.bb.assertions.soft.SoftAssertionsAspect;

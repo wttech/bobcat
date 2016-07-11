@@ -1,5 +1,3 @@
-package com.cognifide.qa.test;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.test;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.test;
+
 
 
 import com.cognifide.qa.bb.modules.CoreModule;

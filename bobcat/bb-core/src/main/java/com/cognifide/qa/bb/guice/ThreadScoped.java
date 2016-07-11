@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.guice;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.guice;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.guice;
+
 
 
 import static java.lang.annotation.ElementType.METHOD;

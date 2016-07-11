@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.aem.ui.window;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.aem.ui.window;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.aem.ui.window;
+
 
 
 import static com.cognifide.qa.bb.expectedconditions.CommonExpectedConditions.elementNotPresentOrVisible;

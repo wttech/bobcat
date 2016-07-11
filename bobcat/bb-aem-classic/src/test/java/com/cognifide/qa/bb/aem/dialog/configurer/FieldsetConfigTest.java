@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.aem.dialog.configurer;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.aem.dialog.configurer;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.aem.dialog.configurer;
+
 
 
 import static org.junit.Assert.assertNotNull;

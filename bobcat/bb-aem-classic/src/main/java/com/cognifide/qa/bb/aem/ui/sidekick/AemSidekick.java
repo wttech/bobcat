@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.aem.ui.sidekick;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -9,9 +7,9 @@ package com.cognifide.qa.bb.aem.ui.sidekick;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.aem.ui.sidekick;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.aem.ui.sidekick;
+
 
 
 import java.util.ArrayList;
@@ -97,7 +97,7 @@ public class AemSidekick {
   private DragAndDropFactory dragAndDropFactory;
 
   @FindBy(xpath = "//div[@id='cq-sk']")
-  private WebElement aemSidekick;
+  private WebElement sidekick;
 
   @FindBy(xpath = "//div[@id='cq-sk']//div[contains(@class, 'x-tool x-tool-toggle')]")
   private WebElement toggleButton;
@@ -193,7 +193,7 @@ public class AemSidekick {
    */
   public AemSidekick toggle() {
     final boolean originalToggleState = isCollapsed();
-    bobcatWait.withTimeout(Timeouts.BIG).until(driver -> {
+    bobcatWait.withTimeout(Timeouts.BIG).until(webDriver -> {
       toggleButton.click();
       return isCollapsed() == !originalToggleState;
     }, 5);
@@ -345,7 +345,7 @@ public class AemSidekick {
   }
 
   public boolean isCollapsed() {
-    return aemSidekick.getAttribute(CLASS_ATTRIBUTE).contains(X_PANEL_COLLAPSED);
+    return sidekick.getAttribute(CLASS_ATTRIBUTE).contains(X_PANEL_COLLAPSED);
   }
 
   private Map<String, WebElement> getGroupsByNames() {

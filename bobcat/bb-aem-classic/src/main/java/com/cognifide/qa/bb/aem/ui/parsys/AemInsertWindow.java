@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.aem.ui.parsys;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -9,9 +7,9 @@ package com.cognifide.qa.bb.aem.ui.parsys;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.aem.ui.parsys;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.aem.ui.parsys;
+
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -26,6 +26,8 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.aem.ui.component.AemComponentHandler;
 import com.cognifide.qa.bb.constants.Timeouts;
@@ -42,6 +44,8 @@ import com.google.inject.Inject;
 @PageObject
 @Frame("$cq")
 public class AemInsertWindow {
+
+  private static final Logger LOG = LoggerFactory.getLogger(AemInsertWindow.class);
 
   private static final String TAB_FOLDED = "0px -240px";
 
@@ -97,6 +101,7 @@ public class AemInsertWindow {
       try {
         return !currentScope.isDisplayed();
       } catch (NoSuchElementException | StaleElementReferenceException e) {
+        LOG.debug("CurrentScope not found: ", e);
         return true;
       }
     }, 2);

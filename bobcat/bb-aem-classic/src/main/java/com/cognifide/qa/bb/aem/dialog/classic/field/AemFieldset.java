@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.aem.dialog.classic.field;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.aem.dialog.classic.field;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.aem.dialog.classic.field;
+
 
 
 import org.openqa.selenium.By;
@@ -106,7 +106,7 @@ public class AemFieldset implements FieldContainer {
   public <T> T getField(String label, Class<T> dialogFieldType) {
     WebElement element = containerDiv.findElement(By.xpath(String.format(".//label[text()=%s]/..",
         XpathUtils.quote(label))));
-    return (T) injector.inject(dialogFieldType, element, framePath);
+    return injector.inject(dialogFieldType, element, framePath);
   }
 
   /**

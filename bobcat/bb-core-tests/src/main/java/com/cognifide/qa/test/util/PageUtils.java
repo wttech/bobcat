@@ -1,5 +1,3 @@
-package com.cognifide.qa.test.util;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.test.util;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.test.util;
+
 
 
 public final class PageUtils {

@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.provider.jcr.session;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.provider.jcr.session;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.provider.jcr.session;
+
 
 
 import javax.jcr.Repository;

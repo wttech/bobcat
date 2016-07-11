@@ -1,5 +1,3 @@
-package com.cognifide.bdd.demo.publish;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.bdd.demo.publish;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.bdd.demo.publish;
+
 
 
 import static org.junit.Assert.assertTrue;

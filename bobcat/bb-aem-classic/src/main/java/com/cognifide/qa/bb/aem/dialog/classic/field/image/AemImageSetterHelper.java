@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.aem.dialog.classic.field.image;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -9,9 +7,9 @@ package com.cognifide.qa.bb.aem.dialog.classic.field.image;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,7 +17,7 @@ package com.cognifide.qa.bb.aem.dialog.classic.field.image;
  * limitations under the License.
  * #L%
  */
-
+package com.cognifide.qa.bb.aem.dialog.classic.field.image;
 
 import java.io.IOException;
 import java.net.URL;
@@ -34,8 +32,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.aem.ui.AemContentFinder;
-import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.aem.ui.AemContentFinderTab;
+import com.cognifide.qa.bb.constants.Timeouts;
+import com.cognifide.qa.bb.exceptions.BobcatRuntimeException;
 import com.cognifide.qa.bb.frame.FrameSwitcher;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.PageObject;
@@ -116,7 +115,7 @@ class AemImageSetterHelper {
         } catch (IOException ioe) {
           String msg = "error while loading JavaScript from file: " + IMAGE_SETTER_JS_FILENAME;
           LOG.error(msg, ioe);
-          throw new RuntimeException(msg);
+          throw new BobcatRuntimeException(msg);
         }
       } while (!executedSuccessfully);
       return executedSuccessfully;
@@ -124,7 +123,7 @@ class AemImageSetterHelper {
     frameSwitcher.switchBack();
   }
 
-  private String getJavascriptToExecute() throws IOException {
+  private static synchronized String getJavascriptToExecute() throws IOException {
     if (javascriptToExecute == null) {
       URL url = Resources.getResource(IMAGE_SETTER_JS_FILENAME);
       javascriptToExecute = Resources.toString(url, Charsets.UTF_8);

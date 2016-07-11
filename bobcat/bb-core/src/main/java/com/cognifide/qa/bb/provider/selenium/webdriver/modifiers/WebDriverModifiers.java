@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.provider.selenium.webdriver.modifiers;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,15 +17,12 @@ package com.cognifide.qa.bb.provider.selenium.webdriver.modifiers;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.provider.selenium.webdriver.modifiers;
 
-import java.util.Collections;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
-import java.util.function.BiConsumer;
-import java.util.function.BinaryOperator;
-import java.util.function.Function;
-import java.util.function.Supplier;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -36,6 +31,7 @@ import org.openqa.selenium.WebDriver;
 
 import com.cognifide.qa.bb.guice.ThreadScoped;
 import com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.capabilities.CapabilitiesModifier;
+import com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.collectors.WebDriverModifyingCollector;
 import com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.webdriver.WebDriverModifier;
 import com.google.inject.Inject;
 
@@ -47,16 +43,16 @@ public class WebDriverModifiers {
 
   private final List<CapabilitiesModifier> capabilitiesModifiers;
 
-  private final List<WebDriverModifier> webDriverModifiers;
+  private final List<WebDriverModifier> driverModifiers;
 
   @Inject
   public WebDriverModifiers(Set<CapabilitiesModifier> capabilitiesModifiers,
-      Set<WebDriverModifier> webDriverModifiers) {
+      Set<WebDriverModifier> driverModifiers) {
     this.capabilitiesModifiers = capabilitiesModifiers.stream() //
         .filter(CapabilitiesModifier::shouldModify) //
         .sorted(Comparator.comparing(CapabilitiesModifier::getOrder)) //
         .collect(Collectors.toList());
-    this.webDriverModifiers = webDriverModifiers.stream() //
+    this.driverModifiers = driverModifiers.stream() //
         .filter(WebDriverModifier::shouldModify) //
         .sorted(Comparator.comparing(WebDriverModifier::getOrder))//
         .collect(Collectors.toList());
@@ -69,10 +65,11 @@ public class WebDriverModifiers {
    * @return modified Capabilities instance
    */
   public Capabilities modifyCapabilities(Capabilities capabilities) {
+    Capabilities modifiedCapabilities = capabilities;
     for (CapabilitiesModifier modifier : capabilitiesModifiers) {
-       capabilities = modifier.modify(capabilities);
+      modifiedCapabilities = modifier.modify(capabilities);
     }
-    return capabilities;
+    return modifiedCapabilities;
   }
 
   /**
@@ -82,38 +79,12 @@ public class WebDriverModifiers {
    * @return modified WebDriver instance
    */
   public WebDriver modifyWebDriver(WebDriver webDriver) {
-    return webDriverModifiers.stream().collect(modifyDrivers(webDriver));
+    return driverModifiers.stream().collect(modifyDrivers(webDriver));
   }
 
   private Collector<? super WebDriverModifier, WebDriver, WebDriver> modifyDrivers(
       final WebDriver webdriver) {
-    return new Collector<WebDriverModifier, WebDriver, WebDriver>() {
-      @Override
-      public Supplier<WebDriver> supplier() {
-        return () -> webdriver;
-      }
-
-      @Override
-      public BiConsumer<WebDriver, WebDriverModifier> accumulator() {
-        return (wd, wdMod) -> wd = wdMod.modify(wd);
-      }
-
-      @Override
-      public BinaryOperator<WebDriver> combiner() {
-        return (webDriver, webDriver2) -> {
-          throw new UnsupportedOperationException();
-        };
-      }
-
-      @Override
-      public Function<WebDriver, WebDriver> finisher() {
-        return webDriver -> webDriver;
-      }
-
-      @Override
-      public Set<Characteristics> characteristics() {
-        return Collections.emptySet();
-      }
-    };
+    return new WebDriverModifyingCollector(webdriver);
   }
+
 }

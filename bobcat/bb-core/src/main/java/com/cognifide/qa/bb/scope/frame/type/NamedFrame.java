@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.scope.frame.type;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.scope.frame.type;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.scope.frame.type;
+
 
 
 import java.util.Objects;

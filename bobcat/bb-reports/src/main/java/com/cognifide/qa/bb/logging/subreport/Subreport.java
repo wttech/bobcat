@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.logging.subreport;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.logging.subreport;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.logging.subreport;
+
 
 
 import java.lang.annotation.ElementType;

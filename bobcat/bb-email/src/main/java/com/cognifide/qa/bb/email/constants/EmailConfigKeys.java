@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.email.constants;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.email.constants;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.email.constants;
+
 
 
 public final class EmailConfigKeys {

@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.email.connector;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,12 +17,14 @@ package com.cognifide.qa.bb.email.connector;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.email.connector;
+
 
 
 /**
  * Connector for IMAPS.
  */
-public class ImapSecureConnector extends ImapConnector implements Connector {
+public class ImapSecureConnector extends ImapConnector {
 
   /**
    * Constructor. Initializes IMAPS connector.

@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.actions;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -9,9 +7,9 @@ package com.cognifide.qa.bb.actions;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.actions;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.actions;
+
 
 
 import java.lang.reflect.Method;
@@ -44,7 +44,7 @@ import net.sf.cglib.proxy.MethodProxy;
  * If the char sequence contains special keys or are not from UTF-8 encoding then call's arguments are
  * passed through.
  */
-class SendKeysByOneActionsInterceptor implements MethodInterceptor {
+final class SendKeysByOneActionsInterceptor implements MethodInterceptor {
 
   private static final String SEND_KEYS_METHOD_NAME = "sendKeys";
 
@@ -61,7 +61,7 @@ class SendKeysByOneActionsInterceptor implements MethodInterceptor {
       WebElement webElement = webElementFromArguments(args);
       Arrays.asList(args).stream()
           .filter(o -> o instanceof CharSequence[]).map(o -> (CharSequence[]) o).flatMap(Stream::of)
-          .flatMap(c -> splitIntoCharsIfPossible(c))
+          .flatMap(this::splitIntoCharsIfPossible)
           .forEach(c -> actions.sendKeys(webElement, c));
     } else {
       method.invoke(actions, args);

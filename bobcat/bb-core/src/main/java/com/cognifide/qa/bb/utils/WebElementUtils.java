@@ -1,3 +1,22 @@
+/*-
+ * #%L
+ * Bobcat Parent
+ * %%
+ * Copyright (C) 2016 Cognifide Ltd.
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
 package com.cognifide.qa.bb.utils;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.not;
@@ -16,6 +35,8 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.guice.ThreadScoped;
@@ -28,6 +49,8 @@ import com.google.inject.Inject;
  */
 @ThreadScoped
 public final class WebElementUtils {
+
+  private static final Logger LOG = LoggerFactory.getLogger(WebElementUtils.class);
 
   @Inject
   private BobcatWait bobcatWait;
@@ -54,6 +77,7 @@ public final class WebElementUtils {
     try {
       bobcatWait.withTimeout(timeout).until(condition);
     } catch (TimeoutException | StaleElementReferenceException e) {
+      LOG.debug("Condition has not been made before timeout: ", e);
       return false;
     }
     return true;
@@ -316,7 +340,6 @@ public final class WebElementUtils {
         return element;
       }
     }
-    throw new IllegalArgumentException(
-        (String.format("There is no element named %s", elementName)));
+    throw new IllegalArgumentException(String.format("There is no element named %s", elementName));
   }
 }

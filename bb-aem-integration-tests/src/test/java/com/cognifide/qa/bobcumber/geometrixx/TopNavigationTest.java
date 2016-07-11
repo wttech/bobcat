@@ -1,5 +1,3 @@
-package com.cognifide.qa.bobcumber.geometrixx;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bobcumber.geometrixx;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bobcumber.geometrixx;
+
 
 
 import org.junit.runner.RunWith;

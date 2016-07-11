@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb;
+
 
 
 import org.apache.http.impl.client.CloseableHttpClient;

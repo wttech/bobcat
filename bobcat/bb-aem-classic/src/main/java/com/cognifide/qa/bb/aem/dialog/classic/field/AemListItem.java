@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.aem.dialog.classic.field;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.aem.dialog.classic.field;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.aem.dialog.classic.field;
+
 
 
 import org.openqa.selenium.By;
@@ -96,7 +96,7 @@ public class AemListItem implements FieldContainer {
    * @return field
    */
   public <T> T getField(Class<T> fieldType) {
-    return (T) injector.inject(fieldType, currentScope, framePath);
+    return injector.inject(fieldType, currentScope, framePath);
   }
 
   /**
@@ -117,7 +117,7 @@ public class AemListItem implements FieldContainer {
       element = currentScope;
     }
 
-    return (T) injector.inject(fieldType, element, framePath);
+    return injector.inject(fieldType, element, framePath);
   }
 
 }

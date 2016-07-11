@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.aem.qualifier;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.aem.qualifier;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.aem.qualifier;
+
 
 
 import java.lang.annotation.ElementType;

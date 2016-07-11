@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.provider.http;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.provider.http;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.provider.http;
+
 
 
 import java.net.URI;

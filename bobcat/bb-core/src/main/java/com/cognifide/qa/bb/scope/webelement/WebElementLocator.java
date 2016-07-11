@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.scope.webelement;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.scope.webelement;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.scope.webelement;
+
 
 
 import java.util.Arrays;

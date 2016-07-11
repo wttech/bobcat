@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.proxy.analyzer;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.proxy.analyzer;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.proxy.analyzer;
+
 
 
 import com.cognifide.qa.bb.proxy.analyzer.predicate.RequestPredicate;

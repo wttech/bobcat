@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.junit.concurrent;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.junit.concurrent;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.junit.concurrent;
+
 
 
 import org.junit.runners.BlockJUnit4ClassRunner;

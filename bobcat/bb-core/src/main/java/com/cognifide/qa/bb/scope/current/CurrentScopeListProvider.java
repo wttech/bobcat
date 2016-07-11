@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.scope.current;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.scope.current;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.scope.current;
+
 
 
 import java.lang.reflect.InvocationHandler;

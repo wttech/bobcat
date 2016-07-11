@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.proxy.record.har.predicates;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.proxy.record.har.predicates;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.proxy.record.har.predicates;
+
 
 
 import com.google.common.base.Predicate;

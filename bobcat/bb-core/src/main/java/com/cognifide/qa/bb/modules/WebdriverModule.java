@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.modules;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.modules;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.modules;
+
 
 
 import org.openqa.selenium.support.events.WebDriverEventListener;

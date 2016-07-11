@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.provider.jcr.utils;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.provider.jcr.utils;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.provider.jcr.utils;
+
 
 
 import javax.inject.Named;

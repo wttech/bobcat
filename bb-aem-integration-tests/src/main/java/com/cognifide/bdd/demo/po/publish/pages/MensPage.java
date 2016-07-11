@@ -1,5 +1,3 @@
-package com.cognifide.bdd.demo.po.publish.pages;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.bdd.demo.po.publish.pages;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.bdd.demo.po.publish.pages;
+
 
 
 import org.openqa.selenium.WebElement;

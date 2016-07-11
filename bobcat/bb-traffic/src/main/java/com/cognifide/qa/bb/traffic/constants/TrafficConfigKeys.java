@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.traffic.constants;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.traffic.constants;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.traffic.constants;
+
 
 
 public final class TrafficConfigKeys {

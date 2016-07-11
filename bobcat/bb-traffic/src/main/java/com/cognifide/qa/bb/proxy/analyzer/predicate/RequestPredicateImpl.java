@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.proxy.analyzer.predicate;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -9,9 +7,9 @@ package com.cognifide.qa.bb.proxy.analyzer.predicate;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,7 +17,7 @@ package com.cognifide.qa.bb.proxy.analyzer.predicate;
  * limitations under the License.
  * #L%
  */
-
+package com.cognifide.qa.bb.proxy.analyzer.predicate;
 
 import java.net.URI;
 import java.util.List;
@@ -58,11 +56,13 @@ public class RequestPredicateImpl implements RequestPredicate {
   public boolean accepts(HttpRequest request) {
     boolean result = false;
     URI uri = URI.create(request.getUri());
-    if (uri.getPath() != null && uri.getPath().startsWith(urlPrefix)) {
-      if (expectedParams.isEmpty() && StringUtils.isEmpty(uri.getQuery())) {
+    String path = uri.getPath();
+    if (path != null && path.startsWith(urlPrefix)) {
+      String query = uri.getQuery();
+      if (expectedParams.isEmpty() && StringUtils.isEmpty(query)) {
         result = true;
-      } else if (StringUtils.isNotEmpty(uri.getQuery())) {
-        List<NameValuePair> params = URLEncodedUtils.parse(uri.getQuery(), Charsets.UTF_8);
+      } else if (StringUtils.isNotEmpty(query)) {
+        List<NameValuePair> params = URLEncodedUtils.parse(query, Charsets.UTF_8);
         result = hasAllExpectedParams(expectedParams, params);
       }
     }
@@ -84,8 +84,9 @@ public class RequestPredicateImpl implements RequestPredicate {
 
   public int calculateScore(Map<String, String> parameters) {
     int result = 0;
-    for (String key : parameters.keySet()) {
-      if (expectedParams.containsKey(key) && expectedParams.get(key).equals(parameters.get(key))) {
+    for (Entry<String, String> entry : parameters.entrySet()) {
+      if (expectedParams.containsKey(entry.getKey()) && expectedParams.get(entry.getKey())
+          .equals(entry.getValue())) {
         result++;
       }
     }

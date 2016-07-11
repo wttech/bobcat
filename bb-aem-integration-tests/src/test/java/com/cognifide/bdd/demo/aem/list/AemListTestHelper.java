@@ -1,5 +1,3 @@
-package com.cognifide.bdd.demo.aem.list;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.bdd.demo.aem.list;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.bdd.demo.aem.list;
+
 
 
 import static org.hamcrest.CoreMatchers.is;

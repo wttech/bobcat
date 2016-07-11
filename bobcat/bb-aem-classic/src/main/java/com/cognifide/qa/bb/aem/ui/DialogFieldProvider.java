@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.aem.ui;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.aem.ui;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.aem.ui;
+
 
 
 import java.lang.reflect.Field;

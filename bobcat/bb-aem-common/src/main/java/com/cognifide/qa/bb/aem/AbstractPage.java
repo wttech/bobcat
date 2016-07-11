@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.aem;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -9,9 +7,9 @@ package com.cognifide.qa.bb.aem;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.aem;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.aem;
+
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -37,8 +37,6 @@ import com.google.inject.name.Named;
 public abstract class AbstractPage {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractPage.class);
-
-  private static final long SECONDS_TO_WAIT_BEFORE_NEXT_RETRY = 5;
 
   @Inject
   private WebDriver webDriver;
@@ -91,8 +89,7 @@ public abstract class AbstractPage {
   /**
    * Tries opening the page with default {@link AemConfigKeys#PAGE_TITLE_TIMEOUT} and additional
    * refreshing if the page was not opened with the first retry. Each next refresh will take
-   * {@link AemConfigKeys#PAGE_TITLE_TIMEOUT} for verification if page was loaded and
-   * {@link AbstractPage#SECONDS_TO_WAIT_BEFORE_NEXT_RETRY} for pause before next refresh.
+   * {@link AemConfigKeys#PAGE_TITLE_TIMEOUT} for verification if page was loaded.
    *
    * @param timeoutForRefreshing additional timeout (in seconds) for page refreshing.
    * @return <code>true</code> if page is loaded

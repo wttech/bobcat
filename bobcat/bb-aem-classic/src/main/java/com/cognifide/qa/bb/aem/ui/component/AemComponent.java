@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.aem.ui.component;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.aem.ui.component;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.aem.ui.component;
+
 
 
 import java.lang.annotation.ElementType;

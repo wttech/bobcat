@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.aem.ui;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -9,9 +7,9 @@ package com.cognifide.qa.bb.aem.ui;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.aem.ui;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.aem.ui;
+
 
 import java.util.HashMap;
 import java.util.List;
@@ -213,7 +213,7 @@ public class AemDialog {
         okButton.click();
         return webElementHelper.isCurrentScopeVisible(validationWindow);
       } catch (NoSuchElementException | StaleElementReferenceException e) {
-        LOG.debug("Dialog footer button is not available: {}", e.getMessage());
+        LOG.debug("Dialog footer button is not available: {}", e);
         return false;
       }
     }, 2);
@@ -305,7 +305,7 @@ public class AemDialog {
         return false;
       } catch (NoSuchElementException | StaleElementReferenceException
           | ElementNotVisibleException e) {
-        LOG.debug("Dialog footer button is not available: {}", e.getMessage());
+        LOG.debug("Dialog footer button is not available: {}", e);
         return true;
       }
     }, 2);
@@ -395,7 +395,7 @@ public class AemDialog {
         aemContextMenu.clickOption(MenuOption.EDIT);
       } catch (NoSuchElementException | StaleElementReferenceException
           | ElementNotVisibleException e) {
-        LOG.debug("Dialog open element is not available: {}", e.getMessage());
+        LOG.debug("Dialog open element is not available: {}", e);
       }
       return isVisible();
     }, 5);

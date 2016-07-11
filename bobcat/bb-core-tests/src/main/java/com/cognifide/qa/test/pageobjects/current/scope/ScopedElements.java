@@ -1,5 +1,3 @@
-package com.cognifide.qa.test.pageobjects.current.scope;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.test.pageobjects.current.scope;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.test.pageobjects.current.scope;
+
 
 
 import org.openqa.selenium.support.FindBy;

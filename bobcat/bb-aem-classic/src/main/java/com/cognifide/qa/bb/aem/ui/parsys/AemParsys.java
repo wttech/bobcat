@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.aem.ui.parsys;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -9,9 +7,9 @@ package com.cognifide.qa.bb.aem.ui.parsys;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,6 +17,7 @@ package com.cognifide.qa.bb.aem.ui.parsys;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.aem.ui.parsys;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -35,13 +34,13 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cognifide.qa.bb.aem.ui.component.AemComponentHandler;
-import com.cognifide.qa.bb.constants.AemConfigKeys;
-import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.aem.exception.NoSuchComponentException;
+import com.cognifide.qa.bb.aem.ui.component.AemComponentHandler;
 import com.cognifide.qa.bb.aem.ui.menu.AemContextMenu;
 import com.cognifide.qa.bb.aem.ui.menu.MenuOption;
 import com.cognifide.qa.bb.aem.ui.window.ConfirmationWindow;
+import com.cognifide.qa.bb.constants.AemConfigKeys;
+import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.dragdrop.DragAndDropFactory;
 import com.cognifide.qa.bb.dragdrop.Droppable;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
@@ -221,7 +220,7 @@ public class AemParsys {
     wait.withTimeout(Timeouts.SMALL).until(driver -> currentScope
         .findElements(componentLocator).size() > componentTypeCount);
 
-    return (T) pageObjectInjector
+    return pageObjectInjector
         .inject(componentClass, getComponentScope(componentClass, componentTypeCount),
             currentFrame);
   }
@@ -238,10 +237,10 @@ public class AemParsys {
     if (firstComponentTypeInParsys) {
       By componentLocator = getComponentLocator(componentClass);
       openInsertWindow().insertComponent(componentClass);
-      wait.withTimeout(Timeouts.SMALL).until(driver -> currentScope
-          .findElements(componentLocator).size() > 0);
+      wait.withTimeout(Timeouts.SMALL).until(driver -> !currentScope
+          .findElements(componentLocator).isEmpty());
 
-      return (T) pageObjectInjector
+      return pageObjectInjector
           .inject(componentClass, getComponentScope(componentClass, 0),
               currentFrame);
     } else {
@@ -286,7 +285,7 @@ public class AemParsys {
           .visibilityOf(currentScope.findElement(getComponentLocator(cssClassName))));
       return true;
     } catch (NoSuchElementException e) {
-      LOG.debug("component located by: {} is not present", cssClassName);
+      LOG.debug(String.format("component located by: %s is not present", cssClassName), e);
       return false;
     }
   }
@@ -317,7 +316,7 @@ public class AemParsys {
           .until(driver -> currentScope.findElements(getComponentLocator(cssClassName)).isEmpty());
       missing = true;
     } catch (TimeoutException e) {
-      LOG.debug("component located by: {} is not present", cssClassName);
+      LOG.debug(String.format("component located by: %s is not present", cssClassName), e);
     }
     return missing;
   }
@@ -343,7 +342,7 @@ public class AemParsys {
    * @return object of a componentClass injected with a proper scope
    */
   public <T> T getNthComponentOfType(Class<T> componentClass, int n) {
-    return (T) pageObjectInjector
+    return pageObjectInjector
         .inject(componentClass, getComponentScope(componentClass, n), currentFrame);
   }
 
@@ -356,7 +355,7 @@ public class AemParsys {
    * @return object of a componentClass injected with a proper scope
    */
   public <T> T getComponent(Class<T> componentClass, int globalIndex) {
-    return (T) pageObjectInjector.inject(componentClass,
+    return pageObjectInjector.inject(componentClass,
         currentScope.findElements(By.cssSelector(SELECTOR_FOR_COMPONENT_IN_PARSYS))
             .get(globalIndex),
         currentFrame);
@@ -459,7 +458,8 @@ public class AemParsys {
   }
 
   private WebElement getClickableParsys() {
-    bobcatWait.withTimeout(Timeouts.SMALL).until(webDriver -> getParsysStream().count() >= 1, Timeouts.MINIMAL);
+    bobcatWait.withTimeout(Timeouts.SMALL)
+        .until(webDriver -> getParsysStream().count() >= 1, Timeouts.MINIMAL);
     return getParsysStream().findFirst().get();
   }
 

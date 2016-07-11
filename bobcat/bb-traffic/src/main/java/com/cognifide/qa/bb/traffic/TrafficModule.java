@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.traffic;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.traffic;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.traffic;
+
 
 
 import com.cognifide.qa.bb.proxy.ProxyEventListener;

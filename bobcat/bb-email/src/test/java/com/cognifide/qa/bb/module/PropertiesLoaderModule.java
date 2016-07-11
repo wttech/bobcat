@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.module;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.module;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.module;
+
 
 
 import java.io.IOException;

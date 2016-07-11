@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.junit.concurrent;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.junit.concurrent;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.junit.concurrent;
+
 
 
 import java.lang.annotation.ElementType;
@@ -33,7 +33,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE})
 public @interface Concurrent {
 
-  static final double THREADS_NUMBER_FACTOR = 1.5d;
+  double THREADS_NUMBER_FACTOR = 1.5;
 
   /**
    * @return Concurrent test runner will spawn "threads" number of threads.

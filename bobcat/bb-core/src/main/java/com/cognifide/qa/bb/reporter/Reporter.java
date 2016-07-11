@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.reporter;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.reporter;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.reporter;
+
 
 
 public interface Reporter {

@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.logging.constants;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.logging.constants;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.logging.constants;
+
 
 
 public final class ReportsConfigKeys {

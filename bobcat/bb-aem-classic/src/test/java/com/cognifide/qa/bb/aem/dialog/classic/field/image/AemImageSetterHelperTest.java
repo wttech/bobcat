@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.aem.dialog.classic.field.image;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.aem.dialog.classic.field.image;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.aem.dialog.classic.field.image;
+
 
 
 import static org.mockito.Mockito.any;

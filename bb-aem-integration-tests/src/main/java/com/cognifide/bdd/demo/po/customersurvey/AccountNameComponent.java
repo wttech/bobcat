@@ -1,5 +1,3 @@
-package com.cognifide.bdd.demo.po.customersurvey;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.bdd.demo.po.customersurvey;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.bdd.demo.po.customersurvey;
+
 
 
 import com.cognifide.qa.bb.aem.ui.AemDialog;

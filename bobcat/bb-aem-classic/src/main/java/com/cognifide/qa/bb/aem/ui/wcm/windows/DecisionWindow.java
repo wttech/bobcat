@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.aem.ui.wcm.windows;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,8 @@ package com.cognifide.qa.bb.aem.ui.wcm.windows;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.aem.ui.wcm.windows;
+
 
 
 /**
@@ -29,10 +29,10 @@ public interface DecisionWindow {
   /**
    * Method responsible for confirming dialog.
    */
-  public void confirm();
+  void confirm();
 
   /**
    * Method responsible for canceling dialog.
    */
-  public void cancel();
+  void cancel();
 }
