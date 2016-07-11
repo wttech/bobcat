@@ -23,8 +23,6 @@ package com.cognifide.qa.bb.aem.dialog.classic.field.tags;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.cognifide.qa.bb.aem.dialog.classic.field.tags.NamespaceAndPath.Builder;
-
 /**
  * This is a utility class that is able to construct a NamespaceAndPath instance out of textual
  * description of a tag.
@@ -40,7 +38,7 @@ class NamespaceAndPathSplitter {
    */
   NamespaceAndPath getNamespaceAndPath(String namespaceAndPathText) {
     String nonEmptyText = StringUtils.defaultString(namespaceAndPathText);
-    Builder result = new NamespaceAndPath.Builder();
+    NamespaceAndPathBuilder result = new NamespaceAndPathBuilder();
     String[] parts = nonEmptyText.split(AemTags.NAMESPACE_SEPARATOR);
     if (parts.length > 2) {
       throw new IllegalArgumentException("Invalid tag");

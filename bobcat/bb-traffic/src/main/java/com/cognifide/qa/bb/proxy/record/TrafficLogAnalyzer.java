@@ -19,16 +19,11 @@
  */
 package com.cognifide.qa.bb.proxy.record;
 
-
-
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.util.Collections;
-import java.util.List;
 
-import org.hamcrest.Description;
 import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +31,6 @@ import com.cognifide.qa.bb.guice.ThreadScoped;
 import com.google.common.base.Predicate;
 import com.google.inject.Inject;
 
-import net.lightbody.bmp.core.har.Har;
 import net.lightbody.bmp.core.har.HarEntry;
 
 /**
@@ -79,41 +73,4 @@ public class TrafficLogAnalyzer {
     assertThat(trafficLogProvider.get(), matcher);
   }
 
-  private static class TrafficLogContains extends TypeSafeMatcher<TrafficLog> {
-
-    List<Predicate<HarEntry>> predicates;
-
-    public TrafficLogContains(List<Predicate<HarEntry>> predicates) {
-      super();
-      this.predicates = predicates;
-    }
-
-    @Override
-    public void describeTo(Description description) {
-      description.appendText("contains request matching " + predicates);
-    }
-
-    @Override
-    protected boolean matchesSafely(TrafficLog item) {
-      for (Har har : item.getHars()) {
-        for (HarEntry entry : har.getLog().getEntries()) {
-          if (harEntryMatchesPredicates(entry)) {
-            return true;
-          }
-        }
-      }
-      return false;
-    }
-
-    private boolean harEntryMatchesPredicates(HarEntry entry) {
-      for (Predicate<HarEntry> predicate : predicates) {
-        if (!predicate.apply(entry)) {
-          LOG.debug("HarEntry " + entry.getRequest().getUrl() + " discarded by " + predicate);
-          return false;
-        }
-      }
-      return true;
-    }
-
-  }
 }

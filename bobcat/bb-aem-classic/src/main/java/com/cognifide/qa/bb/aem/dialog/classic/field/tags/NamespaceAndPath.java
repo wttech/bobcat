@@ -19,25 +19,16 @@
  */
 package com.cognifide.qa.bb.aem.dialog.classic.field.tags;
 
-
-
-import org.apache.commons.lang3.StringUtils;
-
 /**
  * This class contains information about a particular AemTag.
  */
 final class NamespaceAndPath {
-  /**
-   * Default namespace for AemTags.
-   */
-  private static final String DEFAULT_PARENT_FOR_NO_NAMESPACE_ITEMS = "Standard Tags"
-      + AemTags.PARENT_PATH_SEPARATOR;
 
   private final String namespace;
 
   private final String path;
 
-  private NamespaceAndPath(String namespace, String path) {
+  NamespaceAndPath(String namespace, String path) {
     this.namespace = namespace;
     this.path = path;
   }
@@ -65,52 +56,4 @@ final class NamespaceAndPath {
     }
   }
 
-  /**
-   * This class produces a hacked NamespaceAndPath instance.
-   * <p>
-   * For default namespace each tag should begin with Standard Tags. Unfortunately this is only done after
-   * form submit. This is kind of a hack to be able to search that tag by both way: Standard Tags/MyTagName
-   * and MyTagName.
-   */
-  static class Builder {
-
-    private String namespace;
-
-    private String path;
-
-    /**
-     * Sets the namespace.
-     *
-     * @param namespace
-     * @return This builder.
-     */
-    Builder setNamespace(String namespace) {
-      this.namespace = namespace;
-      return this;
-    }
-
-    /**
-     * Sets the path.
-     *
-     * @param path
-     * @return This builder.
-     */
-    Builder setPath(String path) {
-      this.path = path;
-      return this;
-    }
-
-    /**
-     * @return Hacked NamespaceAndPath instance. See class description for explanation.
-     */
-    NamespaceAndPath build() {
-      namespace = StringUtils.defaultString(namespace);
-      path = StringUtils.defaultString(path);
-
-      if ("".equals(namespace) && !path.startsWith(DEFAULT_PARENT_FOR_NO_NAMESPACE_ITEMS)) {
-        path = DEFAULT_PARENT_FOR_NO_NAMESPACE_ITEMS + path;
-      }
-      return new NamespaceAndPath(namespace, path);
-    }
-  }
 }
