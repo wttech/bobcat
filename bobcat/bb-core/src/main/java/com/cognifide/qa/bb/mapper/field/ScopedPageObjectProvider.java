@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,8 +18,6 @@
  * #L%
  */
 package com.cognifide.qa.bb.mapper.field;
-
-
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -31,12 +29,14 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 
+import com.cognifide.qa.bb.exceptions.BobcatRuntimeException;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.scope.ContextStack;
 import com.cognifide.qa.bb.scope.PageObjectContext;
 import com.cognifide.qa.bb.scope.frame.FrameMap;
 import com.cognifide.qa.bb.scope.frame.FramePath;
 import com.cognifide.qa.bb.scope.nested.ScopedElementLocatorFactory;
+import com.google.inject.ConfigurationException;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
@@ -92,12 +92,18 @@ public class ScopedPageObjectProvider implements FieldProvider {
   @Override
   public Optional<Object> provideValue(Object pageObject, Field field, PageObjectContext context) {
     final ElementLocatorFactory elementLocatorFactory = new ScopedElementLocatorFactory(webDriver,
-        context.getElementLocatorFactory(), field);
+            context.getElementLocatorFactory(), field);
     final FramePath framePath = frameMap.get(pageObject);
     contextStack.push(new PageObjectContext(elementLocatorFactory, framePath));
     Object scopedPageObject = null;
     try {
       scopedPageObject = injector.getInstance(field.getType());
+    } catch (Exception e) {
+      if (e instanceof ConfigurationException) {
+        ConfigurationException ce = (ConfigurationException) e;
+        throw new BobcatRuntimeException("Configuration exception: " + ce.getErrorMessages().toString(), e);
+      }
+      throw new BobcatRuntimeException(e.getMessage(), e);
     } finally {
       contextStack.pop();
     }
