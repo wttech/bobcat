@@ -35,9 +35,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.MarionetteDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.slf4j.Logger;
@@ -57,6 +59,15 @@ public enum WebDriverType {
     @Override
     public WebDriver create(Capabilities capabilities, Properties properties) {
       return new FirefoxDriver(capabilities);
+    }
+  },
+  MARIONETTE {
+    @Override
+    public WebDriver create(Capabilities capabilities, Properties properties) {
+     // DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+     /// capabilities.setCapability("marionette", true);
+      return new FirefoxDriver(capabilities);
+      //return new MarionetteDriver();
     }
   },
   CHROME {
