@@ -6,7 +6,9 @@
   <img src="assets/bobcat-logo.png" alt="Bobcat Logo"/>
 </p>
 
-Bobcat is an automated testing framework for functional testing of web applications. It wraps Selenium Browser Automation with a handy set of tools (accelerators). Since using Selenium (Webdriver), it aims to mimic the behaviour of a real user, and as such interacts with the HTML of the application. Bobcat is implemented in Java and allows test development in Java language and in Gherkin for BDD approaches. Bobcat also provides set of good practices that will accelerate testing process.
+Bobcat is an automated testing framework for functional testing of web applications. It wraps Selenium Browser Automation with a handy set of tools (accelerators). Since using Selenium (Webdriver), it aims to mimic the behaviour of a real user, and as such interacts with the HTML of the application. 
+
+Bobcat is implemented in Java and allows test development in pure JUnit and in Gherkin for BDD approaches. Bobcat also provides set of good practices that will accelerate testing process.
 
 ## What's philosophy behind Bobcat?
 
@@ -53,7 +55,7 @@ Bobcat supports AEM authoring in newest version - AEM 6.2 and compatible feature
 
 ## License
 
-Bobcat is licensed under [Apache License, Version 2.0 (the "License")](https://www.apache.org/licenses/LICENSE-2.0.txt)
+**Bobcat** is licensed under [Apache License, Version 2.0 (the "License")](https://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ## Dependencies
 
