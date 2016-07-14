@@ -17,22 +17,22 @@ Bobcat is implemented in Java and allows test development in pure JUnit and in G
     * written in Java with Guice,
     * provides set of libraries and helpers,
     * enforces Page Object pattern,
-    * supports both JUnit and Cucumber,
+    * supports both JUnit and Cucumber.
   * Stable
     * provides set of Archetypes for project setup,
     * unaffectedly supports Continous Integration environments,
-    * comes together with good practices, 
+    * comes together with good practices.
   * Scalable
     * allows parallel execution both Junit and Cucumber tests,
     * supports testing on different levels (Integration, Staging, SIT...),
-    * integrates with majority of test clouds (Sauce Labs, Cross Browser Testing, Browser Stack...),
+    * integrates with majority of test clouds (Sauce Labs, Cross Browser Testing, Browser Stack...).
     
 ## What tools does Bobcat consist of?
 
 #### In Bobcat we combine many tools:
 * Selenium to enable testing on web browsers,
 * Appium to enable testing on mobile devices,
-* Cucumber JVM to enable BDD style of developing tests,
+* Cucumber JVM to simplify test automation in BDD,
 * ChromeDriver to enable testing on Chrome browser,
 * IEDriver to enable testing on IE browser.
 
@@ -43,7 +43,7 @@ Bobcat is implemented in Java and allows test development in pure JUnit and in G
 
 ## AEM Support
 
-Bobcat accelerates test development, especially when it comes to AEM authoring. Bobcat provides set of libraries which allows you to tests almost every action on the AEM author side. This includes:
+Bobcat accelerates test development, especially when it comes to AEM authoring. Bobcat provides set of libraries which allows you to test almost every action on the AEM author side. This includes:
 - Site Admin,
 - Dialogs,
 - Parsyses,
