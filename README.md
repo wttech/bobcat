@@ -1,17 +1,76 @@
 ![Cognifide logo](http://cognifide.github.io/images/cognifide-logo.png)
 
-# About Bobcat
+# Bobcat
 
-## Purpose
+<p align="center">
+  <img src="assets/bobcat-logo.png" alt="Bobcat Logo"/>
+</p>
 
-## Features
+Bobcat is an automated testing framework for functional testing of web applications. It wraps Selenium Browser Automation with a handy set of tools (accelerators). Since using Selenium (Webdriver), it aims to mimic the behaviour of a real user, and as such interacts with the HTML of the application. Bobcat is implemented in Java and allows test development in Java language and in Gherkin for BDD approaches. Bobcat also provides set of good practices that will accelerate testing process.
 
-## Prerequisites
+## What's philosophy behind Bobcat?
 
-## Installation
+1. We have identified following major properties that Bobcat should follow:
+  * Maintainable
+    * written in Java with Guice,
+    * provides set of libraries and helpers,
+    * enforces Page Object pattern,
+    * supports both JUnit and Cucumber,
+  * Stable
+    * provides set of Archetypes for project setup,
+    * unaffectedly supports with Continous Integration environments,
+    * comes together with good practices, 
+  * Scalable
+    * allows parallel execution both Junit and Cucumber tests,
+    * supports testing on different levels (Integration, Staging, SIT...),
+    * integrates with testing clouds (Sauce Labs, Cross Browser Testing, Browser Stack...),
+    
+## What tools does Bobcat consist of?
 
-## Usage
+#### In Bobcat we combine many tools:
+* Selenium to enable testing on web browsers,
+* Appium to enable testing on mobile devices,
+* Cucumber JVM to enable BDD style of developing tests,
+* ChromeDriver to enable testing on Chrome browser,
+* IEDriver to enable testing on IE browser.
 
-# Commercial Support
+#### Bobcat uses set of tool that supports development:
+* Google Guice to let dependency management be more effective,
+* JUnit as a test runner,
+* Maven as a project managing tool.
 
-# More documentation
+## AEM Support
+
+Bobcat accelerates test development, especially when it comes to AEM authoring. Bobcat provides set of libraries which allows you to tests almost every action on the AEM author side. This includes:
+- Site Admin,
+- Dialogs,
+- Parsyses,
+- Components,
+- Component fields,
+- Crx.
+
+Bobcat supports AEM authoring in newest version - AEM 6.2 and compatible features in older versions. 
+
+## License
+
+Bobcat is licensed under [[Apache License, Version 2.0 (the "License")|https://www.apache.org/licenses/LICENSE-2.0.txt]]
+
+## Dependencies
+
+- org.seleniumhq.selenium
+- io.appium
+- net.lightbody.bmp
+- com.google.inject
+- info.cukes.cucumber
+- org.asserj
+- org.apache.jackrabbit
+
+## Roadmap
+
+- AEM Touch UI testing support,
+- Gradle,
+- Solr testing support,
+- Model based testing - http://graphwalker.github.io/
+
+
+
