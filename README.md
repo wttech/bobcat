@@ -12,7 +12,7 @@ Bobcat is implemented in Java and allows test development in pure JUnit and in G
 
 ## What's philosophy behind Bobcat?
 
-1. We have identified following major properties that Bobcat should follow:
+We have identified following major properties that Bobcat should follow:
   * Maintainable
     * written in Java with Guice,
     * provides set of libraries and helpers,
