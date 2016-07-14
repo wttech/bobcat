@@ -53,7 +53,7 @@ Bobcat supports AEM authoring in newest version - AEM 6.2 and compatible feature
 
 ## License
 
-Bobcat is licensed under [[Apache License, Version 2.0 (the "License")|https://www.apache.org/licenses/LICENSE-2.0.txt]]
+Bobcat is licensed under [Apache License, Version 2.0 (the "License")](https://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ## Dependencies
 
