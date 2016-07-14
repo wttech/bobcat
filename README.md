@@ -8,11 +8,11 @@
 
 Bobcat is an automated testing framework for functional testing of web applications. It wraps Selenium Browser Automation with a handy set of tools (accelerators). Since using Selenium (Webdriver), it aims to mimic the behaviour of a real user, and as such interacts with the HTML of the application. 
 
-Bobcat is implemented in Java and allows test development in pure JUnit and in Gherkin for BDD approaches. Bobcat also provides set of good practices that will accelerate testing process.
+Bobcat is implemented in Java and allows test development in pure JUnit and in Gherkin for BDD approaches. Bobcat also provides set of good practices that accelerates testing process.
 
 ## What's philosophy behind Bobcat?
 
-#### We have identified following major properties that Bobcat should follow:
+#### We have identified major properties that Bobcat should follow:
   * Maintainable
     * written in Java with Guice,
     * provides set of libraries and helpers,
@@ -20,12 +20,12 @@ Bobcat is implemented in Java and allows test development in pure JUnit and in G
     * supports both JUnit and Cucumber,
   * Stable
     * provides set of Archetypes for project setup,
-    * unaffectedly supports with Continous Integration environments,
+    * unaffectedly supports Continous Integration environments,
     * comes together with good practices, 
   * Scalable
     * allows parallel execution both Junit and Cucumber tests,
     * supports testing on different levels (Integration, Staging, SIT...),
-    * integrates with testing clouds (Sauce Labs, Cross Browser Testing, Browser Stack...),
+    * integrates with majority of test clouds (Sauce Labs, Cross Browser Testing, Browser Stack...),
     
 ## What tools does Bobcat consist of?
 
@@ -36,7 +36,7 @@ Bobcat is implemented in Java and allows test development in pure JUnit and in G
 * ChromeDriver to enable testing on Chrome browser,
 * IEDriver to enable testing on IE browser.
 
-#### Bobcat uses set of tool that supports development:
+#### Bobcat uses set of libraries that supports development:
 * Google Guice to let dependency management be more effective,
 * JUnit as a test runner,
 * Maven as a project managing tool.
@@ -73,6 +73,3 @@ Bobcat accelerates test development, especially when it comes to AEM authoring. 
 - Gradle,
 - Solr testing support,
 - Model based testing - http://graphwalker.github.io/
-
-
-
