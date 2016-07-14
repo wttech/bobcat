@@ -12,7 +12,7 @@ Bobcat is implemented in Java and allows test development in pure JUnit and in G
 
 ## What's philosophy behind Bobcat?
 
-We have identified following major properties that Bobcat should follow:
+#### We have identified following major properties that Bobcat should follow:
   * Maintainable
     * written in Java with Guice,
     * provides set of libraries and helpers,
@@ -51,7 +51,7 @@ Bobcat accelerates test development, especially when it comes to AEM authoring. 
 - Component fields,
 - Crx.
 
-Bobcat supports AEM authoring in newest version - AEM 6.2 and compatible features in older versions. 
+#### Bobcat supports AEM authoring in newest version - AEM 6.2 and compatible features in older versions. 
 
 ## License
 
