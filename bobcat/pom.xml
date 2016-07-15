@@ -66,7 +66,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <selenium.version>2.53.0</selenium.version>
+        <selenium.version>2.53.1</selenium.version>
         <guice.version>3.0</guice.version>
         <cucumber.version>1.2.3</cucumber.version>
         <version.logback>1.1.7</version.logback>
