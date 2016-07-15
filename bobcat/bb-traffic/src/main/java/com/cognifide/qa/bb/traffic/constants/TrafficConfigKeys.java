@@ -26,6 +26,7 @@ public final class TrafficConfigKeys {
   public static final String ANALYTICS_URI_PREFIX = "analytics.uri.prefix";
 
   private TrafficConfigKeys() {
+    // utility class
   }
 
 }
