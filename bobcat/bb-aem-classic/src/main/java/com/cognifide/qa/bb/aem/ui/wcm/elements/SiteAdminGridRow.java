@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bb.aem.ui.wcm.elements;
 
-
-
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -158,6 +156,6 @@ public class SiteAdminGridRow {
    * @return ToolTip body
    */
   public String getPageStatusToolTip() {
-    return status.getAttribute("ext:qtip");
+    return status.getAttribute("outerHTML");
   }
 }

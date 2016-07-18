@@ -163,7 +163,7 @@ public class SiteAdminTest {
   }
 
   @Test
-  public void shouldOpenMovedPageAtDesintationUrl() {
+  public void shouldOpenMovedPageAtDestinationUrl() {
     createPage();
     page.movePage(CREATED_PAGE_TITLE, DESTINATION_PATH);
     page.open(DESTINATION_PARENT_URL);
