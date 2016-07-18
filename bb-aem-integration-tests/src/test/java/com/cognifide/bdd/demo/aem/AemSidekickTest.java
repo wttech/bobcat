@@ -28,7 +28,6 @@ import static org.junit.Assert.assertTrue;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,7 +38,6 @@ import com.cognifide.bdd.demo.GuiceModule;
 import com.cognifide.bdd.demo.html.HtmlTags;
 import com.cognifide.bdd.demo.po.summer.ImageComponent;
 import com.cognifide.bdd.demo.po.summer.SummerBlockbusterHitsPage;
-import com.cognifide.qa.bb.aem.AemInstanceDetails;
 import com.cognifide.qa.bb.aem.AemLogin;
 import com.cognifide.qa.bb.aem.ui.AemDialog;
 import com.cognifide.qa.bb.aem.ui.sidekick.AemSidekick;
@@ -73,17 +71,11 @@ public class AemSidekickTest {
   private WebDriver webDriver;
 
   @Inject
-  private AemInstanceDetails aemInstanceDetails;
-
-  @Inject
   private WebElementUtils webElementUtils;
-
-  private DefaultArtifactVersion aemVersion;
 
   @Before
   public void openPage() {
     aemLogin.authorLogin();
-    aemVersion = aemInstanceDetails.getAemVersion();
     openPageToTest();
 
     // added for tests stability

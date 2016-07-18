@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bb.aem.ui.sidekick;
 
-
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -59,6 +57,8 @@ public class AemSidekick {
   public static final String COMPONENT_BY_GROUP_XPATH = "./..//button";
 
   private static final String X_PANEL_COLLAPSED = "x-panel-collapsed";
+
+  private static final String X_PANEL_ANIMATED = "x-panel-animated";
 
   private static final String PAGE_TAB_BUTTON_XPATH = "//div[@id='cq-sk']//button[text()=%s]";
 
@@ -221,7 +221,7 @@ public class AemSidekick {
    * This method checks if specified component is present selected group in Sidekick
    *
    * @param componentName component name
-   * @param groupName component group name
+   * @param groupName     component group name
    * @return true if component is present in sidekick
    */
   public boolean isComponentPresent(String componentName, String groupName) {
@@ -251,6 +251,7 @@ public class AemSidekick {
   /**
    * This method can be used to activate the page. You can write your own methods to the other
    * functions within your test based on this one. Clicking methods are the most important there.
+   *
    * @return AemSidekick sidekick
    */
   public AemSidekick activatePage() {
@@ -279,7 +280,8 @@ public class AemSidekick {
    */
   public AemSidekick expandSectionIfCollapsed(SidekickSection sidekickSections) {
     final WebElement section = getSectionByName(sidekickSections.getSectionName());
-    bobcatWait.withTimeout(Timeouts.BIG).until(SidekickActions.expandSection(section), Timeouts.SMALL);
+    bobcatWait.withTimeout(Timeouts.BIG)
+        .until(SidekickActions.expandSection(section), Timeouts.SMALL);
     return this;
   }
 
@@ -302,14 +304,15 @@ public class AemSidekick {
    */
   public AemSidekick expandFieldsetIfCollapsed(String fieldsetName) {
     final WebElement fieldset = getFieldsetByName(fieldsetName);
-    bobcatWait.withTimeout(Timeouts.BIG).until(SidekickActions.expandFieldset(fieldset), Timeouts.SMALL);
+    bobcatWait.withTimeout(Timeouts.BIG)
+        .until(SidekickActions.expandFieldset(fieldset), Timeouts.SMALL);
     return this;
   }
 
   /**
    * Waits for the launch status to be visible in sidekick
    *
-   * @return lauch status message
+   * @return launch status message
    */
   public String getLaunchStatusMessage() {
     bobcatWait.withTimeout(Timeouts.MEDIUM).until(ExpectedConditions.visibilityOf(launchStatus));
@@ -345,6 +348,8 @@ public class AemSidekick {
   }
 
   public boolean isCollapsed() {
+    bobcatWait.withTimeout(Timeouts.SMALL)
+        .until(webDriver -> !sidekick.getAttribute(CLASS_ATTRIBUTE).contains(X_PANEL_ANIMATED), 1);
     return sidekick.getAttribute(CLASS_ATTRIBUTE).contains(X_PANEL_COLLAPSED);
   }
 
