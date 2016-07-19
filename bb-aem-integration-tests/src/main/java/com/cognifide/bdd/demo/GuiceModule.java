@@ -19,10 +19,9 @@
  */
 package com.cognifide.bdd.demo;
 
-
-
 import com.cognifide.qa.bb.AemClassicModule;
 import com.cognifide.qa.bb.aem.AemCommonModule;
+import com.cognifide.qa.bb.aem.modules.AemTouchUiModule;
 import com.cognifide.qa.bb.cumber.guice.BobcumberModule;
 import com.cognifide.qa.bb.logging.ReporterModule;
 import com.cognifide.qa.bb.modules.CoreModule;
@@ -41,5 +40,6 @@ public class GuiceModule extends AbstractModule {
     install(new ReporterModule());
     install(new BobcumberModule());
     install(new TrafficModule());
+    install(new AemTouchUiModule());
   }
 }
