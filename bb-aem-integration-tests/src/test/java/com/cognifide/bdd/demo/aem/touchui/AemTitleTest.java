@@ -22,18 +22,26 @@ package com.cognifide.bdd.demo.aem.touchui;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
+import java.util.List;
+import java.util.Map;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.cognifide.bdd.demo.GuiceModule;
 import com.cognifide.qa.bb.aem.AemLogin;
+import com.cognifide.qa.bb.aem.data.componentconfigs.FieldConfig;
 import com.cognifide.qa.bb.aem.data.pages.Pages;
 import com.cognifide.qa.bb.aem.pageobjects.pages.AuthorPage;
 import com.cognifide.qa.bb.aem.pageobjects.pages.AuthorPageFactory;
+import com.cognifide.qa.bb.aem.util.context.Context;
 import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
+import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.google.inject.Inject;
+
+import cucumber.runtime.java.guice.ScenarioScoped;
 
 @RunWith(TestRunner.class)
 @Modules(GuiceModule.class)
@@ -48,17 +56,24 @@ public class AemTitleTest {
   @Inject
   private AuthorPageFactory authorPageFactory;
 
+  private AuthorPage page;
+
   @Before
   public void before() {
     aemLogin.authorLogin();
-    AuthorPage page = authorPageFactory.create(pages.getPath("Title - Update&Read"));
+    page = authorPageFactory.create(pages.getPath("Title - Update&Read"));
     page.open();
+    BobcatWait.sleep(5);
     assertThat("Page has not loaded", page.isLoaded(), is(true));
   }
 
   @Test
-  public void test() {
-
+  public void addTitleTest() {
+    //    page.addComponent("/par", "Title");
+    //    assertThat(page.getParsys("/par").isComponentPresent("title"), is(true));
+    Map<String, List<FieldConfig>> data = page.configureComponent("/par",
+        "Title", "title");
+    int i = 5;
   }
 
 }
