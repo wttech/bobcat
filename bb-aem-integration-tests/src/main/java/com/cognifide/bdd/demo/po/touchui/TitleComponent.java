@@ -19,16 +19,9 @@
  */
 package com.cognifide.bdd.demo.po.touchui;
 
-import static java.util.stream.Collectors.toSet;
-
-import java.util.Arrays;
-import java.util.Set;
-
-import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import com.cognifide.qa.bb.aem.data.componentproperties.Property;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
@@ -36,27 +29,17 @@ import com.google.inject.Inject;
 @PageObject
 public class TitleComponent {
 
-  public static final String CSS = ".atom-title";
+  public static final String CSS = ".title.section";
 
   @Inject
   @CurrentScope
   private WebElement component;
 
-  @FindBy(css = "h2")
+  @FindBy(css = "h3")
   private WebElement title;
 
   public String getTitle() {
     return title.getText();
   }
 
-  @Property("title:title")
-  public String getVariants() {
-    Set<String> cssClasses = getAttributeValues(component, "class");
-    cssClasses.remove(CSS.substring(1));
-    return "";
-  }
-
-  private Set<String> getAttributeValues(WebElement element, String attribute) {
-    return Arrays.stream(StringUtils.split(element.getAttribute(attribute))).collect(toSet());
-  }
 }

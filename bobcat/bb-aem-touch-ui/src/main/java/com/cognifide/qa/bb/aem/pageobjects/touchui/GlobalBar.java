@@ -22,7 +22,7 @@ public class GlobalBar {
   @FindBy(css = ".js-editor-SidePanel-toggle")
   private WebElement toggleSidePanelButton;
 
-  @FindBy(css = "button[data-layer='Edit']")
+  @FindBy(css = "button[data-layer='Edit'][autocomplete='off']")
   private WebElement editModeButton;
 
   @FindBy(css = "button[data-layer='Preview']")
@@ -33,7 +33,7 @@ public class GlobalBar {
   }
 
   public void switchToEditMode() {
-    if (isInEditMode()) {
+    if (!isInEditMode()) {
       editModeButton.click();
       webDriver.navigate().refresh();
     }

@@ -18,5 +18,5 @@
 # #L%
 #
 Title:
-  datapath: /content/title
+  datapath: /title
   clazz: com.cognifide.bdd.demo.po.touchui.TitleComponent

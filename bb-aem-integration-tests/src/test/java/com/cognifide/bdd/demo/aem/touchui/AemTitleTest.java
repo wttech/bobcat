@@ -20,6 +20,7 @@
 package com.cognifide.bdd.demo.aem.touchui;
 
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 import java.util.List;
@@ -30,18 +31,17 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.cognifide.bdd.demo.GuiceModule;
+import com.cognifide.bdd.demo.po.touchui.TitleComponent;
 import com.cognifide.qa.bb.aem.AemLogin;
 import com.cognifide.qa.bb.aem.data.componentconfigs.FieldConfig;
+import com.cognifide.qa.bb.aem.data.components.Components;
 import com.cognifide.qa.bb.aem.data.pages.Pages;
 import com.cognifide.qa.bb.aem.pageobjects.pages.AuthorPage;
 import com.cognifide.qa.bb.aem.pageobjects.pages.AuthorPageFactory;
-import com.cognifide.qa.bb.aem.util.context.Context;
+import com.cognifide.qa.bb.aem.pageobjects.touchui.GlobalBar;
 import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
-import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.google.inject.Inject;
-
-import cucumber.runtime.java.guice.ScenarioScoped;
 
 @RunWith(TestRunner.class)
 @Modules(GuiceModule.class)
@@ -58,22 +58,39 @@ public class AemTitleTest {
 
   private AuthorPage page;
 
+  @Inject
+  private Components components;
+
+  @Inject
+  private GlobalBar globalBar;
+
+  private static final String CONFIGURATION = "Title - Update&Read";
+
+  private static final String COMPONENT_NAME = "Title";
+
   @Before
   public void before() {
     aemLogin.authorLogin();
-    page = authorPageFactory.create(pages.getPath("Title - Update&Read"));
+    page = authorPageFactory.create(pages.getPath(CONFIGURATION));
     page.open();
-    BobcatWait.sleep(5);
     assertThat("Page has not loaded", page.isLoaded(), is(true));
   }
 
   @Test
-  public void addTitleTest() {
-    //    page.addComponent("/par", "Title");
-    //    assertThat(page.getParsys("/par").isComponentPresent("title"), is(true));
-    Map<String, List<FieldConfig>> data = page.configureComponent("/par",
-        "Title", "title");
-    int i = 5;
+  public void editTitleComponentTest() {
+    String parsys = pages.getParsys(CONFIGURATION);
+    page.addComponent(parsys, COMPONENT_NAME);
+    assertThat(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME.toLowerCase()), is(true));
+    Map<String, List<FieldConfig>> data = page.configureComponent(parsys,
+        COMPONENT_NAME, COMPONENT_NAME.toLowerCase());
+
+    TitleComponent component = (TitleComponent) page.getContent(components.getClazz(COMPONENT_NAME));
+    assertEquals(data.get(COMPONENT_NAME).get(0).getValue().toString().toUpperCase(),
+        component.getTitle());
+
+    globalBar.switchToEditMode();
+    page.deleteComponent(parsys, COMPONENT_NAME);
+    assertThat(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME.toLowerCase()), is(false));
   }
 
 }
