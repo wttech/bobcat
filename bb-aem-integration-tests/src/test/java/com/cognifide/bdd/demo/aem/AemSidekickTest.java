@@ -35,7 +35,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import com.cognifide.bdd.demo.GuiceModule;
-import com.cognifide.bdd.demo.html.HtmlTags;
+import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.bdd.demo.po.summer.ImageComponent;
 import com.cognifide.bdd.demo.po.summer.SummerBlockbusterHitsPage;
 import com.cognifide.qa.bb.aem.AemLogin;

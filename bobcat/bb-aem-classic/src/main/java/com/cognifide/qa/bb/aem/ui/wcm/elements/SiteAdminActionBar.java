@@ -19,14 +19,13 @@
  */
 package com.cognifide.qa.bb.aem.ui.wcm.elements;
 
-
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.aem.ui.wcm.constants.SiteAdminButtons;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
@@ -41,8 +40,6 @@ public class SiteAdminActionBar {
   public static final String CSS = "td.x-toolbar-left";
 
   private static final String DISABLED_BUTTON_CLASS = "x-item-disabled";
-
-  private static final String CLASS_ATTRIBUTE = "class";
 
   private static final String BUTTON_TABLE_PARENT_XPATH = "./../../../../..";
 
@@ -76,7 +73,7 @@ public class SiteAdminActionBar {
   /**
    * Clicks on one of the Action Bar's buttons, and wait's for desired page object.
    *
-   * @param button button on Siteadmin action bar
+   * @param button     button on Siteadmin action bar
    * @param pageObject desired page object
    * @return this SiteadminActionBar
    */
@@ -90,6 +87,7 @@ public class SiteAdminActionBar {
 
   /**
    * Expands drop down menu related with action bar button
+   *
    * @param button action bar button
    * @return this SiteAdminActionBar
    */
@@ -118,7 +116,7 @@ public class SiteAdminActionBar {
    */
   public boolean isButtonEnabled(SiteAdminButtons button) {
     return !getButton(button).findElement(By.xpath(BUTTON_TABLE_PARENT_XPATH))
-        .getAttribute(CLASS_ATTRIBUTE).contains(DISABLED_BUTTON_CLASS);
+        .getAttribute(HtmlTags.Attributes.CLASS).contains(DISABLED_BUTTON_CLASS);
   }
 
   /**

@@ -19,8 +19,6 @@
  */
 package com.cognifide.bdd.demo.po.feedback;
 
-
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Matchers.eq;
@@ -32,6 +30,8 @@ import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebElement;
+
+import com.cognifide.qa.bb.constants.HtmlTags;
 
 @RunWith(Theories.class)
 public class RichtextComponentTest {
@@ -65,7 +65,8 @@ public class RichtextComponentTest {
     boolean expectedResult = (boolean) dataPoint[2];
 
     WebElement mockWebElement = mock(WebElement.class);
-    when(mockWebElement.getAttribute(eq("class"))).thenReturn(classAttributeValue);
+    when(mockWebElement.getAttribute(eq(HtmlTags.Attributes.CLASS)))
+        .thenReturn(classAttributeValue);
 
     boolean actual = testedObject.checkIfHasClass(mockWebElement, checkedClass);
 
