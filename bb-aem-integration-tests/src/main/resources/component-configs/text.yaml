@@ -1,0 +1,8 @@
+valid Text:
+  Text:
+    - type: RICHTEXT
+      value: test test test
+  Styles:
+    - label: Text Style
+      type: SELECT
+      value: Large
