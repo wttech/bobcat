@@ -1,4 +1,9 @@
-valid Text:
+validText:
+  Text:
+    - type: RICHTEXT
+      value: test test test
+
+textStyleLarge:
   Text:
     - type: RICHTEXT
       value: test test test
@@ -6,3 +11,19 @@ valid Text:
     - label: Text Style
       type: SELECT
       value: Large
+
+spacingBefore:
+  Text:
+    - type: RICHTEXT
+      value: test test test
+  Styles:
+    - label: Spacer
+      type: SELECT
+      value: Before
+
+underline:
+  Text:
+   - type: RICHTEXT
+     value: test test test
+   - type: TEXT_TOOLBAR
+     value: UNDERLINE

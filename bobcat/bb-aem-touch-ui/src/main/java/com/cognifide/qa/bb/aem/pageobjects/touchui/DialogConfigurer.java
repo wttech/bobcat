@@ -28,7 +28,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import com.cognifide.qa.bb.utils.PageObjectInjector;
-import com.cognifide.qa.bb.aem.data.componentconfigs.FieldType;
 import com.cognifide.qa.bb.aem.data.componentconfigs.FieldTypeRegistry;
 import com.cognifide.qa.bb.aem.pageobjects.touchui.dialogfields.DialogField;
 import com.google.inject.Inject;
@@ -55,7 +54,7 @@ public class DialogConfigurer {
    * @param type          of the requested field
    * @return DialogField of the given type based on the provided info
    */
-  public DialogField getDialogField(WebElement parentElement, String label, FieldType type) {
+  public DialogField getDialogField(WebElement parentElement, String label, String type) {
     List<WebElement> fields = parentElement.findElements(FIELD_LOCATOR);
 
     if (fields.isEmpty()) {
@@ -83,7 +82,7 @@ public class DialogConfigurer {
     return labelField.isEmpty() ? StringUtils.EMPTY : labelField.get(0).getText();
   }
 
-  private DialogField getFieldObject(WebElement scope, FieldType type) {
+  private DialogField getFieldObject(WebElement scope, String type) {
     Class clazz = fieldTypeRegistry.getClass(type);
     return (DialogField) pageObjectInjector.inject(clazz, scope);
   }

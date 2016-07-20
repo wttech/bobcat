@@ -53,7 +53,7 @@ public class Image implements DialogField {
   }
 
   @Override
-  public FieldType getType() {
-    return FieldType.IMAGE;
+  public String getType() {
+    return FieldType.IMAGE.name();
   }
 }

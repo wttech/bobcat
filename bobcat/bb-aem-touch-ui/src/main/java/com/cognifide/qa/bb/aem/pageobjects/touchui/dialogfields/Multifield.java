@@ -57,8 +57,8 @@ public class Multifield implements DialogField {
   }
 
   @Override
-  public FieldType getType() {
-    return FieldType.MULTIFIELD;
+  public String getType() {
+    return FieldType.MULTIFIELD.name();
   }
 
   public void addField() {

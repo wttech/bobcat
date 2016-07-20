@@ -15,21 +15,21 @@
  */
 package com.cognifide.bdd.demo.aem.touchui;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 import com.cognifide.bdd.demo.GuiceModule;
+import com.cognifide.bdd.demo.po.touchui.TextComponent;
 import com.cognifide.qa.bb.aem.AemLogin;
-import com.cognifide.qa.bb.aem.data.componentconfigs.FieldConfig;
 import com.cognifide.qa.bb.aem.data.pages.Pages;
 import com.cognifide.qa.bb.aem.pageobjects.pages.AuthorPage;
 import com.cognifide.qa.bb.aem.pageobjects.pages.AuthorPageFactory;
+import com.cognifide.qa.bb.aem.pageobjects.touchui.GlobalBar;
+import com.cognifide.qa.bb.aem.pageobjects.touchui.GlobalBar.AuthoringMode;
 import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
 import com.google.inject.Inject;
-
-import java.util.List;
-import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
@@ -44,6 +44,9 @@ public class AemRichtextTest {
 
   @Inject
   private AemLogin aemLogin;
+
+  @Inject
+  private GlobalBar globalBar;
 
   @Inject
   private Pages pages;
@@ -62,16 +65,69 @@ public class AemRichtextTest {
     parsys = pages.getParsys("Title - Update&Read");
     feedbackPage.open();
     assertThat("Page has not loaded", feedbackPage.isLoaded(), is(true));
+    feedbackPage.addComponent(parsys, "Text");
   }
 
   @Test
-  public void test() {
-    feedbackPage.addComponent(parsys, "Text");
-    feedbackPage.configureComponent(parsys, "Text", "valid Text");
+  public void shouldContainEnteredText() {
+    feedbackPage.configureComponent(parsys, "Text", "validText");
+    String contents = feedbackPage.getLastContent(TextComponent.class).getInnerHTML();
+    assertThat(contents, containsString("<p>test test test</p>"));
   }
+
+  @Test
+  public void shouldHandleSpacingProperly() {
+    feedbackPage.configureComponent(parsys, "Text", "spacingBefore");
+    TextComponent component = feedbackPage.getLastContent(TextComponent.class);
+    assertThat(component.getCssClassNameProperty(), containsString("spacer_before"));
+  }
+
+  @Test
+  public void shouldHandleTextStyleProperly() {
+    feedbackPage.configureComponent(parsys, "Text", "textStyleLarge");
+    TextComponent component = feedbackPage.getLastContent(TextComponent.class);
+    assertThat(component.getCssClassNameProperty(), containsString("text_large"));
+  }
+
+  @Test
+  public void underline() {
+    feedbackPage.configureComponent(parsys, "Text", "underline");
+  }
+  /*
+   @Test
+   public void bold() {
+   assertTrue(true);
+
+   }
+
+   @Test
+   public void italic() {
+   assertTrue(true);
+
+   }
+
+   @Test
+   public void justify() {
+   assertTrue(true);
+
+   }
+
+   @Test
+   public void list() {
+   assertTrue(true);
+   }
+
+   @Test
+   public void link() {
+   //linkOff too
+   }*/
 
   @After
   public void cleanUp() {
+    if (AuthoringMode.PREVIEW == globalBar.getCurrentMode()) {
+      globalBar.switchToEditMode();
+      parsys = pages.getParsys("Title - Update&Read");
+    }
     feedbackPage.deleteComponent(parsys, "Text");
   }
 }

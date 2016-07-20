@@ -48,7 +48,7 @@ public class Variant implements DialogField {
   }
 
   @Override
-  public FieldType getType() {
-    return FieldType.VARIANT;
+  public String getType() {
+    return FieldType.VARIANT.name();
   }
 }

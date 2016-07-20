@@ -43,7 +43,7 @@ public class Checkbox implements DialogField {
   }
 
   @Override
-  public FieldType getType() {
-    return FieldType.CHECKBOX;
+  public String getType() {
+    return FieldType.CHECKBOX.name();
   }
 }

@@ -47,6 +47,12 @@ public class GlobalBar {
   @FindBy(css = "button[data-layer='Preview']")
   private WebElement previewModeButton;
 
+  public static enum AuthoringMode {
+
+    EDIT,
+    PREVIEW;
+  }
+
   public void toggleSidePanel() {
     toggleSidePanelButton.click();
   }
@@ -63,6 +69,10 @@ public class GlobalBar {
       previewModeButton.click();
       webDriver.navigate().refresh();
     }
+  }
+
+  public AuthoringMode getCurrentMode() {
+    return isInPreviewMode() ? AuthoringMode.PREVIEW : AuthoringMode.EDIT;
   }
 
   private boolean isInPreviewMode() {

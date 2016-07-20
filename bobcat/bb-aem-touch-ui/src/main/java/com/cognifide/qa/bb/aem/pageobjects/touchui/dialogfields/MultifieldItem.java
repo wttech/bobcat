@@ -44,8 +44,8 @@ public class MultifieldItem implements DialogField {
   private WebElement deleteButton;
 
   @Override
-  public FieldType getType() {
-    return FieldType.MULTIFIELD_ITEM;
+  public String getType() {
+    return FieldType.MULTIFIELD_ITEM.name();
   }
 
   @Override

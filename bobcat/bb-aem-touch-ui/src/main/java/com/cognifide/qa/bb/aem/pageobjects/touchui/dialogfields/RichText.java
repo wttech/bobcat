@@ -50,7 +50,7 @@ public class RichText implements DialogField {
   }
 
   @Override
-  public FieldType getType() {
-    return FieldType.RICHTEXT;
+  public String getType() {
+    return FieldType.RICHTEXT.name();
   }
 }

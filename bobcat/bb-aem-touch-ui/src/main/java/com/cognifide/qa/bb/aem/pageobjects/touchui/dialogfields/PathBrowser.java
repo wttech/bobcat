@@ -38,7 +38,7 @@ public class PathBrowser implements DialogField {
   }
 
   @Override
-  public FieldType getType() {
-    return FieldType.PATHBROWSER;
+  public String getType() {
+    return FieldType.PATHBROWSER.name();
   }
 }

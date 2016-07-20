@@ -24,15 +24,21 @@ import org.openqa.selenium.support.FindBy;
 @PageObject
 public class TextComponent {
 
+  public static final String CSS = ".section.text.parbase";
+
   @Inject
   @CurrentScope
   private WebElement component;
 
-  @FindBy(css = ".section.text.parbase")
-  private WebElement title;
+  @FindBy(css= ".coral-RichText-toolbar")
+  private TextComponentControlToolbar toolbar;
 
-  public String getTitle() {
-    return title.getText();
+  public String getInnerHTML() {
+    return component.getAttribute("outerHTML");
+  }
+
+  public String getCssClassNameProperty() {
+    return component.getAttribute("className");
   }
 
 }

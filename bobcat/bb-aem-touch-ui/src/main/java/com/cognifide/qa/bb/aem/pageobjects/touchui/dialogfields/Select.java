@@ -43,7 +43,7 @@ public class Select implements DialogField {
   }
 
   @Override
-  public FieldType getType() {
-    return FieldType.SELECT;
+  public String getType() {
+    return FieldType.SELECT.name();
   }
 }

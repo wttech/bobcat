@@ -80,19 +80,19 @@ public class Parsys {
   public Component getComponent(String dataPath) {
     String componentDataPath = DataPathUtil.normalize(dataPath);
     return componentList.stream() //
-        .filter(containsDataPath(componentDataPath)) //
-        .findFirst() //
-        .orElseThrow(() -> new IllegalStateException("Component not present in the parsys"));
+            .filter(containsDataPath(componentDataPath)) //
+            .findFirst() //
+            .orElseThrow(() -> new IllegalStateException("Component not present in the parsys"));
   }
 
   public boolean isComponentPresent(String dataPath) {
     String componentDataPath = DataPathUtil.normalize(dataPath);
     return componentList.stream() //
-        .anyMatch(containsDataPath(componentDataPath));
+            .anyMatch(containsDataPath(componentDataPath));
   }
 
-  public void insertComponent(String title) {
-    openInsertDialog().insertComponent(title);
+  public WebElement insertComponent(String title) {
+    return openInsertDialog().insertComponent(title);
   }
 
   public void configureComponent(String dataPath, Map<String, List<FieldConfig>> data) {
@@ -115,9 +115,8 @@ public class Parsys {
   }
 
   /**
-   * it may happen that the window pops up just a moment before {@code dropArea.click(} happens, which
-   * results in WebdriverException: 'Other element would receive the click' - thus it is catched and
-   * validated
+   * it may happen that the window pops up just a moment before {@code dropArea.click(} happens, which results
+   * in WebdriverException: 'Other element would receive the click' - thus it is catched and validated
    */
   private void tryToOpenInsertWindow() {
     conditions.verify(ignored -> {

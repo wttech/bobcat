@@ -51,9 +51,11 @@ public class InsertComponentWindow {
   @FindBy(css = ".coral-Modal-closeButton")
   private WebElement closeButton;
 
-  public void insertComponent(String title) {
-    conditions.elementReady(getComponent(title)).click();
+  public WebElement insertComponent(String title) {
+    WebElement component = getComponent(title);
+    conditions.elementReady(component).click();
     conditions.verify(not(visibilityOf(window)));
+    return component;
   }
 
   /**

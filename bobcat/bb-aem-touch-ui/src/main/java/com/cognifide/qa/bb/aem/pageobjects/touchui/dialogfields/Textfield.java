@@ -38,7 +38,7 @@ public class Textfield implements DialogField {
   }
 
   @Override
-  public FieldType getType() {
-    return FieldType.TEXTFIELD;
+  public String getType() {
+    return FieldType.TEXTFIELD.name();
   }
 }
