@@ -20,6 +20,7 @@ import static org.junit.Assert.assertThat;
 
 import com.cognifide.bdd.demo.GuiceModule;
 import com.cognifide.qa.bb.aem.AemLogin;
+import com.cognifide.qa.bb.aem.data.componentconfigs.FieldConfig;
 import com.cognifide.qa.bb.aem.data.pages.Pages;
 import com.cognifide.qa.bb.aem.pageobjects.pages.AuthorPage;
 import com.cognifide.qa.bb.aem.pageobjects.pages.AuthorPageFactory;
@@ -27,6 +28,8 @@ import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
 import com.google.inject.Inject;
 
+import java.util.List;
+import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
@@ -63,6 +66,7 @@ public class AemRichtextTest {
 
   @Test
   public void test() {
+    feedbackPage.addComponent(parsys, "Text");
     feedbackPage.configureComponent(parsys, "Text", "valid Text");
   }
 
