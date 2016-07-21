@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
 
-import com.cognifide.qa.bb.aem.dialog.configurer.ScenarioContext;
+import com.cognifide.qa.bb.scope.ScenarioContext;
 import com.cognifide.qa.bb.aem.data.componentconfigs.FieldConfig;
 import com.cognifide.qa.bb.aem.pageobjects.pages.AuthorPage;
 import com.cognifide.qa.bb.aem.pageobjects.pages.PublishPage;

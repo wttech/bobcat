@@ -33,7 +33,6 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import com.cognifide.qa.bb.jcr.JcrHelper;
 import com.cognifide.qa.bb.provider.jcr.utils.JcrAuthorUtils;
-import com.cognifide.qa.bb.aem.util.context.Context;
 import com.google.inject.Inject;
 
 public class ContentHelper {
