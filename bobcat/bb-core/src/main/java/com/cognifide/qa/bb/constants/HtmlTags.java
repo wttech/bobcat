@@ -38,6 +38,8 @@ public final class HtmlTags {
 
     public static final String ALT = "alt";
 
+    public static final String TITLE = "title";
+
     private Attributes() {}
   }
 

@@ -43,7 +43,7 @@ public class ImageComponent {
   }
 
   public String getTitle() {
-    return img.getAttribute("title");
+    return img.getAttribute(HtmlTags.Attributes.TITLE);
   }
 
   public String getAltText() {
