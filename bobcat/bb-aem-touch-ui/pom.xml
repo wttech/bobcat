@@ -18,12 +18,7 @@
             <artifactId>bb-core</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <!-- bb-aem-common dependency is needed for SiteAdminPage class -->
-        <dependency>
-            <groupId>com.cognifide.qa.bb</groupId>
-            <artifactId>bb-aem-common</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+        <!-- TODO bb-aem-touch-ui should be independent from bb-aem-classic-->
         <dependency>
             <groupId>com.cognifide.qa.bb</groupId>
             <artifactId>bb-aem-classic</artifactId>
@@ -43,10 +38,6 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>org.reflections</groupId>-->
-        <!--<artifactId>reflections</artifactId>-->
-        <!--</dependency>-->
 
         <dependency>
             <groupId>junit</groupId>

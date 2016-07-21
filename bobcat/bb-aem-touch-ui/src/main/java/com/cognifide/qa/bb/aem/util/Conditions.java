@@ -24,6 +24,7 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
+import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.aem.pageobjects.touchui.AuthorLoader;
@@ -50,7 +51,7 @@ public class Conditions {
   }
 
   public boolean classContains(WebElement element, String value) {
-    return hasAttributeWithValue(element, "class", value);
+    return hasAttributeWithValue(element, HtmlTags.Attributes.CLASS, value);
   }
 
   public boolean isConditionMet(ExpectedCondition condition) {

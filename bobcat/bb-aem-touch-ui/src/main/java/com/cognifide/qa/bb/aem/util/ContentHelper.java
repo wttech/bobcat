@@ -56,9 +56,6 @@ public class ContentHelper {
   private Conditions conditions;
 
   @Inject
-  private Context context;
-
-  @Inject
   public ContentHelper(JcrAuthorUtils provider) {
     this.jcrHelper = provider.getJcrHelper();
     this.session = provider.getSession();
