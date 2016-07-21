@@ -24,6 +24,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.aem.ui.wcm.constants.ActivationStatus;
+import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
@@ -100,7 +101,7 @@ public class SiteAdminGridRow {
    * @return ActivationStatus
    */
   public ActivationStatus getActivationStatus() {
-    String className = published.getAttribute("class");
+    String className = published.getAttribute(HtmlTags.Attributes.CLASS);
     return ActivationStatus.getStatus(className);
   }
 
@@ -147,7 +148,7 @@ public class SiteAdminGridRow {
    * @return true if selected
    */
   public boolean isSelected() {
-    return currentScope.getAttribute("class").contains("x-grid3-row-selected");
+    return currentScope.getAttribute(HtmlTags.Attributes.CLASS).contains("x-grid3-row-selected");
   }
 
   /**

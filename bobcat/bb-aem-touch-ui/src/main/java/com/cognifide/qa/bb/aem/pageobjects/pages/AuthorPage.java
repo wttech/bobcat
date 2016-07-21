@@ -33,6 +33,7 @@ import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.frame.FrameSwitcher;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.utils.PageObjectInjector;
@@ -103,7 +104,8 @@ public class AuthorPage {
 
   public boolean isLoaded() {
     return conditions.isConditionMet(
-        not(ignored -> StringUtils.contains(authoringOverlay.getAttribute("class"), IS_HIDDEN)));
+        not(ignored -> StringUtils
+            .contains(authoringOverlay.getAttribute(HtmlTags.Attributes.CLASS), IS_HIDDEN)));
   }
 
   public Parsys getParsys(String dataPath) {

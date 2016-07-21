@@ -19,12 +19,12 @@
  */
 package com.cognifide.qa.bb.aem.expectedconditions;
 
-
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+
+import com.cognifide.qa.bb.constants.HtmlTags;
 
 /**
  * Static methods that provides actions on Content Finder wrapped in ExpectedCondition.
@@ -35,8 +35,6 @@ public final class ContentFinderActions {
 
   private static final String VIEW_ACTIVE = "x-btn-pressed";
 
-  private static final String CLASS_ATTRIBUTE = "class";
-
   private static final String VIEW_WRAPPER_XPATH = "./../../../../..";
 
   private static final String COLLAPSE_BUTTON_CSS = "#cq-cf-west-xsplit div";
@@ -45,7 +43,8 @@ public final class ContentFinderActions {
 
   private static final String VIEW_IS_NOT_READY = "View is not ready";
 
-  private ContentFinderActions() { }
+  private ContentFinderActions() {
+  }
 
   /**
    * Clicks contentFinder tab and checks if it is active.
@@ -58,7 +57,7 @@ public final class ContentFinderActions {
       @Override
       public Boolean apply(WebDriver driver) {
         tab.click();
-        return tab.getAttribute(CLASS_ATTRIBUTE).contains(
+        return tab.getAttribute(HtmlTags.Attributes.CLASS).contains(
             TAB_ACTIVE);
       }
 
@@ -80,7 +79,8 @@ public final class ContentFinderActions {
       @Override
       public Boolean apply(WebDriver driver) {
         view.click();
-        return view.findElement(By.xpath(VIEW_WRAPPER_XPATH)).getAttribute(CLASS_ATTRIBUTE)
+        return view.findElement(By.xpath(VIEW_WRAPPER_XPATH))
+            .getAttribute(HtmlTags.Attributes.CLASS)
             .contains(VIEW_ACTIVE);
       }
 

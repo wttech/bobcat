@@ -31,6 +31,7 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.dragdrop.DragAndDropFactory;
 import com.cognifide.qa.bb.dragdrop.Draggable;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
@@ -100,7 +101,8 @@ public class SidePanel {
 
   private WebElement getResult(String asset) {
     return searchResults.stream() //
-        .filter(element -> StringUtils.contains(element.getAttribute("data-path"), asset)) //
+        .filter(element -> StringUtils
+            .contains(element.getAttribute(HtmlTags.Attributes.DATA_PATH), asset)) //
         .findFirst() //
         .orElseThrow(() -> new IllegalStateException(asset + " asset was not found"));
   }

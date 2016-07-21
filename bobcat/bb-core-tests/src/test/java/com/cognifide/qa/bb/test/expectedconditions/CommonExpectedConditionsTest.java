@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bb.test.expectedconditions;
 
-
-
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import org.junit.Before;
@@ -34,6 +32,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
+import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.expectedconditions.CommonExpectedConditions;
 import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
@@ -53,8 +52,6 @@ public class CommonExpectedConditionsTest {
   private static final String PRESENT_TAG = "h1";
 
   private static final String NOT_PRESENT_TAG = "h2";
-
-  private static final String PRESENT_ATTRIBUTE = "class";
 
   private static final String NOT_PRESENT_ATTRIBUTE = "type";
 
@@ -116,7 +113,7 @@ public class CommonExpectedConditionsTest {
     //when
     boolean actual = waitFor(
         CommonExpectedConditions.elementHasAttributeWithValue(
-            element, PRESENT_ATTRIBUTE, PRESENT_ATTRIBUTE_VALUE));
+            element, HtmlTags.Attributes.CLASS, PRESENT_ATTRIBUTE_VALUE));
 
     //then
     assertThat(actual).as("check if element has attribute with value").isTrue();
@@ -131,7 +128,7 @@ public class CommonExpectedConditionsTest {
     //when
     waitFor(
         CommonExpectedConditions.elementHasAttributeWithValue(
-            element, PRESENT_ATTRIBUTE, NOT_PRESENT_ATTRIBUTE_VALUE));
+            element, HtmlTags.Attributes.CLASS, NOT_PRESENT_ATTRIBUTE_VALUE));
   }
 
   @Test

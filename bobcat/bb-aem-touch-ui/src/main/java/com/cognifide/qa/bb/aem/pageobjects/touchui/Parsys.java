@@ -19,7 +19,7 @@
  */
 package com.cognifide.qa.bb.aem.pageobjects.touchui;
 
-import static com.cognifide.qa.bb.aem.util.DataPathUtil.JCR_CONTENT;
+import static com.cognifide.qa.bb.aem.util.ContentHelper.JCR_CONTENT;
 import static org.openqa.selenium.support.ui.ExpectedConditions.not;
 import static org.openqa.selenium.support.ui.ExpectedConditions.stalenessOf;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
@@ -33,6 +33,7 @@ import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.Global;
@@ -67,7 +68,7 @@ public class Parsys {
   private WebElement parsys;
 
   public String getDataPath() {
-    String rawValue = parsys.getAttribute("data-path");
+    String rawValue = parsys.getAttribute(HtmlTags.Attributes.DATA_PATH);
     return StringUtils.substringAfter(rawValue, JCR_CONTENT);
   }
 
@@ -110,7 +111,7 @@ public class Parsys {
   private void tryToSelect() {
     conditions.verify(input -> {
       conditions.verify(visibilityOf(dropArea)).click();
-      return dropArea.getAttribute("class").contains(IS_SELECTED);
+      return dropArea.getAttribute(HtmlTags.Attributes.CLASS).contains(IS_SELECTED);
     }, Timeouts.MEDIUM);
   }
 

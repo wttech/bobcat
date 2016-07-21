@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.bdd.demo.html;
+package com.cognifide.qa.bb.constants;
 
 
 public final class HtmlTags {
@@ -33,6 +33,8 @@ public final class HtmlTags {
     public static final String HREF = "href";
 
     public static final String VALUE = "value";
+
+    public static final String DATA_PATH = "data-path";
 
     private Attributes() {}
   }

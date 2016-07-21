@@ -19,7 +19,7 @@
  */
 package com.cognifide.qa.bb.aem.pageobjects.touchui;
 
-import static com.cognifide.qa.bb.aem.util.DataPathUtil.JCR_CONTENT;
+import static com.cognifide.qa.bb.aem.util.ContentHelper.JCR_CONTENT;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
 import java.util.List;
@@ -31,6 +31,7 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
@@ -63,7 +64,8 @@ public class Component {
   private DeleteDialog deleteDialog;
 
   public String getDataPath() {
-    String rawValue = conditions.staleSafe(component, checked -> checked.getAttribute("data-path"));
+    String rawValue = conditions.staleSafe(component, checked -> checked.getAttribute(
+        HtmlTags.Attributes.DATA_PATH));
     return StringUtils.substringAfter(rawValue, JCR_CONTENT);
   }
 

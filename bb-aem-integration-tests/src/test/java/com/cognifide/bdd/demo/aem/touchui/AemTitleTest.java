@@ -41,6 +41,7 @@ import com.cognifide.qa.bb.aem.pageobjects.pages.AuthorPageFactory;
 import com.cognifide.qa.bb.aem.pageobjects.touchui.GlobalBar;
 import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
+import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.google.inject.Inject;
 
 @RunWith(TestRunner.class)
