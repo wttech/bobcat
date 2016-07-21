@@ -57,7 +57,7 @@ public class AemImageTest {
   @Test
   public void configureImageTest() {
     String parsys = pages.getParsys(CONFIGURATION);
-    assertThat(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME.toLowerCase()), is(true));
+    assertTrue(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME.toLowerCase()));
     Map<String, List<FieldConfig>> data = page.configureComponent(parsys,
         COMPONENT_NAME, COMPONENT_NAME.toLowerCase());
 
