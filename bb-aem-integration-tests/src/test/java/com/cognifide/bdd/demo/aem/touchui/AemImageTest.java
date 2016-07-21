@@ -1,7 +1,7 @@
 package com.cognifide.bdd.demo.aem.touchui;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.core.StringEndsWith.endsWith;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -28,6 +28,10 @@ import com.google.inject.Inject;
 @Modules(GuiceModule.class)
 public class AemImageTest {
 
+  private static final String CONFIGURATION = "Image - Update&Read";
+
+  private static final String COMPONENT_NAME = "Image";
+
   @Inject
   private AemLogin aemLogin;
 
@@ -41,10 +45,6 @@ public class AemImageTest {
   private Components components;
 
   private AuthorPage page;
-
-  private static final String CONFIGURATION = "Image - Update&Read";
-
-  private static final String COMPONENT_NAME = "Image";
 
   @Before
   public void setup() {
@@ -65,11 +65,13 @@ public class AemImageTest {
         (ImageComponent) page.getContent(components.getClazz(COMPONENT_NAME));
 
     List<FieldConfig> configuration = data.get(COMPONENT_NAME);
-    assertTrue(component.getImagePath().endsWith(configuration.get(0).getValue().toString()));
-    assertEquals(configuration.get(1).getValue(), component.getTitle());
-    assertEquals(configuration.get(2).getValue(), component.getAltText());
-    assertTrue(
-        component.getLinkTo().endsWith(configuration.get(3).getValue().toString() + ".html"));
-    assertEquals(configuration.get(4).getValue(), component.getDescription());
+    assertThat("Wrong image path", component.getImagePath(),
+        endsWith(configuration.get(0).getValue().toString()));
+    assertThat("Wrong image title", configuration.get(1).getValue(), is(component.getTitle()));
+    assertThat("Wrong image alt", configuration.get(2).getValue(), is(component.getAltText()));
+    assertThat("Wrong image link to", component.getLinkTo(),
+        endsWith(configuration.get(3).getValue().toString() + ".html"));
+    assertThat("Wrong image description", configuration.get(4).getValue(),
+        is(component.getDescription()));
   }
 }

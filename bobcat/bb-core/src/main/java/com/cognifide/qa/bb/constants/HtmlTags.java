@@ -36,12 +36,16 @@ public final class HtmlTags {
 
     public static final String DATA_PATH = "data-path";
 
+    public static final String ALT = "alt";
+
     private Attributes() {}
   }
 
   public static final class Properties {
 
     public static final String INNER_HTML = "innerHTML";
+
+    public static final String OUTER_HTML = "outerHTML";
 
     private Properties() {}
   }

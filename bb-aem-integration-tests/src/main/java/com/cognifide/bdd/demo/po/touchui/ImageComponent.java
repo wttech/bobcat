@@ -4,6 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
@@ -30,7 +31,7 @@ public class ImageComponent {
   private WebElement linkTo;
 
   public String getImgScript() {
-    return imgScript.getAttribute("outerHTML");
+    return imgScript.getAttribute(HtmlTags.Properties.OUTER_HTML);
   }
 
   public String getImagePath() {
@@ -38,7 +39,7 @@ public class ImageComponent {
   }
 
   public String getLinkTo() {
-    return linkTo.getAttribute("href");
+    return linkTo.getAttribute(HtmlTags.Attributes.HREF);
   }
 
   public String getTitle() {
@@ -46,7 +47,7 @@ public class ImageComponent {
   }
 
   public String getAltText() {
-    return img.getAttribute("alt");
+    return img.getAttribute(HtmlTags.Attributes.ALT);
   }
 
   public String getDescription() {

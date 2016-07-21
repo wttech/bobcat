@@ -157,6 +157,6 @@ public class SiteAdminGridRow {
    * @return ToolTip body
    */
   public String getPageStatusToolTip() {
-    return status.getAttribute("outerHTML");
+    return status.getAttribute(HtmlTags.Properties.OUTER_HTML);
   }
 }
