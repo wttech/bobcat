@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bobcumber.steps.common;
 
-
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
@@ -31,7 +29,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import com.cognifide.qa.bb.aem.dialog.configurer.ScenarioContext;
+import com.cognifide.qa.bb.scope.ScenarioContext;
 import com.cognifide.qa.bb.aem.ui.parsys.AemParsys;
 import com.cognifide.qa.bb.aem.utils.AemClassicAuthorHelper;
 import com.google.inject.Inject;

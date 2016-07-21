@@ -45,6 +45,10 @@
             <artifactId>selenium-htmlunit-driver</artifactId>
         </dependency>
         <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-guice</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.appium</groupId>
             <artifactId>java-client</artifactId>
         </dependency>
