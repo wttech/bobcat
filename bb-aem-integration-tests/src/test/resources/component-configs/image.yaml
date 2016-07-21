@@ -1,0 +1,18 @@
+image:
+  Image:
+    - label: Image asset
+      type: IMAGE
+      value: cover
+    - label: Title
+      type: TEXTFIELD
+      value: TestTitle
+    - label: Alt Text
+      type: TEXTFIELD
+      value: TestAlt
+    - label: Link to
+      type: PATHBROWSER
+      value: /content/geometrixx
+    - label: Description
+      type: TEXTFIELD
+      value: TestDescription
+

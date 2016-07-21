@@ -112,7 +112,7 @@ public class AemImage implements Configurable {
   public String getImageInfo() {
     bobcatWait.withTimeout(Timeouts.MEDIUM).until(ExpectedConditions.visibilityOf(infoButton));
     infoButton.click();
-    return tip.findElement(By.xpath(".//a")).getAttribute("href");
+    return tip.findElement(By.xpath(".//a")).getAttribute(HtmlTags.Attributes.HREF);
   }
 
   /**

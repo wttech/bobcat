@@ -20,3 +20,6 @@
 Title:
   datapath: /title
   clazz: com.cognifide.bdd.demo.po.touchui.TitleComponent
+Image:
+  datapath: /image
+  clazz: com.cognifide.bdd.demo.po.touchui.ImageComponent
