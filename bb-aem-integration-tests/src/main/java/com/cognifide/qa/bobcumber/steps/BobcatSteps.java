@@ -29,7 +29,7 @@ import com.cognifide.qa.bb.aem.dialog.configurer.ComponentConfig;
 import com.cognifide.qa.bb.aem.dialog.configurer.ComponentConfigBuilder;
 import com.cognifide.qa.bb.aem.dialog.configurer.ConfigurationEntry;
 import com.cognifide.qa.bb.aem.dialog.configurer.JsonToComponentConfig;
-import com.cognifide.qa.bb.scope.ScenarioContext;
+import com.cognifide.qa.bb.scenario.ScenarioContext;
 import com.google.inject.Inject;
 
 import cucumber.api.java.en.Then;

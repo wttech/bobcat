@@ -28,7 +28,7 @@ import com.cognifide.bdd.demo.po.customersurvey.CustomerSurveyPage;
 import com.cognifide.bdd.demo.po.feedback.FeedbackPage;
 import com.cognifide.bdd.demo.po.feedback.TextFieldComponent;
 import com.cognifide.bdd.demo.po.feedback.TitleComponent;
-import com.cognifide.qa.bb.scope.ScenarioContext;
+import com.cognifide.qa.bb.scenario.ScenarioContext;
 import com.google.inject.Inject;
 
 import cucumber.api.java.en.And;
