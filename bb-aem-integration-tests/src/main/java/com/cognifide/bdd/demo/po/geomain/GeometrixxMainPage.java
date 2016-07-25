@@ -23,13 +23,13 @@ package com.cognifide.bdd.demo.po.geomain;
 
 import org.openqa.selenium.support.FindBy;
 
-import com.cognifide.qa.bb.aem.AbstractPage;
+import com.cognifide.qa.bb.aem.author.AuthorPage;
 import com.cognifide.qa.bb.qualifier.Frame;
 import com.cognifide.qa.bb.qualifier.PageObject;
 
 @PageObject
 @Frame("$cq")
-public class GeometrixxMainPage extends AbstractPage {
+public class GeometrixxMainPage extends AuthorPage {
 
   private static final String PAGE_TITLE = "English";
 

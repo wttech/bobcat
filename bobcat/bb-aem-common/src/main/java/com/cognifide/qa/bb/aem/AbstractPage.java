@@ -20,15 +20,12 @@
 package com.cognifide.qa.bb.aem;
 
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.cognifide.qa.bb.constants.AemConfigKeys;
 import com.cognifide.qa.bb.utils.WebElementUtils;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * This class represents a HTML page. <br>
@@ -36,21 +33,15 @@ import com.google.inject.name.Named;
  */
 public abstract class AbstractPage {
 
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractPage.class);
-
   @Inject
-  private WebDriver webDriver;
+  public WebDriver webDriver;
 
   @Inject
   @Named(AemConfigKeys.PAGE_TITLE_TIMEOUT)
   private int pageTitleTimeout;
 
   @Inject
-  @Named(AemConfigKeys.AUTHOR_URL)
-  private String authorUrl;
-
-  @Inject
-  private WebElementUtils webElementUtils;
+  public WebElementUtils webElementUtils;
 
   /**
    * @return Url of the page, without domain part.
@@ -65,9 +56,7 @@ public abstract class AbstractPage {
   /**
    * @return Full URL of the page which means: domain plus "content path".
    */
-  public String getFullUrl() {
-    return authorUrl + getContentPath();
-  }
+  public abstract String getFullUrl();
 
   /**
    * @return True if the page is displayed, false otherwise. <br>
@@ -86,26 +75,4 @@ public abstract class AbstractPage {
     webDriver.get(getFullUrl());
   }
 
-  /**
-   * Tries opening the page with default {@link AemConfigKeys#PAGE_TITLE_TIMEOUT} and additional
-   * refreshing if the page was not opened with the first retry. Each next refresh will take
-   * {@link AemConfigKeys#PAGE_TITLE_TIMEOUT} for verification if page was loaded.
-   *
-   * @param timeoutForRefreshing additional timeout (in seconds) for page refreshing.
-   * @return <code>true</code> if page is loaded
-   */
-  public boolean openPageWithRefresh(int timeoutForRefreshing) {
-    webDriver.get(getFullUrl());
-    boolean success = isDisplayed();
-
-    if (!success) {
-      success =
-          webElementUtils.isConditionMet(driver -> {
-            LOG.debug("Error while loading page. Refreshing...");
-            webDriver.navigate().refresh();
-            return isDisplayed();
-          }, timeoutForRefreshing);
-    }
-    return success;
-  }
 }
