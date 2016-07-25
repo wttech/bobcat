@@ -16,8 +16,8 @@
 package com.cognifide.bdd.demo.po.touchui.components.text.dialog.panel;
 
 import com.cognifide.bdd.demo.po.touchui.GeometrixxFieldTypes;
-import com.cognifide.bdd.demo.po.touchui.components.text.dialog.ControlToolbar;
-import com.cognifide.bdd.demo.po.touchui.components.text.dialog.ListControls;
+import com.cognifide.bdd.demo.po.touchui.dialog.text.ControlToolbar;
+import com.cognifide.bdd.demo.po.touchui.dialog.text.ListControls;
 import com.cognifide.qa.bb.aem.pageobjects.touchui.dialogfields.DialogField;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;

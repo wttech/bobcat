@@ -35,7 +35,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.cognifide.bdd.demo.GuiceModule;
-import com.cognifide.bdd.demo.html.HtmlTags;
+import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.bdd.demo.po.publish.components.TopNav;
 import com.cognifide.bdd.demo.po.publish.pages.HomePage;
 import com.cognifide.qa.bb.constants.AemConfigKeys;

@@ -20,7 +20,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 import com.cognifide.bdd.demo.GuiceModule;
-import com.cognifide.bdd.demo.po.touchui.components.text.TextComponent;
+import com.cognifide.bdd.demo.po.touchui.TextComponent;
 import com.cognifide.qa.bb.aem.AemLogin;
 import com.cognifide.qa.bb.aem.data.pages.Pages;
 import com.cognifide.qa.bb.aem.pageobjects.pages.AuthorPage;
@@ -40,7 +40,7 @@ import org.junit.runner.RunWith;
 @Modules(GuiceModule.class)
 public class AemRichtextTest {
 
-  private static final String PAGE_TITLE = "Summer Blockbuster";
+  private static final String PAGE_TITLE = "Text - Update&Read";
 
   @Inject
   private AemLogin aemLogin;

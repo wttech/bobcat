@@ -19,7 +19,6 @@
  */
 package com.cognifide.qa.bb.aem.ui.wcm;
 
-
 import static org.openqa.selenium.support.ui.ExpectedConditions.not;
 import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
 
@@ -49,6 +48,7 @@ import com.cognifide.qa.bb.aem.ui.wcm.windows.PastePageWindow;
 import com.cognifide.qa.bb.aem.ui.wcm.windows.ReplicateLaterWindow;
 import com.cognifide.qa.bb.aem.ui.wcm.windows.SiteAdminConfirmationWindow;
 import com.cognifide.qa.bb.constants.AemConfigKeys;
+import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.PageObject;
@@ -146,8 +146,8 @@ public class SiteAdminPage {
    * Creates a new page based on provided the values. During creation specified template is used in
    * CreatePageWindow.
    *
-   * @param title title of the created page
-   * @param name name of the created page
+   * @param title        title of the created page
+   * @param name         name of the created page
    * @param templateName template of the created page
    * @return this SiteadminPage
    */
@@ -162,8 +162,8 @@ public class SiteAdminPage {
    * Assumes that the "Create Page" dialog has been already opened and creates a new page based on
    * provided the values. During creation specified template is used in CreatePageWindow.
    *
-   * @param title title of the created page
-   * @param name name of the created page
+   * @param title        title of the created page
+   * @param name         name of the created page
    * @param templateName template of the created page
    * @return this SiteadminPage
    */
@@ -177,7 +177,7 @@ public class SiteAdminPage {
    * Creates a new page based on the provided values. name is omitted (default one is set by AEM).
    * During creation specified template is used in CreatePageWindow
    *
-   * @param title title of the created page
+   * @param title        title of the created page
    * @param templateName template of the created page
    * @return this SiteadminPage
    */
@@ -190,7 +190,7 @@ public class SiteAdminPage {
 
   /**
    * Opens CreateSiteWindow
-   * 
+   *
    * @return CreateSiteWindow
    */
   public CreateSiteWindow openCreateSiteWindow() {
@@ -204,7 +204,7 @@ public class SiteAdminPage {
    * Assumes that the "Create Page" dialog has been already opened and creates a new page based on
    * provided the values. During creation specified template is used in CreatePageWindow.
    *
-   * @param title title of the created page
+   * @param title        title of the created page
    * @param templateName template of the created page
    * @return this SiteAdminPage
    */
@@ -232,8 +232,8 @@ public class SiteAdminPage {
    * Activate drop down.
    *
    * @param title title of the page
-   * @param day day in format dd/mm/yy
-   * @param time time in format hh:mm a (10:12 AM)
+   * @param day   day in format dd/mm/yy
+   * @param time  time in format hh:mm a (10:12 AM)
    * @return this SiteadminPage
    */
   public SiteAdminPage activatePageLater(String title, String day, String time) {
@@ -241,7 +241,8 @@ public class SiteAdminPage {
     bobcatWait.withTimeout(Timeouts.MEDIUM).until(driver -> {
       grid.getActionBar().expandDropDown(SiteAdminButtons.ACTIVATE);
       WebElement button = webDriver.findElement(SiteAdminButtons.ACTIVATE_LATER.getLocator());
-      return button.isDisplayed() && !button.findElement(By.xpath("..")).getAttribute("class")
+      return button.isDisplayed() && !button.findElement(By.xpath(".."))
+          .getAttribute(HtmlTags.Attributes.CLASS)
           .contains("x-item-disabled");
     });
     grid.getActionBar().clickDropDownOption(SiteAdminButtons.ACTIVATE_LATER);
@@ -258,8 +259,8 @@ public class SiteAdminPage {
    * in Deactivate drop down.
    *
    * @param title title of the page
-   * @param day day in format dd/mm/yy
-   * @param time time in format hh:mm a (10:12 AM)
+   * @param day   day in format dd/mm/yy
+   * @param time  time in format hh:mm a (10:12 AM)
    * @return this SiteadminPage
    */
   public SiteAdminPage deactivatePageLater(String title, String day, String time) {
@@ -267,7 +268,8 @@ public class SiteAdminPage {
     bobcatWait.withTimeout(Timeouts.MEDIUM).until(driver -> {
       grid.getActionBar().expandDropDown(SiteAdminButtons.DEACTIVATE);
       WebElement button = webDriver.findElement(SiteAdminButtons.DEACTIVATE_LATER.getLocator());
-      return button.isDisplayed() && !button.findElement(By.xpath("..")).getAttribute("class")
+      return button.isDisplayed() && !button.findElement(By.xpath(".."))
+          .getAttribute(HtmlTags.Attributes.CLASS)
           .contains("x-item-disabled");
     });
     grid.getActionBar().clickDropDownOption(SiteAdminButtons.DEACTIVATE_LATER);
@@ -364,7 +366,7 @@ public class SiteAdminPage {
 
   /**
    * Click yes on any confirmation window in siteadmin.
-   * 
+   *
    * @return this SiteAdminPage
    */
   public SiteAdminPage clickYesOnConfirmationWindow() {
@@ -386,7 +388,7 @@ public class SiteAdminPage {
    * Moves the page with provided title to provided destination path by selecting it and pressing
    * Move button on Action Bar
    *
-   * @param title page title
+   * @param title           page title
    * @param destinationPath destination page path
    * @return this SiteadminPage
    */
@@ -413,7 +415,7 @@ public class SiteAdminPage {
   /**
    * Checks if a specified template with provided title is displayed in the SiteAdminGrid.
    *
-   * @param title title of the template
+   * @param title    title of the template
    * @param template name of the template
    * @return true if template is present
    */

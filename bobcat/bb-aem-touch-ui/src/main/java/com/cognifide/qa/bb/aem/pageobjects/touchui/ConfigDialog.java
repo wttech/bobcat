@@ -30,6 +30,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.aem.data.componentconfigs.FieldConfig;
@@ -74,8 +75,9 @@ public class ConfigDialog {
   }
 
   public void verifyFullscreen() {
-    conditions.verify(webDriver -> containsIgnoreCase(dialog.getAttribute("class"),
-        FULLSCREEN_CLASS));
+    conditions
+        .verify(webDriver -> containsIgnoreCase(dialog.getAttribute(HtmlTags.Attributes.CLASS),
+            FULLSCREEN_CLASS));
   }
 
   public void confirm() {

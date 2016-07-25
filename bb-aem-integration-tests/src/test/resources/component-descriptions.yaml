@@ -22,4 +22,7 @@ Title:
   clazz: com.cognifide.bdd.demo.po.touchui.TitleComponent
 Text:
     datapath: /text
-    clazz: com.cognifide.bdd.demo.po.touchui.components.text.TextComponent
+    clazz: com.cognifide.bdd.demo.po.touchui.TextComponent
+Image:
+  datapath: /image
+  clazz: com.cognifide.bdd.demo.po.touchui.ImageComponent

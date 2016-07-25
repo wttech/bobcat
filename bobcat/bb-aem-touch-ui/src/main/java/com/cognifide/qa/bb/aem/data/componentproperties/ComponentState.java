@@ -61,7 +61,7 @@ public class ComponentState {
 
   /**
    * Translates provided configuration to a map containing expected values in form of:
-   * <code>tab:label -> value</code>
+   * <code>tab:label -&gt; value</code>
    * Filters out all complex fields e.g. Multifield
    *
    * @param config        component configuration map

@@ -15,7 +15,7 @@
  */
 package com.cognifide.bdd.demo;
 
-import com.cognifide.bdd.demo.po.touchui.components.text.dialog.FontFormat;
+import com.cognifide.bdd.demo.po.touchui.dialog.text.FontFormat;
 import com.cognifide.bdd.demo.po.touchui.components.text.dialog.panel.JustifyDialogPanel;
 import com.cognifide.bdd.demo.po.touchui.components.text.dialog.panel.ListDialogPanel;
 import com.cognifide.qa.bb.aem.pageobjects.touchui.dialogfields.DialogField;

@@ -25,7 +25,7 @@ import java.util.Arrays;
 
 import org.openqa.selenium.WebElement;
 
-import com.cognifide.bdd.demo.html.HtmlTags;
+import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.bdd.demo.po.ComponentWithDialog;
 import com.cognifide.qa.bb.aem.dialog.classic.field.AemDropdown;
 import com.cognifide.qa.bb.aem.dialog.classic.field.AemRichText;

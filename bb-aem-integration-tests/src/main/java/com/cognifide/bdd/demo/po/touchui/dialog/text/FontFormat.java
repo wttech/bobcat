@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.cognifide.bdd.demo.po.touchui.components.text.dialog;
+package com.cognifide.bdd.demo.po.touchui.dialog.text;
 
 import com.cognifide.bdd.demo.po.touchui.GeometrixxFieldTypes;
 import com.cognifide.qa.bb.aem.dialog.classic.field.RtButton;

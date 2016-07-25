@@ -27,7 +27,6 @@ import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.utils.PageObjectInjector;
-import com.cognifide.qa.bb.aem.util.Conditions;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
@@ -49,9 +48,6 @@ public class PublishPage {
 
   @Inject
   private WebDriver webDriver;
-
-  @Inject
-  private Conditions conditions;
 
   @Inject
   @Named("publish.url")

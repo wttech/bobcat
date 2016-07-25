@@ -20,6 +20,9 @@
 Title - Update&Read:
   path: /content/geometrixx/en/toolbar/contacts.html
   parsys: /par
-Summer Blockbuster:
+Text - Update&Read:
   path: /content/geometrixx-media/en/entertainment/summer-blockbuster-hits-and-misses.html
   parsys: /par1
+Image - Update&Read:
+  path: /content/geometrixx/en/products/mandelbrot.html
+  parsys: /par
