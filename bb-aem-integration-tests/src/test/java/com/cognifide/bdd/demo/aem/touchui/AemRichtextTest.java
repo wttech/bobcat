@@ -16,8 +16,8 @@
 package com.cognifide.bdd.demo.aem.touchui;
 
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import com.cognifide.bdd.demo.GuiceModule;
 import com.cognifide.bdd.demo.po.touchui.TextComponent;
@@ -26,7 +26,6 @@ import com.cognifide.qa.bb.aem.data.pages.Pages;
 import com.cognifide.qa.bb.aem.pageobjects.pages.AuthorPage;
 import com.cognifide.qa.bb.aem.pageobjects.pages.AuthorPageFactory;
 import com.cognifide.qa.bb.aem.pageobjects.touchui.GlobalBar;
-import com.cognifide.qa.bb.aem.pageobjects.touchui.GlobalBar.AuthoringMode;
 import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
 import com.google.inject.Inject;
@@ -64,7 +63,7 @@ public class AemRichtextTest {
     blockbusterPage = authorPageFactory.create(pages.getPath(PAGE_TITLE));
     parsys = pages.getParsys(PAGE_TITLE);
     blockbusterPage.open();
-    assertThat("Page has not loaded", blockbusterPage.isLoaded(), is(true));
+    assertTrue("Page has not loaded", blockbusterPage.isLoaded());
     blockbusterPage.addComponent(parsys, "Text");
   }
 
@@ -150,10 +149,8 @@ public class AemRichtextTest {
 
   @After
   public void cleanUp() {
-    if (AuthoringMode.PREVIEW == globalBar.getCurrentMode()) {
-      globalBar.switchToEditMode();
-      parsys = pages.getParsys(PAGE_TITLE);
-    }
+    globalBar.switchToEditMode();
+    parsys = pages.getParsys(PAGE_TITLE);
     blockbusterPage.deleteComponent(parsys, "Text");
   }
 }

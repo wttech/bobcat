@@ -13,11 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.cognifide.bdd.demo.po.touchui.components.text.dialog.panel;
+package com.cognifide.qa.bb.aem.pageobjects.touchui.dialogfields.text;
 
-import com.cognifide.bdd.demo.po.touchui.GeometrixxFieldTypes;
-import com.cognifide.bdd.demo.po.touchui.dialog.text.ControlToolbar;
-import com.cognifide.bdd.demo.po.touchui.dialog.text.ListControls;
+import com.cognifide.qa.bb.aem.data.componentconfigs.FieldType;
 import com.cognifide.qa.bb.aem.pageobjects.touchui.dialogfields.DialogField;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
@@ -28,13 +26,13 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
 @PageObject
-public class ListDialogPanel implements DialogField {
+public class JustifyDialogPanel implements DialogField {
 
   @FindBy(css = ".coral-RichText-toolbar")
   private ControlToolbar controlToolbar;
 
-  @FindBy(css = ".coral-Popover-content")
-  private ListControls listControl;
+  @FindBy(css = ".coral-RichText-popover[data-id='justify']")
+  private JustifyControls justifyControls;
 
   @Inject
   private BobcatWait bobcatWait;
@@ -42,48 +40,42 @@ public class ListDialogPanel implements DialogField {
   @Override
   public void setValue(Object value) {
     String actionText = (String) value;
-    ListPanelActions action = ListPanelActions.valueOf(actionText.toUpperCase());
+    JustifyPanelActions action = JustifyPanelActions.valueOf(actionText.toUpperCase());
 
     switch (action) {
-      case NUMBERED:
-        openListPopover();
-        listControl.getNumberListBtn().click();
+      case JUSTIFY_LEFT:
+        openJustifyPopover();
+        justifyControls.getJustifyLeftBtn().click();
         break;
-      case BULLET:
-        openListPopover();
-        listControl.getBulletListBtn().click();
+      case JUSTIFY_CENTER:
+        openJustifyPopover();
+        justifyControls.getJustifyCenterBtn().click();
         break;
-      case INDENT:
-        openListPopover();
-        listControl.getIndentListBtn().click();
-        break;
-      case OUTDENT:
-        openListPopover();
-        listControl.getOutdentListBtn().click();
+      case JUSTIFY_RIGHT:
+        openJustifyPopover();
+        justifyControls.getJustifyRightBtn().click();
         break;
       default:
         throw new IllegalArgumentException("There is no action defined for " + actionText);
     }
   }
 
-  private void openListPopover() {
+  private void openJustifyPopover() {
     controlToolbar.selectText();
     bobcatWait.withTimeout(Timeouts.SMALL).until((ExpectedCondition<Object>) input -> controlToolbar.
-            getToggleListButton().isEnabled());
-    controlToolbar.getToggleListButton().click();
+            getToggleJustifyButton().isEnabled());
+    controlToolbar.getToggleJustifyButton().click();
   }
 
   @Override
   public String getType() {
-    return GeometrixxFieldTypes.LIST.name();
+    return FieldType.RICHTEXT_JUSTIFY.name();
   }
 
-  private static enum ListPanelActions {
+  private static enum JustifyPanelActions {
 
-    NUMBERED,
-    BULLET,
-    INDENT,
-    OUTDENT;
+    JUSTIFY_LEFT,
+    JUSTIFY_CENTER,
+    JUSTIFY_RIGHT;
   }
-
 }

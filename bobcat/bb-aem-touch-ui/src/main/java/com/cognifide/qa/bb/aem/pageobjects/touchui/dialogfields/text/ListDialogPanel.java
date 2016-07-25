@@ -13,24 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.cognifide.bdd.demo.po.touchui.dialog.text;
+package com.cognifide.qa.bb.aem.pageobjects.touchui.dialogfields.text;
 
-import com.cognifide.bdd.demo.po.touchui.GeometrixxFieldTypes;
-import com.cognifide.qa.bb.aem.dialog.classic.field.RtButton;
+import com.cognifide.qa.bb.aem.data.componentconfigs.FieldType;
 import com.cognifide.qa.bb.aem.pageobjects.touchui.dialogfields.DialogField;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
-import org.openqa.selenium.WebElement;
+
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
 @PageObject
-public class FontFormat implements DialogField {
+public class ListDialogPanel implements DialogField {
 
   @FindBy(css = ".coral-RichText-toolbar")
   private ControlToolbar controlToolbar;
+
+  @FindBy(css = ".coral-Popover-content")
+  private ListControls listControl;
 
   @Inject
   private BobcatWait bobcatWait;
@@ -38,31 +40,48 @@ public class FontFormat implements DialogField {
   @Override
   public void setValue(Object value) {
     String actionText = (String) value;
-    RtButton rtAction = RtButton.valueOf(actionText);
-    switch (rtAction) {
-      case BOLD:
-        clickFormatButton(controlToolbar.getToggleBoldButton());
+    ListPanelActions action = ListPanelActions.valueOf(actionText.toUpperCase());
+
+    switch (action) {
+      case NUMBERED:
+        openListPopover();
+        listControl.getNumberListBtn().click();
         break;
-      case ITALIC:
-        clickFormatButton(controlToolbar.getToggleItalicButton());
+      case BULLET:
+        openListPopover();
+        listControl.getBulletListBtn().click();
         break;
-      case UNDERLINE:
-        clickFormatButton(controlToolbar.getToggleUnderlineButton());
+      case INDENT:
+        openListPopover();
+        listControl.getIndentListBtn().click();
+        break;
+      case OUTDENT:
+        openListPopover();
+        listControl.getOutdentListBtn().click();
         break;
       default:
-        throw new IllegalArgumentException("There is no action defined for " + rtAction);
+        throw new IllegalArgumentException("There is no action defined for " + actionText);
     }
   }
 
-  private void clickFormatButton(WebElement button) {
+  private void openListPopover() {
     controlToolbar.selectText();
-    bobcatWait.withTimeout(Timeouts.SMALL).until((ExpectedCondition<Object>) input -> button.isEnabled());
-    button.click();
+    bobcatWait.withTimeout(Timeouts.SMALL).until((ExpectedCondition<Object>) input -> controlToolbar.
+            getToggleListButton().isEnabled());
+    controlToolbar.getToggleListButton().click();
   }
 
   @Override
   public String getType() {
-    return GeometrixxFieldTypes.FONT_FORMAT.name();
+    return FieldType.RICHTEXT_LIST.name();
+  }
+
+  private static enum ListPanelActions {
+
+    NUMBERED,
+    BULLET,
+    INDENT,
+    OUTDENT;
   }
 
 }

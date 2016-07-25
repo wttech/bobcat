@@ -42,7 +42,7 @@ import com.google.inject.Inject;
 @PageObject
 public class Component {
   public static final String CSS = //
-      ".cq-Overlay--component:not(.cq-Overlay--container):not(.is-disabled):not([data-text='Drag components here'])";
+      ".cq-Overlay--component:not(.cq-Overlay--container):not(.is-disabled)";
 
   @Inject
   private Conditions conditions;

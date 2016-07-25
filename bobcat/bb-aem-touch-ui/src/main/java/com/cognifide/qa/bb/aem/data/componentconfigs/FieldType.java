@@ -20,13 +20,17 @@
 package com.cognifide.qa.bb.aem.data.componentconfigs;
 
 public enum FieldType {
+
   CHECKBOX,
   IMAGE,
   PATHBROWSER,
   SELECT,
   RICHTEXT,
+  RICHTEXT_FONT_FORMAT,
+  RICHTEXT_LIST,
+  RICHTEXT_JUSTIFY,
   VARIANT,
   TEXTFIELD,
   MULTIFIELD,
-  MULTIFIELD_ITEM
+  MULTIFIELD_ITEM;
 }

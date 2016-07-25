@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.cognifide.bdd.demo.po.touchui.dialog.text;
+package com.cognifide.qa.bb.aem.pageobjects.touchui.dialogfields.text;
 
 import com.cognifide.qa.bb.qualifier.PageObject;
 

@@ -29,6 +29,9 @@ import com.cognifide.qa.bb.aem.pageobjects.touchui.dialogfields.RichText;
 import com.cognifide.qa.bb.aem.pageobjects.touchui.dialogfields.Select;
 import com.cognifide.qa.bb.aem.pageobjects.touchui.dialogfields.Textfield;
 import com.cognifide.qa.bb.aem.pageobjects.touchui.dialogfields.Variant;
+import com.cognifide.qa.bb.aem.pageobjects.touchui.dialogfields.text.FontFormat;
+import com.cognifide.qa.bb.aem.pageobjects.touchui.dialogfields.text.JustifyDialogPanel;
+import com.cognifide.qa.bb.aem.pageobjects.touchui.dialogfields.text.ListDialogPanel;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
 
@@ -46,5 +49,8 @@ public class FieldsModule extends AbstractModule {
     fieldsBinder.addBinding().to(Variant.class);
     fieldsBinder.addBinding().to(Multifield.class);
     fieldsBinder.addBinding().to(MultifieldItem.class);
+    fieldsBinder.addBinding().to(FontFormat.class);
+    fieldsBinder.addBinding().to(JustifyDialogPanel.class);
+    fieldsBinder.addBinding().to(ListDialogPanel.class);
   }
 }

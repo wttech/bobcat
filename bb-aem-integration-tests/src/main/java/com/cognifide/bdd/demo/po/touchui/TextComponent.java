@@ -15,9 +15,11 @@
  */
 package com.cognifide.bdd.demo.po.touchui;
 
+import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
+
 import org.openqa.selenium.WebElement;
 
 @PageObject
@@ -30,7 +32,7 @@ public class TextComponent {
   private WebElement component;
 
   public String getInnerHTML() {
-    return component.getAttribute("outerHTML");
+    return component.getAttribute(HtmlTags.Properties.OUTER_HTML);
   }
 
   public String getCssClassNameProperty() {
