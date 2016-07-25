@@ -21,7 +21,6 @@ package com.cognifide.qa.bb.webelement;
 
 
 
-import java.lang.reflect.Proxy;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -55,7 +54,6 @@ public class BobcatWebElement implements WebElement, Locatable, WrapsElement {
 
   @Override
   public void click() {
-    Proxy.getInvocationHandler(element).getClass();
     element.click();
   }
 

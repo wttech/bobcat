@@ -78,9 +78,9 @@ public class InsertComponentWindow {
 
   private WebElement getComponent(String name) {
     return components.stream() //
-            .filter(element -> equalsIgnoreCase(element.getText(), name)) //
-            .findFirst() //
-            .orElseThrow(
-                    () -> new IllegalStateException("Specified component is not available: " + name));
+          .filter(element -> equalsIgnoreCase(element.getText(), name)) //
+          .findFirst() //
+          .orElseThrow(
+                  () -> new IllegalStateException("Specified component is not available: " + name));
   }
 }

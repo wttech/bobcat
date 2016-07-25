@@ -111,9 +111,9 @@ public class AuthorPage {
   public Parsys getParsys(String dataPath) {
     String path = DataPathUtil.normalize(dataPath);
     return parsyses.stream() //
-            .filter(parsys -> StringUtils.contains(parsys.getDataPath(), path)) //
-            .findFirst() //
-            .orElseThrow(() -> new IllegalStateException("Parsys not found"));
+          .filter(parsys -> StringUtils.contains(parsys.getDataPath(), path)) //
+          .findFirst() //
+          .orElseThrow(() -> new IllegalStateException("Parsys not found"));
   }
 
   public <T> T getContent(Class<T> component) {

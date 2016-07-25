@@ -81,17 +81,17 @@ public class Parsys {
   public Component getComponent(String dataPath) {
     String componentDataPath = DataPathUtil.normalize(dataPath);
     return componentList.stream() //
-            .filter(containsDataPath(componentDataPath)) //
-            .findFirst() //
-            .orElseThrow(() -> new IllegalStateException("Component not present in the parsys"));
+          .filter(containsDataPath(componentDataPath)) //
+          .findFirst() //
+          .orElseThrow(() -> new IllegalStateException("Component not present in the parsys"));
   }
 
   public Component getLastComponent(String dataPath) {
     String componentDataPath = DataPathUtil.normalize(dataPath);
     return componentList.stream() //
-            .filter(containsDataPath(componentDataPath)) //
-            .reduce((a, b) -> b)
-            .orElseThrow(() -> new IllegalStateException("Component not present in the parsys"));
+          .filter(containsDataPath(componentDataPath)) //
+          .reduce((a, b) -> b)
+          .orElseThrow(() -> new IllegalStateException("Component not present in the parsys"));
   }
 
   public boolean isComponentPresent(String dataPath) {

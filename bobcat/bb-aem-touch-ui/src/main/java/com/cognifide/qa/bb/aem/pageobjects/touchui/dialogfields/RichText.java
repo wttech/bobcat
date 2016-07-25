@@ -30,9 +30,9 @@ import org.openqa.selenium.support.FindBy;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.aem.data.componentconfigs.FieldType;
 import com.google.inject.Inject;
+
 import java.util.Arrays;
 import java.util.List;
-import org.apache.commons.lang3.StringUtils;
 
 @PageObject
 public class RichText implements DialogField {
@@ -47,9 +47,9 @@ public class RichText implements DialogField {
   public void setValue(Object value) {
     String text = (String) value;
     actions.keyDown(input, CONTROL) //
-            .sendKeys("a") //
-            .keyUp(CONTROL) //
-            .sendKeys(BACK_SPACE);
+          .sendKeys("a") //
+          .keyUp(CONTROL) //
+          .sendKeys(BACK_SPACE);
 
     List<String> textDividedByLines = Arrays.asList(text.split("\\\\n"));
     for (int i = 0; i < textDividedByLines.size(); i++) {
