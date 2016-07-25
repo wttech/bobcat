@@ -28,7 +28,7 @@ import com.cognifide.qa.bb.aem.data.componentconfigs.FieldType;
 @PageObject
 public class Textfield implements DialogField {
 
-  @FindBy(css = ".coral-Textfield")
+  @FindBy(css = ".coral-Textfield:not([type='hidden']")
   private WebElement input;
 
   @Override

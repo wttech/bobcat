@@ -15,20 +15,20 @@
  */
 package com.cognifide.bdd.demo;
 
-import com.cognifide.bdd.demo.po.touchui.TextComponentControlToolbar;
+import com.cognifide.bdd.demo.po.touchui.components.text.dialog.FontFormat;
+import com.cognifide.bdd.demo.po.touchui.components.text.dialog.panel.JustifyDialogPanel;
+import com.cognifide.bdd.demo.po.touchui.components.text.dialog.panel.ListDialogPanel;
 import com.cognifide.qa.bb.aem.pageobjects.touchui.dialogfields.DialogField;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
 
-/**
- *
- * @author mikolaj.manski
- */
 public class GeometrixxFieldsModule extends AbstractModule {
 
   @Override
   protected void configure() {
     Multibinder<DialogField> fieldsBinder = Multibinder.newSetBinder(binder(), DialogField.class);
-    fieldsBinder.addBinding().to(TextComponentControlToolbar.class);
+    fieldsBinder.addBinding().to(FontFormat.class);
+    fieldsBinder.addBinding().to(JustifyDialogPanel.class);
+    fieldsBinder.addBinding().to(ListDialogPanel.class);
   }
 }

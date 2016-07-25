@@ -85,6 +85,14 @@ public class Parsys {
             .orElseThrow(() -> new IllegalStateException("Component not present in the parsys"));
   }
 
+  public Component getLastComponent(String dataPath) {
+    String componentDataPath = DataPathUtil.normalize(dataPath);
+    return componentList.stream() //
+            .filter(containsDataPath(componentDataPath)) //
+            .reduce((a, b) -> b)
+            .orElseThrow(() -> new IllegalStateException("Component not present in the parsys"));
+  }
+
   public boolean isComponentPresent(String dataPath) {
     String componentDataPath = DataPathUtil.normalize(dataPath);
     return componentList.stream() //
@@ -101,6 +109,14 @@ public class Parsys {
 
   public void deleteComponent(String dataPath) {
     getComponent(dataPath).delete();
+  }
+
+  public void deleteLastComponent(String dataPath) {
+    getLastComponent(dataPath).delete();
+  }
+
+  public WebElement getParsys() {
+    return parsys;
   }
 
   public boolean isNotStale() {

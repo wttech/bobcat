@@ -13,13 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.cognifide.bdd.demo.po.touchui;
+package com.cognifide.bdd.demo.po.touchui.components.text;
 
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 @PageObject
 public class TextComponent {
@@ -29,9 +28,6 @@ public class TextComponent {
   @Inject
   @CurrentScope
   private WebElement component;
-
-  @FindBy(css= ".coral-RichText-toolbar")
-  private TextComponentControlToolbar toolbar;
 
   public String getInnerHTML() {
     return component.getAttribute("outerHTML");

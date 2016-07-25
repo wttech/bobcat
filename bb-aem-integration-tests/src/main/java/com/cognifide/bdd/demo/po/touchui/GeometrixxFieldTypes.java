@@ -15,11 +15,10 @@
  */
 package com.cognifide.bdd.demo.po.touchui;
 
-/**
- *
- * @author mikolaj.manski
- */
 public enum GeometrixxFieldTypes {
 
-  TEXT_TOOLBAR;
+  FONT_FORMAT,
+  LIST,
+  JUSTIFY;
+
 }

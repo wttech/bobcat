@@ -133,45 +133,6 @@ public class AuthorPage {
             : pageObjectInjector.inject(component, scope, CONTENT_FRAME);
   }
 
-  public <T> T getNthContent(Class<T> component, int n) {
-    Objects.requireNonNull(component, "clazz property was not specified in YAML config");
-    globalBar.switchToPreviewMode();
-    frameSwitcher.switchTo(CONTENT_FRAME);
-    WebElement scope = null;
-    try {
-      String selector = (String) component.getField("CSS").get(null);
-      scope = webDriver.findElements(By.cssSelector(selector)).get(n);
-    } catch (IllegalAccessException e) {
-      LOG.error("CSS was not accessible, injecting with default scope", e);
-    } catch (NoSuchFieldException e) {
-      LOG.error("CSS field was not present in the page object, injecting with default scope", e);
-    }
-    frameSwitcher.switchBack();
-    return scope == null
-            ? pageObjectInjector.inject(component, CONTENT_FRAME)
-            : pageObjectInjector.inject(component, scope, CONTENT_FRAME);
-  }
-
-  public <T> T getLastContent(Class<T> component) {
-    Objects.requireNonNull(component, "clazz property was not specified in YAML config");
-    globalBar.switchToPreviewMode();
-    frameSwitcher.switchTo(CONTENT_FRAME);
-    WebElement scope = null;
-    try {
-      String selector = (String) component.getField("CSS").get(null);
-      List<WebElement> webElements = webDriver.findElements(By.cssSelector(selector));
-      scope = webElements.get(webElements.size() - 1);
-    } catch (IllegalAccessException e) {
-      LOG.error("CSS was not accessible, injecting with default scope", e);
-    } catch (NoSuchFieldException e) {
-      LOG.error("CSS field was not present in the page object, injecting with default scope", e);
-    }
-    frameSwitcher.switchBack();
-    return scope == null
-            ? pageObjectInjector.inject(component, CONTENT_FRAME)
-            : pageObjectInjector.inject(component, scope, CONTENT_FRAME);
-  }
-
   public WebElement addComponent(String parsys, String component) {
     WebElement result = getParsys(parsys).insertComponent(component);
     verifyParsysRerendered(parsys);

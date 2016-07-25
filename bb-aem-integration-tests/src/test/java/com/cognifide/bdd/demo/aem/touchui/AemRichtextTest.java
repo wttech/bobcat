@@ -20,7 +20,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 import com.cognifide.bdd.demo.GuiceModule;
-import com.cognifide.bdd.demo.po.touchui.TextComponent;
+import com.cognifide.bdd.demo.po.touchui.components.text.TextComponent;
 import com.cognifide.qa.bb.aem.AemLogin;
 import com.cognifide.qa.bb.aem.data.pages.Pages;
 import com.cognifide.qa.bb.aem.pageobjects.pages.AuthorPage;
@@ -40,7 +40,7 @@ import org.junit.runner.RunWith;
 @Modules(GuiceModule.class)
 public class AemRichtextTest {
 
-  private static final String PAGE_TITLE = "Title - Update&Read";
+  private static final String PAGE_TITLE = "Summer Blockbuster";
 
   @Inject
   private AemLogin aemLogin;
@@ -54,80 +54,106 @@ public class AemRichtextTest {
   @Inject
   private AuthorPageFactory authorPageFactory;
 
-  private AuthorPage feedbackPage;
+  private AuthorPage blockbusterPage;
 
   private String parsys;
 
   @Before
   public void before() {
     aemLogin.authorLogin();
-    feedbackPage = authorPageFactory.create(pages.getPath(PAGE_TITLE));
-    parsys = pages.getParsys("Title - Update&Read");
-    feedbackPage.open();
-    assertThat("Page has not loaded", feedbackPage.isLoaded(), is(true));
-    feedbackPage.addComponent(parsys, "Text");
+    blockbusterPage = authorPageFactory.create(pages.getPath(PAGE_TITLE));
+    parsys = pages.getParsys(PAGE_TITLE);
+    blockbusterPage.open();
+    assertThat("Page has not loaded", blockbusterPage.isLoaded(), is(true));
+    blockbusterPage.addComponent(parsys, "Text");
   }
 
+   @Test
+   public void shouldContainEnteredText() {
+   blockbusterPage.configureComponent(parsys, "Text", "plain_text");
+   String contents = blockbusterPage.getContent(TextComponent.class).getInnerHTML();
+   assertThat(contents, containsString("<p>test test test</p>"));
+   }
+
   @Test
-  public void shouldContainEnteredText() {
-    feedbackPage.configureComponent(parsys, "Text", "validText");
-    String contents = feedbackPage.getLastContent(TextComponent.class).getInnerHTML();
+  public void shouldRenderUnderlinedTextProperly() {
+    blockbusterPage.configureComponent(parsys, "Text", "underline");
+    String contents = blockbusterPage.getContent(TextComponent.class).getInnerHTML();
+    assertThat(contents, containsString("<p><u>test test test</u></p>"));
+  }
+
+   @Test
+   public void shouldRenderBoldedTextProperly() {
+    blockbusterPage.configureComponent(parsys, "Text", "bold");
+    String contents = blockbusterPage.getContent(TextComponent.class).getInnerHTML();
+    assertThat(contents, containsString("<p><b>test test test</b></p>"));
+   }
+
+   @Test
+   public void shouldRenderItalicTextProperly() {
+    blockbusterPage.configureComponent(parsys, "Text", "italic");
+    String contents = blockbusterPage.getContent(TextComponent.class).getInnerHTML();
+    assertThat(contents, containsString("<p><i>test test test</i></p>"));
+   }
+
+   @Test
+   public void shouldRenderTextJustifiedToTheRightSideProperly() {
+    blockbusterPage.configureComponent(parsys, "Text", "justify_right");
+    String contents = blockbusterPage.getContent(TextComponent.class).getInnerHTML();
+    assertThat(contents, containsString("<p style=\"text-align: right;\">test test test</p>"));
+   }
+
+   @Test
+   public void shouldRenderTextJustifiedToTheCenterProperly() {
+    blockbusterPage.configureComponent(parsys, "Text", "justify_center");
+    String contents = blockbusterPage.getContent(TextComponent.class).getInnerHTML();
+    assertThat(contents, containsString("<p style=\"text-align: center;\">test test test</p>"));
+   }
+
+   @Test
+   public void shouldRenderTextJustifiedToTheLeftSideProperly() {
+    blockbusterPage.configureComponent(parsys, "Text", "justify_left");
+    String contents = blockbusterPage.getContent(TextComponent.class).getInnerHTML();
     assertThat(contents, containsString("<p>test test test</p>"));
+   }
+
+  @Test
+  public void shouldRenderBulletListProperly() {
+    blockbusterPage.configureComponent(parsys, "Text", "bullet_list");
+    String contents = blockbusterPage.getContent(TextComponent.class).getInnerHTML();
+    //@formatter:off
+    assertThat(contents, containsString("<ul>\n"
+                                        + "<li>test test test</li>\n"
+                                        + "<li>test test test</li>\n"
+                                      + "</ul>"));
+    //@formatter:on
   }
 
   @Test
-  public void shouldHandleSpacingProperly() {
-    feedbackPage.configureComponent(parsys, "Text", "spacingBefore");
-    TextComponent component = feedbackPage.getLastContent(TextComponent.class);
-    assertThat(component.getCssClassNameProperty(), containsString("spacer_before"));
+  public void shouldRenderNumberedListProperly() {
+    blockbusterPage.configureComponent(parsys, "Text", "numbered_list");
+    String contents = blockbusterPage.getContent(TextComponent.class).getInnerHTML();
+    //@formatter:off
+    assertThat(contents, containsString("<ol>\n"
+                                        + "<li>test test test</li>\n"
+                                        + "<li>test test test</li>\n"
+                                      + "</ol>"));
+    //@formatter:on
   }
 
   @Test
-  public void shouldHandleTextStyleProperly() {
-    feedbackPage.configureComponent(parsys, "Text", "textStyleLarge");
-    TextComponent component = feedbackPage.getLastContent(TextComponent.class);
-    assertThat(component.getCssClassNameProperty(), containsString("text_large"));
+  public void shouldRenderIndentProperly() {
+    blockbusterPage.configureComponent(parsys, "Text", "indent");
+    String contents = blockbusterPage.getContent(TextComponent.class).getInnerHTML();
+    assertThat(contents, containsString("<p style=\"margin-left: 40.0px;\">test test test</p>"));
   }
-
-  @Test
-  public void underline() {
-    feedbackPage.configureComponent(parsys, "Text", "underline");
-  }
-  /*
-   @Test
-   public void bold() {
-   assertTrue(true);
-
-   }
-
-   @Test
-   public void italic() {
-   assertTrue(true);
-
-   }
-
-   @Test
-   public void justify() {
-   assertTrue(true);
-
-   }
-
-   @Test
-   public void list() {
-   assertTrue(true);
-   }
-
-   @Test
-   public void link() {
-   //linkOff too
-   }*/
 
   @After
   public void cleanUp() {
     if (AuthoringMode.PREVIEW == globalBar.getCurrentMode()) {
       globalBar.switchToEditMode();
-      parsys = pages.getParsys("Title - Update&Read");
+      parsys = pages.getParsys(PAGE_TITLE);
     }
-    feedbackPage.deleteComponent(parsys, "Text");
+    blockbusterPage.deleteComponent(parsys, "Text");
   }
 }

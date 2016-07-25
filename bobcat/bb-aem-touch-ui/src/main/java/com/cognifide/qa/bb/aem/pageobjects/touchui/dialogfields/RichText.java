@@ -21,6 +21,7 @@ package com.cognifide.qa.bb.aem.pageobjects.touchui.dialogfields;
 
 import static org.openqa.selenium.Keys.BACK_SPACE;
 import static org.openqa.selenium.Keys.CONTROL;
+import static org.openqa.selenium.Keys.RETURN;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -29,6 +30,9 @@ import org.openqa.selenium.support.FindBy;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.aem.data.componentconfigs.FieldType;
 import com.google.inject.Inject;
+import java.util.Arrays;
+import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 
 @PageObject
 public class RichText implements DialogField {
@@ -41,12 +45,20 @@ public class RichText implements DialogField {
 
   @Override
   public void setValue(Object value) {
+    String text = (String) value;
     actions.keyDown(input, CONTROL) //
-        .sendKeys("a") //
-        .keyUp(CONTROL) //
-        .sendKeys(BACK_SPACE) //
-        .sendKeys(String.valueOf(value)) //
-        .perform();
+            .sendKeys("a") //
+            .keyUp(CONTROL) //
+            .sendKeys(BACK_SPACE);
+
+    List<String> textDividedByLines = Arrays.asList(text.split("\\\\n"));
+    for (int i = 0; i < textDividedByLines.size(); i++) {
+      if(i!=0) {
+        actions.sendKeys(RETURN);
+      }
+      actions.sendKeys(textDividedByLines.get(i).trim());
+    }
+    actions.perform();
   }
 
   @Override
