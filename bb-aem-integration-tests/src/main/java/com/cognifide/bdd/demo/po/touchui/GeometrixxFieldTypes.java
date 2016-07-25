@@ -20,5 +20,4 @@ public enum GeometrixxFieldTypes {
   FONT_FORMAT,
   LIST,
   JUSTIFY;
-
 }
