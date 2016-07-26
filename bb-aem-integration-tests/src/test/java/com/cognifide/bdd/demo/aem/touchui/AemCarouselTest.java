@@ -1,27 +1,9 @@
-/*-
- * #%L
- * Bobcat Parent
- * %%
- * Copyright (C) 2016 Cognifide Ltd.
- * %%
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * #L%
- */
 package com.cognifide.bdd.demo.aem.touchui;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 import java.util.Map;
@@ -31,7 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.cognifide.bdd.demo.GuiceModule;
-import com.cognifide.bdd.demo.po.touchui.TitleComponent;
+import com.cognifide.bdd.demo.po.touchui.carousel.CarouselComponent;
 import com.cognifide.qa.bb.aem.AemLogin;
 import com.cognifide.qa.bb.aem.data.componentconfigs.FieldConfig;
 import com.cognifide.qa.bb.aem.data.components.Components;
@@ -44,28 +26,28 @@ import com.google.inject.Inject;
 
 @RunWith(TestRunner.class)
 @Modules(GuiceModule.class)
-public class AemTitleTest {
+public class AemCarouselTest {
+
+  private static final String CONFIGURATION = "Carousel - Update&Read";
+
+  private static final String COMPONENT_NAME = "Carousel";
 
   @Inject
   private AemLogin aemLogin;
 
   @Inject
-  private Pages pages;
-
-  @Inject
   private AuthorPageFactory authorPageFactory;
 
-  private AuthorPage page;
+  @Inject
+  private Pages pages;
 
   @Inject
   private Components components;
 
-  private static final String CONFIGURATION = "Title - Update&Read";
-
-  private static final String COMPONENT_NAME = "Title";
+  private AuthorPage page;
 
   @Before
-  public void before() {
+  public void setup() {
     aemLogin.authorLogin();
     page = authorPageFactory.create(pages.getPath(CONFIGURATION));
     page.open();
@@ -73,19 +55,18 @@ public class AemTitleTest {
   }
 
   @Test
-  public void editTitleComponentTest() {
+  public void editCarouselComponentTest() {
     String parsys = pages.getParsys(CONFIGURATION);
     page.addComponent(parsys, COMPONENT_NAME);
-    assertThat(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME.toLowerCase()), is(true));
+    assertTrue(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME.toLowerCase()));
     Map<String, List<FieldConfig>> data = page.configureComponent(parsys,
         COMPONENT_NAME, COMPONENT_NAME.toLowerCase());
 
-    TitleComponent component = (TitleComponent) page.getContent(components.getClazz(COMPONENT_NAME));
-    assertEquals(data.get(COMPONENT_NAME).get(0).getValue().toString().toUpperCase(),
-        component.getTitle());
+    CarouselComponent component =
+        (CarouselComponent) page.getContent(components.getClazz(COMPONENT_NAME));
+
+    assertEquals(2, component.getSize());
 
     page.deleteComponent(parsys, COMPONENT_NAME);
-    assertThat(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME.toLowerCase()), is(false));
   }
-
 }

@@ -59,7 +59,7 @@ public class MultifieldItem implements DialogField {
   }
 
   private void setFieldInMultifield(FieldConfig fieldConfig) {
-    dialogConfigurer.getDialogField(item, fieldConfig.getLabel(), fieldConfig.getType())
+    dialogConfigurer.getDialogField(item, fieldConfig.getType())
         .setValue(fieldConfig.getValue());
   }
 }

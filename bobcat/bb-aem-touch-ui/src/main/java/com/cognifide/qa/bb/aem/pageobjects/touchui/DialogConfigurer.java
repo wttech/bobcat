@@ -71,6 +71,11 @@ public class DialogConfigurer {
     return getFieldObject(scope, type);
   }
 
+  public DialogField getDialogField(WebElement parentElement, FieldType type) {
+    WebElement scope = parentElement.findElement(By.tagName("input"));
+    return getFieldObject(scope, type);
+  }
+
   /**
    * Returns the label of given field.
    * Label may not be present in the field, thus a workaround using list is introduced here.

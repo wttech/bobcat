@@ -25,6 +25,7 @@ import java.util.List;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,9 +36,11 @@ import com.cognifide.qa.bb.aem.data.componentconfigs.MultifieldEntry;
 @PageObject
 public class Multifield implements DialogField {
 
+  @Global
   @FindBy(css = "button.js-coral-Multifield-add")
   private WebElement addButton;
 
+  @Global
   @FindBy(css = "li.coral-Multifield-input")
   private List<MultifieldItem> items;
 

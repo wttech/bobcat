@@ -152,6 +152,7 @@ public class AuthorPage {
   }
 
   public void deleteComponent(String parsys, String component) {
+    globalBar.switchToEditMode();
     getParsys(parsys).deleteComponent(components.getDataPath(component));
     verifyParsysRerendered(parsys);
   }
