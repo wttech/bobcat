@@ -100,8 +100,8 @@ public class Parsys {
             .anyMatch(containsDataPath(componentDataPath));
   }
 
-  public WebElement insertComponent(String title) {
-    return openInsertDialog().insertComponent(title);
+  public void insertComponent(String title) {
+    openInsertDialog().insertComponent(title);
   }
 
   public void configureComponent(String dataPath, Map<String, List<FieldConfig>> data) {

@@ -135,10 +135,9 @@ public class AuthorPage {
             : pageObjectInjector.inject(component, scope, CONTENT_FRAME);
   }
 
-  public WebElement addComponent(String parsys, String component) {
-    WebElement result = getParsys(parsys).insertComponent(component);
+  public void addComponent(String parsys, String component) {
+    getParsys(parsys).insertComponent(component);
     verifyParsysRerendered(parsys);
-    return result;
   }
 
   public Map<String, List<FieldConfig>> configureComponent(String parsys, String component,
