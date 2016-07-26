@@ -31,7 +31,7 @@ public class TextComponent {
   @CurrentScope
   private WebElement component;
 
-  public String getInnerHTML() {
+  public String getOuterHTML() {
     return component.getAttribute(HtmlTags.Properties.OUTER_HTML);
   }
 

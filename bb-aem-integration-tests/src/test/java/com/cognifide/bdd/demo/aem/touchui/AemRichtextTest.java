@@ -70,56 +70,56 @@ public class AemRichtextTest {
    @Test
    public void shouldContainEnteredText() {
    blockbusterPage.configureComponent(parsys, "Text", "plain_text");
-   String contents = blockbusterPage.getContent(TextComponent.class).getInnerHTML();
+   String contents = blockbusterPage.getContent(TextComponent.class).getOuterHTML();
    assertThat(contents, containsString("<p>test test test</p>"));
    }
 
   @Test
   public void shouldRenderUnderlinedTextProperly() {
     blockbusterPage.configureComponent(parsys, "Text", "underline");
-    String contents = blockbusterPage.getContent(TextComponent.class).getInnerHTML();
+    String contents = blockbusterPage.getContent(TextComponent.class).getOuterHTML();
     assertThat(contents, containsString("<p><u>test test test</u></p>"));
   }
 
    @Test
    public void shouldRenderBoldedTextProperly() {
     blockbusterPage.configureComponent(parsys, "Text", "bold");
-    String contents = blockbusterPage.getContent(TextComponent.class).getInnerHTML();
+    String contents = blockbusterPage.getContent(TextComponent.class).getOuterHTML();
     assertThat(contents, containsString("<p><b>test test test</b></p>"));
    }
 
    @Test
    public void shouldRenderItalicTextProperly() {
     blockbusterPage.configureComponent(parsys, "Text", "italic");
-    String contents = blockbusterPage.getContent(TextComponent.class).getInnerHTML();
+    String contents = blockbusterPage.getContent(TextComponent.class).getOuterHTML();
     assertThat(contents, containsString("<p><i>test test test</i></p>"));
    }
 
    @Test
    public void shouldRenderTextJustifiedToTheRightSideProperly() {
     blockbusterPage.configureComponent(parsys, "Text", "justify_right");
-    String contents = blockbusterPage.getContent(TextComponent.class).getInnerHTML();
+    String contents = blockbusterPage.getContent(TextComponent.class).getOuterHTML();
     assertThat(contents, containsString("<p style=\"text-align: right;\">test test test</p>"));
    }
 
    @Test
    public void shouldRenderTextJustifiedToTheCenterProperly() {
     blockbusterPage.configureComponent(parsys, "Text", "justify_center");
-    String contents = blockbusterPage.getContent(TextComponent.class).getInnerHTML();
+    String contents = blockbusterPage.getContent(TextComponent.class).getOuterHTML();
     assertThat(contents, containsString("<p style=\"text-align: center;\">test test test</p>"));
    }
 
    @Test
    public void shouldRenderTextJustifiedToTheLeftSideProperly() {
     blockbusterPage.configureComponent(parsys, "Text", "justify_left");
-    String contents = blockbusterPage.getContent(TextComponent.class).getInnerHTML();
+    String contents = blockbusterPage.getContent(TextComponent.class).getOuterHTML();
     assertThat(contents, containsString("<p>test test test</p>"));
    }
 
   @Test
   public void shouldRenderBulletListProperly() {
     blockbusterPage.configureComponent(parsys, "Text", "bullet_list");
-    String contents = blockbusterPage.getContent(TextComponent.class).getInnerHTML();
+    String contents = blockbusterPage.getContent(TextComponent.class).getOuterHTML();
     //@formatter:off
     assertThat(contents, containsString("<ul>\n"
                                         + "<li>test test test</li>\n"
@@ -131,7 +131,7 @@ public class AemRichtextTest {
   @Test
   public void shouldRenderNumberedListProperly() {
     blockbusterPage.configureComponent(parsys, "Text", "numbered_list");
-    String contents = blockbusterPage.getContent(TextComponent.class).getInnerHTML();
+    String contents = blockbusterPage.getContent(TextComponent.class).getOuterHTML();
     //@formatter:off
     assertThat(contents, containsString("<ol>\n"
                                         + "<li>test test test</li>\n"
@@ -143,7 +143,7 @@ public class AemRichtextTest {
   @Test
   public void shouldRenderIndentProperly() {
     blockbusterPage.configureComponent(parsys, "Text", "indent");
-    String contents = blockbusterPage.getContent(TextComponent.class).getInnerHTML();
+    String contents = blockbusterPage.getContent(TextComponent.class).getOuterHTML();
     assertThat(contents, containsString("<p style=\"margin-left: 40.0px;\">test test test</p>"));
   }
 
