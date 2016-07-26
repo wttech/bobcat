@@ -24,6 +24,7 @@ import com.cognifide.qa.bb.constants.AemConfigKeys;
 import com.cognifide.qa.bb.utils.WebElementUtils;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -34,14 +35,14 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public abstract class AbstractPage {
 
   @Inject
-  public WebDriver webDriver;
+  protected WebDriver webDriver;
 
   @Inject
   @Named(AemConfigKeys.PAGE_TITLE_TIMEOUT)
   private int pageTitleTimeout;
 
   @Inject
-  public WebElementUtils webElementUtils;
+  protected WebElementUtils webElementUtils;
 
   /**
    * @return Url of the page, without domain part.

@@ -24,6 +24,7 @@ import com.cognifide.qa.bb.aem.AbstractPage;
 import com.cognifide.qa.bb.constants.AemConfigKeys;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
