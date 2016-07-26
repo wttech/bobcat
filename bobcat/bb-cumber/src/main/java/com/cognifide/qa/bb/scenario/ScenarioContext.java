@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.scope;
+package com.cognifide.qa.bb.scenario;
 
 import java.util.HashMap;
 import java.util.List;
