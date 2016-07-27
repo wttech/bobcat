@@ -29,7 +29,6 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -67,9 +66,6 @@ public class Parsys {
   @Inject
   @CurrentScope
   private WebElement parsys;
-
-  @Inject
-  private WebDriver webDriver;
 
   public String getDataPath() {
     String rawValue = parsys.getAttribute(HtmlTags.Attributes.DATA_PATH);
