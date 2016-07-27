@@ -48,7 +48,7 @@ public class AemCarouselTest {
     aemLogin.authorLogin();
     page = authorPageFactory.create(pages.getPath(CONFIGURATION));
     page.open();
-    assertThat("Page has not loaded", page.isLoaded(), is(true));
+    assertTrue("Page has not loaded", page.isLoaded());
   }
 
   @Test
@@ -61,7 +61,7 @@ public class AemCarouselTest {
     CarouselComponent component =
         (CarouselComponent) page.getContent(components.getClazz(COMPONENT_NAME));
 
-    assertEquals(2, component.getSize());
+    assertThat(component.getSize(), is(2));
     assertThat(component.getAnchorHref(0), endsWith("/content/geometrixx-outdoors.html"));
     assertThat(component.getAnchorHref(1), endsWith("/content/geometrixx-outdoors-mobile.html"));
 

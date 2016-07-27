@@ -31,9 +31,9 @@ import com.google.inject.Inject;
 @PageObject
 public class PathBrowser implements DialogField {
 
-  private static final String TEXT_FIELD_CSS = "coral-Textfield";
+  private static final String TEXT_FIELD_CLASS = "coral-Textfield";
 
-  @FindBy(className = TEXT_FIELD_CSS)
+  @FindBy(className = TEXT_FIELD_CLASS)
   private WebElement input;
 
   @Inject
@@ -42,7 +42,7 @@ public class PathBrowser implements DialogField {
 
   @Override
   public void setValue(Object value) {
-    if (component.getAttribute(HtmlTags.Attributes.CLASS).contains(TEXT_FIELD_CSS)) {
+    if (component.getAttribute(HtmlTags.Attributes.CLASS).contains(TEXT_FIELD_CLASS)) {
       component.clear();
       component.sendKeys(String.valueOf(value));
     } else {
