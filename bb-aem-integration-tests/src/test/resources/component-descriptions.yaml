@@ -25,4 +25,4 @@ Image:
   clazz: com.cognifide.bdd.demo.po.touchui.ImageComponent
 Carousel:
   datapath: /carousel
-  clazz: com.cognifide.bdd.demo.po.touchui.carousel.CarouselComponent
+  clazz: com.cognifide.bdd.demo.po.touchui.CarouselComponent

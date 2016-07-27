@@ -5,17 +5,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
-import java.util.Map;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.cognifide.bdd.demo.GuiceModule;
-import com.cognifide.bdd.demo.po.touchui.carousel.CarouselComponent;
+import com.cognifide.bdd.demo.po.touchui.CarouselComponent;
 import com.cognifide.qa.bb.aem.AemLogin;
-import com.cognifide.qa.bb.aem.data.componentconfigs.FieldConfig;
 import com.cognifide.qa.bb.aem.data.components.Components;
 import com.cognifide.qa.bb.aem.data.pages.Pages;
 import com.cognifide.qa.bb.aem.pageobjects.pages.AuthorPage;
@@ -59,8 +55,7 @@ public class AemCarouselTest {
     String parsys = pages.getParsys(CONFIGURATION);
     page.addComponent(parsys, COMPONENT_NAME);
     assertTrue(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME.toLowerCase()));
-    Map<String, List<FieldConfig>> data = page.configureComponent(parsys,
-        COMPONENT_NAME, COMPONENT_NAME.toLowerCase());
+    page.configureComponent(parsys, COMPONENT_NAME, COMPONENT_NAME.toLowerCase());
 
     CarouselComponent component =
         (CarouselComponent) page.getContent(components.getClazz(COMPONENT_NAME));

@@ -3,14 +3,14 @@ carousel:
     - label: Build list using
       type: SELECT
       value: Fixed list
-    - label:
+    - label: Pages
       type: MULTIFIELD
       value:
         - item:
-            - label: Pages
+            - label:
               type: PATHBROWSER
               value: /content/geometrixx-outdoors
         - item:
-            - label: Pages
+            - label:
               type: PATHBROWSER
               value: /content/geometrixx-outdoors-mobile
