@@ -15,6 +15,8 @@
  */
 package com.cognifide.qa.bb.aem.pageobjects.touchui.dialogfields.text;
 
+import static com.cognifide.qa.bb.aem.pageobjects.touchui.dialogfields.text.ControlToolbar.TOOLBAR_ITEM_SELECTOR;
+
 import com.cognifide.qa.bb.qualifier.PageObject;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -22,13 +24,13 @@ import org.openqa.selenium.support.FindBy;
 @PageObject
 public class JustifyControls {
 
-  @FindBy(css = ".coral-RichText-toolbar-item[data-action='justify#justifyleft']")
+  @FindBy(css = TOOLBAR_ITEM_SELECTOR + "[data-action='justify#justifyleft']")
   private WebElement justifyLeftBtn;
 
-  @FindBy(css = ".coral-RichText-toolbar-item[data-action='justify#justifycenter']")
+  @FindBy(css = TOOLBAR_ITEM_SELECTOR + "[data-action='justify#justifycenter']")
   private WebElement justifyCenterBtn;
 
-  @FindBy(css = ".coral-RichText-toolbar-item[data-action='justify#justifyright']")
+  @FindBy(css = TOOLBAR_ITEM_SELECTOR + "[data-action='justify#justifyright']")
   private WebElement justifyRightBtn;
 
   public WebElement getJustifyLeftBtn() {

@@ -15,6 +15,8 @@
  */
 package com.cognifide.qa.bb.aem.pageobjects.touchui.dialogfields.text;
 
+import static com.cognifide.qa.bb.aem.pageobjects.touchui.dialogfields.text.ControlToolbar.TOOLBAR_ITEM_SELECTOR;
+
 import com.cognifide.qa.bb.qualifier.PageObject;
 
 import org.openqa.selenium.WebElement;
@@ -23,16 +25,16 @@ import org.openqa.selenium.support.FindBy;
 @PageObject
 public class ListControls {
 
-  @FindBy(css = ".coral-RichText-toolbar-item[data-action='lists#unordered']")
+  @FindBy(css = TOOLBAR_ITEM_SELECTOR + "[data-action='lists#unordered']")
   private WebElement bulletListBtn;
 
-  @FindBy(css = ".coral-RichText-toolbar-item[data-action='lists#ordered']")
+  @FindBy(css = TOOLBAR_ITEM_SELECTOR + "[data-action='lists#ordered']")
   private WebElement numberListBtn;
 
-  @FindBy(css = ".coral-RichText-toolbar-item[data-action='lists#outdent']")
+  @FindBy(css = TOOLBAR_ITEM_SELECTOR + "[data-action='lists#outdent']")
   private WebElement outdentListBtn;
 
-  @FindBy(css = ".coral-RichText-toolbar-item[data-action='lists#indent']")
+  @FindBy(css = TOOLBAR_ITEM_SELECTOR + "[data-action='lists#indent']")
   private WebElement indentListBtn;
 
   public WebElement getBulletListBtn() {

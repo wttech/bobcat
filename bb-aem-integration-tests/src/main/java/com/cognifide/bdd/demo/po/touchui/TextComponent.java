@@ -36,7 +36,7 @@ public class TextComponent {
   }
 
   public String getCssClassNameProperty() {
-    return component.getAttribute("className");
+    return component.getAttribute(HtmlTags.Properties.CLASS_NAME);
   }
 
 }

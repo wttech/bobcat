@@ -29,6 +29,8 @@ import java.util.Map;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.interactions.Actions;
 
 import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
@@ -51,11 +53,17 @@ public class ConfigDialog {
   private DialogConfigurer dialogConfigurer;
 
   @Inject
+  private Actions actions;
+
+  @Inject
   @CurrentScope
   private WebElement dialog;
 
   @FindBy(css = "button.cq-dialog-submit")
   private WebElement okButton;
+
+  @FindBy(css = "button.cq-dialog-cancel")
+  private WebElement cancelButton;
 
   @FindBy(css = "button.cq-dialog-layouttoggle")
   private WebElement toggleFullscreen;
@@ -76,12 +84,19 @@ public class ConfigDialog {
 
   public void verifyFullscreen() {
     conditions
-        .verify(webDriver -> containsIgnoreCase(dialog.getAttribute(HtmlTags.Attributes.CLASS),
-            FULLSCREEN_CLASS));
+            .verify(webDriver -> containsIgnoreCase(dialog.getAttribute(HtmlTags.Attributes.CLASS),
+                            FULLSCREEN_CLASS));
   }
 
   public void confirm() {
     okButton.click();
+    verifyIsHidden();
+  }
+
+  public void cancel() {
+    //close potential popover
+    actions.sendKeys(Keys.ESCAPE).perform();
+    cancelButton.click();
     verifyIsHidden();
   }
 
@@ -92,26 +107,41 @@ public class ConfigDialog {
 
   public void configureWith(Map<String, List<FieldConfig>> config) {
     verifyIsDisplayed();
-    configure(config);
-    confirm();
+    boolean success = true;
+    try {
+      configure(config);
+    } catch (Exception x) {
+      success = false;
+      throw x;
+    } finally {
+      closeDialogWindow(success);
+    }
+  }
+
+  private void closeDialogWindow(boolean configurationSuccessful) {
+    if (configurationSuccessful == true) {
+      confirm();
+    } else {
+      cancel();
+    }
   }
 
   private void switchTab(String tabLabel) {
     if (!tabs.isEmpty()) {
       tabs.stream() //
-          .filter(tab -> containsIgnoreCase(tab.getText(), tabLabel)) //
-          .findFirst() //
-          .orElseThrow(() -> new IllegalStateException("Tab not found")) //
-          .click();
+              .filter(tab -> containsIgnoreCase(tab.getText(), tabLabel)) //
+              .findFirst() //
+              .orElseThrow(() -> new IllegalStateException("Tab not found")) //
+              .click();
     }
   }
 
   private void configure(Map<String, List<FieldConfig>> config) {
     config.entrySet().stream() //
-        .forEach(tabConfig -> {
-          switchTab(tabConfig.getKey());
-          setFields(tabConfig.getValue());
-        });
+            .forEach(tabConfig -> {
+              switchTab(tabConfig.getKey());
+              setFields(tabConfig.getValue());
+            });
   }
 
   private void setFields(List<FieldConfig> value) {
@@ -122,8 +152,8 @@ public class ConfigDialog {
       parent = activeTab;
     }
     value.stream() //
-        .forEach(fieldConfig -> dialogConfigurer
-            .getDialogField(parent, fieldConfig.getLabel(), fieldConfig.getType())
-            .setValue(fieldConfig.getValue()));
+            .forEach(fieldConfig -> dialogConfigurer
+                    .getDialogField(parent, fieldConfig.getLabel(), fieldConfig.getType())
+                    .setValue(fieldConfig.getValue()));
   }
 }

@@ -27,6 +27,8 @@ import org.openqa.selenium.support.FindBy;
 @PageObject
 public class ControlToolbar {
 
+  static final String TOOLBAR_ITEM_SELECTOR = ".coral-RichText-toolbar-item";
+
   @Inject
   private Actions actions;
 
@@ -34,19 +36,19 @@ public class ControlToolbar {
   @CurrentScope
   private WebElement scope;
 
-  @FindBy(css = ".coral-RichText-toolbar-item[data-action='format#bold']")
+  @FindBy(css = TOOLBAR_ITEM_SELECTOR + "[data-action='format#bold']")
   private WebElement toggleBoldButton;
 
-  @FindBy(css = ".coral-RichText-toolbar-item[data-action='format#italic']")
+  @FindBy(css = TOOLBAR_ITEM_SELECTOR + "[data-action='format#italic']")
   private WebElement toggleItalicButton;
 
-  @FindBy(css = ".coral-RichText-toolbar-item[data-action='format#underline']")
+  @FindBy(css = TOOLBAR_ITEM_SELECTOR + "[data-action='format#underline']")
   private WebElement toggleUnderlineButton;
 
-  @FindBy(css = ".coral-RichText-toolbar-item[data-action='#justify']")
+  @FindBy(css = TOOLBAR_ITEM_SELECTOR + "[data-action='#justify']")
   private WebElement toggleJustifyButton;
 
-  @FindBy(css = ".coral-RichText-toolbar-item[data-action='#lists']")
+  @FindBy(css = TOOLBAR_ITEM_SELECTOR + "[data-action='#lists']")
   private WebElement toggleListButton;
 
   public void selectText() {

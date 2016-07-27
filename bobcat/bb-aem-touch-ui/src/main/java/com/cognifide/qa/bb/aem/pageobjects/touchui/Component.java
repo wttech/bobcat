@@ -38,11 +38,13 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.aem.data.componentconfigs.FieldConfig;
 import com.cognifide.qa.bb.aem.util.Conditions;
 import com.google.inject.Inject;
+import org.openqa.selenium.By;
 
 @PageObject
 public class Component {
+
   public static final String CSS = //
-      ".cq-Overlay--component:not(.cq-Overlay--container):not(.is-disabled)";
+          ".cq-Overlay--component:not(.cq-Overlay--container):not(.is-disabled)";
 
   @Inject
   private Conditions conditions;
@@ -65,12 +67,16 @@ public class Component {
 
   public String getDataPath() {
     String rawValue = conditions.staleSafe(component, checked -> checked.getAttribute(
-        HtmlTags.Attributes.DATA_PATH));
+            HtmlTags.Attributes.DATA_PATH));
     return StringUtils.substringAfter(rawValue, JCR_CONTENT);
   }
 
   public ComponentToolbar select() {
     verifyIsDisplayed();
+    if (component.getAttribute(HtmlTags.Properties.CLASS_NAME).contains("is-selected")) {
+      //unselect first to avoid inline editing
+      component.findElement(By.xpath("..")).click();
+    }
     component.click();
     componentToolbar.verifyIsDisplayed();
     return componentToolbar;
