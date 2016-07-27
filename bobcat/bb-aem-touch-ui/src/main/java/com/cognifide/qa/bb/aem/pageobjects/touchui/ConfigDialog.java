@@ -129,19 +129,19 @@ public class ConfigDialog {
   private void switchTab(String tabLabel) {
     if (!tabs.isEmpty()) {
       tabs.stream() //
-              .filter(tab -> containsIgnoreCase(tab.getText(), tabLabel)) //
-              .findFirst() //
-              .orElseThrow(() -> new IllegalStateException("Tab not found")) //
-              .click();
+          .filter(tab -> containsIgnoreCase(tab.getText(), tabLabel)) //
+          .findFirst() //
+          .orElseThrow(() -> new IllegalStateException("Tab not found")) //
+          .click();
     }
   }
 
   private void configure(Map<String, List<FieldConfig>> config) {
     config.entrySet().stream() //
-            .forEach(tabConfig -> {
-              switchTab(tabConfig.getKey());
-              setFields(tabConfig.getValue());
-            });
+        .forEach(tabConfig -> {
+          switchTab(tabConfig.getKey());
+          setFields(tabConfig.getValue());
+        });
   }
 
   private void setFields(List<FieldConfig> value) {
@@ -152,8 +152,8 @@ public class ConfigDialog {
       parent = activeTab;
     }
     value.stream() //
-            .forEach(fieldConfig -> dialogConfigurer
-                    .getDialogField(parent, fieldConfig.getLabel(), fieldConfig.getType())
-                    .setValue(fieldConfig.getValue()));
+        .forEach(fieldConfig -> dialogConfigurer
+          .getDialogField(parent, fieldConfig.getLabel(), fieldConfig.getType())
+          .setValue(fieldConfig.getValue()));
   }
 }

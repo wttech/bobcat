@@ -32,9 +32,9 @@ import com.cognifide.qa.bb.junit.concurrent.ConcurrentSuite;
 @Modules(GuiceModule.class)
 @RunWith(ConcurrentSuite.class)
 @Suite.SuiteClasses({
-  AemTitleTest.class,
-  AemImageTest.class,
-  AemRichtextTest.class
+    AemTitleTest.class,
+    AemImageTest.class,
+    AemRichtextTest.class
 })
 public class BbAemTouchUiSuite {
   // Test suite, nothing to add here
