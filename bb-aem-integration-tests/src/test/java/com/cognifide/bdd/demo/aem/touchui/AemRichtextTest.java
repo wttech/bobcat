@@ -41,6 +41,10 @@ public class AemRichtextTest {
 
   private static final String PAGE_TITLE = "Text - Update&Read";
 
+  private static final String TEXT_COMP_NAME = "Text";
+
+  private static final String TEXT_CMOP_DATA_PATH = "/text";
+
   @Inject
   private AemLogin aemLogin;
 
@@ -53,97 +57,100 @@ public class AemRichtextTest {
   @Inject
   private AuthorPageFactory authorPageFactory;
 
-  private AuthorPage blockbusterPage;
+  private AuthorPage page;
 
   private String parsys;
 
   @Before
   public void before() {
     aemLogin.authorLogin();
-    blockbusterPage = authorPageFactory.create(pages.getPath(PAGE_TITLE));
+    page = authorPageFactory.create(pages.getPath(PAGE_TITLE));
     parsys = pages.getParsys(PAGE_TITLE);
-    blockbusterPage.open();
-    assertTrue("Page has not loaded", blockbusterPage.isLoaded());
-    blockbusterPage.addComponent(parsys, "Text");
+    page.open();
+    assertTrue("Page has not loaded", page.isLoaded());
+    if (page.getParsys(parsys).isComponentPresent(TEXT_CMOP_DATA_PATH)) {
+      page.deleteComponent(parsys, TEXT_COMP_NAME);
+    }
+    page.addComponent(parsys, TEXT_COMP_NAME);
   }
 
-   @Test
-   public void shouldContainEnteredText() {
-   blockbusterPage.configureComponent(parsys, "Text", "plain_text");
-   String contents = blockbusterPage.getContent(TextComponent.class).getOuterHTML();
-   assertThat(contents, containsString("<p>test test test</p>"));
-   }
+  @Test
+  public void shouldContainEnteredText() {
+    page.configureComponent(parsys, TEXT_COMP_NAME, "plain_text");
+    String contents = page.getContent(TextComponent.class).getOuterHTML();
+    assertThat(contents, containsString("<p>test test test</p>"));
+  }
 
   @Test
   public void shouldRenderUnderlinedTextProperly() {
-    blockbusterPage.configureComponent(parsys, "Text", "underline");
-    String contents = blockbusterPage.getContent(TextComponent.class).getOuterHTML();
+    page.configureComponent(parsys, TEXT_COMP_NAME, "underline");
+    String contents = page.getContent(TextComponent.class).getOuterHTML();
     assertThat(contents, containsString("<p><u>test test test</u></p>"));
   }
 
-   @Test
-   public void shouldRenderBoldedTextProperly() {
-    blockbusterPage.configureComponent(parsys, "Text", "bold");
-    String contents = blockbusterPage.getContent(TextComponent.class).getOuterHTML();
+  @Test
+  public void shouldRenderBoldedTextProperly() {
+    page.configureComponent(parsys, TEXT_COMP_NAME, "bold");
+    String contents = page.getContent(TextComponent.class).getOuterHTML();
     assertThat(contents, containsString("<p><b>test test test</b></p>"));
-   }
+  }
 
-   @Test
-   public void shouldRenderItalicTextProperly() {
-    blockbusterPage.configureComponent(parsys, "Text", "italic");
-    String contents = blockbusterPage.getContent(TextComponent.class).getOuterHTML();
+  @Test
+  public void shouldRenderItalicTextProperly() {
+    page.configureComponent(parsys, TEXT_COMP_NAME, "italic");
+    String contents = page.getContent(TextComponent.class).getOuterHTML();
     assertThat(contents, containsString("<p><i>test test test</i></p>"));
-   }
+  }
 
-   @Test
-   public void shouldRenderTextJustifiedToTheRightSideProperly() {
-    blockbusterPage.configureComponent(parsys, "Text", "justify_right");
-    String contents = blockbusterPage.getContent(TextComponent.class).getOuterHTML();
+  @Test
+  public void shouldRenderTextJustifiedToTheRightSideProperly() {
+    page.configureComponent(parsys, TEXT_COMP_NAME, "justify_right");
+    String contents = page.getContent(TextComponent.class).getOuterHTML();
     assertThat(contents, containsString("<p style=\"text-align: right;\">test test test</p>"));
-   }
+  }
 
-   @Test
-   public void shouldRenderTextJustifiedToTheCenterProperly() {
-    blockbusterPage.configureComponent(parsys, "Text", "justify_center");
-    String contents = blockbusterPage.getContent(TextComponent.class).getOuterHTML();
+  @Test
+  public void shouldRenderTextJustifiedToTheCenterProperly() {
+    page.configureComponent(parsys, TEXT_COMP_NAME, "justify_center");
+    String contents = page.getContent(TextComponent.class).getOuterHTML();
     assertThat(contents, containsString("<p style=\"text-align: center;\">test test test</p>"));
-   }
+  }
 
-   @Test
-   public void shouldRenderTextJustifiedToTheLeftSideProperly() {
-    blockbusterPage.configureComponent(parsys, "Text", "justify_left");
-    String contents = blockbusterPage.getContent(TextComponent.class).getOuterHTML();
+  @Test
+  public void shouldRenderTextJustifiedToTheLeftSideProperly() {
+    page.configureComponent(parsys, TEXT_COMP_NAME, "justify_left");
+    String contents = page.getContent(TextComponent.class).getOuterHTML();
     assertThat(contents, containsString("<p>test test test</p>"));
-   }
+  }
 
   @Test
   public void shouldRenderBulletListProperly() {
-    blockbusterPage.configureComponent(parsys, "Text", "bullet_list");
-    String contents = blockbusterPage.getContent(TextComponent.class).getOuterHTML();
+    page.configureComponent(parsys, TEXT_COMP_NAME, "bullet_list");
+    String contents = page.getContent(TextComponent.class).getOuterHTML();
     //@formatter:off
     assertThat(contents, containsString("<ul>\n"
-                                        + "<li>test test test</li>\n"
-                                        + "<li>test test test</li>\n"
-                                      + "</ul>"));
+            + "<li>test test test</li>\n"
+            + "<li>test test test</li>\n"
+            + "</ul>"));
     //@formatter:on
   }
 
   @Test
   public void shouldRenderNumberedListProperly() {
-    blockbusterPage.configureComponent(parsys, "Text", "numbered_list");
-    String contents = blockbusterPage.getContent(TextComponent.class).getOuterHTML();
+    page.configureComponent(parsys, TEXT_COMP_NAME, "numbered_list");
+    String contents = page.getContent(TextComponent.class).getOuterHTML();
     //@formatter:off
     assertThat(contents, containsString("<ol>\n"
-                                        + "<li>test test test</li>\n"
-                                        + "<li>test test test</li>\n"
-                                      + "</ol>"));
+            + "<li>test test test</li>\n"
+            + "<li>test test test</li>\n"
+            + "</ol>"));
     //@formatter:on
   }
 
   @Test
   public void shouldRenderIndentProperly() {
-    blockbusterPage.configureComponent(parsys, "Text", "indent");
-    String contents = blockbusterPage.getContent(TextComponent.class).getOuterHTML();
+    page.configureComponent(parsys, TEXT_COMP_NAME, "indent");
+    String contents = page.getContent(TextComponent.class).getOuterHTML();
     assertThat(contents, containsString("<p style=\"margin-left: 40.0px;\">test test test</p>"));
   }
 
@@ -151,6 +158,6 @@ public class AemRichtextTest {
   public void cleanUp() {
     globalBar.switchToEditMode();
     parsys = pages.getParsys(PAGE_TITLE);
-    blockbusterPage.deleteComponent(parsys, "Text");
+    page.deleteComponent(parsys, TEXT_COMP_NAME);
   }
 }

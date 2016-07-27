@@ -29,8 +29,6 @@ import java.util.Map;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.interactions.Actions;
 
 import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
@@ -53,17 +51,11 @@ public class ConfigDialog {
   private DialogConfigurer dialogConfigurer;
 
   @Inject
-  private Actions actions;
-
-  @Inject
   @CurrentScope
   private WebElement dialog;
 
   @FindBy(css = "button.cq-dialog-submit")
   private WebElement okButton;
-
-  @FindBy(css = "button.cq-dialog-cancel")
-  private WebElement cancelButton;
 
   @FindBy(css = "button.cq-dialog-layouttoggle")
   private WebElement toggleFullscreen;
@@ -93,13 +85,6 @@ public class ConfigDialog {
     verifyIsHidden();
   }
 
-  public void cancel() {
-    //close potential popover
-    actions.sendKeys(Keys.ESCAPE).perform();
-    cancelButton.click();
-    verifyIsHidden();
-  }
-
   public void toggleFullscreen() {
     toggleFullscreen.click();
     verifyFullscreen();
@@ -107,23 +92,8 @@ public class ConfigDialog {
 
   public void configureWith(Map<String, List<FieldConfig>> config) {
     verifyIsDisplayed();
-    boolean success = true;
-    try {
-      configure(config);
-    } catch (Exception x) {
-      success = false;
-      throw x;
-    } finally {
-      closeDialogWindow(success);
-    }
-  }
-
-  private void closeDialogWindow(boolean configurationSuccessful) {
-    if (configurationSuccessful == true) {
-      confirm();
-    } else {
-      cancel();
-    }
+    configure(config);
+    confirm();
   }
 
   private void switchTab(String tabLabel) {

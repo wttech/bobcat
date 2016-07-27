@@ -38,7 +38,6 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.aem.data.componentconfigs.FieldConfig;
 import com.cognifide.qa.bb.aem.util.Conditions;
 import com.google.inject.Inject;
-import org.openqa.selenium.By;
 
 @PageObject
 public class Component {
@@ -73,10 +72,6 @@ public class Component {
 
   public ComponentToolbar select() {
     verifyIsDisplayed();
-    if (component.getAttribute(HtmlTags.Properties.CLASS_NAME).contains("is-selected")) {
-      //unselect first to avoid inline editing
-      component.findElement(By.xpath("..")).click();
-    }
     component.click();
     componentToolbar.verifyIsDisplayed();
     return componentToolbar;
