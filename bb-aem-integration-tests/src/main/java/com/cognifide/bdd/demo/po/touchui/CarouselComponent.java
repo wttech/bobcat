@@ -2,9 +2,11 @@ package com.cognifide.bdd.demo.po.touchui;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.qualifier.PageObject;
 
 @PageObject
@@ -21,5 +23,9 @@ public class CarouselComponent {
 
   public int getSize() {
     return items.size();
+  }
+
+  public String getAnchorHref(int itemIndex) {
+    return items.get(itemIndex).findElement(By.tagName("a")).getAttribute(HtmlTags.Attributes.HREF);
   }
 }

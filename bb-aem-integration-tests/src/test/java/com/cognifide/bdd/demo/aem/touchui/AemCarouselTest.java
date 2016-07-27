@@ -1,6 +1,7 @@
 package com.cognifide.bdd.demo.aem.touchui;
 
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.StringEndsWith.endsWith;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -18,6 +19,7 @@ import com.cognifide.qa.bb.aem.pageobjects.pages.AuthorPage;
 import com.cognifide.qa.bb.aem.pageobjects.pages.AuthorPageFactory;
 import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
+import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.google.inject.Inject;
 
 @RunWith(TestRunner.class)
@@ -61,6 +63,8 @@ public class AemCarouselTest {
         (CarouselComponent) page.getContent(components.getClazz(COMPONENT_NAME));
 
     assertEquals(2, component.getSize());
+    assertThat(component.getAnchorHref(0), endsWith("/content/geometrixx-outdoors.html"));
+    assertThat(component.getAnchorHref(1), endsWith("/content/geometrixx-outdoors-mobile.html"));
 
     page.deleteComponent(parsys, COMPONENT_NAME);
   }
