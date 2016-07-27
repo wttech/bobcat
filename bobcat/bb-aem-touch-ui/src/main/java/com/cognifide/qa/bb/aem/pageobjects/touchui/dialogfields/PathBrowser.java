@@ -20,8 +20,10 @@
 package com.cognifide.qa.bb.aem.pageobjects.touchui.dialogfields;
 
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.aem.data.componentconfigs.FieldType;
+import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
@@ -29,14 +31,24 @@ import com.google.inject.Inject;
 @PageObject
 public class PathBrowser implements DialogField {
 
+  private static final String TEXT_FIELD_CSS = "coral-Textfield";
+
+  @FindBy(className = TEXT_FIELD_CSS)
+  private WebElement input;
+
   @Inject
   @CurrentScope
   private WebElement component;
 
   @Override
   public void setValue(Object value) {
-    component.clear();
-    component.sendKeys(String.valueOf(value));
+    if (component.getAttribute(HtmlTags.Attributes.CLASS).contains(TEXT_FIELD_CSS)) {
+      component.clear();
+      component.sendKeys(String.valueOf(value));
+    } else {
+      input.clear();
+      input.sendKeys(String.valueOf(value));
+    }
   }
 
   @Override
