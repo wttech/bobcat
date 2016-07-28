@@ -23,3 +23,6 @@ Title:
 Image:
   datapath: /image
   clazz: com.cognifide.bdd.demo.po.touchui.ImageComponent
+Carousel:
+  datapath: /carousel
+  clazz: com.cognifide.bdd.demo.po.touchui.CarouselComponent

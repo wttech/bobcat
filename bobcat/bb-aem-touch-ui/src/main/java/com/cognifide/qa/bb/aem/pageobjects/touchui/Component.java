@@ -42,7 +42,7 @@ import com.google.inject.Inject;
 @PageObject
 public class Component {
   public static final String CSS = //
-      ".cq-Overlay--component:not(.cq-Overlay--container):not(.cq-Overlay--placeholder)";
+      ".cq-Overlay--component:not(.cq-Overlay--container)";
 
   @Inject
   private Conditions conditions;
