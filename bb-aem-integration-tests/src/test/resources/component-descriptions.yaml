@@ -23,3 +23,6 @@ Title:
 Image:
   datapath: /image
   clazz: com.cognifide.bdd.demo.po.touchui.ImageComponent
+creditcard:
+  datapath: /creditcard
+  clazz: com.cognifide.bdd.demo.po.touchui.CreditCardComponent
