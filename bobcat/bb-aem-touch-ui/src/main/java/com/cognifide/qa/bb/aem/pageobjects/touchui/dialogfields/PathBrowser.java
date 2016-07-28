@@ -38,13 +38,13 @@ public class PathBrowser implements DialogField {
 
   @Inject
   @CurrentScope
-  private WebElement component;
+  private WebElement currentScope;
 
   @Override
   public void setValue(Object value) {
-    if (component.getAttribute(HtmlTags.Attributes.CLASS).contains(TEXT_FIELD_CLASS)) {
-      component.clear();
-      component.sendKeys(String.valueOf(value));
+    if (currentScope.getAttribute(HtmlTags.Attributes.CLASS).contains(TEXT_FIELD_CLASS)) {
+      currentScope.clear();
+      currentScope.sendKeys(String.valueOf(value));
     } else {
       input.clear();
       input.sendKeys(String.valueOf(value));
