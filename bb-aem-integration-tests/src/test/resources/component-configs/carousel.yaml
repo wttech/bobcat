@@ -1,0 +1,16 @@
+carousel:
+  LIST:
+    - label: Build list using
+      type: SELECT
+      value: Fixed list
+    - label: Pages
+      type: MULTIFIELD
+      value:
+        - item:
+            - label:
+              type: PATHBROWSER
+              value: /content/geometrixx-outdoors
+        - item:
+            - label:
+              type: PATHBROWSER
+              value: /content/geometrixx-outdoors-mobile
