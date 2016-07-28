@@ -2,6 +2,7 @@ package com.cognifide.bdd.demo.aem.touchui;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsAnything.anything;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -101,5 +102,6 @@ public class AemCreditCardTest {
   @After
   public void deleteComponent() {
     page.deleteComponent(parsys, COMPONENT_DATA_PATH);
+    assertFalse(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME.toLowerCase()));
   }
 }
