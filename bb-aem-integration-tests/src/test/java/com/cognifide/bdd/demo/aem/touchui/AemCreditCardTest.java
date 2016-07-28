@@ -5,6 +5,7 @@ import static org.hamcrest.core.IsAnything.anything;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,8 +24,6 @@ import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.google.inject.Inject;
-
-import cucumber.api.java.After;
 
 @RunWith(TestRunner.class)
 @Modules(GuiceModule.class)
@@ -69,11 +68,13 @@ public class AemCreditCardTest {
     page = authorPageFactory.create(pages.getPath(CONFIGURATION));
     page.open();
     assertTrue("Page has not loaded", page.isLoaded());
+    parsys = pages.getParsys(CONFIGURATION);
+    page.addComponent(parsys, COMPONENT_NAME);
+    assertTrue(page.getParsys(parsys).isComponentPresent(COMPONENT_DATA_PATH));
   }
 
   @Test
   public void checkedCheckBoxTest() {
-    addComponent();
     page.configureComponent(parsys, COMPONENT_DATA_PATH, CHECKED_CHECKBOX_CONFIGURATION);
 
     CreditCardComponent component =
@@ -88,7 +89,6 @@ public class AemCreditCardTest {
 
   @Test
   public void uncheckedCheckBoxTest() {
-    addComponent();
     page.configureComponent(parsys, COMPONENT_DATA_PATH, UNCHECKED_CHECKBOX_CONFIGURATION);
 
     CreditCardComponent component =
@@ -96,12 +96,6 @@ public class AemCreditCardTest {
 
     assertThat(component.getLabelText(), is(LABEL_TEXT));
     assertThat(component.getCardTypeSelect(), anything());
-  }
-
-  public void addComponent() {
-    parsys = pages.getParsys(CONFIGURATION);
-    page.addComponent(parsys, COMPONENT_NAME);
-    assertTrue(page.getParsys(parsys).isComponentPresent(COMPONENT_DATA_PATH));
   }
 
   @After
