@@ -1,0 +1,17 @@
+Credit Card Details - Checked CheckBox:
+  TITLE AND TEXT:
+    - label: Element Name *
+      type: TEXTFIELD
+      value: test
+    - label: Only show non-editable summary
+      type: CHECKBOX
+      value: true
+
+Credit Card Details - Unchecked CheckBox:
+  TITLE AND TEXT:
+    - label: Element Name *
+      type: TEXTFIELD
+      value: test
+    - label: Only show non-editable summary
+      type: CHECKBOX
+      value: false

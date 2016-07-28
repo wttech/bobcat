@@ -26,3 +26,6 @@ Image:
 Carousel:
   datapath: /carousel
   clazz: com.cognifide.bdd.demo.po.touchui.CarouselComponent
+creditcard:
+  datapath: /creditcard
+  clazz: com.cognifide.bdd.demo.po.touchui.CreditCardComponent

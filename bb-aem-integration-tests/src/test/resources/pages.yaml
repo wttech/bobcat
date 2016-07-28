@@ -26,3 +26,6 @@ Image - Update&Read:
 Carousel - Update&Read:
   path: /content/geometrixx/en/toolbar/contacts.html
   parsys: /par
+CreditCard - Update&Read:
+  path: /content/geometrixx-outdoors/en/user/checkout.html
+  parsys: /par
