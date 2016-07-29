@@ -21,7 +21,7 @@ package com.cognifide.bdd.demo;
 
 import com.cognifide.qa.bb.AemClassicModule;
 import com.cognifide.qa.bb.aem.AemCommonModule;
-import com.cognifide.qa.bb.aem.modules.AemTouchUiModule;
+import com.cognifide.qa.bb.aem.touch.modules.AemTouchUiModule;
 import com.cognifide.qa.bb.cumber.guice.BobcumberModule;
 import com.cognifide.qa.bb.logging.ReporterModule;
 import com.cognifide.qa.bb.modules.CoreModule;
