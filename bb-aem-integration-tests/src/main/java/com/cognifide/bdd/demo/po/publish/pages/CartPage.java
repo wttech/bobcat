@@ -74,9 +74,9 @@ public class CartPage extends PublishPage {
 
   public void checkout() {
     bobcatWait.withTimeout(Timeouts.MEDIUM)
-            .until(driver -> ExpectedConditions.elementToBeClickable(checkoutButton));
+        .until(driver -> ExpectedConditions.elementToBeClickable(checkoutButton));
     reportEntryLogger.info("checkout link href attribute: '{}'",
-            checkoutButton.getAttribute(HtmlTags.Attributes.HREF));
+        checkoutButton.getAttribute(HtmlTags.Attributes.HREF));
     //clicking on an anchor tag is sometimes problematic when using WebElement#click
     ((JavascriptExecutor) driver).executeScript("arguments[0].click();", checkoutButton);
     reportEntryLogger.info("checkout link clicked");
