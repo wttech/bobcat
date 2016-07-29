@@ -111,9 +111,9 @@ public class AuthorPage {
   public Parsys getParsys(String dataPath) {
     String path = DataPathUtil.normalize(dataPath);
     return parsyses.stream() //
-        .filter(parsys -> StringUtils.contains(parsys.getDataPath(), path)) //
-        .findFirst() //
-        .orElseThrow(() -> new IllegalStateException("Parsys not found"));
+          .filter(parsys -> StringUtils.contains(parsys.getDataPath(), path)) //
+          .findFirst() //
+          .orElseThrow(() -> new IllegalStateException("Parsys not found"));
   }
 
   public <T> T getContent(Class<T> component) {
@@ -130,9 +130,9 @@ public class AuthorPage {
       LOG.error("CSS field was not present in the page object, injecting with default scope", e);
     }
     frameSwitcher.switchBack();
-    return scope == null ?
-        pageObjectInjector.inject(component, CONTENT_FRAME) :
-        pageObjectInjector.inject(component, scope, CONTENT_FRAME);
+    return scope == null
+            ? pageObjectInjector.inject(component, CONTENT_FRAME)
+            : pageObjectInjector.inject(component, scope, CONTENT_FRAME);
   }
 
   public void addComponent(String parsys, String component) {
@@ -141,7 +141,7 @@ public class AuthorPage {
   }
 
   public Map<String, List<FieldConfig>> configureComponent(String parsys, String component,
-      String configName) {
+          String configName) {
     Map<String, List<FieldConfig>> data = componentConfigs.getConfigs(component).get(configName);
     if (data == null) {
       throw new IllegalArgumentException("Config does not exist: " + configName);

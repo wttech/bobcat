@@ -81,15 +81,23 @@ public class Parsys {
   public Component getComponent(String dataPath) {
     String componentDataPath = DataPathUtil.normalize(dataPath);
     return componentList.stream() //
-        .filter(containsDataPath(componentDataPath)) //
-        .findFirst() //
-        .orElseThrow(() -> new IllegalStateException("Component not present in the parsys"));
+          .filter(containsDataPath(componentDataPath)) //
+          .findFirst() //
+          .orElseThrow(() -> new IllegalStateException("Component not present in the parsys"));
+  }
+
+  public Component getLastComponent(String dataPath) {
+    String componentDataPath = DataPathUtil.normalize(dataPath);
+    return componentList.stream() //
+          .filter(containsDataPath(componentDataPath)) //
+          .reduce((a, b) -> b)
+          .orElseThrow(() -> new IllegalStateException("Component not present in the parsys"));
   }
 
   public boolean isComponentPresent(String dataPath) {
     String componentDataPath = DataPathUtil.normalize(dataPath);
     return componentList.stream() //
-        .anyMatch(containsDataPath(componentDataPath));
+            .anyMatch(containsDataPath(componentDataPath));
   }
 
   public void insertComponent(String title) {
@@ -104,6 +112,14 @@ public class Parsys {
     getComponent(dataPath).delete();
   }
 
+  public void deleteLastComponent(String dataPath) {
+    getLastComponent(dataPath).delete();
+  }
+
+  public WebElement getParsys() {
+    return parsys;
+  }
+
   public boolean isNotStale() {
     return conditions.isConditionMet(not(stalenessOf(parsys)));
   }
@@ -116,9 +132,8 @@ public class Parsys {
   }
 
   /**
-   * it may happen that the window pops up just a moment before {@code dropArea.click(} happens, which
-   * results in WebdriverException: 'Other element would receive the click' - thus it is catched and
-   * validated
+   * it may happen that the window pops up just a moment before {@code dropArea.click(} happens, which results
+   * in WebdriverException: 'Other element would receive the click' - thus it is catched and validated
    */
   private void tryToOpenInsertWindow() {
     conditions.verify(ignored -> {

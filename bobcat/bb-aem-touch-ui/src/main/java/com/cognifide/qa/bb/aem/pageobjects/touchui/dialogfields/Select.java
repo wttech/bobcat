@@ -37,13 +37,14 @@ public class Select implements DialogField {
   @Override
   public void setValue(Object value) {
     org.openqa.selenium.support.ui.Select selectElement = new org.openqa.selenium.support.ui.Select(
-        select);
+     select);
     List<String> values = Arrays.asList(String.valueOf(value).split(","));
     values.stream().forEach(selectElement::selectByVisibleText);
   }
 
   @Override
-  public FieldType getType() {
-    return FieldType.SELECT;
+  public String getType() {
+    return FieldType.SELECT.name();
   }
+
 }

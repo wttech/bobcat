@@ -76,8 +76,8 @@ public class ConfigDialog {
 
   public void verifyFullscreen() {
     conditions
-        .verify(webDriver -> containsIgnoreCase(dialog.getAttribute(HtmlTags.Attributes.CLASS),
-            FULLSCREEN_CLASS));
+            .verify(webDriver -> containsIgnoreCase(dialog.getAttribute(HtmlTags.Attributes.CLASS),
+                            FULLSCREEN_CLASS));
   }
 
   public void confirm() {
@@ -123,7 +123,7 @@ public class ConfigDialog {
     }
     value.stream() //
         .forEach(fieldConfig -> dialogConfigurer
-            .getDialogField(parent, fieldConfig.getLabel(), fieldConfig.getType())
-            .setValue(fieldConfig.getValue()));
+          .getDialogField(parent, fieldConfig.getLabel(), fieldConfig.getType())
+          .setValue(fieldConfig.getValue()));
   }
 }

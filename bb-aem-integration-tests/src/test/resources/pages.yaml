@@ -20,6 +20,9 @@
 Title - Update&Read:
   path: /content/geometrixx/en/toolbar/contacts.html
   parsys: /par
+Text - Update&Read:
+  path: /content/geometrixx/en/toolbar/search.html
+  parsys: /par
 Image - Update&Read:
   path: /content/geometrixx/en/products/mandelbrot.html
   parsys: /par

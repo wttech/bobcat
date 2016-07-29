@@ -23,7 +23,7 @@ public class FieldConfig {
 
   public String label;
 
-  public FieldType type;
+  public String type;
 
   public Object value;
 
@@ -31,7 +31,7 @@ public class FieldConfig {
     return label;
   }
 
-  public FieldType getType() {
+  public String getType() {
     return type;
   }
 

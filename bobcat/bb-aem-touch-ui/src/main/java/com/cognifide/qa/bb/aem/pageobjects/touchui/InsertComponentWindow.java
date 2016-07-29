@@ -19,7 +19,7 @@
  */
 package com.cognifide.qa.bb.aem.pageobjects.touchui;
 
-import static org.apache.commons.lang3.StringUtils.containsIgnoreCase;
+import static org.apache.commons.lang3.StringUtils.equalsIgnoreCase;
 import static org.openqa.selenium.support.ui.ExpectedConditions.not;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
@@ -52,7 +52,8 @@ public class InsertComponentWindow {
   private WebElement closeButton;
 
   public void insertComponent(String title) {
-    conditions.elementReady(getComponent(title)).click();
+    WebElement component = getComponent(title);
+    conditions.elementReady(component).click();
     conditions.verify(not(visibilityOf(window)));
   }
 
@@ -76,9 +77,9 @@ public class InsertComponentWindow {
 
   private WebElement getComponent(String name) {
     return components.stream() //
-        .filter(element -> containsIgnoreCase(element.getText(), name)) //
-        .findFirst() //
-        .orElseThrow(
-            () -> new IllegalStateException("Specified component is not available: " + name));
+          .filter(element -> equalsIgnoreCase(element.getText(), name)) //
+          .findFirst() //
+          .orElseThrow(
+                  () -> new IllegalStateException("Specified component is not available: " + name));
   }
 }

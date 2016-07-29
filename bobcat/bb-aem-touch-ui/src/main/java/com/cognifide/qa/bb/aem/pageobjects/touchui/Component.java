@@ -41,8 +41,9 @@ import com.google.inject.Inject;
 
 @PageObject
 public class Component {
+
   public static final String CSS = //
-      ".cq-Overlay--component:not(.cq-Overlay--container)";
+          ".cq-Overlay--component:not(.cq-Overlay--container):not(.is-disabled)";
 
   @Inject
   private Conditions conditions;
@@ -65,7 +66,7 @@ public class Component {
 
   public String getDataPath() {
     String rawValue = conditions.staleSafe(component, checked -> checked.getAttribute(
-        HtmlTags.Attributes.DATA_PATH));
+            HtmlTags.Attributes.DATA_PATH));
     return StringUtils.substringAfter(rawValue, JCR_CONTENT);
   }
 

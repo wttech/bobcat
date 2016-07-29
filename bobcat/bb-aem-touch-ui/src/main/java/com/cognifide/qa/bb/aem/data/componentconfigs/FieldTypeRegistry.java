@@ -27,20 +27,21 @@ import com.cognifide.qa.bb.aem.pageobjects.touchui.dialogfields.DialogField;
 import com.google.inject.Inject;
 
 public class FieldTypeRegistry {
-  private Map<FieldType, DialogField> registry;
+
+  private final Map<String, DialogField> registry;
 
   @Inject
   public FieldTypeRegistry(Set<DialogField> dialogFields) {
     registry = new HashMap<>();
     dialogFields.stream() //
-        .forEach(dialogField -> register(dialogField.getType(), dialogField));
+            .forEach(dialogField -> register(dialogField.getType(), dialogField));
   }
 
-  private void register(FieldType key, DialogField value) {
+  private void register(String key, DialogField value) {
     registry.put(key, value);
   }
 
-  public Class<?> getClass(FieldType type) {
+  public Class<?> getClass(String type) {
     return registry.get(type).getClass().getSuperclass();
   }
 }

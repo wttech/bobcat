@@ -1,9 +1,6 @@
-/*-
- * #%L
- * Bobcat Parent
- * %%
- * Copyright (C) 2016 Cognifide Ltd.
- * %%
+/*
+ * Copyright 2016 Cognifide Ltd..
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,30 +12,31 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * #L%
  */
-package com.cognifide.qa.bb.aem.pageobjects.touchui.dialogfields;
+package com.cognifide.bdd.demo.po.touchui;
+
+import com.cognifide.qa.bb.constants.HtmlTags;
+import com.cognifide.qa.bb.qualifier.CurrentScope;
+import com.cognifide.qa.bb.qualifier.PageObject;
+import com.google.inject.Inject;
 
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-
-import com.cognifide.qa.bb.qualifier.PageObject;
-import com.cognifide.qa.bb.aem.data.componentconfigs.FieldType;
 
 @PageObject
-public class Textfield implements DialogField {
+public class TextComponent {
 
-  @FindBy(css = ".coral-Textfield:not([type='hidden']")
-  private WebElement input;
+  public static final String CSS = ".section.text.parbase";
 
-  @Override
-  public void setValue(Object value) {
-    input.clear();
-    input.sendKeys(String.valueOf(value));
+  @Inject
+  @CurrentScope
+  private WebElement component;
+
+  public String getOuterHTML() {
+    return component.getAttribute(HtmlTags.Properties.OUTER_HTML);
   }
 
-  @Override
-  public String getType() {
-    return FieldType.TEXTFIELD.name();
+  public String getCssClassNameProperty() {
+    return component.getAttribute(HtmlTags.Properties.CLASS_NAME);
   }
+
 }
