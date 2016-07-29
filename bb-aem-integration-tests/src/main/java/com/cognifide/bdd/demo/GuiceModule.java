@@ -41,6 +41,5 @@ public class GuiceModule extends AbstractModule {
     install(new BobcumberModule());
     install(new TrafficModule());
     install(new AemTouchUiModule());
-    install(new GeometrixxFieldsModule());
   }
 }

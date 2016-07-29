@@ -23,7 +23,7 @@ import java.util.Map;
 
 public class Components {
 
-  private Map<String, ComponentDescription> descriptions;
+  private final Map<String, ComponentDescription> descriptions;
 
   public Components(Map<String, ComponentDescription> descriptions) {
     this.descriptions = descriptions;
