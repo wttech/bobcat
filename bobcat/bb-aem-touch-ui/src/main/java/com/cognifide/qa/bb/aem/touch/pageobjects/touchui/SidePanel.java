@@ -61,7 +61,7 @@ public class SidePanel {
   @CurrentScope
   private WebElement sidePanel;
 
-  @FindBy(css = "#assetsearch")
+  @FindBy(id = "assetsearch")
   private WebElement searchInput;
 
   @FindBy(css = ".content-panel .resultspinner")
