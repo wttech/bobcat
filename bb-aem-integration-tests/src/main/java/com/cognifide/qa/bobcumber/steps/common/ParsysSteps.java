@@ -29,7 +29,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import com.cognifide.qa.bb.scope.ScenarioContext;
+import com.cognifide.qa.bb.scenario.ScenarioContext;
 import com.cognifide.qa.bb.aem.ui.parsys.AemParsys;
 import com.cognifide.qa.bb.aem.utils.AemClassicAuthorHelper;
 import com.google.inject.Inject;

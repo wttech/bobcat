@@ -38,10 +38,8 @@ import com.cognifide.qa.bb.aem.data.components.Components;
 import com.cognifide.qa.bb.aem.data.pages.Pages;
 import com.cognifide.qa.bb.aem.pageobjects.pages.AuthorPage;
 import com.cognifide.qa.bb.aem.pageobjects.pages.AuthorPageFactory;
-import com.cognifide.qa.bb.aem.pageobjects.touchui.GlobalBar;
 import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
-import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.google.inject.Inject;
 
 @RunWith(TestRunner.class)
@@ -61,9 +59,6 @@ public class AemTitleTest {
 
   @Inject
   private Components components;
-
-  @Inject
-  private GlobalBar globalBar;
 
   private static final String CONFIGURATION = "Title - Update&Read";
 
@@ -89,7 +84,6 @@ public class AemTitleTest {
     assertEquals(data.get(COMPONENT_NAME).get(0).getValue().toString().toUpperCase(),
         component.getTitle());
 
-    globalBar.switchToEditMode();
     page.deleteComponent(parsys, COMPONENT_NAME);
     assertThat(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME.toLowerCase()), is(false));
   }

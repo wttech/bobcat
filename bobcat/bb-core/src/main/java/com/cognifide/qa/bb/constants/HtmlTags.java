@@ -40,6 +40,10 @@ public final class HtmlTags {
 
     public static final String TITLE = "title";
 
+    public static final String SRC = "src";
+
+    public static final String STYLE = "style";
+
     private Attributes() {}
   }
 

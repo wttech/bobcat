@@ -21,6 +21,7 @@ package com.cognifide.qa.bb.aem.pageobjects.touchui;
 
 import static org.apache.commons.lang3.StringUtils.containsIgnoreCase;
 
+import com.cognifide.qa.bb.aem.data.componentconfigs.FieldType;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -67,6 +68,11 @@ public class DialogConfigurer {
             //				.orElse(fields.get(0));
         .orElseThrow(() -> new IllegalStateException("Dialog field not found"));
 
+    return getFieldObject(scope, type);
+  }
+
+  public DialogField getDialogField(WebElement parentElement, String type) {
+    WebElement scope = parentElement.findElement(By.tagName("input"));
     return getFieldObject(scope, type);
   }
 
