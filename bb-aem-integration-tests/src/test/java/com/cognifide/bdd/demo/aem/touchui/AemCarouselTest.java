@@ -2,10 +2,11 @@ package com.cognifide.bdd.demo.aem.touchui;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.StringEndsWith.endsWith;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,19 +44,21 @@ public class AemCarouselTest {
 
   private AuthorPage page;
 
+  private String parsys;
+
   @Before
   public void setup() {
     aemLogin.authorLogin();
     page = authorPageFactory.create(pages.getPath(CONFIGURATION));
     page.open();
     assertTrue("Page has not loaded", page.isLoaded());
+    parsys = pages.getParsys(CONFIGURATION);
+    page.addComponent(parsys, COMPONENT_NAME);
+    assertTrue(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME.toLowerCase()));
   }
 
   @Test
   public void editCarouselComponentTest() {
-    String parsys = pages.getParsys(CONFIGURATION);
-    page.addComponent(parsys, COMPONENT_NAME);
-    assertTrue(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME.toLowerCase()));
     page.configureComponent(parsys, COMPONENT_NAME, COMPONENT_NAME.toLowerCase());
 
     CarouselComponent component =
@@ -64,7 +67,11 @@ public class AemCarouselTest {
     assertThat(component.getSize(), is(2));
     assertThat(component.getAnchorHref(0), endsWith("/content/geometrixx-outdoors.html"));
     assertThat(component.getAnchorHref(1), endsWith("/content/geometrixx-outdoors-mobile.html"));
+  }
 
+  @After
+  public void deleteComponent() {
     page.deleteComponent(parsys, COMPONENT_NAME);
+    assertFalse(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME.toLowerCase()));
   }
 }

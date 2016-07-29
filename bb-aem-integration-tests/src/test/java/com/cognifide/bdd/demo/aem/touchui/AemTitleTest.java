@@ -20,12 +20,14 @@
 package com.cognifide.bdd.demo.aem.touchui;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 import java.util.Map;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -55,37 +57,43 @@ public class AemTitleTest {
   @Inject
   private AuthorPageFactory authorPageFactory;
 
-  private AuthorPage page;
-
   @Inject
   private Components components;
+
+  private AuthorPage page;
 
   private static final String CONFIGURATION = "Title - Update&Read";
 
   private static final String COMPONENT_NAME = "Title";
+
+  private String parsys;
 
   @Before
   public void before() {
     aemLogin.authorLogin();
     page = authorPageFactory.create(pages.getPath(CONFIGURATION));
     page.open();
-    assertThat("Page has not loaded", page.isLoaded(), is(true));
+    assertTrue("Page has not loaded", page.isLoaded());
+    parsys = pages.getParsys(CONFIGURATION);
+    page.addComponent(parsys, COMPONENT_NAME);
+    assertTrue(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME.toLowerCase()));
   }
 
   @Test
   public void editTitleComponentTest() {
-    String parsys = pages.getParsys(CONFIGURATION);
-    page.addComponent(parsys, COMPONENT_NAME);
-    assertThat(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME.toLowerCase()), is(true));
     Map<String, List<FieldConfig>> data = page.configureComponent(parsys,
         COMPONENT_NAME, COMPONENT_NAME.toLowerCase());
 
-    TitleComponent component = (TitleComponent) page.getContent(components.getClazz(COMPONENT_NAME));
-    assertEquals(data.get(COMPONENT_NAME).get(0).getValue().toString().toUpperCase(),
-        component.getTitle());
+    TitleComponent component =
+        (TitleComponent) page.getContent(components.getClazz(COMPONENT_NAME));
+    assertThat(component.getTitle(), is(
+        data.get(COMPONENT_NAME).get(0).getValue().toString().toUpperCase()));
+  }
 
+  @After
+  public void deleteComponent() {
     page.deleteComponent(parsys, COMPONENT_NAME);
-    assertThat(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME.toLowerCase()), is(false));
+    assertFalse(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME.toLowerCase()));
   }
 
 }
