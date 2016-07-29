@@ -68,7 +68,7 @@ public class CartPage extends PublishPage {
   public boolean recommendationsAreLoaded() {
     boolean replacedWithAjaxCall = !defaultRecommendationsElement.isDisplayed();
     reportEntryLogger
-            .info("checking if recommendations were loaded with AJAX: '{}'", replacedWithAjaxCall);
+        .info("checking if recommendations were loaded with AJAX: '{}'", replacedWithAjaxCall);
     return replacedWithAjaxCall;
   }
 
