@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,11 +19,11 @@
  */
 package com.cognifide.bdd.demo.po.publish.pages;
 
-
-
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 
 import com.cognifide.bdd.demo.html.HtmlTags;
 import com.cognifide.qa.bb.constants.Timeouts;
@@ -42,6 +42,9 @@ public class CartPage extends PublishPage {
 
   @Inject
   private ReportEntryLogger reportEntryLogger;
+
+  @Inject
+  private WebDriver driver;
 
   @FindBy(css = "div.recommendations-default")
   private WebElement defaultRecommendationsElement;
@@ -74,7 +77,8 @@ public class CartPage extends PublishPage {
         .until(driver -> ExpectedConditions.elementToBeClickable(checkoutButton));
     reportEntryLogger.info("checkout link href attribute: '{}'",
         checkoutButton.getAttribute(HtmlTags.Attributes.HREF));
-    checkoutButton.click();
+    //clicking on an anchor tag is sometimes problematic when using WebElement#click
+    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", checkoutButton);
     reportEntryLogger.info("checkout link clicked");
   }
 
