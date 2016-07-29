@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bobcumber.steps;
 
-
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -31,7 +29,7 @@ import com.cognifide.qa.bb.aem.dialog.configurer.ComponentConfig;
 import com.cognifide.qa.bb.aem.dialog.configurer.ComponentConfigBuilder;
 import com.cognifide.qa.bb.aem.dialog.configurer.ConfigurationEntry;
 import com.cognifide.qa.bb.aem.dialog.configurer.JsonToComponentConfig;
-import com.cognifide.qa.bb.aem.dialog.configurer.ScenarioContext;
+import com.cognifide.qa.bb.scenario.ScenarioContext;
 import com.google.inject.Inject;
 
 import cucumber.api.java.en.Then;

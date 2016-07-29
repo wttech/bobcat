@@ -17,9 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.dialog.configurer;
-
-
+package com.cognifide.qa.bb.scenario;
 
 import java.util.HashMap;
 import java.util.List;
@@ -57,7 +55,7 @@ public class ScenarioContext {
    *
    * @param key  Identifier of the object in the context.
    * @param type Type of the object.
-   * @param <T> class of object type
+   * @param <T>  class of object type
    * @return The object fetched from the context.
    */
   @SuppressWarnings("unchecked")
@@ -82,9 +80,9 @@ public class ScenarioContext {
   /**
    * Fetches the list from the context, short for "get(key, List.class)".
    *
-   * @param key Identifier of the object in the context.
+   * @param key   Identifier of the object in the context.
    * @param clazz list class
-   * @param <T> list class
+   * @param <T>   list class
    * @return value for the key
    */
   @SuppressWarnings("unchecked")

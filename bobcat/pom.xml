@@ -49,6 +49,7 @@
         <module>bb-traffic</module>
         <module>bb-aem-common</module>
         <module>bb-aem-classic</module>
+        <module>bb-aem-touch-ui</module>
     </modules>
 
     <distributionManagement>

@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,30 +17,18 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.bdd.demo.html;
+package com.cognifide.qa.bb.aem.touch.data.componentconfigs;
 
+import java.util.List;
 
-public final class HtmlTags {
+public class MultifieldEntry {
+  private List<FieldConfig> item;
 
-  public static final String DIV = "div";
-
-  private HtmlTags() {}
-
-  public static final class Attributes {
-
-    public static final String CLASS = "class";
-
-    public static final String HREF = "href";
-
-    public static final String VALUE = "value";
-
-    private Attributes() {}
+  public List<FieldConfig> getItem() {
+    return item;
   }
 
-  public static final class Properties {
-
-    public static final String INNER_HTML = "innerHTML";
-
-    private Properties() {}
+  public void setItem(List<FieldConfig> item) {
+    this.item = item;
   }
 }

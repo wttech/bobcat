@@ -19,7 +19,6 @@
  */
 package com.cognifide.bdd.demo.frame;
 
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -31,6 +30,7 @@ import org.junit.runner.RunWith;
 
 import com.cognifide.bdd.demo.GuiceModule;
 import com.cognifide.bdd.demo.po.frame.MainPage;
+import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
 import com.google.inject.Inject;
@@ -44,7 +44,8 @@ public class FrameTest {
 
   @Test
   public void getFrameByName() {
-    assertThat(mainPage.open().getFrameWithName().getAttribute("class"), is("test-css"));
+    assertThat(mainPage.open().getFrameWithName().getAttribute(HtmlTags.Attributes.CLASS),
+        is("test-css"));
   }
 
   @Test

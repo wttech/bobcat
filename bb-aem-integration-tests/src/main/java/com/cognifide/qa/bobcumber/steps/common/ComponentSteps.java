@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bobcumber.steps.common;
 
-
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.contains;
 import static org.junit.Assert.assertThat;
@@ -38,7 +36,7 @@ import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.aem.dialog.configurer.ComponentConfigurer;
 import com.cognifide.qa.bb.aem.dialog.configurer.ComponentConfigurerFactory;
 import com.cognifide.qa.bb.aem.dialog.configurer.ConfigurationEntry;
-import com.cognifide.qa.bb.aem.dialog.configurer.ScenarioContext;
+import com.cognifide.qa.bb.scenario.ScenarioContext;
 import com.cognifide.qa.bb.aem.dialog.classic.field.AemListItem;
 import com.cognifide.qa.bb.aem.ui.AemDialog;
 import com.cognifide.qa.bb.aem.utils.AemClassicAuthorHelper;

@@ -72,6 +72,11 @@
         </dependency>
         <dependency>
             <groupId>com.cognifide.qa.bb</groupId>
+            <artifactId>bb-aem-touch-ui</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.cognifide.qa.bb</groupId>
             <artifactId>bb-reports</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -262,6 +267,12 @@
             </properties>
         </profile>
         <profile>
+            <id>bb-aem-touch-ui</id>
+            <properties>
+                <runSuite>**/BbAemTouchUiSuite.java</runSuite>
+            </properties>
+        </profile>
+        <profile>
             <id>bb-aem-common</id>
             <properties>
                 <runSuite>**/BbAemCommonSuite.java</runSuite>
@@ -282,7 +293,7 @@
         <profile>
             <id>all-tests</id>
             <properties>
-                <runSuite>**/BbCoreSuite.java,**/BbAemClassicSuite.java,**/BbAemCommonSuite.java,**/BbTrafficSuite.java</runSuite>
+                <runSuite>**/BbCoreSuite.java,**/BbAemClassicSuite.java,**/BbAemCommonSuite.java,**/BbTrafficSuite.java,**/BbAemTouchUiSuite.java</runSuite>
             </properties>
         </profile>
     </profiles>
