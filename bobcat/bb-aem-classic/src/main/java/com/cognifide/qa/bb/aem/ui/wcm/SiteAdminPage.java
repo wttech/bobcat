@@ -51,6 +51,7 @@ import com.cognifide.qa.bb.constants.AemConfigKeys;
 import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
+import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -84,7 +85,7 @@ public class SiteAdminPage {
   @FindBy(id = SiteAdminGrid.ID)
   private SiteAdminGrid grid;
 
-  @FindBy(css = CreatePageWindow.CSS)
+  @FindPageObject
   private CreatePageWindow createPageWindow;
 
   @FindBy(css = SiteAdminConfirmationWindow.CSS)

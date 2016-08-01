@@ -1,3 +1,5 @@
+package com.cognifide.qa.bb.mapper.field;
+
 /*-
  * #%L
  * Bobcat Parent
@@ -7,9 +9,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,11 +19,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.mapper.field;
 
-
-
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Proxy;
@@ -39,12 +37,13 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.scope.PageObjectContext;
 import com.cognifide.qa.bb.scope.frame.FrameMap;
 import com.cognifide.qa.bb.scope.frame.FramePath;
+import com.cognifide.qa.bb.utils.AnnotationsHelper;
 import com.cognifide.qa.bb.utils.PageObjectInjector;
 import com.google.inject.Inject;
 
 /**
- * This class is a provider of Java proxies that will intercept acces to PageObject fields that are lists of
- * PageObjects.
+ * This class is a provider of Java proxies that will intercept access to PageObject fields that are
+ * lists of PageObjects.
  */
 public class PageObjectListProxyProvider implements FieldProvider {
 
@@ -58,8 +57,8 @@ public class PageObjectListProxyProvider implements FieldProvider {
   private FrameMap frameMap;
 
   /**
-   * PageObjectInjectorListener calls this method to check if the provider is able to handle currently
-   * injected field.
+   * PageObjectInjectorListener calls this method to check if the provider is able to handle
+   * currently injected field.
    * <p>
    * PageObjectListProxyProvider handles fields that are:
    * <ul>
@@ -69,12 +68,13 @@ public class PageObjectListProxyProvider implements FieldProvider {
    */
   @Override
   public boolean accepts(Field field) {
-    return isList(field) && hasProperAnnotation(field) && genericTypeIsAnnotedWithPageObject(field);
+    return isList(field) && AnnotationsHelper.isFindByAnnotationPresent(field)
+        && genericTypeIsAnnotedWithPageObject(field);
   }
 
   /**
-   * Produces a proxy that will provide value for the list of PageObjects. Handler of this proxy is an
-   * instance of PageObjectListInvocationHandler.
+   * Produces a proxy that will provide value for the list of PageObjects. Handler of this proxy is
+   * an instance of PageObjectListInvocationHandler.
    */
   @Override
   public Optional<Object> provideValue(Object pageObject, Field field, PageObjectContext context) {
@@ -93,15 +93,6 @@ public class PageObjectListProxyProvider implements FieldProvider {
   private boolean genericTypeIsAnnotedWithPageObject(Field field) {
     Class<?> genericType = getGenericType(field);
     return genericType != null && genericType.isAnnotationPresent(PageObject.class);
-  }
-
-  private boolean hasProperAnnotation(Field field) {
-    for (Class<?> annotation : FIND_ANNOTATIONS) {
-      if (field.isAnnotationPresent((Class<? extends Annotation>) annotation)) {
-        return true;
-      }
-    }
-    return false;
   }
 
   private boolean isList(Field field) {

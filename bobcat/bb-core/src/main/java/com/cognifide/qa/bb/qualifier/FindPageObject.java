@@ -1,3 +1,5 @@
+package com.cognifide.qa.bb.qualifier;
+
 /*-
  * #%L
  * Bobcat Parent
@@ -17,7 +19,6 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.qualifier;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -25,19 +26,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * PageObject is a central concept of Bobcat. It's a term derived from Selenium framework and it means a class
- * that encapsulates page HTML and exposes page features. Add this annotation to classes that represent pages
- * or components within pages.
+ * This annotation allows to find page object if identifier was added in PageObject annotation on
+ * type
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.TYPE})
-public @interface PageObject {
-
-  /**
-   * Use this property to identify the page object
-   *
-   * @return page object css class
-   */
-  String css() default "";
+@Target({ElementType.FIELD})
+public @interface FindPageObject {
 
 }
