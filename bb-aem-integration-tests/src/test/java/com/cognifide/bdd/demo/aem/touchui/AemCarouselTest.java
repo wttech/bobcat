@@ -18,6 +18,7 @@ import com.cognifide.qa.bb.aem.touch.data.components.Components;
 import com.cognifide.qa.bb.aem.touch.data.pages.Pages;
 import com.cognifide.qa.bb.aem.touch.pageobjects.pages.AuthorPage;
 import com.cognifide.qa.bb.aem.touch.pageobjects.pages.AuthorPageFactory;
+import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.GlobalBar;
 import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
 import com.google.inject.Inject;
@@ -29,6 +30,9 @@ public class AemCarouselTest {
   private static final String CONFIGURATION = "Carousel - Update&Read";
 
   private static final String COMPONENT_NAME = "Carousel";
+
+  @Inject
+  private GlobalBar globalBar;
 
   @Inject
   private AemLogin aemLogin;
@@ -53,6 +57,7 @@ public class AemCarouselTest {
     page.open();
     assertTrue("Page has not loaded", page.isLoaded());
     parsys = pages.getParsys(CONFIGURATION);
+    clearParsys();
     page.addComponent(parsys, COMPONENT_NAME);
     assertTrue(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME.toLowerCase()));
   }
@@ -71,7 +76,14 @@ public class AemCarouselTest {
 
   @After
   public void deleteComponent() {
-    page.deleteComponent(parsys, COMPONENT_NAME);
+    clearParsys();
     assertFalse(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME.toLowerCase()));
+  }
+
+  private void clearParsys() {
+    globalBar.switchToEditMode();
+    while (page.getParsys(parsys).isComponentPresent(COMPONENT_NAME.toLowerCase())) {
+      page.deleteComponent(parsys, COMPONENT_NAME);
+    }
   }
 }
