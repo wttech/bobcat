@@ -40,6 +40,8 @@ import com.cognifide.qa.bb.provider.selenium.webdriver.WebDriverRegistry;
  */
 final class ConcurrentSuiteRunnerScheduler implements RunnerScheduler {
 
+  public static final String THREAD_COUNT_PROPERTY = "thread.count";
+
   private final ExecutorService executorService;
 
   private final CompletionService<Void> completionService;
@@ -101,7 +103,7 @@ final class ConcurrentSuiteRunnerScheduler implements RunnerScheduler {
   }
 
   private int determineNumberOfThreads(Class<?> clazz) {
-    String property = properties.getProperty(ConcurrentSuite.THREAD_COUNT_PROPERTY);
+    String property = properties.getProperty(THREAD_COUNT_PROPERTY);
     int numberOfThreads = 0;
     if (StringUtils.isNotEmpty(property)) {
       numberOfThreads = Integer.parseInt(property);

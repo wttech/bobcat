@@ -36,7 +36,8 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
 class AnalyzerCallable implements Callable<Boolean> {
-  private final Logger LOG = LoggerFactory.getLogger(AnalyzerCallable.class);
+
+  private static final Logger LOG = LoggerFactory.getLogger(AnalyzerCallable.class);
 
   @Inject
   private ProxyController controller;
@@ -95,20 +96,20 @@ class AnalyzerCallable implements Callable<Boolean> {
   }
 
   private void fireTimeoutEvent() {
-    for (ProxyEventListener l : proxyListeners) {
-      l.timeout();
+    for (ProxyEventListener listener : proxyListeners) {
+      listener.timeout();
     }
   }
 
   private void fireFoundEvent() {
-    for (ProxyEventListener l : proxyListeners) {
-      l.requestFound();
+    for (ProxyEventListener listener : proxyListeners) {
+      listener.requestFound();
     }
   }
 
   private void fireWaitingEvent() {
-    for (ProxyEventListener l : proxyListeners) {
-      l.waitingForRequest(requestPredicate, closestHarEntryElector);
+    for (ProxyEventListener listener : proxyListeners) {
+      listener.waitingForRequest(requestPredicate, closestHarEntryElector);
     }
   }
 }

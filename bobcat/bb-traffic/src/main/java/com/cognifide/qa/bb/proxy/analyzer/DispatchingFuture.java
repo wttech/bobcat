@@ -34,10 +34,11 @@ class DispatchingFuture extends FutureWrapper<Boolean> {
   @Inject
   private Set<ProxyEventListener> proxyListeners;
 
-  private AtomicBoolean listenersDispatched = new AtomicBoolean();
+  private final AtomicBoolean listenersDispatched;
 
   DispatchingFuture(Future<Boolean> wrapped) {
     super(wrapped);
+    listenersDispatched = new AtomicBoolean();
   }
 
   @Override
@@ -60,8 +61,8 @@ class DispatchingFuture extends FutureWrapper<Boolean> {
   }
 
   private void dispatch() {
-    for (ProxyEventListener l : proxyListeners) {
-      l.dispatch();
+    for (ProxyEventListener listener : proxyListeners) {
+      listener.dispatch();
     }
   }
 }
