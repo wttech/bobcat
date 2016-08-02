@@ -45,5 +45,5 @@ public interface Connector {
    * This method will be invoked to close connection with mailbox.
    *
    */
-  void close() throws ConnectorException;
+  void close();
 }
