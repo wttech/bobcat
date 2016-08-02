@@ -95,7 +95,7 @@ public class Parsys {
   }
 
   public boolean isComponentPresent(String dataPath) {
-    String componentDataPath = DataPathUtil.normalize(dataPath);
+    String componentDataPath = DataPathUtil.normalize(dataPath.toLowerCase());
     return componentList.stream() //
             .anyMatch(containsDataPath(componentDataPath));
   }

@@ -65,11 +65,11 @@ public class GlobalBar {
     }
   }
 
-  private boolean isInPreviewMode() {
+  public boolean isInPreviewMode() {
     return conditions.classContains(previewModeButton, IS_SELECTED);
   }
 
-  private boolean isInEditMode() {
+  public boolean isInEditMode() {
     return conditions.classContains(editModeButton, IS_SELECTED);
   }
 }

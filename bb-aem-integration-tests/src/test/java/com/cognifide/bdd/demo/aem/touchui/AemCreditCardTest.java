@@ -19,6 +19,7 @@ import com.cognifide.qa.bb.aem.touch.data.components.Components;
 import com.cognifide.qa.bb.aem.touch.data.pages.Pages;
 import com.cognifide.qa.bb.aem.touch.pageobjects.pages.AuthorPage;
 import com.cognifide.qa.bb.aem.touch.pageobjects.pages.AuthorPageFactory;
+import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.GlobalBar;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.expectedconditions.CommonExpectedConditions;
 import com.cognifide.qa.bb.junit.Modules;
@@ -59,25 +60,37 @@ public class AemCreditCardTest {
   @Inject
   private BobcatWait bobcatWait;
 
+  @Inject
+  private GlobalBar globalBar;
+
   private AuthorPage page;
 
   private String parsys;
 
   @Before
-  public void setup() {
+  public void setUp() {
     aemLogin.authorLogin();
     page = authorPageFactory.create(pages.getPath(CONFIGURATION));
     page.open();
     assertTrue("Page has not loaded", page.isLoaded());
     parsys = pages.getParsys(CONFIGURATION);
+    page.clearParsys(parsys, COMPONENT_NAME);
+    assertFalse(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME));
     page.addComponent(parsys, COMPONENT_NAME);
     assertTrue(page.getParsys(parsys).isComponentPresent(COMPONENT_DATA_PATH));
+  }
+
+  @After
+  public void tearDown() {
+    page.clearParsys(parsys, COMPONENT_NAME);
+    assertFalse(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME));
   }
 
   @Test
   public void checkedCheckBoxTest() {
     page.configureComponent(parsys, COMPONENT_DATA_PATH, CHECKED_CHECKBOX_CONFIGURATION);
 
+    globalBar.switchToPreviewMode();
     CreditCardComponent component =
         (CreditCardComponent) page.getContent(components.getClazz(COMPONENT_DATA_PATH));
 
@@ -92,16 +105,11 @@ public class AemCreditCardTest {
   public void uncheckedCheckBoxTest() {
     page.configureComponent(parsys, COMPONENT_DATA_PATH, UNCHECKED_CHECKBOX_CONFIGURATION);
 
+    globalBar.switchToPreviewMode();
     CreditCardComponent component =
         (CreditCardComponent) page.getContent(components.getClazz(COMPONENT_DATA_PATH));
 
     assertThat(component.getLabelText(), is(LABEL_TEXT));
     assertThat(component.getCardTypeSelect(), anything());
-  }
-
-  @After
-  public void deleteComponent() {
-    page.deleteComponent(parsys, COMPONENT_DATA_PATH);
-    assertFalse(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME.toLowerCase()));
   }
 }

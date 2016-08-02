@@ -16,6 +16,7 @@
 package com.cognifide.bdd.demo.aem.touchui;
 
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -41,9 +42,7 @@ public class AemRichtextTest {
 
   private static final String PAGE_TITLE = "Text - Update&Read";
 
-  private static final String TEXT_COMP_NAME = "Text";
-
-  private static final String TEXT_CMOP_DATA_PATH = "/text";
+  private static final String COMPONENT_NAME = "Text";
 
   @Inject
   private AemLogin aemLogin;
@@ -62,70 +61,83 @@ public class AemRichtextTest {
   private String parsys;
 
   @Before
-  public void before() {
+  public void setUp() {
     aemLogin.authorLogin();
     page = authorPageFactory.create(pages.getPath(PAGE_TITLE));
     parsys = pages.getParsys(PAGE_TITLE);
     page.open();
     assertTrue("Page has not loaded", page.isLoaded());
-    if (page.getParsys(parsys).isComponentPresent(TEXT_CMOP_DATA_PATH)) {
-      page.deleteComponent(parsys, TEXT_COMP_NAME);
-    }
-    page.addComponent(parsys, TEXT_COMP_NAME);
+    page.clearParsys(parsys, COMPONENT_NAME);
+    assertFalse(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME));
+    page.addComponent(parsys, COMPONENT_NAME);
+    assertTrue(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME));
+  }
+
+  @After
+  public void tearDown() {
+    page.clearParsys(parsys, COMPONENT_NAME);
   }
 
   @Test
   public void shouldContainEnteredText() {
-    page.configureComponent(parsys, TEXT_COMP_NAME, "plain_text");
+    page.configureComponent(parsys, COMPONENT_NAME, "plain_text");
+    globalBar.switchToPreviewMode();
     String contents = page.getContent(TextComponent.class).getOuterHTML();
     assertThat(contents, containsString("<p>test test test</p>"));
   }
 
   @Test
   public void shouldRenderUnderlinedTextProperly() {
-    page.configureComponent(parsys, TEXT_COMP_NAME, "underline");
+    page.configureComponent(parsys, COMPONENT_NAME, "underline");
+    globalBar.switchToPreviewMode();
     String contents = page.getContent(TextComponent.class).getOuterHTML();
     assertThat(contents, containsString("<p><u>test test test</u></p>"));
   }
 
   @Test
   public void shouldRenderBoldedTextProperly() {
-    page.configureComponent(parsys, TEXT_COMP_NAME, "bold");
+    page.configureComponent(parsys, COMPONENT_NAME, "bold");
+    globalBar.switchToPreviewMode();
     String contents = page.getContent(TextComponent.class).getOuterHTML();
     assertThat(contents, containsString("<p><b>test test test</b></p>"));
   }
 
   @Test
   public void shouldRenderItalicTextProperly() {
-    page.configureComponent(parsys, TEXT_COMP_NAME, "italic");
+    page.configureComponent(parsys, COMPONENT_NAME, "italic");
+    globalBar.switchToPreviewMode();
     String contents = page.getContent(TextComponent.class).getOuterHTML();
     assertThat(contents, containsString("<p><i>test test test</i></p>"));
   }
 
   @Test
   public void shouldRenderTextJustifiedToTheRightSideProperly() {
-    page.configureComponent(parsys, TEXT_COMP_NAME, "justify_right");
+    page.configureComponent(parsys, COMPONENT_NAME, "justify_right");
+    globalBar.switchToPreviewMode();
     String contents = page.getContent(TextComponent.class).getOuterHTML();
     assertThat(contents, containsString("<p style=\"text-align: right;\">test test test</p>"));
   }
 
   @Test
   public void shouldRenderTextJustifiedToTheCenterProperly() {
-    page.configureComponent(parsys, TEXT_COMP_NAME, "justify_center");
+    page.configureComponent(parsys, COMPONENT_NAME, "justify_center");
+    globalBar.switchToPreviewMode();
     String contents = page.getContent(TextComponent.class).getOuterHTML();
     assertThat(contents, containsString("<p style=\"text-align: center;\">test test test</p>"));
   }
 
   @Test
   public void shouldRenderTextJustifiedToTheLeftSideProperly() {
-    page.configureComponent(parsys, TEXT_COMP_NAME, "justify_left");
+    page.configureComponent(parsys, COMPONENT_NAME, "justify_left");
+    globalBar.switchToPreviewMode();
     String contents = page.getContent(TextComponent.class).getOuterHTML();
     assertThat(contents, containsString("<p>test test test</p>"));
   }
 
   @Test
   public void shouldRenderBulletListProperly() {
-    page.configureComponent(parsys, TEXT_COMP_NAME, "bullet_list");
+    page.configureComponent(parsys, COMPONENT_NAME, "bullet_list");
+    globalBar.switchToPreviewMode();
     String contents = page.getContent(TextComponent.class).getOuterHTML();
     //@formatter:off
     assertThat(contents, containsString("<ul>\n"
@@ -137,7 +149,8 @@ public class AemRichtextTest {
 
   @Test
   public void shouldRenderNumberedListProperly() {
-    page.configureComponent(parsys, TEXT_COMP_NAME, "numbered_list");
+    page.configureComponent(parsys, COMPONENT_NAME, "numbered_list");
+    globalBar.switchToPreviewMode();
     String contents = page.getContent(TextComponent.class).getOuterHTML();
     //@formatter:off
     assertThat(contents, containsString("<ol>\n"
@@ -149,15 +162,9 @@ public class AemRichtextTest {
 
   @Test
   public void shouldRenderIndentProperly() {
-    page.configureComponent(parsys, TEXT_COMP_NAME, "indent");
+    page.configureComponent(parsys, COMPONENT_NAME, "indent");
+    globalBar.switchToPreviewMode();
     String contents = page.getContent(TextComponent.class).getOuterHTML();
     assertThat(contents, containsString("<p style=\"margin-left: 40.0px;\">test test test</p>"));
-  }
-
-  @After
-  public void cleanUp() {
-    globalBar.switchToEditMode();
-    parsys = pages.getParsys(PAGE_TITLE);
-    page.deleteComponent(parsys, TEXT_COMP_NAME);
   }
 }

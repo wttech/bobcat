@@ -51,39 +51,34 @@ public class AemCarouselTest {
   private String parsys;
 
   @Before
-  public void setup() {
+  public void setUp() {
     aemLogin.authorLogin();
     page = authorPageFactory.create(pages.getPath(CONFIGURATION));
     page.open();
     assertTrue("Page has not loaded", page.isLoaded());
     parsys = pages.getParsys(CONFIGURATION);
-    clearParsys();
+    page.clearParsys(parsys, COMPONENT_NAME);
+    assertFalse(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME));
     page.addComponent(parsys, COMPONENT_NAME);
-    assertTrue(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME.toLowerCase()));
+    assertTrue(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME));
+  }
+
+  @After
+  public void tearDown() {
+    page.clearParsys(parsys, COMPONENT_NAME);
+    assertFalse(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME));
   }
 
   @Test
   public void editCarouselComponentTest() {
-    page.configureComponent(parsys, COMPONENT_NAME, COMPONENT_NAME.toLowerCase());
+    page.configureComponent(parsys, COMPONENT_NAME, COMPONENT_NAME);
 
+    globalBar.switchToPreviewMode();
     CarouselComponent component =
         (CarouselComponent) page.getContent(components.getClazz(COMPONENT_NAME));
 
     assertThat(component.getSize(), is(2));
     assertThat(component.getAnchorHref(0), endsWith("/content/geometrixx-outdoors.html"));
     assertThat(component.getAnchorHref(1), endsWith("/content/geometrixx-outdoors-mobile.html"));
-  }
-
-  @After
-  public void deleteComponent() {
-    clearParsys();
-    assertFalse(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME.toLowerCase()));
-  }
-
-  private void clearParsys() {
-    globalBar.switchToEditMode();
-    while (page.getParsys(parsys).isComponentPresent(COMPONENT_NAME.toLowerCase())) {
-      page.deleteComponent(parsys, COMPONENT_NAME);
-    }
   }
 }

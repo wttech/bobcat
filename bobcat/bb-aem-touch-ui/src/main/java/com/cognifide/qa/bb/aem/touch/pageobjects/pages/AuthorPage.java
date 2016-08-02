@@ -118,7 +118,6 @@ public class AuthorPage {
 
   public <T> T getContent(Class<T> component) {
     Objects.requireNonNull(component, "clazz property was not specified in YAML config");
-    globalBar.switchToPreviewMode();
     frameSwitcher.switchTo(CONTENT_FRAME);
     WebElement scope = null;
     try {
@@ -142,7 +141,7 @@ public class AuthorPage {
 
   public Map<String, List<FieldConfig>> configureComponent(String parsys, String component,
           String configName) {
-    Map<String, List<FieldConfig>> data = componentConfigs.getConfigs(component).get(configName);
+    Map<String, List<FieldConfig>> data = componentConfigs.getConfigs(component).get(configName.toLowerCase());
     if (data == null) {
       throw new IllegalArgumentException("Config does not exist: " + configName);
     }
@@ -152,9 +151,20 @@ public class AuthorPage {
   }
 
   public void deleteComponent(String parsys, String component) {
-    globalBar.switchToEditMode();
     getParsys(parsys).deleteComponent(components.getDataPath(component));
     verifyParsysRerendered(parsys);
+  }
+
+  /**
+   * Remove all components with given data path.
+   * @param parsys parsys name
+   * @param dataPath data path of the component
+   */
+  public void clearParsys(String parsys, String dataPath) {
+    globalBar.switchToEditMode();
+    while(getParsys(parsys).isComponentPresent(dataPath)) {
+      deleteComponent(parsys, dataPath);
+    }
   }
 
   private void verifyParsysRerendered(String parsys) {
