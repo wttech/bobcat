@@ -40,7 +40,7 @@ import com.cognifide.qa.bb.provider.selenium.webdriver.WebDriverRegistry;
  */
 final class ConcurrentSuiteRunnerScheduler implements RunnerScheduler {
 
-  public static final String THREAD_COUNT_PROPERTY = "thread.count";
+  private static final String THREAD_COUNT_PROPERTY = "thread.count";
 
   private final ExecutorService executorService;
 
