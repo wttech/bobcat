@@ -122,7 +122,7 @@ public class AemContentFinderTab {
    * See {@link AemContentFinder#clickMosaicView}
    */
   public void clickMosaicView() {
-    if (getCurrentView() == (ResultsView.DEFAULT)) {
+    if (getCurrentView() == ResultsView.DEFAULT) {
       throw new IllegalStateException();
     }
     bobcatWait.withTimeout(Timeouts.MEDIUM)
@@ -133,7 +133,7 @@ public class AemContentFinderTab {
    * See {@link AemContentFinder#clickMosaicView}
    */
   public void clickListView() {
-    if (getCurrentView() == (ResultsView.DEFAULT)) {
+    if (getCurrentView() == ResultsView.DEFAULT) {
       throw new IllegalStateException();
     }
     bobcatWait.withTimeout(Timeouts.MEDIUM)
