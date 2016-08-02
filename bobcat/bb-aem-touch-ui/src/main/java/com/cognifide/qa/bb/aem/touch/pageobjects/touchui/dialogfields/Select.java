@@ -32,12 +32,12 @@ import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldType;
 public class Select implements DialogField {
 
   @FindBy(css = ".coral-Select-select")
-  private WebElement select;
+  private WebElement selectField;
 
   @Override
   public void setValue(Object value) {
     org.openqa.selenium.support.ui.Select selectElement = new org.openqa.selenium.support.ui.Select(
-     select);
+        selectField);
     List<String> values = Arrays.asList(String.valueOf(value).split(","));
     values.stream().forEach(selectElement::selectByVisibleText);
   }

@@ -23,18 +23,18 @@ import java.util.Map;
 
 public class Pages {
 
-  private Map<String, PageDescription> pages;
+  private Map<String, PageDescription> pagesCollection;
 
   public Pages(Map<String, PageDescription> pages) {
-    this.pages = pages;
+    pagesCollection = pages;
   }
 
   public String getParsys(String name) {
-    return pages.get(name).getParsys();
+    return pagesCollection.get(name).getParsys();
   }
 
   public String getPath(String name) {
-    String path = pages.get(name).getPath();
+    String path = pagesCollection.get(name).getPath();
     if (path == null) {
       throw new IllegalArgumentException("There is no path configured in pages.yaml for: " + name);
     }

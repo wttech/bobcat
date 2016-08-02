@@ -59,7 +59,7 @@ public class SidePanel {
 
   @Inject
   @CurrentScope
-  private WebElement sidePanel;
+  private WebElement currentScope;
 
   @FindBy(id = "assetsearch")
   private WebElement searchInput;
@@ -71,7 +71,7 @@ public class SidePanel {
   private List<WebElement> searchResults;
 
   public boolean isClosed() {
-    return conditions.classContains(sidePanel, IS_CLOSED);
+    return conditions.classContains(currentScope, IS_CLOSED);
   }
 
   public Draggable searchForAsset(String asset) {
@@ -94,7 +94,7 @@ public class SidePanel {
       try {
         return result.isDisplayed();
       } catch (NoSuchElementException | StaleElementReferenceException e) {
-        return false;
+        return Boolean.FALSE;
       }
     }, Timeouts.MEDIUM));
   }

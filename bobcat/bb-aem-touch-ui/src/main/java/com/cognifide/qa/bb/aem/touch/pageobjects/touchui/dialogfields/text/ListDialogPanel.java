@@ -76,12 +76,11 @@ public class ListDialogPanel implements DialogField {
     return FieldType.RICHTEXT_LIST.name();
   }
 
-  private static enum ListPanelActions {
-
+  private enum ListPanelActions {
     NUMBERED,
     BULLET,
     INDENT,
-    OUTDENT;
+    OUTDENT
   }
 
 }

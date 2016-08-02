@@ -29,10 +29,10 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 public class Checkbox implements DialogField {
 
   @FindBy(css = ".coral-Checkbox-input")
-  private WebElement checkbox;
+  private WebElement checkboxElement;
 
   public void select() {
-    checkbox.click();
+    checkboxElement.click();
   }
 
   @Override

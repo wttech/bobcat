@@ -74,7 +74,7 @@ public final class SidekickActions {
   public static ExpectedCondition<Boolean> expandSection(final WebElement section) {
     return driver -> {
       if (isSectionExpanded(section)) {
-        return true;
+        return Boolean.TRUE;
       }
       section.findElement(By.cssSelector(SECTION_TOGGLE_CSS)).click();
       return isSectionExpanded(section);
@@ -90,7 +90,7 @@ public final class SidekickActions {
   public static ExpectedCondition<Boolean> expandFieldset(final WebElement fieldset) {
     return driver -> {
       if (isFieldsetExpanded(fieldset)) {
-        return true;
+        return Boolean.TRUE;
       }
       fieldset.findElement(By.cssSelector(SECTION_TOGGLE_CSS)).click();
       return isFieldsetExpanded(fieldset);

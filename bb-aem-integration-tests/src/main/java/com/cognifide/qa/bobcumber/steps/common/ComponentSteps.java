@@ -122,7 +122,7 @@ public class ComponentSteps {
   @And("^I set the rest of the properties using my component configuration data$")
   public void iSetTheRestOfThePropertiesUsingMyComponentConfigurationData() {
     componentConfigurerFactory.create(aemDialog)
-        .configureDialog(scenarioContext.getList(CONFIG_KEY, ConfigurationEntry.class));
+        .configureDialog(scenarioContext.getList(CONFIG_KEY));
   }
 
   @And("^I configure the properties in the dialog using my component configuration data$")
@@ -180,7 +180,7 @@ public class ComponentSteps {
 
   @Then("^component is configured according to configuration data$")
   public void componentIsConfiguredAccordingToConfigurationData() {
-    List<ConfigurationEntry> input = scenarioContext.getList(CONFIG_KEY, ConfigurationEntry.class);
+    List<ConfigurationEntry> input = scenarioContext.getList(CONFIG_KEY);
     ComponentConfigurer componentConfigurer = componentConfigurerFactory.create(aemDialog);
     List<ConfigurationEntry> createdConfigurations =
         componentConfigurer.getDialogConfiguration(input);

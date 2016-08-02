@@ -448,7 +448,7 @@ public class SiteAdminPage {
         return createPageWindow.isDisplayed();
       } catch (NoSuchElementException | StaleElementReferenceException e) {
         LOG.debug("Create page window is not available at the moment: {}", e);
-        return false;
+        return Boolean.FALSE;
       }
     }, 2);
     return createPageWindow;

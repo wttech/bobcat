@@ -28,4 +28,8 @@ public class DataPathUtil {
         StringUtils.substringBeforeLast(dataPath, "_") :
         dataPath;
   }
+
+  private DataPathUtil() {
+    // utility class
+  }
 }
