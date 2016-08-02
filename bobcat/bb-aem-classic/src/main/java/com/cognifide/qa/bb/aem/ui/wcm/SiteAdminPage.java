@@ -65,6 +65,8 @@ public class SiteAdminPage {
 
   private static final String WCM_PATH = "/siteadmin";
 
+  private static final String AEM_WCM_TITLE = "AEM WCM";
+
   @Inject
   private WebDriver webDriver;
 
@@ -431,7 +433,7 @@ public class SiteAdminPage {
    * @return Page title.
    */
   public String getWcmTitle() {
-    return "AEM WCM";
+    return AEM_WCM_TITLE;
   }
 
   /**

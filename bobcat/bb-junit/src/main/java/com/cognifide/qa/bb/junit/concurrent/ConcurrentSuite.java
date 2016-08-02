@@ -37,7 +37,7 @@ import com.google.inject.Module;
  */
 public final class ConcurrentSuite extends Suite {
 
-  static final String THREAD_COUNT_PROPERTY = "thread.count";
+  public static final String THREAD_COUNT_PROPERTY = "thread.count";
 
   /**
    * Constructs ConcurrentSuite.

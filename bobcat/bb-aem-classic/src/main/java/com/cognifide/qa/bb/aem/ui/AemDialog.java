@@ -347,7 +347,7 @@ public class AemDialog {
    */
   private Map<String, WebElement> getTabMap() {
     List<WebElement> tabs = getAllTabs();
-    Map<String, WebElement> windowTabs = new HashMap<String, WebElement>(tabs.size());
+    Map<String, WebElement> windowTabs = new HashMap<>(tabs.size());
     for (WebElement tab : tabs) {
       String tabLabel = tab.getText();
       windowTabs.put(tabLabel, tab);

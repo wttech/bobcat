@@ -19,50 +19,17 @@
  */
 package com.cognifide.qa.bb.proxy.analyzer;
 
-
-
 import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-import java.util.concurrent.atomic.AtomicBoolean;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.cognifide.qa.bb.constants.ConfigKeys;
-import com.cognifide.qa.bb.proxy.ProxyController;
-import com.cognifide.qa.bb.proxy.ProxyEventListener;
-import com.cognifide.qa.bb.proxy.RequestFilterRegistry;
-import com.cognifide.qa.bb.proxy.analyzer.predicate.ClosestHarEntryElector;
 import com.cognifide.qa.bb.proxy.analyzer.predicate.RequestPredicate;
 import com.cognifide.qa.bb.proxy.analyzer.predicate.RequestPredicateImpl;
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
 
 /**
  * Class allows to intercept and analyze traffic, looking for requests matching some conditions.
  */
 public class TrafficAnalyzer {
-
-  private static final Logger LOG = LoggerFactory.getLogger(TrafficAnalyzer.class);
-
-  @Inject
-  private ProxyController controller;
-
-  @Inject
-  private RequestFilterRegistry registry;
-
-  @Inject
-  private Set<ProxyEventListener> proxyListeners;
-
-  @Inject
-  @Named(ConfigKeys.PROXY_ENABLED)
-  private boolean proxyEnabled;
 
   /**
    * Start analysis process, looking for requests matching given predicate.
@@ -89,101 +56,5 @@ public class TrafficAnalyzer {
   public Future<Boolean> analyzeTraffic(String uriPrefix, Map<String, String> expectedParams,
       final int timeout) {
     return analyzeTraffic(new RequestPredicateImpl(uriPrefix, expectedParams), timeout);
-  }
-
-  private final class DispatchingFuture extends FutureWrapper<Boolean> {
-    private AtomicBoolean listenersDispatched = new AtomicBoolean();
-
-    private DispatchingFuture(Future<Boolean> wrapped) {
-      super(wrapped);
-    }
-
-    @Override
-    public Boolean get() throws InterruptedException, ExecutionException {
-      Boolean result = super.get();
-      if (!listenersDispatched.getAndSet(true)) {
-        dispatch();
-      }
-      return result;
-    }
-
-    @Override
-    public Boolean get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException,
-        TimeoutException {
-      Boolean result = super.get(timeout, unit);
-      if (!listenersDispatched.getAndSet(true)) {
-        dispatch();
-      }
-      return result;
-    }
-
-    private void dispatch() {
-      for (ProxyEventListener l : proxyListeners) {
-        l.dispatch();
-      }
-    }
-  }
-
-  private final class AnalyzerCallable implements Callable<Boolean> {
-    private final RequestPredicate requestPredicate;
-    private final ClosestHarEntryElector closestHarEntryElector;
-
-    private final int timeoutInSeconds;
-
-    private AnalyzerCallable(RequestPredicate requestPredicate, int timeoutInSeconds) {
-      this.requestPredicate = requestPredicate;
-      this.timeoutInSeconds = timeoutInSeconds;
-      if (requestPredicate instanceof RequestPredicateImpl) {
-        this.closestHarEntryElector =
-            new ClosestHarEntryElectorImpl((RequestPredicateImpl) requestPredicate);
-      } else {
-        this.closestHarEntryElector = null;
-      }
-    }
-
-    @Override
-    public Boolean call() throws Exception {
-      if (!proxyEnabled) {
-        LOG.warn("Proxy is disabled - check {} property", ConfigKeys.PROXY_ENABLED);
-        return false;
-      }
-      PredicateRequestFilter filter = new PredicateRequestFilter(requestPredicate);
-      registry.add(filter);
-      controller.startAnalysis();
-      fireWaitingEvent();
-      synchronized (filter) {
-        try {
-          filter.wait(timeoutInSeconds * 1000L);
-        } catch (InterruptedException e) {
-          LOG.error("Interrupted waiting for request", e);
-        }
-      }
-      if (filter.isAccepted()) {
-        fireFoundEvent();
-      } else {
-        fireTimeoutEvent();
-      }
-      controller.stopAnalysis();
-      registry.remove(filter);
-      return filter.isAccepted();
-    }
-
-    private void fireTimeoutEvent() {
-      for (ProxyEventListener l : proxyListeners) {
-        l.timeout();
-      }
-    }
-
-    private void fireFoundEvent() {
-      for (ProxyEventListener l : proxyListeners) {
-        l.requestFound();
-      }
-    }
-
-    private void fireWaitingEvent() {
-      for (ProxyEventListener l : proxyListeners) {
-        l.waitingForRequest(requestPredicate, closestHarEntryElector);
-      }
-    }
   }
 }

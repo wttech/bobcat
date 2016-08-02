@@ -44,7 +44,7 @@ public class CartPage extends PublishPage {
   private ReportEntryLogger reportEntryLogger;
 
   @Inject
-  private WebDriver driver;
+  private WebDriver webDriver;
 
   @FindBy(css = "div.recommendations-default")
   private WebElement defaultRecommendationsElement;
@@ -78,7 +78,7 @@ public class CartPage extends PublishPage {
     reportEntryLogger.info("checkout link href attribute: '{}'",
         checkoutButton.getAttribute(HtmlTags.Attributes.HREF));
     //clicking on an anchor tag is sometimes problematic when using WebElement#click
-    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", checkoutButton);
+    ((JavascriptExecutor) webDriver).executeScript("arguments[0].click();", checkoutButton);
     reportEntryLogger.info("checkout link clicked");
   }
 

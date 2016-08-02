@@ -19,7 +19,6 @@
  */
 package com.cognifide.qa.bb.aem.ui.parsys;
 
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -85,7 +84,7 @@ public class AemInsertWindow {
    * Selects component in the window, clicks ok and waits until insert window disappears.
    *
    * @param componentGroup group of component
-   * @param componentName component name that should be inserted
+   * @param componentName  component name that should be inserted
    * @return This AemInsertWindow
    */
   public AemInsertWindow insertComponent(String componentGroup, String componentName) {
@@ -133,8 +132,8 @@ public class AemInsertWindow {
       WebElement tab = currentScope.findElement(By.xpath(String.format(
           ".//*[contains(@class,'x-panel-header')][.//span[normalize-space(text())=%s]]",
           XpathUtils.quote(componentGroup))));
-      if (tab.findElement(By.cssSelector(".x-tool-toggle")).getCssValue("background-position")
-          .equals(TAB_FOLDED)) {
+      if (TAB_FOLDED.equals(
+          tab.findElement(By.cssSelector(".x-tool-toggle")).getCssValue("background-position"))) {
         tab.click();
       }
       return tab;

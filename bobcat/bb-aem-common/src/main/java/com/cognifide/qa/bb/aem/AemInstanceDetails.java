@@ -77,6 +77,9 @@ public class AemInstanceDetails {
     } catch (IOException e) {
       LOG.error("Can't get aem version", e);
     }
+    finally {
+      infoGet.reset();
+    }
 
     return resultJson;
   }
