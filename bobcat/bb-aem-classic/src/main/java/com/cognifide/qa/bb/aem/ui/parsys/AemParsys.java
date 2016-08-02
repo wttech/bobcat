@@ -414,9 +414,7 @@ public class AemParsys {
   public AemParsys clear() {
     List<WebElement> list =
         currentScope.findElements(By.cssSelector(SELECTOR_FOR_COMPONENT_IN_PARSYS));
-    for (WebElement webElement : list) {
-      clickDeleteInContextMenu(webElement);
-    }
+    list.forEach(this::clickDeleteInContextMenu);
     return this;
   }
 

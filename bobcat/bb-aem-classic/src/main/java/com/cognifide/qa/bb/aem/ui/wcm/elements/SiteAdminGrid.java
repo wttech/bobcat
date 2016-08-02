@@ -131,7 +131,7 @@ public class SiteAdminGrid {
 
   private static boolean pageActivationStatusMatches(ActivationStatus status, SiteAdminPage page,
       String pageTitle) {
-    return status.equals(page.getGrid().selectPageByTitle(pageTitle).getActivationStatus());
+    return status == page.getGrid().selectPageByTitle(pageTitle).getActivationStatus();
   }
 
   private static boolean pageStatusMatches(PageStatus status, SiteAdminPage page,
@@ -273,6 +273,7 @@ public class SiteAdminGrid {
     for (SiteAdminGridRow gridRow : gridRows) {
       if (name.equals(gridRow.getName())) {
         result = gridRow;
+        break;
       }
     }
     if (result == null) {
@@ -333,6 +334,7 @@ public class SiteAdminGrid {
     for (SiteAdminGridRow gridRow : gridRows) {
       if (title.equals(gridRow.getTitle())) {
         result = gridRow;
+        break;
       }
     }
     if (result == null) {

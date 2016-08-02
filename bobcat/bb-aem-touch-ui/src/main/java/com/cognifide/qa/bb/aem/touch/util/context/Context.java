@@ -34,7 +34,7 @@ public class Context {
   private ScenarioContext scenarioContext;
 
   public AuthorPage getCurrentPage() {
-    return scenarioContext.get(ContextKeys.CURRENT_PAGE, AuthorPage.class);
+    return scenarioContext.get(ContextKeys.CURRENT_PAGE);
   }
 
   public void updateCurrentPage(Object page) {
@@ -43,7 +43,7 @@ public class Context {
 
   //TODO remove after refactoring Pages
   public PublishPage getCurrentPublishPage() {
-    return scenarioContext.get(ContextKeys.CURRENT_PAGE, PublishPage.class);
+    return scenarioContext.get(ContextKeys.CURRENT_PAGE);
   }
 
   public String getDataPath() {
@@ -68,7 +68,7 @@ public class Context {
 
   @SuppressWarnings("unchecked")
   public Map<String, List<FieldConfig>> getCurrentConfig() {
-    return scenarioContext.get(ContextKeys.CURRENT_CONFIG, Map.class);
+    return scenarioContext.get(ContextKeys.CURRENT_CONFIG);
   }
 
   public void updateCurrentTag(String tagPath) {

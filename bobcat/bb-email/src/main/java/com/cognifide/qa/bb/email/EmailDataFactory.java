@@ -77,7 +77,7 @@ public final class EmailDataFactory {
       emailData.setAddressFrom(getAddressFrom(message));
       emailData.setAddressTo(getAddressTo(message));
 
-      LOGGER.debug("received email: ", emailData);
+      LOGGER.debug("received email: {}", emailData);
       return emailData;
     } catch (IOException | MessagingException e) {
       throw new EmailException(e);
@@ -85,11 +85,8 @@ public final class EmailDataFactory {
   }
 
   private String getAddressTo(final Message message) throws MessagingException {
-    Address address = null;
-    String emailAddress = null;
-    address = message.getRecipients(Message.RecipientType.TO)[0];
-    emailAddress = matchEmailAddress(address.toString());
-    return emailAddress;
+    Address address = message.getRecipients(Message.RecipientType.TO)[0];
+    return matchEmailAddress(address.toString());
   }
 
   private String getAddressFrom(final Message message) throws MessagingException {

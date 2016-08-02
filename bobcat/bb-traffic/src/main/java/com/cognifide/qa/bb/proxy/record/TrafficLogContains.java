@@ -38,7 +38,7 @@ class TrafficLogContains extends TypeSafeMatcher<TrafficLog> {
 
   private static final Logger LOG = LoggerFactory.getLogger(TrafficLogContains.class);
 
-  List<Predicate<HarEntry>> predicates;
+  private List<Predicate<HarEntry>> predicates;
 
   public TrafficLogContains(List<Predicate<HarEntry>> predicates) {
     super();
@@ -65,7 +65,7 @@ class TrafficLogContains extends TypeSafeMatcher<TrafficLog> {
   private boolean harEntryMatchesPredicates(HarEntry entry) {
     for (Predicate<HarEntry> predicate : predicates) {
       if (!predicate.apply(entry)) {
-        LOG.debug("HarEntry " + entry.getRequest().getUrl() + " discarded by " + predicate);
+        LOG.debug("HarEntry {} discarded by {}", entry.getRequest().getUrl(), predicate);
         return false;
       }
     }
