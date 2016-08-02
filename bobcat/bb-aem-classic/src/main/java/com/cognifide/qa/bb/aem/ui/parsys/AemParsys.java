@@ -96,9 +96,6 @@ public class AemParsys {
   private WebElement insertComponentArea;
 
   @Inject
-  private BobcatWait bobcatWait;
-
-  @Inject
   @Named(AemConfigKeys.COMPONENT_LOCATOR_FORMAT)
   private String componentLocatorFormat;
 
@@ -137,7 +134,7 @@ public class AemParsys {
    * @return Insert window instance.
    */
   public AemInsertWindow openInsertWindow() {
-    bobcatWait.withTimeout(Timeouts.BIG).until(webDriver -> {
+    wait.withTimeout(Timeouts.BIG).until(webDriver -> {
       actions.doubleClick(getClickableParsys()).perform();
       return webElementHelper.isCurrentScopeVisible(insertWindow);
     }, 2);
@@ -151,7 +148,7 @@ public class AemParsys {
    * @return Insert window instance.
    */
   public AemInsertWindow openInsertWindowByContextMenu() {
-    bobcatWait.withTimeout(Timeouts.BIG).until(webDriver -> {
+    wait.withTimeout(Timeouts.BIG).until(webDriver -> {
       contextMenu.open(getClickableParsys());
       contextMenu.clickOption(MenuOption.NEW);
       return webElementHelper.isCurrentScopeVisible(insertWindow);
@@ -164,7 +161,7 @@ public class AemParsys {
    */
   public void pasteComponentByContextMenu() {
     final int componentsCount = componentsCount();
-    bobcatWait.withTimeout(Timeouts.BIG).until(webDriver -> {
+    wait.withTimeout(Timeouts.BIG).until(webDriver -> {
       contextMenu.open(getClickableParsys());
       contextMenu.clickOption(MenuOption.PASTE);
       return componentsCount + 1 == componentsCount();
@@ -448,7 +445,7 @@ public class AemParsys {
   }
 
   private WebElement getClickableParsys() {
-    bobcatWait.withTimeout(Timeouts.SMALL)
+    wait.withTimeout(Timeouts.SMALL)
         .until(webDriver -> getParsysStream().count() >= 1, Timeouts.MINIMAL);
     return getParsysStream().findFirst().get();
   }

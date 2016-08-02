@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bb.email.connector;
 
-
-
 import java.util.Properties;
 
 import javax.mail.Folder;
@@ -51,7 +49,7 @@ public class ImapConnector implements Connector {
   }
 
   @Override
-  public void connect() throws ConnectorException {
+  public void connect() {
     connectWithProtocol("imap");
   }
 
@@ -61,7 +59,7 @@ public class ImapConnector implements Connector {
   }
 
   @Override
-  public void close() throws ConnectorException {
+  public void close() {
     try {
       folder.close(true);
       store.close();
@@ -72,7 +70,7 @@ public class ImapConnector implements Connector {
 
   }
 
-  protected void connectWithProtocol(String protocol) throws ConnectorException {
+  protected void connectWithProtocol(String protocol) {
     try {
       Properties properties = new Properties();
       properties.setProperty("mail.store.protocol", protocol);

@@ -78,13 +78,12 @@ class AnalyzerCallable implements Callable<Boolean> {
     registry.add(filter);
     controller.startAnalysis();
     fireWaitingEvent();
-    synchronized (filter) {
       try {
         filter.wait(timeoutInSeconds * 1000L);
       } catch (InterruptedException e) {
         LOG.error("Interrupted waiting for request", e);
+        throw e;
       }
-    }
     if (filter.isAccepted()) {
       fireFoundEvent();
     } else {
@@ -96,15 +95,11 @@ class AnalyzerCallable implements Callable<Boolean> {
   }
 
   private void fireTimeoutEvent() {
-    for (ProxyEventListener listener : proxyListeners) {
-      listener.timeout();
-    }
+    proxyListeners.forEach(com.cognifide.qa.bb.proxy.ProxyEventListener::timeout);
   }
 
   private void fireFoundEvent() {
-    for (ProxyEventListener listener : proxyListeners) {
-      listener.requestFound();
-    }
+    proxyListeners.forEach(com.cognifide.qa.bb.proxy.ProxyEventListener::requestFound);
   }
 
   private void fireWaitingEvent() {

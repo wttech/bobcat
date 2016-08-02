@@ -19,7 +19,7 @@
  */
 package com.cognifide.qa.bb.aem.touch.util.context;
 
-public class ContextKeys {
+public final class ContextKeys {
   public static final String CURRENT_PAGE = "currentPage";
 
   public static final String CURRENT_PARSYS = "currentParsys";
