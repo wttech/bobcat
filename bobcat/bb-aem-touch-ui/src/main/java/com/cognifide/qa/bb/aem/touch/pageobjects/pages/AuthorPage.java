@@ -63,7 +63,7 @@ public class AuthorPage {
   private String path;
 
   @Inject
-  private WebDriver webDriver;
+  private WebDriver driver;
 
   @Inject
   private PageObjectInjector pageObjectInjector;
@@ -99,7 +99,7 @@ public class AuthorPage {
   }
 
   public void open() {
-    webDriver.get(domain + EDITOR_HTML + path);
+    driver.get(domain + EDITOR_HTML + path);
   }
 
   public boolean isLoaded() {
@@ -109,9 +109,9 @@ public class AuthorPage {
   }
 
   public Parsys getParsys(String dataPath) {
-    String path = DataPathUtil.normalize(dataPath);
+    String componentDataPath = DataPathUtil.normalize(dataPath);
     return parsyses.stream() //
-          .filter(parsys -> StringUtils.contains(parsys.getDataPath(), path)) //
+          .filter(parsys -> StringUtils.contains(parsys.getDataPath(), componentDataPath)) //
           .findFirst() //
           .orElseThrow(() -> new IllegalStateException("Parsys not found"));
   }
@@ -123,7 +123,7 @@ public class AuthorPage {
     WebElement scope = null;
     try {
       String selector = (String) component.getField("CSS").get(null);
-      scope = webDriver.findElement(By.cssSelector(selector));
+      scope = driver.findElement(By.cssSelector(selector));
     } catch (IllegalAccessException e) {
       LOG.error("CSS was not accessible, injecting with default scope", e);
     } catch (NoSuchFieldException e) {

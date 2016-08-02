@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bb.aem;
 
-
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -96,8 +94,7 @@ public class AemAuthCookieFactory {
         loginResponse.close();
       } catch (IOException e) {
         LOG.error("Can't get AEM authentication cookie", e);
-      }
-      finally {
+      } finally {
         loginPost.reset();
       }
       Cookie cookie = findAuthenticationCookie(cookieStore.getCookies());
@@ -110,6 +107,7 @@ public class AemAuthCookieFactory {
 
   /**
    * This method allows to remove cached authentication cookie for a given URL
+   *
    * @param url URL to AEM instance, like http://localhost:4502
    */
   public void removeCookie(String url) {

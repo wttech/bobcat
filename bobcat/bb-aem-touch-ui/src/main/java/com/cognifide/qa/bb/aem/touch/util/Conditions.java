@@ -82,12 +82,11 @@ public class Conditions {
   }
 
   public Object optionalWait(ExpectedCondition<WebElement> condition) {
-    Object result = null;
     try {
-      result = bobcatWait.withTimeout(Timeouts.SMALL).until(condition);
+      return bobcatWait.withTimeout(Timeouts.SMALL).until(condition);
     } catch (TimeoutException ignored) {
+      return null;
     }
-    return result;
   }
 
   /**

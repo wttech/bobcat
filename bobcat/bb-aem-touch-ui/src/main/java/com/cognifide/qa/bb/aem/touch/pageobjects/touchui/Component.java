@@ -50,7 +50,7 @@ public class Component {
 
   @CurrentScope
   @Inject
-  private WebElement component;
+  private WebElement currentScope;
 
   @Global
   @FindBy(css = ComponentToolbar.CSS)
@@ -65,14 +65,14 @@ public class Component {
   private DeleteDialog deleteDialog;
 
   public String getDataPath() {
-    String rawValue = conditions.staleSafe(component, checked -> checked.getAttribute(
+    String rawValue = conditions.staleSafe(currentScope, checked -> checked.getAttribute(
             HtmlTags.Attributes.DATA_PATH));
     return StringUtils.substringAfter(rawValue, JCR_CONTENT);
   }
 
   public ComponentToolbar select() {
     verifyIsDisplayed();
-    component.click();
+    currentScope.click();
     componentToolbar.verifyIsDisplayed();
     return componentToolbar;
   }
@@ -90,15 +90,15 @@ public class Component {
   }
 
   public void verifyIsDisplayed() {
-    conditions.verifyPostAjax(visibilityOf(component));
+    conditions.verifyPostAjax(visibilityOf(currentScope));
   }
 
   public void verifyIsHidden() {
     conditions.verifyPostAjax(webDriver -> {
       try {
-        return !component.isDisplayed();
+        return !currentScope.isDisplayed();
       } catch (NoSuchElementException | StaleElementReferenceException e) {
-        return true;
+        return Boolean.TRUE;
       }
     });
   }

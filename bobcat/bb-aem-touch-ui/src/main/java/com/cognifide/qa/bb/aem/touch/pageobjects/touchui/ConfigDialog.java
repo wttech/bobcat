@@ -58,7 +58,7 @@ public class ConfigDialog {
   private WebElement okButton;
 
   @FindBy(css = "button.cq-dialog-layouttoggle")
-  private WebElement toggleFullscreen;
+  private WebElement toggleFullscreenButton;
 
   @FindBy(css = ".coral-TabPanel-tab")
   private List<WebElement> tabs;
@@ -86,7 +86,7 @@ public class ConfigDialog {
   }
 
   public void toggleFullscreen() {
-    toggleFullscreen.click();
+    toggleFullscreenButton.click();
     verifyFullscreen();
   }
 

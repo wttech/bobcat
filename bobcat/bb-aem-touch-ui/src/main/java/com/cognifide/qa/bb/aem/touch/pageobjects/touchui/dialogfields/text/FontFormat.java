@@ -65,11 +65,10 @@ public class FontFormat implements DialogField {
     return FieldType.RICHTEXT_FONT_FORMAT.name();
   }
 
-  private static enum TouchUIRtButton {
-
+  private enum TouchUIRtButton {
     BOLD,
     UNDERLINE,
-    ITALIC;
+    ITALIC
   }
 
 }

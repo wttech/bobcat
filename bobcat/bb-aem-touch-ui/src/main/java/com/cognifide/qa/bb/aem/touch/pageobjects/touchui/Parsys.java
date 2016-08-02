@@ -65,10 +65,10 @@ public class Parsys {
 
   @Inject
   @CurrentScope
-  private WebElement parsys;
+  private WebElement currentScope;
 
   public String getDataPath() {
-    String rawValue = parsys.getAttribute(HtmlTags.Attributes.DATA_PATH);
+    String rawValue = currentScope.getAttribute(HtmlTags.Attributes.DATA_PATH);
     return StringUtils.substringAfter(rawValue, JCR_CONTENT);
   }
 
@@ -117,11 +117,11 @@ public class Parsys {
   }
 
   public WebElement getParsys() {
-    return parsys;
+    return currentScope;
   }
 
   public boolean isNotStale() {
-    return conditions.isConditionMet(not(stalenessOf(parsys)));
+    return conditions.isConditionMet(not(stalenessOf(currentScope)));
   }
 
   private void tryToSelect() {

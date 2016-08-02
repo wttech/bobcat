@@ -79,12 +79,11 @@ public class ScenarioContext {
    * Fetches the list from the context, short for "get(key, List.class)".
    *
    * @param key   Identifier of the object in the context.
-   * @param clazz list class
    * @param <T>   list class
    * @return value for the key
    */
   @SuppressWarnings("unchecked")
-  public <T> List<T> getList(String key, Class<T> clazz) {
+  public <T> List<T> getList(String key) {
     return get(key);
   }
 

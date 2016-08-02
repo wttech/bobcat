@@ -21,11 +21,11 @@ package com.cognifide.qa.bb.aem.touch.data.componentconfigs;
 
 public class FieldConfig {
 
-  public String label;
+  private String label;
 
-  public String type;
+  private String type;
 
-  public Object value;
+  private Object value;
 
   public String getLabel() {
     return label;

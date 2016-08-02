@@ -72,10 +72,9 @@ public class JustifyDialogPanel implements DialogField {
     return FieldType.RICHTEXT_JUSTIFY.name();
   }
 
-  private static enum JustifyPanelActions {
-
+  private enum JustifyPanelActions {
     JUSTIFY_LEFT,
     JUSTIFY_CENTER,
-    JUSTIFY_RIGHT;
+    JUSTIFY_RIGHT
   }
 }

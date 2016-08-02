@@ -79,9 +79,9 @@ public class AemTagItem {
         actions.moveToElement(removeButton).click().perform();
       } catch (StaleElementReferenceException e) {
         LOG.debug("Button is not available at the moment: ", e);
-        return true;
+        return Boolean.TRUE;
       }
-      return false;
+      return Boolean.FALSE;
     }, 2);
   }
 

@@ -35,4 +35,8 @@ public class ContextKeys {
   public static final String UGC_TITLE = "ugcTitle";
 
   public static final String CURRENT_PATH = "currentPath";
+
+  private ContextKeys() {
+    // utility class
+  }
 }

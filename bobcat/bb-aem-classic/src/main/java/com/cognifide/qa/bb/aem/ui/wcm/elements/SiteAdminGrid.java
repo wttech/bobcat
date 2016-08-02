@@ -100,7 +100,7 @@ public class SiteAdminGrid {
       final SiteAdminPage page, final String pageTitle) {
     return driver -> {
       if (pageActivationStatusMatches(status, page, pageTitle)) {
-        return true;
+        return Boolean.TRUE;
       }
       page.getGrid().getActionBar().clickOnButton(SiteAdminButtons.REFRESH);
       page.getGrid().waitForLoaderNotPresent();
@@ -121,7 +121,7 @@ public class SiteAdminGrid {
       String pageTitle) {
     return driver -> {
       if (pageStatusMatches(status, page, pageTitle)) {
-        return true;
+        return Boolean.TRUE;
       }
       page.getGrid().getActionBar().clickOnButton(SiteAdminButtons.REFRESH);
       page.getGrid().waitForLoaderNotPresent();

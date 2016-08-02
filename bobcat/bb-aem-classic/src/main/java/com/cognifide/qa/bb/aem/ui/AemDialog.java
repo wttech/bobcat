@@ -214,7 +214,7 @@ public class AemDialog {
         return webElementHelper.isCurrentScopeVisible(validationWindow);
       } catch (NoSuchElementException | StaleElementReferenceException e) {
         LOG.debug("Dialog footer button is not available: {}", e);
-        return false;
+        return Boolean.FALSE;
       }
     }, 2);
     return validationWindow;
@@ -302,11 +302,11 @@ public class AemDialog {
       try {
         footerButton.click();
         footerButton.isDisplayed();
-        return false;
+        return Boolean.FALSE;
       } catch (NoSuchElementException | StaleElementReferenceException
           | ElementNotVisibleException e) {
         LOG.debug("Dialog footer button is not available: {}", e);
-        return true;
+        return Boolean.TRUE;
       }
     }, 2);
     bobcatWait.withTimeout(Timeouts.MEDIUM).until(CommonExpectedConditions.noAemAjax());
