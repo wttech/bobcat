@@ -32,8 +32,6 @@ import com.cognifide.qa.bb.proxy.RequestFilterRegistry;
 import com.cognifide.qa.bb.proxy.analyzer.predicate.ClosestHarEntryElector;
 import com.cognifide.qa.bb.proxy.analyzer.predicate.RequestPredicate;
 import com.cognifide.qa.bb.proxy.analyzer.predicate.RequestPredicateImpl;
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
 
 class AnalyzerCallable implements Callable<Boolean> {
 
