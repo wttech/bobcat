@@ -27,7 +27,6 @@ import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.cognifide.qa.bb.proxy.ProxyEventListener;
-import com.google.inject.Inject;
 
 class DispatchingFuture extends FutureWrapper<Boolean> {
 
