@@ -19,8 +19,7 @@
  */
 package com.cognifide.bdd.demo.aem;
 
-
-
+import static org.hamcrest.CoreMatchers.anyOf;
 import static org.hamcrest.Matchers.isEmptyString;
 import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertFalse;
@@ -197,7 +196,7 @@ public class AemRichtextTest {
   @Test
   public void richtextTest_indentButton() {
     testButton(RtButton.INDENT, "xyz", "<p style=\"margin-left: 40px;\">xyz</p>",
-        "<p style=\"margin-left: 40.0px;\">xyz</p>");
+            "<p style=\"margin-left: 40.0px;\">xyz</p>");
   }
 
   @Test
@@ -211,9 +210,11 @@ public class AemRichtextTest {
     aemRichText.type("xyz");
     aemRichText.click(RtButton.INDENT);
     aemRichText.click(RtButton.OUTDENT);
-    assertThat(aemRichText.getInnerHTML(), containsString("<p style=\"\">xyz</p>"));
+    assertThat(aemRichText.getInnerHTML(),
+            anyOf(containsString("<p>xyz</p>"), containsString("<p style=\"\">xyz</p>")));
     aemDialog.ok();
-    assertThat(richtextComponent.getPageHTML().trim(), containsString("<p>xyz</p>"));
+    assertThat(richtextComponent.getPageHTML().trim(),
+            anyOf(containsString("<p>xyz</p>"), containsString("<p style=\"\">xyz</p>")));
   }
 
   @Test
@@ -238,7 +239,7 @@ public class AemRichtextTest {
     AemDropdown spacerDropdown = richtextComponent.getSpacerDropdown();
     spacerDropdown.selectByText("None");
     aemDialog.ok();
-    String[] cssClasses = new String[] {"spacer_before", "spacer_after"};
+    String[] cssClasses = new String[]{"spacer_before", "spacer_after"};
     for (String cssClass : cssClasses) {
       String msg = "rich text component should NOT have the class: '" + cssClass + "'";
       assertFalse(msg, richtextComponent.hasClass(cssClass));
@@ -278,7 +279,7 @@ public class AemRichtextTest {
   }
 
   private void testButton(RtButton rtButton, String textToType, String expectedText1,
-      String expectedText2) {
+          String expectedText2) {
     clear();
     aemRichText.type(textToType);
     aemRichText.selectText(1, 2);
