@@ -37,6 +37,9 @@ import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldConfig;
 import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.google.inject.Inject;
 
+/**
+ * This class represents config dialog of the TouchUI component.
+ */
 @PageObject
 public class ConfigDialog {
 

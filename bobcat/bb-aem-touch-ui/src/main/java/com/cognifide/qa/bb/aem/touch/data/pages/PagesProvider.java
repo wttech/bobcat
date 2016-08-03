@@ -26,13 +26,19 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.cognifide.qa.bb.aem.touch.util.YamlReader;
 import com.google.inject.Provider;
 
+/**
+ * Provide pages from yaml configuration file.
+ */
 @ThreadScoped
 public class PagesProvider implements Provider<Pages> {
 
-  public static final String CONFIG_PATH = "pages";
+  private static final String CONFIG_PATH = "pages";
 
   private Pages pages;
 
+  /**
+   * @return pages that were read from yaml configuration file.
+   */
   @Override
   @SuppressWarnings("unchecked")
   public Pages get() {

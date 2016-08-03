@@ -19,9 +19,19 @@
  */
 package com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields;
 
+/**
+ * This interface represents a TouchUI components that are dialog fields.
+ */
 public interface DialogField {
-
+  /**
+   * Sets component value.
+   *
+   * @param value object representing desired component value.
+   */
   void setValue(Object value);
 
+  /**
+   * @return string representation of component type.
+   */
   String getType();
 }

@@ -19,6 +19,9 @@
  */
 package com.cognifide.qa.bb.aem.touch.data.componentconfigs;
 
+/**
+ * This enum represents available field types.
+ */
 public enum FieldType {
 
   CHECKBOX,

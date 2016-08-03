@@ -19,6 +19,9 @@
  */
 package com.cognifide.qa.bb.aem.touch.util.context;
 
+/**
+ * This class contains keys for context values.
+ */
 public final class ContextKeys {
   public static final String CURRENT_PAGE = "currentPage";
 

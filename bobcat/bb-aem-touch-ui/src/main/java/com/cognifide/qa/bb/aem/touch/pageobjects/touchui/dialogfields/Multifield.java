@@ -32,6 +32,9 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldType;
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.MultifieldEntry;
 
+/**
+ * This class represents TouchUI dialog multifield.
+ */
 @PageObject
 public class Multifield implements DialogField {
 
@@ -41,6 +44,11 @@ public class Multifield implements DialogField {
   @FindBy(css = "li.coral-Multifield-input")
   private List<MultifieldItem> items;
 
+  /**
+   * Sets next element in dialog multifield.
+   *
+   * @param value yaml configuration containing list of {@link MultifieldEntry} representation.
+   */
   @Override
   public void setValue(Object value) {
     ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
@@ -56,6 +64,9 @@ public class Multifield implements DialogField {
     cfg.stream().forEach(itemsIterator.next()::setValue);
   }
 
+  /**
+   * @return dialog field type.
+   */
   @Override
   public String getType() {
     return FieldType.MULTIFIELD.name();

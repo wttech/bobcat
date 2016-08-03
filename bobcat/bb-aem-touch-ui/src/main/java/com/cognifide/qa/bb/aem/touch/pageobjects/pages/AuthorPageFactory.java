@@ -19,6 +19,16 @@
  */
 package com.cognifide.qa.bb.aem.touch.pageobjects.pages;
 
+/**
+ * This interface represents a factory of AuthorPage instances. Guice will create and inject the
+ * factory for you. See the binding in AemTouchUiModule.
+ */
 public interface AuthorPageFactory {
+  /**
+   * Factory method that produces AuthorPage instances.
+   *
+   * @param path path to page.
+   * @return AuthorPage instance for given path.
+   */
   AuthorPage create(String path);
 }

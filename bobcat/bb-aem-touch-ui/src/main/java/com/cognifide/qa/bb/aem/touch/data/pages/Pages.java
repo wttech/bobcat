@@ -21,18 +21,34 @@ package com.cognifide.qa.bb.aem.touch.data.pages;
 
 import java.util.Map;
 
+/**
+ * Represents map of pages and their descriptions
+ */
 public class Pages {
 
   private Map<String, PageDescription> pagesCollection;
 
+  /**
+   * Constructs Pages object.
+   *
+   * @param pages map containing pages descriptions.
+   */
   public Pages(Map<String, PageDescription> pages) {
     pagesCollection = pages;
   }
 
+  /**
+   * @param name page name.
+   * @return name of parsys.
+   */
   public String getParsys(String name) {
     return pagesCollection.get(name).getParsys();
   }
 
+  /**
+   * @param name page name.
+   * @return path of the page.
+   */
   public String getPath(String name) {
     String path = pagesCollection.get(name).getPath();
     if (path == null) {

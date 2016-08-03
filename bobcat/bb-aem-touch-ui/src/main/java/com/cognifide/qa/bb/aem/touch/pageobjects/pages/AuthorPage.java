@@ -49,6 +49,9 @@ import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 import com.google.inject.name.Named;
 
+/**
+ * Represents author page.
+ */
 @PageObject
 public class AuthorPage {
 
@@ -56,9 +59,9 @@ public class AuthorPage {
 
   private static final String EDITOR_HTML = "/editor.html";
 
-  public static final String IS_HIDDEN = "is-hidden";
+  private static final String IS_HIDDEN = "is-hidden";
 
-  public static final String CONTENT_FRAME = "ContentFrame";
+  private static final String CONTENT_FRAME = "ContentFrame";
 
   private String path;
 
@@ -93,21 +96,38 @@ public class AuthorPage {
   @FindBy(css = "#OverlayWrapper")
   private WebElement authoringOverlay;
 
+  /**
+   * Constructs AuthorPage. Sets 'path' field value. Don't call it manually. Use the factory.
+   *
+   * @param path path of the page.
+   */
   @AssistedInject
   public AuthorPage(@Assisted String path) {
     this.path = path;
   }
 
+  /**
+   * Opens page in web driver.
+   */
   public void open() {
     driver.get(domain + EDITOR_HTML + path);
   }
 
+  /**
+   * @return true if page is loaded.
+   */
   public boolean isLoaded() {
     return conditions.isConditionMet(
         not(ignored -> StringUtils
             .contains(authoringOverlay.getAttribute(HtmlTags.Attributes.CLASS), IS_HIDDEN)));
   }
 
+  /**
+   * Looks for parsys by data path. If parsys is not found then throws runtime exception {@link IllegalStateException}.
+   *
+   * @param dataPath data path of parsys.
+   * @return Parsys object.
+   */
   public Parsys getParsys(String dataPath) {
     String componentDataPath = DataPathUtil.normalize(dataPath);
     return parsyses.stream() //
@@ -116,6 +136,12 @@ public class AuthorPage {
           .orElseThrow(() -> new IllegalStateException("Parsys not found"));
   }
 
+  /**
+   * Looks for css class of given component class and return its content.
+   *
+   * @param component component class.
+   * @return content of component.
+   */
   public <T> T getContent(Class<T> component) {
     Objects.requireNonNull(component, "clazz property was not specified in YAML config");
     globalBar.switchToPreviewMode();
@@ -135,11 +161,25 @@ public class AuthorPage {
             : pageObjectInjector.inject(component, scope, CONTENT_FRAME);
   }
 
+  /**
+   * Adds component of given name to parsys of given name on the page. Verifies if parsys is rendered.
+   *
+   * @param parsys name of parsys on the page.
+   * @param component name of component.
+   */
   public void addComponent(String parsys, String component) {
     getParsys(parsys).insertComponent(component);
     verifyParsysRerendered(parsys);
   }
 
+  /**
+   * Configures component in parsys with specific configuration. Verifies if parsys is rendered.
+   *
+   * @param parsys parsys name.
+   * @param component component name.
+   * @param configName configuration name.
+   * @return Map with component configuration.
+   */
   public Map<String, List<FieldConfig>> configureComponent(String parsys, String component,
           String configName) {
     Map<String, List<FieldConfig>> data = componentConfigs.getConfigs(component).get(configName);
@@ -151,6 +191,12 @@ public class AuthorPage {
     return data;
   }
 
+  /**
+   * Deletes component from parsys. Verifies if parsys is rendered.
+   *
+   * @param parsys parsys name.
+   * @param component component name.
+   */
   public void deleteComponent(String parsys, String component) {
     globalBar.switchToEditMode();
     getParsys(parsys).deleteComponent(components.getDataPath(component));
@@ -158,6 +204,6 @@ public class AuthorPage {
   }
 
   private void verifyParsysRerendered(String parsys) {
-    conditions.verifyPostAjax(webDriver -> getParsys(parsys).isNotStale());
+    conditions.verifyPostAjax(object -> getParsys(parsys).isNotStale());
   }
 }

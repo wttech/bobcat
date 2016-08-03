@@ -21,12 +21,23 @@ package com.cognifide.qa.bb.aem.touch.util;
 
 import org.apache.commons.lang3.StringUtils;
 
+/**
+ * Data path util class.
+ */
 public final class DataPathUtil {
 
   private DataPathUtil() {
     // utility class
   }
 
+  /**
+   * Method normalizes data path. Checks if last character of path is digit, if yes, then returns substring
+   * before last {@code _} occurrence.
+   * Example: for given in parameter string '/title_1234' method will return '/title'
+   *
+   * @param dataPath data path.
+   * @return normalized data path.
+   */
   public static String normalize(String dataPath) {
     return Character.isDigit(dataPath.charAt(dataPath.length() - 1)) ?
         StringUtils.substringBeforeLast(dataPath, "_") :

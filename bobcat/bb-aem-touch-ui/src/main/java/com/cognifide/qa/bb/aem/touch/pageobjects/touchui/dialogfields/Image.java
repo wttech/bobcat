@@ -32,6 +32,9 @@ import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldType;
 import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.SidePanel;
 import com.google.inject.Inject;
 
+/**
+ * This class represents Image dialog field with drag'n'drop functionality.
+ */
 @PageObject
 public class Image implements DialogField {
 
@@ -45,6 +48,11 @@ public class Image implements DialogField {
   @FindBy(css = "span.coral-FileUpload")
   private WebElement dropArea;
 
+  /**
+   * Sets image assets in image component.
+   *
+   * @param value string data path to desired asset.
+   */
   @Override
   public void setValue(Object value) {
     Draggable draggable = sidePanel.searchForAsset(String.valueOf(value));
@@ -52,6 +60,9 @@ public class Image implements DialogField {
     draggable.dropTo(droppable);
   }
 
+  /**
+   * @return dialog field type.
+   */
   @Override
   public String getType() {
     return FieldType.IMAGE.name();

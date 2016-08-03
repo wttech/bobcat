@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.touch.data.componentconfigs;
+package com.cognifide.qa.bb.aem.touch.pageobjects.touchui;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,10 +26,18 @@ import java.util.Set;
 import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.DialogField;
 import com.google.inject.Inject;
 
-public class FieldTypeRegistry {
+/**
+ * This class provides registry of fields type and possibility of checking given field type class.
+ */
+class FieldTypeRegistry {
 
   private final Map<String, DialogField> registry;
 
+  /**
+   * Constructs FieldTypeRegistry. Initializes registry of DialogFields and fills it with values given in constructor parameter.
+   *
+   * @param dialogFields set of dialog fields which will be translated to dialog fields registry
+   */
   @Inject
   public FieldTypeRegistry(Set<DialogField> dialogFields) {
     registry = new HashMap<>();
@@ -41,7 +49,7 @@ public class FieldTypeRegistry {
     registry.put(key, value);
   }
 
-  public Class<?> getClass(String type) {
+  Class<?> getClass(String type) {
     return registry.get(type).getClass().getSuperclass();
   }
 }
