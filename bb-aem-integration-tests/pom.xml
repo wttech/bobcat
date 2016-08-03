@@ -24,7 +24,7 @@
     <parent>
         <artifactId>bobcat-parent</artifactId>
         <groupId>com.cognifide.qa.bb</groupId>
-        <version>0.9.4-SNAPSHOT</version>
+        <version>0.9.5-SNAPSHOT</version>
     </parent>
 
     <artifactId>bb-aem-integration-tests</artifactId>
