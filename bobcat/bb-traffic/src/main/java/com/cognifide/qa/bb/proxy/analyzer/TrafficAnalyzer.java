@@ -20,16 +20,36 @@
 package com.cognifide.qa.bb.proxy.analyzer;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import com.cognifide.qa.bb.constants.ConfigKeys;
+import com.cognifide.qa.bb.proxy.ProxyController;
+import com.cognifide.qa.bb.proxy.ProxyEventListener;
+import com.cognifide.qa.bb.proxy.RequestFilterRegistry;
 import com.cognifide.qa.bb.proxy.analyzer.predicate.RequestPredicate;
 import com.cognifide.qa.bb.proxy.analyzer.predicate.RequestPredicateImpl;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 
 /**
  * Class allows to intercept and analyze traffic, looking for requests matching some conditions.
  */
 public class TrafficAnalyzer {
+
+  @Inject
+  private Set<ProxyEventListener> proxyListeners;
+
+  @Inject
+  private ProxyController controller;
+
+  @Inject
+  private RequestFilterRegistry registry;
+
+  @Inject
+  @Named(ConfigKeys.PROXY_ENABLED)
+  private boolean proxyEnabled;
 
   /**
    * Start analysis process, looking for requests matching given predicate.
@@ -41,8 +61,9 @@ public class TrafficAnalyzer {
   public Future<Boolean> analyzeTraffic(final RequestPredicate requestPredicate,
       final int timeout) {
     Future<Boolean> future = Executors.newSingleThreadExecutor().submit(
-        new AnalyzerCallable(requestPredicate, timeout));
-    return new DispatchingFuture(future);
+        new AnalyzerCallable(requestPredicate, timeout, proxyEnabled, proxyListeners, controller,
+            registry));
+    return new DispatchingFuture(future, proxyListeners);
   }
 
   /**

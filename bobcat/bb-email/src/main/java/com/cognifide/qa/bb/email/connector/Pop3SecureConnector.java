@@ -55,7 +55,7 @@ public class Pop3SecureConnector implements Connector {
   }
 
   @Override
-  public void connect() throws ConnectorException {
+  public void connect() {
     Properties properties = new Properties();
     try {
       int port = configuration.getPort();
@@ -87,7 +87,7 @@ public class Pop3SecureConnector implements Connector {
   }
 
   @Override
-  public void close() throws ConnectorException {
+  public void close() {
     try {
       folder.close(true);
       store.close();

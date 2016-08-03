@@ -32,34 +32,34 @@ import com.cognifide.qa.bb.proxy.RequestFilterRegistry;
 import com.cognifide.qa.bb.proxy.analyzer.predicate.ClosestHarEntryElector;
 import com.cognifide.qa.bb.proxy.analyzer.predicate.RequestPredicate;
 import com.cognifide.qa.bb.proxy.analyzer.predicate.RequestPredicateImpl;
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
 
 class AnalyzerCallable implements Callable<Boolean> {
 
   private static final Logger LOG = LoggerFactory.getLogger(AnalyzerCallable.class);
 
-  @Inject
   private ProxyController controller;
 
-  @Inject
   private RequestFilterRegistry registry;
 
-  @Inject
   private Set<ProxyEventListener> proxyListeners;
 
-  @Inject
-  @Named(ConfigKeys.PROXY_ENABLED)
   private boolean proxyEnabled;
 
   private final RequestPredicate requestPredicate;
+
   private final ClosestHarEntryElector closestHarEntryElector;
 
   private final int timeoutInSeconds;
 
-  AnalyzerCallable(RequestPredicate requestPredicate, int timeoutInSeconds) {
+  AnalyzerCallable(RequestPredicate requestPredicate, int timeoutInSeconds, boolean proxyEnabled,
+      Set<ProxyEventListener> proxyListeners, ProxyController controller,
+      RequestFilterRegistry registry) {
     this.requestPredicate = requestPredicate;
     this.timeoutInSeconds = timeoutInSeconds;
+    this.controller = controller;
+    this.registry = registry;
+    this.proxyListeners = proxyListeners;
+    this.proxyEnabled = proxyEnabled;
     if (requestPredicate instanceof RequestPredicateImpl) {
       this.closestHarEntryElector =
           new ClosestHarEntryElectorImpl((RequestPredicateImpl) requestPredicate);
@@ -83,6 +83,7 @@ class AnalyzerCallable implements Callable<Boolean> {
         filter.wait(timeoutInSeconds * 1000L);
       } catch (InterruptedException e) {
         LOG.error("Interrupted waiting for request", e);
+        throw e;
       }
     }
     if (filter.isAccepted()) {
@@ -96,15 +97,11 @@ class AnalyzerCallable implements Callable<Boolean> {
   }
 
   private void fireTimeoutEvent() {
-    for (ProxyEventListener listener : proxyListeners) {
-      listener.timeout();
-    }
+    proxyListeners.forEach(com.cognifide.qa.bb.proxy.ProxyEventListener::timeout);
   }
 
   private void fireFoundEvent() {
-    for (ProxyEventListener listener : proxyListeners) {
-      listener.requestFound();
-    }
+    proxyListeners.forEach(com.cognifide.qa.bb.proxy.ProxyEventListener::requestFound);
   }
 
   private void fireWaitingEvent() {

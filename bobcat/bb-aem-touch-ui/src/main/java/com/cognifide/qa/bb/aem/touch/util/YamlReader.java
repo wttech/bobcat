@@ -33,10 +33,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.google.common.io.Resources;
 
-public class YamlReader {
+public final class YamlReader {
   private static final Logger LOG = LoggerFactory.getLogger(YamlReader.class);
 
   private static final String YAML = ".yaml";
+
+  private YamlReader() {
+    // utility class
+  }
 
   public static <T> T read(String path, TypeReference typeReference) {
     ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
@@ -46,11 +50,7 @@ public class YamlReader {
       return mapper.readValue(file, typeReference);
     } catch (IOException | URISyntaxException e) {
       LOG.error("Could not read YAML file: {}", path);
+      throw new IllegalStateException("YAML file could not be read");
     }
-    throw new IllegalStateException("YAML file could not be read");
-  }
-
-  private YamlReader() {
-    // utility class
   }
 }
