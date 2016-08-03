@@ -41,18 +41,6 @@ public class Conditions {
   @Inject
   private AuthorLoader authorLoader;
 
-  private boolean hasAttributeWithValue(final WebElement element, final String attribute,
-      final String value) {
-    boolean result = true;
-    try {
-      bobcatWait.withTimeout(Timeouts.SMALL)
-          .until(input -> element.getAttribute(attribute).contains(value));
-    } catch (TimeoutException e) {
-      result = false;
-    }
-    return result;
-  }
-
   /**
    * Checks if given web element css class contains given value.
    *
@@ -170,6 +158,26 @@ public class Conditions {
         return null;
       }
     }, Timeouts.MEDIUM);
+  }
+
+  /**
+   * Examines if element has attribute value like one passed in parameter.
+   *
+   * @param element {@link WebElement} instance that is going to be examined.
+   * @param attribute attribute which value will be tested.
+   * @param value expected value of the element attribute
+   * @return true if the element has attribute value like one passed in parameter.
+   */
+  public boolean hasAttributeWithValue(final WebElement element, final String attribute,
+          final String value) {
+    boolean result = true;
+    try {
+      bobcatWait.withTimeout(Timeouts.SMALL)
+              .until(input -> element.getAttribute(attribute).contains(value));
+    } catch (TimeoutException e) {
+      result = false;
+    }
+    return result;
   }
 
 }

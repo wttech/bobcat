@@ -33,7 +33,7 @@ public class ComponentConfigs {
   private static final String CFG_PATH = "component-configs/";
 
     /**
-     * Reads configuration from yaml configuration files
+     * Reads configuration from yaml configuration files that supposed to be located under 'component-configs/'.
      *
      * @param component component name
      * @return map of components fields configuration
