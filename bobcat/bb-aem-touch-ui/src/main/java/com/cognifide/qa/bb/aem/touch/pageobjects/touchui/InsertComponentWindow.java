@@ -57,7 +57,7 @@ public class InsertComponentWindow {
   /**
    * Method looks for component of given title and inserts it. Then verifies if window is not visible.
    *
-   * @param title
+   * @param title title of the component.
    */
   public void insertComponent(String title) {
     WebElement component = getComponent(title);

@@ -73,7 +73,7 @@ public class ContentHelper {
    *
    * @param tagPath tag path
    * @return full jrc path to created tag.
-   * @throws RepositoryException
+   * @throws RepositoryException when node creation fails.
    */
   public String createTag(String tagPath) throws RepositoryException {
     String parentPath = TAGS_ROOT + substringBeforeLast(tagPath, SEPARATOR);
@@ -104,7 +104,7 @@ public class ContentHelper {
    *
    * @param path      jcr path to node.
    * @param newTitle title that will replace old one.
-   * @throws RepositoryException
+   * @throws RepositoryException if adding node property fails.
    */
   public void changeTitle(String path, String newTitle) throws RepositoryException {
     jcrHelper.addNodeProperty(path, JCR_TITLE, newTitle, 1);
@@ -116,7 +116,7 @@ public class ContentHelper {
    * @param path    jcr path to the node.
    * @param newName node name that will replace old one.
    * @return jcr path with new node name.
-   * @throws RepositoryException
+   * @throws RepositoryException when operation on session fails (moving session to new path or saving changes).
    */
   public String changeName(String path, String newName) throws RepositoryException {
     String newPath = substringBeforeLast(path, SEPARATOR) + SEPARATOR + newName;
@@ -128,7 +128,7 @@ public class ContentHelper {
   /**
    * @param path jcr path of node.
    * @return title of page under given path.
-   * @throws RepositoryException
+   * @throws RepositoryException if retrieving node property fails.
    */
   public String getPageTitle(String path) throws RepositoryException {
     return jcrHelper.getNodeProperty(path + JCR_CONTENT, JCR_TITLE).getString();
@@ -138,7 +138,7 @@ public class ContentHelper {
    * Deletes tag node under given tag path.
    *
    * @param tagPath path to tag.
-   * @throws RepositoryException
+   * @throws RepositoryException when node removing fails.
    */
   public void deleteTag(String tagPath) throws RepositoryException {
     deleteNode(TAGS_ROOT + tagPath);
