@@ -27,6 +27,8 @@
     <packaging>pom</packaging>
 
     <name>Bobcat Parent</name>
+    <description>Bobcat is an automated testing framework for functional testing of web applications.</description>
+    <url>https://github.com/cognifide/bobcat</url>
     <inceptionYear>2016</inceptionYear>
 
     <organization>
