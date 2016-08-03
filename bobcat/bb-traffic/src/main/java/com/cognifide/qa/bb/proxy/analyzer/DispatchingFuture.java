@@ -31,13 +31,13 @@ import com.google.inject.Inject;
 
 class DispatchingFuture extends FutureWrapper<Boolean> {
 
-  @Inject
   private Set<ProxyEventListener> proxyListeners;
 
   private final AtomicBoolean listenersDispatched;
 
-  DispatchingFuture(Future<Boolean> wrapped) {
+  DispatchingFuture(Future<Boolean> wrapped, Set<ProxyEventListener> proxyListeners) {
     super(wrapped);
+    this.proxyListeners = proxyListeners;
     listenersDispatched = new AtomicBoolean();
   }
 
