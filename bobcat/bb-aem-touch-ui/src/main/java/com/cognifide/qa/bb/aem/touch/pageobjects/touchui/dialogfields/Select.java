@@ -28,12 +28,20 @@ import org.openqa.selenium.support.FindBy;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldType;
 
+/**
+ * This class represent multiple choice select dialog component.
+ */
 @PageObject
 public class Select implements DialogField {
 
   @FindBy(css = ".coral-Select-select")
   private WebElement selectField;
 
+  /**
+   * Selects given options of select component.
+   *
+   * @param value String value of comma delimited field names which will be selected.
+   */
   @Override
   public void setValue(Object value) {
     org.openqa.selenium.support.ui.Select selectElement = new org.openqa.selenium.support.ui.Select(
@@ -42,6 +50,9 @@ public class Select implements DialogField {
     values.stream().forEach(selectElement::selectByVisibleText);
   }
 
+  /**
+   * @return dialog field type.
+   */
   @Override
   public String getType() {
     return FieldType.SELECT.name();

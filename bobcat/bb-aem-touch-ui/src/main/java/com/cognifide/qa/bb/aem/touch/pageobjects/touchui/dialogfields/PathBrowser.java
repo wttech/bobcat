@@ -28,6 +28,9 @@ import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
 
+/**
+ * This class represents path browser dialog field.
+ */
 @PageObject
 public class PathBrowser implements DialogField {
 
@@ -40,6 +43,11 @@ public class PathBrowser implements DialogField {
   @CurrentScope
   private WebElement currentScope;
 
+  /**
+   * Sets path in path browser.
+   *
+   * @param value string path value.
+   */
   @Override
   public void setValue(Object value) {
     if (currentScope.getAttribute(HtmlTags.Attributes.CLASS).contains(TEXT_FIELD_CLASS)) {
@@ -51,6 +59,9 @@ public class PathBrowser implements DialogField {
     }
   }
 
+  /**
+   * @return dialog field type.
+   */
   @Override
   public String getType() {
     return FieldType.PATHBROWSER.name();

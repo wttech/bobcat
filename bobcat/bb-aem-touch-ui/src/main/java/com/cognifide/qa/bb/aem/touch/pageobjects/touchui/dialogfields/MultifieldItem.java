@@ -43,6 +43,9 @@ public class MultifieldItem implements DialogField {
   @FindBy(css = "button.coral-Multifield-remove")
   private WebElement deleteButton;
 
+  /**
+   * @return dialog field type.
+   */
   @Override
   public String getType() {
     return FieldType.MULTIFIELD_ITEM.name();

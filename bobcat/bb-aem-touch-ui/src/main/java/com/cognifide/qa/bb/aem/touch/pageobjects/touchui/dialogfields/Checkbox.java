@@ -25,16 +25,27 @@ import org.openqa.selenium.support.FindBy;
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldType;
 import com.cognifide.qa.bb.qualifier.PageObject;
 
+/**
+ * Represents checkbox dialog field.
+ */
 @PageObject
 public class Checkbox implements DialogField {
 
   @FindBy(css = ".coral-Checkbox-input")
   private WebElement checkboxElement;
 
+  /**
+   * Performs click action on the checkbox.
+   */
   public void select() {
     checkboxElement.click();
   }
 
+  /**
+   * Performs click action on the checkbox if passed param is 'true' string.
+   *
+   * @param value string boolean representation
+   */
   @Override
   public void setValue(Object value) {
     if (Boolean.valueOf(String.valueOf(value))) {
@@ -42,6 +53,9 @@ public class Checkbox implements DialogField {
     }
   }
 
+  /**
+   * @return dialog field type.
+   */
   @Override
   public String getType() {
     return FieldType.CHECKBOX.name();

@@ -33,6 +33,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.google.common.io.Resources;
 
+/**
+ * This is utility class reading yaml configuration files.
+ */
 public final class YamlReader {
   private static final Logger LOG = LoggerFactory.getLogger(YamlReader.class);
 
@@ -42,6 +45,13 @@ public final class YamlReader {
     // utility class
   }
 
+  /**
+   * Reads yaml configuration file under given path and returns structure defined in type reference.
+   *
+   * @param path          path to yaml configuration file.
+   * @param typeReference type reference which will be used to construct result.
+   * @return type reference defined structure of readed yaml configuration file.
+   */
   public static <T> T read(String path, TypeReference typeReference) {
     ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
     try {

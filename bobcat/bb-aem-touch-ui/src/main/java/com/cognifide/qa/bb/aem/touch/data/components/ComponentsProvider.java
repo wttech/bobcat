@@ -26,13 +26,19 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.cognifide.qa.bb.aem.touch.util.YamlReader;
 import com.google.inject.Provider;
 
+/**
+ * Provide components from yaml configuration file.
+ */
 @ThreadScoped
 public class ComponentsProvider implements Provider<Components> {
 
-  public static final String CONFIG_PATH = "component-descriptions";
+  private static final String CONFIG_PATH = "component-descriptions";
 
   private Components descriptions;
 
+  /**
+   * @return components that were read from yaml configuration file.
+   */
   @Override
   @SuppressWarnings("unchecked")
   public Components get() {

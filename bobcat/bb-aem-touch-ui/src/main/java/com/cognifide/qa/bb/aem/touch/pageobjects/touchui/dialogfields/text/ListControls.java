@@ -22,6 +22,9 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+/**
+ * Represents list formatting options.
+ */
 @PageObject
 public class ListControls {
 

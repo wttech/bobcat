@@ -32,14 +32,17 @@ import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 import com.google.inject.name.Named;
 
+/**
+ * Represents publish page.
+ */
 @PageObject
 public class PublishPage {
 
   private static final Logger LOG = LoggerFactory.getLogger(PublishPage.class);
 
-  public static final By CONTENT_SELECTOR = By.cssSelector("div.content");
+  private static final By CONTENT_SELECTOR = By.cssSelector("div.content");
 
-  public static final By HEADER_SELECTOR = By.cssSelector("div.header");
+  private static final By HEADER_SELECTOR = By.cssSelector("div.header");
 
   private String path;
 
@@ -53,19 +56,33 @@ public class PublishPage {
   @Named("publish.url")
   private String domain;
 
+  /**
+   * Constructs PublishPage. Sets 'path' field value, Don't call it manually. Use the factory.
+   *
+   * @param path path of the page.
+   */
   @AssistedInject
   public PublishPage(@Assisted String path) {
     this.path = path;
   }
 
+  /**
+   * Opens page.
+   */
   public void open() {
     webDriver.get(domain + path);
   }
 
+  /**
+   * @return page path.
+   */
   public String getPath() {
     return path;
   }
 
+  /**
+   * @return page title.
+   */
   public String getTitle() {
     return webDriver.getTitle();
   }

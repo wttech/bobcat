@@ -30,6 +30,9 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.google.inject.Inject;
 
+/**
+ * Class represents dialog with component deleting option.
+ */
 @PageObject
 public class DeleteDialog {
 
@@ -41,6 +44,10 @@ public class DeleteDialog {
   @FindBy(css = "button.cq-deleteconfirm")
   private WebElement deleteButton;
 
+  /**
+   * Method verifies if the dialog is visible, then click delete button and verifies if dialog is not visible
+   * any more.
+   */
   public void confirmDelete() {
     By dialogLocator = By.cssSelector(CSS);
     conditions.verifyPostAjax(visibilityOfElementLocated(dialogLocator));

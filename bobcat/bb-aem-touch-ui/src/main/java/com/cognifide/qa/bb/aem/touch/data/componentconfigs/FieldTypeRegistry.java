@@ -26,10 +26,18 @@ import java.util.Set;
 import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.DialogField;
 import com.google.inject.Inject;
 
+/**
+ * This class provides registry of fields type and possibility of checking given field type class.
+ */
 public class FieldTypeRegistry {
 
   private final Map<String, DialogField> registry;
 
+  /**
+   * Constructs FieldTypeRegistry. Initializes registry of DialogFields and fills it with values given in constructor parameter.
+   *
+   * @param dialogFields set of dialog fields which will be translated to dialog fields registry
+   */
   @Inject
   public FieldTypeRegistry(Set<DialogField> dialogFields) {
     registry = new HashMap<>();

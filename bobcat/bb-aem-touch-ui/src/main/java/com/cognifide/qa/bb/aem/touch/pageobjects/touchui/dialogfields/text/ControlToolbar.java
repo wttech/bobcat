@@ -24,6 +24,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
+/**
+ * Represents RichTexts controls toolbar.
+ */
 @PageObject
 public class ControlToolbar {
 
@@ -51,6 +54,9 @@ public class ControlToolbar {
   @FindBy(css = TOOLBAR_ITEM_SELECTOR + "[data-action='#lists']")
   private WebElement toggleListButton;
 
+  /**
+   * Performs 'select all text' action.
+   */
   public void selectText() {
     actions.keyDown(Keys.CONTROL)
             .sendKeys("a")

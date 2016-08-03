@@ -35,7 +35,12 @@ import com.cognifide.qa.bb.jcr.JcrHelper;
 import com.cognifide.qa.bb.provider.jcr.utils.JcrAuthorUtils;
 import com.google.inject.Inject;
 
+/**
+ * This class contains helper methods for jcr content operations.
+ */
 public class ContentHelper {
+
+  public static final String JCR_CONTENT = "/jcr:content";
 
   private static final String CQ_TAG = "cq:Tag";
 
@@ -43,9 +48,7 @@ public class ContentHelper {
 
   private static final String SEPARATOR = "/";
 
-  public static final String JCR_TITLE = "jcr:title";
-
-  public static final String JCR_CONTENT = "/jcr:content";
+  private static final String JCR_TITLE = "jcr:title";
 
   private JcrHelper jcrHelper;
 
@@ -54,12 +57,24 @@ public class ContentHelper {
   @Inject
   private Conditions conditions;
 
+  /**
+   * Constructs ContentHelper and sets its {@link JcrHelper} jcrHelper and {@link Session} session fields.
+   *
+   * @param provider profider for {@link JcrHelper} jcrHelper and {@link Session} session fields.
+   */
   @Inject
   public ContentHelper(JcrAuthorUtils provider) {
     this.jcrHelper = provider.getJcrHelper();
     this.session = provider.getSession();
   }
 
+  /**
+   * Creates tag node under given path, verifies its existance and return its full jcr path.
+   *
+   * @param tagPath tag path
+   * @return full jrc path to created tag.
+   * @throws RepositoryException
+   */
   public String createTag(String tagPath) throws RepositoryException {
     String parentPath = TAGS_ROOT + substringBeforeLast(tagPath, SEPARATOR);
     String tagName = substringAfterLast(tagPath, SEPARATOR);
@@ -74,14 +89,35 @@ public class ContentHelper {
     return fullTagPath;
   }
 
+  /**
+   * Checks if node exist under given path.
+   *
+   * @param path path to node.
+   * @return true if node under given path exists.
+   */
   public boolean isNodePresent(String path) {
     return conditions.isConditionMet(nodeExist(session, path));
   }
 
+  /**
+   * Changes title of node under given jcr path.
+   *
+   * @param path      jcr path to node.
+   * @param newTitle title that will replace old one.
+   * @throws RepositoryException
+   */
   public void changeTitle(String path, String newTitle) throws RepositoryException {
     jcrHelper.addNodeProperty(path, JCR_TITLE, newTitle, 1);
   }
 
+  /**
+   * Changes name of node under given path, then returns its modified path.
+   *
+   * @param path    jcr path to the node.
+   * @param newName node name that will replace old one.
+   * @return jcr path with new node name.
+   * @throws RepositoryException
+   */
   public String changeName(String path, String newName) throws RepositoryException {
     String newPath = substringBeforeLast(path, SEPARATOR) + SEPARATOR + newName;
     session.move(path, newPath);
@@ -89,15 +125,26 @@ public class ContentHelper {
     return newPath;
   }
 
+  /**
+   * @param path jcr path of node.
+   * @return title of page under given path.
+   * @throws RepositoryException
+   */
   public String getPageTitle(String path) throws RepositoryException {
     return jcrHelper.getNodeProperty(path + JCR_CONTENT, JCR_TITLE).getString();
   }
 
-  public void deleteNode(String path) throws RepositoryException {
-    jcrHelper.deleteNode(path, session);
-  }
-
+  /**
+   * Deletes tag node under given tag path.
+   *
+   * @param tagPath path to tag.
+   * @throws RepositoryException
+   */
   public void deleteTag(String tagPath) throws RepositoryException {
     deleteNode(TAGS_ROOT + tagPath);
+  }
+
+  private void deleteNode(String path) throws RepositoryException {
+    jcrHelper.deleteNode(path, session);
   }
 }

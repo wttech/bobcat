@@ -32,11 +32,14 @@ import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldTypeRegistry;
 import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.DialogField;
 import com.google.inject.Inject;
 
+/**
+ * This class represents TouchUI components dialog configurer.
+ */
 public class DialogConfigurer {
 
-  public static final By FIELD_LOCATOR = By.cssSelector(".coral-Form-fieldwrapper");
+  private static final By FIELD_LOCATOR = By.cssSelector(".coral-Form-fieldwrapper");
 
-  public static final By LABEL_SELECTOR = By
+  private static final By LABEL_SELECTOR = By
       .cssSelector("label.coral-Form-fieldlabel, label.coral-Form-field");
 
   @Inject
@@ -70,6 +73,13 @@ public class DialogConfigurer {
     return getFieldObject(scope, type);
   }
 
+  /**
+   * Find the dialog input field of given type within a parent WebElement.
+   *
+   * @param parentElement parent element from which DialogField will be retrieved.
+   * @param type          of the requested field.
+   * @return DialogField of the given type based on the provided info.
+   */
   public DialogField getDialogField(WebElement parentElement, String type) {
     WebElement scope = parentElement.findElement(By.tagName("input"));
     return getFieldObject(scope, type);

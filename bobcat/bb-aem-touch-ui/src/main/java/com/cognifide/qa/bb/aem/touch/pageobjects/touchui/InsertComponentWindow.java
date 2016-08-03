@@ -33,6 +33,9 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.google.inject.Inject;
 
+/**
+ * Class represents window for inserting components on a page.
+ */
 @PageObject
 public class InsertComponentWindow {
 
@@ -51,6 +54,11 @@ public class InsertComponentWindow {
   @FindBy(css = ".coral-Modal-closeButton")
   private WebElement closeButton;
 
+  /**
+   * Method looks for component of given title and inserts it. Then verifies if window is not visible.
+   *
+   * @param title
+   */
   public void insertComponent(String title) {
     WebElement component = getComponent(title);
     conditions.elementReady(component).click();
@@ -58,7 +66,7 @@ public class InsertComponentWindow {
   }
 
   /**
-   * This check contains a workaroung for an issue in AEM 6.1, when after the deploy occasionally Insert
+   * This check contains a workaround for an issue in AEM 6.1, when after the deploy occasionally Insert
    * Window contains an empty list.
    *
    * @return true if window is displayed AND it contains some components

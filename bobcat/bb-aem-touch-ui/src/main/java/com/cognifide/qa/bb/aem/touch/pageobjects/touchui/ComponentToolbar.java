@@ -29,6 +29,9 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.google.inject.Inject;
 
+/**
+ * This class is representation of TouchUI page component toolbar.
+ */
 @PageObject
 public class ComponentToolbar {
 
@@ -43,11 +46,19 @@ public class ComponentToolbar {
   @CurrentScope
   private WebElement toolbar;
 
+  /**
+   * Method finds given toolbar option and performs click action on it.
+   *
+   * @param option option which will be clicked.
+   */
   public void clickOption(ToolbarOptions option) {
     By locator = By.xpath(String.format(BUTTON_XPATH_TEMPLATE, option.getTitle()));
     toolbar.findElement(locator).click();
   }
 
+  /**
+   * Method verifies if the component toolbar is visible.
+   */
   public void verifyIsDisplayed() {
     conditions.verify(visibilityOf(toolbar));
   }

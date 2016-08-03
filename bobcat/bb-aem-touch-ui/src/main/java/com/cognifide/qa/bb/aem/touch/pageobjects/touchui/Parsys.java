@@ -43,6 +43,9 @@ import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.cognifide.qa.bb.aem.touch.util.DataPathUtil;
 import com.google.inject.Inject;
 
+/**
+ * Class represents web page parsys.
+ */
 @PageObject
 public class Parsys {
 
@@ -67,17 +70,31 @@ public class Parsys {
   @CurrentScope
   private WebElement currentScope;
 
+  /**
+   * @return data path of parsys
+   */
   public String getDataPath() {
     String rawValue = currentScope.getAttribute(HtmlTags.Attributes.DATA_PATH);
     return StringUtils.substringAfter(rawValue, JCR_CONTENT);
   }
 
+  /**
+   * If possible, open insert component window and returns its instance.
+   *
+   * @return instance of {@link InsertComponentWindow}.
+   */
   public InsertComponentWindow openInsertDialog() {
     tryToSelect();
     tryToOpenInsertWindow();
     return insertComponentWindow;
   }
 
+  /**
+   * Looks for components under given data path and returns first found instance.
+   *
+   * @param dataPath of the component.
+   * @return instance of {@link Component}.
+   */
   public Component getComponent(String dataPath) {
     String componentDataPath = DataPathUtil.normalize(dataPath);
     return componentList.stream() //
@@ -86,6 +103,12 @@ public class Parsys {
           .orElseThrow(() -> new IllegalStateException("Component not present in the parsys"));
   }
 
+  /**
+   * Looks for components under given data path and returns last found instance.
+   *
+   * @param dataPath of the component.
+   * @return instance of {@link Component}.
+   */
   public Component getLastComponent(String dataPath) {
     String componentDataPath = DataPathUtil.normalize(dataPath);
     return componentList.stream() //
@@ -94,32 +117,65 @@ public class Parsys {
           .orElseThrow(() -> new IllegalStateException("Component not present in the parsys"));
   }
 
+  /**
+   * Checks if any component exists under given data path.
+   *
+   * @param dataPath of the component.
+   * @return true if any component is present under given data path.
+   */
   public boolean isComponentPresent(String dataPath) {
     String componentDataPath = DataPathUtil.normalize(dataPath);
     return componentList.stream() //
             .anyMatch(containsDataPath(componentDataPath));
   }
 
+  /**
+   * Opens insert dialog and inserts component with given title.
+   *
+   * @param title of the component.
+   */
   public void insertComponent(String title) {
     openInsertDialog().insertComponent(title);
   }
 
+  /**
+   * Configures component under given data path with given map of fields cofig ({@link FieldConfig})
+   *
+   * @param dataPath data path of the component.
+   * @param data     map of configuration parameters for the component.
+   */
   public void configureComponent(String dataPath, Map<String, List<FieldConfig>> data) {
     getComponent(dataPath).configure(data);
   }
 
+  /**
+   * Deletes first component found under given data path.
+   *
+   * @param dataPath data path of the component to be deleted.
+   */
   public void deleteComponent(String dataPath) {
     getComponent(dataPath).delete();
   }
 
+  /**
+   * Deletes last component found under given data path.
+   *
+   * @param dataPath data path of the component to be deleted.
+   */
   public void deleteLastComponent(String dataPath) {
     getLastComponent(dataPath).delete();
   }
 
+  /**
+   * @return {@link WebElement} of the parsys.
+   */
   public WebElement getParsys() {
     return currentScope;
   }
 
+  /**
+   * @return true if the parsys is not stale.
+   */
   public boolean isNotStale() {
     return conditions.isConditionMet(not(stalenessOf(currentScope)));
   }

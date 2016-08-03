@@ -23,24 +23,36 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Represents component description.
+ */
 public class ComponentDescription {
   @JsonProperty
-  public String datapath;
+  private String datapath;
 
   @JsonProperty
-  public Class clazz;
+  private Class clazz;
 
   @JsonProperty
-  public Map<String, String> variants;
+  private Map<String, String> variants;
 
+  /**
+   * @return Data path of the component.
+   */
   public String getDatapath() {
     return datapath;
   }
 
+  /**
+   * @return Class of the component.
+   */
   public Class getClazz() {
     return clazz;
   }
 
+  /**
+   * @return Map of the component variants.
+   */
   public Map<String, String> getVariants() {
     return variants;
   }

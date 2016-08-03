@@ -25,10 +25,19 @@ import java.util.Map;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.cognifide.qa.bb.aem.touch.util.YamlReader;
 
+/**
+ * This class reads component configuration from yaml configuration files
+ */
 public class ComponentConfigs {
 
   private static final String CFG_PATH = "component-configs/";
 
+    /**
+     * Reads configuration from yaml configuration files
+     *
+     * @param component component name
+     * @return map of components fields configuration
+     */
   public Map<String, Map<String, List<FieldConfig>>> getConfigs(String component) {
     TypeReference typeReference = new TypeReference<Map<String, Map<String, List<FieldConfig>>>>() {
     };

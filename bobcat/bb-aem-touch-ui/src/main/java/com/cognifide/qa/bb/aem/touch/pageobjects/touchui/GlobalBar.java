@@ -27,6 +27,9 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.google.inject.Inject;
 
+/**
+ * Class represents authors mode global bar.
+ */
 @PageObject
 public class GlobalBar {
 
@@ -47,17 +50,27 @@ public class GlobalBar {
   @FindBy(css = "button[data-layer='Preview']")
   private WebElement previewModeButton;
 
+  /**
+   * Performs click() action on toggleSidePanelButton {@link WebElement}.
+   */
   public void toggleSidePanel() {
     toggleSidePanelButton.click();
   }
 
+  /**
+   * Checks if edit mode isn't already on, and if not then performs click() action on editModeButton
+   * {@link WebElement} and refreshes page.
+   */
   public void switchToEditMode() {
     if (!isInEditMode()) {
       editModeButton.click();
       webDriver.navigate().refresh();
     }
   }
-
+  /**
+   * Checks if preview mode isn't already on, and if not then performs click() action on previewModeButton
+   * {@link WebElement} and refreshes page.
+   */
   public void switchToPreviewMode() {
     if (!isInPreviewMode()) {
       previewModeButton.click();
