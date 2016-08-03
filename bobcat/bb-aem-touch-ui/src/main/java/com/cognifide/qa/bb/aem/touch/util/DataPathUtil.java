@@ -33,6 +33,7 @@ public final class DataPathUtil {
   /**
    * Method normalizes data path. Checks if last character of path is digit, if yes, then returns substring
    * before last {@code _} occurrence.
+   * Example: for given in parameter string 'path/to/components/title_1234' method will return 'path/to/components/title'
    *
    * @param dataPath data path.
    * @return normalized data path.

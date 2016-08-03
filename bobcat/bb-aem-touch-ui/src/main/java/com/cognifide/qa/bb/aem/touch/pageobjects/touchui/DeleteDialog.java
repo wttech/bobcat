@@ -46,7 +46,7 @@ public class DeleteDialog {
 
   /**
    * Method verifies if the dialog is visible, then click delete button and verifies if dialog is not visible
-   * any more.
+   * anymore.
    */
   public void confirmDelete() {
     By dialogLocator = By.cssSelector(CSS);

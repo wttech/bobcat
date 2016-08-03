@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.touch.data.componentconfigs;
+package com.cognifide.qa.bb.aem.touch.pageobjects.touchui;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +29,7 @@ import com.google.inject.Inject;
 /**
  * This class provides registry of fields type and possibility of checking given field type class.
  */
-public class FieldTypeRegistry {
+class FieldTypeRegistry {
 
   private final Map<String, DialogField> registry;
 
@@ -49,7 +49,7 @@ public class FieldTypeRegistry {
     registry.put(key, value);
   }
 
-  public Class<?> getClass(String type) {
+  Class<?> getClass(String type) {
     return registry.get(type).getClass().getSuperclass();
   }
 }

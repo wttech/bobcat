@@ -99,7 +99,7 @@ public class Context {
   }
 
   /**
-   * @return contexts current configuration mpa.
+   * @return contexts current configuration map.
    */
   @SuppressWarnings("unchecked")
   public Map<String, List<FieldConfig>> getCurrentConfig() {

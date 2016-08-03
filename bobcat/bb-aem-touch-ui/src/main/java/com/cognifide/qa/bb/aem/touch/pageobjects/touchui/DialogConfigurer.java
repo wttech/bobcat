@@ -28,7 +28,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import com.cognifide.qa.bb.utils.PageObjectInjector;
-import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldTypeRegistry;
 import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.DialogField;
 import com.google.inject.Inject;
 

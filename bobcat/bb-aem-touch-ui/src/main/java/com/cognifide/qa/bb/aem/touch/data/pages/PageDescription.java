@@ -21,10 +21,7 @@ package com.cognifide.qa.bb.aem.touch.data.pages;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * Represents page description
- */
-public class PageDescription {
+class PageDescription {
 
   @JsonProperty
   private String path;
@@ -32,9 +29,6 @@ public class PageDescription {
   @JsonProperty
   private String parsys;
 
-  /**
-   * @return
-   */
   public String getPath() {
     return path;
   }
