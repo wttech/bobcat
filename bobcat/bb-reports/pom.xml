@@ -25,7 +25,7 @@
     <parent>
         <artifactId>bobcat</artifactId>
         <groupId>com.cognifide.qa.bb</groupId>
-        <version>0.9.6-SNAPSHOT</version>
+        <version>0.9.6</version>
     </parent>
 
     <artifactId>bb-reports</artifactId>
