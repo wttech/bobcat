@@ -23,7 +23,7 @@
 
     <groupId>com.cognifide.qa.bb</groupId>
     <artifactId>bobcat-parent</artifactId>
-    <version>0.9.6</version>
+    <version>0.9.7-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Bobcat Parent</name>
@@ -58,7 +58,7 @@
     <scm>
         <connection>scm:git:git@github.com:cogbobcat/bobcat.git</connection>
         <developerConnection>scm:git:git@github.com:cogbobcat/bobcat.git</developerConnection>
-        <tag>0.9.6</tag>
+        <tag>HEAD</tag>
         <url>https://github.com/cogbobcat/bobcat</url>
     </scm>
 
