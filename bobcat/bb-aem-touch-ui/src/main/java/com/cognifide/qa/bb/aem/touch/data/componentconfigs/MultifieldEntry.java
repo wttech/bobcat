@@ -21,9 +21,15 @@ package com.cognifide.qa.bb.aem.touch.data.componentconfigs;
 
 import java.util.List;
 
+/**
+ * This class represents multifield entry with multiple fields configurations.
+ */
 public class MultifieldEntry {
   private List<FieldConfig> item;
 
+  /**
+   * @return list of FieldConfigs
+   */
   public List<FieldConfig> getItem() {
     return item;
   }

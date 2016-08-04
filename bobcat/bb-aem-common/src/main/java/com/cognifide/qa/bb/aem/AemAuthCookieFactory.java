@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bb.aem;
 
-
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,7 +58,7 @@ public class AemAuthCookieFactory {
   @Inject
   private CloseableHttpClient httpClient;
 
-  private Map<String, Cookie> cookieJar = new HashMap<String, Cookie>();
+  private Map<String, Cookie> cookieJar = new HashMap<>();
 
   /**
    * This method provides browser cookie for authenticating user to AEM instance
@@ -75,7 +73,7 @@ public class AemAuthCookieFactory {
       HttpPost loginPost = new HttpPost(url
           + "/libs/granite/core/content/login.html/j_security_check");
 
-      List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+      List<NameValuePair> nameValuePairs = new ArrayList<>();
       nameValuePairs.add(new BasicNameValuePair("_charset_", "utf-8"));
       nameValuePairs.add(new BasicNameValuePair("j_username", login));
       nameValuePairs.add(new BasicNameValuePair("j_password", password));
@@ -96,6 +94,8 @@ public class AemAuthCookieFactory {
         loginResponse.close();
       } catch (IOException e) {
         LOG.error("Can't get AEM authentication cookie", e);
+      } finally {
+        loginPost.reset();
       }
       Cookie cookie = findAuthenticationCookie(cookieStore.getCookies());
       if (cookie != null) {
@@ -107,6 +107,7 @@ public class AemAuthCookieFactory {
 
   /**
    * This method allows to remove cached authentication cookie for a given URL
+   *
    * @param url URL to AEM instance, like http://localhost:4502
    */
   public void removeCookie(String url) {

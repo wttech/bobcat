@@ -28,6 +28,16 @@ import com.cognifide.qa.bb.aem.touch.pageobjects.pages.PublishPageFactory;
 import com.google.inject.AbstractModule;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 
+/**
+ * This module contains:
+ * <ul>
+ * <li> fields module,
+ * <li> factory for author pages
+ * <li> factory for publish pages
+ * <li> binding {@link Components} to {@link ComponentsProvider}
+ * <li> binding {@link Pages} to {@link PagesProvider}
+ * </ul>
+ */
 public class AemTouchUiModule extends AbstractModule {
 
   @Override

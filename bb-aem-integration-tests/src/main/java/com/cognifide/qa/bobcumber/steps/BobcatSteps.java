@@ -70,8 +70,8 @@ public class BobcatSteps {
 
   @Then("^\"([^\"]*)\" config matches the Data Table$")
   public void configMatchesTheDataTable(String configName) {
-    List<ConfigurationEntry> expected = scenarioContext.getList("config", ConfigurationEntry.class);
-    List<ConfigurationEntry> actual = scenarioContext.getList(configName, ConfigurationEntry.class);
+    List<ConfigurationEntry> expected = scenarioContext.getList("config");
+    List<ConfigurationEntry> actual = scenarioContext.getList(configName);
 
     assertThat("Lists have different size", expected.size(), is(actual.size()));
     assertTrue("List built with ComponentConfigBuilder does not contain all elements", actual

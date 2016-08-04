@@ -28,6 +28,9 @@ import org.openqa.selenium.support.FindBy;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldType;
 
+/**
+ * This class represents variant dialog field.
+ */
 @PageObject
 public class Variant implements DialogField {
 
@@ -37,6 +40,11 @@ public class Variant implements DialogField {
   @FindBy(css = "ol.coral-TagList li button")
   private List<WebElement> tagButtons;
 
+  /**
+   * Method selects given options of variant component.
+   *
+   * @param value String value of comma delimited variants which will be selected.
+   */
   @Override
   public void setValue(Object value) {
     org.openqa.selenium.support.ui.Select selectElement = new org.openqa.selenium.support.ui.Select(
@@ -47,6 +55,9 @@ public class Variant implements DialogField {
     values.stream().forEach(selectElement::selectByVisibleText);
   }
 
+  /**
+   * @return dialog field type.
+   */
   @Override
   public String getType() {
     return FieldType.VARIANT.name();

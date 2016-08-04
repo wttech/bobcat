@@ -25,6 +25,9 @@ import com.google.inject.Inject;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
+/**
+ * Represents list formatting dialog panel.
+ */
 @PageObject
 public class ListDialogPanel implements DialogField {
 
@@ -37,6 +40,17 @@ public class ListDialogPanel implements DialogField {
   @Inject
   private BobcatWait bobcatWait;
 
+  /**
+   * Performs one of list formatting actions depending on passed parameter value:
+   * <ul>
+   * <li>NUMBER</li>
+   * <li>BULLET</li>
+   * <li>INDENT</li>
+   * <li>OUTDENT</li>
+   * </ul>
+   *
+   * @param value string value representing desired action.
+   */
   @Override
   public void setValue(Object value) {
     String actionText = (String) value;
@@ -71,17 +85,19 @@ public class ListDialogPanel implements DialogField {
     controlToolbar.getToggleListButton().click();
   }
 
+  /**
+   * @return dialog field type.
+   */
   @Override
   public String getType() {
     return FieldType.RICHTEXT_LIST.name();
   }
 
-  private static enum ListPanelActions {
-
+  private enum ListPanelActions {
     NUMBERED,
     BULLET,
     INDENT,
-    OUTDENT;
+    OUTDENT
   }
 
 }

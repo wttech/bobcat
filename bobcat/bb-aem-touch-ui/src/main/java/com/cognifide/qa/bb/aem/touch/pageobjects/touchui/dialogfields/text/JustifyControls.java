@@ -21,6 +21,9 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+/**
+ * Represents text justification options.
+ */
 @PageObject
 public class JustifyControls {
 

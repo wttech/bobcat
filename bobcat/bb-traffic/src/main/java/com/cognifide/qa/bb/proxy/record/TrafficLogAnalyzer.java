@@ -24,8 +24,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import java.util.Collections;
 
 import org.hamcrest.Matcher;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.guice.ThreadScoped;
 import com.google.common.base.Predicate;
@@ -39,8 +37,6 @@ import net.lightbody.bmp.core.har.HarEntry;
  */
 @ThreadScoped
 public class TrafficLogAnalyzer {
-
-  private static final Logger LOG = LoggerFactory.getLogger(TrafficLogAnalyzer.class);
 
   @Inject
   private TrafficLogProvider trafficLogProvider;

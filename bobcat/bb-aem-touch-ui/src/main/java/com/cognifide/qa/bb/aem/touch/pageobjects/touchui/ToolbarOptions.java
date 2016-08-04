@@ -19,6 +19,9 @@
  */
 package com.cognifide.qa.bb.aem.touch.pageobjects.touchui;
 
+/**
+ * Enum represents available component toolbar options.
+ */
 public enum ToolbarOptions {
   EDIT("Edit"), //
   CONFIGURE("Configure"), //

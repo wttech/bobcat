@@ -34,6 +34,9 @@ import com.google.inject.Inject;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This class represents rich text dialog field.
+ */
 @PageObject
 public class RichText implements DialogField {
 
@@ -43,6 +46,11 @@ public class RichText implements DialogField {
   @Inject
   private Actions actions;
 
+  /**
+   * This method deleted already set rich text value and sets new one.
+   *
+   * @param value desired string value of field. \\\\n will be replaced with RETURN key value.
+   */
   @Override
   public void setValue(Object value) {
     String text = (String) value;
@@ -61,6 +69,9 @@ public class RichText implements DialogField {
     actions.perform();
   }
 
+  /**
+   * @return dialog field type.
+   */
   @Override
   public String getType() {
     return FieldType.RICHTEXT.name();
