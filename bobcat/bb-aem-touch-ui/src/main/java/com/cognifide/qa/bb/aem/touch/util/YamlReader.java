@@ -50,7 +50,7 @@ public final class YamlReader {
    *
    * @param path          path to yaml configuration file.
    * @param typeReference type reference which will be used to construct result.
-   * @return type reference defined structure of readed yaml configuration file.
+   * @return type reference defined structure of read yaml configuration file.
    */
   public static <T> T read(String path, TypeReference typeReference) {
     ObjectMapper mapper = new ObjectMapper(new YAMLFactory());

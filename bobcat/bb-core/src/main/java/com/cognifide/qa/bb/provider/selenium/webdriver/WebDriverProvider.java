@@ -19,7 +19,6 @@
  */
 package com.cognifide.qa.bb.provider.selenium.webdriver;
 
-
 import java.util.Properties;
 import java.util.Set;
 

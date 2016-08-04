@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,8 +18,6 @@
  * #L%
  */
 package com.cognifide.qa.bb.aem.content;
-
-
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -150,9 +148,10 @@ public class WcmCommandHandler {
       throws IOException {
     HttpPost request = new HttpPost(String.format(commandUrl, authorIp));
     List<BasicNameValuePair> params = new ArrayList<>();
-    for (Map.Entry<String, String> property : postProperties.entrySet()) {
-      params.add(new BasicNameValuePair(property.getKey(), property.getValue()));
-    }
+    postProperties.entrySet().stream().
+            forEach((property) -> {
+              params.add(new BasicNameValuePair(property.getKey(), property.getValue()));
+    });
     request.setEntity(new UrlEncodedFormEntity(params, Consts.UTF_8));
     sender.sendCrxRequest(request, successMessage);
   }

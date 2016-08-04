@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,7 +18,6 @@
  * #L%
  */
 package com.cognifide.qa.bb;
-
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -46,7 +45,7 @@ public final class PropertyBinder {
 
   private static final Logger LOG = LoggerFactory.getLogger(PropertyBinder.class);
 
-  private static final String[] PREFIXES = new String[] {"webdriver.", "phantomjs."};
+  private static final String[] PREFIXES = new String[]{"webdriver.", "phantomjs."};
 
   private PropertyBinder() {
   }
@@ -92,14 +91,11 @@ public final class PropertyBinder {
 
   private static Properties loadDefaultProperties() throws IOException {
     Properties properties = new Properties();
-    InputStream is = PropertyBinder.class.getClassLoader()
-        .getResourceAsStream(ConfigKeys.DEFAULT_PROPERTIES_NAME);
-    try {
+    try (InputStream is = PropertyBinder.class.getClassLoader()
+            .getResourceAsStream(ConfigKeys.DEFAULT_PROPERTIES_NAME)) {
       properties.load(is);
     } catch (IOException e) {
       LOG.error("Can't bind default properties", e);
-    } finally {
-      is.close();
     }
     return properties;
   }
@@ -114,7 +110,7 @@ public final class PropertyBinder {
       }
     } else {
       BufferedReader reader = new BufferedReader(
-          new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
+              new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
 
       LOG.debug("loading properties from: {} (ie. {})", file, file.getAbsolutePath());
       try {
@@ -126,12 +122,12 @@ public final class PropertyBinder {
   }
 
   private static void overrideFromSystemProperties(Properties properties) {
-    for (String key : properties.stringPropertyNames()) {
+    properties.stringPropertyNames().stream().forEach((key) -> {
       String systemProperty = System.getProperty(key);
       if (StringUtils.isNotBlank(systemProperty)) {
         properties.setProperty(key, systemProperty);
       }
-    }
+    });
   }
 
   private static void setSystemProperties(Properties properties) {

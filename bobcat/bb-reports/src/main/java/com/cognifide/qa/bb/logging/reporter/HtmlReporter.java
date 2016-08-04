@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,7 +18,6 @@
  * #L%
  */
 package com.cognifide.qa.bb.logging.reporter;
-
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -107,20 +106,19 @@ public class HtmlReporter extends AbstractReporter {
 
   private void merge() {
     try {
-      PrintWriter writer =
-          new PrintWriter(fileCreator.getReportFile("html", getReportStartingDate()),
-              StandardCharsets.UTF_8.name());
-      SimpleHash root = new SimpleHash();
-      root.put("collector", testEventCollector);
-      root.put("date", new SimpleDateFormat("yyyy-MM-dd HH.mm.ss").format(new Date()));
-      root.put("total", getTestCount());
-      root.put("passed", getPassedTestCount());
-      root.put("failed", getFailedCount());
-      root.put("passedPercent", getPassedTestPercent());
-      root.put("failedPercent", getFailedPercent());
-      temp.process(root, writer);
-      writer.flush();
-      writer.close();
+      try (PrintWriter writer = new PrintWriter(fileCreator.getReportFile("html", getReportStartingDate()),
+              StandardCharsets.UTF_8.name())) {
+        SimpleHash root = new SimpleHash();
+        root.put("collector", testEventCollector);
+        root.put("date", new SimpleDateFormat("yyyy-MM-dd HH.mm.ss").format(new Date()));
+        root.put("total", getTestCount());
+        root.put("passed", getPassedTestCount());
+        root.put("failed", getFailedCount());
+        root.put("passedPercent", getPassedTestPercent());
+        root.put("failedPercent", getFailedPercent());
+        temp.process(root, writer);
+        writer.flush();
+      }
     } catch (TemplateException | IOException e) {
       LOG.error("Exception when merging model with template", e);
     }

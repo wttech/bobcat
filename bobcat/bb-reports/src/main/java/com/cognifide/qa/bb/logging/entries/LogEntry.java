@@ -19,7 +19,6 @@
  */
 package com.cognifide.qa.bb.logging.entries;
 
-
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -34,7 +33,7 @@ public abstract class LogEntry {
 
   private boolean last;
 
-  private int index;
+  private final int index;
 
   /**
    * Constructs the LogEntry and sets its timestamp to NOW.

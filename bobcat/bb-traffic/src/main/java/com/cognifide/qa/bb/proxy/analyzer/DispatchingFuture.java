@@ -30,7 +30,7 @@ import com.cognifide.qa.bb.proxy.ProxyEventListener;
 
 class DispatchingFuture extends FutureWrapper<Boolean> {
 
-  private Set<ProxyEventListener> proxyListeners;
+  private final Set<ProxyEventListener> proxyListeners;
 
   private final AtomicBoolean listenersDispatched;
 
@@ -60,8 +60,9 @@ class DispatchingFuture extends FutureWrapper<Boolean> {
   }
 
   private void dispatch() {
-    for (ProxyEventListener listener : proxyListeners) {
-      listener.dispatch();
-    }
+    proxyListeners.stream().
+            forEach((listener) -> {
+              listener.dispatch();
+    });
   }
 }

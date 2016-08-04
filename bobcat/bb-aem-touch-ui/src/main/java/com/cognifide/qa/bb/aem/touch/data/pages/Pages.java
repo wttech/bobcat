@@ -26,7 +26,7 @@ import java.util.Map;
  */
 public class Pages {
 
-  private Map<String, PageDescription> pagesCollection;
+  private final Map<String, PageDescription> pagesCollection;
 
   /**
    * Constructs Pages object.

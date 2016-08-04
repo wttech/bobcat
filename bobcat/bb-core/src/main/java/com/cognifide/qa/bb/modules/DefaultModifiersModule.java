@@ -19,7 +19,6 @@
  */
 package com.cognifide.qa.bb.modules;
 
-
 import com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.capabilities.CapabilitiesModifier;
 import com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.capabilities.EnableProxy;
 import com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.webdriver.ImplicitTimeoutModifier;

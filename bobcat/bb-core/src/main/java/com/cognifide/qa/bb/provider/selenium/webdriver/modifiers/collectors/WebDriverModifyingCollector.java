@@ -36,6 +36,7 @@ import com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.webdriver.WebDr
  */
 public class WebDriverModifyingCollector
     implements Collector<WebDriverModifier, WebDriver, WebDriver> {
+  
   private final WebDriver webdriver;
 
   public WebDriverModifyingCollector(WebDriver webdriver) {

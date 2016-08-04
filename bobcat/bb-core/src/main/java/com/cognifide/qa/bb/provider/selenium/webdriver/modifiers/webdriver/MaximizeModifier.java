@@ -19,7 +19,6 @@
  */
 package com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.webdriver;
 
-
 import org.openqa.selenium.WebDriver;
 
 import com.cognifide.qa.bb.constants.ConfigKeys;
