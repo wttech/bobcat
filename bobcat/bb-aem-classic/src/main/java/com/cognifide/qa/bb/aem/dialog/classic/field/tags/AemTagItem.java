@@ -28,6 +28,7 @@ import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
@@ -43,8 +44,6 @@ import com.google.inject.Inject;
 public class AemTagItem {
 
   private static final Logger LOG = LoggerFactory.getLogger(AemTagItem.class);
-
-  private static final String CLASS_ATTRIBUTE = "class";
 
   private static final String DENIEDTAG_CSS_CLASS = "deniedtag";
 
@@ -80,9 +79,9 @@ public class AemTagItem {
         actions.moveToElement(removeButton).click().perform();
       } catch (StaleElementReferenceException e) {
         LOG.debug("Button is not available at the moment: ", e);
-        return true;
+        return Boolean.TRUE;
       }
-      return false;
+      return Boolean.FALSE;
     }, 2);
   }
 
@@ -119,7 +118,7 @@ public class AemTagItem {
    * @return True if tag is denied, false if allowed.
    */
   public boolean isDenied() {
-    return currentScope.getAttribute(CLASS_ATTRIBUTE).contains(DENIEDTAG_CSS_CLASS);
+    return currentScope.getAttribute(HtmlTags.Attributes.CLASS).contains(DENIEDTAG_CSS_CLASS);
   }
 
 }

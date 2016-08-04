@@ -1,0 +1,67 @@
+plain_text:
+  Text:
+    - type: RICHTEXT
+      value: test test test
+
+underline:
+  Text:
+   - type: RICHTEXT
+     value: test test test
+   - type: RICHTEXT_FONT_FORMAT
+     value: UNDERLINE
+
+bold:
+  Text:
+   - type: RICHTEXT
+     value: test test test
+   - type: RICHTEXT_FONT_FORMAT
+     value: BOLD
+
+italic:
+  Text:
+   - type: RICHTEXT
+     value: test test test
+   - type: RICHTEXT_FONT_FORMAT
+     value: ITALIC
+
+justify_right:
+  Text:
+   - type: RICHTEXT
+     value: test test test
+   - type: RICHTEXT_JUSTIFY
+     value: JUSTIFY_RIGHT
+     
+justify_left:
+  Text:
+   - type: RICHTEXT
+     value: test test test
+   - type: RICHTEXT_JUSTIFY
+     value: JUSTIFY_LEFT
+     
+justify_center:
+  Text:
+   - type: RICHTEXT
+     value: test test test
+   - type: RICHTEXT_JUSTIFY
+     value: JUSTIFY_CENTER
+
+bullet_list:
+  Text:
+   - type: RICHTEXT
+     value: test test test \n test test test
+   - type: RICHTEXT_LIST
+     value: BULLET
+     
+numbered_list:
+  Text:
+   - type: RICHTEXT
+     value: test test test \n test test test
+   - type: RICHTEXT_LIST
+     value: NUMBERED
+
+indent:
+  Text:
+   - type: RICHTEXT
+     value: test test test
+   - type: RICHTEXT_LIST
+     value: INDENT

@@ -78,8 +78,8 @@ public class AnalyticsWait {
         HttpMessageContents contents, HttpMessageInfo messageInfo) {
       String path = request.getUri();
       if (path.startsWith(analyticsUriPrefix)) {
-        synchronized (AnalyticsWait.this) {
-          AnalyticsWait.this.notify();
+        synchronized (this) {
+          notifyAll();
         }
       }
       return null;

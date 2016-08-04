@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bb.aem.ui;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -31,6 +29,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.constants.ConfigKeys;
+import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.aem.expectedconditions.ContentFinderActions;
 import com.cognifide.qa.bb.aem.ui.AemContentFinder.ResultsView;
@@ -123,7 +122,7 @@ public class AemContentFinderTab {
    * See {@link AemContentFinder#clickMosaicView}
    */
   public void clickMosaicView() {
-    if (getCurrentView().equals(ResultsView.DEFAULT)) {
+    if (getCurrentView() == ResultsView.DEFAULT) {
       throw new IllegalStateException();
     }
     bobcatWait.withTimeout(Timeouts.MEDIUM)
@@ -134,7 +133,7 @@ public class AemContentFinderTab {
    * See {@link AemContentFinder#clickMosaicView}
    */
   public void clickListView() {
-    if (getCurrentView().equals(ResultsView.DEFAULT)) {
+    if (getCurrentView() == ResultsView.DEFAULT) {
       throw new IllegalStateException();
     }
     bobcatWait.withTimeout(Timeouts.MEDIUM)
@@ -229,9 +228,6 @@ public class AemContentFinderTab {
 
   private boolean isSelected(WebElement button) {
     WebElement table = button.findElement(By.xpath("./ancestor::table[1]"));
-    if (table.getAttribute("class").contains("x-btn-pressed")) {
-      return true;
-    }
-    return false;
+    return table.getAttribute(HtmlTags.Attributes.CLASS).contains("x-btn-pressed");
   }
 }

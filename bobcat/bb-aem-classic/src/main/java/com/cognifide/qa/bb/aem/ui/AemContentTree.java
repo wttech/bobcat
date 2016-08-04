@@ -24,6 +24,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.provider.selenium.BobcatWebDriverWait;
@@ -39,7 +40,6 @@ import com.google.inject.Inject;
 @PageObject
 public class AemContentTree {
 
-  private static final String CSS_CLASS_ATTRIBUTE_NAME = "class";
   private static final String MIDDLE_NODE_CLASS = "x-tree-node-expanded";
   private static final String LAST_NODE_CLASS = "x-tree-selected";
 
@@ -125,7 +125,7 @@ public class AemContentTree {
   private boolean isContentTreeReady() {
     return webElementUtils
         .hasAttributeWithValue(getRootNodeContent().findElement(By.cssSelector(".x-tree-ec-icon")),
-            CSS_CLASS_ATTRIBUTE_NAME, "x-tree-elbow-end-minus");
+            HtmlTags.Attributes.CLASS, "x-tree-elbow-end-minus");
   }
 
   private String[] convertToNodeArray(String path) {
@@ -150,7 +150,7 @@ public class AemContentTree {
     wait.until(ExpectedConditions.elementToBeClickable(clickableArea));
     wait.until(driver -> {
       clickableArea.click();
-      return getNodeContent(node, By.cssSelector("div")).getAttribute(CSS_CLASS_ATTRIBUTE_NAME)
+      return getNodeContent(node, By.cssSelector("div")).getAttribute(HtmlTags.Attributes.CLASS)
           .contains(expectedCssClass);
     });
   }

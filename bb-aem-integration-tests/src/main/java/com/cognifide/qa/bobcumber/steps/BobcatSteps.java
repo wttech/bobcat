@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bobcumber.steps;
 
-
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -31,7 +29,7 @@ import com.cognifide.qa.bb.aem.dialog.configurer.ComponentConfig;
 import com.cognifide.qa.bb.aem.dialog.configurer.ComponentConfigBuilder;
 import com.cognifide.qa.bb.aem.dialog.configurer.ConfigurationEntry;
 import com.cognifide.qa.bb.aem.dialog.configurer.JsonToComponentConfig;
-import com.cognifide.qa.bb.aem.dialog.configurer.ScenarioContext;
+import com.cognifide.qa.bb.scenario.ScenarioContext;
 import com.google.inject.Inject;
 
 import cucumber.api.java.en.Then;
@@ -72,8 +70,8 @@ public class BobcatSteps {
 
   @Then("^\"([^\"]*)\" config matches the Data Table$")
   public void configMatchesTheDataTable(String configName) {
-    List<ConfigurationEntry> expected = scenarioContext.getList("config", ConfigurationEntry.class);
-    List<ConfigurationEntry> actual = scenarioContext.getList(configName, ConfigurationEntry.class);
+    List<ConfigurationEntry> expected = scenarioContext.getList("config");
+    List<ConfigurationEntry> actual = scenarioContext.getList(configName);
 
     assertThat("Lists have different size", expected.size(), is(actual.size()));
     assertTrue("List built with ComponentConfigBuilder does not contain all elements", actual

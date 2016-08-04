@@ -19,7 +19,6 @@
  */
 package com.cognifide.qa.bb.aem.ui;
 
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +42,7 @@ import com.cognifide.qa.bb.aem.ui.menu.MenuOption;
 import com.cognifide.qa.bb.aem.ui.window.ValidationWindow;
 import com.cognifide.qa.bb.aem.utils.FieldValuesSetter;
 import com.cognifide.qa.bb.constants.ConfigKeys;
+import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.expectedconditions.CommonExpectedConditions;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
@@ -214,7 +214,7 @@ public class AemDialog {
         return webElementHelper.isCurrentScopeVisible(validationWindow);
       } catch (NoSuchElementException | StaleElementReferenceException e) {
         LOG.debug("Dialog footer button is not available: {}", e);
-        return false;
+        return Boolean.FALSE;
       }
     }, 2);
     return validationWindow;
@@ -252,10 +252,10 @@ public class AemDialog {
   /**
    * Searches for the field of the given type, located on the given tab, identified by its index.
    *
-   * @param tabName Label of the tab where the field is located.
-   * @param widgetIndex Index of the widget within the given tab.
+   * @param tabName         Label of the tab where the field is located.
+   * @param widgetIndex     Index of the widget within the given tab.
    * @param dialogFieldType Class that represents dialog's field.
-   * @param <T> dialog field class
+   * @param <T>             dialog field class
    * @return A dialogFieldType's instance that represents dialog field.
    */
   public <T> T getField(String tabName, int widgetIndex, Class<T> dialogFieldType) {
@@ -266,9 +266,9 @@ public class AemDialog {
   /**
    * Searches for the field of the given type by its label, on the current tab.
    *
-   * @param label field label
+   * @param label           field label
    * @param dialogFieldType type of dialog field
-   * @param <T> dialog field class
+   * @param <T>             dialog field class
    * @return A dialogFieldType's instance that represents dialog field.
    */
   public <T> T getFieldFromCurrentTab(String label, Class<T> dialogFieldType) {
@@ -291,7 +291,7 @@ public class AemDialog {
 
   /**
    * Clicks button at the bottom of edit Window and expect for dialog to disappear.
-   * 
+   *
    * @param buttonText button label
    * @return Returns this dialog instance.
    */
@@ -302,11 +302,11 @@ public class AemDialog {
       try {
         footerButton.click();
         footerButton.isDisplayed();
-        return false;
+        return Boolean.FALSE;
       } catch (NoSuchElementException | StaleElementReferenceException
           | ElementNotVisibleException e) {
         LOG.debug("Dialog footer button is not available: {}", e);
-        return true;
+        return Boolean.TRUE;
       }
     }, 2);
     bobcatWait.withTimeout(Timeouts.MEDIUM).until(CommonExpectedConditions.noAemAjax());
@@ -316,8 +316,8 @@ public class AemDialog {
   /**
    * Finds a field by its label on the current tab and sets the value.
    *
-   * @param value field value
-   * @param label field label
+   * @param value           field value
+   * @param label           field label
    * @param dialogFieldType type of dialog field
    * @return This AemDialog instance.
    */
@@ -331,7 +331,7 @@ public class AemDialog {
   /**
    * Gets value from field in current tab with provided label and field type.
    *
-   * @param label field label
+   * @param label           field label
    * @param dialogFieldType type of dialog field
    * @return field value as String
    */
@@ -347,7 +347,7 @@ public class AemDialog {
    */
   private Map<String, WebElement> getTabMap() {
     List<WebElement> tabs = getAllTabs();
-    Map<String, WebElement> windowTabs = new HashMap<String, WebElement>(tabs.size());
+    Map<String, WebElement> windowTabs = new HashMap<>(tabs.size());
     for (WebElement tab : tabs) {
       String tabLabel = tab.getText();
       windowTabs.put(tabLabel, tab);
@@ -368,7 +368,7 @@ public class AemDialog {
 
     for (WebElement tab : tabs) {
       WebElement tabState = tab.findElement(By.xpath(".//../../../.."));
-      if (tabState.getAttribute("class").contains("x-tab-strip-active")) {
+      if (tabState.getAttribute(HtmlTags.Attributes.CLASS).contains("x-tab-strip-active")) {
         return tab;
       }
     }

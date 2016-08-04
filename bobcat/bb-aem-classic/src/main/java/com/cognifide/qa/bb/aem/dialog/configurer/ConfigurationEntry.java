@@ -125,7 +125,7 @@ public class ConfigurationEntry {
         .append(this.type)
         .append(this.label)
         .append(this.value)
-        .hashCode();
+        .toHashCode();
   }
 
   @Override

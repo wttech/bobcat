@@ -215,7 +215,7 @@ public class AemContentFinder {
   }
 
   public void changeToListViewIfNeeded(AemContentFinderTab currentTab) {
-    if (getCurrentView().equals(ResultsView.MOSAIC)) {
+    if (getCurrentView() == ResultsView.MOSAIC) {
       currentTab.clickListView();
     }
   }

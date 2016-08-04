@@ -24,7 +24,7 @@
     <parent>
         <artifactId>bobcat</artifactId>
         <groupId>com.cognifide.qa.bb</groupId>
-        <version>0.9.4-SNAPSHOT</version>
+        <version>0.9.7-SNAPSHOT</version>
     </parent>
 
     <artifactId>bb-core</artifactId>
@@ -43,6 +43,10 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-htmlunit-driver</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-guice</artifactId>
         </dependency>
         <dependency>
             <groupId>io.appium</groupId>

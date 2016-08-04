@@ -32,6 +32,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import com.cognifide.qa.bb.aem.ui.component.AemComponentHandler;
+import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.aem.expectedconditions.SidekickActions;
 import com.cognifide.qa.bb.aem.ui.wcm.windows.ActivateReferencesWindow;
@@ -74,8 +75,6 @@ public class AemSidekick {
   private static final String SECTION_TOGGLE_CSS = ".x-tool-toggle";
 
   private static final String FIELDSET_XPATH = "//div[@id='cq-sk']//span[text() = '%s']/../..";
-
-  private static final String CLASS_ATTRIBUTE = "class";
 
   private static final String AEM_SIDEKICK_TAB_ICON_PARTIAL_CLASS = "cq-sidekick-tab-icon-";
 
@@ -349,8 +348,9 @@ public class AemSidekick {
 
   public boolean isCollapsed() {
     bobcatWait.withTimeout(Timeouts.SMALL)
-        .until(webDriver -> !sidekick.getAttribute(CLASS_ATTRIBUTE).contains(X_PANEL_ANIMATED), 1);
-    return sidekick.getAttribute(CLASS_ATTRIBUTE).contains(X_PANEL_COLLAPSED);
+        .until(webDriver -> !sidekick.getAttribute(HtmlTags.Attributes.CLASS)
+            .contains(X_PANEL_ANIMATED), 1);
+    return sidekick.getAttribute(HtmlTags.Attributes.CLASS).contains(X_PANEL_COLLAPSED);
   }
 
   private Map<String, WebElement> getGroupsByNames() {

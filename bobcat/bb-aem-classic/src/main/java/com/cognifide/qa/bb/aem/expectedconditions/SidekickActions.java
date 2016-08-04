@@ -19,11 +19,12 @@
  */
 package com.cognifide.qa.bb.aem.expectedconditions;
 
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+
+import com.cognifide.qa.bb.constants.HtmlTags;
 
 /**
  * Static methods that provides actions on Sidekick wrapped in ExpectedCondition.
@@ -33,8 +34,6 @@ public final class SidekickActions {
   private static final String TAB_WRAPPER_XPATH = "./../../../..";
 
   private static final String TAB_ACTIVE = "x-tab-strip-active";
-
-  private static final String CLASS_ATTRIBUTE = "class";
 
   private static final String SECTION_TOGGLE_CSS = ".x-tool-toggle";
 
@@ -54,8 +53,9 @@ public final class SidekickActions {
       @Override
       public Boolean apply(WebDriver driver) {
         tab.click();
-        return tab.findElement(By.xpath(TAB_WRAPPER_XPATH)).getAttribute(CLASS_ATTRIBUTE).contains(
-            TAB_ACTIVE);
+        return tab.findElement(By.xpath(TAB_WRAPPER_XPATH)).getAttribute(HtmlTags.Attributes.CLASS)
+            .contains(
+                TAB_ACTIVE);
       }
 
       @Override
@@ -74,7 +74,7 @@ public final class SidekickActions {
   public static ExpectedCondition<Boolean> expandSection(final WebElement section) {
     return driver -> {
       if (isSectionExpanded(section)) {
-        return true;
+        return Boolean.TRUE;
       }
       section.findElement(By.cssSelector(SECTION_TOGGLE_CSS)).click();
       return isSectionExpanded(section);
@@ -90,7 +90,7 @@ public final class SidekickActions {
   public static ExpectedCondition<Boolean> expandFieldset(final WebElement fieldset) {
     return driver -> {
       if (isFieldsetExpanded(fieldset)) {
-        return true;
+        return Boolean.TRUE;
       }
       fieldset.findElement(By.cssSelector(SECTION_TOGGLE_CSS)).click();
       return isFieldsetExpanded(fieldset);
@@ -105,7 +105,7 @@ public final class SidekickActions {
    */
   public static boolean isSectionExpanded(WebElement section) {
     boolean isExpanded = false;
-    if (!section.getAttribute(CLASS_ATTRIBUTE).contains(COLLAPSED_CLASS)) {
+    if (!section.getAttribute(HtmlTags.Attributes.CLASS).contains(COLLAPSED_CLASS)) {
       isExpanded = true;
     }
     return isExpanded;
@@ -119,7 +119,7 @@ public final class SidekickActions {
    */
   public static boolean isFieldsetExpanded(WebElement fieldset) {
     boolean isExpanded = false;
-    if (!fieldset.getAttribute(CLASS_ATTRIBUTE).contains(COLLAPSED_CLASS)) {
+    if (!fieldset.getAttribute(HtmlTags.Attributes.CLASS).contains(COLLAPSED_CLASS)) {
       isExpanded = true;
     }
     return isExpanded;

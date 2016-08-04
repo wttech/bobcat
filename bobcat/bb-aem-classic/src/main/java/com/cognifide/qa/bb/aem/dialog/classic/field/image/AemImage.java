@@ -28,6 +28,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import com.cognifide.qa.bb.aem.DialogComponent;
 import com.cognifide.qa.bb.aem.dialog.classic.field.Configurable;
+import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.dragdrop.DragAndDropFactory;
 import com.cognifide.qa.bb.dragdrop.Draggable;
@@ -86,7 +87,7 @@ public class AemImage implements Configurable {
    * @return true if image is set.
    */
   public boolean hasImageSet() {
-    return !StringUtils.contains(currentScope.getAttribute("class"), "cq-upload-hint");
+    return !StringUtils.contains(currentScope.getAttribute(HtmlTags.Attributes.CLASS), "cq-upload-hint");
   }
 
   /**
@@ -111,7 +112,7 @@ public class AemImage implements Configurable {
   public String getImageInfo() {
     bobcatWait.withTimeout(Timeouts.MEDIUM).until(ExpectedConditions.visibilityOf(infoButton));
     infoButton.click();
-    return tip.findElement(By.xpath(".//a")).getAttribute("href");
+    return tip.findElement(By.xpath(".//a")).getAttribute(HtmlTags.Attributes.HREF);
   }
 
   /**
@@ -136,6 +137,6 @@ public class AemImage implements Configurable {
   private void waitForToolbarEnabled() {
     bobcatWait.withTimeout(Timeouts.MEDIUM).until(input -> !clearButton
         .findElement(By.xpath("./preceding::table[contains(@class, 'x-btn-text-icon')]"))
-        .getAttribute("class").contains("x-item-disabled"));
+        .getAttribute(HtmlTags.Attributes.CLASS).contains("x-item-disabled"));
   }
 }

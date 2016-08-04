@@ -87,14 +87,12 @@ public class ReportingRule extends TestWatcher {
   }
 
   private void logCollectors(Injector injector) {
+    List<Binding<TestEventCollector>> bindings =
+        injector.findBindingsByType(TypeLiteral.get(TestEventCollector.class));
     if (LOG.isInfoEnabled()) {
-      List<Binding<TestEventCollector>> bindings =
-          injector.findBindingsByType(TypeLiteral.get(TestEventCollector.class));
       LOG.info("bound test event collectors: {}", bindings.size());
     }
     if (LOG.isDebugEnabled()) {
-      List<Binding<TestEventCollector>> bindings =
-          injector.findBindingsByType(TypeLiteral.get(TestEventCollector.class));
       for (Binding<TestEventCollector> binding : bindings) {
         Provider<TestEventCollector> provider = binding.getProvider();
         TestEventCollector collector = provider.get();

@@ -96,9 +96,6 @@ public class AemParsys {
   private WebElement insertComponentArea;
 
   @Inject
-  private BobcatWait bobcatWait;
-
-  @Inject
   @Named(AemConfigKeys.COMPONENT_LOCATOR_FORMAT)
   private String componentLocatorFormat;
 
@@ -137,7 +134,7 @@ public class AemParsys {
    * @return Insert window instance.
    */
   public AemInsertWindow openInsertWindow() {
-    bobcatWait.withTimeout(Timeouts.BIG).until(webDriver -> {
+    wait.withTimeout(Timeouts.BIG).until(webDriver -> {
       actions.doubleClick(getClickableParsys()).perform();
       return webElementHelper.isCurrentScopeVisible(insertWindow);
     }, 2);
@@ -151,7 +148,7 @@ public class AemParsys {
    * @return Insert window instance.
    */
   public AemInsertWindow openInsertWindowByContextMenu() {
-    bobcatWait.withTimeout(Timeouts.BIG).until(webDriver -> {
+    wait.withTimeout(Timeouts.BIG).until(webDriver -> {
       contextMenu.open(getClickableParsys());
       contextMenu.clickOption(MenuOption.NEW);
       return webElementHelper.isCurrentScopeVisible(insertWindow);
@@ -164,7 +161,7 @@ public class AemParsys {
    */
   public void pasteComponentByContextMenu() {
     final int componentsCount = componentsCount();
-    bobcatWait.withTimeout(Timeouts.BIG).until(webDriver -> {
+    wait.withTimeout(Timeouts.BIG).until(webDriver -> {
       contextMenu.open(getClickableParsys());
       contextMenu.clickOption(MenuOption.PASTE);
       return componentsCount + 1 == componentsCount();
@@ -175,7 +172,7 @@ public class AemParsys {
    * Opens context menu for the n-th component of type componentClass. Indexing starts at 0.
    *
    * @param componentClass component class
-   * @param n component index
+   * @param n              component index
    * @return opened contextMenu
    */
   public AemContextMenu openContextMenuNthComponent(Class<?> componentClass, int n) {
@@ -209,7 +206,7 @@ public class AemParsys {
    * Inserts a component of the type indicated by the parameter.
    *
    * @param componentClass component class name
-   * @param <T> component class
+   * @param <T>            component class
    * @return Object of a component class injected with a proper scope
    */
   public <T> T insertComponent(Class<T> componentClass) {
@@ -229,30 +226,25 @@ public class AemParsys {
    * Inserts a component of the type indicated by the parameter to empty parsys.
    *
    * @param componentClass component class name
-   * @param <T> component class
-   * @param firstComponentTypeInParsys true if it is first component of componentClass in parsys
+   * @param <T>            component class
    * @return Object of a component class injected with a proper scope
    */
-  public <T> T insertComponent(Class<T> componentClass, boolean firstComponentTypeInParsys) {
-    if (firstComponentTypeInParsys) {
-      By componentLocator = getComponentLocator(componentClass);
-      openInsertWindow().insertComponent(componentClass);
-      wait.withTimeout(Timeouts.SMALL).until(driver -> !currentScope
-          .findElements(componentLocator).isEmpty());
+  public <T> T insertFirstComponentType(Class<T> componentClass) {
+    By componentLocator = getComponentLocator(componentClass);
+    openInsertWindow().insertComponent(componentClass);
+    wait.withTimeout(Timeouts.SMALL).until(driver -> !currentScope
+        .findElements(componentLocator).isEmpty());
 
-      return pageObjectInjector
-          .inject(componentClass, getComponentScope(componentClass, 0),
-              currentFrame);
-    } else {
-      return insertComponent(componentClass);
-    }
+    return pageObjectInjector
+        .inject(componentClass, getComponentScope(componentClass, 0),
+            currentFrame);
   }
 
   /**
    * Inserts a component identified by the group and name.
    *
    * @param componentGroup component group name
-   * @param componentName component name
+   * @param componentName  component name
    * @return This AemParsys.
    */
   public AemParsys insertComponent(String componentGroup, String componentName) {
@@ -326,7 +318,7 @@ public class AemParsys {
    * componentClass, 0).
    *
    * @param componentClass component class name
-   * @param <T> component class
+   * @param <T>            component class
    * @return object of a componentClass injected with a proper scope
    */
   public <T> T getFirstComponentOfType(Class<T> componentClass) {
@@ -337,8 +329,8 @@ public class AemParsys {
    * Get the n-th element of type componentClass. Indexing starts at 0.
    *
    * @param componentClass component class name
-   * @param <T> component class
-   * @param n component index
+   * @param <T>            component class
+   * @param n              component index
    * @return object of a componentClass injected with a proper scope
    */
   public <T> T getNthComponentOfType(Class<T> componentClass, int n) {
@@ -350,8 +342,8 @@ public class AemParsys {
    * Get the n-th component. Indexing starts at 0.
    *
    * @param componentClass component class name
-   * @param <T> component class
-   * @param globalIndex component global index
+   * @param <T>            component class
+   * @param globalIndex    component global index
    * @return object of a componentClass injected with a proper scope
    */
   public <T> T getComponent(Class<T> componentClass, int globalIndex) {
@@ -365,8 +357,7 @@ public class AemParsys {
    * Remove the n-th occurrence of componentClass. Indexing starts at 0.
    *
    * @param componentClass component class
-   * @param n component index
-   *
+   * @param n              component index
    * @return This AemParsys.
    */
   public AemParsys removeNthComponentOfType(Class<?> componentClass, int n) {
@@ -380,7 +371,6 @@ public class AemParsys {
    * Remove the first occurrence of componentClass.
    *
    * @param componentClass component class
-   *
    * @return This AemParsys.
    */
   public AemParsys removeFirstComponentOfType(Class<?> componentClass) {
@@ -391,7 +381,6 @@ public class AemParsys {
    * Remove the n-th(index) component, not matter what type it is. Indexing starts at 0.
    *
    * @param index component index
-   *
    * @return This AemParsys.
    */
   public AemParsys removeComponent(int index) {
@@ -414,9 +403,7 @@ public class AemParsys {
   public AemParsys clear() {
     List<WebElement> list =
         currentScope.findElements(By.cssSelector(SELECTOR_FOR_COMPONENT_IN_PARSYS));
-    for (WebElement webElement : list) {
-      clickDeleteInContextMenu(webElement);
-    }
+    list.forEach(this::clickDeleteInContextMenu);
     return this;
   }
 
@@ -458,7 +445,7 @@ public class AemParsys {
   }
 
   private WebElement getClickableParsys() {
-    bobcatWait.withTimeout(Timeouts.SMALL)
+    wait.withTimeout(Timeouts.SMALL)
         .until(webDriver -> getParsysStream().count() >= 1, Timeouts.MINIMAL);
     return getParsysStream().findFirst().get();
   }

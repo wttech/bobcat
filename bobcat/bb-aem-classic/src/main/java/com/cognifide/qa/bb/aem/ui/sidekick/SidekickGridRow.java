@@ -19,13 +19,12 @@
  */
 package com.cognifide.qa.bb.aem.ui.sidekick;
 
-
-
 import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
@@ -43,8 +42,6 @@ public class SidekickGridRow {
 
   private static final String GRID_CELLS_CSS = "div.x-grid3-cell-inner";
 
-  private static final String CLASS_ATTRIBUTE = "class";
-
   @Inject
   @CurrentScope
   private WebElement gridRow;
@@ -58,10 +55,7 @@ public class SidekickGridRow {
    * @return true if checkbox is selected, false if checkbox is not selected
    */
   public boolean isGridRowCheckboxSelected() {
-    if (gridRow.getAttribute(CLASS_ATTRIBUTE).contains(ROW_SELECTED_CLASS)) {
-      return true;
-    }
-    return false;
+    return gridRow.getAttribute(HtmlTags.Attributes.CLASS).contains(ROW_SELECTED_CLASS);
   }
 
   /**
