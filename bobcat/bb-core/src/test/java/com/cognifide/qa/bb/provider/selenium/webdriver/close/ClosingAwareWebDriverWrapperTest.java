@@ -66,6 +66,10 @@ public class ClosingAwareWebDriverWrapperTest {
   private WebDriver.Window window;
 
   @Mock
+  @SuppressWarnings("unused")
+  private WebDriver.TargetLocator targetLocator;
+
+  @Mock
   private FrameSwitcher frameSwitcher;
 
   @InjectMocks
