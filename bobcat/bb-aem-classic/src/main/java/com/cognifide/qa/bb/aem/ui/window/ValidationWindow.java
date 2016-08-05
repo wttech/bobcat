@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bb.aem.ui.window;
 
-
-
 import static com.cognifide.qa.bb.expectedconditions.CommonExpectedConditions.elementNotPresentOrVisible;
 
 import org.openqa.selenium.By;
