@@ -205,17 +205,17 @@ public class AuthorPage {
   }
 
   /**
-   * Remove all components with given data path.
+   * Remove all components with name.
    *
    * @param parsys        parsys name
-   * @param componentName data path of the component
+   * @param componentName name of the component
    */
   public void clearParsys(String parsys, String componentName) {
     globalBar.switchToEditMode();
     while (getParsys(parsys).isComponentPresent(componentName)) {
       deleteComponent(parsys, componentName);
     }
-  }
+}
 
   private void verifyParsysRerendered(String parsys) {
     conditions.verifyPostAjax(object -> getParsys(parsys).isNotStale());

@@ -168,7 +168,7 @@ public class Parsys {
   /**
    * Deletes last component found under given data path.
    *
-   * @param componentName data path of the component to be deleted.
+   * @param componentName name of the component to be deleted.
    */
   public void deleteLastComponent(String componentName) {
     getLastComponent(componentName).delete();
