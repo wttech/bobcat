@@ -19,7 +19,6 @@ import com.cognifide.qa.bb.aem.touch.data.components.Components;
 import com.cognifide.qa.bb.aem.touch.data.pages.Pages;
 import com.cognifide.qa.bb.aem.touch.pageobjects.pages.AuthorPage;
 import com.cognifide.qa.bb.aem.touch.pageobjects.pages.AuthorPageFactory;
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.GlobalBar;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.expectedconditions.CommonExpectedConditions;
 import com.cognifide.qa.bb.junit.Modules;
@@ -34,8 +33,6 @@ public class AemCreditCardTest {
   private static final String CONFIGURATION = "CreditCard - Update&Read";
 
   private static final String COMPONENT_NAME = "Credit Card Details";
-
-  private static final String COMPONENT_DATA_PATH = "creditcard";
 
   private static final String LABEL_TEXT = "Credit Card";
 
@@ -60,9 +57,6 @@ public class AemCreditCardTest {
   @Inject
   private BobcatWait bobcatWait;
 
-  @Inject
-  private GlobalBar globalBar;
-
   private AuthorPage page;
 
   private String parsys;
@@ -77,7 +71,7 @@ public class AemCreditCardTest {
     page.clearParsys(parsys, COMPONENT_NAME);
     assertFalse(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME));
     page.addComponent(parsys, COMPONENT_NAME);
-    assertTrue(page.getParsys(parsys).isComponentPresent(COMPONENT_DATA_PATH));
+    assertTrue(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME));
   }
 
   @After
@@ -88,11 +82,10 @@ public class AemCreditCardTest {
 
   @Test
   public void checkedCheckBoxTest() {
-    page.configureComponent(parsys, COMPONENT_DATA_PATH, CHECKED_CHECKBOX_CONFIGURATION);
+    page.configureComponent(parsys, COMPONENT_NAME, CHECKED_CHECKBOX_CONFIGURATION);
 
-    globalBar.switchToPreviewMode();
     CreditCardComponent component =
-        (CreditCardComponent) page.getContent(components.getClazz(COMPONENT_DATA_PATH));
+        (CreditCardComponent) page.getContent(components.getClazz(COMPONENT_NAME));
 
     assertThat(component.getLabelText(), is(LABEL_TEXT));
 
@@ -103,11 +96,10 @@ public class AemCreditCardTest {
 
   @Test
   public void uncheckedCheckBoxTest() {
-    page.configureComponent(parsys, COMPONENT_DATA_PATH, UNCHECKED_CHECKBOX_CONFIGURATION);
+    page.configureComponent(parsys, COMPONENT_NAME, UNCHECKED_CHECKBOX_CONFIGURATION);
 
-    globalBar.switchToPreviewMode();
     CreditCardComponent component =
-        (CreditCardComponent) page.getContent(components.getClazz(COMPONENT_DATA_PATH));
+        (CreditCardComponent) page.getContent(components.getClazz(COMPONENT_NAME));
 
     assertThat(component.getLabelText(), is(LABEL_TEXT));
     assertThat(component.getCardTypeSelect(), anything());

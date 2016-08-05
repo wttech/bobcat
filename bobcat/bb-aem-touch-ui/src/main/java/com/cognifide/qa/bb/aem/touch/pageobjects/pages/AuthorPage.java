@@ -117,6 +117,7 @@ public class AuthorPage {
   }
 
   public <T> T getContent(Class<T> component) {
+    globalBar.switchToPreviewMode();
     Objects.requireNonNull(component, "clazz property was not specified in YAML config");
     frameSwitcher.switchTo(CONTENT_FRAME);
     WebElement scope = null;
@@ -134,36 +135,36 @@ public class AuthorPage {
             : pageObjectInjector.inject(component, scope, CONTENT_FRAME);
   }
 
-  public void addComponent(String parsys, String component) {
-    getParsys(parsys).insertComponent(component);
+  public void addComponent(String parsys, String componentName) {
+    getParsys(parsys).insertComponent(componentName);
     verifyParsysRerendered(parsys);
   }
 
-  public Map<String, List<FieldConfig>> configureComponent(String parsys, String component,
+  public Map<String, List<FieldConfig>> configureComponent(String parsys, String componentName,
           String configName) {
-    Map<String, List<FieldConfig>> data = componentConfigs.getConfigs(component).get(configName.toLowerCase());
+    Map<String, List<FieldConfig>> data = componentConfigs.getConfigs(componentName).get(configName.toLowerCase());
     if (data == null) {
       throw new IllegalArgumentException("Config does not exist: " + configName);
     }
-    getParsys(parsys).configureComponent(components.getDataPath(component), data);
+    getParsys(parsys).configureComponent(componentName, data);
     verifyParsysRerendered(parsys);
     return data;
   }
 
-  public void deleteComponent(String parsys, String component) {
-    getParsys(parsys).deleteComponent(components.getDataPath(component));
+  public void deleteComponent(String parsys, String componentName) {
+    getParsys(parsys).deleteComponent(componentName);
     verifyParsysRerendered(parsys);
   }
 
   /**
    * Remove all components with given data path.
    * @param parsys parsys name
-   * @param dataPath data path of the component
+   * @param componentName data path of the component
    */
-  public void clearParsys(String parsys, String dataPath) {
+  public void clearParsys(String parsys, String componentName) {
     globalBar.switchToEditMode();
-    while(getParsys(parsys).isComponentPresent(dataPath)) {
-      deleteComponent(parsys, dataPath);
+    while(getParsys(parsys).isComponentPresent(componentName)) {
+      deleteComponent(parsys, componentName);
     }
   }
 

@@ -33,6 +33,7 @@ import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.cognifide.qa.bb.aem.touch.data.components.Components;
 import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
@@ -52,6 +53,9 @@ public class Parsys {
 
   @Inject
   private Conditions conditions;
+
+  @Inject
+  private Components components;
 
   @FindBy(css = ".cq-Overlay--placeholder[data-text='Drag components here']")
   private WebElement dropArea;
@@ -78,7 +82,8 @@ public class Parsys {
     return insertComponentWindow;
   }
 
-  public Component getComponent(String dataPath) {
+  public Component getComponent(String componentName) {
+    String dataPath = components.getDataPath(componentName);
     String componentDataPath = DataPathUtil.normalize(dataPath);
     return componentList.stream() //
           .filter(containsDataPath(componentDataPath)) //
@@ -86,7 +91,8 @@ public class Parsys {
           .orElseThrow(() -> new IllegalStateException("Component not present in the parsys"));
   }
 
-  public Component getLastComponent(String dataPath) {
+  public Component getLastComponent(String componentName) {
+    String dataPath = components.getDataPath(componentName);
     String componentDataPath = DataPathUtil.normalize(dataPath);
     return componentList.stream() //
           .filter(containsDataPath(componentDataPath)) //
@@ -94,26 +100,27 @@ public class Parsys {
           .orElseThrow(() -> new IllegalStateException("Component not present in the parsys"));
   }
 
-  public boolean isComponentPresent(String dataPath) {
+  public boolean isComponentPresent(String componentName) {
+    String dataPath = components.getDataPath(componentName);
     String componentDataPath = DataPathUtil.normalize(dataPath.toLowerCase());
     return componentList.stream() //
             .anyMatch(containsDataPath(componentDataPath));
   }
 
-  public void insertComponent(String title) {
-    openInsertDialog().insertComponent(title);
+  public void insertComponent(String componentName) {
+    openInsertDialog().insertComponent(componentName);
   }
 
-  public void configureComponent(String dataPath, Map<String, List<FieldConfig>> data) {
-    getComponent(dataPath).configure(data);
+  public void configureComponent(String componentName, Map<String, List<FieldConfig>> data) {
+    getComponent(componentName).configure(data);
   }
 
-  public void deleteComponent(String dataPath) {
-    getComponent(dataPath).delete();
+  public void deleteComponent(String componentName) {
+    getComponent(componentName).delete();
   }
 
-  public void deleteLastComponent(String dataPath) {
-    getLastComponent(dataPath).delete();
+  public void deleteLastComponent(String componentName) {
+    getLastComponent(componentName).delete();
   }
 
   public WebElement getParsys() {

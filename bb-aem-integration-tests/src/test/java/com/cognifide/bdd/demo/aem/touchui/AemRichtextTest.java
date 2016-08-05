@@ -26,7 +26,6 @@ import com.cognifide.qa.bb.aem.AemLogin;
 import com.cognifide.qa.bb.aem.touch.data.pages.Pages;
 import com.cognifide.qa.bb.aem.touch.pageobjects.pages.AuthorPage;
 import com.cognifide.qa.bb.aem.touch.pageobjects.pages.AuthorPageFactory;
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.GlobalBar;
 import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
 import com.google.inject.Inject;
@@ -46,9 +45,6 @@ public class AemRichtextTest {
 
   @Inject
   private AemLogin aemLogin;
-
-  @Inject
-  private GlobalBar globalBar;
 
   @Inject
   private Pages pages;
@@ -76,95 +72,72 @@ public class AemRichtextTest {
   @After
   public void tearDown() {
     page.clearParsys(parsys, COMPONENT_NAME);
+    assertFalse(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME));
   }
 
   @Test
   public void shouldContainEnteredText() {
-    page.configureComponent(parsys, COMPONENT_NAME, "plain_text");
-    globalBar.switchToPreviewMode();
-    String contents = page.getContent(TextComponent.class).getOuterHTML();
-    assertThat(contents, containsString("<p>test test test</p>"));
+    testRichText("plain_text", "<p>test test test</p>");
   }
 
   @Test
   public void shouldRenderUnderlinedTextProperly() {
-    page.configureComponent(parsys, COMPONENT_NAME, "underline");
-    globalBar.switchToPreviewMode();
-    String contents = page.getContent(TextComponent.class).getOuterHTML();
-    assertThat(contents, containsString("<p><u>test test test</u></p>"));
+    testRichText("underline", "<p><u>test test test</u></p>");
   }
 
   @Test
   public void shouldRenderBoldedTextProperly() {
-    page.configureComponent(parsys, COMPONENT_NAME, "bold");
-    globalBar.switchToPreviewMode();
-    String contents = page.getContent(TextComponent.class).getOuterHTML();
-    assertThat(contents, containsString("<p><b>test test test</b></p>"));
+    testRichText("bold", "<p><b>test test test</b></p>");
   }
 
   @Test
   public void shouldRenderItalicTextProperly() {
-    page.configureComponent(parsys, COMPONENT_NAME, "italic");
-    globalBar.switchToPreviewMode();
-    String contents = page.getContent(TextComponent.class).getOuterHTML();
-    assertThat(contents, containsString("<p><i>test test test</i></p>"));
+    testRichText("italic", "<p><i>test test test</i></p>");
   }
 
   @Test
   public void shouldRenderTextJustifiedToTheRightSideProperly() {
-    page.configureComponent(parsys, COMPONENT_NAME, "justify_right");
-    globalBar.switchToPreviewMode();
-    String contents = page.getContent(TextComponent.class).getOuterHTML();
-    assertThat(contents, containsString("<p style=\"text-align: right;\">test test test</p>"));
+    testRichText("justify_right", "<p style=\"text-align: right;\">test test test</p>");
   }
 
   @Test
   public void shouldRenderTextJustifiedToTheCenterProperly() {
-    page.configureComponent(parsys, COMPONENT_NAME, "justify_center");
-    globalBar.switchToPreviewMode();
-    String contents = page.getContent(TextComponent.class).getOuterHTML();
-    assertThat(contents, containsString("<p style=\"text-align: center;\">test test test</p>"));
+    testRichText("justify_center", "<p style=\"text-align: center;\">test test test</p>");
   }
 
   @Test
   public void shouldRenderTextJustifiedToTheLeftSideProperly() {
-    page.configureComponent(parsys, COMPONENT_NAME, "justify_left");
-    globalBar.switchToPreviewMode();
-    String contents = page.getContent(TextComponent.class).getOuterHTML();
-    assertThat(contents, containsString("<p>test test test</p>"));
+    testRichText("justify_left", "<p>test test test</p>");
   }
 
   @Test
   public void shouldRenderBulletListProperly() {
-    page.configureComponent(parsys, COMPONENT_NAME, "bullet_list");
-    globalBar.switchToPreviewMode();
-    String contents = page.getContent(TextComponent.class).getOuterHTML();
     //@formatter:off
-    assertThat(contents, containsString("<ul>\n"
-            + "<li>test test test</li>\n"
-            + "<li>test test test</li>\n"
-            + "</ul>"));
+    testRichText("bullet_list", "<ul>\n"
+        + "<li>test test test</li>\n"
+        + "<li>test test test</li>\n"
+        + "</ul>");
     //@formatter:on
   }
 
   @Test
   public void shouldRenderNumberedListProperly() {
-    page.configureComponent(parsys, COMPONENT_NAME, "numbered_list");
-    globalBar.switchToPreviewMode();
-    String contents = page.getContent(TextComponent.class).getOuterHTML();
     //@formatter:off
-    assertThat(contents, containsString("<ol>\n"
+    testRichText("numbered_list", "<ol>\n"
             + "<li>test test test</li>\n"
             + "<li>test test test</li>\n"
-            + "</ol>"));
+            + "</ol>");
     //@formatter:on
   }
 
   @Test
   public void shouldRenderIndentProperly() {
-    page.configureComponent(parsys, COMPONENT_NAME, "indent");
-    globalBar.switchToPreviewMode();
+    testRichText("indent", "<p style=\"margin-left: 40.0px;\">test test test</p>");
+  }
+
+  private void testRichText(String configurationName, String expectedOutput) {
+    page.configureComponent(parsys, COMPONENT_NAME, configurationName);
     String contents = page.getContent(TextComponent.class).getOuterHTML();
-    assertThat(contents, containsString("<p style=\"margin-left: 40.0px;\">test test test</p>"));
+    assertThat(contents, containsString(expectedOutput));
   }
 }

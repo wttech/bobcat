@@ -40,7 +40,6 @@ import com.cognifide.qa.bb.aem.touch.data.components.Components;
 import com.cognifide.qa.bb.aem.touch.data.pages.Pages;
 import com.cognifide.qa.bb.aem.touch.pageobjects.pages.AuthorPage;
 import com.cognifide.qa.bb.aem.touch.pageobjects.pages.AuthorPageFactory;
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.GlobalBar;
 import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
 import com.google.inject.Inject;
@@ -60,9 +59,6 @@ public class AemTitleTest {
 
   @Inject
   private Components components;
-
-  @Inject
-  private GlobalBar globalBar;
 
   private AuthorPage page;
 
@@ -95,7 +91,6 @@ public class AemTitleTest {
   public void editTitleComponentTest() {
     Map<String, List<FieldConfig>> data = page.configureComponent(parsys,
         COMPONENT_NAME, COMPONENT_NAME.toLowerCase());
-    globalBar.switchToPreviewMode();
     TitleComponent component =
         (TitleComponent) page.getContent(components.getClazz(COMPONENT_NAME));
     assertThat(component.getTitle(), is(

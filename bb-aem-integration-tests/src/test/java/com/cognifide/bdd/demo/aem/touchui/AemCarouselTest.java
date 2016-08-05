@@ -18,7 +18,6 @@ import com.cognifide.qa.bb.aem.touch.data.components.Components;
 import com.cognifide.qa.bb.aem.touch.data.pages.Pages;
 import com.cognifide.qa.bb.aem.touch.pageobjects.pages.AuthorPage;
 import com.cognifide.qa.bb.aem.touch.pageobjects.pages.AuthorPageFactory;
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.GlobalBar;
 import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
 import com.google.inject.Inject;
@@ -30,9 +29,6 @@ public class AemCarouselTest {
   private static final String CONFIGURATION = "Carousel - Update&Read";
 
   private static final String COMPONENT_NAME = "Carousel";
-
-  @Inject
-  private GlobalBar globalBar;
 
   @Inject
   private AemLogin aemLogin;
@@ -73,7 +69,6 @@ public class AemCarouselTest {
   public void editCarouselComponentTest() {
     page.configureComponent(parsys, COMPONENT_NAME, COMPONENT_NAME);
 
-    globalBar.switchToPreviewMode();
     CarouselComponent component =
         (CarouselComponent) page.getContent(components.getClazz(COMPONENT_NAME));
 

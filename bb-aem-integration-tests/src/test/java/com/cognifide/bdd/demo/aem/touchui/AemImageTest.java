@@ -20,7 +20,6 @@ import com.cognifide.qa.bb.aem.touch.data.components.Components;
 import com.cognifide.qa.bb.aem.touch.data.pages.Pages;
 import com.cognifide.qa.bb.aem.touch.pageobjects.pages.AuthorPage;
 import com.cognifide.qa.bb.aem.touch.pageobjects.pages.AuthorPageFactory;
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.GlobalBar;
 import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
 import com.google.inject.Inject;
@@ -45,9 +44,6 @@ public class AemImageTest {
   @Inject
   private Components components;
 
-  @Inject
-  private GlobalBar globalBar;
-
   private AuthorPage page;
 
   @Before
@@ -63,9 +59,8 @@ public class AemImageTest {
     String parsys = pages.getParsys(CONFIGURATION);
     assertTrue(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME));
     Map<String, List<FieldConfig>> data = page.configureComponent(parsys,
-        COMPONENT_NAME, COMPONENT_NAME.toLowerCase());
+        COMPONENT_NAME, COMPONENT_NAME);
 
-    globalBar.switchToPreviewMode();
     ImageComponent component =
         (ImageComponent) page.getContent(components.getClazz(COMPONENT_NAME));
 
