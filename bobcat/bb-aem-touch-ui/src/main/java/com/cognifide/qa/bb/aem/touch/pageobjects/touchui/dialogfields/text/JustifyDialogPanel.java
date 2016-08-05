@@ -25,6 +25,9 @@ import com.google.inject.Inject;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
+/**
+ * Represents text justification dialog field.
+ */
 @PageObject
 public class JustifyDialogPanel implements DialogField {
 
@@ -37,6 +40,16 @@ public class JustifyDialogPanel implements DialogField {
   @Inject
   private BobcatWait bobcatWait;
 
+  /**
+   * Performs one of justification actions depending on passed parameter value:
+   * <ul>
+   * <li>JUSTIFY_LEFT</li>
+   * <li>JUSTIFY_RIGHT</li>
+   * <li>JUSTIFY_CENTER</li>
+   * </ul>
+   *
+   * @param value string value representing desired action.
+   */
   @Override
   public void setValue(Object value) {
     String actionText = (String) value;
@@ -67,15 +80,17 @@ public class JustifyDialogPanel implements DialogField {
     controlToolbar.getToggleJustifyButton().click();
   }
 
+  /**
+   * @return dialog field type.
+   */
   @Override
   public String getType() {
     return FieldType.RICHTEXT_JUSTIFY.name();
   }
 
-  private static enum JustifyPanelActions {
-
+  private enum JustifyPanelActions {
     JUSTIFY_LEFT,
     JUSTIFY_CENTER,
-    JUSTIFY_RIGHT;
+    JUSTIFY_RIGHT
   }
 }

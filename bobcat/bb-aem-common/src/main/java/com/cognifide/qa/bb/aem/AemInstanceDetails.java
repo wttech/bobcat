@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bb.aem;
 
-
-
 import java.io.IOException;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -76,6 +74,8 @@ public class AemInstanceDetails {
       infoResponse.close();
     } catch (IOException e) {
       LOG.error("Can't get aem version", e);
+    } finally {
+      infoGet.reset();
     }
 
     return resultJson;

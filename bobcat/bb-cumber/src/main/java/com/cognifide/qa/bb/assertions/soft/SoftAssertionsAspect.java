@@ -38,7 +38,7 @@ import org.aopalliance.intercept.MethodInvocation;
  */
 public class SoftAssertionsAspect implements MethodInterceptor {
 
-  private static ThreadLocal<List<Throwable>> failureValues = new ThreadLocal<List<Throwable>>();
+  private static ThreadLocal<List<Throwable>> failureValues = new ThreadLocal<>();
 
   @Override
   public Object invoke(MethodInvocation methodInvocation) throws Throwable {
@@ -65,7 +65,7 @@ public class SoftAssertionsAspect implements MethodInterceptor {
   private static List<Throwable> getFailures() {
     List<Throwable> fails = failureValues.get();
     if (fails == null) {
-      fails = new ArrayList<Throwable>();
+      fails = new ArrayList<>();
       failureValues.set(fails);
     }
     return fails;

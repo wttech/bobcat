@@ -24,8 +24,15 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Use this annotation to mark getter methods that will be used to check component state in
+ * ComponentState class.
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD})
 public @interface Property {
+  /**
+   * @return Value of field.
+   */
   String value();
 }

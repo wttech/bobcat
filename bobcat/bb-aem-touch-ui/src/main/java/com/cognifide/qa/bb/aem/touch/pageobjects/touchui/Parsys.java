@@ -44,6 +44,9 @@ import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.cognifide.qa.bb.aem.touch.util.DataPathUtil;
 import com.google.inject.Inject;
 
+/**
+ * Class represents web page parsys.
+ */
 @PageObject
 public class Parsys {
 
@@ -69,66 +72,120 @@ public class Parsys {
 
   @Inject
   @CurrentScope
-  private WebElement parsys;
+  private WebElement currentScope;
 
+  /**
+   * @return data path of parsys
+   */
   public String getDataPath() {
-    String rawValue = parsys.getAttribute(HtmlTags.Attributes.DATA_PATH);
+    String rawValue = currentScope.getAttribute(HtmlTags.Attributes.DATA_PATH);
     return StringUtils.substringAfter(rawValue, JCR_CONTENT);
   }
 
+  /**
+   * If possible, open insert component window and returns its instance.
+   *
+   * @return instance of {@link InsertComponentWindow}.
+   */
   public InsertComponentWindow openInsertDialog() {
     tryToSelect();
     tryToOpenInsertWindow();
     return insertComponentWindow;
   }
 
+  /**
+   * Looks for components with given name and returns first found instance.
+   *
+   * @param componentName name of the component.
+   * @return instance of {@link Component}.
+   */
   public Component getComponent(String componentName) {
     String dataPath = components.getDataPath(componentName);
     String componentDataPath = DataPathUtil.normalize(dataPath);
     return componentList.stream() //
-          .filter(containsDataPath(componentDataPath)) //
-          .findFirst() //
-          .orElseThrow(() -> new IllegalStateException("Component not present in the parsys"));
+        .filter(containsDataPath(componentDataPath)) //
+        .findFirst() //
+        .orElseThrow(() -> new IllegalStateException("Component not present in the parsys"));
   }
 
+  /**
+   * Looks for components with given name and returns last found instance.
+   *
+   * @param componentName name of the component.
+   * @return instance of {@link Component}.
+   */
   public Component getLastComponent(String componentName) {
     String dataPath = components.getDataPath(componentName);
     String componentDataPath = DataPathUtil.normalize(dataPath);
     return componentList.stream() //
-          .filter(containsDataPath(componentDataPath)) //
-          .reduce((a, b) -> b)
-          .orElseThrow(() -> new IllegalStateException("Component not present in the parsys"));
+        .filter(containsDataPath(componentDataPath)) //
+        .reduce((a, b) -> b)
+        .orElseThrow(() -> new IllegalStateException("Component not present in the parsys"));
   }
 
+  /**
+   * Checks if any component with given name exists.
+   *
+   * @param componentName name of the component.
+   * @return true if any component is present under given data path.
+   */
   public boolean isComponentPresent(String componentName) {
     String dataPath = components.getDataPath(componentName);
     String componentDataPath = DataPathUtil.normalize(dataPath.toLowerCase());
+
     return componentList.stream() //
-            .anyMatch(containsDataPath(componentDataPath));
+        .anyMatch(containsDataPath(componentDataPath));
   }
 
+  /**
+   * Opens insert dialog and inserts component with given name.
+   *
+   * @param componentName name of the component.
+   */
   public void insertComponent(String componentName) {
     openInsertDialog().insertComponent(componentName);
   }
 
+  /**
+   * Configures component with given name with given map of fields cofig ({@link FieldConfig})
+   *
+   * @param componentName name of the component.
+   * @param data          map of configuration parameters for the component.
+   */
   public void configureComponent(String componentName, Map<String, List<FieldConfig>> data) {
     getComponent(componentName).configure(data);
   }
 
+  /**
+   * Deletes first component found with given name.
+   *
+   * @param componentName name of the component to be deleted.
+   */
   public void deleteComponent(String componentName) {
     getComponent(componentName).delete();
   }
 
+  /**
+   * Deletes last component found under given data path.
+   *
+   * @param componentName data path of the component to be deleted.
+   */
   public void deleteLastComponent(String componentName) {
     getLastComponent(componentName).delete();
   }
 
+  /**
+   * @return {@link WebElement} of the parsys.
+   */
   public WebElement getParsys() {
-    return parsys;
+    return currentScope;
   }
 
+  /**
+   * @return true if the parsys is not stale.
+   */
   public boolean isNotStale() {
-    return conditions.isConditionMet(not(stalenessOf(parsys)));
+    return conditions.isConditionMet(not(stalenessOf(currentScope)));
   }
 
   private void tryToSelect() {

@@ -37,6 +37,9 @@ import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldConfig;
 import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.google.inject.Inject;
 
+/**
+ * This class represents config dialog of the TouchUI component.
+ */
 @PageObject
 public class ConfigDialog {
 
@@ -58,7 +61,7 @@ public class ConfigDialog {
   private WebElement okButton;
 
   @FindBy(css = "button.cq-dialog-layouttoggle")
-  private WebElement toggleFullscreen;
+  private WebElement toggleFullscreenButton;
 
   @FindBy(css = ".coral-TabPanel-tab")
   private List<WebElement> tabs;
@@ -86,7 +89,7 @@ public class ConfigDialog {
   }
 
   public void toggleFullscreen() {
-    toggleFullscreen.click();
+    toggleFullscreenButton.click();
     verifyFullscreen();
   }
 

@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bb.email;
 
-
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,7 +33,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.email.connector.Connector;
-import com.cognifide.qa.bb.email.connector.ConnectorException;
 import com.google.inject.Inject;
 
 /**
@@ -49,7 +46,7 @@ public class EmailClient {
   private EmailDataFactory emailDataFactory;
 
   /**
-   * @param connection MailBox protocol connection.
+   * @param connection       MailBox protocol connection.
    * @param emailDataFactory Email data factory
    */
   @Inject
@@ -60,8 +57,6 @@ public class EmailClient {
 
   /**
    * Connects with mailbox.
-   *
-   * @throws ConnectorException if mailbox connection problem occurred
    */
   public void connect() {
     connection.connect();
@@ -121,8 +116,6 @@ public class EmailClient {
 
   /**
    * Closes connection with mailbox.
-   *
-   * @throws ConnectorException if mailbox connection problem occurred
    */
   public void close() {
     connection.close();

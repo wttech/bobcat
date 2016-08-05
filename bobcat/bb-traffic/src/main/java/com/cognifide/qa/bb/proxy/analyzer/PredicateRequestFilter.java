@@ -61,7 +61,7 @@ class PredicateRequestFilter implements RequestFilter {
     if (predicate.accepts(request)) {
       synchronized (this) {
         accepted = true;
-        notify();
+        notifyAll();
       }
     }
     return null;

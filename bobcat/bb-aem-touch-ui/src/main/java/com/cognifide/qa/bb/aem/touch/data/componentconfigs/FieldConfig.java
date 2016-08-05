@@ -19,22 +19,36 @@
  */
 package com.cognifide.qa.bb.aem.touch.data.componentconfigs;
 
+/**
+ * This class represents single field configuration.
+ */
 public class FieldConfig {
 
-  public String label;
+  private String label;
 
-  public String type;
+  private String type;
 
-  public Object value;
+  private Object value;
 
+  /**
+   * @return Label of the field.
+   */
   public String getLabel() {
     return label;
   }
 
+  /**
+   *
+   * @return Type of the field.
+   */
   public String getType() {
     return type;
   }
 
+   /**
+    *
+    * @return Value of the field.
+    */
   public Object getValue() {
     return value;
   }

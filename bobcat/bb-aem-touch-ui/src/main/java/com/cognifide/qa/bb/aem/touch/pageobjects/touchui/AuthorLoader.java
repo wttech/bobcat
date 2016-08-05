@@ -28,6 +28,9 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.google.inject.Inject;
 
+/**
+ * Class representing author loading page visual effects.
+ */
 @PageObject
 public class AuthorLoader {
 
@@ -37,6 +40,9 @@ public class AuthorLoader {
   @Inject
   private Conditions conditions;
 
+  /**
+   * Method verifies if loading visual effect is hidden.
+   */
   public void verifyIsHidden() {
     conditions.verify(invisibilityOfElementLocated(LOADER_LOCATOR), Timeouts.MEDIUM);
   }

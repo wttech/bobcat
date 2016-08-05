@@ -36,12 +36,21 @@ import com.cognifide.qa.bb.aem.touch.data.components.Components;
 import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 
+/**
+ * This class represents state of component
+ */
 public class ComponentState {
   private static final Logger LOG = LoggerFactory.getLogger(ComponentState.class);
 
   @Inject
   private Components components;
 
+  /**
+   * Reads actual state of given object through invoking objects methods annotated with {@link Property}.
+   *
+   * @param object object which state we want to read.
+   * @return map of the actual state.
+   */
   public Map<String, String> getActual(Object object) {
     Map<String, String> actual = Maps.newHashMap();
     for (Method method : object.getClass().getSuperclass().getMethods()) {

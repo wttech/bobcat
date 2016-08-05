@@ -92,7 +92,7 @@ public class AemParsysTest {
   @Test
   public void insertComponent() {
     assertTrue(topParsys.isComponentNotPresent(ArticleComponent.class));
-    topParsys.insertComponent(ArticleComponent.class, true);
+    topParsys.insertFirstComponentType(ArticleComponent.class);
     assertTrue(topParsys.isComponentPresent(ArticleComponent.class));
   }
 
@@ -113,7 +113,7 @@ public class AemParsysTest {
   @Test
   public void clearAndCount() {
     assertThat(topParsys.componentsCount(), is(0));
-    topParsys.insertComponent(ArticleComponent.class, true);
+    topParsys.insertFirstComponentType(ArticleComponent.class);
     topParsys.insertComponent(GENERAL_GROUP, IMAGE_COMPONENT);
     topParsys.insertComponent(ArticleComponent.class);
     assertThat(topParsys.componentsCount(), is(3));
@@ -124,7 +124,7 @@ public class AemParsysTest {
   @Test
   public void removeByGlobalIndex() {
     topParsys.insertComponent(GENERAL_GROUP, LIST_COMPONENT);
-    topParsys.insertComponent(ArticleComponent.class, true);
+    topParsys.insertFirstComponentType(ArticleComponent.class);
     topParsys.insertComponent(GENERAL_GROUP, LIST_COMPONENT);
     topParsys.removeComponent(1);
     assertTrue(topParsys.isComponentNotPresent(ArticleComponent.class));
@@ -133,7 +133,7 @@ public class AemParsysTest {
   @Test
   public void removeByComponentType() {
     topParsys.insertComponent(GENERAL_GROUP, LIST_COMPONENT);
-    topParsys.insertComponent(ArticleComponent.class, true);
+    topParsys.insertFirstComponentType(ArticleComponent.class);
     topParsys.insertComponent(GENERAL_GROUP, LIST_COMPONENT);
     topParsys.removeFirstComponentOfType(ArticleComponent.class);
     assertTrue(topParsys.isComponentNotPresent(ArticleComponent.class));
@@ -141,7 +141,7 @@ public class AemParsysTest {
 
   @Test
   public void removeByComponentTypeAndIndex() {
-    topParsys.insertComponent(TitleComponent.class, true);
+    topParsys.insertFirstComponentType(TitleComponent.class);
     topParsys.insertComponent(GENERAL_GROUP, LIST_COMPONENT);
     TitleComponent title = topParsys.insertComponent(TitleComponent.class);
     changeTitle(title, TEST_TEXT);
@@ -154,8 +154,8 @@ public class AemParsysTest {
 
   @Test
   public void testGetComponent() {
-    topParsys.insertComponent(ArticleComponent.class, true);
-    topParsys.insertComponent(TitleComponent.class, true);
+    topParsys.insertFirstComponentType(ArticleComponent.class);
+    topParsys.insertFirstComponentType(TitleComponent.class);
     TitleComponent title = topParsys.getFirstComponentOfType(TitleComponent.class);
     changeTitle(title, TEST_TEXT);
 
@@ -177,7 +177,7 @@ public class AemParsysTest {
 
   @Test
   public void openComponentDialog() {
-    ArticleComponent articleComponent = topParsys.insertComponent(ArticleComponent.class, true);
+    ArticleComponent articleComponent = topParsys.insertFirstComponentType(ArticleComponent.class);
     articleComponent.getDialog().open();
 
     switcher.switchTo("$cq");

@@ -35,6 +35,9 @@ import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.text.ListD
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
 
+/**
+ * This module contains bindings to touch ui dialog fields
+ */
 public class FieldsModule extends AbstractModule {
 
   @Override

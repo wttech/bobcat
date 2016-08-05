@@ -33,10 +33,6 @@ import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cognifide.qa.bb.constants.HtmlTags;
-import com.cognifide.qa.bb.frame.FrameSwitcher;
-import com.cognifide.qa.bb.qualifier.PageObject;
-import com.cognifide.qa.bb.utils.PageObjectInjector;
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfigs;
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldConfig;
 import com.cognifide.qa.bb.aem.touch.data.components.Components;
@@ -44,11 +40,18 @@ import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.GlobalBar;
 import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.Parsys;
 import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.cognifide.qa.bb.aem.touch.util.DataPathUtil;
+import com.cognifide.qa.bb.constants.HtmlTags;
+import com.cognifide.qa.bb.frame.FrameSwitcher;
+import com.cognifide.qa.bb.qualifier.PageObject;
+import com.cognifide.qa.bb.utils.PageObjectInjector;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 import com.google.inject.name.Named;
 
+/**
+ * Represents author page.
+ */
 @PageObject
 public class AuthorPage {
 
@@ -56,14 +59,14 @@ public class AuthorPage {
 
   private static final String EDITOR_HTML = "/editor.html";
 
-  public static final String IS_HIDDEN = "is-hidden";
+  private static final String IS_HIDDEN = "is-hidden";
 
-  public static final String CONTENT_FRAME = "ContentFrame";
+  private static final String CONTENT_FRAME = "ContentFrame";
 
   private String path;
 
   @Inject
-  private WebDriver webDriver;
+  private WebDriver driver;
 
   @Inject
   private PageObjectInjector pageObjectInjector;
@@ -93,37 +96,60 @@ public class AuthorPage {
   @FindBy(css = "#OverlayWrapper")
   private WebElement authoringOverlay;
 
+  /**
+   * Constructs AuthorPage. Sets 'path' field value. Don't call it manually. Use the factory.
+   *
+   * @param path path of the page.
+   */
   @AssistedInject
   public AuthorPage(@Assisted String path) {
     this.path = path;
   }
 
+  /**
+   * Opens page in web driver.
+   */
   public void open() {
-    webDriver.get(domain + EDITOR_HTML + path);
+    driver.get(domain + EDITOR_HTML + path);
   }
 
+  /**
+   * @return true if page is loaded.
+   */
   public boolean isLoaded() {
     return conditions.isConditionMet(
         not(ignored -> StringUtils
             .contains(authoringOverlay.getAttribute(HtmlTags.Attributes.CLASS), IS_HIDDEN)));
   }
 
+  /**
+   * Looks for parsys by data path. If parsys is not found then throws runtime exception {@link IllegalStateException}.
+   *
+   * @param dataPath data path of parsys.
+   * @return Parsys object.
+   */
   public Parsys getParsys(String dataPath) {
-    String path = DataPathUtil.normalize(dataPath);
+    String componentDataPath = DataPathUtil.normalize(dataPath);
     return parsyses.stream() //
-          .filter(parsys -> StringUtils.contains(parsys.getDataPath(), path)) //
-          .findFirst() //
-          .orElseThrow(() -> new IllegalStateException("Parsys not found"));
+        .filter(parsys -> StringUtils.contains(parsys.getDataPath(), componentDataPath)) //
+        .findFirst() //
+        .orElseThrow(() -> new IllegalStateException("Parsys not found"));
   }
 
+  /**
+   * Looks for css class of given component class and return its content.
+   *
+   * @param component component class.
+   * @return content of component.
+   */
   public <T> T getContent(Class<T> component) {
-    globalBar.switchToPreviewMode();
     Objects.requireNonNull(component, "clazz property was not specified in YAML config");
+    globalBar.switchToPreviewMode();
     frameSwitcher.switchTo(CONTENT_FRAME);
     WebElement scope = null;
     try {
       String selector = (String) component.getField("CSS").get(null);
-      scope = webDriver.findElement(By.cssSelector(selector));
+      scope = driver.findElement(By.cssSelector(selector));
     } catch (IllegalAccessException e) {
       LOG.error("CSS was not accessible, injecting with default scope", e);
     } catch (NoSuchFieldException e) {
@@ -131,18 +157,33 @@ public class AuthorPage {
     }
     frameSwitcher.switchBack();
     return scope == null
-            ? pageObjectInjector.inject(component, CONTENT_FRAME)
-            : pageObjectInjector.inject(component, scope, CONTENT_FRAME);
+        ? pageObjectInjector.inject(component, CONTENT_FRAME)
+        : pageObjectInjector.inject(component, scope, CONTENT_FRAME);
   }
 
+  /**
+   * Adds component of given name to parsys of given name on the page. Verifies if parsys is rendered.
+   *
+   * @param parsys        name of parsys on the page.
+   * @param componentName name of component.
+   */
   public void addComponent(String parsys, String componentName) {
     getParsys(parsys).insertComponent(componentName);
     verifyParsysRerendered(parsys);
   }
 
+  /**
+   * Configures component in parsys with specific configuration. Verifies if parsys is rendered.
+   *
+   * @param parsys        parsys name.
+   * @param componentName component name.
+   * @param configName    configuration name.
+   * @return Map with component configuration.
+   */
   public Map<String, List<FieldConfig>> configureComponent(String parsys, String componentName,
-          String configName) {
-    Map<String, List<FieldConfig>> data = componentConfigs.getConfigs(componentName).get(configName.toLowerCase());
+      String configName) {
+    Map<String, List<FieldConfig>> data =
+        componentConfigs.getConfigs(componentName).get(configName.toLowerCase());
     if (data == null) {
       throw new IllegalArgumentException("Config does not exist: " + configName);
     }
@@ -151,24 +192,32 @@ public class AuthorPage {
     return data;
   }
 
+  /**
+   * Deletes component from parsys. Verifies if parsys is rendered.
+   *
+   * @param parsys        parsys name.
+   * @param componentName component name.
+   */
   public void deleteComponent(String parsys, String componentName) {
-    getParsys(parsys).deleteComponent(componentName);
+    globalBar.switchToEditMode();
+    getParsys(parsys).deleteComponent(components.getDataPath(componentName));
     verifyParsysRerendered(parsys);
   }
 
   /**
    * Remove all components with given data path.
-   * @param parsys parsys name
+   *
+   * @param parsys        parsys name
    * @param componentName data path of the component
    */
   public void clearParsys(String parsys, String componentName) {
     globalBar.switchToEditMode();
-    while(getParsys(parsys).isComponentPresent(componentName)) {
+    while (getParsys(parsys).isComponentPresent(componentName)) {
       deleteComponent(parsys, componentName);
     }
   }
 
   private void verifyParsysRerendered(String parsys) {
-    conditions.verifyPostAjax(webDriver -> getParsys(parsys).isNotStale());
+    conditions.verifyPostAjax(object -> getParsys(parsys).isNotStale());
   }
 }

@@ -54,12 +54,10 @@ public class ScenarioContext {
    * Fetches the object from the context. Throws IllegalArgumentException if the provided key is missing.
    *
    * @param key  Identifier of the object in the context.
-   * @param type Type of the object.
-   * @param <T>  class of object type
    * @return The object fetched from the context.
    */
   @SuppressWarnings("unchecked")
-  public <T> T get(String key, Class<T> type) {
+  public <T> T get(String key) {
     if (context.containsKey(key)) {
       return (T) context.get(key);
     } else {
@@ -74,20 +72,19 @@ public class ScenarioContext {
    * @return value for the key
    */
   public String getString(String key) {
-    return get(key, String.class);
+    return get(key);
   }
 
   /**
    * Fetches the list from the context, short for "get(key, List.class)".
    *
    * @param key   Identifier of the object in the context.
-   * @param clazz list class
    * @param <T>   list class
    * @return value for the key
    */
   @SuppressWarnings("unchecked")
-  public <T> List<T> getList(String key, Class<T> clazz) {
-    return get(key, List.class);
+  public <T> List<T> getList(String key) {
+    return get(key);
   }
 
   /**

@@ -77,10 +77,10 @@ public class AemContextMenu {
                 XpathUtils.quote(option.getLabel()))))
             .click();
         currentScope.isDisplayed();
-        return false;
+        return Boolean.FALSE;
       } catch (NoSuchElementException e) {
         LOG.debug("MenuOption is not present: ", e);
-        return true;
+        return Boolean.TRUE;
       }
     });
 
@@ -100,7 +100,7 @@ public class AemContextMenu {
         return currentScope.isDisplayed();
       } catch (NoSuchElementException | StaleElementReferenceException e) {
         LOG.debug("Context menu could not be opened: ", e);
-        return false;
+        return Boolean.FALSE;
       }
     }, 2);
     return this;

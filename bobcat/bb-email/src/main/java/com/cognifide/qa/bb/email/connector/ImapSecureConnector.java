@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bb.email.connector;
 
-
-
 /**
  * Connector for IMAPS.
  */
@@ -36,7 +34,7 @@ public class ImapSecureConnector extends ImapConnector {
   }
 
   @Override
-  public final void connect() throws ConnectorException {
+  public final void connect() {
     super.connectWithProtocol("imaps");
   }
 }

@@ -42,11 +42,14 @@ import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.google.inject.Inject;
 
+/**
+ * Class represent authoring mode side panel.
+ */
 @PageObject
 public class SidePanel {
   public static final String CSS = "#SidePanel";
 
-  public static final String IS_CLOSED = "sidepanel-closed";
+  private static final String IS_CLOSED = "sidepanel-closed";
 
   @Inject
   private DragAndDropFactory dragAndDropFactory;
@@ -59,7 +62,7 @@ public class SidePanel {
 
   @Inject
   @CurrentScope
-  private WebElement sidePanel;
+  private WebElement currentScope;
 
   @FindBy(id = "assetsearch")
   private WebElement searchInput;
@@ -70,10 +73,12 @@ public class SidePanel {
   @FindBy(css = ".content-panel article.card-asset")
   private List<WebElement> searchResults;
 
-  public boolean isClosed() {
-    return conditions.classContains(sidePanel, IS_CLOSED);
-  }
-
+  /**
+   * Searches for assets for given asset name and return it as draggable.
+   *
+   * @param asset name.
+   * @return {@link Draggable} instance of the asset.
+   */
   public Draggable searchForAsset(String asset) {
     if (isClosed()) {
       pageObjectInjector.inject(GlobalBar.class).toggleSidePanel();
@@ -87,6 +92,10 @@ public class SidePanel {
     return dragAndDropFactory.createDraggable(getResult(asset), FramePath.parsePath("/"));
   }
 
+  private boolean isClosed() {
+    return conditions.classContains(currentScope, IS_CLOSED);
+  }
+
   private void verifyResultsVisible() {
     conditions.optionalWait(visibilityOf(resultsLoader));
     conditions.verify(not(visibilityOf(resultsLoader)), Timeouts.MEDIUM);
@@ -94,7 +103,7 @@ public class SidePanel {
       try {
         return result.isDisplayed();
       } catch (NoSuchElementException | StaleElementReferenceException e) {
-        return false;
+        return Boolean.FALSE;
       }
     }, Timeouts.MEDIUM));
   }

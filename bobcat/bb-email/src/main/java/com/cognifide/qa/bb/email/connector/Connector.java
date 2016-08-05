@@ -31,9 +31,8 @@ public interface Connector {
   /**
    * This method will be invoked to connect with mailbox.
    *
-   * @throws ConnectorException if mailbox connection problem occurred
    */
-  void connect() throws ConnectorException;
+  void connect();
 
   /**
    * This method will be invoked to get folder with email messages.
@@ -45,7 +44,6 @@ public interface Connector {
   /**
    * This method will be invoked to close connection with mailbox.
    *
-   * @throws ConnectorException if mailbox connection problem occurred
    */
-  void close() throws ConnectorException;
+  void close();
 }

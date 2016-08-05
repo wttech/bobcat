@@ -21,20 +21,36 @@ package com.cognifide.qa.bb.aem.touch.data.pages;
 
 import java.util.Map;
 
+/**
+ * Represents map of pages and their descriptions
+ */
 public class Pages {
 
-  private Map<String, PageDescription> pages;
+  private Map<String, PageDescription> pagesCollection;
 
+  /**
+   * Constructs Pages object.
+   *
+   * @param pages map containing pages descriptions.
+   */
   public Pages(Map<String, PageDescription> pages) {
-    this.pages = pages;
+    pagesCollection = pages;
   }
 
+  /**
+   * @param name page name.
+   * @return name of parsys.
+   */
   public String getParsys(String name) {
-    return pages.get(name).getParsys();
+    return pagesCollection.get(name).getParsys();
   }
 
+  /**
+   * @param name page name.
+   * @return path of the page.
+   */
   public String getPath(String name) {
-    String path = pages.get(name).getPath();
+    String path = pagesCollection.get(name).getPath();
     if (path == null) {
       throw new IllegalArgumentException("There is no path configured in pages.yaml for: " + name);
     }

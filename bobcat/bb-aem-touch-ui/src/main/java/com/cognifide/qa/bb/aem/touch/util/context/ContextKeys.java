@@ -19,7 +19,10 @@
  */
 package com.cognifide.qa.bb.aem.touch.util.context;
 
-public class ContextKeys {
+/**
+ * This class contains keys for context values.
+ */
+public final class ContextKeys {
   public static final String CURRENT_PAGE = "currentPage";
 
   public static final String CURRENT_PARSYS = "currentParsys";
@@ -35,4 +38,8 @@ public class ContextKeys {
   public static final String UGC_TITLE = "ugcTitle";
 
   public static final String CURRENT_PATH = "currentPath";
+
+  private ContextKeys() {
+    // utility class
+  }
 }

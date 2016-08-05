@@ -26,6 +26,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
+/**
+ * Represents font format dialog
+ */
 @PageObject
 public class FontFormat implements DialogField {
 
@@ -35,6 +38,16 @@ public class FontFormat implements DialogField {
   @Inject
   private BobcatWait bobcatWait;
 
+  /**
+   * Performs one of formatting actions depending on passed parameter value:
+   * <ul>
+   * <li>BOLD</li>
+   * <li>ITALIC</li>
+   * <li>UNDERLINE</li>
+   * </ul>
+   *
+   * @param value string representing desired action
+   */
   @Override
   public void setValue(Object value) {
     String actionText = (String) value;
@@ -54,22 +67,24 @@ public class FontFormat implements DialogField {
     }
   }
 
+  /**
+   * @return dialog field type.
+   */
+  @Override
+  public String getType() {
+    return FieldType.RICHTEXT_FONT_FORMAT.name();
+  }
+
   private void clickFormatButton(WebElement button) {
     controlToolbar.selectText();
     bobcatWait.withTimeout(Timeouts.SMALL).until((ExpectedCondition<Object>) input -> button.isEnabled());
     button.click();
   }
 
-  @Override
-  public String getType() {
-    return FieldType.RICHTEXT_FONT_FORMAT.name();
-  }
-
-  private static enum TouchUIRtButton {
-
+  private enum TouchUIRtButton {
     BOLD,
     UNDERLINE,
-    ITALIC;
+    ITALIC
   }
 
 }

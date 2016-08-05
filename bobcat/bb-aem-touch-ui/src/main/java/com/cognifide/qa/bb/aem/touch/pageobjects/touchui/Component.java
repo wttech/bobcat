@@ -31,14 +31,17 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldConfig;
+import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
-import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldConfig;
-import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.google.inject.Inject;
 
+/**
+ * Class representing page component.
+ */
 @PageObject
 public class Component {
 
@@ -50,7 +53,7 @@ public class Component {
 
   @CurrentScope
   @Inject
-  private WebElement component;
+  private WebElement currentScope;
 
   @Global
   @FindBy(css = ComponentToolbar.CSS)
@@ -64,41 +67,64 @@ public class Component {
   @FindBy(css = DeleteDialog.CSS)
   private DeleteDialog deleteDialog;
 
+  /**
+   * @return data path of the component.
+   */
   public String getDataPath() {
-    String rawValue = conditions.staleSafe(component, checked -> checked.getAttribute(
+    String rawValue = conditions.staleSafe(currentScope, checked -> checked.getAttribute(
             HtmlTags.Attributes.DATA_PATH));
     return StringUtils.substringAfter(rawValue, JCR_CONTENT);
   }
 
+  /**
+   * Method verifies if the component is displayed, clicks on it and verifies if component toolbar is now
+   * displayed.
+   *
+   * @return components toolbar.
+   */
   public ComponentToolbar select() {
     verifyIsDisplayed();
-    component.click();
+    currentScope.click();
     componentToolbar.verifyIsDisplayed();
     return componentToolbar;
   }
 
+  /**
+   * Method configures component using given map of fields configuration.
+   *
+   * @param config map of list configurations.
+   */
   public void configure(Map<String, List<FieldConfig>> config) {
     select().clickOption(ToolbarOptions.CONFIGURE);
     configDialog.verifyIsDisplayed();
     configDialog.configureWith(config);
   }
 
+  /**
+   * Method selects delete option on component toolbar, then confirms if the component is deleted and not visible.
+   */
   public void delete() {
     select().clickOption(ToolbarOptions.DELETE);
     deleteDialog.confirmDelete();
     verifyIsHidden();
   }
 
+  /**
+   *  Method makes ajax post call to ensure if component is displayed.
+   */
   public void verifyIsDisplayed() {
-    conditions.verifyPostAjax(visibilityOf(component));
+    conditions.verifyPostAjax(visibilityOf(currentScope));
   }
 
+  /**
+   * Method makes ajax post call to ensure if component is hidden.
+   */
   public void verifyIsHidden() {
     conditions.verifyPostAjax(webDriver -> {
       try {
-        return !component.isDisplayed();
+        return !currentScope.isDisplayed();
       } catch (NoSuchElementException | StaleElementReferenceException e) {
-        return true;
+        return Boolean.TRUE;
       }
     });
   }

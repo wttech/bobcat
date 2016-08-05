@@ -57,7 +57,7 @@ public class EmailSender {
   @Named(EmailConfigKeys.SMTP_SERVER_SECURE)
   private boolean secure;
 
-  public void sendEmail(final EmailData emailData) throws EmailException {
+  public void sendEmail(final EmailData emailData) {
     try {
       Email email = new SimpleEmail();
       email.setHostName(smtpServer);
