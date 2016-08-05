@@ -53,8 +53,6 @@ public class AemCreditCardTest {
 
   private static final String COMPONENT_NAME = "Credit Card Details";
 
-  private static final String COMPONENT_DATA_PATH = "creditcard";
-
   private static final String LABEL_TEXT = "Credit Card";
 
   private static final String CHECKED_CHECKBOX_CONFIGURATION =
@@ -83,22 +81,30 @@ public class AemCreditCardTest {
   private String parsys;
 
   @Before
-  public void setup() {
+  public void setUp() {
     aemLogin.authorLogin();
     page = authorPageFactory.create(pages.getPath(CONFIGURATION));
     page.open();
     assertTrue("Page has not loaded", page.isLoaded());
     parsys = pages.getParsys(CONFIGURATION);
+    page.clearParsys(parsys, COMPONENT_NAME);
+    assertFalse(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME));
     page.addComponent(parsys, COMPONENT_NAME);
-    assertTrue(page.getParsys(parsys).isComponentPresent(COMPONENT_DATA_PATH));
+    assertTrue(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME));
+  }
+
+  @After
+  public void tearDown() {
+    page.clearParsys(parsys, COMPONENT_NAME);
+    assertFalse(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME));
   }
 
   @Test
   public void checkedCheckBoxTest() {
-    page.configureComponent(parsys, COMPONENT_DATA_PATH, CHECKED_CHECKBOX_CONFIGURATION);
+    page.configureComponent(parsys, COMPONENT_NAME, CHECKED_CHECKBOX_CONFIGURATION);
 
     CreditCardComponent component =
-        (CreditCardComponent) page.getContent(components.getClazz(COMPONENT_DATA_PATH));
+        (CreditCardComponent) page.getContent(components.getClazz(COMPONENT_NAME));
 
     assertThat(component.getLabelText(), is(LABEL_TEXT));
 
@@ -109,18 +115,12 @@ public class AemCreditCardTest {
 
   @Test
   public void uncheckedCheckBoxTest() {
-    page.configureComponent(parsys, COMPONENT_DATA_PATH, UNCHECKED_CHECKBOX_CONFIGURATION);
+    page.configureComponent(parsys, COMPONENT_NAME, UNCHECKED_CHECKBOX_CONFIGURATION);
 
     CreditCardComponent component =
-        (CreditCardComponent) page.getContent(components.getClazz(COMPONENT_DATA_PATH));
+        (CreditCardComponent) page.getContent(components.getClazz(COMPONENT_NAME));
 
     assertThat(component.getLabelText(), is(LABEL_TEXT));
     assertThat(component.getCardTypeSelect(), anything());
-  }
-
-  @After
-  public void deleteComponent() {
-    page.deleteComponent(parsys, COMPONENT_DATA_PATH);
-    assertFalse(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME.toLowerCase()));
   }
 }

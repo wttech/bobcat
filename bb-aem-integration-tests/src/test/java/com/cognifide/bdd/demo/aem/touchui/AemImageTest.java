@@ -66,7 +66,7 @@ public class AemImageTest {
   private AuthorPage page;
 
   @Before
-  public void setup() {
+  public void setUp() {
     aemLogin.authorLogin();
     page = authorPageFactory.create(pages.getPath(CONFIGURATION));
     page.open();
@@ -76,9 +76,9 @@ public class AemImageTest {
   @Test
   public void configureImageTest() {
     String parsys = pages.getParsys(CONFIGURATION);
-    assertTrue(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME.toLowerCase()));
+    assertTrue(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME));
     Map<String, List<FieldConfig>> data = page.configureComponent(parsys,
-        COMPONENT_NAME, COMPONENT_NAME.toLowerCase());
+        COMPONENT_NAME, COMPONENT_NAME);
 
     ImageComponent component =
         (ImageComponent) page.getContent(components.getClazz(COMPONENT_NAME));
