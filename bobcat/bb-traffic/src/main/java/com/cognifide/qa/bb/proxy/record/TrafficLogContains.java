@@ -28,7 +28,6 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Predicate;
 
-import net.lightbody.bmp.core.har.Har;
 import net.lightbody.bmp.core.har.HarEntry;
 
 /**

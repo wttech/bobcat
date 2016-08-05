@@ -41,6 +41,7 @@ import com.cognifide.qa.bb.qualifier.Global;
  * </ol>
  */
 public class SelectorScopedElementLocator implements ElementLocator {
+
   private final SearchContext searchContext;
 
   private final By selector;

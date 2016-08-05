@@ -19,7 +19,6 @@
  */
 package com.cognifide.qa.bb.aem.ui.menu;
 
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -28,7 +27,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cognifide.qa.bb.constants.ConfigKeys;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
@@ -36,7 +34,6 @@ import com.cognifide.qa.bb.qualifier.Frame;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.utils.XpathUtils;
 import com.google.inject.Inject;
-import com.google.inject.name.Named;
 
 /**
  * Represents context menu.
@@ -58,10 +55,6 @@ public class AemContextMenu {
 
   @Inject
   private Actions actions;
-
-  @Inject
-  @Named(ConfigKeys.WEBDRIVER_DEFAULT_TIMEOUT)
-  private int defaultTimeout;
 
   /**
    * Clicks the selected option in the context menu and waits until context menu disappears.

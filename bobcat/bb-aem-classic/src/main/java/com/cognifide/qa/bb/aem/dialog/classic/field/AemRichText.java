@@ -34,8 +34,6 @@ import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.Frame;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Richtext field in a AemDialog.

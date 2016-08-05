@@ -71,9 +71,10 @@ public class CrxRequestSender {
    * @throws IOException if response doesn't contain desired message
    */
   public void sendCrxRequest(HttpUriRequest request, String desiredMessage) throws IOException {
-    CloseableHttpResponse response = httpClient.execute(request);
-    String result = EntityUtils.toString(response.getEntity());
-    response.close();
+    String result;
+    try (CloseableHttpResponse response = httpClient.execute(request)) {
+      result = EntityUtils.toString(response.getEntity());
+    }
     if (!result.contains(desiredMessage)) {
       throw new IOException(
           "crx request failure: " + result + " doesn't contain desired message: " + desiredMessage);

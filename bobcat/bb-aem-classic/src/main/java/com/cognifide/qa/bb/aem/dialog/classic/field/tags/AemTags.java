@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bb.aem.dialog.classic.field.tags;
 
-
-
 import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;

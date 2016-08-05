@@ -92,7 +92,11 @@ public class AemImageSetterHelperTest {
   private AemContentFinderTab aemContentFinderTab;
 
   @InjectMocks
-  private AemImageSetterHelper tested = new AemImageSetterHelper();
+  private final AemImageSetterHelper tested;
+
+  public AemImageSetterHelperTest() {
+    this.tested = new AemImageSetterHelper();
+  }
 
   @Before
   public void setUp() throws Exception {

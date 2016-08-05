@@ -37,6 +37,7 @@ import com.google.inject.Inject;
  */
 @Deprecated
 public class BobcatAssertions {
+
   @Inject
   private TestEventCollectorImpl testEventCollector;
 

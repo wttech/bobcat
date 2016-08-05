@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,13 +19,10 @@
  */
 package com.cognifide.qa.bb.aem.dialog.classic.field.lookup;
 
-
-
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.aem.ui.AemContentTree;
-import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.Frame;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
@@ -36,10 +33,6 @@ import com.google.inject.Inject;
 @PageObject
 @Frame("$cq")
 public class AemPathWindow {
-
-  @Inject
-  @CurrentScope
-  private WebElement currentScope;
 
   @Inject
   private AemContentTree contentTree;

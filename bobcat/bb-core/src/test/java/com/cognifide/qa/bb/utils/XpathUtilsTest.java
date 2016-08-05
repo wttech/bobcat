@@ -33,8 +33,11 @@ import org.junit.runners.Parameterized.Parameters;
 public class XpathUtilsTest {
 
   private final String sentence;
+
   private final String expected;
+
   private final Class<? extends Throwable> expectedExc;
+
 
   public XpathUtilsTest(String sentence, String expected, Class<? extends Throwable> expectedExc) {
     this.sentence = sentence;

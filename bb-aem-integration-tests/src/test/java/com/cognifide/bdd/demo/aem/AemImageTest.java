@@ -37,7 +37,6 @@ import com.cognifide.bdd.demo.suite.SmokeTests;
 import com.cognifide.qa.bb.aem.AemLogin;
 import com.cognifide.qa.bb.aem.dialog.classic.field.image.AemImage;
 import com.cognifide.qa.bb.aem.ui.AemContentFinder;
-import com.cognifide.qa.bb.constants.AemConfigKeys;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.dragdrop.Draggable;
 import com.cognifide.qa.bb.junit.Modules;
@@ -45,7 +44,6 @@ import com.cognifide.qa.bb.junit.TestRunner;
 import com.cognifide.qa.bb.logging.ReportEntryLogger;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.google.inject.Inject;
-import com.google.inject.name.Named;
 
 @RunWith(TestRunner.class)
 @Modules(GuiceModule.class)

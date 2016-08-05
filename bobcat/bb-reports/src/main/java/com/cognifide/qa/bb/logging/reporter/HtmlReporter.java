@@ -105,7 +105,6 @@ public class HtmlReporter extends AbstractReporter {
   }
 
   private void merge() {
-    try {
       try (PrintWriter writer = new PrintWriter(fileCreator.getReportFile("html", getReportStartingDate()),
               StandardCharsets.UTF_8.name())) {
         SimpleHash root = new SimpleHash();
@@ -118,10 +117,9 @@ public class HtmlReporter extends AbstractReporter {
         root.put("failedPercent", getFailedPercent());
         temp.process(root, writer);
         writer.flush();
+      } catch (TemplateException | IOException e) {
+        LOG.error("Exception when merging model with template", e);
       }
-    } catch (TemplateException | IOException e) {
-      LOG.error("Exception when merging model with template", e);
-    }
   }
 
   /**

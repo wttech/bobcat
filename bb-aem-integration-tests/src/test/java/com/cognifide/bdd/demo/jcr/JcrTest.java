@@ -52,11 +52,11 @@ import com.google.inject.Inject;
 @Modules(GuiceModule.class)
 public class JcrTest {
 
-  private Session session;
-
   private static final String NODE_PATH = "/content/test";
 
   private static final String COPIED_NODE_PATH = "/content/sites/test";
+
+  private Session session;
 
   private JcrHelper jcrHelper;
 

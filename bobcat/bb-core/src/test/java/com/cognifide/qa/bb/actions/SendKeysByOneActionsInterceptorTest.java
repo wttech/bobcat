@@ -78,7 +78,7 @@ public class SendKeysByOneActionsInterceptorTest {
   @Test
   public void shouldSendThisSameArgumentsWhenSpecialKeyProvided() throws Exception {
     // when
-    Actions result = tested.sendKeys(Keys.ENTER + EXAMPLE_TEXT);
+    tested.sendKeys(Keys.ENTER + EXAMPLE_TEXT);
 
     // then
     verify(actions).sendKeys(any(WebElement.class), eq(Keys.ENTER + EXAMPLE_TEXT));
