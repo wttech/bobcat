@@ -24,7 +24,7 @@ package com.cognifide.bdd.demo.po.publish.pages;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import com.cognifide.qa.bb.aem.publish.PublishPage;
+import com.cognifide.qa.bb.aem.page.PublishPage;
 import com.cognifide.qa.bb.qualifier.PageObject;
 
 @PageObject

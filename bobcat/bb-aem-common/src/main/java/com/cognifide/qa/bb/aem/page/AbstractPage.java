@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem;
+package com.cognifide.qa.bb.aem.page;
 
 
 import com.cognifide.qa.bb.constants.AemConfigKeys;
@@ -32,7 +32,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
  * This class represents a HTML page. <br>
  * Specific pages will inherit from this class to configure URL and title.
  */
-public abstract class AbstractPage {
+abstract class AbstractPage {
 
   @Inject
   protected WebDriver webDriver;

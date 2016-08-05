@@ -25,7 +25,7 @@ import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.bdd.demo.po.publish.components.PublishImage;
 import com.cognifide.bdd.demo.po.publish.components.TopNav;
-import com.cognifide.qa.bb.aem.publish.PublishPage;
+import com.cognifide.qa.bb.aem.page.PublishPage;
 import com.cognifide.qa.bb.qualifier.PageObject;
 
 @PageObject

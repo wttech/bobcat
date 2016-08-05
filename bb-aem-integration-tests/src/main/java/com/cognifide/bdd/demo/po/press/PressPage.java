@@ -23,7 +23,7 @@ package com.cognifide.bdd.demo.po.press;
 
 import org.openqa.selenium.support.FindBy;
 
-import com.cognifide.qa.bb.aem.author.AuthorPage;
+import com.cognifide.qa.bb.aem.page.AuthorPage;
 import com.cognifide.qa.bb.aem.ui.sidekick.AemSidekick;
 import com.cognifide.qa.bb.qualifier.Frame;
 import com.cognifide.qa.bb.qualifier.PageObject;
