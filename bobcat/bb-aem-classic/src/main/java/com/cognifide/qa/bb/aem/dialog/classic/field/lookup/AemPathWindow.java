@@ -23,6 +23,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.aem.ui.AemContentTree;
+import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.Frame;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
@@ -33,6 +34,10 @@ import com.google.inject.Inject;
 @PageObject
 @Frame("$cq")
 public class AemPathWindow {
+
+  @Inject
+  @CurrentScope
+  private WebElement currentScope;
 
   @Inject
   private AemContentTree contentTree;

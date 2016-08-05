@@ -19,6 +19,8 @@
  */
 package com.cognifide.qa.bb.aem.ui.window;
 
+
+
 import static com.cognifide.qa.bb.expectedconditions.CommonExpectedConditions.elementNotPresentOrVisible;
 
 import org.openqa.selenium.By;
@@ -27,6 +29,7 @@ import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
+import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.Frame;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
@@ -44,6 +47,10 @@ public class ValidationWindow {
 
   @Inject
   private BobcatWait bobcatWait;
+
+  @Inject
+  @CurrentScope
+  private WebElement currentScope;
 
   @FindBy(css = "span.x-window-header-text")
   private WebElement headerText;
