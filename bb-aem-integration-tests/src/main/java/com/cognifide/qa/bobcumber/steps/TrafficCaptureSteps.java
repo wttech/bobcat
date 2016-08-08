@@ -53,15 +53,6 @@ public class TrafficCaptureSteps {
   @Named(AemConfigKeys.AUTHOR_URL)
   private String authorUrl;
 
-  @Inject
-  private HomePage homePage;
-
-  @Inject
-  private EquipmentPage equipmentPage;
-
-  @Inject
-  private AnalyticsWait analyticsWait;
-
   @Then("request is sent to author")
   public void requestIsSentToAuthor() {
     trafficLogAnalyzer.assertContains(urlStartsWith(authorUrl));
