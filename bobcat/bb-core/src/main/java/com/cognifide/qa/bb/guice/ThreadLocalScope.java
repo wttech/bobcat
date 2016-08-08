@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bb.guice;
 
-
-
 import java.util.HashMap;
 import java.util.Map;
 

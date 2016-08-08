@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bb.provider.selenium.webdriver.close;
 
-
-
 import java.util.HashSet;
 import java.util.Set;
 

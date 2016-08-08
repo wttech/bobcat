@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,8 +18,6 @@
  * #L%
  */
 package com.cognifide.qa.bb.provider.selenium;
-
-
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,7 +48,7 @@ public class DesiredCapabilitiesProvider implements Provider<Capabilities> {
   @Override
   public Capabilities get() {
     DesiredCapabilities capabilities = new DesiredCapabilities();
-    Map<String, String> mapProperties = new HashMap<String, String>();
+    Map<String, String> mapProperties = new HashMap<>();
 
     for (String name : properties.stringPropertyNames()) {
       if (name.startsWith(CAPABILITIES_PREFIX)) {
@@ -67,7 +65,7 @@ public class DesiredCapabilitiesProvider implements Provider<Capabilities> {
 
   private void processMapProperties(DesiredCapabilities capabilities,
       Map<String, String> mapProperties) {
-    Map<String, Object> maps = new HashMap<String, Object>();
+    Map<String, Object> maps = new HashMap<>();
     for (Map.Entry<String, String> entry : mapProperties.entrySet()) {
       String[] parts = entry.getKey().split("\\.");
       Map<String, Object> map = maps;
@@ -83,11 +81,11 @@ public class DesiredCapabilitiesProvider implements Provider<Capabilities> {
   }
 
   private Map<String, Object> getOrCreate(Map<String, Object> map, String key) {
-    Map<String, Object> result = null;
+    Map<String, Object> result;
     if (map.get(key) instanceof Map) {
       result = (Map<String, Object>) map.get(key);
     } else {
-      result = new HashMap<String, Object>();
+      result = new HashMap<>();
       map.put(key, result);
     }
     return result;

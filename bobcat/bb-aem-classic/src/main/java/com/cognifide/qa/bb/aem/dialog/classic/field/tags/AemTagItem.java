@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bb.aem.dialog.classic.field.tags;
 
-
-
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;

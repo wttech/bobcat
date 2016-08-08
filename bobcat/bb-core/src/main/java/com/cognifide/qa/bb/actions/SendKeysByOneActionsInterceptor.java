@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bb.actions;
 
-
-
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.stream.Stream;

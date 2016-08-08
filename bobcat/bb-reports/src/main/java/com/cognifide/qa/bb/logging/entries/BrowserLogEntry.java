@@ -21,7 +21,7 @@ package com.cognifide.qa.bb.logging.entries;
 
 
 /**
- * Entry that represents an browser information that appeard during execution of the test.
+ * Entry that represents an browser information that appeared during execution of the test.
  */
 public class BrowserLogEntry extends LogEntry {
 

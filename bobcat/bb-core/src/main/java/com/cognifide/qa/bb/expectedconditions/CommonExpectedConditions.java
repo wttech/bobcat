@@ -19,7 +19,6 @@
  */
 package com.cognifide.qa.bb.expectedconditions;
 
-
 import java.util.NoSuchElementException;
 
 import org.apache.commons.lang3.StringUtils;

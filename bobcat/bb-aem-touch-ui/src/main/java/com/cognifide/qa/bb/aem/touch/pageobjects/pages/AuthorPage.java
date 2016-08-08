@@ -63,7 +63,7 @@ public class AuthorPage {
 
   private static final String CONTENT_FRAME = "ContentFrame";
 
-  private String path;
+  private final String path;
 
   @Inject
   private WebDriver driver;

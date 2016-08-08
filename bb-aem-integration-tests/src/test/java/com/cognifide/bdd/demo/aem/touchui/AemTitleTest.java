@@ -48,6 +48,10 @@ import com.google.inject.Inject;
 @Modules(GuiceModule.class)
 public class AemTitleTest {
 
+  private static final String CONFIGURATION = "Title - Update&Read";
+
+  private static final String COMPONENT_NAME = "Title";
+
   @Inject
   private AemLogin aemLogin;
 
@@ -61,10 +65,6 @@ public class AemTitleTest {
   private Components components;
 
   private AuthorPage page;
-
-  private static final String CONFIGURATION = "Title - Update&Read";
-
-  private static final String COMPONENT_NAME = "Title";
 
   private String parsys;
 
@@ -94,6 +94,6 @@ public class AemTitleTest {
     TitleComponent component =
         (TitleComponent) page.getContent(components.getClazz(COMPONENT_NAME));
     assertThat(component.getTitle(), is(
-        data.get(COMPONENT_NAME).get(0).getValue().toString().toUpperCase()));
+            data.get(COMPONENT_NAME).get(0).getValue().toString().toUpperCase()));
   }
 }

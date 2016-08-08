@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,8 +18,6 @@
  * #L%
  */
 package com.cognifide.qa.bb.email;
-
-
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -42,6 +40,8 @@ import com.google.inject.Injector;
 @RunWith(Parameterized.class)
 public class EmailTest {
 
+  private final String propertiesFileName;
+
   @Inject
   private EmailClient client;
 
@@ -53,8 +53,6 @@ public class EmailTest {
 
   @Inject
   private MailServer mailServer;
-
-  private String propertiesFileName;
 
   public EmailTest(String propertiesFileName) {
     this.propertiesFileName = propertiesFileName;

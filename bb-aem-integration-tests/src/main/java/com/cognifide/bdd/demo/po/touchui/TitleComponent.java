@@ -22,18 +22,12 @@ package com.cognifide.bdd.demo.po.touchui;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
-import com.google.inject.Inject;
 
 @PageObject
 public class TitleComponent {
 
   public static final String CSS = ".title.section";
-
-  @Inject
-  @CurrentScope
-  private WebElement component;
 
   @FindBy(css = "h3")
   private WebElement title;
