@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bobcumber.steps;
 
-
-
 import static com.cognifide.qa.bb.proxy.record.TrafficLogPredicate.pathStartsWith;
 import static com.cognifide.qa.bb.proxy.record.TrafficLogPredicate.queryParamWithValueExists;
 import static com.cognifide.qa.bb.proxy.record.TrafficLogPredicate.urlStartsWith;
