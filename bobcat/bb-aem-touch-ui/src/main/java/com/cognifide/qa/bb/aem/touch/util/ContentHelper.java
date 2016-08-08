@@ -50,9 +50,9 @@ public class ContentHelper {
 
   private static final String JCR_TITLE = "jcr:title";
 
-  private JcrHelper jcrHelper;
+  private final JcrHelper jcrHelper;
 
-  private Session session;
+  private final Session session;
 
   @Inject
   private Conditions conditions;
@@ -60,7 +60,7 @@ public class ContentHelper {
   /**
    * Constructs ContentHelper and sets its {@link JcrHelper} jcrHelper and {@link Session} session fields.
    *
-   * @param provider profider for {@link JcrHelper} jcrHelper and {@link Session} session fields.
+   * @param provider for {@link JcrHelper} jcrHelper and {@link Session} session fields.
    */
   @Inject
   public ContentHelper(JcrAuthorUtils provider) {
@@ -72,7 +72,7 @@ public class ContentHelper {
    * Creates tag node under given path, verifies its existance and return its full jcr path.
    *
    * @param tagPath tag path
-   * @return full jrc path to created tag.
+   * @return full jcr path to created tag.
    * @throws RepositoryException when node creation fails.
    */
   public String createTag(String tagPath) throws RepositoryException {

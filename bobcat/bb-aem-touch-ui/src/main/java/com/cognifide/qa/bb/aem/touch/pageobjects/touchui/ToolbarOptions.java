@@ -31,7 +31,7 @@ public enum ToolbarOptions {
   PASTE("Paste"), //
   GROUP("Group");
 
-  private String title;
+  private final String title;
 
   ToolbarOptions(String title) {
     this.title = title;

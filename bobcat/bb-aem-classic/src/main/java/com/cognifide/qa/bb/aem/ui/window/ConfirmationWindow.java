@@ -19,23 +19,19 @@
  */
 package com.cognifide.qa.bb.aem.ui.window;
 
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cognifide.qa.bb.constants.ConfigKeys;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
-import com.google.inject.name.Named;
 
 @PageObject
 public class ConfirmationWindow {
@@ -50,13 +46,6 @@ public class ConfirmationWindow {
 
   @Inject
   private BobcatWait bobcatWait;
-
-  @Inject
-  private WebDriver webDriver;
-
-  @Inject
-  @Named(ConfigKeys.WEBDRIVER_DEFAULT_TIMEOUT)
-  private int defaultTimeout;
 
   @FindBy(xpath = "//div[contains(@id, 'cq-msgbox-') and contains(@style, 'visibility: visible')]")
   private WebElement window;

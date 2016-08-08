@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,8 +18,6 @@
  * #L%
  */
 package com.cognifide.qa.bb.provider.selenium;
-
-
 
 import java.util.concurrent.TimeUnit;
 
@@ -85,7 +83,7 @@ public class BobcatWebDriverWait {
    * @param condition Selenium's condition object that is queried cyclically inside the wait loop.
    * @param <T>       The function's expected return type.
    * @param delay     Delay between polls in seconds
-   * @return The functions' return value if the function returned something different
+   * @return The function's return value if the function returned something different
    * from null or false before the timeout expired.
    */
   public <T> T until(ExpectedCondition<T> condition, long delay) {

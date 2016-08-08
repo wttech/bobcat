@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bb.provider.jcr.properties;
 
-
-
 /**
  * Interface for properties of instances.
  * Author and publish environments has unique implementation.

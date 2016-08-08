@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bb.proxy.record;
 
-
-
 import java.util.List;
 
 import net.lightbody.bmp.core.har.Har;
@@ -29,7 +27,8 @@ import net.lightbody.bmp.core.har.Har;
  * Container for captured network traffic
  */
 public class TrafficLog {
-  private List<Har> hars;
+
+  private final List<Har> hars;
 
   /**
    * Constructor. Initializes TrafficLog.
@@ -58,9 +57,9 @@ public class TrafficLog {
       return 0;
     }
     int itemCount = 0;
-    for (Har har : hars) {
-      itemCount += har.getLog().getEntries().size();
-    }
+    itemCount = hars.stream().
+            map((har) -> har.getLog().getEntries().size()).
+            reduce(itemCount, Integer::sum);
     return itemCount;
   }
 

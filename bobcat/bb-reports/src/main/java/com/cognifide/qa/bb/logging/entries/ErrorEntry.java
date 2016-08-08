@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,14 +19,14 @@
  */
 package com.cognifide.qa.bb.logging.entries;
 
-
 /**
  * Entry that represents an error that occurred during execution of the test. It's not necessarily
  * associated with an exception. For an log entry that represents an exception, see
  * {@link ExceptionEntry}.
  */
 public class ErrorEntry extends LogEntry {
-  private String message;
+
+  private final String message;
 
   /**
    * Constructs ErrorEntry.

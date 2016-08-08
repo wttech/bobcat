@@ -19,7 +19,6 @@
  */
 package com.cognifide.qa.bb.logging;
 
-
 import java.util.List;
 import java.util.logging.Level;
 
@@ -47,9 +46,10 @@ public class BrowserLogEntryCollector {
     List<org.openqa.selenium.logging.LogEntry> browserEntries =
         webDriver.manage().logs().get(LogType.BROWSER)
             .filter(Level.SEVERE);
-    for (org.openqa.selenium.logging.LogEntry browserEntry : browserEntries) {
-      toReturn.add(new BrowserLogEntry(browserEntry.toString()));
-    }
+    browserEntries.stream().
+            forEach((browserEntry) -> {
+              toReturn.add(new BrowserLogEntry(browserEntry.toString()));
+    });
     return toReturn;
   }
 

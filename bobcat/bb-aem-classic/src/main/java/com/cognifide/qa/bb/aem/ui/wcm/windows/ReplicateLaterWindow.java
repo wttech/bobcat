@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,14 +19,10 @@
  */
 package com.cognifide.qa.bb.aem.ui.wcm.windows;
 
-
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.PageObject;
-import com.google.inject.Inject;
 
 /**
  * Class responsible for handling activate and deactivate later dialog in siteadmin.
@@ -49,12 +45,6 @@ public class ReplicateLaterWindow implements DecisionWindow {
 
   @FindBy(xpath = ".//button[contains(text(), 'Cancel')]")
   private WebElement cancelButton;
-
-  @Inject
-  private WebDriver webDriver;
-
-  @Inject
-  private BobcatWait bobcatWait;
 
   /**
    * Puts date in date field

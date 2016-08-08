@@ -19,7 +19,6 @@
  */
 package com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.capabilities;
 
-
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 

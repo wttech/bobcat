@@ -19,7 +19,6 @@
  */
 package com.cognifide.qa.bb.aem.page;
 
-
 import com.cognifide.qa.bb.constants.AemConfigKeys;
 import com.cognifide.qa.bb.utils.WebElementUtils;
 import com.google.inject.Inject;

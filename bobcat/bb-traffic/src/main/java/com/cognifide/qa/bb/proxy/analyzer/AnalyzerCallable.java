@@ -37,13 +37,13 @@ class AnalyzerCallable implements Callable<Boolean> {
 
   private static final Logger LOG = LoggerFactory.getLogger(AnalyzerCallable.class);
 
-  private ProxyController controller;
+  private final ProxyController controller;
 
-  private RequestFilterRegistry registry;
+  private final RequestFilterRegistry registry;
 
-  private Set<ProxyEventListener> proxyListeners;
+  private final Set<ProxyEventListener> proxyListeners;
 
-  private boolean proxyEnabled;
+  private final boolean proxyEnabled;
 
   private final RequestPredicate requestPredicate;
 
@@ -105,8 +105,9 @@ class AnalyzerCallable implements Callable<Boolean> {
   }
 
   private void fireWaitingEvent() {
-    for (ProxyEventListener listener : proxyListeners) {
-      listener.waitingForRequest(requestPredicate, closestHarEntryElector);
-    }
+    proxyListeners.stream().
+            forEach((listener) -> {
+              listener.waitingForRequest(requestPredicate, closestHarEntryElector);
+    });
   }
 }

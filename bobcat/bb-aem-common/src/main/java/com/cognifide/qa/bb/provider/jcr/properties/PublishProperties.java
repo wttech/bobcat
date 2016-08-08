@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bb.provider.jcr.properties;
 
-
-
 import com.cognifide.qa.bb.constants.AemConfigKeys;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;

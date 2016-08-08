@@ -19,7 +19,6 @@
  */
 package com.cognifide.qa.bb.constants;
 
-
 public final class HtmlTags {
 
   public static final String DIV = "div";

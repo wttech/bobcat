@@ -34,7 +34,6 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cognifide.qa.bb.aem.AemInstanceDetails;
 import com.cognifide.qa.bb.aem.ui.AemContentTree;
 import com.cognifide.qa.bb.aem.ui.wcm.constants.ActivationStatus;
 import com.cognifide.qa.bb.aem.ui.wcm.constants.PageStatus;
@@ -72,9 +71,6 @@ public class SiteAdminPage {
 
   @Inject
   private BobcatWait bobcatWait;
-
-  @Inject
-  private AemInstanceDetails aemInstanceDetails;
 
   @FindBy(id = "cq-siteadmin-tree")
   private AemContentTree contentTree;

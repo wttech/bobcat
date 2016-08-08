@@ -58,7 +58,7 @@ public class AemAuthCookieFactory {
   @Inject
   private CloseableHttpClient httpClient;
 
-  private Map<String, Cookie> cookieJar = new HashMap<>();
+  private final Map<String, Cookie> cookieJar = new HashMap<>();
 
   /**
    * This method provides browser cookie for authenticating user to AEM instance
