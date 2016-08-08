@@ -19,17 +19,12 @@
  */
 package com.cognifide.qa.bobcumber.steps;
 
-
-
 import static com.cognifide.qa.bb.proxy.record.TrafficLogPredicate.pathStartsWith;
 import static com.cognifide.qa.bb.proxy.record.TrafficLogPredicate.queryParamWithValueExists;
 import static com.cognifide.qa.bb.proxy.record.TrafficLogPredicate.urlStartsWith;
 
 import com.cognifide.bdd.demo.po.feedback.FeedbackPage;
-import com.cognifide.bdd.demo.po.publish.pages.EquipmentPage;
-import com.cognifide.bdd.demo.po.publish.pages.HomePage;
 import com.cognifide.qa.bb.constants.AemConfigKeys;
-import com.cognifide.qa.bb.proxy.record.AnalyticsWait;
 import com.cognifide.qa.bb.proxy.record.TrafficLogAnalyzer;
 import com.cognifide.qa.bb.traffic.aspects.RecordTraffic;
 import com.google.inject.Inject;
@@ -52,15 +47,6 @@ public class TrafficCaptureSteps {
   @Inject
   @Named(AemConfigKeys.AUTHOR_URL)
   private String authorUrl;
-
-  @Inject
-  private HomePage homePage;
-
-  @Inject
-  private EquipmentPage equipmentPage;
-
-  @Inject
-  private AnalyticsWait analyticsWait;
 
   @Then("request is sent to author")
   public void requestIsSentToAuthor() {
