@@ -77,3 +77,7 @@ Bobcat accelerates test development, especially when it comes to AEM authoring. 
 - Gradle,
 - Solr testing support,
 - Model based testing - http://graphwalker.github.io/
+
+## Documentation
+* [Bobcat Wiki](https://github.com/Cognifide/bobcat/wiki)
+* [Bobcat 0.9.6 APIdocs](https://cognifide.github.io/bobcat/apidocs/0-9-6/)
