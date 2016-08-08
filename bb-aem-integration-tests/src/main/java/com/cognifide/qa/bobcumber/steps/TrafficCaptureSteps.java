@@ -24,10 +24,7 @@ import static com.cognifide.qa.bb.proxy.record.TrafficLogPredicate.queryParamWit
 import static com.cognifide.qa.bb.proxy.record.TrafficLogPredicate.urlStartsWith;
 
 import com.cognifide.bdd.demo.po.feedback.FeedbackPage;
-import com.cognifide.bdd.demo.po.publish.pages.EquipmentPage;
-import com.cognifide.bdd.demo.po.publish.pages.HomePage;
 import com.cognifide.qa.bb.constants.AemConfigKeys;
-import com.cognifide.qa.bb.proxy.record.AnalyticsWait;
 import com.cognifide.qa.bb.proxy.record.TrafficLogAnalyzer;
 import com.cognifide.qa.bb.traffic.aspects.RecordTraffic;
 import com.google.inject.Inject;
