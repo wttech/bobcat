@@ -66,7 +66,6 @@ public class DialogConfigurer {
     WebElement scope = StringUtils.isEmpty(label) ? fields.get(0) : fields.stream() //
         .filter(field -> containsIgnoreCase(getFieldLabel(field), label)) //
         .findFirst() //
-            //				.orElse(fields.get(0));
         .orElseThrow(() -> new IllegalStateException("Dialog field not found"));
 
     return getFieldObject(scope, type);

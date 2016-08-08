@@ -1,3 +1,22 @@
+/*-
+ * #%L
+ * Bobcat Parent
+ * %%
+ * Copyright (C) 2016 Cognifide Ltd.
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
 package com.cognifide.bdd.demo.aem.touchui;
 
 import static org.hamcrest.core.Is.is;
@@ -47,7 +66,7 @@ public class AemImageTest {
   private AuthorPage page;
 
   @Before
-  public void setup() {
+  public void setUp() {
     aemLogin.authorLogin();
     page = authorPageFactory.create(pages.getPath(CONFIGURATION));
     page.open();
@@ -57,9 +76,9 @@ public class AemImageTest {
   @Test
   public void configureImageTest() {
     String parsys = pages.getParsys(CONFIGURATION);
-    assertTrue(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME.toLowerCase()));
+    assertTrue(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME));
     Map<String, List<FieldConfig>> data = page.configureComponent(parsys,
-        COMPONENT_NAME, COMPONENT_NAME.toLowerCase());
+        COMPONENT_NAME, COMPONENT_NAME);
 
     ImageComponent component =
         (ImageComponent) page.getContent(components.getClazz(COMPONENT_NAME));

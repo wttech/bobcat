@@ -19,7 +19,6 @@
  */
 package com.cognifide.qa.bb.logging;
 
-
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Comparator;
@@ -67,21 +66,11 @@ public class TestInfo {
 
   private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(TestInfo.class);
 
-  private Date start;
+  private final Date start;
 
-  private Date endDate;
+  private final Deque<String> subreports;
 
-  private SortedSet<LogEntry> logEntries;
-
-  private String testName;
-
-  private TestResult testResult;
-
-  private boolean last;
-
-  private Deque<String> subreports;
-
-  private BrowserInfoEntry browserInfoEntry;
+  private final SortedSet<LogEntry> logEntries;
 
   @Inject
   private ReportFileCreator fileCreator;
@@ -91,6 +80,16 @@ public class TestInfo {
 
   @Inject
   private BrowserLogEntryCollector browserLogEntryCollector;
+
+  private Date endDate;
+
+  private String testName;
+
+  private TestResult testResult;
+
+  private boolean last;
+
+  private BrowserInfoEntry browserInfoEntry;
 
   /**
    * Constructs TestInfo. Initializes its fields to default values. Don't call it manually, use
@@ -102,7 +101,7 @@ public class TestInfo {
     this.testResult = new Success();
     this.start = new Date();
     this.last = false;
-    this.subreports = new LinkedList<String>();
+    this.subreports = new LinkedList<>();
   }
 
   private static long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {

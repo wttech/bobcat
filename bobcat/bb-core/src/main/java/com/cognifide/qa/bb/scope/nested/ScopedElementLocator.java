@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bb.scope.nested;
 
-
-
 import static java.util.stream.Collectors.toList;
 
 import java.lang.reflect.Field;

@@ -17,52 +17,43 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.provider.jcr.properties;
+package com.cognifide.qa.bb.aem.page;
+
 
 import com.cognifide.qa.bb.constants.AemConfigKeys;
+import com.cognifide.qa.bb.constants.ConfigKeys;
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 
 /**
- * Implementation of InstanceProperties for publish environment
+ * This class represents page on publish instance.
  */
-@Singleton
-public class PublishProperties implements InstanceProperties {
+public abstract class PublishPage extends AbstractPage {
 
   @Inject
-  @Named(AemConfigKeys.PUBLISH_IP)
-  private String publishIp;
+  @Named(AemConfigKeys.PUBLISH_URL)
+  private String publishUrl;
 
   @Inject
-  @Named(AemConfigKeys.PUBLISH_LOGIN)
-  private String publishLogin;
-
-  @Inject
-  @Named(AemConfigKeys.PUBLISH_PASSWORD)
-  private String publishPassword;
+  @Named(ConfigKeys.WEBDRIVER_MOBILE)
+  private boolean isMobile;
 
   /**
-   * @return IP address of publish environment
+   * @return Full URL of the page which means: domain plus "content path".
    */
   @Override
-  public String getIp() {
-    return publishIp;
+  public String getFullUrl() {
+    return publishUrl + getContentPath();
   }
 
   /**
-   * @return login for publish environment
+   * Removes '-mobile' from path if test does not run on mobile device.
+   *
+   * @param path path to adjust
+   * @return correctly path
    */
-  @Override
-  public String getLogin() {
-    return publishLogin;
+  protected String adjustContentPath(String path) {
+    return isMobile ? path : path.replaceFirst("-mobile", "");
   }
 
-  /**
-   * @return password for publish environment
-   */
-  @Override
-  public String getPassword() {
-    return publishPassword;
-  }
 }

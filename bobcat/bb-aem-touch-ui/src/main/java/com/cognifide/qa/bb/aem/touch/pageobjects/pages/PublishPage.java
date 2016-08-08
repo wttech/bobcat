@@ -44,7 +44,7 @@ public class PublishPage {
 
   private static final By HEADER_SELECTOR = By.cssSelector("div.header");
 
-  private String path;
+  private final String path;
 
   @Inject
   private PageObjectInjector pageObjectInjector;

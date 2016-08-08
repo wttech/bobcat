@@ -19,7 +19,6 @@
  */
 package com.cognifide.qa.bb.aem.ui.wcm.windows;
 
-
 import java.util.ArrayList;
 import java.util.List;
 

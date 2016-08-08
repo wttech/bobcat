@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bb.webelement;
 
-
-
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -43,9 +41,9 @@ public class BobcatWebElement implements WebElement, Locatable, WrapsElement {
 
   private static final int SEND_KEYS_RETRIES = 10;
 
-  private WebElement element;
+  private final WebElement element;
 
-  private Locatable locatable;
+  private final Locatable locatable;
 
   public BobcatWebElement(WebElement element, Locatable locatable) {
     this.element = element;

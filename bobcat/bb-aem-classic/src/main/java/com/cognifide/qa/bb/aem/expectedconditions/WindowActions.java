@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bb.aem.expectedconditions;
 
-
-
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;

@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,8 +18,6 @@
  * #L%
  */
 package com.cognifide.qa.bb.proxy.analyzer.predicate;
-
-
 
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
@@ -41,8 +39,11 @@ import io.netty.handler.codec.http.HttpRequest;
 public class RequestPredicateImplTest {
 
   private static final String VALID_URL = "/common";
+
   private static final String VALID_LONG_URL = VALID_URL + "/internal/requestUrl";
+
   private static final String INVALID_LONG_URL = "http://non-example.com/";
+
   private static final Map<String, String> EXPECTED_PARAMETERS = new HashMap<String, String>() {{
     put("some-param", "some-value");
   }};
@@ -60,11 +61,15 @@ public class RequestPredicateImplTest {
     });
   }
 
-  private String requestUrl;
-  private Map<String, String> requestParameters;
-  private String predicateUrlPrefix;
-  private Map<String, String> predicateExpectedParameters;
-  private boolean expectedResult;
+  private final String requestUrl;
+
+  private final Map<String, String> requestParameters;
+
+  private final String predicateUrlPrefix;
+
+  private final Map<String, String> predicateExpectedParameters;
+
+  private final boolean expectedResult;
 
   public RequestPredicateImplTest(
       String requestUrl, Map<String, String> requestParameters, String predicateUrlPrefix,

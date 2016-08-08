@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bb.aem.dialog.classic.field;
 
-
-
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -122,7 +120,7 @@ public class AemRichText implements Configurable {
       actions.sendKeys(text).perform();
       return this;
     } finally {
-      frameSwitcher.switchBack();
+      frameSwitcher.switchTo("/$cq");
     }
   }
 
@@ -135,14 +133,15 @@ public class AemRichText implements Configurable {
     switchToTextArea();
     try {
       bobcatWait.withTimeout(Timeouts.BIG).until(driver -> {
-        actions.sendKeys(Keys.chord(Keys.CONTROL, "a")).sendKeys(Keys.BACK_SPACE).perform();
+        actions.sendKeys(Keys.chord(Keys.CONTROL, "a")).sendKeys(Keys.BACK_SPACE).sendKeys(Keys.BACK_SPACE).
+                perform();
         WebElement activeElement = webDriver.switchTo().activeElement();
         String text = activeElement.getText();
         return text.isEmpty();
       }, 2);
       return this;
     } finally {
-      frameSwitcher.switchBack();
+      frameSwitcher.switchTo("/$cq");
     }
   }
 
@@ -153,12 +152,7 @@ public class AemRichText implements Configurable {
    * @return This instance.
    */
   public AemRichText typeLine(CharSequence text) {
-    switchToTextArea();
-    try {
-      return type(text).typeNewLine();
-    } finally {
-      frameSwitcher.switchBack();
-    }
+    return type(text).typeNewLine();
   }
 
   /**
@@ -167,12 +161,7 @@ public class AemRichText implements Configurable {
    * @return This instance.
    */
   public AemRichText typeNewLine() {
-    switchToTextArea();
-    try {
-      return type("\n");
-    } finally {
-      frameSwitcher.switchBack();
-    }
+    return type("\n");
   }
 
   /**
@@ -186,7 +175,7 @@ public class AemRichText implements Configurable {
       actions.sendKeys(Keys.chord(Keys.CONTROL, "a")).perform();
       return this;
     } finally {
-      frameSwitcher.switchBack();
+      frameSwitcher.switchTo("/$cq");
     }
   }
 
@@ -196,12 +185,7 @@ public class AemRichText implements Configurable {
    * @return This instance.
    */
   public AemRichText setCursorAtStartingPos() {
-    switchToTextArea();
-    try {
-      return type(Keys.HOME);
-    } finally {
-      frameSwitcher.switchBack();
-    }
+    return type(Keys.HOME);
   }
 
   /**
@@ -210,12 +194,7 @@ public class AemRichText implements Configurable {
    * @return This instance.
    */
   public AemRichText setCursorAtEndPos() {
-    switchToTextArea();
-    try {
-      return type(Keys.END);
-    } finally {
-      frameSwitcher.switchBack();
-    }
+    return type(Keys.END);
   }
 
   /**
@@ -228,7 +207,7 @@ public class AemRichText implements Configurable {
     try {
       return webDriver.findElement(By.xpath(".//body")).getText();
     } finally {
-      frameSwitcher.switchBack();
+      frameSwitcher.switchTo("/$cq");
     }
   }
 
@@ -253,7 +232,7 @@ public class AemRichText implements Configurable {
       actions.keyUp(Keys.SHIFT).perform();
       return this;
     } finally {
-      frameSwitcher.switchBack();
+      frameSwitcher.switchTo("/$cq");
     }
   }
 
@@ -265,7 +244,7 @@ public class AemRichText implements Configurable {
     try {
       return webDriver.findElement(By.xpath(".//body")).getAttribute(INNER_HTML_ATTRIBUTE);
     } finally {
-      frameSwitcher.switchBack();
+      frameSwitcher.switchTo("/$cq");
     }
   }
 
@@ -284,13 +263,13 @@ public class AemRichText implements Configurable {
   private String getTextAreaInnerHtml() {
     switchToTextArea();
     String value = webDriver.switchTo().activeElement().getAttribute(INNER_HTML_ATTRIBUTE);
-    frameSwitcher.switchBack();
+    frameSwitcher.switchTo("/$cq");
     return value;
   }
 
   private boolean buttonSelected(RtButton button) {
     return webDriver.findElement(By.cssSelector(SELECTED_BUTTON)).getAttribute(CLASS_ATTRIBUTE)
-        .contains(button.getCss());
+            .contains(button.getCss());
   }
 
   private void enableRichTextIfDisabled() {
@@ -304,6 +283,6 @@ public class AemRichText implements Configurable {
 
   private boolean isRichtextDisabled() {
     return currentScope.findElement(By.className(BUTTON_CLASS_NAME)).getAttribute(CLASS_ATTRIBUTE)
-        .contains(DISABLED_CLASS_NAME);
+            .contains(DISABLED_CLASS_NAME);
   }
 }

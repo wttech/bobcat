@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,8 +18,6 @@
  * #L%
  */
 package com.cognifide.qa.bb.proxy.record.har.predicates;
-
-
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -33,7 +31,7 @@ import net.lightbody.bmp.core.har.HarEntry;
  */
 public class DomainPredicate implements Predicate<HarEntry> {
 
-  private String domainPrefix;
+  private final String domainPrefix;
 
   public DomainPredicate(String domainPrefix) {
     this.domainPrefix = domainPrefix;

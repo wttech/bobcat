@@ -33,6 +33,7 @@ import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.cognifide.qa.bb.aem.touch.data.components.Components;
 import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
@@ -55,6 +56,9 @@ public class Parsys {
 
   @Inject
   private Conditions conditions;
+
+  @Inject
+  private Components components;
 
   @FindBy(css = ".cq-Overlay--placeholder[data-text='Drag components here']")
   private WebElement dropArea;
@@ -90,80 +94,84 @@ public class Parsys {
   }
 
   /**
-   * Looks for components under given data path and returns first found instance.
+   * Looks for components with given name and returns first found instance.
    *
-   * @param dataPath of the component.
+   * @param componentName name of the component.
    * @return instance of {@link Component}.
    */
-  public Component getComponent(String dataPath) {
+  public Component getComponent(String componentName) {
+    String dataPath = components.getDataPath(componentName);
     String componentDataPath = DataPathUtil.normalize(dataPath);
     return componentList.stream() //
-          .filter(containsDataPath(componentDataPath)) //
-          .findFirst() //
-          .orElseThrow(() -> new IllegalStateException("Component not present in the parsys"));
+        .filter(containsDataPath(componentDataPath)) //
+        .findFirst() //
+        .orElseThrow(() -> new IllegalStateException("Component not present in the parsys"));
   }
 
   /**
-   * Looks for components under given data path and returns last found instance.
+   * Looks for components with given name and returns last found instance.
    *
-   * @param dataPath of the component.
+   * @param componentName name of the component.
    * @return instance of {@link Component}.
    */
-  public Component getLastComponent(String dataPath) {
+  public Component getLastComponent(String componentName) {
+    String dataPath = components.getDataPath(componentName);
     String componentDataPath = DataPathUtil.normalize(dataPath);
     return componentList.stream() //
-          .filter(containsDataPath(componentDataPath)) //
-          .reduce((a, b) -> b)
-          .orElseThrow(() -> new IllegalStateException("Component not present in the parsys"));
+        .filter(containsDataPath(componentDataPath)) //
+        .reduce((a, b) -> b)
+        .orElseThrow(() -> new IllegalStateException("Component not present in the parsys"));
   }
 
   /**
-   * Checks if any component exists under given data path.
+   * Checks if any component with given name exists.
    *
-   * @param dataPath of the component.
+   * @param componentName name of the component.
    * @return true if any component is present under given data path.
    */
-  public boolean isComponentPresent(String dataPath) {
-    String componentDataPath = DataPathUtil.normalize(dataPath);
+  public boolean isComponentPresent(String componentName) {
+    String dataPath = components.getDataPath(componentName);
+    String componentDataPath = DataPathUtil.normalize(dataPath.toLowerCase());
+
     return componentList.stream() //
-            .anyMatch(containsDataPath(componentDataPath));
+        .anyMatch(containsDataPath(componentDataPath));
   }
 
   /**
-   * Opens insert dialog and inserts component with given title.
+   * Opens insert dialog and inserts component with given name.
    *
-   * @param title of the component.
+   * @param componentName name of the component.
    */
-  public void insertComponent(String title) {
-    openInsertDialog().insertComponent(title);
+  public void insertComponent(String componentName) {
+    openInsertDialog().insertComponent(componentName);
   }
 
   /**
-   * Configures component under given data path with given map of fields cofig ({@link FieldConfig})
+   * Configures component with given name with given map of fields cofig ({@link FieldConfig})
    *
-   * @param dataPath data path of the component.
-   * @param data     map of configuration parameters for the component.
+   * @param componentName name of the component.
+   * @param data          map of configuration parameters for the component.
    */
-  public void configureComponent(String dataPath, Map<String, List<FieldConfig>> data) {
-    getComponent(dataPath).configure(data);
+  public void configureComponent(String componentName, Map<String, List<FieldConfig>> data) {
+    getComponent(componentName).configure(data);
   }
 
   /**
-   * Deletes first component found under given data path.
+   * Deletes first component found with given name.
    *
-   * @param dataPath data path of the component to be deleted.
+   * @param componentName name of the component to be deleted.
    */
-  public void deleteComponent(String dataPath) {
-    getComponent(dataPath).delete();
+  public void deleteComponent(String componentName) {
+    getComponent(componentName).delete();
   }
 
   /**
    * Deletes last component found under given data path.
    *
-   * @param dataPath data path of the component to be deleted.
+   * @param componentName name of the component to be deleted.
    */
-  public void deleteLastComponent(String dataPath) {
-    getLastComponent(dataPath).delete();
+  public void deleteLastComponent(String componentName) {
+    getLastComponent(componentName).delete();
   }
 
   /**

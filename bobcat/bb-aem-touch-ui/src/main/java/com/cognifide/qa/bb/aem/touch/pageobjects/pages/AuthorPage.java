@@ -33,10 +33,6 @@ import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cognifide.qa.bb.constants.HtmlTags;
-import com.cognifide.qa.bb.frame.FrameSwitcher;
-import com.cognifide.qa.bb.qualifier.PageObject;
-import com.cognifide.qa.bb.utils.PageObjectInjector;
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfigs;
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldConfig;
 import com.cognifide.qa.bb.aem.touch.data.components.Components;
@@ -44,6 +40,10 @@ import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.GlobalBar;
 import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.Parsys;
 import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.cognifide.qa.bb.aem.touch.util.DataPathUtil;
+import com.cognifide.qa.bb.constants.HtmlTags;
+import com.cognifide.qa.bb.frame.FrameSwitcher;
+import com.cognifide.qa.bb.qualifier.PageObject;
+import com.cognifide.qa.bb.utils.PageObjectInjector;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
@@ -63,7 +63,7 @@ public class AuthorPage {
 
   private static final String CONTENT_FRAME = "ContentFrame";
 
-  private String path;
+  private final String path;
 
   @Inject
   private WebDriver driver;
@@ -131,9 +131,9 @@ public class AuthorPage {
   public Parsys getParsys(String dataPath) {
     String componentDataPath = DataPathUtil.normalize(dataPath);
     return parsyses.stream() //
-          .filter(parsys -> StringUtils.contains(parsys.getDataPath(), componentDataPath)) //
-          .findFirst() //
-          .orElseThrow(() -> new IllegalStateException("Parsys not found"));
+        .filter(parsys -> StringUtils.contains(parsys.getDataPath(), componentDataPath)) //
+        .findFirst() //
+        .orElseThrow(() -> new IllegalStateException("Parsys not found"));
   }
 
   /**
@@ -157,36 +157,37 @@ public class AuthorPage {
     }
     frameSwitcher.switchBack();
     return scope == null
-            ? pageObjectInjector.inject(component, CONTENT_FRAME)
-            : pageObjectInjector.inject(component, scope, CONTENT_FRAME);
+        ? pageObjectInjector.inject(component, CONTENT_FRAME)
+        : pageObjectInjector.inject(component, scope, CONTENT_FRAME);
   }
 
   /**
    * Adds component of given name to parsys of given name on the page. Verifies if parsys is rendered.
    *
-   * @param parsys name of parsys on the page.
-   * @param component name of component.
+   * @param parsys        name of parsys on the page.
+   * @param componentName name of component.
    */
-  public void addComponent(String parsys, String component) {
-    getParsys(parsys).insertComponent(component);
+  public void addComponent(String parsys, String componentName) {
+    getParsys(parsys).insertComponent(componentName);
     verifyParsysRerendered(parsys);
   }
 
   /**
    * Configures component in parsys with specific configuration. Verifies if parsys is rendered.
    *
-   * @param parsys parsys name.
-   * @param component component name.
-   * @param configName configuration name.
+   * @param parsys        parsys name.
+   * @param componentName component name.
+   * @param configName    configuration name.
    * @return Map with component configuration.
    */
-  public Map<String, List<FieldConfig>> configureComponent(String parsys, String component,
-          String configName) {
-    Map<String, List<FieldConfig>> data = componentConfigs.getConfigs(component).get(configName);
+  public Map<String, List<FieldConfig>> configureComponent(String parsys, String componentName,
+      String configName) {
+    Map<String, List<FieldConfig>> data =
+        componentConfigs.getConfigs(componentName).get(configName.toLowerCase());
     if (data == null) {
       throw new IllegalArgumentException("Config does not exist: " + configName);
     }
-    getParsys(parsys).configureComponent(components.getDataPath(component), data);
+    getParsys(parsys).configureComponent(componentName, data);
     verifyParsysRerendered(parsys);
     return data;
   }
@@ -194,14 +195,27 @@ public class AuthorPage {
   /**
    * Deletes component from parsys. Verifies if parsys is rendered.
    *
-   * @param parsys parsys name.
-   * @param component component name.
+   * @param parsys        parsys name.
+   * @param componentName component name.
    */
-  public void deleteComponent(String parsys, String component) {
+  public void deleteComponent(String parsys, String componentName) {
     globalBar.switchToEditMode();
-    getParsys(parsys).deleteComponent(components.getDataPath(component));
+    getParsys(parsys).deleteComponent(componentName);
     verifyParsysRerendered(parsys);
   }
+
+  /**
+   * Remove all components with name.
+   *
+   * @param parsys        parsys name
+   * @param componentName name of the component
+   */
+  public void clearParsys(String parsys, String componentName) {
+    globalBar.switchToEditMode();
+    while (getParsys(parsys).isComponentPresent(componentName)) {
+      deleteComponent(parsys, componentName);
+    }
+}
 
   private void verifyParsysRerendered(String parsys) {
     conditions.verifyPostAjax(object -> getParsys(parsys).isNotStale());

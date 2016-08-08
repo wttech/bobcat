@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bb.modules;
 
-
-
 import static com.google.inject.matcher.Matchers.any;
 
 import java.util.List;

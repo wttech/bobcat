@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -37,7 +37,6 @@ import com.cognifide.bdd.demo.suite.SmokeTests;
 import com.cognifide.qa.bb.aem.AemLogin;
 import com.cognifide.qa.bb.aem.dialog.classic.field.image.AemImage;
 import com.cognifide.qa.bb.aem.ui.AemContentFinder;
-import com.cognifide.qa.bb.constants.AemConfigKeys;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.dragdrop.Draggable;
 import com.cognifide.qa.bb.junit.Modules;
@@ -45,7 +44,6 @@ import com.cognifide.qa.bb.junit.TestRunner;
 import com.cognifide.qa.bb.logging.ReportEntryLogger;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.google.inject.Inject;
-import com.google.inject.name.Named;
 
 @RunWith(TestRunner.class)
 @Modules(GuiceModule.class)
@@ -62,9 +60,6 @@ public class AemImageTest {
   private AemImage aemImageField;
 
   @Inject
-  private WebDriver webDriver;
-
-  @Inject
   private BobcatWait bobcatWait;
 
   @Inject
@@ -78,10 +73,6 @@ public class AemImageTest {
 
   @Inject
   private AemContentFinder contentFinder;
-
-  @Inject
-  @Named(AemConfigKeys.AUTHOR_URL)
-  private String authorUrl;
 
   @Before
   public void setup() {

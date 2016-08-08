@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bb.aem;
 
-
-
 import org.openqa.selenium.WebDriver;
 
 import com.cognifide.qa.bb.constants.AemConfigKeys;
