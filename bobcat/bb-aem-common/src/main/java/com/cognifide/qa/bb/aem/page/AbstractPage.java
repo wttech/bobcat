@@ -17,38 +17,31 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.publish;
-
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+package com.cognifide.qa.bb.aem.page;
 
 import com.cognifide.qa.bb.constants.AemConfigKeys;
-import com.cognifide.qa.bb.constants.ConfigKeys;
 import com.cognifide.qa.bb.utils.WebElementUtils;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
 /**
- * This class represents page on publish instance.
+ * This class represents a HTML page. <br>
+ * Specific pages will inherit from this class to configure URL and title.
  */
-public abstract class PublishPage {
+abstract class AbstractPage {
+
   @Inject
-  private WebDriver webDriver;
+  protected WebDriver webDriver;
 
   @Inject
   @Named(AemConfigKeys.PAGE_TITLE_TIMEOUT)
   private int pageTitleTimeout;
 
   @Inject
-  @Named(AemConfigKeys.PUBLISH_URL)
-  private String publishUrl;
-
-  @Inject
-  @Named(ConfigKeys.WEBDRIVER_MOBILE)
-  private boolean isMobile;
-
-  @Inject
-  private WebElementUtils webElementUtils;
+  protected WebElementUtils webElementUtils;
 
   /**
    * @return Url of the page, without domain part.
@@ -63,15 +56,12 @@ public abstract class PublishPage {
   /**
    * @return Full URL of the page which means: domain plus "content path".
    */
-  public String getFullUrl() {
-    return publishUrl + getContentPath();
-  }
+  public abstract String getFullUrl();
 
   /**
-   * @return True if the page is displayed, false otherwise.
-   * <br>
-   * Assumes that the page is displayed when title of the currently displayed page
-   * is the same as the title stored in this object.
+   * @return True if the page is displayed, false otherwise. <br>
+   *         Assumes that the page is displayed when title of the currently displayed page is the
+   *         same as the title stored in this object.
    */
   public boolean isDisplayed() {
     return webElementUtils
@@ -83,16 +73,6 @@ public abstract class PublishPage {
    */
   public void open() {
     webDriver.get(getFullUrl());
-  }
-
-  /**
-   * Removers '-mobile' from path if test does not run on mobile device.
-   *
-   * @param path path to adjust
-   * @return correctly path
-   */
-  protected String adjustContentPath(String path) {
-    return isMobile ? path : path.replaceFirst("-mobile", "");
   }
 
 }

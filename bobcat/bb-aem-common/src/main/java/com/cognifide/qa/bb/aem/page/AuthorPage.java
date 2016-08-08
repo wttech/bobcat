@@ -17,73 +17,33 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem;
+package com.cognifide.qa.bb.aem.page;
 
-
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.constants.AemConfigKeys;
-import com.cognifide.qa.bb.utils.WebElementUtils;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
- * This class represents a HTML page. <br>
- * Specific pages will inherit from this class to configure URL and title.
+ * This class represents page on author instance.
  */
-public abstract class AbstractPage {
+public abstract class AuthorPage extends AbstractPage {
 
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractPage.class);
-
-  @Inject
-  private WebDriver webDriver;
-
-  @Inject
-  @Named(AemConfigKeys.PAGE_TITLE_TIMEOUT)
-  private int pageTitleTimeout;
+  private static final Logger LOG = LoggerFactory.getLogger(AuthorPage.class);
 
   @Inject
   @Named(AemConfigKeys.AUTHOR_URL)
   private String authorUrl;
 
-  @Inject
-  private WebElementUtils webElementUtils;
-
-  /**
-   * @return Url of the page, without domain part.
-   */
-  public abstract String getContentPath();
-
-  /**
-   * @return Title of the page.
-   */
-  public abstract String getPageTitle();
-
   /**
    * @return Full URL of the page which means: domain plus "content path".
    */
+  @Override
   public String getFullUrl() {
     return authorUrl + getContentPath();
-  }
-
-  /**
-   * @return True if the page is displayed, false otherwise. <br>
-   *         Assumes that the page is displayed when title of the currently displayed page is the
-   *         same as the title stored in this object.
-   */
-  public boolean isDisplayed() {
-    return webElementUtils
-        .isConditionMet(ExpectedConditions.titleIs(getPageTitle()), pageTitleTimeout);
-  }
-
-  /**
-   * Opens the page in a new browser window.
-   */
-  public void open() {
-    webDriver.get(getFullUrl());
   }
 
   /**

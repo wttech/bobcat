@@ -21,7 +21,7 @@ package com.cognifide.bdd.demo.po.press;
 
 import org.openqa.selenium.support.FindBy;
 
-import com.cognifide.qa.bb.aem.AbstractPage;
+import com.cognifide.qa.bb.aem.page.AuthorPage;
 import com.cognifide.qa.bb.aem.ui.sidekick.AemSidekick;
 import com.cognifide.qa.bb.qualifier.Frame;
 import com.cognifide.qa.bb.qualifier.PageObject;
@@ -29,7 +29,7 @@ import com.google.inject.Inject;
 
 @PageObject
 @Frame("$cq")
-public class PressPage extends AbstractPage {
+public class PressPage extends AuthorPage {
 
   private static final String URL = "/cf#/content/geometrixx/en/company/press.html";
 

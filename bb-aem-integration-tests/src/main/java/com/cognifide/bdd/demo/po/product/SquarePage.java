@@ -23,13 +23,13 @@ import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.bdd.demo.po.feedback.TitleComponent;
 import com.cognifide.bdd.demo.po.summer.ImageComponent;
-import com.cognifide.qa.bb.aem.AbstractPage;
+import com.cognifide.qa.bb.aem.page.AuthorPage;
 import com.cognifide.qa.bb.qualifier.Frame;
 import com.cognifide.qa.bb.qualifier.PageObject;
 
 @PageObject
 @Frame("$cq")
-public class SquarePage extends AbstractPage {
+public class SquarePage extends AuthorPage {
 
   private static final String PAGE_URL = "/cf#/content/geometrixx/en/products/square.html";
 

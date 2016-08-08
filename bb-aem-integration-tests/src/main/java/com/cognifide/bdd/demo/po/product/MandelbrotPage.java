@@ -22,13 +22,13 @@ package com.cognifide.bdd.demo.po.product;
 import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.bdd.demo.po.summer.ImageComponent;
-import com.cognifide.qa.bb.aem.AbstractPage;
+import com.cognifide.qa.bb.aem.page.AuthorPage;
 import com.cognifide.qa.bb.qualifier.Frame;
 import com.cognifide.qa.bb.qualifier.PageObject;
 
 @PageObject
 @Frame("$cq")
-public class MandelbrotPage extends AbstractPage {
+public class MandelbrotPage extends AuthorPage {
 
   private static final String PAGE_URL = "/cf#/content/geometrixx/en/products/mandelbrot.html";
 

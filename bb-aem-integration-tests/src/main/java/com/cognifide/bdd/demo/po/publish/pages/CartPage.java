@@ -27,7 +27,7 @@ import org.openqa.selenium.WebDriver;
 
 import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.constants.Timeouts;
-import com.cognifide.qa.bb.aem.publish.PublishPage;
+import com.cognifide.qa.bb.aem.page.PublishPage;
 import com.cognifide.qa.bb.logging.ReportEntryLogger;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.PageObject;

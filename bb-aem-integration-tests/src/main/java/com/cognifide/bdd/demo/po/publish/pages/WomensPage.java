@@ -19,7 +19,7 @@
  */
 package com.cognifide.bdd.demo.po.publish.pages;
 
-import com.cognifide.qa.bb.aem.publish.PublishPage;
+import com.cognifide.qa.bb.aem.page.PublishPage;
 import com.cognifide.qa.bb.qualifier.PageObject;
 
 @PageObject
