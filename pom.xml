@@ -104,6 +104,7 @@ limitations under the License.
                         <excludes>
                             <exclude>**/*.json</exclude>
                             <exclude>**/*.yml</exclude>
+                            <exclude>**/*.yaml</exclude>
                             <exclude>**/*.properties</exclude>
                             <exclude>**/*.Processor</exclude>
                         </excludes>
