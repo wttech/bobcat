@@ -61,7 +61,7 @@ public class Multifield implements DialogField {
     cfg.stream().forEach(entry -> addField());
 
     Iterator<MultifieldItem> itemsIterator = items.iterator();
-    cfg.stream().forEach(itemsIterator.next()::setValue);
+    cfg.stream().forEach(entry -> itemsIterator.next().setValue(entry));
   }
 
   /**
