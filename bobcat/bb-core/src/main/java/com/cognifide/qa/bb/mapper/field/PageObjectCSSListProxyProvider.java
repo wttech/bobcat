@@ -28,7 +28,12 @@ import java.lang.reflect.WildcardType;
 import java.util.List;
 import java.util.Optional;
 
+import org.openqa.selenium.support.FindAll;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindBys;
+
 import com.cognifide.qa.bb.qualifier.Cached;
+import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.scope.PageObjectContext;
 import com.cognifide.qa.bb.scope.frame.FrameMap;
 import com.cognifide.qa.bb.scope.frame.FramePath;
@@ -40,7 +45,7 @@ import com.google.inject.Inject;
  * This class is a provider of Java proxies that will intercept access to PageObject fields that are
  * lists of PageObjects.
  */
-public class PageObjectListProxyProvider implements FieldProvider {
+public class PageObjectCSSListProxyProvider implements FieldProvider {
 
   @Inject
   private PageObjectInjector injector;
@@ -60,7 +65,7 @@ public class PageObjectListProxyProvider implements FieldProvider {
    */
   @Override
   public boolean accepts(Field field) {
-    return isList(field) && AnnotationsHelper.isFindByAnnotationPresent(field)
+    return isList(field) && AnnotationsHelper.isFindPageObjectAnnotationPresent(field)
         && AnnotationsHelper.isGenericTypeAnnotedWithPageObject(field);
   }
 
