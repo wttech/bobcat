@@ -28,6 +28,9 @@ import java.lang.reflect.WildcardType;
 import java.util.List;
 import java.util.Optional;
 
+import com.cognifide.qa.bb.scope.nestedselector.NestedSelectorScopedLocatorFactory;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
@@ -40,12 +43,16 @@ import com.cognifide.qa.bb.scope.frame.FramePath;
 import com.cognifide.qa.bb.utils.AnnotationsHelper;
 import com.cognifide.qa.bb.utils.PageObjectInjector;
 import com.google.inject.Inject;
+import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 
 /**
  * This class is a provider of Java proxies that will intercept access to PageObject fields that are
  * lists of PageObjects.
  */
 public class PageObjectCSSListProxyProvider implements FieldProvider {
+
+  @Inject
+  private WebDriver webDriver;
 
   @Inject
   private PageObjectInjector injector;
@@ -76,9 +83,13 @@ public class PageObjectCSSListProxyProvider implements FieldProvider {
   @Override
   public Optional<Object> provideValue(Object pageObject, Field field, PageObjectContext context) {
     FramePath framePath = frameMap.get(pageObject);
+    By selector = By.cssSelector(getGenericType(field).getAnnotation(PageObject.class).css());
+    ElementLocatorFactory elementLocatorFactory =
+        new NestedSelectorScopedLocatorFactory(webDriver, selector,
+            context.getElementLocatorFactory(),AnnotationsHelper.isGlobal(field));
     PageObjectListInvocationHandler handler =
         new PageObjectListInvocationHandler(getGenericType(field),
-            context.getElementLocatorFactory().createLocator(field), injector,
+            elementLocatorFactory.createLocator(field), injector,
             shouldCacheResults(field),
             framePath);
 

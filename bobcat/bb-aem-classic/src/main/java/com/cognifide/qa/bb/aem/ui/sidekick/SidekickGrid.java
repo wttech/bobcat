@@ -21,6 +21,7 @@ package com.cognifide.qa.bb.aem.ui.sidekick;
 
 import java.util.List;
 
+import com.cognifide.qa.bb.qualifier.FindPageObject;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -31,7 +32,7 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 @PageObject
 public class SidekickGrid {
 
-  @FindBy(xpath = "//div[contains(@class, 'x-grid3-body')]/div")
+  @FindPageObject//@FindBy(xpath = "//div[contains(@class, 'x-grid3-body')]/div")
   private List<SidekickGridRow> gridRows;
 
   /**

@@ -33,7 +33,7 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
 
 @Frame("/")
-@PageObject
+@PageObject(css = "//div[contains(@class, 'x-grid3-body')]/div")
 public class SidekickGridRow {
 
   private static final String ROW_SELECTED_CLASS = "row-selected";

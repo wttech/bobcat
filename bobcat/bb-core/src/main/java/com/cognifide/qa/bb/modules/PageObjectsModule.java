@@ -23,6 +23,7 @@ import static com.google.inject.matcher.Matchers.any;
 
 import java.util.List;
 
+import com.cognifide.qa.bb.mapper.field.PageObjectCSSListProxyProvider;
 import org.openqa.selenium.WebElement;
 
 import com.cognifide.qa.bb.mapper.PageObjectTypeListener;
@@ -55,6 +56,7 @@ public class PageObjectsModule extends AbstractModule {
     fieldProviders.addBinding().to(CssPageObjectProvider.class);
     fieldProviders.addBinding().to(PageObjectListProxyProvider.class);
     fieldProviders.addBinding().to(CurrentFrameProvider.class);
+    fieldProviders.addBinding().to(PageObjectCSSListProxyProvider.class);
 
     bind(Key.get(WebElement.class, CurrentScope.class)).toProvider(CurrentWebElementProvider.class);
     bind(new TypeLiteral<List<WebElement>>() {

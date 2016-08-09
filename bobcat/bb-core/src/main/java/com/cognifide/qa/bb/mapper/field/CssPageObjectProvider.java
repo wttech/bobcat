@@ -1,6 +1,7 @@
 package com.cognifide.qa.bb.mapper.field;
 
 import java.lang.reflect.Field;
+import java.util.List;
 import java.util.Optional;
 
 import org.openqa.selenium.By;
@@ -39,7 +40,7 @@ public class CssPageObjectProvider implements FieldProvider {
   @Override
   public boolean accepts(Field field) {
     return field.getType().isAnnotationPresent(PageObject.class)
-        && AnnotationsHelper.isFindPageObjectAnnotationPresent(field);
+        && AnnotationsHelper.isFindPageObjectAnnotationPresent(field) && isNotList(field);
 
   }
 
@@ -62,5 +63,9 @@ public class CssPageObjectProvider implements FieldProvider {
       contextStack.pop();
     }
     return Optional.ofNullable(scopedPageObject);
+  }
+
+  private boolean isNotList(Field field) {
+    return !field.getType().equals(List.class);
   }
 }
