@@ -75,7 +75,7 @@ Bobcat accelerates test development, especially when it comes to AEM authoring. 
 
 To work with **Bobcat** the following tools are required:
 
-- JDK 8
+- JDK 8 (from _065)
 - Maven 3.0.4
 - Chrome Driver - if tests will be executed on chrome
 
