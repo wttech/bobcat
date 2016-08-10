@@ -253,6 +253,12 @@
                 <test>**/bobcumber/**/*Test.java</test>
             </properties>
         </profile>
+        <profile>
+            <id>bobcumberAemRerunFailed</id>
+            <properties>
+                <test>**/bobcumber/RerunFailedTests.java</test>
+            </properties>
+        </profile>
 
         <profile>
             <id>bb-core</id>

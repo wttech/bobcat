@@ -61,7 +61,7 @@ public class Bobcumber extends Cucumber {
   }
 
   @SuppressWarnings("unchecked")
-  private void closeWebDriverPool() {
+  protected void closeWebDriverPool() {
     try {
       Runtime runtime = (Runtime) FieldUtils.readField(this, "runtime", true);
       Collection<? extends Backend> backends =

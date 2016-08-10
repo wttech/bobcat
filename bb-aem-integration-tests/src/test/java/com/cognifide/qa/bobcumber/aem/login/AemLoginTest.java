@@ -21,13 +21,13 @@ package com.cognifide.qa.bobcumber.aem.login;
 
 import org.junit.runner.RunWith;
 
-import com.cognifide.qa.bb.cumber.Bobcumber;
+import com.cognifide.qa.bb.cumber.BobcumberWithFailedRecorder;
 
 import cucumber.api.CucumberOptions;
 
-@RunWith(Bobcumber.class)
+@RunWith(BobcumberWithFailedRecorder.class)
 @CucumberOptions(
-    features = "src/main/features/",
+    features = "src/test/resources/",
     plugin = {"pretty", "html:target/cucumber-html-report/aem-login",
         "json:target/aemLoginTest.json"},
     tags = {"@aemLogin", "~@disabled"},

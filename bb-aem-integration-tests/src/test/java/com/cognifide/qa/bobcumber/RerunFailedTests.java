@@ -17,23 +17,22 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bobcumber.aem.login;
+package com.cognifide.qa.bobcumber;
 
 import org.junit.runner.RunWith;
 
-import com.cognifide.qa.bb.cumber.BobcumberWithFailedRecorder;
+import com.cognifide.qa.bb.cumber.Bobcumber;
 
 import cucumber.api.CucumberOptions;
 
-@RunWith(BobcumberWithFailedRecorder.class)
+@RunWith(Bobcumber.class)
 @CucumberOptions(
-    features = "src/test/resources/",
-    plugin = {"pretty", "html:target/cucumber-html-report/aem-logout",
-        "json:target/aemLogoutTest.json"},
-    tags = {"@aemLogout", "~@disabled"},
+    features = {"@target/rerun.properties"},
+    plugin = {"pretty", "html:target/cucumber-html-report/rerun",
+        "json:target/rerun.json"},
     glue = "com.cognifide.qa"
 )
-public class AemLogoutTest {
+public class RerunFailedTests {
   /*
   This class is empty on  purpose - it's only a runner for cucumber tests.
   All properties for cucumber runner are in @CucumberOptions:

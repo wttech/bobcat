@@ -21,13 +21,13 @@ package com.cognifide.qa.bobcumber.traffic;
 
 import org.junit.runner.RunWith;
 
-import com.cognifide.qa.bb.cumber.Bobcumber;
+import com.cognifide.qa.bb.cumber.BobcumberWithFailedRecorder;
 
 import cucumber.api.CucumberOptions;
 
-@RunWith(Bobcumber.class)
+@RunWith(BobcumberWithFailedRecorder.class)
 @CucumberOptions(
-    features = "src/main/features/",
+    features = "src/test/resources/",
     plugin = {"pretty", "html:target/cucumber-html-report/ajax", "json:target/ajaxTest.json"},
     tags = {"@ajax", "~@disabled"},
     glue = "com.cognifide.qa"
