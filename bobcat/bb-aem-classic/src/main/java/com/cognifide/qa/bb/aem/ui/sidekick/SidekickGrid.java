@@ -32,7 +32,7 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 @PageObject
 public class SidekickGrid {
 
-  @FindPageObject//@FindBy(xpath = "//div[contains(@class, 'x-grid3-body')]/div")
+  @FindPageObject
   private List<SidekickGridRow> gridRows;
 
   /**
