@@ -21,35 +21,26 @@ package com.cognifide.qa.bb.mapper.field;
  */
 
 import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Proxy;
-import java.lang.reflect.Type;
-import java.lang.reflect.WildcardType;
 import java.util.List;
 import java.util.Optional;
 
-import com.cognifide.qa.bb.scope.nestedselector.NestedSelectorScopedLocatorFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.FindAll;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.FindBys;
 
-import com.cognifide.qa.bb.qualifier.Cached;
-import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.scope.PageObjectContext;
 import com.cognifide.qa.bb.scope.frame.FrameMap;
 import com.cognifide.qa.bb.scope.frame.FramePath;
+import com.cognifide.qa.bb.scope.selector.SelectorElementLocator;
 import com.cognifide.qa.bb.utils.AnnotationsHelper;
 import com.cognifide.qa.bb.utils.PageObjectInjector;
 import com.google.inject.Inject;
-import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 
 /**
  * This class is a provider of Java proxies that will intercept access to PageObject fields that are
- * lists of PageObjects.
+ * lists of PageObjects and are marked by {@link com.cognifide.qa.bb.qualifier.FindPageObject}.
  */
-public class PageObjectCSSListProxyProvider implements FieldProvider {
+public class PageObjectSelectorListProxyProvider extends PageObjectListProxyProvider {
 
   @Inject
   private WebDriver webDriver;
@@ -83,37 +74,15 @@ public class PageObjectCSSListProxyProvider implements FieldProvider {
   @Override
   public Optional<Object> provideValue(Object pageObject, Field field, PageObjectContext context) {
     FramePath framePath = frameMap.get(pageObject);
-    By selector = By.cssSelector(getGenericType(field).getAnnotation(PageObject.class).css());
-    ElementLocatorFactory elementLocatorFactory =
-        new NestedSelectorScopedLocatorFactory(webDriver, selector,
-            context.getElementLocatorFactory(),AnnotationsHelper.isGlobal(field));
+    By selector = PageObjectProviderHelper.getSelectorFromGenericPageObject(field);
     PageObjectListInvocationHandler handler =
-        new PageObjectListInvocationHandler(getGenericType(field),
-            elementLocatorFactory.createLocator(field), injector,
+        new PageObjectListInvocationHandler(PageObjectProviderHelper.getGenericType(field),
+            new SelectorElementLocator(webDriver, selector), injector,
             shouldCacheResults(field),
             framePath);
 
-    ClassLoader classLoader = getGenericType(field).getClassLoader();
+    ClassLoader classLoader = PageObjectProviderHelper.getGenericType(field).getClassLoader();
     Object proxyInstance = Proxy.newProxyInstance(classLoader, new Class[] {List.class}, handler);
     return Optional.of(proxyInstance);
-  }
-
-  private boolean isList(Field field) {
-    return field.getType().equals(List.class);
-  }
-
-  private boolean shouldCacheResults(Field field) {
-    return field.isAnnotationPresent(Cached.class);
-  }
-
-  private Class<?> getGenericType(Field field) {
-    Type type = field.getGenericType();
-    if (type instanceof ParameterizedType) {
-      Type firstParameter = ((ParameterizedType) type).getActualTypeArguments()[0];
-      if (!(firstParameter instanceof WildcardType)) {
-        return (Class<?>) firstParameter;
-      }
-    }
-    return null;
   }
 }

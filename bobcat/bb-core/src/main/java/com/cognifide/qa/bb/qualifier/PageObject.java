@@ -34,10 +34,16 @@ import java.lang.annotation.Target;
 public @interface PageObject {
 
   /**
-   * Use this property to identify the page object
+   * Use this property to identify the page object by css selector
    *
    * @return page object css class
    */
   String css() default "";
 
+  /**
+   * Use this property to identify the page object by xpath selector
+   *
+   * @return page object xpath
+   */
+  String xpath() default "";
 }

@@ -23,7 +23,7 @@ import com.google.inject.Injector;
  * annotation. It tracks the context in which the objects are created so that their own child
  * objects can reference their parent's creation context.
  */
-public class CssPageObjectProvider implements FieldProvider {
+public class SelectorPageObjectProvider implements FieldProvider {
 
   @Inject
   private ContextStack contextStack;
@@ -50,7 +50,7 @@ public class CssPageObjectProvider implements FieldProvider {
    */
   @Override
   public Optional<Object> provideValue(Object pageObject, Field field, PageObjectContext context) {
-    By selector = By.cssSelector(field.getType().getAnnotation(PageObject.class).css());
+    By selector = PageObjectProviderHelper.getSelectorFromPageObject(field);
     ElementLocatorFactory elementLocatorFactory =
         new NestedSelectorScopedLocatorFactory(webDriver, selector,
             context.getElementLocatorFactory(),AnnotationsHelper.isGlobal(field));

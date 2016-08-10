@@ -21,10 +21,7 @@ package com.cognifide.qa.bb.mapper.field;
  */
 
 import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Proxy;
-import java.lang.reflect.Type;
-import java.lang.reflect.WildcardType;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,32 +69,21 @@ public class PageObjectListProxyProvider implements FieldProvider {
   public Optional<Object> provideValue(Object pageObject, Field field, PageObjectContext context) {
     FramePath framePath = frameMap.get(pageObject);
     PageObjectListInvocationHandler handler =
-        new PageObjectListInvocationHandler(getGenericType(field),
+        new PageObjectListInvocationHandler(PageObjectProviderHelper.getGenericType(field),
             context.getElementLocatorFactory().createLocator(field), injector,
             shouldCacheResults(field),
             framePath);
 
-    ClassLoader classLoader = getGenericType(field).getClassLoader();
+    ClassLoader classLoader = PageObjectProviderHelper.getGenericType(field).getClassLoader();
     Object proxyInstance = Proxy.newProxyInstance(classLoader, new Class[] {List.class}, handler);
     return Optional.of(proxyInstance);
   }
 
-  private boolean isList(Field field) {
+  protected boolean isList(Field field) {
     return field.getType().equals(List.class);
   }
 
-  private boolean shouldCacheResults(Field field) {
+  protected boolean shouldCacheResults(Field field) {
     return field.isAnnotationPresent(Cached.class);
-  }
-
-  private Class<?> getGenericType(Field field) {
-    Type type = field.getGenericType();
-    if (type instanceof ParameterizedType) {
-      Type firstParameter = ((ParameterizedType) type).getActualTypeArguments()[0];
-      if (!(firstParameter instanceof WildcardType)) {
-        return (Class<?>) firstParameter;
-      }
-    }
-    return null;
   }
 }
