@@ -75,7 +75,7 @@ class PageObjectTreeScanner extends TreePathScanner<Object, CompilationUnitTree>
               Type googleInjectType = getType(Inject.class);
 
               Compound currentScopeCompund = new Compound(currentScopeType, List.nil());
-              Compound injectCompound = new Compound(googleInjectType, com.sun.tools.javac.util.List.nil());
+              Compound injectCompound = new Compound(googleInjectType, List.nil());
 
               List<JCAnnotation> annotations = treeMaker.
                       Annotations(List.of(currentScopeCompund, injectCompound));
