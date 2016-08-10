@@ -117,6 +117,14 @@ public class AuthorPage {
    * @return true if page is loaded.
    */
   public boolean isLoaded() {
+    if (!pageLoadedCondition()) {
+      LOG.debug("Retrying page open");
+      driver.navigate().refresh();
+    }
+    return pageLoadedCondition();
+  }
+
+  private boolean pageLoadedCondition() {
     return conditions.isConditionMet(
         not(ignored -> StringUtils
             .contains(authoringOverlay.getAttribute(HtmlTags.Attributes.CLASS), IS_HIDDEN)));
