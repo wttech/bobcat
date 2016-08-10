@@ -164,10 +164,10 @@ public class CurrentScopeHelperTest {
   @PageObject
   private class PageObjectWithCurrentScope {
     @CurrentScope
-    private WebElement webElement;
+    private WebElement currentScope;
 
     public PageObjectWithCurrentScope(WebElement webElement) {
-      this.webElement = webElement;
+      this.currentScope = webElement;
     }
   }
 
