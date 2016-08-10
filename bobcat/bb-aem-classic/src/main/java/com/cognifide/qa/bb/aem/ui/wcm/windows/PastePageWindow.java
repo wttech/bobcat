@@ -40,10 +40,6 @@ public class PastePageWindow implements DecisionWindow {
       "div[id^='cq-copydialog'][style*='visibility: visible'][style*='display: block']";
 
   @Inject
-  @CurrentScope
-  private WebElement currentScope;
-
-  @Inject
   private BobcatWait bobcatWait;
 
   @FindBy(xpath = ".//button[contains(text(), 'Copy')]")
