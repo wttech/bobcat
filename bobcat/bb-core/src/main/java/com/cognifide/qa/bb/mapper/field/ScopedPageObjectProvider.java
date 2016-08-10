@@ -75,7 +75,7 @@ public class ScopedPageObjectProvider implements FieldProvider {
 
   /**
    * This method produces value for the field. It constructs the context for the creation out of
-   * paren't context and the field's own frame info.
+   * parent's context and the field's own frame info.
    */
   @Override
   public Optional<Object> provideValue(Object pageObject, Field field, PageObjectContext context) {

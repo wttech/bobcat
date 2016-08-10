@@ -77,8 +77,7 @@ public class PageObjectSelectorListProxyProvider extends PageObjectListProxyProv
     By selector = PageObjectProviderHelper.getSelectorFromGenericPageObject(field);
     PageObjectListInvocationHandler handler =
         new PageObjectListInvocationHandler(PageObjectProviderHelper.getGenericType(field),
-            new SelectorElementLocator(webDriver, selector), injector,
-            shouldCacheResults(field),
+            new SelectorElementLocator(webDriver, selector), injector, shouldCacheResults(field),
             framePath);
 
     ClassLoader classLoader = PageObjectProviderHelper.getGenericType(field).getClassLoader();
