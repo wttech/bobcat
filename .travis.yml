@@ -1,5 +1,13 @@
 language: java
 jdk:
   - oraclejdk8
+
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
+
+install: true
+
 sudo: false
 script: mvn clean verify -DskipTests

@@ -34,7 +34,6 @@ import javax.lang.model.SourceVersion;
 import javax.lang.model.element.ElementKind;
 import javax.tools.Diagnostic;
 
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -68,9 +67,9 @@ public class AnnotationProcessor extends AbstractProcessor {
   public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
 
     PageObjectTreeScanner scanner = new PageObjectTreeScanner(trees, treeMaker, processingEnv);
-    List<Element> applicableElements = roundEnv.getElementsAnnotatedWith(PageObject.class).stream()
+    Set<Element> applicableElements = roundEnv.getElementsAnnotatedWith(PageObject.class).stream()
             .filter(element -> element.getAnnotation(PageObject.class).generateCurrentScope())
-            .collect(Collectors.toList());
+            .collect(Collectors.toSet());
 
     applicableElements.stream()
             .filter(element -> element.getKind() == ElementKind.CLASS)
