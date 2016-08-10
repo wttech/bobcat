@@ -161,17 +161,17 @@ public class CurrentScopeHelperTest {
     verifyNoMoreInteractions(webElement);
   }
 
-  @PageObject
+  @PageObject(generateCurrentScope = false)
   private class PageObjectWithCurrentScope {
     @CurrentScope
-    private WebElement currentScope;
+    private WebElement webElement;
 
     public PageObjectWithCurrentScope(WebElement webElement) {
-      this.currentScope = webElement;
+      this.webElement = webElement;
     }
   }
 
-  @PageObject
+  @PageObject(generateCurrentScope = false)
   private class PageObjectWithoutCurrentScope {
     //empty
   }

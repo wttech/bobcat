@@ -34,8 +34,15 @@ import javax.lang.model.SourceVersion;
 import javax.lang.model.element.ElementKind;
 import javax.tools.Diagnostic;
 
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+/**
+ *
+ * This annotation processor is responsible for adding currentScope field to the {@link PageObject}-annotated classes.
+ * See the {@link PageObject} javadoc for more information.
+ */
 @SupportedAnnotationTypes(
         {"com.cognifide.qa.bb.qualifier.PageObject"}
 )
@@ -58,21 +65,23 @@ public class AnnotationProcessor extends AbstractProcessor {
   }
 
   @Override
-  public boolean process(
-          Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+  public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
 
     PageObjectTreeScanner scanner = new PageObjectTreeScanner(trees, treeMaker, processingEnv);
+    List<Element> applicableElements = roundEnv.getElementsAnnotatedWith(PageObject.class).stream()
+            .filter(element -> element.getAnnotation(PageObject.class).generateCurrentScope())
+            .collect(Collectors.toList());
 
-    for (final Element element : roundEnv.getElementsAnnotatedWith(PageObject.class)) {
-      if (element.getKind() == ElementKind.CLASS) {
-        final TreePath path = trees.getPath(element);
-        try {
-          scanner.scan(path, path.getCompilationUnit());
-        } catch (Exception ex) {
-          messager.printMessage(Diagnostic.Kind.ERROR, "Error occured while annotation processing", element);
-        }
-      }
-    }
+    applicableElements.stream()
+            .filter(element -> element.getKind() == ElementKind.CLASS)
+            .forEach(element -> {
+              TreePath path = trees.getPath(element);
+              try {
+                scanner.scan(path, path.getCompilationUnit());
+              } catch (Exception ex) {
+                messager.printMessage(Diagnostic.Kind.ERROR, "Error occured while annotation processing", element);
+              }
+            });
     return true;
   }
 }
