@@ -71,6 +71,14 @@ Bobcat accelerates test development, especially when it comes to AEM authoring. 
 - org.asserj
 - org.apache.jackrabbit
 
+## Developer setup guide
+
+To work with **Bobcat** the following tools are required:
+
+- JDK 8 (from _065)
+- Maven 3.0.4
+- Chrome Driver - if tests will be executed on chrome
+
 ## Roadmap
 
 - AEM Touch UI testing support,
