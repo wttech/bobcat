@@ -42,11 +42,11 @@ public @interface PageObject {
    *{@literal @}{@link com.cognifide.qa.bb.qualifier.CurrentScope}
    *{@literal @}{@link com.google.inject.Inject}
    * private {@link org.openqa.selenium.WebElement} currentScope;
-   * </pre> 
+   * </pre>
    * </code>
    *
    * When this is true, but field of name currentScope has been already defined this switch has no effect and
    * the field will not be generated.
    */
-  boolean generateCurrentScope() default false;
+  boolean generateCurrentScope() default true;
 }

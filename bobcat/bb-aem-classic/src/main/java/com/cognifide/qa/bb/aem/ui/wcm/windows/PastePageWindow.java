@@ -26,7 +26,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import com.cognifide.qa.bb.aem.expectedconditions.WindowActions;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
-import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
 

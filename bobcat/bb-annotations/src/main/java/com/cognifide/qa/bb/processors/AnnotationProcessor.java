@@ -68,11 +68,11 @@ public class AnnotationProcessor extends AbstractProcessor {
 
     PageObjectTreeScanner scanner = new PageObjectTreeScanner(trees, treeMaker, processingEnv);
     Set<Element> applicableElements = roundEnv.getElementsAnnotatedWith(PageObject.class).stream()
+            .filter(element -> element.getKind() == ElementKind.CLASS)
             .filter(element -> element.getAnnotation(PageObject.class).generateCurrentScope())
             .collect(Collectors.toSet());
 
     applicableElements.stream()
-            .filter(element -> element.getKind() == ElementKind.CLASS)
             .forEach(element -> {
               TreePath path = trees.getPath(element);
               try {
