@@ -26,6 +26,7 @@ import java.util.Optional;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 
+import com.cognifide.qa.bb.exceptions.BobcatRuntimeException;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.scope.ContextStack;
 import com.cognifide.qa.bb.scope.PageObjectContext;
@@ -33,6 +34,7 @@ import com.cognifide.qa.bb.scope.frame.FrameMap;
 import com.cognifide.qa.bb.scope.frame.FramePath;
 import com.cognifide.qa.bb.scope.nested.ScopedElementLocatorFactory;
 import com.cognifide.qa.bb.utils.AnnotationsHelper;
+import com.google.inject.ConfigurationException;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
@@ -84,6 +86,13 @@ public class ScopedPageObjectProvider implements FieldProvider {
     Object scopedPageObject = null;
     try {
       scopedPageObject = injector.getInstance(field.getType());
+    } catch (Exception e) {
+      if (e instanceof ConfigurationException) {
+        ConfigurationException ce = (ConfigurationException) e;
+        throw new BobcatRuntimeException(
+            "Configuration exception: " + ce.getErrorMessages().toString(), e);
+      }
+      throw new BobcatRuntimeException(e.getMessage(), e);
     } finally {
       contextStack.pop();
     }
