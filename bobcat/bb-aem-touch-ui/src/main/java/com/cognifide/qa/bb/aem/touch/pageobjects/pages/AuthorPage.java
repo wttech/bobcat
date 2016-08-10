@@ -28,7 +28,6 @@ import java.util.Objects;
 import javax.annotation.Nullable;
 
 import org.apache.commons.lang3.StringUtils;
-import org.omg.CORBA.TIMEOUT;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -122,22 +121,11 @@ public class AuthorPage {
    * @return true if page is loaded.
    */
   public boolean isLoaded() {
-    if (!pageLoadedCondition()) {
-      conditions.verify(new ExpectedCondition<Object>() {
-        @Nullable @Override public Object apply(WebDriver driver) {
-          LOG.debug("Retrying page open");
-          driver.navigate().refresh();
-          return pageLoadedCondition();
-        }
-      }, Timeouts.MEDIUM);
+    boolean isLoaded = isLoadedCondition();
+    if (!isLoaded) {
+      retryLoad();
     }
-    return pageLoadedCondition();
-  }
-
-  private boolean pageLoadedCondition() {
-    return conditions.isConditionMet(
-        not(ignored -> StringUtils
-            .contains(authoringOverlay.getAttribute(HtmlTags.Attributes.CLASS), IS_HIDDEN)));
+    return isLoaded;
   }
 
   /**
@@ -237,5 +225,21 @@ public class AuthorPage {
 
   private void verifyParsysRerendered(String parsys) {
     conditions.verifyPostAjax(object -> getParsys(parsys).isNotStale());
+  }
+
+  private void retryLoad() {
+    conditions.verify(new ExpectedCondition<Object>() {
+      @Nullable @Override public Object apply(WebDriver driver) {
+        LOG.debug("Retrying page open");
+        driver.navigate().refresh();
+        return isLoadedCondition();
+      }
+    }, Timeouts.MEDIUM);
+  }
+
+  private boolean isLoadedCondition() {
+    return conditions.isConditionMet(
+        not(ignored -> StringUtils
+            .contains(authoringOverlay.getAttribute(HtmlTags.Attributes.CLASS), IS_HIDDEN)));
   }
 }
