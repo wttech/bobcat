@@ -62,10 +62,9 @@ public enum WebDriverType {
   MARIONETTE {
     @Override
     public WebDriver create(Capabilities capabilities, Properties properties) {
-     // DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-     /// capabilities.setCapability("marionette", true);
+      DesiredCapabilities caps = DesiredCapabilities.firefox();
+      caps.setCapability("marionette", true);
       return new FirefoxDriver(capabilities);
-      //return new MarionetteDriver();
     }
   },
   CHROME {

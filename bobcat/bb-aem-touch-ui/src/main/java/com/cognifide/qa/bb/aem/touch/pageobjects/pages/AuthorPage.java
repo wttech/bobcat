@@ -215,7 +215,7 @@ public class AuthorPage {
     while (getParsys(parsys).isComponentPresent(componentName)) {
       deleteComponent(parsys, componentName);
     }
-}
+  }
 
   private void verifyParsysRerendered(String parsys) {
     conditions.verifyPostAjax(object -> getParsys(parsys).isNotStale());
