@@ -21,11 +21,13 @@ package com.cognifide.qa.bobcumber.aem.login;
 
 import org.junit.runner.RunWith;
 
-import com.cognifide.qa.bb.cumber.BobcumberWithFailedRecorder;
+import com.cognifide.qa.bb.cumber.Bobcumber;
+import com.cognifide.qa.bb.cumber.StoreFailedResults;
 
 import cucumber.api.CucumberOptions;
 
-@RunWith(BobcumberWithFailedRecorder.class)
+@RunWith(Bobcumber.class)
+@StoreFailedResults("target/failedTests.properties")
 @CucumberOptions(
     features = "src/test/resources/",
     plugin = {"pretty", "html:target/cucumber-html-report/aem-login",

@@ -22,12 +22,14 @@ package com.cognifide.qa.bobcumber;
 import org.junit.runner.RunWith;
 
 import com.cognifide.qa.bb.cumber.Bobcumber;
+import com.cognifide.qa.bb.cumber.StoreFailedResults;
 
 import cucumber.api.CucumberOptions;
 
 @RunWith(Bobcumber.class)
+@StoreFailedResults("target/rerunResults.properties")
 @CucumberOptions(
-    features = {"@target/rerun.properties"},
+    features = {"@target/failedTests.properties"},
     plugin = {"pretty", "html:target/cucumber-html-report/rerun",
         "json:target/rerun.json"},
     glue = "com.cognifide.qa"

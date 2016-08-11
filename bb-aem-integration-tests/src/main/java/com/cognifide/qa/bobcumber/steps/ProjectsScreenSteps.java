@@ -19,6 +19,7 @@
  */
 package com.cognifide.qa.bobcumber.steps;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import com.cognifide.bdd.demo.po.login.ProjectsScreen;
@@ -37,7 +38,7 @@ public class ProjectsScreenSteps {
 
   @Given("^I am not logged in$")
   public void iAmNotLoggedIn() {
-    assertTrue(projectsScreen.projectScreenIsNotDisplayed());
+    assertFalse(projectsScreen.projectScreenIsNotDisplayed());
   }
 
   @When("^I press logout button$")
