@@ -228,6 +228,12 @@
             </properties>
         </profile>
         <profile>
+            <id>aem61-integration-marionette</id>
+            <properties>
+                <configuration.paths>${c}/common;${c}/marionette;${c}/aem61-integration</configuration.paths>
+            </properties>
+        </profile>
+        <profile>
             <id>aem61-integration-ie</id>
             <properties>
                 <configuration.paths>${c}/common;${c}/ie;${c}/aem61-integration</configuration.paths>

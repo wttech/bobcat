@@ -25,11 +25,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import javax.annotation.Nullable;
+
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,6 +45,7 @@ import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.Parsys;
 import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.cognifide.qa.bb.aem.touch.util.DataPathUtil;
 import com.cognifide.qa.bb.constants.HtmlTags;
+import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.frame.FrameSwitcher;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.utils.PageObjectInjector;
@@ -118,9 +122,11 @@ public class AuthorPage {
    * @return true if page is loaded.
    */
   public boolean isLoaded() {
-    return conditions.isConditionMet(
-            not(ignored -> StringUtils
-                    .contains(authoringOverlay.getAttribute(HtmlTags.Attributes.CLASS), IS_HIDDEN)));
+    boolean isLoaded = isLoadedCondition();
+    if (!isLoaded) {
+      retryLoad();
+    }
+    return isLoaded;
   }
 
   /**
@@ -220,5 +226,21 @@ public class AuthorPage {
 
   private void verifyParsysRerendered(String parsys) {
     conditions.verifyPostAjax(object -> getParsys(parsys).isNotStale());
+  }
+
+  private void retryLoad() {
+    conditions.verify(new ExpectedCondition<Object>() {
+      @Nullable @Override public Object apply(WebDriver driver) {
+        LOG.debug("Retrying page open");
+        driver.navigate().refresh();
+        return isLoadedCondition();
+      }
+    }, Timeouts.MEDIUM);
+  }
+
+  private boolean isLoadedCondition() {
+    return conditions.isConditionMet(
+        not(ignored -> StringUtils
+            .contains(authoringOverlay.getAttribute(HtmlTags.Attributes.CLASS), IS_HIDDEN)));
   }
 }
