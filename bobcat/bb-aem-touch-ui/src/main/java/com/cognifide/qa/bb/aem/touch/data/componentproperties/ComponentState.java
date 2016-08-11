@@ -21,14 +21,14 @@ package com.cognifide.qa.bb.aem.touch.data.componentproperties;
 
 import static java.util.stream.Collectors.toMap;
 
-import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfiguration;
-import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldConfig;
-import com.cognifide.qa.bb.aem.touch.data.componentconfigs.TabConfig;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.AbstractMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.HashMap;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,8 +36,8 @@ import org.slf4j.LoggerFactory;
 import com.cognifide.qa.bb.aem.touch.data.components.Components;
 import com.google.common.collect.Maps;
 import com.google.inject.Inject;
-import java.util.HashMap;
-import java.util.List;
+import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfiguration;
+import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldConfig;
 
 /**
  * This class represents state of component
@@ -64,8 +64,8 @@ public class ComponentState {
           actual.put(annotation.value(), String.valueOf(method.invoke(object)));
         } catch (IllegalAccessException | InvocationTargetException e) {
           LOG.error(
-                  String.format("Could not invoke the %s method in %s component", method.getName(),
-                          object.getClass().getName()), e);
+              String.format("Could not invoke the %s method in %s component", method.getName(),
+                object.getClass().getName()), e);
         }
       }
     }
@@ -89,13 +89,13 @@ public class ComponentState {
             .forEach((tab) -> {
               List<FieldConfig> fieldConfigs = config.getConfigurationForTab(tab.getTabName());
               result.putAll(fieldConfigs.stream()
-                      .filter(fieldConfig -> fieldConfig.getValue() instanceof String)
-                      .map(fieldConfig -> new AbstractMap.SimpleEntry<>(
-                                      toProperty(tab.getTabName(), fieldConfig.getLabel()),
-                                      translateValue(componentName, fieldConfig.getValue()))) //
-                      .collect(toMap( //
-                                      Map.Entry::getKey, //
-                                      Map.Entry::getValue)));
+                .filter(fieldConfig -> fieldConfig.getValue() instanceof String)
+                .map(fieldConfig -> new AbstractMap.SimpleEntry<>(
+                  toProperty(tab.getTabName(), fieldConfig.getLabel()),
+                  translateValue(componentName, fieldConfig.getValue()))) //
+                .collect(toMap( //
+                  Map.Entry::getKey, //
+                  Map.Entry::getValue)));
             });
     return result;
 
@@ -104,12 +104,12 @@ public class ComponentState {
 
   private String toProperty(String tab, String label) {
     return String
-            .format("%s:%s", tab.toLowerCase().replace(" ", "-"),
-                    label.toLowerCase().replace(" ", "-"));
+        .format("%s:%s", tab.toLowerCase().replace(" ", "-"),
+            label.toLowerCase().replace(" ", "-"));
   }
 
   private String translateValue(String component, Object rawValue) {
     return Optional.ofNullable(components.getVariantValue(component, String.valueOf(rawValue)))
-            .orElseGet(() -> String.valueOf(rawValue));
+        .orElseGet(() -> String.valueOf(rawValue));
   }
 }
