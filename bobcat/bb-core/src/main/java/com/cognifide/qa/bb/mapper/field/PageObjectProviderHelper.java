@@ -61,6 +61,7 @@ public class PageObjectProviderHelper {
 
   /**
    * Gets generic type from field (if field type is {@link ParameterizedType})
+   * 
    * @param field
    * @return
    */
@@ -76,22 +77,19 @@ public class PageObjectProviderHelper {
   }
 
   private static By retrieveSelectorFromPageObject(Field field, boolean useGeneric) {
-    By toReturn = null;
     String cssValue = useGeneric
         ? PageObjectProviderHelper.getGenericType(field).getAnnotation(PageObject.class).css()
         : field.getType().getAnnotation(PageObject.class).css();
+    if (StringUtils.isNotEmpty(cssValue)) {
+      return By.cssSelector(cssValue);
+    }
     String xpathValue = useGeneric
         ? PageObjectProviderHelper.getGenericType(field).getAnnotation(PageObject.class).xpath()
         : field.getType().getAnnotation(PageObject.class).xpath();
-    if (StringUtils.isNotEmpty(cssValue)) {
-      toReturn = By.cssSelector(cssValue);
-    } else if (StringUtils.isNoneEmpty(xpathValue)) {
-      toReturn = By.xpath(xpathValue);
+    if (StringUtils.isNotEmpty(xpathValue)) {
+      return By.xpath(xpathValue);
     }
-    if (toReturn == null) {
-      throw new IllegalArgumentException(
-          "PageObject has to have defined selector when used with FindPageObject annotation");
-    }
-    return toReturn;
+    throw new IllegalArgumentException(
+        "PageObject has to have defined selector when used with FindPageObject annotation");
   }
 }
