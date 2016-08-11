@@ -56,10 +56,10 @@ limitations under the License.
     </modules>
 
     <scm>
-        <connection>scm:git:git@github.com:cogbobcat/bobcat.git</connection>
-        <developerConnection>scm:git:git@github.com:cogbobcat/bobcat.git</developerConnection>
+        <connection>scm:git:git@github.com:Cognifide/bobcat.git</connection>
+        <developerConnection>scm:git:git@github.com:Cognifide/bobcat.git</developerConnection>
         <tag>HEAD</tag>
-        <url>https://github.com/cogbobcat/bobcat</url>
+        <url>https://github.com/Cognifide/bobcat</url>
     </scm>
 
     <distributionManagement>
