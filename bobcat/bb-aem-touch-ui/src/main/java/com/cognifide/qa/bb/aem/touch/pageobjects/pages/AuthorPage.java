@@ -184,7 +184,7 @@ public class AuthorPage {
    */
   public ComponentConfiguration configureComponent(String parsys, String componentName,
           String configName) {
-    ComponentConfiguration data = componentConfigs.getConfigs(componentName).get(configName);
+    ComponentConfiguration data = componentConfigs.getConfigs(componentName).get(configName.toLowerCase());
     if (data == null) {
       throw new IllegalArgumentException("Config does not exist: " + configName);
     }
