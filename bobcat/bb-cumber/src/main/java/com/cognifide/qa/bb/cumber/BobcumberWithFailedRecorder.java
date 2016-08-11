@@ -48,6 +48,8 @@ public class BobcumberWithFailedRecorder extends Bobcumber {
 
   private static final String COLON = ":";
 
+  private File file;
+
   /**
    * Constructor called by JUnit.
    *
@@ -57,6 +59,11 @@ public class BobcumberWithFailedRecorder extends Bobcumber {
    */
   public BobcumberWithFailedRecorder(Class<?> clazz) throws InitializationError, IOException {
     super(clazz);
+    file = new File(FILE_NAME);
+    if (!file.exists()) {
+      PrintWriter writer = new PrintWriter(file, CharEncoding.UTF_8);
+      writer.close();
+    }
   }
 
   @Override
@@ -84,12 +91,6 @@ public class BobcumberWithFailedRecorder extends Bobcumber {
       ADDED_FEATURES.put(featureName, featureFailedLines);
     } else {
       ADDED_FEATURES.put(featureName, Sets.newHashSet(failedLineNumber));
-    }
-
-    File file = new File(FILE_NAME);
-    if (!file.exists()) {
-      PrintWriter writer = new PrintWriter(file, CharEncoding.UTF_8);
-      writer.close();
     }
 
     PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file, false)));
