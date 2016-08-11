@@ -94,6 +94,6 @@ public class AemTitleTest {
     TitleComponent component =
         (TitleComponent) page.getContent(components.getClazz(COMPONENT_NAME));
     assertThat(component.getTitle(), is(
-            data.get(COMPONENT_NAME).get(0).getValue().toString().toUpperCase()));
+        data.get(COMPONENT_NAME).get(0).getValue().toString().toUpperCase()));
   }
 }
