@@ -42,11 +42,8 @@ import com.google.inject.Inject;
 /**
  * Class representing page component.
  */
-@PageObject
+@PageObject(css = ".cq-Overlay--component:not(.cq-Overlay--container):not(.is-disabled)")
 public class Component {
-
-  public static final String CSS = //
-          ".cq-Overlay--component:not(.cq-Overlay--container):not(.is-disabled)";
 
   @Inject
   private Conditions conditions;

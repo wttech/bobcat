@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
+import com.cognifide.qa.bb.qualifier.FindPageObject;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
@@ -61,7 +62,7 @@ public class Parsys {
   @FindBy(css = ".cq-Overlay--placeholder[data-text='Drag components here']")
   private WebElement dropArea;
 
-  @FindBy(css = Component.CSS)
+  @FindPageObject
   private List<Component> componentList;
 
   @Global
