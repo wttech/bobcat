@@ -24,6 +24,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.not;
 import static org.openqa.selenium.support.ui.ExpectedConditions.stalenessOf;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
+import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfiguration;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
@@ -152,7 +153,7 @@ public class Parsys {
    * @param componentName name of the component.
    * @param data          map of configuration parameters for the component.
    */
-  public void configureComponent(String componentName, Map<String, List<FieldConfig>> data) {
+  public void configureComponent(String componentName, ComponentConfiguration data) {
     getComponent(componentName).configure(data);
   }
 

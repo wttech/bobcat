@@ -19,12 +19,10 @@
  */
 package com.cognifide.qa.bb.aem.touch.util.context;
 
-import java.util.List;
-import java.util.Map;
+import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfiguration;
 import javax.inject.Inject;
 
 import com.cognifide.qa.bb.scenario.ScenarioContext;
-import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldConfig;
 import com.cognifide.qa.bb.aem.touch.pageobjects.pages.AuthorPage;
 import com.cognifide.qa.bb.aem.touch.pageobjects.pages.PublishPage;
 
@@ -94,7 +92,7 @@ public class Context {
    *
    * @param data configuration map.
    */
-  public void updateCurrentConfig(Map<String, List<FieldConfig>> data) {
+  public void updateCurrentConfig(ComponentConfiguration data) {
     scenarioContext.add(ContextKeys.CURRENT_CONFIG, data);
   }
 
@@ -102,7 +100,7 @@ public class Context {
    * @return contexts current configuration map.
    */
   @SuppressWarnings("unchecked")
-  public Map<String, List<FieldConfig>> getCurrentConfig() {
+  public ComponentConfiguration getCurrentConfig() {
     return scenarioContext.get(ContextKeys.CURRENT_CONFIG);
   }
 
