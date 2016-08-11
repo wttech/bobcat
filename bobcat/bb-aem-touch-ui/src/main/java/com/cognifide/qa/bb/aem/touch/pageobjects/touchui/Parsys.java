@@ -47,10 +47,8 @@ import com.google.inject.Inject;
 /**
  * Class represents web page parsys.
  */
-@PageObject
+@PageObject(css = ".cq-Overlay.cq-Overlay--component.cq-Overlay--container")
 public class Parsys {
-
-  public static final String CSS = ".cq-Overlay.cq-Overlay--component.cq-Overlay--container";
 
   private static final String IS_SELECTED = "is-selected";
 

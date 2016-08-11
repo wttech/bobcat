@@ -35,8 +35,6 @@ import com.google.inject.Inject;
 @PageObject(css = "div.x-grid3-row")
 public class SiteAdminGridRow {
 
-  public static final String CSS = "div.x-grid3-row";
-
   private static final String CELL = "div.x-grid3-col-";
 
   @Inject

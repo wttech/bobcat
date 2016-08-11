@@ -30,10 +30,8 @@ import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
 
-@PageObject
+@PageObject(css = "div.x-window.x-window-plain.x-window-dlg")
 public class SiteAdminConfirmationWindow implements DecisionWindow {
-
-  public static final String CSS = "div.x-window.x-window-plain.x-window-dlg";
 
   @Inject
   private BobcatWait bobcatWait;

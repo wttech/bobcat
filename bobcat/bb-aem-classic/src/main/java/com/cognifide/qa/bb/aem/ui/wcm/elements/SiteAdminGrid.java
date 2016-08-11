@@ -74,14 +74,14 @@ public class SiteAdminGrid {
   @Named(ConfigKeys.WEBDRIVER_DEFAULT_TIMEOUT)
   private int defaultTimeout;
 
-  @FindBy(css = SiteAdminGridRow.CSS)
+  @FindPageObject
   private List<SiteAdminGridRow> gridRows;
 
   @FindPageObject
   private SiteAdminActionBar actionBar;
 
   @Global
-  @FindBy(css = SiteAdminConfirmationWindow.CSS)
+  @FindPageObject
   private SiteAdminConfirmationWindow siteAdminConfirmationWindow;
 
   @Global

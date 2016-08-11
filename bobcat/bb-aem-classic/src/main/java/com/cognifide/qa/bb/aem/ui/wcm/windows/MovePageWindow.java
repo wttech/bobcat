@@ -19,6 +19,7 @@
  */
 package com.cognifide.qa.bb.aem.ui.wcm.windows;
 
+import com.cognifide.qa.bb.qualifier.FindPageObject;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -62,7 +63,7 @@ public class MovePageWindow implements DecisionWindow {
   private WebElement cancelButton;
 
   @Global
-  @FindBy(css = SiteAdminConfirmationWindow.CSS)
+  @FindPageObject
   private SiteAdminConfirmationWindow siteAdminConfirmationWindow;
 
   /**

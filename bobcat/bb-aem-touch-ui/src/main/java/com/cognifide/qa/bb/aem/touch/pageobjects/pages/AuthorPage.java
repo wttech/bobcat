@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import com.cognifide.qa.bb.qualifier.FindPageObject;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -90,7 +91,7 @@ public class AuthorPage {
   @Inject
   private GlobalBar globalBar;
 
-  @FindBy(css = Parsys.CSS)
+  @FindPageObject
   private List<Parsys> parsyses;
 
   @FindBy(css = "#OverlayWrapper")

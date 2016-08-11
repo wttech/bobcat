@@ -86,7 +86,7 @@ public class SiteAdminPage {
   @FindPageObject
   private CreatePageWindow createPageWindow;
 
-  @FindBy(css = SiteAdminConfirmationWindow.CSS)
+  @FindPageObject
   private SiteAdminConfirmationWindow siteAdminConfirmationWindow;
 
   @FindBy(css = MovePageWindow.CSS)
