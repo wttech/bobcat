@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   #%L
-  Bobcat Parent
+  Bobcat
   %%
   Copyright (C) 2016 Cognifide Ltd.
   %%
@@ -29,7 +29,7 @@ limitations under the License.
 
     <artifactId>bb-annotations</artifactId>
 
-    <name>Bobcat Annotation Processors</name>
+    <name>Bobcat Annotations</name>
 
     <dependencies>
         <dependency>
