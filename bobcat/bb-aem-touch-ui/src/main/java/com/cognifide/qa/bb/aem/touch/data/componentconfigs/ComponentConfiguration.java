@@ -19,6 +19,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
+
+/**
+ * This class is responsible for keeping configuration for component. The configuration is divided by Tabs
+ * from the configuration dialog window.
+ */
 public class ComponentConfiguration {
 
   private final List<TabConfig> data;
@@ -33,7 +39,10 @@ public class ComponentConfiguration {
    * @return Lists of defined FieldConfigs under the selected tab
    */
   public List<FieldConfig> getConfigurationForTab(String tab) {
-    return data.stream().filter(t -> t.getTabName().equals(tab)).findFirst().get().getData();
+    return data.stream().filter(t -> StringUtils.equals(t.getTabName(), tab))
+            .findFirst()
+            .orElseThrow(() -> new IllegalArgumentException("No configuration found for provided tab"))
+            .getData();
   }
 
   /**
@@ -46,9 +55,9 @@ public class ComponentConfiguration {
    */
   public FieldConfig getFieldConfigByLabel(String tabName, String configurationKey, String label) {
     return getConfigurationForTab(tabName).stream()
-            .filter(t -> t.getLabel().equals(label))
+            .filter(t -> StringUtils.equals(t.getLabel(), label))
             .findFirst()
-            .orElse(null);
+            .orElseThrow(() -> new IllegalArgumentException("No field config found for provided data"));
   }
 
   /**
@@ -60,7 +69,7 @@ public class ComponentConfiguration {
    */
   public List<FieldConfig> getFieldConfigsByType(String tabName, String configurationKey, String type) {
     return getConfigurationForTab(tabName).stream()
-            .filter(t -> t.getType().equals(type))
+            .filter(t -> StringUtils.equals(t.getType(), type))
             .collect(Collectors.toList());
   }
 
