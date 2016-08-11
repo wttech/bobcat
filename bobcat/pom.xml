@@ -50,6 +50,7 @@ limitations under the License.
         <module>bb-aem-common</module>
         <module>bb-aem-classic</module>
         <module>bb-aem-touch-ui</module>
+        <module>bb-annotations</module>
     </modules>
 
     <distributionManagement>

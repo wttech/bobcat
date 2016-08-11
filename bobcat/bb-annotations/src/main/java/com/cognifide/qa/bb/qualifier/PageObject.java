@@ -33,4 +33,20 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE})
 public @interface PageObject {
 
+  /**
+   * This indicates whether classes annotated with this annotation should or should not generate currentScope
+   * web element. When it's true it declares the following field:
+   *
+   * <code>
+   * <pre>
+   *{@literal @}{@link com.cognifide.qa.bb.qualifier.CurrentScope}
+   *{@literal @}{@link com.google.inject.Inject}
+   * private {@link org.openqa.selenium.WebElement} currentScope;
+   * </pre>
+   * </code>
+   *
+   * When this is true, but field of name currentScope has been already defined this switch has no effect and
+   * the field will not be generated.
+   */
+  boolean generateCurrentScope() default true;
 }

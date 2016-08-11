@@ -107,6 +107,7 @@ limitations under the License.
                             <exclude>**/*.yml</exclude>
                             <exclude>**/*.yaml</exclude>
                             <exclude>**/*.properties</exclude>
+                            <exclude>**/*.Processor</exclude>
                         </excludes>
                     </configuration>
                 </plugin>
