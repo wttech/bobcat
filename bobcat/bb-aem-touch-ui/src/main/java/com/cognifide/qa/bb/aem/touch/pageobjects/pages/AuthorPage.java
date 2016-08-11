@@ -34,6 +34,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfigs;
+import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfiguration;
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldConfig;
 import com.cognifide.qa.bb.aem.touch.data.components.Components;
 import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.GlobalBar;
@@ -118,12 +119,13 @@ public class AuthorPage {
    */
   public boolean isLoaded() {
     return conditions.isConditionMet(
-        not(ignored -> StringUtils
-            .contains(authoringOverlay.getAttribute(HtmlTags.Attributes.CLASS), IS_HIDDEN)));
+            not(ignored -> StringUtils
+                    .contains(authoringOverlay.getAttribute(HtmlTags.Attributes.CLASS), IS_HIDDEN)));
   }
 
   /**
-   * Looks for parsys by data path. If parsys is not found then throws runtime exception {@link IllegalStateException}.
+   * Looks for parsys by data path. If parsys is not found then throws runtime exception
+   * {@link IllegalStateException}.
    *
    * @param dataPath data path of parsys.
    * @return Parsys object.
@@ -131,9 +133,9 @@ public class AuthorPage {
   public Parsys getParsys(String dataPath) {
     String componentDataPath = DataPathUtil.normalize(dataPath);
     return parsyses.stream() //
-        .filter(parsys -> StringUtils.contains(parsys.getDataPath(), componentDataPath)) //
-        .findFirst() //
-        .orElseThrow(() -> new IllegalStateException("Parsys not found"));
+            .filter(parsys -> StringUtils.contains(parsys.getDataPath(), componentDataPath)) //
+            .findFirst() //
+            .orElseThrow(() -> new IllegalStateException("Parsys not found"));
   }
 
   /**
@@ -157,14 +159,14 @@ public class AuthorPage {
     }
     frameSwitcher.switchBack();
     return scope == null
-        ? pageObjectInjector.inject(component, CONTENT_FRAME)
-        : pageObjectInjector.inject(component, scope, CONTENT_FRAME);
+            ? pageObjectInjector.inject(component, CONTENT_FRAME)
+            : pageObjectInjector.inject(component, scope, CONTENT_FRAME);
   }
 
   /**
    * Adds component of given name to parsys of given name on the page. Verifies if parsys is rendered.
    *
-   * @param parsys        name of parsys on the page.
+   * @param parsys name of parsys on the page.
    * @param componentName name of component.
    */
   public void addComponent(String parsys, String componentName) {
@@ -175,15 +177,14 @@ public class AuthorPage {
   /**
    * Configures component in parsys with specific configuration. Verifies if parsys is rendered.
    *
-   * @param parsys        parsys name.
+   * @param parsys parsys name.
    * @param componentName component name.
-   * @param configName    configuration name.
+   * @param configName configuration name.
    * @return Map with component configuration.
    */
-  public Map<String, List<FieldConfig>> configureComponent(String parsys, String componentName,
-      String configName) {
-    Map<String, List<FieldConfig>> data =
-        componentConfigs.getConfigs(componentName).get(configName.toLowerCase());
+  public ComponentConfiguration configureComponent(String parsys, String componentName,
+          String configName) {
+    ComponentConfiguration data = componentConfigs.getConfigs(componentName).get(configName.toLowerCase());
     if (data == null) {
       throw new IllegalArgumentException("Config does not exist: " + configName);
     }
@@ -195,7 +196,7 @@ public class AuthorPage {
   /**
    * Deletes component from parsys. Verifies if parsys is rendered.
    *
-   * @param parsys        parsys name.
+   * @param parsys parsys name.
    * @param componentName component name.
    */
   public void deleteComponent(String parsys, String componentName) {
@@ -207,7 +208,7 @@ public class AuthorPage {
   /**
    * Remove all components with name.
    *
-   * @param parsys        parsys name
+   * @param parsys parsys name
    * @param componentName name of the component
    */
   public void clearParsys(String parsys, String componentName) {
@@ -215,7 +216,7 @@ public class AuthorPage {
     while (getParsys(parsys).isComponentPresent(componentName)) {
       deleteComponent(parsys, componentName);
     }
-}
+  }
 
   private void verifyParsysRerendered(String parsys) {
     conditions.verifyPostAjax(object -> getParsys(parsys).isNotStale());

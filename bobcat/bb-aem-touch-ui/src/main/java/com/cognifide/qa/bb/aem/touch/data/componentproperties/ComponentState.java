@@ -21,25 +21,28 @@ package com.cognifide.qa.bb.aem.touch.data.componentproperties;
 
 import static java.util.stream.Collectors.toMap;
 
+import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfiguration;
+import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldConfig;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.AbstractMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldConfig;
 import com.cognifide.qa.bb.aem.touch.data.components.Components;
 import com.google.common.collect.Maps;
 import com.google.inject.Inject;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * This class represents state of component
  */
 public class ComponentState {
+
   private static final Logger LOG = LoggerFactory.getLogger(ComponentState.class);
 
   @Inject
@@ -60,8 +63,8 @@ public class ComponentState {
           actual.put(annotation.value(), String.valueOf(method.invoke(object)));
         } catch (IllegalAccessException | InvocationTargetException e) {
           LOG.error(
-              String.format("Could not invoke the %s method in %s component", method.getName(),
-                  object.getClass().getName()), e);
+                  String.format("Could not invoke the %s method in %s component", method.getName(),
+                          object.getClass().getName()), e);
         }
       }
     }
@@ -70,34 +73,42 @@ public class ComponentState {
 
   /**
    * Translates provided configuration to a map containing expected values in form of:
-   * <code>tab:label -&gt; value</code>
-   * Filters out all complex fields e.g. Multifield
+   * <code>tab:label -&gt; value</code> Filters out all complex fields e.g. Multifield
    *
-   * @param config        component configuration map
+   * @param config component configuration map
    * @param componentName name of the component
    * @return map of the expected state
    */
-  public Map<String, String> getExpected(Map<String, List<FieldConfig>> config,
-      String componentName) {
-    return config.entrySet().stream() //
-        .flatMap(entry -> entry.getValue().stream() //
-            .filter(fieldConfig -> fieldConfig.getValue() instanceof String)
-            .map(fieldConfig -> new AbstractMap.SimpleEntry<>(
-                toProperty(entry.getKey(), fieldConfig.getLabel()),
-                translateValue(componentName, fieldConfig.getValue())))) //
-        .collect(toMap( //
-            Map.Entry::getKey, //
-            Map.Entry::getValue));
+  public Map<String, String> getExpected(ComponentConfiguration config,
+          String componentName) {
+
+    final Map<String, String> result = new HashMap<>();
+
+    config.getTabs().stream()
+            .forEach((tabName) -> {
+              List<FieldConfig> fieldConfigs = config.getConfigurationForTab(tabName);
+              result.putAll(fieldConfigs.stream()
+                      .filter(fieldConfig -> fieldConfig.getValue() instanceof String)
+                      .map(fieldConfig -> new AbstractMap.SimpleEntry<>(
+                                      toProperty(tabName, fieldConfig.getLabel()),
+                                      translateValue(componentName, fieldConfig.getValue()))) //
+                      .collect(toMap( //
+                                      Map.Entry::getKey, //
+                                      Map.Entry::getValue)));
+            });
+    return result;
+
+
   }
 
   private String toProperty(String tab, String label) {
     return String
-        .format("%s:%s", tab.toLowerCase().replace(" ", "-"),
-            label.toLowerCase().replace(" ", "-"));
+            .format("%s:%s", tab.toLowerCase().replace(" ", "-"),
+                    label.toLowerCase().replace(" ", "-"));
   }
 
   private String translateValue(String component, Object rawValue) {
     return Optional.ofNullable(components.getVariantValue(component, String.valueOf(rawValue)))
-        .orElseGet(() -> String.valueOf(rawValue));
+            .orElseGet(() -> String.valueOf(rawValue));
   }
 }

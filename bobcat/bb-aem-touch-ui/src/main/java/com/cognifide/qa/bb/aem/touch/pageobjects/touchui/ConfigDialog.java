@@ -23,6 +23,7 @@ import static org.apache.commons.lang3.StringUtils.containsIgnoreCase;
 import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
+import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfiguration;
 import java.util.List;
 import java.util.Map;
 
@@ -93,7 +94,7 @@ public class ConfigDialog {
     verifyFullscreen();
   }
 
-  public void configureWith(Map<String, List<FieldConfig>> config) {
+  public void configureWith(ComponentConfiguration config) {
     verifyIsDisplayed();
     configure(config);
     confirm();
@@ -109,11 +110,11 @@ public class ConfigDialog {
     }
   }
 
-  private void configure(Map<String, List<FieldConfig>> config) {
-    config.entrySet().stream() //
+  private void configure(ComponentConfiguration config) {
+    config.getTabs().stream() //
         .forEach(tabConfig -> {
-          switchTab(tabConfig.getKey());
-          setFields(tabConfig.getValue());
+          switchTab(tabConfig);
+          setFields(config.getConfigurationForTab(tabConfig));
         });
   }
 

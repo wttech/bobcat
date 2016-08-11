@@ -35,6 +35,7 @@ import org.junit.runner.RunWith;
 import com.cognifide.bdd.demo.GuiceModule;
 import com.cognifide.bdd.demo.po.touchui.TitleComponent;
 import com.cognifide.qa.bb.aem.AemLogin;
+import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfiguration;
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldConfig;
 import com.cognifide.qa.bb.aem.touch.data.components.Components;
 import com.cognifide.qa.bb.aem.touch.data.pages.Pages;
@@ -89,11 +90,11 @@ public class AemTitleTest {
 
   @Test
   public void editTitleComponentTest() {
-    Map<String, List<FieldConfig>> data = page.configureComponent(parsys,
+    ComponentConfiguration data = page.configureComponent(parsys,
         COMPONENT_NAME, COMPONENT_NAME.toLowerCase());
     TitleComponent component =
         (TitleComponent) page.getContent(components.getClazz(COMPONENT_NAME));
     assertThat(component.getTitle(), is(
-            data.get(COMPONENT_NAME).get(0).getValue().toString().toUpperCase()));
+            data.getConfigurationForTab(COMPONENT_NAME).get(0).getValue().toString().toUpperCase()));
   }
 }

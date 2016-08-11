@@ -19,11 +19,13 @@
  */
 package com.cognifide.qa.bb.aem.touch.data.componentconfigs;
 
-import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.cognifide.qa.bb.aem.touch.util.YamlReader;
+import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This class reads component configuration from yaml configuration files
@@ -38,10 +40,13 @@ public class ComponentConfigs {
      * @param component component name
      * @return map of components fields configuration
      */
-  public Map<String, Map<String, List<FieldConfig>>> getConfigs(String component) {
+  public Map<String, ComponentConfiguration> getConfigs(String component) {
     TypeReference typeReference = new TypeReference<Map<String, Map<String, List<FieldConfig>>>>() {
     };
     String path = CFG_PATH + component.toLowerCase().replace(" ", "-");
-    return YamlReader.read(path, typeReference);
+    Map<String, Map<String, List<FieldConfig>>> configsData = new HashMap(YamlReader.read(path, typeReference));
+
+    return configsData.entrySet().stream()
+            .collect(Collectors.toMap(t -> t.getKey(), t -> new ComponentConfiguration(t.getValue())));
   }
 }
