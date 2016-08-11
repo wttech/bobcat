@@ -15,31 +15,37 @@
  */
 package com.cognifide.qa.bb.aem.touch.data.componentconfigs;
 
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ComponentConfiguration {
 
-  private final Map<String, List<FieldConfig>> data;
+  private final List<TabConfig> data;
 
-  public ComponentConfiguration(Map<String, List<FieldConfig>> data) {
+  public ComponentConfiguration(List<TabConfig> data) {
     this.data = data;
   }
 
+  /**
+   *
+   * @param tab Name of tab in the dialog window
+   * @return Lists of defined FieldConfigs under the selected tab
+   */
   public List<FieldConfig> getConfigurationForTab(String tab) {
-    return data.get(tab);
+    return data.stream().filter(t -> t.getTabName().equals(tab)).findFirst().get().getData();
   }
 
   /**
    * Returns first {@link FieldConfig} with provided label
+   *
+   * @param tabName Tab name in the dialog window
    * @param configurationKey key of yaml component configuration
    * @param label field label
    * @return
    */
-  public FieldConfig getFieldConfigByLabel(String configurationKey, String label) {
-    return data.get(configurationKey).stream()
+  public FieldConfig getFieldConfigByLabel(String tabName, String configurationKey, String label) {
+    return getConfigurationForTab(tabName).stream()
             .filter(t -> t.getLabel().equals(label))
             .findFirst()
             .orElse(null);
@@ -47,22 +53,23 @@ public class ComponentConfiguration {
 
   /**
    *
+   * @param tabName Tab name in the dialog window
    * @param configurationKey onfigurationKey key of yaml configuration
    * @param type field type provided in yaml component configuration
    * @return
    */
-  public List<FieldConfig> getFieldConfigsByType(String configurationKey, String type) {
-    return data.get(configurationKey).stream()
+  public List<FieldConfig> getFieldConfigsByType(String tabName, String configurationKey, String type) {
+    return getConfigurationForTab(tabName).stream()
             .filter(t -> t.getType().equals(type))
             .collect(Collectors.toList());
   }
 
   /**
    *
-   * @return Tab names described in this documentation
+   * @return Tabs described in the configuration
    */
-  public Set<String> getTabs() {
-    return data.keySet();
+  public List<TabConfig> getTabs() {
+    return Collections.unmodifiableList(data);
   }
 
 }

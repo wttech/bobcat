@@ -25,7 +25,6 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
 
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfiguration;
 import java.util.List;
-import java.util.Map;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -112,9 +111,9 @@ public class ConfigDialog {
 
   private void configure(ComponentConfiguration config) {
     config.getTabs().stream() //
-        .forEach(tabConfig -> {
-          switchTab(tabConfig);
-          setFields(config.getConfigurationForTab(tabConfig));
+        .forEach(tab -> {
+          switchTab(tab.getTabName());
+          setFields(config.getConfigurationForTab(tab.getTabName()));
         });
   }
 

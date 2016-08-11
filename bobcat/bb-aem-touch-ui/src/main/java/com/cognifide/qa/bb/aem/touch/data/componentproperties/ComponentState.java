@@ -23,6 +23,7 @@ import static java.util.stream.Collectors.toMap;
 
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfiguration;
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldConfig;
+import com.cognifide.qa.bb.aem.touch.data.componentconfigs.TabConfig;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.AbstractMap;
@@ -85,12 +86,12 @@ public class ComponentState {
     final Map<String, String> result = new HashMap<>();
 
     config.getTabs().stream()
-            .forEach((tabName) -> {
-              List<FieldConfig> fieldConfigs = config.getConfigurationForTab(tabName);
+            .forEach((tab) -> {
+              List<FieldConfig> fieldConfigs = config.getConfigurationForTab(tab.getTabName());
               result.putAll(fieldConfigs.stream()
                       .filter(fieldConfig -> fieldConfig.getValue() instanceof String)
                       .map(fieldConfig -> new AbstractMap.SimpleEntry<>(
-                                      toProperty(tabName, fieldConfig.getLabel()),
+                                      toProperty(tab.getTabName(), fieldConfig.getLabel()),
                                       translateValue(componentName, fieldConfig.getValue()))) //
                       .collect(toMap( //
                                       Map.Entry::getKey, //
