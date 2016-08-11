@@ -19,6 +19,7 @@
  */
 package com.cognifide.bdd.demo.po.publish.pages;
 
+import com.cognifide.qa.bb.qualifier.FindPageObject;
 import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.bdd.demo.po.publish.components.PublishImage;
@@ -32,7 +33,7 @@ public class HomePage extends PublishPage {
 
   private static final String TITLE = "English";
 
-  @FindBy(css = TopNav.CSS_SELECTEOR)
+  @FindPageObject
   protected TopNav topNav;
 
   @FindBy(css = "img.cq-dd-image")

@@ -24,7 +24,7 @@ import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.qualifier.PageObject;
 
-@PageObject
+@PageObject(css = "div.topnav")
 public class TopNav {
 
   public static final String CSS_SELECTEOR = "div.topnav";

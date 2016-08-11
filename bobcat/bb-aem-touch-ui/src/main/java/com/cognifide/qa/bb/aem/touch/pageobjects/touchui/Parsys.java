@@ -28,21 +28,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
-import com.cognifide.qa.bb.qualifier.FindPageObject;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldConfig;
 import com.cognifide.qa.bb.aem.touch.data.components.Components;
+import com.cognifide.qa.bb.aem.touch.util.Conditions;
+import com.cognifide.qa.bb.aem.touch.util.DataPathUtil;
 import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
+import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
-import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldConfig;
-import com.cognifide.qa.bb.aem.touch.util.Conditions;
-import com.cognifide.qa.bb.aem.touch.util.DataPathUtil;
 import com.google.inject.Inject;
 
 /**
@@ -66,7 +66,7 @@ public class Parsys {
   private List<Component> componentList;
 
   @Global
-  @FindBy(css = InsertComponentWindow.CSS)
+  @FindPageObject
   private InsertComponentWindow insertComponentWindow;
 
   @Inject
@@ -149,7 +149,7 @@ public class Parsys {
    * Configures component with given name with given map of fields cofig ({@link FieldConfig})
    *
    * @param componentName name of the component.
-   * @param data          map of configuration parameters for the component.
+   * @param data map of configuration parameters for the component.
    */
   public void configureComponent(String componentName, Map<String, List<FieldConfig>> data) {
     getComponent(componentName).configure(data);
@@ -195,8 +195,9 @@ public class Parsys {
   }
 
   /**
-   * it may happen that the window pops up just a moment before {@code dropArea.click(} happens, which results
-   * in WebdriverException: 'Other element would receive the click' - thus it is catched and validated
+   * it may happen that the window pops up just a moment before {@code dropArea.click(} happens,
+   * which results in WebdriverException: 'Other element would receive the click' - thus it is
+   * catched and validated
    */
   private void tryToOpenInsertWindow() {
     conditions.verify(ignored -> {
