@@ -19,16 +19,27 @@
  */
 package com.cognifide.qa.bb.cumber;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
+import org.apache.commons.lang3.CharEncoding;
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.junit.runner.notification.Failure;
+import org.junit.runner.notification.RunListener;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.model.InitializationError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.provider.selenium.webdriver.WebDriverRegistry;
+import com.google.common.collect.Sets;
 
 import cucumber.api.junit.Cucumber;
 import cucumber.runtime.Backend;
@@ -43,6 +54,14 @@ public class Bobcumber extends Cucumber {
 
   private static final Logger LOG = LoggerFactory.getLogger(Bobcumber.class);
 
+  private static final Map<String, Set<String>> ADDED_FEATURES = new HashMap<>();
+
+  private static final String COLON = ":";
+
+  private boolean storeFailedResults;
+
+  private File file;
+
   /**
    * Constructor called by JUnit.
    *
@@ -52,12 +71,55 @@ public class Bobcumber extends Cucumber {
    */
   public Bobcumber(Class<?> clazz) throws InitializationError, IOException {
     super(clazz);
+    storeFailedResults = clazz.isAnnotationPresent(StoreFailedResults.class);
+    if (storeFailedResults) {
+      file = new File(clazz.getAnnotation(StoreFailedResults.class).value());
+      if (!file.exists()) {
+        PrintWriter writer = new PrintWriter(file, CharEncoding.UTF_8);
+        writer.close();
+      }
+    }
   }
 
   @Override
   public void run(RunNotifier notifier) {
+    if(storeFailedResults) {
+      notifier.addListener(new RunListener() {
+        public void testFailure(Failure failure) throws Exception {
+          String trace = failure.getTrace();
+          trace = trace.substring(trace.lastIndexOf("(") + 1, trace.lastIndexOf(")"));
+          addScenario(trace);
+        }
+      });
+    }
     super.run(notifier);
     closeWebDriverPool();
+  }
+
+  private synchronized void addScenario(String failedScenario) throws IOException {
+
+    String featureName = failedScenario.substring(0, failedScenario.lastIndexOf(COLON));
+    String failedLineNumber =
+        failedScenario.substring(failedScenario.lastIndexOf(COLON) + 1, failedScenario.length());
+
+    if (ADDED_FEATURES.containsKey(featureName)) {
+      Set<String> featureFailedLines = ADDED_FEATURES.get(featureName);
+      featureFailedLines.add(failedLineNumber);
+      ADDED_FEATURES.put(featureName, featureFailedLines);
+    } else {
+      ADDED_FEATURES.put(featureName, Sets.newHashSet(failedLineNumber));
+    }
+
+    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file, false)));
+    for (String feature : ADDED_FEATURES.keySet()) {
+      out.print(feature);
+      Set<String> lines = ADDED_FEATURES.get(feature);
+      for (String line : lines) {
+        out.print(COLON + line);
+      }
+      out.print(" ");
+    }
+    out.close();
   }
 
   @SuppressWarnings("unchecked")

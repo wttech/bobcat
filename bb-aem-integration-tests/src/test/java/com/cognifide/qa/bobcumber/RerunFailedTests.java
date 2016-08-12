@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bobcumber.aem.components;
+package com.cognifide.qa.bobcumber;
 
 import org.junit.runner.RunWith;
 
@@ -27,15 +27,14 @@ import com.cognifide.qa.bb.cumber.StoreFailedResults;
 import cucumber.api.CucumberOptions;
 
 @RunWith(Bobcumber.class)
-@StoreFailedResults("target/failedTests.properties")
+@StoreFailedResults("target/rerunResults.properties")
 @CucumberOptions(
-    features = "src/test/resources/",
-    plugin = {"pretty", "html:target/cucumber-html-report/aem-dropdown",
-        "json:target/aemDropdownTest.json"},
-    tags = {"@aemDropdown", "~@disabled"},
+    features = {"@target/failedTests.properties"},
+    plugin = {"pretty", "html:target/cucumber-html-report/rerun",
+        "json:target/rerun.json"},
     glue = "com.cognifide.qa"
 )
-public class AemDropdownTest {
+public class RerunFailedTests {
   /*
   This class is empty on  purpose - it's only a runner for cucumber tests.
   All properties for cucumber runner are in @CucumberOptions:

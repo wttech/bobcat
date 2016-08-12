@@ -22,12 +22,14 @@ package com.cognifide.qa.bobcumber.configurer;
 import org.junit.runner.RunWith;
 
 import com.cognifide.qa.bb.cumber.Bobcumber;
+import com.cognifide.qa.bb.cumber.StoreFailedResults;
 
 import cucumber.api.CucumberOptions;
 
 @RunWith(Bobcumber.class)
+@StoreFailedResults("target/failedTests.properties")
 @CucumberOptions(
-    features = "src/main/features",
+    features = "src/test/resources/",
     plugin = {"pretty", "html:target/cucumber-html-report/component-configs",
         "json:target/component-configs.json"},
     tags = "@component-configs",
