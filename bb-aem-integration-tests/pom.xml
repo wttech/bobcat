@@ -251,9 +251,87 @@
             </properties>
         </profile>
         <profile>
-            <id>cbt-firefox</id>
+            <id>aem61-integration-cbt-firefox</id>
             <properties>
                 <configuration.paths>${c}/common;${c}/cbt-firefox;${c}/aem61-integration</configuration.paths>
+            </properties>
+        </profile>
+        <profile>
+            <id>aem62-integration</id>
+            <properties>
+                <configuration.paths>${c}/common;${c}/jenkins;${c}/aem62-integration</configuration.paths>
+            </properties>
+        </profile>
+        <profile>
+            <id>aem62-android-galaxy-tab3</id>
+            <properties>
+                <configuration.paths>${c}/common;${c}/mobile-android-galaxy-tab3;${c}/aem62-integration</configuration.paths>
+            </properties>
+        </profile>
+        <profile>
+            <id>aem62-android-galaxy-s5</id>
+            <properties>
+                <configuration.paths>${c}/common;${c}/mobile-android-galaxy-s5;${c}/aem62-integration</configuration.paths>
+            </properties>
+        </profile>
+        <profile>
+            <id>aem62-android-nexus9</id>
+            <properties>
+                <configuration.paths>${c}/common;${c}/mobile-android-nexus9;${c}/aem62-integration</configuration.paths>
+            </properties>
+        </profile>
+        <profile>
+            <id>aem62-android-emulator</id>
+            <properties>
+                <configuration.paths>${c}/common;${c}/mobile-android-emulator;${c}/aem62-integration</configuration.paths>
+            </properties>
+        </profile>
+        <profile>
+            <id>aem62-iphone</id>
+            <properties>
+                <configuration.paths>${c}/common;${c}/mobile-iphone;${c}/aem62-integration</configuration.paths>
+            </properties>
+        </profile>
+        <profile>
+            <id>aem62-ipad</id>
+            <properties>
+                <configuration.paths>${c}/common;${c}/mobile-ipad;${c}/aem62-integration</configuration.paths>
+            </properties>
+        </profile>
+        <profile>
+            <id>aem62-iphone-emulator</id>
+            <properties>
+                <configuration.paths>${c}/common;${c}/mobile-iphone-emulator;${c}/aem62-integration</configuration.paths>
+            </properties>
+        </profile>
+        <profile>
+            <id>aem62-chrome-emulator</id>
+            <properties>
+                <configuration.paths>${c}/common;${c}/mobile-chrome-emulator;${c}/aem62-integration</configuration.paths>
+            </properties>
+        </profile>
+        <profile>
+            <id>aem62-integration-chrome</id>
+            <properties>
+                <configuration.paths>${c}/common;${c}/chrome;${c}/aem62-integration</configuration.paths>
+            </properties>
+        </profile>
+        <profile>
+            <id>aem62-integration-ie</id>
+            <properties>
+                <configuration.paths>${c}/common;${c}/ie;${c}/aem62-integration</configuration.paths>
+            </properties>
+        </profile>
+        <profile>
+            <id>aem62-integration-xvfb-firefox</id>
+            <properties>
+                <configuration.paths>${c}/common;${c}/xvfb-firefox;${c}/aem62-integration</configuration.paths>
+            </properties>
+        </profile>
+        <profile>
+            <id>aem62-integration-cbt-firefox</id>
+            <properties>
+                <configuration.paths>${c}/common;${c}/cbt-firefox;${c}/aem62-integration</configuration.paths>
             </properties>
         </profile>
         <profile>
