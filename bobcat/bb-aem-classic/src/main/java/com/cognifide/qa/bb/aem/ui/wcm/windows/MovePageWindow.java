@@ -38,10 +38,8 @@ import com.google.inject.Inject;
 /**
  * Class responsible for handling move page dialog.
  */
-@PageObject
+@PageObject(css = "div[style*='visible'] div.x-window-bwrap")
 public class MovePageWindow implements DecisionWindow {
-
-  public static final String CSS = "div[style*='visible'] div.x-window-bwrap";
 
   @Inject
   private BobcatWait bobcatWait;

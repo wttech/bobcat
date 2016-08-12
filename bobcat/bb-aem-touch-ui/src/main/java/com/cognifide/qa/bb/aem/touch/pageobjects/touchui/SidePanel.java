@@ -45,9 +45,8 @@ import com.google.inject.Inject;
 /**
  * Class represent authoring mode side panel.
  */
-@PageObject
+@PageObject(css = "#SidePanel")
 public class SidePanel {
-  public static final String CSS = "#SidePanel";
 
   private static final String IS_CLOSED = "sidepanel-closed";
 

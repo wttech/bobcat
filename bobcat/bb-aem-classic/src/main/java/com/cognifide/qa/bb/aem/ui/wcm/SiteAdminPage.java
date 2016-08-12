@@ -89,10 +89,10 @@ public class SiteAdminPage {
   @FindPageObject
   private SiteAdminConfirmationWindow siteAdminConfirmationWindow;
 
-  @FindBy(css = MovePageWindow.CSS)
+  @FindPageObject
   private MovePageWindow movePageWindow;
 
-  @FindBy(css = PastePageWindow.CSS)
+  @FindPageObject
   private PastePageWindow pastePageWindow;
 
   @FindBy(id = ReplicateLaterWindow.ACTIVATE_LATER_WINDOW_ID)

@@ -25,6 +25,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 import java.util.List;
 import java.util.Map;
 
+import com.cognifide.qa.bb.qualifier.FindPageObject;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -53,15 +54,15 @@ public class Component {
   private WebElement currentScope;
 
   @Global
-  @FindBy(css = ComponentToolbar.CSS)
+  @FindPageObject
   private ComponentToolbar componentToolbar;
 
   @Global
-  @FindBy(css = ConfigDialog.CSS)
+  @FindPageObject
   private ConfigDialog configDialog;
 
   @Global
-  @FindBy(css = DeleteDialog.CSS)
+  @FindPageObject
   private DeleteDialog deleteDialog;
 
   /**
