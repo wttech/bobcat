@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   #%L
-  Bobcat Parent
+  Bobcat
   %%
   Copyright (C) 2016 Cognifide Ltd.
   %%
@@ -45,6 +45,11 @@
         <dependency>
             <groupId>com.cognifide.qa.bb</groupId>
             <artifactId>bb-cumber</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.cognifide.qa.bb</groupId>
+            <artifactId>bb-annotations</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

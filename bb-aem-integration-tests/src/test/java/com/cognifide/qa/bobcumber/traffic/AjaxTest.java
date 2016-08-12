@@ -1,6 +1,6 @@
 /*-
  * #%L
- * Bobcat Parent
+ * Bobcat
  * %%
  * Copyright (C) 2016 Cognifide Ltd.
  * %%
@@ -22,12 +22,14 @@ package com.cognifide.qa.bobcumber.traffic;
 import org.junit.runner.RunWith;
 
 import com.cognifide.qa.bb.cumber.Bobcumber;
+import com.cognifide.qa.bb.cumber.StoreFailedResults;
 
 import cucumber.api.CucumberOptions;
 
 @RunWith(Bobcumber.class)
+@StoreFailedResults("target/failedTests.properties")
 @CucumberOptions(
-    features = "src/main/features/",
+    features = "src/test/resources/",
     plugin = {"pretty", "html:target/cucumber-html-report/ajax", "json:target/ajaxTest.json"},
     tags = {"@ajax", "~@disabled"},
     glue = "com.cognifide.qa"

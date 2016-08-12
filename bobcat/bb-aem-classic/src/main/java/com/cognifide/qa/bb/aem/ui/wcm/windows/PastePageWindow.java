@@ -1,6 +1,6 @@
 /*-
  * #%L
- * Bobcat Parent
+ * Bobcat
  * %%
  * Copyright (C) 2016 Cognifide Ltd.
  * %%
@@ -26,7 +26,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import com.cognifide.qa.bb.aem.expectedconditions.WindowActions;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
-import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
 
@@ -35,10 +34,6 @@ import com.google.inject.Inject;
  */
 @PageObject(css = "div[id^='cq-copydialog'][style*='visibility: visible'][style*='display: block']")
 public class PastePageWindow implements DecisionWindow {
-
-  @Inject
-  @CurrentScope
-  private WebElement currentScope;
 
   @Inject
   private BobcatWait bobcatWait;

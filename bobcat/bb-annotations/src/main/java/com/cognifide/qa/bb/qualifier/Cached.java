@@ -1,6 +1,6 @@
 /*-
  * #%L
- * Bobcat Parent
+ * Bobcat
  * %%
  * Copyright (C) 2016 Cognifide Ltd.
  * %%
@@ -25,25 +25,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * PageObject is a central concept of Bobcat. It's a term derived from Selenium framework and it means a class
- * that encapsulates page HTML and exposes page features. Add this annotation to classes that represent pages
- * or components within pages.
+ * Annotation used in tandem with FindBy, FindyBys, FindAll for injecting List of PageObjects. Useful for
+ * lists that do not change e.g. List&lt;AemRadioOption&gt;. Particular list elements can change, but size of list,
+ * order of elements etc... can not. During first invocation, invocation handler will fetch web elements and
+ * cache them. Every next call will not cause fetching elements from the page.
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.TYPE})
-public @interface PageObject {
+@Target({ElementType.FIELD})
+public @interface Cached {
 
-  /**
-   * Use this property to identify the page object by css selector
-   *
-   * @return page object css class
-   */
-  String css() default "";
-
-  /**
-   * Use this property to identify the page object by xpath selector
-   *
-   * @return page object xpath
-   */
-  String xpath() default "";
 }

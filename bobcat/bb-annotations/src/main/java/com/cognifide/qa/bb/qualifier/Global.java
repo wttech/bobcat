@@ -1,6 +1,6 @@
 /*-
  * #%L
- * Bobcat Parent
+ * Bobcat
  * %%
  * Copyright (C) 2016 Cognifide Ltd.
  * %%
@@ -24,15 +24,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.google.inject.BindingAnnotation;
-
 /**
- * Use this annotation to have Bobcat inject a PageObject's field with the current frame. Current frame is the
- * top frame taken from the frame stack.
+ * Add this annotation to any field annotated with any of the Find annotations. This will instruct Bobcat to
+ * ignore current scope and search for the element in the top element (whole page).
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD, ElementType.PARAMETER})
-@BindingAnnotation
-public @interface CurrentFrame {
+@Target({ElementType.FIELD})
+public @interface Global {
 
 }

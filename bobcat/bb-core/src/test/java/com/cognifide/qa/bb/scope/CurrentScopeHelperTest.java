@@ -1,6 +1,6 @@
 /*-
  * #%L
- * Bobcat Parent
+ * Bobcat
  * %%
  * Copyright (C) 2016 Cognifide Ltd.
  * %%
@@ -161,7 +161,7 @@ public class CurrentScopeHelperTest {
     verifyNoMoreInteractions(webElement);
   }
 
-  @PageObject
+  @PageObject(generateCurrentScope = false)
   private class PageObjectWithCurrentScope {
     @CurrentScope
     private WebElement webElement;
@@ -171,7 +171,7 @@ public class CurrentScopeHelperTest {
     }
   }
 
-  @PageObject
+  @PageObject(generateCurrentScope = false)
   private class PageObjectWithoutCurrentScope {
     //empty
   }

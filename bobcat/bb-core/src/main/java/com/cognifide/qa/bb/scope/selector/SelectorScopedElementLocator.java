@@ -2,7 +2,7 @@ package com.cognifide.qa.bb.scope.selector;
 
 /*-
  * #%L
- * Bobcat Parent
+ * Bobcat
  * %%
  * Copyright (C) 2016 Cognifide Ltd.
  * %%

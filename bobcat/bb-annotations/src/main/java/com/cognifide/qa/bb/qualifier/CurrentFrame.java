@@ -1,6 +1,6 @@
 /*-
  * #%L
- * Bobcat Parent
+ * Bobcat
  * %%
  * Copyright (C) 2016 Cognifide Ltd.
  * %%
@@ -27,11 +27,12 @@ import java.lang.annotation.Target;
 import com.google.inject.BindingAnnotation;
 
 /**
- * Use this annotation to have Bobcat inject your field with WebElement that represents current scope.
+ * Use this annotation to have Bobcat inject a PageObject's field with the current frame. Current frame is the
+ * top frame taken from the frame stack.
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD})
+@Target({ElementType.FIELD, ElementType.PARAMETER})
 @BindingAnnotation
-public @interface CurrentScope {
+public @interface CurrentFrame {
 
 }

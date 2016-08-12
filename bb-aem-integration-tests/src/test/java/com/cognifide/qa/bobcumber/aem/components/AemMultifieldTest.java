@@ -1,6 +1,6 @@
 /*-
  * #%L
- * Bobcat Parent
+ * Bobcat
  * %%
  * Copyright (C) 2016 Cognifide Ltd.
  * %%
@@ -22,12 +22,14 @@ package com.cognifide.qa.bobcumber.aem.components;
 import org.junit.runner.RunWith;
 
 import com.cognifide.qa.bb.cumber.Bobcumber;
+import com.cognifide.qa.bb.cumber.StoreFailedResults;
 
 import cucumber.api.CucumberOptions;
 
 @RunWith(Bobcumber.class)
+@StoreFailedResults("target/failedTests.properties")
 @CucumberOptions(
-    features = "src/main/features/",
+    features = "src/test/resources/",
     plugin = {"pretty", "html:target/cucumber-html-report/aem-multifield",
         "json:target/aemMultifieldTest.json"},
     tags = {"@aemMultifield", "~@disabled"},

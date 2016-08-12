@@ -1,6 +1,6 @@
 /*-
  * #%L
- * Bobcat Parent
+ * Bobcat
  * %%
  * Copyright (C) 2016 Cognifide Ltd.
  * %%
@@ -19,20 +19,22 @@
  */
 package com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields;
 
-import java.util.Arrays;
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldType;
+import com.cognifide.qa.bb.qualifier.PageObject;
 
 /**
  * This class represent multiple choice select dialog component.
  */
 @PageObject
 public class Select implements DialogField {
+
+  private static final String SELECT_OPTIONS_XPATH = "./../ul/li";
 
   @FindBy(css = ".coral-Select-select")
   private WebElement selectField;
@@ -44,10 +46,9 @@ public class Select implements DialogField {
    */
   @Override
   public void setValue(Object value) {
-    org.openqa.selenium.support.ui.Select selectElement = new org.openqa.selenium.support.ui.Select(
-        selectField);
-    List<String> values = Arrays.asList(String.valueOf(value).split(","));
-    values.stream().forEach(selectElement::selectByVisibleText);
+    selectField.click();
+    List<WebElement> options = selectField.findElements(By.xpath(SELECT_OPTIONS_XPATH));
+    options.stream().filter(o -> value.toString().equals(o.getText())).findFirst().get().click();
   }
 
   /**

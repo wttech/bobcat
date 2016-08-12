@@ -1,6 +1,6 @@
 /*-
  * #%L
- * Bobcat Parent
+ * Bobcat
  * %%
  * Copyright (C) 2016 Cognifide Ltd.
  * %%
@@ -22,6 +22,7 @@ package com.cognifide.qa.bb.aem.touch.pageobjects.touchui;
 import static com.cognifide.qa.bb.aem.touch.util.ContentHelper.JCR_CONTENT;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
+import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfiguration;
 import java.util.List;
 import java.util.Map;
 
@@ -92,7 +93,7 @@ public class Component {
    *
    * @param config map of list configurations.
    */
-  public void configure(Map<String, List<FieldConfig>> config) {
+  public void configure(ComponentConfiguration config) {
     select().clickOption(ToolbarOptions.CONFIGURE);
     configDialog.verifyIsDisplayed();
     configDialog.configureWith(config);

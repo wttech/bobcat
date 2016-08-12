@@ -1,6 +1,6 @@
 /*-
  * #%L
- * Bobcat Parent
+ * Bobcat
  * %%
  * Copyright (C) 2016 Cognifide Ltd.
  * %%
@@ -19,11 +19,14 @@
  */
 package com.cognifide.qa.bb.aem.touch.data.componentconfigs;
 
-import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.cognifide.qa.bb.aem.touch.util.YamlReader;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * This class reads component configuration from yaml configuration files
@@ -32,16 +35,29 @@ public class ComponentConfigs {
 
   private static final String CFG_PATH = "component-configs/";
 
-    /**
-     * Reads configuration from yaml configuration files that supposed to be located under 'component-configs/'.
-     *
-     * @param component component name
-     * @return map of components fields configuration
-     */
-  public Map<String, Map<String, List<FieldConfig>>> getConfigs(String component) {
+  /**
+   * Reads configuration from yaml configuration files that supposed to be located under 'component-configs/'.
+   *
+   * @param component component name
+   * @return map of components fields configuration
+   */
+  public Map<String, ComponentConfiguration> getConfigs(String component) {
     TypeReference typeReference = new TypeReference<Map<String, Map<String, List<FieldConfig>>>>() {
     };
     String path = CFG_PATH + component.toLowerCase().replace(" ", "-");
-    return YamlReader.read(path, typeReference);
+    Map<String, Map<String, List<FieldConfig>>> configsData = new HashMap(YamlReader.read(path, typeReference));
+
+    Map<String, ComponentConfiguration> result = new HashMap<>();
+
+    configsData.keySet().stream().forEach((configName) -> {
+              Map<String, List<FieldConfig>> data = configsData.get(configName);
+              List<TabConfig> tabsConfig = new ArrayList<>();
+              data.entrySet().stream().forEach((entry) -> {
+                tabsConfig.add(new TabConfig(entry.getKey(), entry.getValue()));
+              });
+              result.put(configName, new ComponentConfiguration(tabsConfig));
+            });
+
+    return result;
   }
 }

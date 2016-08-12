@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   #%L
-  Bobcat Parent
+  Bobcat
   %%
   Copyright (C) 2016 Cognifide Ltd.
   %%
@@ -50,6 +50,7 @@ limitations under the License.
         <module>bb-aem-common</module>
         <module>bb-aem-classic</module>
         <module>bb-aem-touch-ui</module>
+        <module>bb-annotations</module>
     </modules>
 
     <distributionManagement>

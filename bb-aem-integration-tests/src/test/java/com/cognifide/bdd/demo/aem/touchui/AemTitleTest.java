@@ -1,6 +1,6 @@
 /*-
  * #%L
- * Bobcat Parent
+ * Bobcat
  * %%
  * Copyright (C) 2016 Cognifide Ltd.
  * %%
@@ -24,9 +24,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
-import java.util.Map;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,7 +32,7 @@ import org.junit.runner.RunWith;
 import com.cognifide.bdd.demo.GuiceModule;
 import com.cognifide.bdd.demo.po.touchui.TitleComponent;
 import com.cognifide.qa.bb.aem.AemLogin;
-import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldConfig;
+import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfiguration;
 import com.cognifide.qa.bb.aem.touch.data.components.Components;
 import com.cognifide.qa.bb.aem.touch.data.pages.Pages;
 import com.cognifide.qa.bb.aem.touch.pageobjects.pages.AuthorPage;
@@ -51,6 +48,8 @@ public class AemTitleTest {
   private static final String CONFIGURATION = "Title - Update&Read";
 
   private static final String COMPONENT_NAME = "Title";
+
+  private static final String TAB_NAME = COMPONENT_NAME;
 
   @Inject
   private AemLogin aemLogin;
@@ -89,11 +88,11 @@ public class AemTitleTest {
 
   @Test
   public void editTitleComponentTest() {
-    Map<String, List<FieldConfig>> data = page.configureComponent(parsys,
-        COMPONENT_NAME, COMPONENT_NAME.toLowerCase());
+    ComponentConfiguration data = page.configureComponent(parsys,
+            COMPONENT_NAME, COMPONENT_NAME.toLowerCase());
     TitleComponent component =
         (TitleComponent) page.getContent(components.getClazz(COMPONENT_NAME));
     assertThat(component.getTitle(), is(
-            data.get(COMPONENT_NAME).get(0).getValue().toString().toUpperCase()));
+            data.getConfigurationForTab(TAB_NAME).get(0).getValue().toString().toUpperCase()));
   }
 }

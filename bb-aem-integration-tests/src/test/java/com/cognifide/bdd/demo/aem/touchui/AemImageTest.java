@@ -1,6 +1,6 @@
 /*-
  * #%L
- * Bobcat Parent
+ * Bobcat
  * %%
  * Copyright (C) 2016 Cognifide Ltd.
  * %%
@@ -34,6 +34,7 @@ import org.junit.runner.RunWith;
 import com.cognifide.bdd.demo.GuiceModule;
 import com.cognifide.bdd.demo.po.touchui.ImageComponent;
 import com.cognifide.qa.bb.aem.AemLogin;
+import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfiguration;
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldConfig;
 import com.cognifide.qa.bb.aem.touch.data.components.Components;
 import com.cognifide.qa.bb.aem.touch.data.pages.Pages;
@@ -77,13 +78,13 @@ public class AemImageTest {
   public void configureImageTest() {
     String parsys = pages.getParsys(CONFIGURATION);
     assertTrue(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME));
-    Map<String, List<FieldConfig>> data = page.configureComponent(parsys,
+    ComponentConfiguration componentConfig = page.configureComponent(parsys,
         COMPONENT_NAME, COMPONENT_NAME);
 
     ImageComponent component =
         (ImageComponent) page.getContent(components.getClazz(COMPONENT_NAME));
 
-    List<FieldConfig> configuration = data.get(COMPONENT_NAME);
+    List<FieldConfig> configuration = componentConfig.getConfigurationForTab(COMPONENT_NAME);
     assertThat("Wrong image path", component.getImagePath(),
         endsWith(configuration.get(0).getValue().toString()));
     assertThat("Wrong image title", configuration.get(1).getValue(), is(component.getTitle()));
