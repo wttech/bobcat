@@ -38,7 +38,6 @@ import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfigs;
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfiguration;
-import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldConfig;
 import com.cognifide.qa.bb.aem.touch.data.components.Components;
 import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.GlobalBar;
 import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.Parsys;
