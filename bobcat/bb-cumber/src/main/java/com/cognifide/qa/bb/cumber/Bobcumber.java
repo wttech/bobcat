@@ -88,7 +88,9 @@ public class Bobcumber extends Cucumber {
         public void testFailure(Failure failure) throws Exception {
           String trace = failure.getTrace();
           trace = trace.substring(trace.lastIndexOf("(") + 1, trace.lastIndexOf(")"));
-          addScenario(trace);
+          if (trace.contains("feature")) {
+            addScenario(trace);
+          }
         }
       });
     }
