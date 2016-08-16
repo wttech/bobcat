@@ -72,6 +72,42 @@ public class DialogConfigurer {
   }
 
   /**
+   * Finds the dialog field of given type within a WebElement based on the provided label. If label is not
+   * present, returns the first field from the tab.
+   *
+   * @param parentElement parent element from which DialogField will be retrieved
+   * @param label         of the requested field
+   * @param type          Class of the requested field
+   * @return DialogField of the given type based on the provided info
+   */
+  public DialogField getDialogField(WebElement parentElement, String label, Class type) {
+    List<WebElement> fields = parentElement.findElements(FIELD_LOCATOR);
+
+    if (fields.isEmpty()) {
+      throw new IllegalStateException("There are no fields in the tab");
+    }
+
+    WebElement scope = StringUtils.isEmpty(label) ? fields.get(0) : fields.stream() //
+        .filter(field -> containsIgnoreCase(getFieldLabel(field), label)) //
+        .findFirst() //
+        .orElseThrow(() -> new IllegalStateException("Dialog field not found"));
+
+    return getFieldObject(scope, type);
+  }
+
+  /**
+   * Find the dialog input field of given type within a parent WebElement.
+   *
+   * @param parentElement parent element from which DialogField will be retrieved.
+   * @param type          of the requested field.
+   * @return DialogField of the given type based on the provided info.
+   */
+  public DialogField getDialogField(WebElement parentElement, Class type) {
+    WebElement scope = parentElement.findElement(By.tagName("input"));
+    return getFieldObject(scope, type);
+  }
+
+  /**
    * Find the dialog input field of given type within a parent WebElement.
    *
    * @param parentElement parent element from which DialogField will be retrieved.
@@ -98,5 +134,9 @@ public class DialogConfigurer {
   private DialogField getFieldObject(WebElement scope, String type) {
     Class clazz = fieldTypeRegistry.getClass(type);
     return (DialogField) pageObjectInjector.inject(clazz, scope);
+  }
+
+  private DialogField getFieldObject(WebElement scope, Class type) {
+    return (DialogField) pageObjectInjector.inject(type, scope);
   }
 }

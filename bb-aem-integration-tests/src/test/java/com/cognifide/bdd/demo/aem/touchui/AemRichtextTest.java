@@ -26,6 +26,9 @@ import com.cognifide.qa.bb.aem.AemLogin;
 import com.cognifide.qa.bb.aem.touch.data.pages.Pages;
 import com.cognifide.qa.bb.aem.touch.pageobjects.pages.AuthorPage;
 import com.cognifide.qa.bb.aem.touch.pageobjects.pages.AuthorPageFactory;
+import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.ConfigDialog;
+import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.RichText;
+import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.text.FontFormat;
 import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
 import com.google.inject.Inject;
@@ -91,6 +94,19 @@ public class AemRichtextTest {
   }
 
   @Test
+  public void shouldRenderBoldedTextProperlyOnDemandConfig() {
+    ConfigDialog dialog = page.getParsys(parsys)
+        .getComponent(COMPONENT_NAME)
+        .openDialog();
+
+    dialog.getField("", RichText.class).setValue("test test test");
+    dialog.getField("", FontFormat.class).setValue("BOLD");
+    dialog.confirm();
+
+    processAssertion("<p><b>test test test</b></p>");
+  }
+
+  @Test
   public void shouldRenderItalicTextProperly() {
     testRichText("italic", "<p><i>test test test</i></p>");
   }
@@ -137,6 +153,10 @@ public class AemRichtextTest {
 
   private void testRichText(String configurationName, String expectedOutput) {
     page.configureComponent(parsys, COMPONENT_NAME, configurationName);
+    processAssertion(expectedOutput);
+  }
+
+  private void processAssertion(String expectedOutput) {
     String contents = page.getContent(TextComponent.class).getOuterHTML();
     assertThat(contents, containsString(expectedOutput));
   }

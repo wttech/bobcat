@@ -26,6 +26,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfiguration;
 import java.util.List;
 
+import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.DialogField;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -79,8 +80,8 @@ public class ConfigDialog {
 
   public void verifyFullscreen() {
     conditions
-            .verify(webDriver -> containsIgnoreCase(dialog.getAttribute(HtmlTags.Attributes.CLASS),
-                            FULLSCREEN_CLASS));
+        .verify(webDriver -> containsIgnoreCase(dialog.getAttribute(HtmlTags.Attributes.CLASS),
+            FULLSCREEN_CLASS));
   }
 
   public void confirm() {
@@ -97,6 +98,21 @@ public class ConfigDialog {
     verifyIsDisplayed();
     configure(config);
     confirm();
+  }
+
+  public DialogField getFieldOnTab(String label, String tab, Class fieldType) {
+    switchTab(tab);
+    return getField(label, fieldType);
+  }
+
+  public DialogField getField(String label, Class fieldType) {
+    WebElement parent;
+    if (tabs.isEmpty()) {
+      parent = dialog;
+    } else {
+      parent = activeTab;
+    }
+    return dialogConfigurer.getDialogField(parent, label, fieldType);
   }
 
   private void switchTab(String tabLabel) {

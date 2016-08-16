@@ -22,6 +22,7 @@ package com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields;
 import java.util.Iterator;
 import java.util.List;
 
+import com.cognifide.qa.bb.exceptions.BobcatRuntimeException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -62,6 +63,19 @@ public class Multifield implements DialogField {
 
     Iterator<MultifieldItem> itemsIterator = items.iterator();
     cfg.stream().forEach(entry -> itemsIterator.next().setValue(entry));
+  }
+
+  /**
+   * Returns MultifieldItem at declared index position
+   *
+   * @param n integer representing required position
+   * @return MultifieldItem
+   */
+  public MultifieldItem getItemAtIndex(int n) {
+    if (items.size() >= n) {
+      return items.get(n);
+    }
+    throw new BobcatRuntimeException("Trying to reach nonexisting item.");
   }
 
   /**

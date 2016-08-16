@@ -61,6 +61,18 @@ public class MultifieldItem implements DialogField {
     deleteButton.click();
   }
 
+  /**
+   * Sets field of MultifieldItem
+   *
+   * @param fieldType class of field to be filled
+   * @param value     value to be inserted
+   * @return this instance for chaining operations
+   */
+  public MultifieldItem setFieldInMultifield(Class fieldType, Object value) {
+    dialogConfigurer.getDialogField(item, fieldType).setValue(value);
+    return this;
+  }
+
   private void setFieldInMultifield(FieldConfig fieldConfig) {
     dialogConfigurer.getDialogField(item, fieldConfig.getType())
         .setValue(fieldConfig.getValue());

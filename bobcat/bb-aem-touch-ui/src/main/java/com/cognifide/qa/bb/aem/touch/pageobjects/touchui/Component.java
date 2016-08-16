@@ -102,6 +102,17 @@ public class Component {
   }
 
   /**
+   * Method opens dialog to enable further configuration by single fields
+   *
+   * @return ConfigDialog for chained configuration
+   */
+  public ConfigDialog openDialog() {
+    select().clickOption(ToolbarOptions.CONFIGURE);
+    configDialog.verifyIsDisplayed();
+    return configDialog;
+  }
+
+  /**
    * Method selects delete option on component toolbar, then confirms if the component is deleted and not visible.
    */
   public void delete() {
