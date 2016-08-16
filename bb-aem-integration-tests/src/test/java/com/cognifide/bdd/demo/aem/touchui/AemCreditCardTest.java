@@ -25,6 +25,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.ConfigDialog;
+import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.Checkbox;
+import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.Textfield;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -102,6 +105,26 @@ public class AemCreditCardTest {
   @Test
   public void checkedCheckBoxTest() {
     page.configureComponent(parsys, COMPONENT_NAME, CHECKED_CHECKBOX_CONFIGURATION);
+
+    CreditCardComponent component =
+        (CreditCardComponent) page.getContent(components.getClazz(COMPONENT_NAME));
+
+    assertThat(component.getLabelText(), is(LABEL_TEXT));
+
+    bobcatWait.withTimeout(Timeouts.MINIMAL).until(
+        CommonExpectedConditions
+            .elementNotPresent(By.id(CreditCardComponent.CARD_TYPE_SELECT_ID)));
+  }
+
+  @Test
+  public void checkedCheckBoxConfBySingleFieldsTest() {
+//    page.configureComponent(parsys, COMPONENT_NAME, CHECKED_CHECKBOX_CONFIGURATION);
+
+    ConfigDialog dialog = page.getParsys(parsys).getComponent(COMPONENT_NAME).openDialog();
+
+    dialog.getField("Element Name *", Textfield.class).setValue("test");
+    dialog.getField("Only show non-editable summary", Checkbox.class).setValue(true);
+    dialog.confirm();
 
     CreditCardComponent component =
         (CreditCardComponent) page.getContent(components.getClazz(COMPONENT_NAME));
