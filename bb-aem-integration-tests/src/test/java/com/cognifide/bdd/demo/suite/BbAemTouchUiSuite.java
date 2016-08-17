@@ -23,6 +23,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import com.cognifide.bdd.demo.GuiceModule;
+import com.cognifide.bdd.demo.aem.touchui.AemCreditCardTest;
 import com.cognifide.bdd.demo.aem.touchui.AemImageTest;
 import com.cognifide.bdd.demo.aem.touchui.AemRichtextTest;
 import com.cognifide.bdd.demo.aem.touchui.AemCarouselTest;
@@ -36,7 +37,8 @@ import com.cognifide.qa.bb.junit.concurrent.ConcurrentSuite;
     AemTitleTest.class,
     AemImageTest.class,
     AemRichtextTest.class,
-    AemCarouselTest.class
+    AemCarouselTest.class,
+    AemCreditCardTest.class
 })
 public class BbAemTouchUiSuite {
   // Test suite, nothing to add here
