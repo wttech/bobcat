@@ -96,8 +96,7 @@ public class Component {
    * @param config map of list configurations.
    */
   public void configure(ComponentConfiguration config) {
-    select().clickOption(ToolbarOptions.CONFIGURE);
-    configDialog.verifyIsDisplayed();
+    openDialog();
     configDialog.configureWith(config);
   }
 

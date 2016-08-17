@@ -68,12 +68,12 @@ public class Multifield implements DialogField {
   /**
    * Returns MultifieldItem at declared index position
    *
-   * @param n integer representing required position
+   * @param index integer representing required position
    * @return MultifieldItem
    */
-  public MultifieldItem getItemAtIndex(int n) {
-    if (items.size() >= n) {
-      return items.get(n);
+  public MultifieldItem getItemAtIndex(int index) {
+    if (items.size() >= index) {
+      return items.get(index);
     }
     throw new BobcatRuntimeException("Trying to reach nonexisting item.");
   }
