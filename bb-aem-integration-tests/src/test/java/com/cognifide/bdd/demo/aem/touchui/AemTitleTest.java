@@ -24,6 +24,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldType;
 import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.Textfield;
 import org.junit.After;
 import org.junit.Before;
@@ -104,7 +105,7 @@ public class AemTitleTest {
     page.getParsys(parsys).getComponent(COMPONENT_NAME)
         .openDialog()
         .switchTab("Title")
-        .setField("Title", Textfield.class, titleValue)
+        .setField("Title", FieldType.TEXTFIELD.name(), titleValue)
         .confirm();
 
     TitleComponent component =

@@ -26,6 +26,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldType;
 import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.Image;
 import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.PathBrowser;
 import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.Textfield;
@@ -110,11 +111,11 @@ public class AemImageTest {
     page.getParsys(parsys).getComponent(COMPONENT_NAME)
         .openDialog()
         .switchTab("Image")
-        .setField("Image asset", Image.class, imagePath)
-        .setField("Title", Textfield.class, imageTitle)
-        .setField("Alt text", Textfield.class, imageAlt)
-        .setField("Link to", PathBrowser.class, imageLink)
-        .setField("Description", Textfield.class, imageDescription)
+        .setField("Image asset", FieldType.IMAGE.name(), imagePath)
+        .setField("Title", FieldType.TEXTFIELD.name(), imageTitle)
+        .setField("Alt text", FieldType.TEXTFIELD.name(), imageAlt)
+        .setField("Link to", FieldType.PATHBROWSER.name(), imageLink)
+        .setField("Description", FieldType.TEXTFIELD.name(), imageDescription)
         .confirm();
 
     ImageComponent component =

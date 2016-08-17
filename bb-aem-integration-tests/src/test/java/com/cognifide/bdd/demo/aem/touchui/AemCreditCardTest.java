@@ -25,6 +25,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldType;
 import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.Checkbox;
 import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.Textfield;
 import org.junit.After;
@@ -112,8 +113,8 @@ public class AemCreditCardTest {
   public void checkedCheckBoxConfBySingleFieldsTest() {
     page.getParsys(parsys).getComponent(COMPONENT_NAME)
         .openDialog()
-        .setField("Element Name *", Textfield.class, "test")
-        .setField("Only show non-editable summary", Checkbox.class, true)
+        .setField("Element Name *", FieldType.TEXTFIELD.name(), "test")
+        .setField("Only show non-editable summary", FieldType.CHECKBOX.name(), true)
         .confirm();
 
     processAssertsForCheckboxChecked();

@@ -23,6 +23,7 @@ import static org.junit.Assert.assertTrue;
 import com.cognifide.bdd.demo.GuiceModule;
 import com.cognifide.bdd.demo.po.touchui.TextComponent;
 import com.cognifide.qa.bb.aem.AemLogin;
+import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldType;
 import com.cognifide.qa.bb.aem.touch.data.pages.Pages;
 import com.cognifide.qa.bb.aem.touch.pageobjects.pages.AuthorPage;
 import com.cognifide.qa.bb.aem.touch.pageobjects.pages.AuthorPageFactory;
@@ -32,6 +33,7 @@ import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
 import com.google.inject.Inject;
 
+import gherkin.lexer.Fi;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -97,8 +99,8 @@ public class AemRichtextTest {
     page.getParsys(parsys)
         .getComponent(COMPONENT_NAME)
         .openDialog()
-        .setField("", RichText.class, "test test test")
-        .setField("", FontFormat.class, "BOLD")
+        .setField("", FieldType.RICHTEXT.name(), "test test test")
+        .setField("", FieldType.RICHTEXT_FONT_FORMAT.name(), "BOLD")
         .confirm();
 
     processAssertion("<p><b>test test test</b></p>");

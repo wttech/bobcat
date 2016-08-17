@@ -68,7 +68,7 @@ public class MultifieldItem implements DialogField {
    * @param value     value to be inserted
    * @return this instance for chaining operations
    */
-  public MultifieldItem setFieldInMultifield(Class fieldType, Object value) {
+  public MultifieldItem setFieldInMultifield(String fieldType, Object value) {
     dialogConfigurer.getDialogField(item, fieldType).setValue(value);
     return this;
   }

@@ -25,6 +25,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldType;
 import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.ConfigDialog;
 import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.Multifield;
 import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.PathBrowser;
@@ -101,16 +102,16 @@ public class AemCarouselTest {
         .getComponent(COMPONENT_NAME)
         .openDialog()
         .switchTab("LIST")
-        .setField("Build list using", Select.class, "Fixed list");
+        .setField("Build list using", FieldType.SELECT.name(), "Fixed list");
 
-    Multifield multifield = (Multifield) dialog.getField("Pages", Multifield.class);
+    Multifield multifield = (Multifield) dialog.getField("Pages", FieldType.MULTIFIELD.name());
     multifield.addField();
     multifield.addField();
 
     multifield.getItemAtIndex(0)
-        .setFieldInMultifield(PathBrowser.class, "/content/geometrixx-outdoors");
+        .setFieldInMultifield(FieldType.PATHBROWSER.name(), "/content/geometrixx-outdoors");
     multifield.getItemAtIndex(1)
-        .setFieldInMultifield(PathBrowser.class, "/content/geometrixx-outdoors-mobile");
+        .setFieldInMultifield(FieldType.PATHBROWSER.name(), "/content/geometrixx-outdoors-mobile");
 
     dialog.confirm();
 

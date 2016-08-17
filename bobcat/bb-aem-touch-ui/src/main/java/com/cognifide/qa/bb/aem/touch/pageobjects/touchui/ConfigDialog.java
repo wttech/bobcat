@@ -100,17 +100,17 @@ public class ConfigDialog {
     confirm();
   }
 
-  public DialogField getFieldOnTab(String label, String tab, Class fieldType) {
+  public DialogField getFieldOnTab(String label, String tab, String fieldType) {
     switchTab(tab);
     return getField(label, fieldType);
   }
 
-  public ConfigDialog setField(String label, Class fieldType, Object value) {
+  public ConfigDialog setField(String label, String fieldType, Object value) {
     getField(label, fieldType).setValue(value);
     return this;
   }
 
-  public DialogField getField(String label, Class fieldType) {
+  public DialogField getField(String label, String fieldType) {
     WebElement parent;
     if (tabs.isEmpty()) {
       parent = dialog;
