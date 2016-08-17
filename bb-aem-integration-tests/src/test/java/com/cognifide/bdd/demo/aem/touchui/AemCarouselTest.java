@@ -99,9 +99,9 @@ public class AemCarouselTest {
   public void editCarouselComponentConfiguredBySingleFieldsTest() {
     ConfigDialog dialog = page.getParsys(parsys)
         .getComponent(COMPONENT_NAME)
-        .openDialog();
-
-    dialog.getFieldOnTab("Build list using", "LIST", Select.class).setValue("Fixed list");
+        .openDialog()
+        .switchTab("LIST")
+        .setField("Build list using", Select.class, "Fixed list");
 
     Multifield multifield = (Multifield) dialog.getField("Pages", Multifield.class);
     multifield.addField();

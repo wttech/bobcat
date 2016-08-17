@@ -105,6 +105,11 @@ public class ConfigDialog {
     return getField(label, fieldType);
   }
 
+  public ConfigDialog setField(String label, Class fieldType, Object value) {
+    getField(label, fieldType).setValue(value);
+    return this;
+  }
+
   public DialogField getField(String label, Class fieldType) {
     WebElement parent;
     if (tabs.isEmpty()) {
@@ -115,7 +120,7 @@ public class ConfigDialog {
     return dialogConfigurer.getDialogField(parent, label, fieldType);
   }
 
-  private void switchTab(String tabLabel) {
+  public ConfigDialog switchTab(String tabLabel) {
     if (!tabs.isEmpty()) {
       tabs.stream() //
           .filter(tab -> containsIgnoreCase(tab.getText(), tabLabel)) //
@@ -123,6 +128,7 @@ public class ConfigDialog {
           .orElseThrow(() -> new IllegalStateException("Tab not found")) //
           .click();
     }
+    return this;
   }
 
   private void configure(ComponentConfiguration config) {

@@ -27,6 +27,10 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 import java.util.Map;
 
+import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.ConfigDialog;
+import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.Image;
+import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.PathBrowser;
+import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.Textfield;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -66,18 +70,20 @@ public class AemImageTest {
 
   private AuthorPage page;
 
+  private String parsys;
+
   @Before
   public void setUp() {
     aemLogin.authorLogin();
     page = authorPageFactory.create(pages.getPath(CONFIGURATION));
     page.open();
+    parsys = pages.getParsys(CONFIGURATION);
     assertThat("Page has not loaded", page.isLoaded(), is(true));
+    assertTrue(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME));
   }
 
   @Test
   public void configureImageTest() {
-    String parsys = pages.getParsys(CONFIGURATION);
-    assertTrue(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME));
     ComponentConfiguration componentConfig = page.configureComponent(parsys,
         COMPONENT_NAME, COMPONENT_NAME);
 
@@ -92,6 +98,37 @@ public class AemImageTest {
     assertThat("Wrong image link to", component.getLinkTo(),
         endsWith(configuration.get(3).getValue().toString() + ".html"));
     assertThat("Wrong image description", configuration.get(4).getValue(),
+        is(component.getDescription()));
+  }
+
+  @Test
+  public void configureImageConfiguredBySingleFieldsTest() {
+    String imagePath = "cover";
+    String imageTitle = "TestTitle";
+    String imageAlt = "TestAlt";
+    String imageLink = "/content/geometrixx";
+    String imageDescription = "TextDescription";
+
+    page.getParsys(parsys).getComponent(COMPONENT_NAME)
+        .openDialog()
+        .switchTab("Image")
+        .setField("Image asset", Image.class, imagePath)
+        .setField("Title", Textfield.class, imageTitle)
+        .setField("Alt text", Textfield.class, imageAlt)
+        .setField("Link to", PathBrowser.class, imageLink)
+        .setField("Description", Textfield.class, imageDescription)
+        .confirm();
+
+    ImageComponent component =
+        (ImageComponent) page.getContent(components.getClazz(COMPONENT_NAME));
+
+    assertThat("Wrong image path", component.getImagePath(),
+        endsWith(imagePath));
+    assertThat("Wrong image title", imageTitle, is(component.getTitle()));
+    assertThat("Wrong image alt", imageAlt, is(component.getAltText()));
+    assertThat("Wrong image link to", component.getLinkTo(),
+        endsWith(imageLink + ".html"));
+    assertThat("Wrong image description", imageDescription,
         is(component.getDescription()));
   }
 }

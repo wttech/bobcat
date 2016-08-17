@@ -24,6 +24,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.ConfigDialog;
+import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.Textfield;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -89,10 +91,25 @@ public class AemTitleTest {
   @Test
   public void editTitleComponentTest() {
     ComponentConfiguration data = page.configureComponent(parsys,
-            COMPONENT_NAME, COMPONENT_NAME.toLowerCase());
+        COMPONENT_NAME, COMPONENT_NAME.toLowerCase());
     TitleComponent component =
         (TitleComponent) page.getContent(components.getClazz(COMPONENT_NAME));
     assertThat(component.getTitle(), is(
-            data.getConfigurationForTab(TAB_NAME).get(0).getValue().toString().toUpperCase()));
+        data.getConfigurationForTab(TAB_NAME).get(0).getValue().toString().toUpperCase()));
+  }
+
+  @Test
+  public void editTitleComponentConfiguredBySingleFieldsTest() {
+    String titleValue = "Feedback1";
+
+    page.getParsys(parsys).getComponent(COMPONENT_NAME)
+        .openDialog()
+        .switchTab("Title")
+        .setField("Title", Textfield.class, titleValue)
+        .confirm();
+
+    TitleComponent component =
+        (TitleComponent) page.getContent(components.getClazz(COMPONENT_NAME));
+    assertThat(component.getTitle(), is(titleValue.toUpperCase()));
   }
 }

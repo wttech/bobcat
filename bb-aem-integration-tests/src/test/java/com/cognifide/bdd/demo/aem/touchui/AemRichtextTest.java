@@ -95,13 +95,12 @@ public class AemRichtextTest {
 
   @Test
   public void shouldRenderBoldedTextProperlyOnDemandConfig() {
-    ConfigDialog dialog = page.getParsys(parsys)
+    page.getParsys(parsys)
         .getComponent(COMPONENT_NAME)
-        .openDialog();
-
-    dialog.getField("", RichText.class).setValue("test test test");
-    dialog.getField("", FontFormat.class).setValue("BOLD");
-    dialog.confirm();
+        .openDialog()
+        .setField("", RichText.class, "test test test")
+        .setField("", FontFormat.class, "BOLD")
+        .confirm();
 
     processAssertion("<p><b>test test test</b></p>");
   }

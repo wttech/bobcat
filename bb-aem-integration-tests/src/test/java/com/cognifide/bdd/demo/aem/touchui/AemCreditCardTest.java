@@ -106,34 +106,18 @@ public class AemCreditCardTest {
   public void checkedCheckBoxTest() {
     page.configureComponent(parsys, COMPONENT_NAME, CHECKED_CHECKBOX_CONFIGURATION);
 
-    CreditCardComponent component =
-        (CreditCardComponent) page.getContent(components.getClazz(COMPONENT_NAME));
-
-    assertThat(component.getLabelText(), is(LABEL_TEXT));
-
-    bobcatWait.withTimeout(Timeouts.MINIMAL).until(
-        CommonExpectedConditions
-            .elementNotPresent(By.id(CreditCardComponent.CARD_TYPE_SELECT_ID)));
+    processAssertsForCheckboxChecked();
   }
 
   @Test
   public void checkedCheckBoxConfBySingleFieldsTest() {
-//    page.configureComponent(parsys, COMPONENT_NAME, CHECKED_CHECKBOX_CONFIGURATION);
+    page.getParsys(parsys).getComponent(COMPONENT_NAME)
+        .openDialog()
+        .setField("Element Name *", Textfield.class, "test")
+        .setField("Only show non-editable summary", Checkbox.class, true)
+        .confirm();
 
-    ConfigDialog dialog = page.getParsys(parsys).getComponent(COMPONENT_NAME).openDialog();
-
-    dialog.getField("Element Name *", Textfield.class).setValue("test");
-    dialog.getField("Only show non-editable summary", Checkbox.class).setValue(true);
-    dialog.confirm();
-
-    CreditCardComponent component =
-        (CreditCardComponent) page.getContent(components.getClazz(COMPONENT_NAME));
-
-    assertThat(component.getLabelText(), is(LABEL_TEXT));
-
-    bobcatWait.withTimeout(Timeouts.MINIMAL).until(
-        CommonExpectedConditions
-            .elementNotPresent(By.id(CreditCardComponent.CARD_TYPE_SELECT_ID)));
+    processAssertsForCheckboxChecked();
   }
 
   @Test
@@ -145,5 +129,16 @@ public class AemCreditCardTest {
 
     assertThat(component.getLabelText(), is(LABEL_TEXT));
     assertThat(component.getCardTypeSelect(), anything());
+  }
+
+  private void processAssertsForCheckboxChecked() {
+    CreditCardComponent component =
+        (CreditCardComponent) page.getContent(components.getClazz(COMPONENT_NAME));
+
+    assertThat(component.getLabelText(), is(LABEL_TEXT));
+
+    bobcatWait.withTimeout(Timeouts.MINIMAL).until(
+        CommonExpectedConditions
+            .elementNotPresent(By.id(CreditCardComponent.CARD_TYPE_SELECT_ID)));
   }
 }
