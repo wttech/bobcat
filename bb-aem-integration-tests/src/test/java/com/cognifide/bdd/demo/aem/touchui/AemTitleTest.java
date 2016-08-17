@@ -24,7 +24,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.ConfigDialog;
 import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.Textfield;
 import org.junit.After;
 import org.junit.Before;

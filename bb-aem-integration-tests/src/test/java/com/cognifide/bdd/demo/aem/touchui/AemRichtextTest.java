@@ -26,7 +26,6 @@ import com.cognifide.qa.bb.aem.AemLogin;
 import com.cognifide.qa.bb.aem.touch.data.pages.Pages;
 import com.cognifide.qa.bb.aem.touch.pageobjects.pages.AuthorPage;
 import com.cognifide.qa.bb.aem.touch.pageobjects.pages.AuthorPageFactory;
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.ConfigDialog;
 import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.RichText;
 import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.text.FontFormat;
 import com.cognifide.qa.bb.junit.Modules;

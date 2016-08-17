@@ -25,9 +25,7 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
-import java.util.Map;
 
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.ConfigDialog;
 import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.Image;
 import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.PathBrowser;
 import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.Textfield;
