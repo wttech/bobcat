@@ -1,4 +1,4 @@
-Credit Card Details - Checked CheckBox:
+credit card details - checked checkbox:
   Title and Text:
     - label: Element Name *
       type: TEXTFIELD
@@ -7,7 +7,7 @@ Credit Card Details - Checked CheckBox:
       type: CHECKBOX
       value: true
 
-Credit Card Details - Unchecked CheckBox:
+credit card details - unchecked checkbox:
   Title and Text:
     - label: Element Name *
       type: TEXTFIELD
