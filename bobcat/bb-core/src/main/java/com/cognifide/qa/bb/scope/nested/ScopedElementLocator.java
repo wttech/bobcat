@@ -33,7 +33,7 @@ import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
  * This is a two-step locator. First it constructs a scope out of the scope factory and the parent field, then
  * searches for the injected field in this scope.
  */
-class ScopedElementLocator implements ElementLocator {
+public class ScopedElementLocator implements ElementLocator {
 
   private final ElementLocatorFactory scopeFactory;
 

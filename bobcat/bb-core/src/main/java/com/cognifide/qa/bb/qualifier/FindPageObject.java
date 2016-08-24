@@ -1,6 +1,8 @@
+package com.cognifide.qa.bb.qualifier;
+
 /*-
  * #%L
- * Bobcat
+ * Bobcat Parent
  * %%
  * Copyright (C) 2016 Cognifide Ltd.
  * %%
@@ -17,36 +19,18 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.cumber;
 
 import java.lang.annotation.ElementType;
-import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Add this annotation to Cucumber's test. Bobcat will store information about failed tests to file.
+ * This annotation allows to find page object if identifier was added in PageObject annotation on
+ * type
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-@Inherited
-public @interface StoreFailedResults {
-  /**
-   * @return a path to failed tests report.
-   */
-  String value();
-  /**
-   * Use this property to identify the page object by css selector
-   *
-   * @return page object css class
-   */
-  String css() default "";
+@Target({ElementType.FIELD})
+public @interface FindPageObject {
 
-  /**
-   * Use this property to identify the page object by xpath selector
-   *
-   * @return page object xpath
-   */
-  String xpath() default "";
 }

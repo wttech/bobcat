@@ -32,10 +32,8 @@ import com.google.inject.Inject;
 /**
  * This class is representation of TouchUI page component toolbar.
  */
-@PageObject
+@PageObject(css = "#EditableToolbar")
 public class ComponentToolbar {
-
-  public static final String CSS = "#EditableToolbar";
 
   private static final String BUTTON_XPATH_TEMPLATE = ".//button[contains(@title, '%s')]";
 

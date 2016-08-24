@@ -23,9 +23,11 @@ import static com.google.inject.matcher.Matchers.any;
 
 import java.util.List;
 
+import com.cognifide.qa.bb.mapper.field.PageObjectSelectorListProxyProvider;
 import org.openqa.selenium.WebElement;
 
 import com.cognifide.qa.bb.mapper.PageObjectTypeListener;
+import com.cognifide.qa.bb.mapper.field.SelectorPageObjectProvider;
 import com.cognifide.qa.bb.mapper.field.CurrentFrameProvider;
 import com.cognifide.qa.bb.mapper.field.FieldProvider;
 import com.cognifide.qa.bb.mapper.field.PageObjectListProxyProvider;
@@ -51,8 +53,10 @@ public class PageObjectsModule extends AbstractModule {
     Multibinder<FieldProvider> fieldProviders =
         Multibinder.newSetBinder(binder(), FieldProvider.class);
     fieldProviders.addBinding().to(ScopedPageObjectProvider.class);
+    fieldProviders.addBinding().to(SelectorPageObjectProvider.class);
     fieldProviders.addBinding().to(PageObjectListProxyProvider.class);
     fieldProviders.addBinding().to(CurrentFrameProvider.class);
+    fieldProviders.addBinding().to(PageObjectSelectorListProxyProvider.class);
 
     bind(Key.get(WebElement.class, CurrentScope.class)).toProvider(CurrentWebElementProvider.class);
     bind(new TypeLiteral<List<WebElement>>() {

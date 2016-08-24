@@ -23,6 +23,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import com.cognifide.qa.bb.qualifier.FindPageObject;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -64,7 +65,7 @@ public class AemTags implements Iterable<AemTagItem>, Configurable {
   @Inject
   private WebDriver webDriver;
 
-  @FindBy(css = "div.taglabel")
+  @FindPageObject
   private List<AemTagItem> items;
 
   @FindBy(xpath = ".//input")
