@@ -19,6 +19,7 @@
  */
 package com.cognifide.qa.bb.aem.ui.wcm.windows;
 
+import com.cognifide.qa.bb.qualifier.FindPageObject;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -37,10 +38,8 @@ import com.google.inject.Inject;
 /**
  * Class responsible for handling move page dialog.
  */
-@PageObject
+@PageObject(css = "div[style*='visible'] div.x-window-bwrap")
 public class MovePageWindow implements DecisionWindow {
-
-  public static final String CSS = "div[style*='visible'] div.x-window-bwrap";
 
   @Inject
   private BobcatWait bobcatWait;
@@ -62,7 +61,7 @@ public class MovePageWindow implements DecisionWindow {
   private WebElement cancelButton;
 
   @Global
-  @FindBy(css = SiteAdminConfirmationWindow.CSS)
+  @FindPageObject
   private SiteAdminConfirmationWindow siteAdminConfirmationWindow;
 
   /**

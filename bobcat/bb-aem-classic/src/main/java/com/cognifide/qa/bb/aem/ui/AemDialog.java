@@ -47,6 +47,7 @@ import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.expectedconditions.CommonExpectedConditions;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
+import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.Frame;
 import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
@@ -101,7 +102,7 @@ public class AemDialog {
   private Actions actions;
 
   @Global
-  @FindBy(css = ValidationWindow.CSS)
+  @FindPageObject
   private ValidationWindow validationWindow;
 
   @Inject

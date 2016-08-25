@@ -1,8 +1,6 @@
-package com.cognifide.qa.bb.mapper.field;
-
 /*-
  * #%L
- * Bobcat
+ * Bobcat Parent
  * %%
  * Copyright (C) 2016 Cognifide Ltd.
  * %%
@@ -20,9 +18,13 @@ package com.cognifide.qa.bb.mapper.field;
  * #L%
  */
 
+package com.cognifide.qa.bb.mapper.field;
+
 import java.lang.reflect.Field;
+import java.util.List;
 import java.util.Optional;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 
@@ -32,18 +34,18 @@ import com.cognifide.qa.bb.scope.ContextStack;
 import com.cognifide.qa.bb.scope.PageObjectContext;
 import com.cognifide.qa.bb.scope.frame.FrameMap;
 import com.cognifide.qa.bb.scope.frame.FramePath;
-import com.cognifide.qa.bb.scope.nested.ScopedElementLocatorFactory;
+import com.cognifide.qa.bb.scope.nestedselector.NestedSelectorScopedLocatorFactory;
 import com.cognifide.qa.bb.utils.AnnotationsHelper;
 import com.google.inject.ConfigurationException;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
 /**
- * This provider produces values for PageObject's fields that are annotated with one of the Find
- * annotations. It tracks the context in which the objects are created so that their own child
+ * This provider produces values for PageObject's fields that are annotated with FindPageObject
+ * annotation. It tracks the context in which the objects are created so that their own child
  * objects can reference their parent's creation context.
  */
-public class ScopedPageObjectProvider implements FieldProvider {
+public class SelectorPageObjectProvider implements FieldProvider {
 
   @Inject
   private ContextStack contextStack;
@@ -57,30 +59,23 @@ public class ScopedPageObjectProvider implements FieldProvider {
   @Inject
   private FrameMap frameMap;
 
-  /**
-   * PageObjectInjectorListener calls this method to check if the provider is able to handle
-   * currently injected field.
-   * <p>
-   * ScopedPageObjectProvider handles fields that:
-   * <ul>
-   * <li>come from classes that are annotated with PageObject annotation,
-   * <li>have one of the Find annotations.
-   * </ul>
-   */
   @Override
   public boolean accepts(Field field) {
     return field.getType().isAnnotationPresent(PageObject.class)
-        && AnnotationsHelper.isFindByAnnotationPresent(field);
+        && AnnotationsHelper.isFindPageObjectAnnotationPresent(field) && isNotList(field);
+
   }
 
   /**
    * This method produces value for the field. It constructs the context for the creation out of
-   * parent's context and the field's own frame info.
+   * paren't context and the field's own frame info.
    */
   @Override
   public Optional<Object> provideValue(Object pageObject, Field field, PageObjectContext context) {
-    final ElementLocatorFactory elementLocatorFactory = new ScopedElementLocatorFactory(webDriver,
-        context.getElementLocatorFactory(), field);
+    By selector = PageObjectProviderHelper.getSelectorFromPageObject(field);
+    ElementLocatorFactory elementLocatorFactory =
+        new NestedSelectorScopedLocatorFactory(webDriver, selector,
+            context.getElementLocatorFactory(), AnnotationsHelper.isGlobal(field));
     final FramePath framePath = frameMap.get(pageObject);
     contextStack.push(new PageObjectContext(elementLocatorFactory, framePath));
     Object scopedPageObject = null;
@@ -97,5 +92,9 @@ public class ScopedPageObjectProvider implements FieldProvider {
       contextStack.pop();
     }
     return Optional.ofNullable(scopedPageObject);
+  }
+
+  private boolean isNotList(Field field) {
+    return !field.getType().equals(List.class);
   }
 }

@@ -40,12 +40,12 @@ import com.google.inject.Inject;
 /**
  * This class represents config dialog of the TouchUI component.
  */
-@PageObject
+@PageObject(css = "form.cq-dialog")
 public class ConfigDialog {
 
-  public static final String CSS = "form.cq-dialog";
-
   public static final String FULLSCREEN_CLASS = "cq-dialog-fullscreen";
+
+  private static final String CSS = "form.cq-dialog";
 
   @Inject
   private Conditions conditions;

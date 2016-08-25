@@ -37,7 +37,7 @@ import com.google.inject.Inject;
 /**
  * Single tag in the tag window.
  */
-@PageObject
+@PageObject(css = "div.taglabel")
 @Frame("$cq")
 public class AemTagItem {
 

@@ -1,3 +1,5 @@
+package com.cognifide.qa.bb.scope.selector;
+
 /*-
  * #%L
  * Bobcat
@@ -17,7 +19,6 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.scope.selector;
 
 import static java.util.stream.Collectors.toList;
 
@@ -52,8 +53,8 @@ public class SelectorScopedElementLocator implements ElementLocator {
    * Create a element locator scoped by given search context and selector.
    *
    * @param searchContext Base search context
-   * @param selector      Scope of the locator (it narrows the searchContext)
-   * @param field         Field to find in the scope.
+   * @param selector Scope of the locator (it narrows the searchContext)
+   * @param field Field to find in the scope.
    */
   public SelectorScopedElementLocator(SearchContext searchContext, By selector, Field field) {
     this.searchContext = searchContext;
@@ -75,8 +76,7 @@ public class SelectorScopedElementLocator implements ElementLocator {
   }
 
   private SearchContext getContext() {
-    return field.isAnnotationPresent(Global.class) ?
-        searchContext :
-        selector.findElement(searchContext);
+    return field.isAnnotationPresent(Global.class) ? searchContext
+        : selector.findElement(searchContext);
   }
 }

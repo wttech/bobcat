@@ -39,11 +39,8 @@ import com.google.inject.Inject;
 /**
  * Class responsible for handling Create page dialog.
  */
-@PageObject
+@PageObject (css = "div[id^='cq-createdialog'][style*='visibility: visible'][style*='display: block']")
 public class CreatePageWindow implements DecisionWindow {
-
-  public static final String CSS =
-      "div[id^='cq-createdialog'][style*='visibility: visible'][style*='display: block']";
 
   @Inject
   private BobcatWait bobcatWait;

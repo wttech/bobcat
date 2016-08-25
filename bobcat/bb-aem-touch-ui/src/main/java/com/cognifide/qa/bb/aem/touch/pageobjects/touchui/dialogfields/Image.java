@@ -19,6 +19,7 @@
  */
 package com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields;
 
+import com.cognifide.qa.bb.qualifier.FindPageObject;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -42,7 +43,7 @@ public class Image implements DialogField {
   private DragAndDropFactory dragAndDropFactory;
 
   @Global
-  @FindBy(css = SidePanel.CSS)
+  @FindPageObject
   private SidePanel sidePanel;
 
   @FindBy(css = "span.coral-FileUpload")
