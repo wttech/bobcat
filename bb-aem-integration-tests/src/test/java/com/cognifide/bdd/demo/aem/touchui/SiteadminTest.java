@@ -20,6 +20,7 @@ import static org.hamcrest.CoreMatchers.endsWith;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.isA;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import com.cognifide.bdd.demo.GuiceModule;
 import com.cognifide.qa.bb.aem.AemLogin;
@@ -32,7 +33,6 @@ import com.cognifide.qa.bb.junit.TestRunner;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.google.inject.Inject;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -72,7 +72,7 @@ public class SiteadminTest {
   public void setUp() {
     login.authorLogin();
     siteadminPage.open(CONTEXT_PATH);
-    Assert.assertTrue(siteadminPage.isLoaded());
+    assertTrue(siteadminPage.isLoaded());
     testedPageName = UUID.randomUUID().toString().replace("-", "");
   }
 
@@ -95,7 +95,7 @@ public class SiteadminTest {
     createPage(testedPage);
     siteadminPage.publishPage(testedPage);
     siteadminPage.refresh();
-    Assert.assertThat(getPageFromList(testedPage).getPageActivationStatus().getActivationStatus(),
+    assertThat(getPageFromList(testedPage).getPageActivationStatus().getActivationStatus(),
         is(ActivationStatus.PUBLISHED));
   }
 
@@ -107,55 +107,45 @@ public class SiteadminTest {
     siteadminPage.refresh();
     siteadminPage.unpublishPage(testedPageName);
     siteadminPage.refresh();
-    Assert
-        .assertThat(getPageFromList(testedPageName).getPageActivationStatus().getActivationStatus(),
-            is(ActivationStatus.NOT_PUBLISHED));
+    assertThat(getPageFromList(testedPageName).getPageActivationStatus().getActivationStatus(),
+        is(ActivationStatus.NOT_PUBLISHED));
 
   }
 
   @Test
   public void shouldPublishPageLaterProperly() {
     createPage(testedPageName);
-
     siteadminPage.publishPageLater(testedPageName, scheduleTime);
-
     siteadminPage.open(CONTEXT_PATH);
-
-    Assert
-        .assertThat(getPageFromList(testedPageName).getPageActivationStatus().getActivationStatus(),
-            is(ActivationStatus.SCHEDULED));
+    assertThat(getPageFromList(testedPageName).getPageActivationStatus().getActivationStatus(),
+        is(ActivationStatus.SCHEDULED));
   }
 
   @Test
   public void shouldPublishAndUnpublishPageLaterProperly() {
     createPage(testedPageName);
-
     siteadminPage.publishPage(testedPageName);
     siteadminPage.unpublishPageLater(testedPageName, scheduleTime);
     siteadminPage.open(CONTEXT_PATH);
-
-    Assert
-        .assertThat(getPageFromList(testedPageName).getPageActivationStatus().getActivationStatus(),
-            is(ActivationStatus.SCHEDULED));
+    assertThat(getPageFromList(testedPageName).getPageActivationStatus().getActivationStatus(),
+        is(ActivationStatus.SCHEDULED));
   }
 
   @Test
   public void shouldCopyPageProperly() {
     createPage(testedPageName);
     siteadminPage.copyPage(testedPageName, COMPOSE_MESSAGE_PATH);
-    wait.withTimeout(Timeouts.SMALL).until(input -> siteadminPage.isLoaded(), 2);
-
     siteadminPage.open(COMPOSE_MESSAGE_PATH);
-    Assert.assertThat(getPageFromList(testedPageName), isA(ChildPageRow.class));
+    assertThat(getPageFromList(testedPageName), isA(ChildPageRow.class));
   }
 
   @Test
   public void shouldMovePageProperly() {
     createPage(testedPageName);
     siteadminPage.movePage(testedPageName, COMPOSE_MESSAGE_PATH);
-    wait.withTimeout(Timeouts.SMALL).until(input -> siteadminPage.isLoaded(), 2);
+    wait.withTimeout(Timeouts.SMALL).until(input -> siteadminPage.isLoaded());
     siteadminPage.open(COMPOSE_MESSAGE_PATH);
-    Assert.assertThat(getPageFromList(testedPageName), isA(ChildPageRow.class));
+    assertThat(getPageFromList(testedPageName), isA(ChildPageRow.class));
   }
 
   private void createPage(String testedPage) {

@@ -86,13 +86,12 @@ public class SiteadminPage implements SiteadminActions {
     return this;
   }
 
-
   @Override
   public SiteadminActions publishPageLater(String title, LocalDateTime localDateTime) {
     selectPage(title);
     String pageParent = getActualUrl();
     toolbar.publishPageLater(localDateTime);
-    wait.withTimeout(Timeouts.SMALL).until(input -> isLoaded(),Timeouts.MINIMAL);
+    wait.withTimeout(Timeouts.SMALL).until(input -> isLoaded(), Timeouts.MINIMAL);
     driver.get(pageParent);
     waitForExpectedStatus(title, ActivationStatus.SCHEDULED);
     return this;
@@ -102,8 +101,9 @@ public class SiteadminPage implements SiteadminActions {
   public SiteadminActions copyPage(String title, String destination) {
     selectPage(title);
     toolbar.copyPage();
-    driver.get(getSiteAdminUrl() + destination);
+    open(destination);
     toolbar.pastePage();
+    waitForPageToAppearOnTheList(title);
     return this;
   }
 
@@ -209,6 +209,14 @@ public class SiteadminPage implements SiteadminActions {
         PageActivationStatus pageActivationStatusCell = childPage.getPageActivationStatus();
         ActivationStatus activationStatus = pageActivationStatusCell.getActivationStatus();
         return activationStatus.equals(status);
+      }
+    }, Timeouts.SMALL);
+  }
+
+  private void waitForPageToAppearOnTheList(final String title) {
+    wait.withTimeout(Timeouts.MEDIUM).until(new ExpectedCondition<Boolean>() {
+      @Nullable @Override public Boolean apply(@Nullable WebDriver webDriver) {
+        return getChildPageWindow(webDriver).containsPage(title);
       }
     }, Timeouts.SMALL);
   }
