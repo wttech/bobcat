@@ -24,7 +24,6 @@ import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.utils.WebElementUtils;
 import com.google.inject.Inject;
-import org.apache.commons.lang3.NotImplementedException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -42,6 +41,9 @@ public class ChildPageRow implements SiteadminChildPage {
 
   @FindBy(css = "td.coral-Table-cell:nth-of-type(4)")
   private PageActivationStatusImpl pageActivationStatus;
+
+  @FindBy(css = "td.coral-Table-cell:nth-of-type(3)")
+  private PageModificationInfoImpl pageModificationInfo;
 
   @FindBy(tagName = "a")
   private WebElement anchor;
@@ -66,10 +68,10 @@ public class ChildPageRow implements SiteadminChildPage {
   }
 
   @Override public PageModificationInfo getModificationInfo() {
-    throw new NotImplementedException("Not implemented yet");
+    return pageModificationInfo;
   }
 
-  public PageActivationStatus getPageActivationStatus() {
+  @Override public PageActivationStatus getPageActivationStatus() {
     return pageActivationStatus;
   }
 

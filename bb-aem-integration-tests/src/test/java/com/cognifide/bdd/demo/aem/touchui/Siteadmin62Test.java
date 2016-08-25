@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2016 Cognifide Ltd..
  *
@@ -16,9 +15,7 @@
  */
 package com.cognifide.bdd.demo.aem.touchui;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.time.LocalDateTime;
 
@@ -27,13 +24,17 @@ import com.cognifide.qa.bb.aem.AemLogin;
 
 import com.cognifide.qa.bb.aem.touch.siteadmin.aem62.SiteadminPage;
 import com.cognifide.qa.bb.aem.touch.siteadmin.common.ActivationStatus;
+import com.cognifide.qa.bb.aem.touch.siteadmin.common.PageModificationInfo;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.google.inject.Inject;
+import org.hamcrest.BaseMatcher;
 import org.hamcrest.CoreMatchers;
+import org.hamcrest.text.IsEmptyString;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -153,6 +154,16 @@ public class Siteadmin62Test {
     wait.withTimeout(Timeouts.SMALL).until(input -> siteadminPage.isLoaded(), 2);
     siteadminPage.open(COMPOSE_MESSAGE_PATH);
     assertTrue(siteadminPage.isPagePresent(testedPage));
+  }
+
+  @Test
+  public void shouldGetPageModificationInfo() {
+    String testedPage = "PageModificationInfo";
+    createPageInContext(testedPage, CONTEXT_PATH);
+    PageModificationInfo pageModificationInfo =
+        siteadminPage.getPageFromList(testedPage).getModificationInfo();
+    assertEquals(pageModificationInfo.getModifiedBy(), "Administrator");
+    assertFalse((pageModificationInfo.getWhenModified().isEmpty()));
   }
 
   private void createPageInContext(String title, String destinationPath) {
