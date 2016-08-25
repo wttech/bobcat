@@ -372,6 +372,12 @@
             </properties>
         </profile>
         <profile>
+            <id>bb-aem62-touch-ui</id>
+            <properties>
+                <runSuite>**/BbAem62TouchUiSuite.java</runSuite>
+            </properties>
+        </profile>
+        <profile>
             <id>bb-aem-common</id>
             <properties>
                 <runSuite>**/BbAemCommonSuite.java</runSuite>
