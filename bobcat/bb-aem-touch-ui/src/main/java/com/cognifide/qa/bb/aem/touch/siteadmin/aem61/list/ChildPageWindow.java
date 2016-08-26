@@ -67,11 +67,11 @@ public class ChildPageWindow {
 
   public boolean containsPage(String title) {
     return webElementUtils.isConditionMet(new ExpectedCondition<Object>() {
-      @Nullable @Override public Object apply(@Nullable WebDriver input) {
+      @Nullable @Override public Object apply(@Nullable WebDriver weDriver) {
         try {
           return childPages.stream().filter(t -> t.getTitle().equals(title)).findFirst().isPresent();
         } catch (StaleElementReferenceException e) {
-          input.navigate().refresh();
+          weDriver.navigate().refresh();
           return false;
         }
       }

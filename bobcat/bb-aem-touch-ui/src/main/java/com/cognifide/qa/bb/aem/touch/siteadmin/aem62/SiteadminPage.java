@@ -33,6 +33,7 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.utils.PageObjectInjector;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import org.apache.commons.lang3.NotImplementedException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -99,6 +100,10 @@ public class SiteadminPage implements SiteadminActions {
         .selectTemplate(templateName)
         .provideTitle(title).submit();
     return this;
+  }
+
+  @Override public SiteadminActions waitForPageCount(int pageCount) {
+    throw new NotImplementedException("This feature is not implemented yet.");
   }
 
   @Override

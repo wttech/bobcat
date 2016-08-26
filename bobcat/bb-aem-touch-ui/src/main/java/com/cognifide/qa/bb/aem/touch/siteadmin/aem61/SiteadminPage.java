@@ -114,7 +114,7 @@ public class SiteadminPage implements SiteadminActions {
     return this;
   }
 
-  public SiteadminPage waitForPageCount(int pageCount) {
+  public SiteadminActions waitForPageCount(int pageCount) {
     boolean conditionNotMet = !webElementUtils.isConditionMet(new ExpectedCondition<Object>() {
       @Nullable @Override public Object apply(@Nullable WebDriver webDriver) {
         try {
