@@ -28,8 +28,6 @@ import static org.junit.Assert.assertTrue;
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldType;
 import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.ConfigDialog;
 import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.Multifield;
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.PathBrowser;
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.Select;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -92,8 +90,7 @@ public class AemCarouselTest {
   @Test
   public void editCarouselComponentTest() {
     page.configureComponent(parsys, COMPONENT_NAME, COMPONENT_NAME);
-
-    processAssertions();
+    assertCarouselComponent();
   }
 
   @Test
@@ -107,18 +104,15 @@ public class AemCarouselTest {
     Multifield multifield = (Multifield) dialog.getField("Pages", FieldType.MULTIFIELD.name());
     multifield.addField();
     multifield.addField();
-
     multifield.getItemAtIndex(0)
         .setFieldInMultifield(FieldType.PATHBROWSER.name(), "/content/geometrixx-outdoors");
     multifield.getItemAtIndex(1)
         .setFieldInMultifield(FieldType.PATHBROWSER.name(), "/content/geometrixx-outdoors-mobile");
-
     dialog.confirm();
-
-    processAssertions();
+    assertCarouselComponent();
   }
 
-  private void processAssertions() {
+  private void assertCarouselComponent() {
     CarouselComponent component =
         (CarouselComponent) page.getContent(components.getClazz(COMPONENT_NAME));
 
