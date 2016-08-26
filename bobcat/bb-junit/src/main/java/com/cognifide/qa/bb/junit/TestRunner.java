@@ -22,8 +22,6 @@ package com.cognifide.qa.bb.junit;
 import java.util.List;
 import java.util.Properties;
 
-import com.cognifide.qa.bb.constants.ConfigKeys;
-import com.cognifide.qa.bb.qualifier.Retry;
 import org.junit.Ignore;
 import org.junit.internal.AssumptionViolatedException;
 import org.junit.internal.runners.model.EachTestNotifier;
@@ -36,7 +34,9 @@ import org.junit.runners.model.InitializationError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.cognifide.qa.bb.constants.ConfigKeys;
 import com.cognifide.qa.bb.junit.listener.ReportingListener;
+import com.cognifide.qa.bb.qualifier.Retry;
 import com.google.inject.Injector;
 
 /**
@@ -121,7 +121,7 @@ public class TestRunner extends BlockJUnit4ClassRunner {
 
     eachNotifier.fireTestStarted();
     try {
-     runMethod(method);
+      runMethod(method);
     } catch (AssumptionViolatedException e) {
       eachNotifier.addFailedAssumption(e);
     } catch (Throwable e) {
@@ -166,7 +166,7 @@ public class TestRunner extends BlockJUnit4ClassRunner {
       } catch (AssumptionViolatedException e) {
         throw e;
       } catch (Throwable e) {
-        if(runs>=retryCount){
+        if (runs >= retryCount) {
           throw e;
         }
       }
@@ -176,11 +176,12 @@ public class TestRunner extends BlockJUnit4ClassRunner {
 
   private int retrieveRetry(FrameworkMethod method) {
     Retry retry = method.getAnnotation(Retry.class);
-    return retry != null ? calculateRetryCount(retry.reruns()): 0;
+    return retry != null ? calculateRetryCount(retry.reruns()) : 0;
   }
 
   private int calculateRetryCount(int reruns) {
-    return reruns > 0 ? reruns : Integer.parseInt(properties.getProperty(ConfigKeys.JUNIT_RERUNS,"0"));
+    return reruns > 0 ? reruns
+        : Integer.parseInt(properties.getProperty(ConfigKeys.JUNIT_RERUNS, "0"));
   }
 
   private EachTestNotifier makeNotifier(FrameworkMethod method, RunNotifier notifier) {
