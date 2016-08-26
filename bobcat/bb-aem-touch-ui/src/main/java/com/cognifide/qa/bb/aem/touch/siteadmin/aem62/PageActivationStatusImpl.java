@@ -40,7 +40,7 @@ public class PageActivationStatusImpl implements PageActivationStatus {
   @Inject
   private WebElementUtils elementUtils;
 
-  @FindBy(css = "coral-icon.coral-Icon--pending")
+  @FindBy(css = "coral-icon.coral-Icon--calendar")
   private WebElement scheduledIcon;
 
   @Override public String getReplicationActionDate() {
@@ -52,7 +52,8 @@ public class PageActivationStatusImpl implements PageActivationStatus {
   }
 
   @Override public ActivationStatus getActivationStatus() {
-    if (elementUtils.isDisplayed(scheduledIcon, Timeouts.MINIMAL)) {
+    boolean displayed = elementUtils.isDisplayed(scheduledIcon, Timeouts.MINIMAL);
+    if (displayed) {
       return ActivationStatus.SCHEDULED;
     }
     if (currentScope.getAttribute("value").equals("0")) {

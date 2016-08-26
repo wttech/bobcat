@@ -137,6 +137,8 @@ public class SiteadminPage implements SiteadminActions {
   public SiteadminActions publishPageLater(String title, LocalDateTime scheduledDateTime) {
     childPageWindow.selectPage(title);
     siteadminToolbar.publishPageLater(scheduledDateTime);
+    wait.withTimeout(Timeouts.SMALL).until(input -> isPagePresent(title));
+    waitForExpectedStatus(title, ActivationStatus.SCHEDULED);
     return this;
   }
 
@@ -144,6 +146,8 @@ public class SiteadminPage implements SiteadminActions {
   public SiteadminActions unpublishPageLater(String title, LocalDateTime scheduledDateTime) {
     childPageWindow.selectPage(title);
     siteadminToolbar.unpublishPageLater(scheduledDateTime);
+    wait.withTimeout(Timeouts.SMALL).until(input -> isPagePresent(title));
+    waitForExpectedStatus(title, ActivationStatus.SCHEDULED);
     return this;
   }
 
@@ -151,6 +155,7 @@ public class SiteadminPage implements SiteadminActions {
   public SiteadminActions deletePage(String title) {
     childPageWindow.selectPage(title);
     siteadminToolbar.deleteSelectedPages();
+    wait.withTimeout(Timeouts.MEDIUM).until(input -> isLoaded(), Timeouts.SMALL);
     return this;
   }
 

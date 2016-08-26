@@ -54,7 +54,8 @@ public class ChildPageWindow {
   }
 
   public boolean containsPage(String title) {
-    return childPageRows.stream().filter(t -> t.getTitle().equals(title)).findFirst().isPresent();
+    return childPageRows.size() > 0 && childPageRows.stream()
+        .filter(t -> t.getTitle().equals(title)).findFirst().isPresent();
   }
 
   public boolean hasSubPages() {

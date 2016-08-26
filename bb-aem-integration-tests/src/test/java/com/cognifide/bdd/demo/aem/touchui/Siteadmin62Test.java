@@ -18,6 +18,7 @@ package com.cognifide.bdd.demo.aem.touchui;
 import static org.junit.Assert.*;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import com.cognifide.bdd.demo.GuiceModule;
 import com.cognifide.qa.bb.aem.AemLogin;
@@ -85,15 +86,17 @@ public class Siteadmin62Test {
 
   @Test
   public void shouldCreateNewPage() {
-    siteadminPage.createNewPage("NewPage", "newpage", DEFAULT_TEMPLATE);
-    String newPagePath = CONTEXT_PATH + "/newpage";
+    String newPage = generateRandomPageName();
+    String newPageTitle = newPage.toLowerCase();
+    String newPagePath = CONTEXT_PATH + "/" + newPageTitle;
+    siteadminPage.createNewPage(newPage, newPageTitle, DEFAULT_TEMPLATE);
     siteadminPage.open(newPagePath);
     assertThat(driver.getCurrentUrl(), CoreMatchers.endsWith(newPagePath));
   }
 
   @Test
   public void shouldDeletePage() {
-    String testedPage = "PageToDelete";
+    String testedPage = generateRandomPageName();
     createPageInContext(testedPage, CONTEXT_PATH);
     siteadminPage.deletePage(testedPage);
     assertFalse(siteadminPage.isPagePresent(testedPage));
@@ -101,7 +104,7 @@ public class Siteadmin62Test {
 
   @Test
   public void shouldPublishAndUnpublishPageProperly() {
-    String testedPage = "PublishPage";
+    String testedPage = generateRandomPageName();
     createPageInContext(testedPage, CONTEXT_PATH);
     siteadminPage.publishPage(testedPage);
     assertThat(
@@ -115,7 +118,7 @@ public class Siteadmin62Test {
 
   @Test
   public void shouldPublishPageLater() {
-    String testedPage = "PublishLater";
+    String testedPage = generateRandomPageName();
     createPageInContext(testedPage, CONTEXT_PATH);
     siteadminPage.publishPageLater(testedPage, scheduleTime);
     assertThat(
@@ -125,7 +128,7 @@ public class Siteadmin62Test {
 
   @Test
   public void shouldUnpublishPageLater() {
-    String testedPage = "UnpublishLater";
+    String testedPage = generateRandomPageName();
     createPageInContext(testedPage, CONTEXT_PATH);
     siteadminPage.unpublishPageLater(testedPage, scheduleTime);
     assertThat(
@@ -135,7 +138,7 @@ public class Siteadmin62Test {
 
   @Test
   public void shouldMovePage() {
-    String testedPage = "MovePage";
+    String testedPage = generateRandomPageName();
     createPageInContext(testedPage, CONTEXT_PATH);
     siteadminPage.movePage(testedPage, COMPOSE_MESSAGE_PATH);
     wait.withTimeout(Timeouts.SMALL).until(input -> siteadminPage.isLoaded(), 2);
@@ -145,7 +148,7 @@ public class Siteadmin62Test {
 
   @Test
   public void shouldCopyPage() {
-    String testedPage = "CopyPage";
+    String testedPage = generateRandomPageName();
     createPageInContext(testedPage, CONTEXT_PATH);
     siteadminPage.copyPage(testedPage, COMPOSE_MESSAGE_PATH);
     wait.withTimeout(Timeouts.SMALL).until(input -> siteadminPage.isLoaded(), 2);
@@ -155,7 +158,7 @@ public class Siteadmin62Test {
 
   @Test
   public void shouldGetPageModificationInfo() {
-    String testedPage = "PageModificationInfo";
+    String testedPage = generateRandomPageName();
     createPageInContext(testedPage, CONTEXT_PATH);
     PageModificationInfo pageModificationInfo =
         siteadminPage.getPageFromList(testedPage).getModificationInfo();
@@ -167,4 +170,7 @@ public class Siteadmin62Test {
     siteadminPage.open(destinationPath).createNewPage(title, title.toLowerCase(), DEFAULT_TEMPLATE);
   }
 
+  private String generateRandomPageName() {
+    return UUID.randomUUID().toString().replace("-", "");
+  }
 }
