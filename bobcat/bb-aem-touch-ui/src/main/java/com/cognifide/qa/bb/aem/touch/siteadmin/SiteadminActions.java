@@ -71,6 +71,15 @@ public interface SiteadminActions {
   SiteadminActions createNewPage(String title, String templateName);
 
   /**
+   * Waits until there is requested number of subPages on actual page list. During waiting page is
+   * reloaded several times.
+   *
+   * @param pageCount number of pages that is expected to appear
+   * @return this SiteadminPage
+   */
+  SiteadminActions waitForPageCount(int pageCount);
+
+  /**
    * Deactivates the page with provided title by selecting it and pressing Dectivate button on Action Bar.
    *
    * @param title title of the page

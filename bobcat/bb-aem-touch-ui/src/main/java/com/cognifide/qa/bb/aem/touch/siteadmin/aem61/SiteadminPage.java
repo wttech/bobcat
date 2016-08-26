@@ -28,6 +28,7 @@ import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.utils.PageObjectInjector;
+import com.cognifide.qa.bb.utils.WebElementUtils;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
@@ -36,6 +37,7 @@ import java.time.LocalDateTime;
 import javax.annotation.Nullable;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -50,6 +52,9 @@ public class SiteadminPage implements SiteadminActions {
   @Inject
   @Named(AemConfigKeys.AUTHOR_URL)
   String url;
+
+  @Inject
+  private WebElementUtils webElementUtils;
 
   @Inject
   private Conditions conditions;
@@ -102,8 +107,27 @@ public class SiteadminPage implements SiteadminActions {
     selectPage(title);
     toolbar.copyPage();
     open(destination);
+    int pageCount = getChildPageWindow().getPageCount();
     toolbar.pastePage();
+    waitForPageCount(pageCount + 1);
     waitForPageToAppearOnTheList(title);
+    return this;
+  }
+
+  public SiteadminActions waitForPageCount(int pageCount) {
+    boolean conditionNotMet = !webElementUtils.isConditionMet(new ExpectedCondition<Object>() {
+      @Nullable @Override public Object apply(@Nullable WebDriver webDriver) {
+        try {
+          return (pageCount == getChildPageWindow().getPageCount());
+        } catch (StaleElementReferenceException e) {
+          webDriver.navigate().refresh();
+          return false;
+        }
+      }
+    }, Timeouts.SMALL);
+    if (conditionNotMet) {
+     throw new IllegalStateException("Timeout when waiting for page count: " + pageCount);
+    }
     return this;
   }
 
@@ -205,7 +229,7 @@ public class SiteadminPage implements SiteadminActions {
     wait.withTimeout(Timeouts.MEDIUM).until(new ExpectedCondition<Boolean>() {
       @Nullable @Override public Boolean apply(@Nullable WebDriver webDriver) {
         webDriver.navigate().refresh();
-        ChildPageRow childPage = getChildPageWindow(webDriver).getChildPageRow(title);
+        ChildPageRow childPage = getChildPageWindow().getChildPageRow(title);
         PageActivationStatus pageActivationStatusCell = childPage.getPageActivationStatus();
         ActivationStatus activationStatus = pageActivationStatusCell.getActivationStatus();
         return activationStatus.equals(status);
@@ -216,14 +240,14 @@ public class SiteadminPage implements SiteadminActions {
   private void waitForPageToAppearOnTheList(final String title) {
     wait.withTimeout(Timeouts.MEDIUM).until(new ExpectedCondition<Boolean>() {
       @Nullable @Override public Boolean apply(@Nullable WebDriver webDriver) {
-        return getChildPageWindow(webDriver).containsPage(title);
+        return getChildPageWindow().containsPage(title);
       }
     }, Timeouts.SMALL);
   }
 
-  private ChildPageWindow getChildPageWindow(WebDriver webDriver) {
+  private ChildPageWindow getChildPageWindow() {
     WebElement childPagesElement =
-        webDriver.findElement(By.cssSelector(CHILD_PAGE_WINDOW_SELECTOR));
+        driver.findElement(By.cssSelector(CHILD_PAGE_WINDOW_SELECTOR));
     return pageObjectInjector.inject(ChildPageWindow.class, childPagesElement);
   }
 
