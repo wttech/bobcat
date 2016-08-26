@@ -47,9 +47,6 @@ public class SiteadminToolbar {
   private static final String POPOVER_CREATE_PAGE_BUTTON_SELECTOR =
       ".endor-List-item.cq-siteadmin-admin-createpage";
 
-//  private static final String SUCCESS_INFO_SELECTOR =
-//      "div.foundation-ui-notification.coral-Alert.coral-Alert--info";
-
   private static final String MORE_BUTTON_SELECTOR = "i.coral-Icon.coral-Icon--more";
 
   private static final String PUBLISH_BUTTON_SELECTOR =
@@ -177,10 +174,6 @@ public class SiteadminToolbar {
 
   private boolean isSuccessInfoDisplayed() {
     return webElementUtils.isDisplayed(successInfo, Timeouts.MINIMAL);
-  }
-
-  private boolean isConfirmationInfoDisplayed() {
-    return confirmationModal.isDisplayed();
   }
 
   private WebElement getMoreButton() {

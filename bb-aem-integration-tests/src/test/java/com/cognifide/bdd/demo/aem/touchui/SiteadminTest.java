@@ -91,25 +91,22 @@ public class SiteadminTest {
 
   @Test
   public void shouldPublishPageProperly() {
-    String testedPage = "PublishPage";
-    createPage(testedPage);
-    siteadminPage.publishPage(testedPage);
+    createPage(testedPageName);
+    siteadminPage.publishPage(testedPageName);
     siteadminPage.refresh();
-    assertThat(getPageFromList(testedPage).getPageActivationStatus().getActivationStatus(),
+    assertThat(getPageFromList(testedPageName).getPageActivationStatus().getActivationStatus(),
         is(ActivationStatus.PUBLISHED));
   }
 
   @Test
   public void shouldPublishAndUnpublishPageProperly() {
     createPage(testedPageName);
-
     siteadminPage.publishPage(testedPageName);
     siteadminPage.refresh();
     siteadminPage.unpublishPage(testedPageName);
     siteadminPage.refresh();
     assertThat(getPageFromList(testedPageName).getPageActivationStatus().getActivationStatus(),
         is(ActivationStatus.NOT_PUBLISHED));
-
   }
 
   @Test
