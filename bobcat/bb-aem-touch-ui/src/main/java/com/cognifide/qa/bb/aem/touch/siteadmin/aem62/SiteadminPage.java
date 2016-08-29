@@ -155,8 +155,9 @@ public class SiteadminPage implements SiteadminActions {
   @Override
   public SiteadminActions deletePage(String title) {
     childPageWindow.selectPage(title);
+    int pageCount = childPageWindow.getPageCount();
     siteadminToolbar.deleteSelectedPages();
-    wait.withTimeout(Timeouts.MEDIUM).until(input -> isLoaded(), Timeouts.SMALL);
+    waitForPageCount(pageCount - 1);
     return this;
   }
 
