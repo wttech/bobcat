@@ -31,10 +31,12 @@ import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.utils.PageObjectInjector;
+import com.cognifide.qa.bb.utils.WebElementUtils;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import org.apache.commons.lang3.NotImplementedException;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -55,6 +57,9 @@ public class SiteadminPage implements SiteadminActions {
 
   @Inject
   private WebDriver driver;
+
+  @Inject
+  private WebElementUtils webElementUtils;
 
   @FindBy(css = ".cq-siteadmin-admin-childpages")
   @Global
@@ -100,10 +105,6 @@ public class SiteadminPage implements SiteadminActions {
         .selectTemplate(templateName)
         .provideTitle(title).submit();
     return this;
-  }
-
-  @Override public SiteadminActions waitForPageCount(int pageCount) {
-    throw new NotImplementedException("This feature is not implemented yet.");
   }
 
   @Override
@@ -172,7 +173,9 @@ public class SiteadminPage implements SiteadminActions {
     childPageWindow.selectPage(title);
     siteadminToolbar.copyPage();
     open(destination);
+    int pageCount = childPageWindow.getPageCount();
     contentToolbar.pastePage();
+    waitForPageCount(pageCount + 1);
     return this;
   }
 
@@ -208,11 +211,28 @@ public class SiteadminPage implements SiteadminActions {
     return isLoaded;
   }
 
+  @Override public SiteadminActions waitForPageCount(int pageCount) {
+    boolean conditionNotMet = !webElementUtils.isConditionMet(new ExpectedCondition<Object>() {
+      @Nullable @Override public Object apply(@Nullable WebDriver webDriver) {
+        try {
+          return (pageCount == getChildPageWindow().getPageCount());
+        } catch (StaleElementReferenceException e) {
+          webDriver.navigate().refresh();
+          return false;
+        }
+      }
+    }, Timeouts.SMALL);
+    if (conditionNotMet) {
+      throw new IllegalStateException("Timeout when waiting for page count: " + pageCount);
+    }
+    return this;
+  }
+
   private void waitForExpectedStatus(final String title, ActivationStatus status) {
     wait.withTimeout(Timeouts.MEDIUM).until(new ExpectedCondition<Boolean>() {
       @Nullable @Override public Boolean apply(@Nullable WebDriver webDriver) {
         webDriver.navigate().refresh();
-        ChildPageRow childPageRow = getChildPageWindow(webDriver).getChildPageRow(title);
+        ChildPageRow childPageRow = getChildPageWindow().getChildPageRow(title);
         PageActivationStatus pageActivationStatusCell = childPageRow.getPageActivationStatus();
         ActivationStatus activationStatus = pageActivationStatusCell.getActivationStatus();
         return activationStatus.equals(status);
@@ -220,9 +240,8 @@ public class SiteadminPage implements SiteadminActions {
     }, Timeouts.MINIMAL);
   }
 
-  private ChildPageWindow getChildPageWindow(WebDriver webDriver) {
-    WebElement childPageWindow =
-        webDriver.findElement(By.cssSelector(CHILD_PAGE_WINDOW_SELECTOR));
+  private ChildPageWindow getChildPageWindow() {
+    WebElement childPageWindow = driver.findElement(By.cssSelector(CHILD_PAGE_WINDOW_SELECTOR));
     return pageObjectInjector.inject(ChildPageWindow.class, childPageWindow);
   }
 

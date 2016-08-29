@@ -58,6 +58,10 @@ public class ChildPageWindow {
         .filter(t -> t.getTitle().equals(title)).findFirst().isPresent();
   }
 
+  public int getPageCount() {
+    return childPageRows.size();
+  }
+
   public boolean hasSubPages() {
     return !childPageRows.isEmpty();
   }
