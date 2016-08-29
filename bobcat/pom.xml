@@ -51,6 +51,7 @@ limitations under the License.
         <module>bb-aem-classic</module>
         <module>bb-aem-touch-ui</module>
         <module>bb-annotations</module>
+        <module>bb-cumber-reports</module>
     </modules>
 
     <distributionManagement>
@@ -72,10 +73,18 @@ limitations under the License.
         <guice.version>3.0</guice.version>
         <cucumber.version>1.2.3</cucumber.version>
         <version.logback>1.1.7</version.logback>
+        <version.cucumber.reports>2.7.0</version.cucumber.reports>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>net.masterthought</groupId>
+                <artifactId>cucumber-reporting</artifactId>
+                <version>${version.cucumber.reports}</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-java</artifactId>
