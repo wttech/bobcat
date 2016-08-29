@@ -112,6 +112,7 @@ public class SiteAdminTest {
   }
 
   @Test
+  @Retry
   public void shouldActivateAndDeactivatePageProperly() {
     SiteAdminGridRow createdPageGridRow;
     createPage();

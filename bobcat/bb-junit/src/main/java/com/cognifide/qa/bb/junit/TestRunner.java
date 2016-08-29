@@ -70,6 +70,8 @@ public class TestRunner extends BlockJUnit4ClassRunner {
 
   private final Properties properties;
 
+  private final TestEventCollector testEventCollector;
+
   /**
    * Creates a Runner with Guice modules.
    *
@@ -83,6 +85,7 @@ public class TestRunner extends BlockJUnit4ClassRunner {
     super(classToRun);
     injector = InjectorsMap.INSTANCE.forClass(classToRun);
     properties = injector.getInstance(Properties.class);
+    testEventCollector= injector.getBinding(TestEventCollector.class).getProvider().get();
     reportingListener.addInjector(injector);
   }
 
@@ -169,8 +172,12 @@ public class TestRunner extends BlockJUnit4ClassRunner {
         if (runs >= retryCount) {
           throw e;
         }
+        testEventCollector.removeLastEntry();
       }
       runs++;
+    }
+    if(runs>1){
+      testEventCollector.info("Test passed in: " + runs + " attempt");
     }
   }
 
