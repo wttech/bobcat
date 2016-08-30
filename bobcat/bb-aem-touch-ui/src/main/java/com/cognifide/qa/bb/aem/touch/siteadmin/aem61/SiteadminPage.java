@@ -87,6 +87,7 @@ public class SiteadminPage implements SiteadminActions {
   public SiteadminActions publishPage(String title) {
     selectPage(title);
     toolbar.publishPage();
+    wait.withTimeout(Timeouts.SMALL).until(input -> isLoaded(), Timeouts.MINIMAL);
     waitForExpectedStatus(title, ActivationStatus.PUBLISHED);
     return this;
   }
@@ -156,6 +157,7 @@ public class SiteadminPage implements SiteadminActions {
   public SiteadminActions unpublishPageLater(String title, LocalDateTime localDateAndTime) {
     selectPage(title);
     toolbar.unpublishPageLater(localDateAndTime);
+    wait.withTimeout(Timeouts.SMALL).until(input -> isLoaded());
     waitForExpectedStatus(title, ActivationStatus.SCHEDULED);
     return this;
   }
