@@ -15,6 +15,9 @@
  */
 package com.cognifide.qa.bb.aem.touch.siteadmin.aem61.list;
 
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
 import com.cognifide.qa.bb.aem.touch.siteadmin.common.ActivationStatus;
 import com.cognifide.qa.bb.aem.touch.siteadmin.common.PageActivationStatus;
 import com.cognifide.qa.bb.constants.Timeouts;
@@ -22,8 +25,6 @@ import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.utils.WebElementUtils;
 import com.google.inject.Inject;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 @PageObject
 public class PageActivationStatusImpl implements PageActivationStatus {
@@ -48,6 +49,7 @@ public class PageActivationStatusImpl implements PageActivationStatus {
   @FindBy(css = ".scheduledpublication-info")
   private WebElement scheduledPublicationInfo;
 
+  @Override
   public String getReplicationActionDate() {
     if (getActivationStatus() == ActivationStatus.NOT_PUBLISHED) {
       throw new IllegalStateException(
@@ -56,6 +58,7 @@ public class PageActivationStatusImpl implements PageActivationStatus {
     return replicationActionDate.getText();
   }
 
+  @Override
   public String getReplicationActionUser() {
     if (getActivationStatus() == ActivationStatus.NOT_PUBLISHED) {
       throw new IllegalStateException(
@@ -64,6 +67,7 @@ public class PageActivationStatusImpl implements PageActivationStatus {
     return replicationActionUser.getText();
   }
 
+  @Override
   public ActivationStatus getActivationStatus() {
     if (webElementUtils.isDisplayed(scheduledPublicationInfo, Timeouts.MINIMAL)) {
       return ActivationStatus.SCHEDULED;

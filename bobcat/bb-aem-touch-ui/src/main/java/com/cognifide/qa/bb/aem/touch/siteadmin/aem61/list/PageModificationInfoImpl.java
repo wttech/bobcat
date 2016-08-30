@@ -30,10 +30,12 @@ public class PageModificationInfoImpl implements PageModificationInfo {
   @FindBy(css = "span.date")
   private WebElement modifiedDate;
 
+  @Override
   public String getModifiedBy() {
     return modifiedBy.getText();
   }
 
+  @Override
   public String getWhenModified() {
     return modifiedDate.getText();
   }

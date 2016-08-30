@@ -33,10 +33,7 @@ import com.google.inject.Inject;
 public class MovePageWizard {
 
   @Inject
-  WebDriver driver;
-
-  @Inject
-  private BobcatWait wait;
+  private WebDriver driver;
 
   @FindBy(css = "button.coral-Button--primary[data-foundation-wizard-control-action='next']")
   private WebElement nextButton;

@@ -27,9 +27,6 @@ import com.google.inject.Inject;
 @PageObject
 public class YearMonthPicker {
 
-  @Inject
-  private BobcatWait wait;
-
   @FindBy(css = "div.coral-Heading[handle='heading']")
   private WebElement yearMonthHeader;
 

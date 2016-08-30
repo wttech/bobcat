@@ -19,11 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
@@ -33,28 +31,18 @@ import com.google.inject.Inject;
 @PageObject
 public class MovePageWizard extends CoralWizard {
 
-  private static final String COOKIE_VAL_PREFIX = "o%3Awidth%3Dn%253A240%5EselectedPath%3Ds%253A";
-
-  private static final String COOKIE_NAME = "ys-cq-siteadmin-tree";
-
   private static final String BREADCRUMBS_SELECTOR = "a.endor-Crumbs-item";
 
-  public static final String PAGES_SELECTOR =
+  private static final String PAGES_SELECTOR =
       "div.foundation-collection-container article.card-page";
 
   @FindBy(css = "nav.endor-Crumbs")
   @Global
   private WebElement browsePathBreadcrumb;
 
-  @Inject
-  private WebDriver driver;
-
   @CurrentScope
   @Inject
   private WebElement currentScope;
-
-  @Inject
-  private BobcatWait wait;
 
   public void moveToDestination(String destination) {
     this.next();

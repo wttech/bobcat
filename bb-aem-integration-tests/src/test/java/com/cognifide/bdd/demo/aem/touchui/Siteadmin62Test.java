@@ -62,7 +62,7 @@ public class Siteadmin62Test {
   @Inject
   private BobcatWait wait;
 
-  private LocalDateTime scheduleTime =
+  private final LocalDateTime scheduleTime =
       LocalDateTime.now().plusMonths(2).plusDays(1).plusMinutes(2);
 
   @Before

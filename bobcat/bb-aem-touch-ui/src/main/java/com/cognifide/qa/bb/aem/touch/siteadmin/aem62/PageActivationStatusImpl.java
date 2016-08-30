@@ -44,15 +44,18 @@ public class PageActivationStatusImpl implements PageActivationStatus {
   @FindBy(css = "coral-icon.coral-Icon--calendar")
   private WebElement scheduledIcon;
 
-  @Override public String getReplicationActionDate() {
+  @Override
+  public String getReplicationActionDate() {
     throw new NotImplementedException("Not implemented yet");
   }
 
-  @Override public String getReplicationActionUser() {
+  @Override
+  public String getReplicationActionUser() {
     throw new NotImplementedException("Not implemented yet");
   }
 
-  @Override public ActivationStatus getActivationStatus() {
+  @Override
+  public ActivationStatus getActivationStatus() {
     boolean displayed = elementUtils.isDisplayed(scheduledIcon, Timeouts.MINIMAL);
     if (displayed) {
       return ActivationStatus.SCHEDULED;

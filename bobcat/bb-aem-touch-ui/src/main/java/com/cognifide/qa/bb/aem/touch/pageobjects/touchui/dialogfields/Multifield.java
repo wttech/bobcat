@@ -25,12 +25,12 @@ import java.util.List;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldType;
+import com.cognifide.qa.bb.aem.touch.data.componentconfigs.MultifieldEntry;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldType;
-import com.cognifide.qa.bb.aem.touch.data.componentconfigs.MultifieldEntry;
 
 /**
  * This class represents TouchUI dialog multifield.

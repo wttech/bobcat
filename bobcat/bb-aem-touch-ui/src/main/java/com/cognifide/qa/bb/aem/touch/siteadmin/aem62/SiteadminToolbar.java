@@ -21,20 +21,15 @@ package com.cognifide.qa.bb.aem.touch.siteadmin.aem62;
 
 import java.time.LocalDateTime;
 
-import com.cognifide.qa.bb.qualifier.Global;
-import com.cognifide.qa.bb.qualifier.PageObject;
-import com.google.inject.Inject;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+
+import com.cognifide.qa.bb.qualifier.Global;
+import com.cognifide.qa.bb.qualifier.PageObject;
 
 @PageObject
 public class SiteadminToolbar {
-
-  @Inject
-  private WebDriver driver;
 
   @FindBy(css = "button[icon='delete']")
   private WebElement deleteButton;

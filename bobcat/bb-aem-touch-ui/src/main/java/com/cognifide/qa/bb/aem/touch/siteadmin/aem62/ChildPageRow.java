@@ -25,7 +25,6 @@ import com.cognifide.qa.bb.aem.touch.siteadmin.common.PageModificationInfo;
 import com.cognifide.qa.bb.aem.touch.siteadmin.common.SiteadminChildPage;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
-import com.cognifide.qa.bb.utils.WebElementUtils;
 import com.google.inject.Inject;
 
 @PageObject
@@ -36,9 +35,6 @@ public class ChildPageRow implements SiteadminChildPage {
   @CurrentScope
   @Inject
   private WebElement currentScope;
-
-  @Inject
-  private WebElementUtils webElementUtils;
 
   @FindBy(css = "td.coral-Table-cell:nth-of-type(4)")
   private PageActivationStatusImpl pageActivationStatus;
@@ -55,27 +51,33 @@ public class ChildPageRow implements SiteadminChildPage {
   @FindBy(css = "td.foundation-collection-item-title")
   private WebElement titleCell;
 
+  @Override
   public ChildPageRow select() {
     cells.get(SELECT_PAGE_COLUMN_INDEX).click();
     return this;
   }
 
+  @Override
   public String getTitle() {
     return titleCell.getAttribute("value");
   }
 
+  @Override
   public String getHref() {
     return anchor.getAttribute("href");
   }
 
-  @Override public PageModificationInfo getModificationInfo() {
+  @Override
+  public PageModificationInfo getModificationInfo() {
     return pageModificationInfo;
   }
 
-  @Override public PageActivationStatus getPageActivationStatus() {
+  @Override
+  public PageActivationStatus getPageActivationStatus() {
     return pageActivationStatus;
   }
 
+  @Override
   public void click() {
     currentScope.click();
   }

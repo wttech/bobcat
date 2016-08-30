@@ -64,9 +64,6 @@ public class SiteadminToolbar {
   @Inject
   private BobcatWait wait;
 
-  @FindBy(css = "button.cq-siteadmin-admin-actions-edit-activator[title='Open']")
-  private WebElement openButton;
-
   @FindBy(css = "form.cq-siteadmin-admin-createpage")
   private CreatePageWizard createPageWizard;
 
@@ -87,10 +84,6 @@ public class SiteadminToolbar {
 
   @FindBy(css = "div.foundation-ui-notification.coral-Alert.coral-Alert--info")
   private WebElement successInfo;
-
-  @Global
-  @FindBy(css = "form.activation-wizard")
-  private CoralWizard activationWizard;
 
   @Global
   @FindBy(css = "form.activation-wizard")

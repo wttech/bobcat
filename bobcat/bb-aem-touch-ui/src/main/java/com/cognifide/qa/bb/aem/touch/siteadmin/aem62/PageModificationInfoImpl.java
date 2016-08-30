@@ -23,17 +23,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.aem.touch.siteadmin.common.PageModificationInfo;
-import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.utils.WebElementUtils;
 import com.google.inject.Inject;
 
 @PageObject
 public class PageModificationInfoImpl implements PageModificationInfo {
-
-  @CurrentScope
-  @Inject
-  private WebElement currentScope;
 
   @Inject
   private WebElementUtils elementUtils;
@@ -44,11 +39,13 @@ public class PageModificationInfoImpl implements PageModificationInfo {
   @FindBy(css = "coral-td-label.coral-Table-cellLabel > div.foundation-layout-util-subtletext")
   private WebElement modifiedByElement;
 
-  @Override public String getWhenModified() {
+  @Override
+  public String getWhenModified() {
     return timeElement.getText();
   }
 
-  @Override public String getModifiedBy() {
+  @Override
+  public String getModifiedBy() {
     return modifiedByElement.getText();
   }
 }

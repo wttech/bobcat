@@ -114,6 +114,7 @@ public class SiteadminPage implements SiteadminActions {
     return this;
   }
 
+  @Override
   public SiteadminActions waitForPageCount(int pageCount) {
     boolean conditionNotMet = !webElementUtils.isConditionMet(new ExpectedCondition<Object>() {
       @Nullable @Override public Object apply(@Nullable WebDriver webDriver) {
@@ -166,7 +167,8 @@ public class SiteadminPage implements SiteadminActions {
     return this;
   }
 
-  @Override public SiteadminActions deleteSubPages() {
+  @Override
+  public SiteadminActions deleteSubPages() {
     if (childPageWindow.hasSubPages()) {
       childPageWindow.pressSelectAllPages();
       toolbar.deletePage();
@@ -205,10 +207,12 @@ public class SiteadminPage implements SiteadminActions {
     return this;
   }
 
-  @Override public boolean hasChildPages() {
+  @Override
+  public boolean hasChildPages() {
     return childPageWindow.hasSubPages();
   }
 
+  @Override
   public ChildPageRow getPageFromList(String title) {
     return childPageWindow.getChildPageRow(title);
   }

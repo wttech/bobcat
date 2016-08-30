@@ -15,27 +15,23 @@
  */
 package com.cognifide.qa.bb.aem.touch.siteadmin.aem61.calendar;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+import org.codehaus.plexus.util.StringUtils;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
-
-import java.time.LocalDateTime;
-import java.util.List;
-
 import com.cognifide.qa.bb.scope.CurrentScopeHelper;
 import com.google.inject.Inject;
-import org.codehaus.plexus.util.StringUtils;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 @PageObject
 public class GraniteCalendar {
-
-  @Inject
-  private WebDriver driver;
 
   @Inject
   private CurrentScopeHelper currentScopeHelper;

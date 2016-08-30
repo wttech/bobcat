@@ -45,27 +45,33 @@ public class ChildPageRow implements SiteadminChildPage {
   @FindBy(tagName = "a")
   private WebElement anchor;
 
+  @Override
   public String getTitle() {
     return titleBar.getText();
   }
 
+  @Override
   public ChildPageRow select() {
     checkBox.click();
     return this;
   }
 
+  @Override
   public String getHref() {
     return anchor.getAttribute("href");
   }
 
+  @Override
   public PageModificationInfoImpl getModificationInfo() {
     return pageModificationInfo;
   }
 
+  @Override
   public PageActivationStatusImpl getPageActivationStatus() {
     return pageActivationStatus;
   }
 
+  @Override
   public void click() {
     currentScope.click();
   }

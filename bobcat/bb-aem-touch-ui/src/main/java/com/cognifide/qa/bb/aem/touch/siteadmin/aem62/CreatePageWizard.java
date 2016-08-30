@@ -35,8 +35,8 @@ import com.google.inject.Inject;
 @PageObject
 public class CreatePageWizard {
 
-  public static final String NEXT_BUTTON_LABEL = "Next";
-  public static final String CREATE_BUTTON_LABEL = "Create";
+  private static final String NEXT_BUTTON_LABEL = "Next";
+  private static final String CREATE_BUTTON_LABEL = "Create";
 
   @FindBy(css = "coral-masonry")
   private TemplateList templateList;
