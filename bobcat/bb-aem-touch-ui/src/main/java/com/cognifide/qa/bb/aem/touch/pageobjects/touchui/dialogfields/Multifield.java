@@ -72,7 +72,7 @@ public class Multifield implements DialogField {
    * @return MultifieldItem
    */
   public MultifieldItem getItemAtIndex(int index) {
-    if (items.size() >= index) {
+    if (items.size() > index) {
       return items.get(index);
     }
     throw new BobcatRuntimeException("Trying to reach nonexisting item.");
