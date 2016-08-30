@@ -47,6 +47,7 @@ public class Siteadmin62Test {
 
   public static final String COMPOSE_MESSAGE_PATH =
       "/content/geometrixx-outdoors-mobile/en/user/mailbox/compose-message";
+
   public static final String DEFAULT_TEMPLATE = "Mobile Product Page";
 
   @Inject

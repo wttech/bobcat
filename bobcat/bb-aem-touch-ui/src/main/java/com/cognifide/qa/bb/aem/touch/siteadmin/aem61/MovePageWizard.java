@@ -36,7 +36,9 @@ public class MovePageWizard extends CoralWizard {
   private static final String COOKIE_VAL_PREFIX = "o%3Awidth%3Dn%253A240%5EselectedPath%3Ds%253A";
 
   private static final String COOKIE_NAME = "ys-cq-siteadmin-tree";
+
   private static final String BREADCRUMBS_SELECTOR = "a.endor-Crumbs-item";
+
   public static final String PAGES_SELECTOR =
       "div.foundation-collection-container article.card-page";
 

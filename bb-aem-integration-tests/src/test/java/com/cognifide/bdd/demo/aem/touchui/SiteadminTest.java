@@ -62,7 +62,7 @@ public class SiteadminTest {
   private BobcatWait wait;
 
   private LocalDateTime scheduleTime =
-      LocalDateTime.now().plusMonths(2).plusDays(1).plusMinutes(2).plusMinutes(5);
+      LocalDateTime.now().plusMonths(2).plusDays(1).plusMinutes(2);
 
   private String testedPageName;
 
