@@ -22,16 +22,16 @@ package com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields;
 import java.util.Iterator;
 import java.util.List;
 
-import com.cognifide.qa.bb.exceptions.BobcatRuntimeException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldType;
+import com.cognifide.qa.bb.aem.touch.data.componentconfigs.MultifieldEntry;
+import com.cognifide.qa.bb.exceptions.BobcatRuntimeException;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldType;
-import com.cognifide.qa.bb.aem.touch.data.componentconfigs.MultifieldEntry;
 
 /**
  * This class represents TouchUI dialog multifield.
@@ -72,10 +72,12 @@ public class Multifield implements DialogField {
    * @return MultifieldItem
    */
   public MultifieldItem getItemAtIndex(int index) {
-    if (items.size() > index) {
+    int itemsSize = items.size();
+    if (itemsSize > index) {
       return items.get(index);
     }
-    throw new BobcatRuntimeException("Trying to reach nonexisting item.");
+    throw new BobcatRuntimeException(String
+        .format("Tried to get item at index %s but there are only %s elements", index, itemsSize));
   }
 
   /**
