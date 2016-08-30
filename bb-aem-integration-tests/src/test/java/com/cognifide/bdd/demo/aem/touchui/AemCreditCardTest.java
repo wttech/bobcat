@@ -19,15 +19,6 @@
  */
 package com.cognifide.bdd.demo.aem.touchui;
 
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsAnything.anything;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
-import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldType;
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.Checkbox;
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.Textfield;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,6 +28,7 @@ import org.openqa.selenium.By;
 import com.cognifide.bdd.demo.GuiceModule;
 import com.cognifide.bdd.demo.po.touchui.CreditCardComponent;
 import com.cognifide.qa.bb.aem.AemLogin;
+import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldType;
 import com.cognifide.qa.bb.aem.touch.data.components.Components;
 import com.cognifide.qa.bb.aem.touch.data.pages.Pages;
 import com.cognifide.qa.bb.aem.touch.pageobjects.pages.AuthorPage;
@@ -47,6 +39,10 @@ import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.google.inject.Inject;
+
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsAnything.anything;
+import static org.junit.Assert.*;
 
 @RunWith(TestRunner.class)
 @Modules(GuiceModule.class)

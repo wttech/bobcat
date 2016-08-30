@@ -19,13 +19,6 @@
  */
 package com.cognifide.bdd.demo.aem.touchui;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
-import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldType;
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.Textfield;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,6 +28,7 @@ import com.cognifide.bdd.demo.GuiceModule;
 import com.cognifide.bdd.demo.po.touchui.TitleComponent;
 import com.cognifide.qa.bb.aem.AemLogin;
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfiguration;
+import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldType;
 import com.cognifide.qa.bb.aem.touch.data.components.Components;
 import com.cognifide.qa.bb.aem.touch.data.pages.Pages;
 import com.cognifide.qa.bb.aem.touch.pageobjects.pages.AuthorPage;
@@ -42,6 +36,8 @@ import com.cognifide.qa.bb.aem.touch.pageobjects.pages.AuthorPageFactory;
 import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
 import com.google.inject.Inject;
+
+import static org.hamcrest.core.Is.is;
 
 @RunWith(TestRunner.class)
 @Modules(GuiceModule.class)
@@ -74,18 +70,18 @@ public class AemTitleTest {
     aemLogin.authorLogin();
     page = authorPageFactory.create(pages.getPath(CONFIGURATION));
     page.open();
-    assertTrue("Page has not loaded", page.isLoaded());
+    org.junit.Assert.assertTrue("Page has not loaded", page.isLoaded());
     parsys = pages.getParsys(CONFIGURATION);
     page.clearParsys(parsys, COMPONENT_NAME);
-    assertFalse(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME));
+    org.junit.Assert.assertFalse(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME));
     page.addComponent(parsys, COMPONENT_NAME);
-    assertTrue(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME));
+    org.junit.Assert.assertTrue(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME));
   }
 
   @After
   public void tearDown() {
     page.clearParsys(parsys, COMPONENT_NAME);
-    assertFalse(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME));
+    org.junit.Assert.assertFalse(page.getParsys(parsys).isComponentPresent(COMPONENT_NAME));
   }
 
   @Test
@@ -94,7 +90,7 @@ public class AemTitleTest {
         COMPONENT_NAME, COMPONENT_NAME.toLowerCase());
     TitleComponent component =
         (TitleComponent) page.getContent(components.getClazz(COMPONENT_NAME));
-    assertThat(component.getTitle(), is(
+    org.junit.Assert.assertThat(component.getTitle(), is(
         data.getConfigurationForTab(TAB_NAME).get(0).getValue().toString().toUpperCase()));
   }
 
@@ -110,6 +106,6 @@ public class AemTitleTest {
 
     TitleComponent component =
         (TitleComponent) page.getContent(components.getClazz(COMPONENT_NAME));
-    assertThat(component.getTitle(), is(titleValue.toUpperCase()));
+    org.junit.Assert.assertThat(component.getTitle(), is(titleValue.toUpperCase()));
   }
 }

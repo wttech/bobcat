@@ -19,25 +19,24 @@
  */
 package com.cognifide.qa.bb.aem.touch.pageobjects.touchui;
 
-import static org.apache.commons.lang3.StringUtils.containsIgnoreCase;
-import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
-
-import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfiguration;
-
 import java.util.List;
 
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.DialogField;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfiguration;
+import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldConfig;
+import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.DialogField;
+import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
-import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldConfig;
-import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.google.inject.Inject;
+
+import static org.apache.commons.lang3.StringUtils.containsIgnoreCase;
+import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 /**
  * This class represents config dialog of the TouchUI component.

@@ -19,17 +19,8 @@
  */
 package com.cognifide.bdd.demo.aem.touchui;
 
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.StringEndsWith.endsWith;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
 import java.util.List;
 
-import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldType;
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.Image;
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.PathBrowser;
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.Textfield;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,6 +30,7 @@ import com.cognifide.bdd.demo.po.touchui.ImageComponent;
 import com.cognifide.qa.bb.aem.AemLogin;
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfiguration;
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldConfig;
+import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldType;
 import com.cognifide.qa.bb.aem.touch.data.components.Components;
 import com.cognifide.qa.bb.aem.touch.data.pages.Pages;
 import com.cognifide.qa.bb.aem.touch.pageobjects.pages.AuthorPage;
@@ -47,6 +39,11 @@ import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
 import com.google.inject.Inject;
 
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.StringEndsWith.endsWith;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
 @RunWith(TestRunner.class)
 @Modules(GuiceModule.class)
 public class AemImageTest {
@@ -54,6 +51,11 @@ public class AemImageTest {
   private static final String CONFIGURATION = "Image - Update&Read";
 
   private static final String COMPONENT_NAME = "Image";
+  public static final String IMAGE_PATH = "cover";
+  public static final String IMAGE_TITLE = "TestTitle";
+  public static final String IMAGE_ALT_TEXT = "TestAlt";
+  public static final String IMAGE_LINK = "/content/geometrixx";
+  public static final String IMAGE_DESCRIPTION = "TextDescription";
 
   @Inject
   private AemLogin aemLogin;
@@ -102,32 +104,26 @@ public class AemImageTest {
 
   @Test
   public void configureImageConfiguredBySingleFieldsTest() {
-    String imagePath = "cover";
-    String imageTitle = "TestTitle";
-    String imageAlt = "TestAlt";
-    String imageLink = "/content/geometrixx";
-    String imageDescription = "TextDescription";
-
     page.getParsys(parsys).getComponent(COMPONENT_NAME)
         .openDialog()
         .switchTab("Image")
-        .setField("Image asset", FieldType.IMAGE.name(), imagePath)
-        .setField("Title", FieldType.TEXTFIELD.name(), imageTitle)
-        .setField("Alt text", FieldType.TEXTFIELD.name(), imageAlt)
-        .setField("Link to", FieldType.PATHBROWSER.name(), imageLink)
-        .setField("Description", FieldType.TEXTFIELD.name(), imageDescription)
+        .setField("Image asset", FieldType.IMAGE.name(), IMAGE_PATH)
+        .setField("Title", FieldType.TEXTFIELD.name(), IMAGE_TITLE)
+        .setField("Alt text", FieldType.TEXTFIELD.name(), IMAGE_ALT_TEXT)
+        .setField("Link to", FieldType.PATHBROWSER.name(), IMAGE_LINK)
+        .setField("Description", FieldType.TEXTFIELD.name(), IMAGE_DESCRIPTION)
         .confirm();
 
     ImageComponent component =
         (ImageComponent) page.getContent(components.getClazz(COMPONENT_NAME));
 
     assertThat("Wrong image path", component.getImagePath(),
-        endsWith(imagePath));
-    assertThat("Wrong image title", imageTitle, is(component.getTitle()));
-    assertThat("Wrong image alt", imageAlt, is(component.getAltText()));
+        endsWith(IMAGE_PATH));
+    assertThat("Wrong image title", IMAGE_TITLE, is(component.getTitle()));
+    assertThat("Wrong image alt", IMAGE_ALT_TEXT, is(component.getAltText()));
     assertThat("Wrong image link to", component.getLinkTo(),
-        endsWith(imageLink + ".html"));
-    assertThat("Wrong image description", imageDescription,
+        endsWith(IMAGE_LINK + ".html"));
+    assertThat("Wrong image description", IMAGE_DESCRIPTION,
         is(component.getDescription()));
   }
 }
