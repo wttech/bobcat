@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2016 Cognifide Ltd..
  *
@@ -16,30 +15,29 @@
  */
 package com.cognifide.bdd.demo.aem.touchui;
 
-import static org.hamcrest.CoreMatchers.endsWith;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.isA;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
-import com.cognifide.bdd.demo.GuiceModule;
-import com.cognifide.qa.bb.aem.AemLogin;
-import com.cognifide.qa.bb.aem.touch.siteadmin.aem61.SiteadminPage;
-import com.cognifide.qa.bb.aem.touch.siteadmin.common.ActivationStatus;
-import com.cognifide.qa.bb.aem.touch.siteadmin.aem61.list.ChildPageRow;
-import com.cognifide.qa.bb.constants.Timeouts;
-import com.cognifide.qa.bb.junit.Modules;
-import com.cognifide.qa.bb.junit.TestRunner;
-import com.cognifide.qa.bb.provider.selenium.BobcatWait;
-import com.google.inject.Inject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
+import com.cognifide.bdd.demo.GuiceModule;
+import com.cognifide.qa.bb.aem.AemLogin;
+import com.cognifide.qa.bb.aem.touch.siteadmin.aem61.SiteadminPage;
+import com.cognifide.qa.bb.aem.touch.siteadmin.aem61.list.ChildPageRow;
+import com.cognifide.qa.bb.aem.touch.siteadmin.common.ActivationStatus;
+import com.cognifide.qa.bb.constants.Timeouts;
+import com.cognifide.qa.bb.junit.Modules;
+import com.cognifide.qa.bb.junit.TestRunner;
+import com.cognifide.qa.bb.provider.selenium.BobcatWait;
+import com.google.inject.Inject;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(TestRunner.class)
 @Modules(GuiceModule.class)

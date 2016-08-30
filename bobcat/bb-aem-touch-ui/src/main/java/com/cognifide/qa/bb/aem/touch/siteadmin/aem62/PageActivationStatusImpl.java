@@ -19,16 +19,17 @@
  */
 package com.cognifide.qa.bb.aem.touch.siteadmin.aem62;
 
-import com.cognifide.qa.bb.aem.touch.siteadmin.common.PageActivationStatus;
+import org.apache.commons.lang3.NotImplementedException;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
 import com.cognifide.qa.bb.aem.touch.siteadmin.common.ActivationStatus;
+import com.cognifide.qa.bb.aem.touch.siteadmin.common.PageActivationStatus;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.utils.WebElementUtils;
 import com.google.inject.Inject;
-import org.apache.commons.lang3.NotImplementedException;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 @PageObject
 public class PageActivationStatusImpl implements PageActivationStatus {

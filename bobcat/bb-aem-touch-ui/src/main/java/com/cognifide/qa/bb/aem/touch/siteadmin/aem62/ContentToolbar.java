@@ -21,13 +21,14 @@ package com.cognifide.qa.bb.aem.touch.siteadmin.aem62;
 
 import java.util.List;
 
-import com.cognifide.qa.bb.qualifier.Global;
-import com.cognifide.qa.bb.qualifier.PageObject;
-import com.google.inject.Inject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import com.cognifide.qa.bb.qualifier.Global;
+import com.cognifide.qa.bb.qualifier.PageObject;
+import com.google.inject.Inject;
 
 @PageObject
 public class ContentToolbar {

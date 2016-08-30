@@ -17,11 +17,12 @@ package com.cognifide.qa.bb.aem.touch.siteadmin.aem62.calendar;
 
 import java.time.Month;
 
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 @PageObject
 public class YearMonthPicker {

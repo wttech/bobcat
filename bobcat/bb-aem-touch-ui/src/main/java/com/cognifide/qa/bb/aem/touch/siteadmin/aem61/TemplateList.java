@@ -15,15 +15,15 @@
  */
 package com.cognifide.qa.bb.aem.touch.siteadmin.aem61;
 
-import com.cognifide.qa.bb.qualifier.Global;
-import com.cognifide.qa.bb.qualifier.PageObject;
-
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import com.cognifide.qa.bb.qualifier.Global;
+import com.cognifide.qa.bb.qualifier.PageObject;
 
 @PageObject
 public class TemplateList {
@@ -34,10 +34,10 @@ public class TemplateList {
 
   void selectTemplate(String templateName) {
     WebElement template = templates.stream()
-            .filter(t -> StringUtils.
-                    equals(t.findElement(By.cssSelector("div.label > h4")).getText(), templateName))
-            .findFirst()
-            .orElseThrow(() -> new IllegalArgumentException("Template not found: " + templateName));
+        .filter(t -> StringUtils.
+            equals(t.findElement(By.cssSelector("div.label > h4")).getText(), templateName))
+        .findFirst()
+        .orElseThrow(() -> new IllegalArgumentException("Template not found: " + templateName));
 
     template.click();
   }

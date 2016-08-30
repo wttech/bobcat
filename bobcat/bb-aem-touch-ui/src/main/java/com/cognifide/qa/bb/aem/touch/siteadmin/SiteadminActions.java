@@ -33,7 +33,7 @@ public interface SiteadminActions {
    * Activates the page with provided title by selecting it and pressing Activate Later button in Activate
    * drop down.
    *
-   * @param title title of the page
+   * @param title         title of the page
    * @param localDateTime date and time in the future
    * @return this SiteadminPage
    */
@@ -42,19 +42,20 @@ public interface SiteadminActions {
   /**
    * Copies the page with provided title by selecting it and pressing Copy button on Action Bar.
    *
-   * @param title title of the page
+   * @param title       title of the page
    * @param destination copy destination
    * @return this SiteAdminPage
    */
   SiteadminActions copyPage(String title, String destination);
 
   /* Actions on Grid */
+
   /**
    * Creates a new page based on provided the values. During creation specified template is used in
    * CreatePageWindow.
    *
-   * @param title title of the created page
-   * @param name name of the created page
+   * @param title        title of the created page
+   * @param name         name of the created page
    * @param templateName template of the created page
    * @return this SiteadminPage
    */
@@ -64,7 +65,7 @@ public interface SiteadminActions {
    * Creates a new page based on the provided values. name is omitted (default one is set by AEM). During
    * creation specified template is used in CreatePageWindow
    *
-   * @param title title of the created page
+   * @param title        title of the created page
    * @param templateName template of the created page
    * @return this SiteadminPage
    */
@@ -91,7 +92,7 @@ public interface SiteadminActions {
    * Deactivates the page with provided title by selecting it and pressing Deactivate Later button in
    * Deactivate drop down.
    *
-   * @param title title of the page
+   * @param title         title of the page
    * @param localDateTime date and time in the future
    * @return this SiteadminPage
    */
@@ -108,6 +109,7 @@ public interface SiteadminActions {
 
   /**
    * Deletes all sub pages if contains any
+   *
    * @return this SiteAdminPage
    */
   SiteadminActions deleteSubPages();
@@ -124,7 +126,7 @@ public interface SiteadminActions {
    * Moves the page with provided title to provided destination path by selecting it and pressing Move button
    * on Action Bar
    *
-   * @param title page title
+   * @param title           page title
    * @param destinationPath destination page path
    * @return this SiteadminPage
    */
@@ -154,6 +156,7 @@ public interface SiteadminActions {
 
   /**
    * Returns page
+   *
    * @param title
    * @return
    */

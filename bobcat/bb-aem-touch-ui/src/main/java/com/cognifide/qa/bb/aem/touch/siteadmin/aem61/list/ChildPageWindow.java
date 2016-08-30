@@ -15,13 +15,6 @@
  */
 package com.cognifide.qa.bb.aem.touch.siteadmin.aem61.list;
 
-import com.cognifide.qa.bb.constants.Timeouts;
-import com.cognifide.qa.bb.qualifier.Global;
-import com.cognifide.qa.bb.qualifier.PageObject;
-import com.cognifide.qa.bb.scope.CurrentScopeHelper;
-import com.cognifide.qa.bb.utils.WebElementUtils;
-import com.google.inject.Inject;
-
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -31,6 +24,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+
+import com.cognifide.qa.bb.constants.Timeouts;
+import com.cognifide.qa.bb.qualifier.Global;
+import com.cognifide.qa.bb.qualifier.PageObject;
+import com.cognifide.qa.bb.scope.CurrentScopeHelper;
+import com.cognifide.qa.bb.utils.WebElementUtils;
+import com.google.inject.Inject;
 
 @PageObject
 public class ChildPageWindow {
@@ -69,7 +69,8 @@ public class ChildPageWindow {
     return webElementUtils.isConditionMet(new ExpectedCondition<Object>() {
       @Nullable @Override public Object apply(@Nullable WebDriver weDriver) {
         try {
-          return childPages.stream().filter(t -> t.getTitle().equals(title)).findFirst().isPresent();
+          return childPages.stream().filter(t -> t.getTitle().equals(title)).findFirst()
+              .isPresent();
         } catch (StaleElementReferenceException e) {
           weDriver.navigate().refresh();
           return false;

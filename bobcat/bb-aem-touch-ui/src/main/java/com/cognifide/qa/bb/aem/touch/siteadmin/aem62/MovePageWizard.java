@@ -19,14 +19,15 @@
  */
 package com.cognifide.qa.bb.aem.touch.siteadmin.aem62;
 
-import com.cognifide.qa.bb.provider.selenium.BobcatWait;
-import com.cognifide.qa.bb.qualifier.PageObject;
-import com.google.inject.Inject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import com.cognifide.qa.bb.provider.selenium.BobcatWait;
+import com.cognifide.qa.bb.qualifier.PageObject;
+import com.google.inject.Inject;
 
 @PageObject
 public class MovePageWizard {
@@ -54,8 +55,9 @@ public class MovePageWizard {
   public MovePageWizard overrideDestinationPage(String destination) {
     anyPage.click();
     BobcatWait.sleep(1);
-    JavascriptExecutor jse = (JavascriptExecutor)driver;
-    jse.executeScript("document.getElementsByClassName('foundation-advancedselect-values')[0].removeAttribute('hidden');");
+    JavascriptExecutor jse = (JavascriptExecutor) driver;
+    jse.executeScript(
+        "document.getElementsByClassName('foundation-advancedselect-values')[0].removeAttribute('hidden');");
     jse.executeScript("document.getElementsByName('destPath')[0].setAttribute('type', 'text');");
     driver.findElement(By.xpath("//input[@name='destPath']")).clear();
     driver.findElement(By.xpath("//input[@name='destPath']")).sendKeys(destination);

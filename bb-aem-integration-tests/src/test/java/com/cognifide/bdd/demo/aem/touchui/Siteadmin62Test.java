@@ -15,14 +15,18 @@
  */
 package com.cognifide.bdd.demo.aem.touchui;
 
-import static org.junit.Assert.*;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import org.hamcrest.CoreMatchers;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.openqa.selenium.WebDriver;
+
 import com.cognifide.bdd.demo.GuiceModule;
 import com.cognifide.qa.bb.aem.AemLogin;
-
 import com.cognifide.qa.bb.aem.touch.siteadmin.aem62.SiteadminPage;
 import com.cognifide.qa.bb.aem.touch.siteadmin.common.ActivationStatus;
 import com.cognifide.qa.bb.aem.touch.siteadmin.common.PageModificationInfo;
@@ -31,12 +35,8 @@ import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.google.inject.Inject;
-import org.hamcrest.CoreMatchers;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.openqa.selenium.WebDriver;
+
+import static org.junit.Assert.*;
 
 @RunWith(TestRunner.class)
 @Modules(GuiceModule.class)
@@ -62,7 +62,7 @@ public class Siteadmin62Test {
   private BobcatWait wait;
 
   private LocalDateTime scheduleTime =
-      LocalDateTime.now().plusMonths(2).plusDays(1).plusMinutes(2).plusMinutes(5);
+      LocalDateTime.now().plusMonths(2).plusDays(1).plusMinutes(2);
 
   @Before
   public void setUp() {

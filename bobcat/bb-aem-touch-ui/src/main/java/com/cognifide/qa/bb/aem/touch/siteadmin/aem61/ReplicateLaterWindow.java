@@ -15,18 +15,18 @@
  */
 package com.cognifide.qa.bb.aem.touch.siteadmin.aem61;
 
+import java.time.LocalDateTime;
+import java.util.Objects;
+
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
 import com.cognifide.qa.bb.aem.touch.siteadmin.aem61.calendar.GraniteCalendar;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
-
-import java.time.LocalDateTime;
-import java.util.Objects;
-
 import com.google.inject.Inject;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 @PageObject
 public class ReplicateLaterWindow {
@@ -55,7 +55,8 @@ public class ReplicateLaterWindow {
         calendar.isDisplayed()
     );
     calendar.selectDateAndTime(dateTime);
-    wait.withTimeout(Timeouts.SMALL).until(input -> Objects.isNull(submitButton.getAttribute("disabled")), Timeouts.MINIMAL);
+    wait.withTimeout(Timeouts.SMALL)
+        .until(input -> Objects.isNull(submitButton.getAttribute("disabled")), Timeouts.MINIMAL);
     calendar.closeCalendar();
   }
 

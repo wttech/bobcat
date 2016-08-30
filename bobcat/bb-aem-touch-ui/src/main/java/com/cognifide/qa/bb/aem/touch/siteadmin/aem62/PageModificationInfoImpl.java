@@ -19,13 +19,14 @@
  */
 package com.cognifide.qa.bb.aem.touch.siteadmin.aem62;
 
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
 import com.cognifide.qa.bb.aem.touch.siteadmin.common.PageModificationInfo;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.utils.WebElementUtils;
 import com.google.inject.Inject;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 @PageObject
 public class PageModificationInfoImpl implements PageModificationInfo {

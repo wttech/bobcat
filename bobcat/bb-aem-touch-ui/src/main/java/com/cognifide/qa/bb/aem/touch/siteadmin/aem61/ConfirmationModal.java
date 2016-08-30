@@ -21,11 +21,12 @@ package com.cognifide.qa.bb.aem.touch.siteadmin.aem61;
 
 import java.util.List;
 
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.scope.CurrentScopeHelper;
 import com.google.inject.Inject;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 @PageObject
 public class ConfirmationModal {

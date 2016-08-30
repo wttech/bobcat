@@ -15,10 +15,10 @@
  */
 package com.cognifide.qa.bb.aem.touch.siteadmin.aem62.calendar;
 
-import com.cognifide.qa.bb.qualifier.PageObject;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
+
+import com.cognifide.qa.bb.qualifier.PageObject;
 
 @PageObject
 public class TimePicker {

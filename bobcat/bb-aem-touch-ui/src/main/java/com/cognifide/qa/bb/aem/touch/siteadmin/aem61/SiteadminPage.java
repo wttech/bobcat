@@ -15,23 +15,6 @@
  */
 package com.cognifide.qa.bb.aem.touch.siteadmin.aem61;
 
-import com.cognifide.qa.bb.aem.touch.siteadmin.SiteadminActions;
-import com.cognifide.qa.bb.aem.touch.siteadmin.aem61.list.ChildPageRow;
-import com.cognifide.qa.bb.aem.touch.siteadmin.common.ActivationStatus;
-import com.cognifide.qa.bb.aem.touch.siteadmin.common.PageActivationStatus;
-import com.cognifide.qa.bb.aem.touch.siteadmin.common.SiteadminLayout;
-import com.cognifide.qa.bb.aem.touch.siteadmin.aem61.list.ChildPageWindow;
-import com.cognifide.qa.bb.aem.touch.util.Conditions;
-import com.cognifide.qa.bb.constants.AemConfigKeys;
-import com.cognifide.qa.bb.constants.Timeouts;
-import com.cognifide.qa.bb.provider.selenium.BobcatWait;
-import com.cognifide.qa.bb.qualifier.Global;
-import com.cognifide.qa.bb.qualifier.PageObject;
-import com.cognifide.qa.bb.utils.PageObjectInjector;
-import com.cognifide.qa.bb.utils.WebElementUtils;
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
-
 import java.time.LocalDateTime;
 
 import javax.annotation.Nullable;
@@ -42,6 +25,23 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+
+import com.cognifide.qa.bb.aem.touch.siteadmin.SiteadminActions;
+import com.cognifide.qa.bb.aem.touch.siteadmin.aem61.list.ChildPageRow;
+import com.cognifide.qa.bb.aem.touch.siteadmin.aem61.list.ChildPageWindow;
+import com.cognifide.qa.bb.aem.touch.siteadmin.common.ActivationStatus;
+import com.cognifide.qa.bb.aem.touch.siteadmin.common.PageActivationStatus;
+import com.cognifide.qa.bb.aem.touch.siteadmin.common.SiteadminLayout;
+import com.cognifide.qa.bb.aem.touch.util.Conditions;
+import com.cognifide.qa.bb.constants.AemConfigKeys;
+import com.cognifide.qa.bb.constants.Timeouts;
+import com.cognifide.qa.bb.provider.selenium.BobcatWait;
+import com.cognifide.qa.bb.qualifier.Global;
+import com.cognifide.qa.bb.qualifier.PageObject;
+import com.cognifide.qa.bb.utils.PageObjectInjector;
+import com.cognifide.qa.bb.utils.WebElementUtils;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 
 @PageObject
 public class SiteadminPage implements SiteadminActions {
@@ -126,7 +126,7 @@ public class SiteadminPage implements SiteadminActions {
       }
     }, Timeouts.SMALL);
     if (conditionNotMet) {
-     throw new IllegalStateException("Timeout when waiting for page count: " + pageCount);
+      throw new IllegalStateException("Timeout when waiting for page count: " + pageCount);
     }
     return this;
   }

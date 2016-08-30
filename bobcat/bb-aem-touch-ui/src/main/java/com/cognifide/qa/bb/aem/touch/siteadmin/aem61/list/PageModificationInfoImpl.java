@@ -15,10 +15,11 @@
  */
 package com.cognifide.qa.bb.aem.touch.siteadmin.aem61.list;
 
-import com.cognifide.qa.bb.aem.touch.siteadmin.common.PageModificationInfo;
-import com.cognifide.qa.bb.qualifier.PageObject;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import com.cognifide.qa.bb.aem.touch.siteadmin.common.PageModificationInfo;
+import com.cognifide.qa.bb.qualifier.PageObject;
 
 @PageObject
 public class PageModificationInfoImpl implements PageModificationInfo {

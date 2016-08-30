@@ -19,7 +19,6 @@
  */
 package com.cognifide.qa.bb.aem.touch.siteadmin.common;
 
-
 public interface SiteadminChildPage {
 
   /**

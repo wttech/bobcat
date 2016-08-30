@@ -15,10 +15,10 @@
  */
 package com.cognifide.qa.bb.aem.touch.siteadmin.aem61;
 
-import com.cognifide.qa.bb.qualifier.PageObject;
-
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import com.cognifide.qa.bb.qualifier.PageObject;
 
 @PageObject
 public class CoralWizard {
