@@ -64,6 +64,8 @@ public final class ConfigKeys {
 
   public static final String DEFAULT_PROPERTIES_NAME = "default.properties";
 
+  public static final String JUNIT_RERUNS = "junit.reruns";
+
   public static final String TIMEOUTS_BIG = "timeouts.big";
 
   public static final String TIMEOUTS_MEDIUM = "timeouts.medium";

@@ -19,27 +19,22 @@
  */
 package com.cognifide.qa.bb.aem.touch.pageobjects.touchui;
 
-import static com.cognifide.qa.bb.aem.touch.util.ContentHelper.JCR_CONTENT;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
-
-import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfiguration;
-import java.util.List;
-import java.util.Map;
-
-import com.cognifide.qa.bb.qualifier.FindPageObject;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
-import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldConfig;
+import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfiguration;
 import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
+import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
+
+import static com.cognifide.qa.bb.aem.touch.util.ContentHelper.JCR_CONTENT;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
 /**
  * Class representing page component.
@@ -71,7 +66,7 @@ public class Component {
    */
   public String getDataPath() {
     String rawValue = conditions.staleSafe(currentScope, checked -> checked.getAttribute(
-            HtmlTags.Attributes.DATA_PATH));
+        HtmlTags.Attributes.DATA_PATH));
     return StringUtils.substringAfter(rawValue, JCR_CONTENT);
   }
 
@@ -94,9 +89,19 @@ public class Component {
    * @param config map of list configurations.
    */
   public void configure(ComponentConfiguration config) {
+    openDialog();
+    configDialog.configureWith(config);
+  }
+
+  /**
+   * Method opens dialog to enable further configuration by single fields
+   *
+   * @return ConfigDialog for chained configuration
+   */
+  public ConfigDialog openDialog() {
     select().clickOption(ToolbarOptions.CONFIGURE);
     configDialog.verifyIsDisplayed();
-    configDialog.configureWith(config);
+    return configDialog;
   }
 
   /**
@@ -109,7 +114,7 @@ public class Component {
   }
 
   /**
-   *  Method makes ajax post call to ensure if component is displayed.
+   * Method makes ajax post call to ensure if component is displayed.
    */
   public void verifyIsDisplayed() {
     conditions.verifyPostAjax(visibilityOf(currentScope));

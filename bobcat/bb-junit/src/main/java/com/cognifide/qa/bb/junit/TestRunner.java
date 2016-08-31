@@ -20,6 +20,7 @@
 package com.cognifide.qa.bb.junit;
 
 import java.util.List;
+import java.util.Properties;
 
 import org.junit.Ignore;
 import org.junit.internal.AssumptionViolatedException;
@@ -33,14 +34,17 @@ import org.junit.runners.model.InitializationError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.cognifide.qa.bb.constants.ConfigKeys;
 import com.cognifide.qa.bb.junit.listener.ReportingListener;
+import com.cognifide.qa.bb.qualifier.Retry;
 import com.google.inject.Injector;
 
 /**
  * <p>
- * This JUnit test runner allows to run the test in a Guice context.
- * The modules defining the context are defined with the {@link Modules} annotation.
+ * This JUnit test runner allows to run the test in a Guice context. The modules defining the
+ * context are defined with the {@link Modules} annotation.
  * </p>
+ * 
  * <pre>
  * {@literal @}RunWith(TestRunner.class) {@literal @}Modules(MyModule.class)
  * public class MyTest {
@@ -59,15 +63,20 @@ public class TestRunner extends BlockJUnit4ClassRunner {
   private static final Logger LOG = LoggerFactory.getLogger(TestRunner.class);
 
   private static final ReportingListener reportingListener = new ReportingListener();
+
   private static volatile boolean isReportingListenerRegistered = false;
 
   private final Injector injector;
+
+  private final Properties properties;
+
+  private final TestEventCollector testEventCollector;
 
   /**
    * Creates a Runner with Guice modules.
    *
    * @param classToRun the test class to run
-   * @throws InitializationError    if the test class is malformed
+   * @throws InitializationError if the test class is malformed
    * @throws IllegalAccessException if the test class is malformed
    * @throws InstantiationException if the test class is malformed
    */
@@ -75,6 +84,8 @@ public class TestRunner extends BlockJUnit4ClassRunner {
       throws InitializationError, InstantiationException, IllegalAccessException {
     super(classToRun);
     injector = InjectorsMap.INSTANCE.forClass(classToRun);
+    properties = injector.getInstance(Properties.class);
+    testEventCollector = injector.getBinding(TestEventCollector.class).getProvider().get();
     reportingListener.addInjector(injector);
   }
 
@@ -100,7 +111,7 @@ public class TestRunner extends BlockJUnit4ClassRunner {
    * <li>Invoke afterTestRun method of the test interceptor.</li>
    * </ol>
    *
-   * @param method   - framework method
+   * @param method - framework method
    * @param notifier - run notifier
    */
   @Override
@@ -110,9 +121,10 @@ public class TestRunner extends BlockJUnit4ClassRunner {
       eachNotifier.fireTestIgnored();
       return;
     }
+
     eachNotifier.fireTestStarted();
     try {
-      methodBlock(method).evaluate();
+      runMethod(method);
     } catch (AssumptionViolatedException e) {
       eachNotifier.addFailedAssumption(e);
     } catch (Throwable e) {
@@ -144,6 +156,39 @@ public class TestRunner extends BlockJUnit4ClassRunner {
   @Override
   protected final void validateZeroArgConstructor(List<Throwable> errors) {
     // empty
+  }
+
+  private void runMethod(FrameworkMethod method) throws Throwable {
+    int runs = 0;
+    int retryCount = retrieveRetry(method);
+    boolean testFailed = true;
+    while (testFailed) {
+      try {
+        methodBlock(method).evaluate();
+        testFailed = false;
+      } catch (AssumptionViolatedException e) {
+        throw e;
+      } catch (Throwable e) {
+        if (runs >= retryCount) {
+          throw e;
+        }
+        testEventCollector.removeLastEntry();
+      }
+      runs++;
+    }
+    if (runs > 1) {
+      testEventCollector.info("Test passed in: " + runs + " attempt");
+    }
+  }
+
+  private int retrieveRetry(FrameworkMethod method) {
+    Retry retry = method.getAnnotation(Retry.class);
+    return retry != null ? calculateRetryCount(retry.reruns()) : 0;
+  }
+
+  private int calculateRetryCount(int reruns) {
+    return reruns > 0 ? reruns
+        : Integer.parseInt(properties.getProperty(ConfigKeys.JUNIT_RERUNS, "0"));
   }
 
   private EachTestNotifier makeNotifier(FrameworkMethod method, RunNotifier notifier) {

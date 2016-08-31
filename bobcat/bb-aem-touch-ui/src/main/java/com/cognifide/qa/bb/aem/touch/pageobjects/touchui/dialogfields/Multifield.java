@@ -27,6 +27,7 @@ import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldType;
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.MultifieldEntry;
+import com.cognifide.qa.bb.exceptions.BobcatRuntimeException;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -62,6 +63,21 @@ public class Multifield implements DialogField {
 
     Iterator<MultifieldItem> itemsIterator = items.iterator();
     cfg.stream().forEach(entry -> itemsIterator.next().setValue(entry));
+  }
+
+  /**
+   * Returns MultifieldItem at declared index position
+   *
+   * @param index integer representing required position
+   * @return MultifieldItem
+   */
+  public MultifieldItem getItemAtIndex(int index) {
+    int itemsSize = items.size();
+    if (itemsSize > index) {
+      return items.get(index);
+    }
+    throw new BobcatRuntimeException(String
+        .format("Tried to get item at index %s but there are only %s elements", index, itemsSize));
   }
 
   /**
