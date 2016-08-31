@@ -85,7 +85,7 @@ public class TestRunner extends BlockJUnit4ClassRunner {
     super(classToRun);
     injector = InjectorsMap.INSTANCE.forClass(classToRun);
     properties = injector.getInstance(Properties.class);
-    testEventCollector= injector.getBinding(TestEventCollector.class).getProvider().get();
+    testEventCollector = injector.getBinding(TestEventCollector.class).getProvider().get();
     reportingListener.addInjector(injector);
   }
 
@@ -176,7 +176,7 @@ public class TestRunner extends BlockJUnit4ClassRunner {
       }
       runs++;
     }
-    if(runs>1){
+    if (runs > 1) {
       testEventCollector.info("Test passed in: " + runs + " attempt");
     }
   }
