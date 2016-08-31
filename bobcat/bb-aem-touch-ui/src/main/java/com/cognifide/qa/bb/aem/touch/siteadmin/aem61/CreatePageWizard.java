@@ -22,6 +22,7 @@ import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
+import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.utils.WebElementUtils;
@@ -36,7 +37,7 @@ public class CreatePageWizard {
   @Inject
   private WebElementUtils webElementUtils;
 
-  @FindBy(css = "div.foundation-advancedselect-collection.foundation-collection")
+  @FindPageObject
   private TemplateList templateList;
 
   @Global

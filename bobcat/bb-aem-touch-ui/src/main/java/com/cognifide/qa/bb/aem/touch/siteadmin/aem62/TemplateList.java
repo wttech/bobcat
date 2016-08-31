@@ -28,7 +28,7 @@ import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.qualifier.PageObject;
 
-@PageObject
+@PageObject(css = "coral-masonry")
 public class TemplateList {
 
   @FindBy(css = "coral-masonry-item")

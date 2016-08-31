@@ -25,7 +25,7 @@ import org.openqa.selenium.support.FindBy;
 import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
 
-@PageObject
+@PageObject(css = "div.foundation-advancedselect-collection.foundation-collection")
 public class TemplateList {
 
   @Global

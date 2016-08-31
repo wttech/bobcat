@@ -28,6 +28,7 @@ import org.openqa.selenium.support.FindBy;
 import com.cognifide.qa.bb.aem.touch.siteadmin.aem61.CreatePageProperties;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
+import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
@@ -38,7 +39,7 @@ public class CreatePageWizard {
   private static final String NEXT_BUTTON_LABEL = "Next";
   private static final String CREATE_BUTTON_LABEL = "Create";
 
-  @FindBy(css = "coral-masonry")
+  @FindPageObject
   private TemplateList templateList;
 
   @Global
