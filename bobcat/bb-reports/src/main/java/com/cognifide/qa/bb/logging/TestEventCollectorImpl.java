@@ -47,19 +47,24 @@ import com.google.inject.Singleton;
 public class TestEventCollectorImpl implements TestEventCollector {
 
   private final List<TestInfo> testInfoEntries;
+
   private final Date startingDate;
+
   @Inject
   private Injector injector;
+
+  @Inject
+  private Provider<WebDriver> webDriverProvider;
+
+  @Inject
+  private Properties properties;
+
   private final ThreadLocal<TestInfo> currentTest = new ThreadLocal<TestInfo>() {
     @Override
     protected TestInfo initialValue() {
       return injector.getInstance(TestInfo.class);
     }
   };
-  @Inject
-  private Provider<WebDriver> webDriverProvider;
-  @Inject
-  private Properties properties;
 
   /**
    * Constructs TestEventCollector. Don't call it manually. Let Guice construct the instance and
@@ -273,10 +278,7 @@ public class TestEventCollectorImpl implements TestEventCollector {
   public Date getStartingDate() {
     return (Date) startingDate.clone();
   }
-
-  /**
-   * Remove information about test which is now collected
-   */
+  
   @Override
   public void removeLastEntry() {
     testInfoEntries.remove(currentTest.get());

@@ -34,6 +34,6 @@ public @interface Retry {
   /**
    * @return number of reruns for test method. It overwrites general property junit.reruns
    */
-  int reruns() default -1;
+  int reruns() default 0;
 
 }
