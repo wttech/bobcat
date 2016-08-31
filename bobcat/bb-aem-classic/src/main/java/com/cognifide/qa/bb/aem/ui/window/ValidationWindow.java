@@ -36,11 +36,11 @@ import com.google.inject.Inject;
  * invalid data. When locating this window in a page object use {@link #CSS} with a
  * {@link com.cognifide.qa.bb .qualifier.Global} annotation.
  */
-@PageObject
+@PageObject(css = "div[id^='cq-msgbox-'][style*='visibility: visible;']")
 @Frame("$cq")
 public class ValidationWindow {
 
-  public static final String CSS = "div[id^='cq-msgbox-'][style*='visibility: visible;']";
+  private static final String CSS = "div[id^='cq-msgbox-'][style*='visibility: visible;']";
 
   @Inject
   private BobcatWait bobcatWait;

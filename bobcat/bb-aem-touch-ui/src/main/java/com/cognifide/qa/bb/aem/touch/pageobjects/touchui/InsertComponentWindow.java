@@ -36,10 +36,8 @@ import com.google.inject.Inject;
 /**
  * Class represents window for inserting components on a page.
  */
-@PageObject
+@PageObject(css = ".InsertComponentDialog")
 public class InsertComponentWindow {
-
-  public static final String CSS = ".InsertComponentDialog";
 
   @Inject
   private Conditions conditions;

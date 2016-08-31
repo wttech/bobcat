@@ -32,11 +32,8 @@ import com.google.inject.Inject;
 /**
  * Class responsible for handling copy page dialog in siteadmin.
  */
-@PageObject
+@PageObject(css = "div[id^='cq-copydialog'][style*='visibility: visible'][style*='display: block']")
 public class PastePageWindow implements DecisionWindow {
-
-  public static final String CSS =
-      "div[id^='cq-copydialog'][style*='visibility: visible'][style*='display: block']";
 
   @Inject
   private BobcatWait bobcatWait;

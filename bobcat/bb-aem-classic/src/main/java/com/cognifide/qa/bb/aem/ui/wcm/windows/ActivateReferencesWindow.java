@@ -34,12 +34,9 @@ import com.google.inject.Inject;
 /**
  * Class responsible for handling activate references dialog.
  */
-@PageObject
+@PageObject(css = "div[id^='cq-asset-reference-search-dialog-'][style*='visibility: visible']")
 @Frame("/")
 public class ActivateReferencesWindow implements DecisionWindow {
-
-  public static final String CSS =
-      "div[id^='cq-asset-reference-search-dialog-'][style*='visibility: visible']";
 
   @Inject
   private BobcatWait bobcatWait;

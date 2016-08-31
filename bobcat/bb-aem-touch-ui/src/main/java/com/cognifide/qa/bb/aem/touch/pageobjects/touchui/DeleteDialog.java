@@ -33,10 +33,10 @@ import com.google.inject.Inject;
 /**
  * Class represents dialog with component deleting option.
  */
-@PageObject
+@PageObject(css = "[class='coral-Modal']")
 public class DeleteDialog {
 
-  public static final String CSS = "[class='coral-Modal']";
+  private static final String CSS = "[class='coral-Modal']";
 
   @Inject
   private Conditions conditions;

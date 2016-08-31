@@ -42,6 +42,7 @@ import com.cognifide.qa.bb.constants.ConfigKeys;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.expectedconditions.CommonExpectedConditions;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
+import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.scope.CurrentScopeHelper;
@@ -73,18 +74,18 @@ public class SiteAdminGrid {
   @Named(ConfigKeys.WEBDRIVER_DEFAULT_TIMEOUT)
   private int defaultTimeout;
 
-  @FindBy(css = SiteAdminGridRow.CSS)
+  @FindPageObject
   private List<SiteAdminGridRow> gridRows;
 
-  @FindBy(css = SiteAdminActionBar.CSS)
+  @FindPageObject
   private SiteAdminActionBar actionBar;
 
   @Global
-  @FindBy(css = SiteAdminConfirmationWindow.CSS)
+  @FindPageObject
   private SiteAdminConfirmationWindow siteAdminConfirmationWindow;
 
   @Global
-  @FindBy(css = ActivateReferencesWindow.CSS)
+  @FindPageObject
   private ActivateReferencesWindow activateReferencesWindow;
 
   /**

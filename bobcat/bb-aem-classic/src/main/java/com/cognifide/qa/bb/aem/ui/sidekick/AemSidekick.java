@@ -36,6 +36,7 @@ import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.aem.expectedconditions.SidekickActions;
 import com.cognifide.qa.bb.aem.ui.wcm.windows.ActivateReferencesWindow;
+import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.dragdrop.DragAndDropFactory;
 import com.cognifide.qa.bb.dragdrop.Draggable;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
@@ -107,7 +108,7 @@ public class AemSidekick {
   @FindBy(css = ".cq-sk-launchesstatus")
   private WebElement launchStatus;
 
-  @FindBy(css = ActivateReferencesWindow.CSS)
+  @FindPageObject
   private ActivateReferencesWindow activateReferencesWindow;
 
   @CurrentFrame
