@@ -46,6 +46,7 @@ import com.cognifide.qa.bb.aem.ui.wcm.windows.CreateSiteWindow;
 import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
 import com.cognifide.qa.bb.logging.ReportEntryLogger;
+import com.cognifide.qa.bb.qualifier.Retry;
 import com.google.inject.Inject;
 
 @RunWith(TestRunner.class)
@@ -104,13 +105,14 @@ public class SiteAdminTest {
   @Test
   public void shouldISeeTemplates() {
     List<String> templateNames =
-            Arrays.asList("Media Category", "Media Article", "New Forum Topic", "Media Community");
+        Arrays.asList("Media Category", "Media Article", "New Forum Topic", "Media Community");
     CreatePageWindow createPageWindow = page.openCreatePageWindow();
     assertEquals(4, createPageWindow.getTemplatesNumber());
     assertEquals(templateNames, createPageWindow.getTemplatesNames());
   }
 
   @Test
+  @Retry
   public void shouldActivateAndDeactivatePageProperly() {
     SiteAdminGridRow createdPageGridRow;
     createPage();
@@ -139,7 +141,7 @@ public class SiteAdminTest {
     page.deactivatePageLater(CREATED_PAGE_TITLE, "21/06/16", "10:12 AM");
     SiteAdminGridRow createdPageGridRow = page.getGrid().selectPageByTitle(CREATED_PAGE_TITLE);
     assertThat(createdPageGridRow.getPageStatusToolTip(),
-            containsString(PageStatus.SCHEDULED_DEACTIVATION.getStatusCss()));
+        containsString(PageStatus.SCHEDULED_DEACTIVATION.getStatusCss()));
   }
 
   @Test
