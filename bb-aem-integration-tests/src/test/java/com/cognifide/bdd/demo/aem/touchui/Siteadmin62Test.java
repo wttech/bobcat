@@ -80,62 +80,62 @@ public class Siteadmin62Test {
     siteadminPage.deleteSubPages();
   }
 
-//  @Test
-//  public void shouldOpenSiteadminInDesiredContext() {
-//    assertThat(driver.getCurrentUrl(), CoreMatchers.endsWith(CONTEXT_PATH));
-//  }
-//
-//  @Test
-//  public void shouldCreateNewPage() {
-//    String newPage = generateRandomPageName();
-//    String newPageTitle = newPage.toLowerCase();
-//    String newPagePath = CONTEXT_PATH + "/" + newPageTitle;
-//    siteadminPage.createNewPage(newPage, newPageTitle, DEFAULT_TEMPLATE);
-//    siteadminPage.open(newPagePath);
-//    assertThat(driver.getCurrentUrl(), CoreMatchers.endsWith(newPagePath));
-//  }
-//
-//  @Test
-//  public void shouldDeletePage() {
-//    String testedPage = generateRandomPageName();
-//    createPageInContext(testedPage, CONTEXT_PATH);
-//    siteadminPage.deletePage(testedPage);
-//    assertFalse(siteadminPage.isPagePresent(testedPage));
-//  }
-//
-//  @Test
-//  public void shouldPublishAndUnpublishPageProperly() {
-//    String testedPage = generateRandomPageName();
-//    createPageInContext(testedPage, CONTEXT_PATH);
-//    siteadminPage.publishPage(testedPage);
-//    assertThat(
-//        siteadminPage.getPageFromList(testedPage).getPageActivationStatus().getActivationStatus(),
-//        CoreMatchers.is(ActivationStatus.PUBLISHED));
-//    siteadminPage.unpublishPage(testedPage);
-//    assertThat(
-//        siteadminPage.getPageFromList(testedPage).getPageActivationStatus().getActivationStatus(),
-//        CoreMatchers.is(ActivationStatus.NOT_PUBLISHED));
-//  }
-//
-//  @Test
-//  public void shouldPublishPageLater() {
-//    String testedPage = generateRandomPageName();
-//    createPageInContext(testedPage, CONTEXT_PATH);
-//    siteadminPage.publishPageLater(testedPage, scheduleTime);
-//    assertThat(
-//        siteadminPage.getPageFromList(testedPage).getPageActivationStatus().getActivationStatus(),
-//        CoreMatchers.is(ActivationStatus.SCHEDULED));
-//  }
-//
-//  @Test
-//  public void shouldUnpublishPageLater() {
-//    String testedPage = generateRandomPageName();
-//    createPageInContext(testedPage, CONTEXT_PATH);
-//    siteadminPage.unpublishPageLater(testedPage, scheduleTime);
-//    assertThat(
-//        siteadminPage.getPageFromList(testedPage).getPageActivationStatus().getActivationStatus(),
-//        CoreMatchers.is(ActivationStatus.SCHEDULED));
-//  }
+  @Test
+  public void shouldOpenSiteadminInDesiredContext() {
+    assertThat(driver.getCurrentUrl(), CoreMatchers.endsWith(CONTEXT_PATH));
+  }
+
+  @Test
+  public void shouldCreateNewPage() {
+    String newPage = generateRandomPageName();
+    String newPageTitle = newPage.toLowerCase();
+    String newPagePath = CONTEXT_PATH + "/" + newPageTitle;
+    siteadminPage.createNewPage(newPage, newPageTitle, DEFAULT_TEMPLATE);
+    siteadminPage.open(newPagePath);
+    assertThat(driver.getCurrentUrl(), CoreMatchers.endsWith(newPagePath));
+  }
+
+  @Test
+  public void shouldDeletePage() {
+    String testedPage = generateRandomPageName();
+    createPageInContext(testedPage, CONTEXT_PATH);
+    siteadminPage.deletePage(testedPage);
+    assertFalse(siteadminPage.isPagePresent(testedPage));
+  }
+
+  @Test
+  public void shouldPublishAndUnpublishPageProperly() {
+    String testedPage = generateRandomPageName();
+    createPageInContext(testedPage, CONTEXT_PATH);
+    siteadminPage.publishPage(testedPage);
+    assertThat(
+        siteadminPage.getPageFromList(testedPage).getPageActivationStatus().getActivationStatus(),
+        CoreMatchers.is(ActivationStatus.PUBLISHED));
+    siteadminPage.unpublishPage(testedPage);
+    assertThat(
+        siteadminPage.getPageFromList(testedPage).getPageActivationStatus().getActivationStatus(),
+        CoreMatchers.is(ActivationStatus.NOT_PUBLISHED));
+  }
+
+  @Test
+  public void shouldPublishPageLater() {
+    String testedPage = generateRandomPageName();
+    createPageInContext(testedPage, CONTEXT_PATH);
+    siteadminPage.publishPageLater(testedPage, scheduleTime);
+    assertThat(
+        siteadminPage.getPageFromList(testedPage).getPageActivationStatus().getActivationStatus(),
+        CoreMatchers.is(ActivationStatus.SCHEDULED));
+  }
+
+  @Test
+  public void shouldUnpublishPageLater() {
+    String testedPage = generateRandomPageName();
+    createPageInContext(testedPage, CONTEXT_PATH);
+    siteadminPage.unpublishPageLater(testedPage, scheduleTime);
+    assertThat(
+        siteadminPage.getPageFromList(testedPage).getPageActivationStatus().getActivationStatus(),
+        CoreMatchers.is(ActivationStatus.SCHEDULED));
+  }
 
   @Test
   public void shouldMovePage() {
@@ -147,25 +147,25 @@ public class Siteadmin62Test {
     assertTrue(siteadminPage.isPagePresent(testedPage));
   }
 
-//  @Test
-//  public void shouldCopyPage() {
-//    String testedPage = generateRandomPageName();
-//    createPageInContext(testedPage, CONTEXT_PATH);
-//    siteadminPage.copyPage(testedPage, COMPOSE_MESSAGE_PATH);
-//    wait.withTimeout(Timeouts.SMALL).until(input -> siteadminPage.isLoaded(), 2);
-//    siteadminPage.open(COMPOSE_MESSAGE_PATH);
-//    assertTrue(siteadminPage.isPagePresent(testedPage));
-//  }
-//
-//  @Test
-//  public void shouldGetPageModificationInfo() {
-//    String testedPage = generateRandomPageName();
-//    createPageInContext(testedPage, CONTEXT_PATH);
-//    PageModificationInfo pageModificationInfo =
-//        siteadminPage.getPageFromList(testedPage).getModificationInfo();
-//    assertEquals(pageModificationInfo.getModifiedBy(), "Administrator");
-//    assertFalse((pageModificationInfo.getWhenModified().isEmpty()));
-//  }
+  @Test
+  public void shouldCopyPage() {
+    String testedPage = generateRandomPageName();
+    createPageInContext(testedPage, CONTEXT_PATH);
+    siteadminPage.copyPage(testedPage, COMPOSE_MESSAGE_PATH);
+    wait.withTimeout(Timeouts.SMALL).until(input -> siteadminPage.isLoaded(), 2);
+    siteadminPage.open(COMPOSE_MESSAGE_PATH);
+    assertTrue(siteadminPage.isPagePresent(testedPage));
+  }
+
+  @Test
+  public void shouldGetPageModificationInfo() {
+    String testedPage = generateRandomPageName();
+    createPageInContext(testedPage, CONTEXT_PATH);
+    PageModificationInfo pageModificationInfo =
+        siteadminPage.getPageFromList(testedPage).getModificationInfo();
+    assertEquals(pageModificationInfo.getModifiedBy(), "Administrator");
+    assertFalse((pageModificationInfo.getWhenModified().isEmpty()));
+  }
 
   private void createPageInContext(String title, String destinationPath) {
     siteadminPage.open(destinationPath).createNewPage(title, title.toLowerCase(), DEFAULT_TEMPLATE);
