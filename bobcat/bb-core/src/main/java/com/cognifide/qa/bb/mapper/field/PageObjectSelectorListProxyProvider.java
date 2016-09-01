@@ -25,7 +25,9 @@ import java.lang.reflect.Proxy;
 import java.util.List;
 import java.util.Optional;
 
+import com.cognifide.qa.bb.scope.ParentElementLocatorProvider;
 import org.openqa.selenium.By;
+import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 
 import com.cognifide.qa.bb.scope.PageObjectContext;
@@ -35,6 +37,8 @@ import com.cognifide.qa.bb.scope.selector.SelectorElementLocator;
 import com.cognifide.qa.bb.utils.AnnotationsHelper;
 import com.cognifide.qa.bb.utils.PageObjectInjector;
 import com.google.inject.Inject;
+import org.openqa.selenium.support.pagefactory.ElementLocator;
+import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 
 /**
  * This class is a provider of Java proxies that will intercept access to PageObject fields that are
@@ -75,9 +79,15 @@ public class PageObjectSelectorListProxyProvider extends PageObjectListProxyProv
   public Optional<Object> provideValue(Object pageObject, Field field, PageObjectContext context) {
     FramePath framePath = frameMap.get(pageObject);
     By selector = PageObjectProviderHelper.getSelectorFromGenericPageObject(field);
+    ElementLocatorFactory elementLocatorFactory = context.getElementLocatorFactory();
+    SearchContext searchContext = webDriver;
+    if(elementLocatorFactory instanceof ParentElementLocatorProvider){
+      searchContext =
+          ((ParentElementLocatorProvider) elementLocatorFactory).getCurrentScope().findElement();
+    }
     PageObjectListInvocationHandler handler =
         new PageObjectListInvocationHandler(PageObjectProviderHelper.getGenericType(field),
-            new SelectorElementLocator(webDriver, selector), injector, shouldCacheResults(field),
+            new SelectorElementLocator(searchContext, selector), injector, shouldCacheResults(field),
             framePath);
 
     ClassLoader classLoader = PageObjectProviderHelper.getGenericType(field).getClassLoader();
