@@ -58,6 +58,8 @@ public class Bobcumber extends Cucumber {
 
   private static final String COLON = ":";
 
+  public static final String FEATURE = "feature";
+
   private boolean storeFailedResults;
 
   private File file;
@@ -86,14 +88,18 @@ public class Bobcumber extends Cucumber {
     if(storeFailedResults) {
       notifier.addListener(new RunListener() {
         public void testFailure(Failure failure) throws Exception {
-          String trace = failure.getTrace();
-          trace = trace.substring(trace.lastIndexOf("(") + 1, trace.lastIndexOf(")"));
-          addScenario(trace);
+          String trace = normalizeTrace(failure.getTrace());
+          if (trace.contains(FEATURE)) {
+            addScenario(trace);
+          }
         }
       });
     }
     super.run(notifier);
     closeWebDriverPool();
+  }
+  private String normalizeTrace(String trace) {
+    return trace.substring(trace.lastIndexOf("(") + 1, trace.lastIndexOf(")"));
   }
 
   private synchronized void addScenario(String failedScenario) throws IOException {

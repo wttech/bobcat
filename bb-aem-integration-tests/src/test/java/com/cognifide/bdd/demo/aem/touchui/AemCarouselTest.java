@@ -19,12 +19,6 @@
  */
 package com.cognifide.bdd.demo.aem.touchui;
 
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.StringEndsWith.endsWith;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,13 +27,20 @@ import org.junit.runner.RunWith;
 import com.cognifide.bdd.demo.GuiceModule;
 import com.cognifide.bdd.demo.po.touchui.CarouselComponent;
 import com.cognifide.qa.bb.aem.AemLogin;
+import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldType;
 import com.cognifide.qa.bb.aem.touch.data.components.Components;
 import com.cognifide.qa.bb.aem.touch.data.pages.Pages;
 import com.cognifide.qa.bb.aem.touch.pageobjects.pages.AuthorPage;
 import com.cognifide.qa.bb.aem.touch.pageobjects.pages.AuthorPageFactory;
+import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.ConfigDialog;
+import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.Multifield;
 import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
 import com.google.inject.Inject;
+
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.StringEndsWith.endsWith;
+import static org.junit.Assert.*;
 
 @RunWith(TestRunner.class)
 @Modules(GuiceModule.class)
@@ -87,7 +88,29 @@ public class AemCarouselTest {
   @Test
   public void editCarouselComponentTest() {
     page.configureComponent(parsys, COMPONENT_NAME, COMPONENT_NAME);
+    assertCarouselComponent();
+  }
 
+  @Test
+  public void editCarouselComponentConfiguredBySingleFieldsTest() {
+    ConfigDialog dialog = page.getParsys(parsys)
+        .getComponent(COMPONENT_NAME)
+        .openDialog()
+        .switchTab("LIST")
+        .setField("Build list using", FieldType.SELECT.name(), "Fixed list");
+
+    Multifield multifield = (Multifield) dialog.getField("Pages", FieldType.MULTIFIELD.name());
+    multifield.addField();
+    multifield.addField();
+    multifield.getItemAtIndex(0)
+        .setFieldInMultifield(FieldType.PATHBROWSER.name(), "/content/geometrixx-outdoors");
+    multifield.getItemAtIndex(1)
+        .setFieldInMultifield(FieldType.PATHBROWSER.name(), "/content/geometrixx-outdoors-mobile");
+    dialog.confirm();
+    assertCarouselComponent();
+  }
+
+  private void assertCarouselComponent() {
     CarouselComponent component =
         (CarouselComponent) page.getContent(components.getClazz(COMPONENT_NAME));
 

@@ -15,14 +15,15 @@
  */
 package com.cognifide.bdd.demo.aem.touchui;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import com.cognifide.bdd.demo.GuiceModule;
 import com.cognifide.bdd.demo.po.touchui.TextComponent;
 import com.cognifide.qa.bb.aem.AemLogin;
+import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldType;
 import com.cognifide.qa.bb.aem.touch.data.pages.Pages;
 import com.cognifide.qa.bb.aem.touch.pageobjects.pages.AuthorPage;
 import com.cognifide.qa.bb.aem.touch.pageobjects.pages.AuthorPageFactory;
@@ -30,10 +31,8 @@ import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
 import com.google.inject.Inject;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.junit.Assert.*;
 
 @RunWith(TestRunner.class)
 @Modules(GuiceModule.class)
@@ -91,6 +90,18 @@ public class AemRichtextTest {
   }
 
   @Test
+  public void shouldRenderBoldedTextProperlyOnDemandConfig() {
+    page.getParsys(parsys)
+        .getComponent(COMPONENT_NAME)
+        .openDialog()
+        .setField("", FieldType.RICHTEXT.name(), "test test test")
+        .setField("", FieldType.RICHTEXT_FONT_FORMAT.name(), "BOLD")
+        .confirm();
+
+    processAssertion("<p><b>test test test</b></p>");
+  }
+
+  @Test
   public void shouldRenderItalicTextProperly() {
     testRichText("italic", "<p><i>test test test</i></p>");
   }
@@ -137,6 +148,10 @@ public class AemRichtextTest {
 
   private void testRichText(String configurationName, String expectedOutput) {
     page.configureComponent(parsys, COMPONENT_NAME, configurationName);
+    processAssertion(expectedOutput);
+  }
+
+  private void processAssertion(String expectedOutput) {
     String contents = page.getContent(TextComponent.class).getOuterHTML();
     assertThat(contents, containsString(expectedOutput));
   }

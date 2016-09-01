@@ -43,4 +43,16 @@ public interface TestEventCollector {
    * Marks the current test as finished.
    */
   void end();
+
+  /**
+   * Stores the info entry with the current test.
+   *
+   * @param message info message
+   */
+  public void info(String message);
+
+  /**
+   * Remove information about test which is now collected
+   */
+  public void removeLastEntry();
 }

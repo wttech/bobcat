@@ -23,10 +23,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.Map.Entry;
 
 import org.openqa.selenium.HasCapabilities;
 import org.openqa.selenium.WebDriver;
@@ -39,12 +39,16 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
 /**
- * Central class in Bobcat's reporting API. Collects all test events so that it's possible
- * to generate reports. Don't its methods manually.
- * Bobcat provides you with several specialized classes that you should use instead.
+ * Central class in Bobcat's reporting API. Collects all test events so that it's possible to
+ * generate reports. Don't its methods manually. Bobcat provides you with several specialized
+ * classes that you should use instead.
  */
 @Singleton
 public class TestEventCollectorImpl implements TestEventCollector {
+
+  private final List<TestInfo> testInfoEntries;
+
+  private final Date startingDate;
 
   @Inject
   private Injector injector;
@@ -52,12 +56,8 @@ public class TestEventCollectorImpl implements TestEventCollector {
   @Inject
   private Provider<WebDriver> webDriverProvider;
 
-  private final List<TestInfo> testInfoEntries;
-
   @Inject
   private Properties properties;
-
-  private final Date startingDate;
 
   private final ThreadLocal<TestInfo> currentTest = new ThreadLocal<TestInfo>() {
     @Override
@@ -67,8 +67,8 @@ public class TestEventCollectorImpl implements TestEventCollector {
   };
 
   /**
-   * Constructs TestEventCollector. Don't call it manually. Let Guice construct the instance
-   * and inject it instead.
+   * Constructs TestEventCollector. Don't call it manually. Let Guice construct the instance and
+   * inject it instead.
    */
   public TestEventCollectorImpl() {
     this.testInfoEntries = Collections.synchronizedList(new ArrayList<TestInfo>());
@@ -76,8 +76,8 @@ public class TestEventCollectorImpl implements TestEventCollector {
   }
 
   /**
-   * Marks the start of the test. All subsequent entries will be associated with this test
-   * (called "current test"), until it's closed with "end" method.
+   * Marks the start of the test. All subsequent entries will be associated with this test (called
+   * "current test"), until it's closed with "end" method.
    *
    * @param testName Meaningful name of the test.
    */
@@ -204,8 +204,8 @@ public class TestEventCollectorImpl implements TestEventCollector {
   }
 
   /**
-   * Creates the screenshot image and stores the screenshot entry in the current test,
-   * together with provided message.
+   * Creates the screenshot image and stores the screenshot entry in the current test, together with
+   * provided message.
    */
   public void screenshot(String message) {
     currentTest.get().screenshot(message);
@@ -223,8 +223,8 @@ public class TestEventCollectorImpl implements TestEventCollector {
   }
 
   /**
-   * Retrieves browser info from webDriver instance and stores it in the current test.
-   * If the webDriver lacks capabilities, browserInfo will create an error entry.
+   * Retrieves browser info from webDriver instance and stores it in the current test. If the
+   * webDriver lacks capabilities, browserInfo will create an error entry.
    */
   public final void browserInfo() {
     final WebDriver webDriver = webDriverProvider.get();
@@ -277,6 +277,11 @@ public class TestEventCollectorImpl implements TestEventCollector {
    */
   public Date getStartingDate() {
     return (Date) startingDate.clone();
+  }
+  
+  @Override
+  public void removeLastEntry() {
+    testInfoEntries.remove(currentTest.get());
   }
 
   TestInfo getCurrentTest() {

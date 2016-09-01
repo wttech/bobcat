@@ -22,12 +22,12 @@ package com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import com.cognifide.qa.bb.qualifier.CurrentScope;
-import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldConfig;
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldType;
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.MultifieldEntry;
 import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.DialogConfigurer;
+import com.cognifide.qa.bb.qualifier.CurrentScope;
+import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
 
 @PageObject
@@ -59,6 +59,18 @@ public class MultifieldItem implements DialogField {
 
   public void deleteItem() {
     deleteButton.click();
+  }
+
+  /**
+   * Sets field of MultifieldItem
+   *
+   * @param fieldType class of field to be filled
+   * @param value     value to be inserted
+   * @return this instance for chaining operations
+   */
+  public MultifieldItem setFieldInMultifield(String fieldType, Object value) {
+    dialogConfigurer.getDialogField(item, fieldType).setValue(value);
+    return this;
   }
 
   private void setFieldInMultifield(FieldConfig fieldConfig) {
