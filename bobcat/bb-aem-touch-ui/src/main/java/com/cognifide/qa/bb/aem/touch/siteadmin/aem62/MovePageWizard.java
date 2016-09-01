@@ -25,6 +25,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
@@ -34,6 +35,9 @@ public class MovePageWizard {
 
   @Inject
   private WebDriver driver;
+
+  @Inject
+  private BobcatWait wait;
 
   @FindBy(css = "button.coral-Button--primary[data-foundation-wizard-control-action='next']")
   private WebElement nextButton;
@@ -51,7 +55,7 @@ public class MovePageWizard {
 
   public MovePageWizard overrideDestinationPage(String destination) {
     anyPage.click();
-    BobcatWait.sleep(1);
+    wait.withTimeout(Timeouts.SMALL).until(input -> moveButton.isEnabled(), Timeouts.MINIMAL);
     JavascriptExecutor jse = (JavascriptExecutor) driver;
     jse.executeScript(
         "document.getElementsByClassName('foundation-advancedselect-values')[0].removeAttribute('hidden');");
