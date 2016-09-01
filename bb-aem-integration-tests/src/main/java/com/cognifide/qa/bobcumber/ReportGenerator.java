@@ -19,12 +19,18 @@
  */
 package com.cognifide.qa.bobcumber;
 
+import com.cognifide.qa.bb.modules.PropertyModule;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+
 /**
  * Created by daniel.madejek on 2016-08-29.
  */
 public class ReportGenerator {
-   public static void main(String... args){
-     com.cognifide.qa.bb.cucumber.reports.ReportGenerator generator = new com.cognifide.qa.bb.cucumber.reports.ReportGenerator();
-     generator.generateReport();
-   }
+  public static void main(String... args) {
+    Injector injector = Guice.createInjector(new PropertyModule());
+    com.cognifide.qa.bb.cucumber.reports.ReportGenerator generator =
+        injector.getInstance(com.cognifide.qa.bb.cucumber.reports.ReportGenerator.class);
+    generator.generateReport();
+  }
 }

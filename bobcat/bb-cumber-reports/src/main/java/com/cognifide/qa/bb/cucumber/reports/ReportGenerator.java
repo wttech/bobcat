@@ -22,7 +22,9 @@ package com.cognifide.qa.bb.cucumber.reports;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
+import com.google.inject.Inject;
 import org.codehaus.plexus.util.DirectoryScanner;
 
 import com.cognifide.qa.bb.cucumber.reports.configuration.ConfigurationBuilder;
@@ -35,6 +37,9 @@ import net.masterthought.cucumber.ReportBuilder;
 public class ReportGenerator {
 
   private final static String DEFAULT_FILE_INCLUDE_PATTERN = "**/*.json";
+
+  @Inject
+  private Properties properties;
 
   public void generateReport() {
 
