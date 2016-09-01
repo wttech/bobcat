@@ -51,8 +51,7 @@ public class MovePageWizard extends CoralWizard {
   }
 
   private void browseToDestination(String destination) {
-    ArrayList<String> destinationTree = getDestinationTree(destination);
-
+    List<String> destinationTree = getDestinationTree(destination);
     browseToContentRoot();
     String actualPath = "/content";
 
@@ -82,9 +81,8 @@ public class MovePageWizard extends CoralWizard {
     crumbs.get(0).click();
   }
 
-  private ArrayList<String> getDestinationTree(String destination) {
-    ArrayList<String> destinationPath = Lists.newArrayList(destination.split("/"));
-
+  private List<String> getDestinationTree(String destination) {
+    List<String> destinationPath = Lists.newArrayList(destination.split("/"));
     if (destination.startsWith("/")) {
       destinationPath.remove(0);
     }

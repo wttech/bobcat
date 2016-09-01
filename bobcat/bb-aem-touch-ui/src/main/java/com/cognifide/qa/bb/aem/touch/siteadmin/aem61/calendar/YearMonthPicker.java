@@ -20,15 +20,10 @@ import java.time.Month;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.PageObject;
-import com.google.inject.Inject;
 
 @PageObject
 public class YearMonthPicker {
-
-  @Inject
-  private BobcatWait wait;
 
   @FindBy(css = ".coral-Heading")
   private WebElement yearMonthHeader;
