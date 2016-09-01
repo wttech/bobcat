@@ -55,6 +55,10 @@ public class CoreModule extends AbstractModule {
 
     install(new FrameModule());
 
+    install(new BobcatWebElementModule());
+
+    install(new LoadablesModule());
+
     install(new ProxyModule());
 
     install(new DefaultModifiersModule());

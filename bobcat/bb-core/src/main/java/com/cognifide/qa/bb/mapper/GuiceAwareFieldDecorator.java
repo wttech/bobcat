@@ -19,6 +19,11 @@
  */
 package com.cognifide.qa.bb.mapper;
 
+import com.cognifide.qa.bb.qualifier.LoadableComponent;
+import com.cognifide.qa.bb.loadablecomponent.Loadable;
+import com.cognifide.qa.bb.webelement.BobcatWebElementContext;
+import com.cognifide.qa.bb.webelement.BobcatWebElementFactory;
+
 import java.lang.reflect.Field;
 
 import org.openqa.selenium.WebElement;
@@ -26,7 +31,6 @@ import org.openqa.selenium.internal.Locatable;
 import org.openqa.selenium.support.pagefactory.DefaultFieldDecorator;
 import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 
-import com.cognifide.qa.bb.webelement.BobcatWebElement;
 import com.google.inject.Inject;
 
 /**
@@ -35,14 +39,18 @@ import com.google.inject.Inject;
  */
 public class GuiceAwareFieldDecorator extends DefaultFieldDecorator {
 
+  private final BobcatWebElementFactory bobcatWebElementFactory;
+
   /**
    * Constructor. Initializes decorator with the element locator factory that will be used for producing
    * values for decorated fields.
    *
    * @param factory represents ElementLocatorFactory
+   * @param bobcatWebElementFactory
    */
-  public GuiceAwareFieldDecorator(ElementLocatorFactory factory) {
+  public GuiceAwareFieldDecorator(ElementLocatorFactory factory, BobcatWebElementFactory bobcatWebElementFactory) {
     super(factory);
+    this.bobcatWebElementFactory = bobcatWebElementFactory;
   }
 
   /**
@@ -63,7 +71,9 @@ public class GuiceAwareFieldDecorator extends DefaultFieldDecorator {
       if (decoratedField instanceof WebElement) {
         WebElement element = (WebElement) decoratedField;
         Locatable locatable = (Locatable) decoratedField;
-        return new BobcatWebElement(element, locatable);
+        Loadable loadable = new Loadable(field.getAnnotation(LoadableComponent.class));
+        BobcatWebElementContext context = new BobcatWebElementContext(element, locatable, loadable);
+        return bobcatWebElementFactory.create(context);
       }
       return decoratedField;
     }

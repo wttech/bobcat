@@ -30,6 +30,7 @@ import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.aem.page.PublishPage;
 import com.cognifide.qa.bb.logging.ReportEntryLogger;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
+import com.cognifide.qa.bb.qualifier.LoadableComponent;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
 
@@ -50,6 +51,7 @@ public class CartPage extends PublishPage {
   private WebElement defaultRecommendationsElement;
 
   @FindBy(css = "p.cq-checkout a")
+  @LoadableComponent(css="Test")
   private WebElement checkoutButton;
 
   @Inject

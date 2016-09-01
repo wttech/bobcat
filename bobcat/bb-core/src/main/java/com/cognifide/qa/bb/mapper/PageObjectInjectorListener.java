@@ -19,6 +19,7 @@
  */
 package com.cognifide.qa.bb.mapper;
 
+import com.cognifide.qa.bb.webelement.BobcatWebElementFactory;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -49,6 +50,8 @@ public class PageObjectInjectorListener implements InjectionListener<Object> {
 
   private static final Logger LOG = LoggerFactory.getLogger(PageObjectInjectorListener.class);
 
+  private final Provider<BobcatWebElementFactory> bobcatWebElementFactoryProvider;
+
   private final Provider<WebDriver> webDriverProvider;
 
   private final Provider<ContextStack> locatorStackProvider;
@@ -67,6 +70,7 @@ public class PageObjectInjectorListener implements InjectionListener<Object> {
     this.locatorStackProvider = typeEncounter.getProvider(ContextStack.class);
     this.registry = typeEncounter.getProvider(FieldProviderRegistry.class);
     this.frameMap = typeEncounter.getProvider(FrameMap.class);
+    this.bobcatWebElementFactoryProvider = typeEncounter.getProvider(BobcatWebElementFactory.class);
   }
 
   /**
@@ -97,7 +101,7 @@ public class PageObjectInjectorListener implements InjectionListener<Object> {
 
   private void initFindByFields(Object object) {
     PageFactory.initElements(
-        new GuiceAwareFieldDecorator(getCurrentContext().getElementLocatorFactory()), object);
+            new GuiceAwareFieldDecorator(getCurrentContext().getElementLocatorFactory(), bobcatWebElementFactoryProvider.get()), object);
   }
 
   private void initPageObjectFields(Object object) {
@@ -111,7 +115,7 @@ public class PageObjectInjectorListener implements InjectionListener<Object> {
           continue;
         }
         provider.provideValue(object, f, context)
-            .ifPresent(value -> setFieldValue(f, object, value));
+                .ifPresent(value -> setFieldValue(f, object, value));
       }
     }
   }

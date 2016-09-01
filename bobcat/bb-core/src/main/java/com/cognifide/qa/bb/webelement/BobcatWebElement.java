@@ -19,6 +19,10 @@
  */
 package com.cognifide.qa.bb.webelement;
 
+import com.cognifide.qa.bb.loadablecomponent.Loadable;
+import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
+
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -45,9 +49,13 @@ public class BobcatWebElement implements WebElement, Locatable, WrapsElement {
 
   private final Locatable locatable;
 
-  public BobcatWebElement(WebElement element, Locatable locatable) {
-    this.element = element;
-    this.locatable = locatable;
+  private final Loadable loadable;
+
+  @Inject
+  public BobcatWebElement(@Assisted BobcatWebElementContext context) {
+    this.element = context.getWebElement();
+    this.locatable = context.getLocatable();
+    this.loadable = context.getLoadable();
   }
 
   @Override
@@ -169,6 +177,10 @@ public class BobcatWebElement implements WebElement, Locatable, WrapsElement {
   @Override
   public String toString() {
     return String.format("%s(%s)", this.getClass().getSimpleName(), getWrappedElement());
+  }
+
+  public Loadable getLoadable() {
+    return loadable;
   }
 
   private boolean isUploadField(WebElement webElement) {
