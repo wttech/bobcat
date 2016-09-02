@@ -16,9 +16,11 @@
 package com.cognifide.qa.bb.loadablecomponent;
 
 import com.cognifide.qa.bb.exceptions.BobcatRuntimeException;
+import com.cognifide.qa.bb.mapper.tree.LoadableContext;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.webelement.BobcatWebElement;
 import com.google.inject.Inject;
+import java.util.Collections;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
@@ -30,6 +32,9 @@ public class WebElementInterceptor implements MethodInterceptor {
   @Inject
   private LoadableQualifiersExplorer loadablesExplorer;
 
+  @Inject
+  private LoadConditionChainRunner loadConditionChainRunner;
+
   @Override
   public Object invoke(MethodInvocation methodInvocation) throws Throwable {
     try {
@@ -37,10 +42,19 @@ public class WebElementInterceptor implements MethodInterceptor {
               getClassName());
 
       if (callerClass.isAnnotationPresent(PageObject.class)) {
-        LoadableQualifiersStack loadablesAbove = loadablesExplorer.discoverLoadableContextAbove(callerClass);
         BobcatWebElement caller = (BobcatWebElement) methodInvocation.getThis();
         Loadable directLoadCondition = caller.getLoadable();
-        //check()
+        LoadableContext directContext;
+        if (directLoadCondition.getConditionImplementation() != null) {
+          directContext = new LoadableContext(caller, Collections.
+                  singletonList(directLoadCondition));
+        } else {
+          directContext = new LoadableContext(caller, Collections.emptyList());
+        }
+        LoadableQualifiersStack loadablesAbove = loadablesExplorer.
+                discoverLoadableContextAbove(callerClass, directContext);
+
+        loadConditionChainRunner.chainCheck(loadablesAbove);
       }
     } catch (ClassNotFoundException ex) {
       throw new BobcatRuntimeException("Problem with loadables context");

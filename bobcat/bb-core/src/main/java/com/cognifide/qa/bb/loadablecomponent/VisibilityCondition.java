@@ -13,29 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.cognifide.qa.bb.mapper.tree;
-
-import com.cognifide.qa.bb.loadablecomponent.Loadable;
+package com.cognifide.qa.bb.loadablecomponent;
 
 import java.util.List;
 
-public class LoadableContext {
+/**
+ *
+ * @author mikolaj.manski
+ */
+public class VisibilityCondition implements LoadableComponentCondition {
 
-  private final Object element;
-
-  private final List<Loadable> loadables;
-
-  public LoadableContext(Object element, List<Loadable> loadables) {
-    this.element = element;
-    this.loadables = loadables;
-  }
-
-  public Object getElement() {
-    return element;
-  }
-
-  public List<Loadable> getLoadables() {
-    return loadables;
+  @Override
+  public boolean check(Object object, List<Loadable> loadables) {
+    return true;
   }
 
 }

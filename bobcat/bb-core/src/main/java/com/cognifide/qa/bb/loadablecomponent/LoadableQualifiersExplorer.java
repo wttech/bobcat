@@ -19,6 +19,7 @@ import com.cognifide.qa.bb.mapper.tree.LoadableContext;
 import com.cognifide.qa.bb.mapper.tree.Node;
 import com.cognifide.qa.bb.qualifier.LoadableComponent;
 import com.cognifide.qa.bb.qualifier.PageObject;
+import com.cognifide.qa.bb.utils.PageObjectInjector;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -35,13 +36,20 @@ public class LoadableQualifiersExplorer {
 
   private final Node treeRootNode = new Node(null);
 
+  @Inject
+  private PageObjectInjector injector;
+
   /**
    *
    * @param clazz
+   * @param loadableContext
    * @return
    */
-  public LoadableQualifiersStack discoverLoadableContextAbove(Class clazz) {
+  public LoadableQualifiersStack discoverLoadableContextAbove(Class clazz, LoadableContext loadableContext) {
     Stack<LoadableContext> stack = new Stack<>();
+    if (loadableContext != null) {
+      stack.add(loadableContext);
+    }
     Node treeNode = findNode(clazz, treeRootNode);
     while (treeNode != null) {
       stack.add(treeNode.getLoadableContext());
@@ -68,7 +76,7 @@ public class LoadableQualifiersExplorer {
     //TODO Check here if page object field is the only injected field of this type. If not throw an error
 
     for (Field field : applicableFields) {
-      Node node = addChild(parent, new LoadableContext(field.getType(), getLoadablesFromField(field)));
+      Node node = addChild(parent, new LoadableContext(injector.inject(field.getType()), getLoadablesFromField(field)));
       processLoadableContextForClass(field.getType(), node);
     }
   }
@@ -82,17 +90,21 @@ public class LoadableQualifiersExplorer {
 
   private boolean treeAlreadyBuilt(Class testClass) {
     return treeRootNode.getLoadableContext() != null
-            && treeRootNode.getLoadableContext().getPageObjectClass().equals(testClass);
+            && treeRootNode.getLoadableContext().getElement().equals(testClass);
   }
 
   private Node findNode(Class clazz, Node parent) {
-    if (parent.getLoadableContext().getPageObjectClass().equals(clazz)) {
+    Class elementClass = parent.getLoadableContext().getElement().getClass();
+    if(elementClass.getName().contains("EnhancerByGuice")) {
+      elementClass = elementClass.getSuperclass();
+    }
+    if (elementClass.equals(clazz)) {
       return parent;
     } else {
 
       for (Node node : parent.getChildren()) {
         Node result = findNode(clazz, node);
-        if(result != null) {
+        if (result != null) {
           return result;
         }
       }

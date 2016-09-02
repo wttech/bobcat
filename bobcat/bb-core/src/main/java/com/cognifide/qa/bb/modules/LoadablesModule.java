@@ -15,14 +15,15 @@
  */
 package com.cognifide.qa.bb.modules;
 
-
 import static com.google.inject.matcher.Matchers.not;
 import static com.google.inject.matcher.Matchers.only;
 import static com.google.inject.matcher.Matchers.returns;
 import static com.google.inject.matcher.Matchers.subclassesOf;
 
+import com.cognifide.qa.bb.loadablecomponent.LoadConditionChainRunner;
 import com.cognifide.qa.bb.loadablecomponent.WebElementInterceptor;
 import com.cognifide.qa.bb.loadablecomponent.Loadable;
+import com.cognifide.qa.bb.loadablecomponent.TopToBottomLoadConditionChainRunner;
 import com.google.inject.AbstractModule;
 import com.google.inject.matcher.Matcher;
 import java.lang.reflect.Method;
@@ -36,6 +37,8 @@ public class LoadablesModule extends AbstractModule {
     WebElementInterceptor webElementInterceptor = new WebElementInterceptor();
     requestInjection(webElementInterceptor);
     bindInterceptor(subclassesOf(WebElement.class), not(returns(only(Loadable.class))), webElementInterceptor);
+
+    bind(LoadConditionChainRunner.class).to(TopToBottomLoadConditionChainRunner.class);
   }
 
   @Override

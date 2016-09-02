@@ -13,29 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.cognifide.qa.bb.mapper.tree;
+package com.cognifide.qa.bb.loadablecomponent;
 
-import com.cognifide.qa.bb.loadablecomponent.Loadable;
+/**
+ *
+ * @author mikolaj.manski
+ */
+public interface LoadConditionChainRunner {
 
-import java.util.List;
-
-public class LoadableContext {
-
-  private final Object element;
-
-  private final List<Loadable> loadables;
-
-  public LoadableContext(Object element, List<Loadable> loadables) {
-    this.element = element;
-    this.loadables = loadables;
-  }
-
-  public Object getElement() {
-    return element;
-  }
-
-  public List<Loadable> getLoadables() {
-    return loadables;
-  }
+  boolean chainCheck(LoadableQualifiersStack conditionStack);
 
 }

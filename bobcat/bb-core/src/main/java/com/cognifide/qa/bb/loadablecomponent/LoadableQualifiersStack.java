@@ -26,7 +26,7 @@ public class LoadableQualifiersStack {
     this.stack = stack;
   }
 
-  public LoadableContext popLoadable() {
-    return stack.pop();
+  public Stack<LoadableContext> getLoadableContextStack() {
+    return (Stack) stack.clone();
   }
 }

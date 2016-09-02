@@ -29,5 +29,5 @@ public @interface LoadableComponent {
 
   int timeout() default 5;
 
-  Class conditionImplementation() default Object.class;
+  Class conditionImplementation();
 }
