@@ -46,7 +46,7 @@ public class OrderTest {
   private ProductPage productPage;
 
   @Inject
-  @LoadableComponent(css = "Test", conditionImplementation = VisibilityCondition.class)
+  @LoadableComponent(conditionImplementation = VisibilityCondition.class)
   private CartPage cartPage;
 
   @Inject

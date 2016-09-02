@@ -17,13 +17,9 @@ package com.cognifide.qa.bb.loadablecomponent;
 
 import com.cognifide.qa.bb.qualifier.LoadableComponent;
 
-/**
- *
- * @author mikolaj.manski
- */
 public class Loadable {
 
-  private String selector;
+  private int delay;
 
   private int timeout;
 
@@ -33,12 +29,12 @@ public class Loadable {
     if (loadableComponent != null) {
       this.conditionImplementation = loadableComponent.conditionImplementation();
       this.timeout = loadableComponent.timeout();
-      this.selector = loadableComponent.css();
+      this.delay = loadableComponent.delay();
     }
   }
 
-  public String getSelector() {
-    return selector;
+  public int getDelay() {
+    return delay;
   }
 
   public int getTimeout() {

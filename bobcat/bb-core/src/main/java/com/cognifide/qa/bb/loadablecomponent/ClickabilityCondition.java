@@ -17,14 +17,13 @@ package com.cognifide.qa.bb.loadablecomponent;
 
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.google.inject.Inject;
-import java.util.List;
-import org.openqa.selenium.WebElement;
 
-/**
- *
- * @author mikolaj.manski
- */
-public class VisibilityCondition implements LoadableComponentCondition {
+import java.util.List;
+
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
+public class ClickabilityCondition implements LoadableComponentCondition {
 
   @Inject
   private BobcatWait wait;
@@ -33,8 +32,8 @@ public class VisibilityCondition implements LoadableComponentCondition {
   public boolean check(Object object, List<Loadable> loadables) {
     if (object instanceof WebElement) {
       WebElement subject = (WebElement) object;
-      wait.withTimeout(loadables.get(0).getTimeout()).
-              until(ignored -> subject.isDisplayed(), loadables.get(0).getDelay());
+      return wait.withTimeout(loadables.get(0).getTimeout()).until(ignored -> ExpectedConditions.
+              elementToBeSelected(subject), 2).apply(null);
     }
     return true;
   }

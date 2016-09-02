@@ -54,7 +54,10 @@ public class WebElementInterceptor implements MethodInterceptor {
         LoadableQualifiersStack loadablesAbove = loadablesExplorer.
                 discoverLoadableContextAbove(callerClass, directContext);
 
-        loadConditionChainRunner.chainCheck(loadablesAbove);
+        boolean chainCheck = loadConditionChainRunner.chainCheck(loadablesAbove);
+        if(!chainCheck) {
+          throw new BobcatRuntimeException("Loadable conditions failed");
+        }
       }
     } catch (ClassNotFoundException ex) {
       throw new BobcatRuntimeException("Problem with loadables context");

@@ -15,17 +15,16 @@
  */
 package com.cognifide.qa.bb.qualifier;
 
+import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-/**
- *
- * @author mikolaj.manski
- */
 @Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
 public @interface LoadableComponent {
 
-  String css() default "";
+  int delay() default 0;
 
   int timeout() default 5;
 

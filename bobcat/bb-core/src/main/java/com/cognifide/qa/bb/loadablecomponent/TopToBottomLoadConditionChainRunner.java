@@ -16,14 +16,15 @@
 package com.cognifide.qa.bb.loadablecomponent;
 
 import com.cognifide.qa.bb.mapper.tree.LoadableContext;
-import com.cognifide.qa.bb.utils.PageObjectInjector;
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 
 import java.util.Stack;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class TopToBottomLoadConditionChainRunner implements LoadConditionChainRunner {
+
+  @Inject
+  private Injector injector;
 
   @Override
   public boolean chainCheck(LoadableQualifiersStack conditionStack) {
@@ -31,15 +32,10 @@ public class TopToBottomLoadConditionChainRunner implements LoadConditionChainRu
     while (!stack.isEmpty()) {
       LoadableContext loadableContext = stack.pop();
       for (Loadable loadable : loadableContext.getLoadables()) {
-        try {
-          LoadableComponentCondition componentCondition = (LoadableComponentCondition) loadable.
-                  getConditionImplementation().newInstance();
-
-          if (componentCondition.check(loadableContext.getElement(), loadableContext.getLoadables()) == false) {
-            return false;
-          }
-        } catch (InstantiationException | IllegalAccessException ex) {
-          Logger.getLogger(TopToBottomLoadConditionChainRunner.class.getName()).log(Level.SEVERE, null, ex);
+        LoadableComponentCondition componentCondition = (LoadableComponentCondition) injector.
+                getInstance(loadable.getConditionImplementation());
+        if (componentCondition.check(loadableContext.getElement(), loadableContext.getLoadables()) == false) {
+          return false;
         }
       }
     }

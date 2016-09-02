@@ -28,6 +28,7 @@ import org.openqa.selenium.WebDriver;
 import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.aem.page.PublishPage;
+import com.cognifide.qa.bb.loadablecomponent.ClickabilityCondition;
 import com.cognifide.qa.bb.loadablecomponent.VisibilityCondition;
 import com.cognifide.qa.bb.logging.ReportEntryLogger;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
@@ -52,7 +53,7 @@ public class CartPage extends PublishPage {
   private WebElement defaultRecommendationsElement;
 
   @FindBy(css = "p.cq-checkout a")
-  @LoadableComponent(css = "Test", conditionImplementation = VisibilityCondition.class)
+  @LoadableComponent(delay = 2, conditionImplementation = ClickabilityCondition.class, timeout = 15)
   private WebElement checkoutButton;
 
   @Inject
