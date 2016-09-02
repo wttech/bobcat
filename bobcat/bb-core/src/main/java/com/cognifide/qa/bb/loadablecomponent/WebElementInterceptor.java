@@ -16,6 +16,7 @@
 package com.cognifide.qa.bb.loadablecomponent;
 
 import com.cognifide.qa.bb.exceptions.BobcatRuntimeException;
+import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.webelement.BobcatWebElement;
 import com.google.inject.Inject;
 
@@ -27,9 +28,6 @@ public class WebElementInterceptor implements MethodInterceptor {
   private static final int ORIGINAL_CALLER_CLASS_LEVEL = 5;
 
   @Inject
-  private LoadableComponentContextRegistry loadablesRegistry;
-
-  @Inject
   private LoadableQualifiersExplorer loadablesExplorer;
 
   @Override
@@ -38,23 +36,15 @@ public class WebElementInterceptor implements MethodInterceptor {
       Class callerClass = Class.forName(Thread.currentThread().getStackTrace()[ORIGINAL_CALLER_CLASS_LEVEL].
               getClassName());
 
-      LoadableQualifiersStack loadablesAbove = loadablesRegistry.isQualifiersStackAlreadyDefined(callerClass)
-              ? discoverAndRegisterLoadables(callerClass)
-              : loadablesRegistry.getLoadableQualifiersStack(callerClass);
-
-      BobcatWebElement caller = (BobcatWebElement) methodInvocation.getThis();
-      Loadable directLoadCondition = caller.getLoadable();
-      //check()
+      if (callerClass.isAnnotationPresent(PageObject.class)) {
+        LoadableQualifiersStack loadablesAbove = loadablesExplorer.discoverLoadableContextAbove(callerClass);
+        BobcatWebElement caller = (BobcatWebElement) methodInvocation.getThis();
+        Loadable directLoadCondition = caller.getLoadable();
+        //check()
+      }
     } catch (ClassNotFoundException ex) {
       throw new BobcatRuntimeException("Problem with loadables context");
     }
     return methodInvocation.proceed();
   }
-
-  private LoadableQualifiersStack discoverAndRegisterLoadables(Class callerClass) {
-    LoadableQualifiersStack loadablesAbove = loadablesExplorer.discoverLoadableContextAbove(callerClass);
-    loadablesRegistry.registerClassWithLoadableQualifiersStack(callerClass, loadablesAbove);
-    return loadablesAbove;
-  }
-
 }

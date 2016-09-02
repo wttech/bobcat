@@ -13,20 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.cognifide.qa.bb.loadablecomponent;
+package com.cognifide.qa.bb.mapper.tree;
 
-import com.cognifide.qa.bb.mapper.tree.LoadableContext;
-import java.util.Stack;
+import com.cognifide.qa.bb.loadablecomponent.Loadable;
 
-public class LoadableQualifiersStack {
+import java.util.List;
 
-  private final Stack<LoadableContext> stack;
+public class LoadableContext {
 
-  public LoadableQualifiersStack(Stack<LoadableContext> stack) {
-    this.stack = stack;
+  private final Class pageObjectClass;
+
+  private final List<Loadable> loadables;
+
+  public LoadableContext(Class pageObjectClass, List<Loadable> loadables) {
+    this.pageObjectClass = pageObjectClass;
+    this.loadables = loadables;
   }
 
-  public LoadableContext popLoadable() {
-    return stack.pop();
+  public Class getPageObjectClass() {
+    return pageObjectClass;
   }
+
+  public List<Loadable> getLoadables() {
+    return loadables;
+  }
+
 }

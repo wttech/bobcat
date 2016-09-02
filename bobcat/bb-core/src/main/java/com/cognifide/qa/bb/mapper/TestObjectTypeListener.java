@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.cognifide.qa.bb.loadablecomponent;
+package com.cognifide.qa.bb.mapper;
 
-import com.cognifide.qa.bb.mapper.tree.LoadableContext;
-import java.util.Stack;
+import com.google.inject.TypeLiteral;
+import com.google.inject.spi.TypeEncounter;
+import com.google.inject.spi.TypeListener;
+import org.junit.runner.RunWith;
 
-public class LoadableQualifiersStack {
+public class TestObjectTypeListener implements TypeListener {
 
-  private final Stack<LoadableContext> stack;
-
-  public LoadableQualifiersStack(Stack<LoadableContext> stack) {
-    this.stack = stack;
+  @Override
+  public <I> void hear(TypeLiteral<I> type, TypeEncounter<I> encounter) {
+    if(type.getRawType().isAnnotationPresent(RunWith.class)) {
+      encounter.register(new TestClassInjectionListener(encounter));
+    }
   }
 
-  public LoadableContext popLoadable() {
-    return stack.pop();
-  }
 }

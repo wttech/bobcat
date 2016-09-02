@@ -15,18 +15,100 @@
  */
 package com.cognifide.qa.bb.loadablecomponent;
 
+import com.cognifide.qa.bb.mapper.tree.LoadableContext;
+import com.cognifide.qa.bb.mapper.tree.Node;
+import com.cognifide.qa.bb.qualifier.LoadableComponent;
+import com.cognifide.qa.bb.qualifier.PageObject;
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Stack;
+import java.util.stream.Collectors;
 
 @Singleton
 public class LoadableQualifiersExplorer {
 
+  private final Node treeRootNode = new Node(null);
 
   /**
-   * 
+   *
    * @param clazz
    * @return
    */
   public LoadableQualifiersStack discoverLoadableContextAbove(Class clazz) {
+    Stack<LoadableContext> stack = new Stack<>();
+    Node treeNode = findNode(clazz, treeRootNode);
+    while (treeNode != null) {
+      stack.add(treeNode.getLoadableContext());
+      treeNode = treeNode.getParent();
+    }
+
+    return new LoadableQualifiersStack(stack);
+  }
+
+  public void registerLoadableContextTree(Class clazz) {
+    if (!treeAlreadyBuilt(clazz)) {
+      treeRootNode.setLoadableContext(new LoadableContext(clazz, Collections.emptyList()));
+      processLoadableContextForClass(clazz, treeRootNode);
+    }
+  }
+
+  private void processLoadableContextForClass(Class clazz, Node parent) {
+    List<Field> decalredFields = Arrays.asList(clazz.getDeclaredFields());
+    List<Field> applicableFields = decalredFields.stream()
+            .filter(f -> f.isAnnotationPresent(Inject.class))
+            .filter(f -> f.getType().isAnnotationPresent(PageObject.class))
+            .collect(Collectors.toList());
+
+    //TODO Check here if page object field is the only injected field of this type. If not throw an error
+
+    for (Field field : applicableFields) {
+      Node node = addChild(parent, new LoadableContext(field.getType(), getLoadablesFromField(field)));
+      processLoadableContextForClass(field.getType(), node);
+    }
+  }
+
+  private Node addChild(Node parent, LoadableContext loadableContext) {
+    Node node = new Node(parent);
+    node.setLoadableContext(loadableContext);
+    parent.getChildren().add(node);
+    return node;
+  }
+
+  private boolean treeAlreadyBuilt(Class testClass) {
+    return treeRootNode.getLoadableContext() != null
+            && treeRootNode.getLoadableContext().getPageObjectClass().equals(testClass);
+  }
+
+  private Node findNode(Class clazz, Node parent) {
+    if (parent.getLoadableContext().getPageObjectClass().equals(clazz)) {
+      return parent;
+    } else {
+
+      for (Node node : parent.getChildren()) {
+        Node result = findNode(clazz, node);
+        if(result != null) {
+          return result;
+        }
+      }
+    }
     return null;
+  }
+
+  private List<Loadable> getLoadablesFromField(Field field) {
+    List<Loadable> result = new ArrayList<>();
+    List<LoadableComponent> loadableAnnotations = Arrays.asList(field.
+            getAnnotationsByType(LoadableComponent.class));
+    if (!loadableAnnotations.isEmpty()) {
+      for (LoadableComponent loadableComponent : loadableAnnotations) {
+        result.add(new Loadable(loadableComponent));
+      }
+    }
+    return result;
   }
 }

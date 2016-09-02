@@ -27,6 +27,7 @@ import com.cognifide.qa.bb.mapper.field.PageObjectSelectorListProxyProvider;
 import org.openqa.selenium.WebElement;
 
 import com.cognifide.qa.bb.mapper.PageObjectTypeListener;
+import com.cognifide.qa.bb.mapper.TestObjectTypeListener;
 import com.cognifide.qa.bb.mapper.field.SelectorPageObjectProvider;
 import com.cognifide.qa.bb.mapper.field.CurrentFrameProvider;
 import com.cognifide.qa.bb.mapper.field.FieldProvider;
@@ -49,6 +50,7 @@ public class PageObjectsModule extends AbstractModule {
   protected void configure() {
 
     bindListener(any(), new PageObjectTypeListener());
+    bindListener(any(), new TestObjectTypeListener());
 
     Multibinder<FieldProvider> fieldProviders =
         Multibinder.newSetBinder(binder(), FieldProvider.class);
