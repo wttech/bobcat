@@ -142,7 +142,8 @@ public class Siteadmin62Test {
     String testedPage = generateRandomPageName();
     createPageInContext(testedPage, CONTEXT_PATH);
     siteadminPage.movePage(testedPage, COMPOSE_MESSAGE_PATH);
-    wait.withTimeout(Timeouts.SMALL).until(input -> siteadminPage.isLoaded(), 2);
+    wait.withTimeout(Timeouts.MEDIUM)
+        .until(input -> siteadminPage.isPagePresent(testedPage), Timeouts.SMALL);
     siteadminPage.open(COMPOSE_MESSAGE_PATH);
     assertTrue(siteadminPage.isPagePresent(testedPage));
   }
@@ -152,7 +153,8 @@ public class Siteadmin62Test {
     String testedPage = generateRandomPageName();
     createPageInContext(testedPage, CONTEXT_PATH);
     siteadminPage.copyPage(testedPage, COMPOSE_MESSAGE_PATH);
-    wait.withTimeout(Timeouts.SMALL).until(input -> siteadminPage.isLoaded(), 2);
+    wait.withTimeout(Timeouts.MEDIUM)
+        .until(input -> siteadminPage.isPagePresent(testedPage), Timeouts.SMALL);
     siteadminPage.open(COMPOSE_MESSAGE_PATH);
     assertTrue(siteadminPage.isPagePresent(testedPage));
   }
