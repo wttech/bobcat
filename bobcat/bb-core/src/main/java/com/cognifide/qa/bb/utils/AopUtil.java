@@ -13,20 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.cognifide.qa.bb.mapper;
+package com.cognifide.qa.bb.utils;
 
-import com.google.inject.TypeLiteral;
-import com.google.inject.spi.TypeEncounter;
-import com.google.inject.spi.TypeListener;
-import org.junit.runner.RunWith;
+public class AopUtil {
 
-public class TestObjectTypeListener implements TypeListener {
-
-  @Override
-  public <I> void hear(TypeLiteral<I> type, TypeEncounter<I> encounter) {
-    if(type.getRawType().isAnnotationPresent(RunWith.class)) {
-      encounter.register(new TestClassInjectionListener(encounter));
+  public static Class<?> getBaseClassForAopObject(Object object) {
+    Class<?> clazz = object.getClass();
+    if (clazz.getName().contains("EnhancerByGuice")) {
+      return clazz.getSuperclass();
     }
+    return clazz;
   }
-
 }

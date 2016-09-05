@@ -13,14 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.cognifide.qa.bb.loadablecomponent;
+package com.cognifide.qa.bb.loadable.exception;
 
-/**
- *
- * @author mikolaj.manski
- */
-public interface LoadableComponentCondition {
+import com.cognifide.qa.bb.exceptions.BobcatRuntimeException;
 
-  boolean check(Object object,Loadable loadables);
+public class LoadableConditionException extends BobcatRuntimeException {
+
+  public LoadableConditionException(String message) {
+    super(message);
+  }
+
+  public LoadableConditionException(String message, Throwable cause) {
+    super(message, cause);
+  }
 
 }

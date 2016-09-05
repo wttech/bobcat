@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.cognifide.qa.bb.qualifier;
+package com.cognifide.qa.bb.loadable.annotation;
 
+import com.cognifide.qa.bb.loadable.condition.LoadableComponentCondition;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -24,9 +25,19 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 public @interface LoadableComponent {
 
+  /**
+   * Delay between condition checks
+   */
   int delay() default 0;
 
+  /**
+   * Timeout for positive condition evaluation
+   */
   int timeout() default 5;
 
-  Class conditionImplementation();
+  /**
+   * Condition implementation to be evaluated. Class have to implement {@link LoadableComponentCondition}
+   * interface.
+   */
+  Class<? extends LoadableComponentCondition> condClass();
 }

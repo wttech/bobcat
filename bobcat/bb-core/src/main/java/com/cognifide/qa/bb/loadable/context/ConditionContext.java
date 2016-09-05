@@ -13,24 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.cognifide.qa.bb.loadablecomponent;
+package com.cognifide.qa.bb.loadable.context;
 
-import com.cognifide.qa.bb.qualifier.LoadableComponent;
+import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 
-public class Loadable {
+public class ConditionContext {
 
   private int delay;
 
   private int timeout;
 
-  private Class conditionImplementation;
+  private Class condClass;
 
-  public Loadable(LoadableComponent loadableComponent) {
+  private String fieldName;
+
+  private String declaringClassName;
+
+  public ConditionContext(LoadableComponent loadableComponent, String fieldName, String enlosingClassName) {
     if (loadableComponent != null) {
-      this.conditionImplementation = loadableComponent.conditionImplementation();
+      this.condClass = loadableComponent.condClass();
       this.timeout = loadableComponent.timeout();
       this.delay = loadableComponent.delay();
+      this.fieldName = fieldName;
+      this.declaringClassName = enlosingClassName;
     }
+  }
+
+  public String getFieldName() {
+    return fieldName;
+  }
+
+  public String getEnclosingClassName() {
+    return declaringClassName;
   }
 
   public int getDelay() {
@@ -41,8 +55,8 @@ public class Loadable {
     return timeout;
   }
 
-  public Class getConditionImplementation() {
-    return conditionImplementation;
+  public Class getCondClass() {
+    return condClass;
   }
 
 }

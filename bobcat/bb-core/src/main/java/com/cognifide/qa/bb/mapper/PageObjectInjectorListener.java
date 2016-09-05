@@ -19,7 +19,6 @@
  */
 package com.cognifide.qa.bb.mapper;
 
-import com.cognifide.qa.bb.webelement.BobcatWebElementFactory;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -31,12 +30,14 @@ import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.cognifide.qa.bb.webelement.BobcatWebElementFactory;
 import com.cognifide.qa.bb.mapper.field.FieldProvider;
 import com.cognifide.qa.bb.qualifier.Frame;
 import com.cognifide.qa.bb.scope.ContextStack;
 import com.cognifide.qa.bb.scope.PageObjectContext;
 import com.cognifide.qa.bb.scope.frame.FrameMap;
 import com.cognifide.qa.bb.scope.frame.FramePath;
+import com.cognifide.qa.bb.utils.AopUtil;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.spi.InjectionListener;
@@ -106,7 +107,7 @@ public class PageObjectInjectorListener implements InjectionListener<Object> {
 
   private void initPageObjectFields(Object object) {
     PageObjectContext context = getCurrentContext();
-    for (Field f : getBaseClassForAopObject(object).getDeclaredFields()) {
+    for (Field f : AopUtil.getBaseClassForAopObject(object).getDeclaredFields()) {
       if (f.isAnnotationPresent(Inject.class)) {
         continue;
       }
@@ -127,14 +128,6 @@ public class PageObjectInjectorListener implements InjectionListener<Object> {
     } catch (IllegalArgumentException | IllegalAccessException e) {
       LOG.error("Can't set field", e);
     }
-  }
-
-  private Class<?> getBaseClassForAopObject(Object object) {
-    Class<?> clazz = object.getClass();
-    if (clazz.getName().contains("EnhancerByGuice")) {
-      return clazz.getSuperclass();
-    }
-    return clazz;
   }
 
   private void invokePostConstruct(Object object) {

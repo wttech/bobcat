@@ -13,36 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.cognifide.qa.bb.mapper.tree;
+package com.cognifide.qa.bb.loadable.hierarchy;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Node {
+class ConditionHierarchyNode {
 
-  private LoadableContext id;
+  private final List<ConditionHierarchyNode> children = new ArrayList<>();
 
-  private final List<Node> children = new ArrayList<>();
+  private final ConditionHierarchyNode parent;
 
-  private final Node parent;
+  private ClassFieldContext loadableFieldContext;
 
-  public Node(Node parent) {
+  public ConditionHierarchyNode(ConditionHierarchyNode parent) {
     this.parent = parent;
   }
 
-  public LoadableContext getLoadableContext() {
-    return id;
+  public ClassFieldContext getLoadableFieldContext() {
+    return loadableFieldContext;
   }
 
-  public void setLoadableContext(LoadableContext id) {
-    this.id = id;
+  public void setLoadableFieldContext(ClassFieldContext context) {
+    this.loadableFieldContext = context;
   }
 
-  public List<Node> getChildren() {
+  public List<ConditionHierarchyNode> getChildren() {
     return children;
   }
 
-  public Node getParent() {
+  public ConditionHierarchyNode getParent() {
     return parent;
   }
 }

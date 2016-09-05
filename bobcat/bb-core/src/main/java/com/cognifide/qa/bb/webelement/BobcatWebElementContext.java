@@ -15,7 +15,10 @@
  */
 package com.cognifide.qa.bb.webelement;
 
-import com.cognifide.qa.bb.loadablecomponent.Loadable;
+import com.cognifide.qa.bb.loadable.context.ConditionContext;
+
+import java.util.List;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.internal.Locatable;
 
@@ -25,12 +28,12 @@ public class BobcatWebElementContext {
 
   private final Locatable locatable;
 
-  private Loadable loadable;
+  private List<ConditionContext> contextList;
 
-  public BobcatWebElementContext(WebElement webElement, Locatable locatable, Loadable loadable) {
+  public BobcatWebElementContext(WebElement webElement, Locatable locatable, List<ConditionContext> contextList) {
     this.webElement = webElement;
     this.locatable = locatable;
-    this.loadable = loadable;
+    this.contextList = contextList;
   }
 
   public BobcatWebElementContext(WebElement webElement, Locatable locatable) {
@@ -46,8 +49,8 @@ public class BobcatWebElementContext {
     return locatable;
   }
 
-  public Loadable getLoadable() {
-    return loadable;
+  public List<ConditionContext> getLoadableConditionContext() {
+    return contextList;
   }
 
 }

@@ -13,27 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.cognifide.qa.bb.loadablecomponent;
+package com.cognifide.qa.bb.loadable.condition.impl;
 
+import com.cognifide.qa.bb.loadable.context.ConditionContext;
+import com.cognifide.qa.bb.loadable.condition.LoadableComponentCondition;
+import com.cognifide.qa.bb.loadable.exception.LoadableConditionException;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.google.inject.Inject;
 
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class ClickabilityCondition implements LoadableComponentCondition {
+public class VisibilityCondition implements LoadableComponentCondition {
 
   @Inject
   private BobcatWait wait;
 
   @Override
-  public boolean check(Object object, Loadable loadable) {
+  public boolean check(Object object, ConditionContext loadable) {
     if (object instanceof WebElement) {
       WebElement subject = (WebElement) object;
-      return wait.withTimeout(loadable.getTimeout()).until(ignored -> ExpectedConditions.
-              elementToBeSelected(subject), 2).apply(null);
+      return wait.withTimeout(loadable.getTimeout()).
+              until(ignored -> subject.isDisplayed(), loadable.getDelay());
     }
-    return true;
+    throw new LoadableConditionException("Loadable Component Condition placed on not applicable field");
+
   }
 
 }

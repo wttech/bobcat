@@ -13,24 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.cognifide.qa.bb.mapper;
+package com.cognifide.qa.bb.loadable.mapper;
 
-import com.cognifide.qa.bb.loadablecomponent.LoadableQualifiersExplorer;
+import com.cognifide.qa.bb.loadable.hierarchy.ConditionsExplorer;
 import com.google.inject.Provider;
 import com.google.inject.spi.InjectionListener;
 import com.google.inject.spi.TypeEncounter;
 
-public class TestClassInjectionListener implements InjectionListener {
+class TestClassInjectionListener implements InjectionListener {
 
-  private final Provider<LoadableQualifiersExplorer> loadablesExplorer;
+  private final Provider<ConditionsExplorer> loadablesExplorer;
 
   public TestClassInjectionListener(TypeEncounter typeEncounter) {
-    this.loadablesExplorer = typeEncounter.getProvider(LoadableQualifiersExplorer.class);
+    this.loadablesExplorer = typeEncounter.getProvider(ConditionsExplorer.class);
   }
 
   @Override
   public void afterInjection(Object injectee) {
-    loadablesExplorer.get().registerLoadableContextTree(injectee.getClass());
+    loadablesExplorer.get().registerLoadableContextHierarchyTree(injectee.getClass());
   }
 
 }

@@ -13,10 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.cognifide.qa.bb.webelement;
+package com.cognifide.qa.bb.loadable.hierarchy;
 
-public interface BobcatWebElementFactory {
+import com.cognifide.qa.bb.loadable.context.ComponentContext;
+import java.util.Stack;
 
-  BobcatWebElement create(BobcatWebElementContext bobcatWebElementContext);
+public class ConditionStack {
 
+  private final Stack<ComponentContext> stack;
+
+  public ConditionStack(Stack<ComponentContext> stack) {
+    this.stack = stack;
+  }
+
+  public Stack<ComponentContext> getLoadableContextStack() {
+    // please note that this is not Object#clone
+    return (Stack<ComponentContext>) stack.clone();
+  }
 }

@@ -20,13 +20,13 @@ import static com.google.inject.matcher.Matchers.only;
 import static com.google.inject.matcher.Matchers.returns;
 import static com.google.inject.matcher.Matchers.subclassesOf;
 
-import com.cognifide.qa.bb.loadablecomponent.LoadConditionChainRunner;
-import com.cognifide.qa.bb.loadablecomponent.WebElementInterceptor;
-import com.cognifide.qa.bb.loadablecomponent.Loadable;
-import com.cognifide.qa.bb.loadablecomponent.TopToBottomLoadConditionChainRunner;
+import com.cognifide.qa.bb.loadable.hierarchy.WebElementInterceptor;
+import com.cognifide.qa.bb.loadable.context.ConditionContext;
 import com.google.inject.AbstractModule;
 import com.google.inject.matcher.Matcher;
+
 import java.lang.reflect.Method;
+
 import org.aopalliance.intercept.MethodInterceptor;
 import org.openqa.selenium.WebElement;
 
@@ -36,9 +36,7 @@ public class LoadablesModule extends AbstractModule {
   protected void configure() {
     WebElementInterceptor webElementInterceptor = new WebElementInterceptor();
     requestInjection(webElementInterceptor);
-    bindInterceptor(subclassesOf(WebElement.class), not(returns(only(Loadable.class))), webElementInterceptor);
-
-    bind(LoadConditionChainRunner.class).to(TopToBottomLoadConditionChainRunner.class);
+    bindInterceptor(subclassesOf(WebElement.class), not(returns(only(ConditionContext.class))), webElementInterceptor);
   }
 
   @Override

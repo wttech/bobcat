@@ -13,30 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.cognifide.qa.bb.loadablecomponent;
+package com.cognifide.qa.bb.loadable.mapper;
 
-import com.cognifide.qa.bb.provider.selenium.BobcatWait;
-import com.google.inject.Inject;
+import com.google.inject.TypeLiteral;
+import com.google.inject.spi.TypeEncounter;
+import com.google.inject.spi.TypeListener;
 
-import org.openqa.selenium.WebElement;
+import org.junit.runner.RunWith;
 
-/**
- *
- * @author mikolaj.manski
- */
-public class VisibilityCondition implements LoadableComponentCondition {
-
-  @Inject
-  private BobcatWait wait;
+public class TestObjectTypeListener implements TypeListener {
 
   @Override
-  public boolean check(Object object, Loadable loadable) {
-    if (object instanceof WebElement) {
-      WebElement subject = (WebElement) object;
-      wait.withTimeout(loadable.getTimeout()).
-              until(ignored -> subject.isDisplayed(), loadable.getDelay());
+  public <I> void hear(TypeLiteral<I> type, TypeEncounter<I> encounter) {
+    if(type.getRawType().isAnnotationPresent(RunWith.class)) {
+      encounter.register(new TestClassInjectionListener(encounter));
     }
-    return true;
   }
 
 }

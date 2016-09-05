@@ -13,20 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.cognifide.qa.bb.loadablecomponent;
+package com.cognifide.qa.bb.loadable.condition;
 
-import com.cognifide.qa.bb.mapper.tree.LoadableContext;
-import java.util.Stack;
+import com.cognifide.qa.bb.loadable.context.ConditionContext;
 
-public class LoadableQualifiersStack {
+public interface LoadableComponentCondition {
 
-  private final Stack<LoadableContext> stack;
+  /**
+   *
+   * @param subject Instance of the object annotated with {@link LoadableComponent} annotation
+   * @param data Data provided by annotation
+   * @return Evaluation result
+   */
+  boolean check(Object subject, ConditionContext data);
 
-  public LoadableQualifiersStack(Stack<LoadableContext> stack) {
-    this.stack = stack;
-  }
-
-  public Stack<LoadableContext> getLoadableContextStack() {
-    return (Stack) stack.clone();
-  }
 }

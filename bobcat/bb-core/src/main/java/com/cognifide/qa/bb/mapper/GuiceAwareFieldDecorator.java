@@ -19,12 +19,14 @@
  */
 package com.cognifide.qa.bb.mapper;
 
-import com.cognifide.qa.bb.qualifier.LoadableComponent;
-import com.cognifide.qa.bb.loadablecomponent.Loadable;
+import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
+import com.cognifide.qa.bb.loadable.context.ConditionContext;
 import com.cognifide.qa.bb.webelement.BobcatWebElementContext;
 import com.cognifide.qa.bb.webelement.BobcatWebElementFactory;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.internal.Locatable;
@@ -32,6 +34,7 @@ import org.openqa.selenium.support.pagefactory.DefaultFieldDecorator;
 import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 
 import com.google.inject.Inject;
+
 
 /**
  * This class extends Selenium's default field decorator so that Selenium will initalize all fields except the
@@ -48,7 +51,8 @@ public class GuiceAwareFieldDecorator extends DefaultFieldDecorator {
    * @param factory represents ElementLocatorFactory
    * @param bobcatWebElementFactory
    */
-  public GuiceAwareFieldDecorator(ElementLocatorFactory factory, BobcatWebElementFactory bobcatWebElementFactory) {
+  public GuiceAwareFieldDecorator(ElementLocatorFactory factory,
+          BobcatWebElementFactory bobcatWebElementFactory) {
     super(factory);
     this.bobcatWebElementFactory = bobcatWebElementFactory;
   }
@@ -59,7 +63,7 @@ public class GuiceAwareFieldDecorator extends DefaultFieldDecorator {
    * Selenium will try to generate the value for this field.
    *
    * @param loader ClassLoader
-   * @param field  Field to be initialized
+   * @param field Field to be initialized
    * @return decorated field Object
    */
   @Override
@@ -71,8 +75,12 @@ public class GuiceAwareFieldDecorator extends DefaultFieldDecorator {
       if (decoratedField instanceof WebElement) {
         WebElement element = (WebElement) decoratedField;
         Locatable locatable = (Locatable) decoratedField;
-        Loadable loadable = new Loadable(field.getAnnotation(LoadableComponent.class));
-        BobcatWebElementContext context = new BobcatWebElementContext(element, locatable, loadable);
+        List<ConditionContext> fieldConditionContext = new ArrayList<>();
+        for (LoadableComponent loadableComponent : field.getAnnotationsByType(LoadableComponent.class)) {
+          fieldConditionContext.add(new ConditionContext(loadableComponent, field.getName(), field.
+                  getDeclaringClass().getName()));
+        }
+        BobcatWebElementContext context = new BobcatWebElementContext(element, locatable, fieldConditionContext);
         return bobcatWebElementFactory.create(context);
       }
       return decoratedField;

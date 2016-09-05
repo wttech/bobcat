@@ -13,29 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.cognifide.qa.bb.mapper.tree;
+package com.cognifide.qa.bb.loadable.context;
 
-import com.cognifide.qa.bb.loadablecomponent.Loadable;
+public class ComponentContext {
 
-import java.util.List;
+  private final Object subject;
 
-public class LoadableContext {
+  private final ConditionContext loadable;
 
-  private final Object element;
-
-  private final List<Loadable> loadables;
-
-  public LoadableContext(Object element, List<Loadable> loadables) {
-    this.element = element;
-    this.loadables = loadables;
+  public ComponentContext(Object subject, ConditionContext loadableData) {
+    this.subject = subject;
+    this.loadable = loadableData;
   }
 
   public Object getElement() {
-    return element;
+    return subject;
   }
 
-  public List<Loadable> getLoadables() {
-    return loadables;
+  public ConditionContext getLoadableData() {
+    return loadable;
   }
 
 }

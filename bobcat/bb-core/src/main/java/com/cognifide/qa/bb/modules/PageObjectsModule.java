@@ -23,11 +23,11 @@ import static com.google.inject.matcher.Matchers.any;
 
 import java.util.List;
 
-import com.cognifide.qa.bb.mapper.field.PageObjectSelectorListProxyProvider;
 import org.openqa.selenium.WebElement;
 
 import com.cognifide.qa.bb.mapper.PageObjectTypeListener;
-import com.cognifide.qa.bb.mapper.TestObjectTypeListener;
+import com.cognifide.qa.bb.mapper.field.PageObjectSelectorListProxyProvider;
+import com.cognifide.qa.bb.loadable.mapper.TestObjectTypeListener;
 import com.cognifide.qa.bb.mapper.field.SelectorPageObjectProvider;
 import com.cognifide.qa.bb.mapper.field.CurrentFrameProvider;
 import com.cognifide.qa.bb.mapper.field.FieldProvider;
