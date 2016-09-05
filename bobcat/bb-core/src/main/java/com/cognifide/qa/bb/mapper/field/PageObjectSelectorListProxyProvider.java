@@ -39,8 +39,6 @@ import com.cognifide.qa.bb.utils.AnnotationsHelper;
 import com.cognifide.qa.bb.utils.PageObjectInjector;
 import com.google.inject.Inject;
 
-import static com.cognifide.qa.bb.utils.AnnotationsHelper.isGlobal;
-
 /**
  * This class is a provider of Java proxies that will intercept access to PageObject fields that are
  * lists of PageObjects and are marked by {@link com.cognifide.qa.bb.qualifier.FindPageObject}.
@@ -95,7 +93,8 @@ public class PageObjectSelectorListProxyProvider extends PageObjectListProxyProv
   private SearchContext getSearchContext(PageObjectContext context, Field field) {
     SearchContext searchContext = webDriver;
     ElementLocatorFactory elementLocatorFactory = context.getElementLocatorFactory();
-    if (elementLocatorFactory instanceof ParentElementLocatorProvider && !isGlobal(field)) {
+    if (elementLocatorFactory instanceof ParentElementLocatorProvider
+        && !AnnotationsHelper.isGlobal(field)) {
       searchContext =
           ((ParentElementLocatorProvider) elementLocatorFactory).getCurrentScope().findElement();
     }
