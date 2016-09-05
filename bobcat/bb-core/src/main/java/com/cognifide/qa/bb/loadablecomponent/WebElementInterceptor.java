@@ -20,6 +20,7 @@ import com.cognifide.qa.bb.mapper.tree.LoadableContext;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.webelement.BobcatWebElement;
 import com.google.inject.Inject;
+
 import java.util.Collections;
 
 import org.aopalliance.intercept.MethodInterceptor;

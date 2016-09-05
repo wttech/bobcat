@@ -34,7 +34,7 @@ public class TopToBottomLoadConditionChainRunner implements LoadConditionChainRu
       for (Loadable loadable : loadableContext.getLoadables()) {
         LoadableComponentCondition componentCondition = (LoadableComponentCondition) injector.
                 getInstance(loadable.getConditionImplementation());
-        if (componentCondition.check(loadableContext.getElement(), loadableContext.getLoadables()) == false) {
+        if (componentCondition.check(loadableContext.getElement(), loadable) == false) {
           return false;
         }
       }

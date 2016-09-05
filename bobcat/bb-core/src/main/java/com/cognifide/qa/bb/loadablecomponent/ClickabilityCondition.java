@@ -18,8 +18,6 @@ package com.cognifide.qa.bb.loadablecomponent;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.google.inject.Inject;
 
-import java.util.List;
-
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -29,10 +27,10 @@ public class ClickabilityCondition implements LoadableComponentCondition {
   private BobcatWait wait;
 
   @Override
-  public boolean check(Object object, List<Loadable> loadables) {
+  public boolean check(Object object, Loadable loadable) {
     if (object instanceof WebElement) {
       WebElement subject = (WebElement) object;
-      return wait.withTimeout(loadables.get(0).getTimeout()).until(ignored -> ExpectedConditions.
+      return wait.withTimeout(loadable.getTimeout()).until(ignored -> ExpectedConditions.
               elementToBeSelected(subject), 2).apply(null);
     }
     return true;

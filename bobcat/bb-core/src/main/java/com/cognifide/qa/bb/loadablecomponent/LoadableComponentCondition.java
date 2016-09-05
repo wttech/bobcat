@@ -15,14 +15,12 @@
  */
 package com.cognifide.qa.bb.loadablecomponent;
 
-import java.util.List;
-
 /**
  *
  * @author mikolaj.manski
  */
 public interface LoadableComponentCondition {
 
-  boolean check(Object object, List<Loadable> loadables);
+  boolean check(Object object,Loadable loadables);
 
 }
