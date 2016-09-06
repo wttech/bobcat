@@ -19,6 +19,7 @@
  */
 package com.cognifide.qa.bb.webelement;
 
+import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import com.cognifide.qa.bb.loadable.context.ConditionContext;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
@@ -179,6 +180,10 @@ public class BobcatWebElement implements WebElement, Locatable, WrapsElement {
     return String.format("%s(%s)", this.getClass().getSimpleName(), getWrappedElement());
   }
 
+  /**
+   *
+   * @return Conditions defined by {@link LoadableComponent} annotations.
+   */
   public List<ConditionContext> getLoadableConditionContext() {
     return conditionContext;
   }

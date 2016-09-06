@@ -23,6 +23,15 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.openqa.selenium.WebElement;
+
+/**
+ *
+ * This annotation tells Bobcat that before executing any of {@link WebElement} methods, condition provided in
+ * the condClass attribute should be evaluated. When the annotation is placed on a page object field, the
+ * underlying WebElements are taken into account supporting the entire hierarchy of downstream page objects
+ * and web elements.
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Repeatable(LoadableComponents.class)
 @Target(ElementType.FIELD)

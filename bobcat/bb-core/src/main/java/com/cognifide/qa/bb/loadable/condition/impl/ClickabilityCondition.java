@@ -15,7 +15,7 @@
  */
 package com.cognifide.qa.bb.loadable.condition.impl;
 
-import com.cognifide.qa.bb.loadable.context.ConditionContext;
+import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import com.cognifide.qa.bb.loadable.condition.LoadableComponentCondition;
 import com.cognifide.qa.bb.loadable.exception.LoadableConditionException;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
@@ -24,20 +24,23 @@ import com.google.inject.Inject;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+/**
+ *
+ * This checks whether {@link WebElement} annotated with {@link LoadableComponent} and provided with this
+ * class as condition implementation is clickable.
+ */
 public class ClickabilityCondition implements LoadableComponentCondition {
 
   @Inject
   private BobcatWait wait;
 
   @Override
-  public boolean check(Object object, ConditionContext data) {
+  public boolean check(Object object, LoadableComponent data) {
     if (object instanceof WebElement) {
       WebElement subject = (WebElement) object;
-      return wait.withTimeout(data.getTimeout()).until(ignored -> ExpectedConditions.
-              elementToBeClickable(subject), data.getDelay()).apply(null) != null;
+      return wait.withTimeout(data.timeout()).until(ignored -> ExpectedConditions.
+              elementToBeClickable(subject), data.delay()).apply(null) != null;
     }
     throw new LoadableConditionException("Loadable Component Condition placed on not applicable field");
-
   }
-
 }

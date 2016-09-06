@@ -17,13 +17,13 @@ package com.cognifide.qa.bb.loadable.context;
 
 import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 
+/**
+ *
+ * This wraps the {@link LoadableComponent} annotation data with information helpful in case of errors
+ */
 public class ConditionContext {
 
-  private int delay;
-
-  private int timeout;
-
-  private Class condClass;
+  private LoadableComponent loadableComponent;
 
   private String fieldName;
 
@@ -31,32 +31,34 @@ public class ConditionContext {
 
   public ConditionContext(LoadableComponent loadableComponent, String fieldName, String enlosingClassName) {
     if (loadableComponent != null) {
-      this.condClass = loadableComponent.condClass();
-      this.timeout = loadableComponent.timeout();
-      this.delay = loadableComponent.delay();
+      this.loadableComponent = loadableComponent;
       this.fieldName = fieldName;
       this.declaringClassName = enlosingClassName;
     }
   }
 
+  /**
+   *
+   * @return name of field annotated with {@link LoadableComponent} which is currently under processing
+   */
   public String getFieldName() {
     return fieldName;
   }
 
-  public String getEnclosingClassName() {
+  /**
+   *
+   * @return name of class that declares field annotated with {@link LoadableComponent} which is currently
+   * under processing
+   */
+  public String getDeclaringClassName() {
     return declaringClassName;
   }
 
-  public int getDelay() {
-    return delay;
+  /**
+   *
+   * @return {@link LoadableComponent} data from annotation
+   */
+  public LoadableComponent getLoadableComponent() {
+    return loadableComponent;
   }
-
-  public int getTimeout() {
-    return timeout;
-  }
-
-  public Class getCondClass() {
-    return condClass;
-  }
-
 }

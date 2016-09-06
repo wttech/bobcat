@@ -26,19 +26,29 @@ import com.google.inject.Singleton;
 
 import java.util.Stack;
 
+/**
+ *
+ * Class responsible for evaluating the entire hierarchy of Loadable Conditions from top to the bottom
+ */
 @Singleton
 public class ConditionChainRunner {
 
   @Inject
   private Injector injector;
 
+  /**
+   * Evaluates the entire hierarchy of Loadable Conditions from top to the bottom
+   *
+   * @param conditionStack Stack of conditions to be evaluated
+   * @throws LoadableConditionException when some condition fails
+   */
   public void chainCheck(ConditionStack conditionStack) throws LoadableConditionException {
     Stack<LoadableComponentContext> stack = conditionStack.getLoadableContextStack();
     ConditionProgressTracker progressTracker = new ConditionProgressTracker(stack);
 
     while (!stack.isEmpty()) {
       LoadableComponentContext loadableContext = stack.pop();
-      if (loadableContext.getConditionData() != null) {
+      if (loadableContext.getConditionContext() != null) {
         progressTracker.stepStart(loadableContext);
         LoadableComponentCondition componentCondition = produceInitializedCondition(loadableContext);
         evaluateCondition(componentCondition, loadableContext, progressTracker);
@@ -47,7 +57,8 @@ public class ConditionChainRunner {
   }
 
   private LoadableComponentCondition produceInitializedCondition(LoadableComponentContext loadableContext) {
-    return (LoadableComponentCondition) injector.getInstance(loadableContext.getConditionData().getCondClass());
+    return (LoadableComponentCondition) injector.getInstance(loadableContext.getConditionContext().
+            getLoadableComponent().condClass());
   }
 
   private void evaluateCondition(LoadableComponentCondition componentCondition,
@@ -56,7 +67,8 @@ public class ConditionChainRunner {
     boolean result = false;
     Exception exception = null;
     try {
-      result = componentCondition.check(loadableContext.getElement(), loadableContext.getConditionData());
+      result = componentCondition.check(loadableContext.getSubject(), loadableContext.getConditionContext().
+              getLoadableComponent());
     } catch (Exception ex) {
       exception = ex;
     } finally {

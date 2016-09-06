@@ -15,12 +15,18 @@
  */
 package com.cognifide.qa.bb.loadable.hierarchy;
 
+import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import com.cognifide.qa.bb.loadable.context.LoadableComponentContext;
 import com.cognifide.qa.bb.loadable.context.ConditionContext;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * This keeps context of class field annotated with {@link LoadableComponent}. It gets split by list of
+ * {@link ConditionContext} so the {@link LoadableComponentContext} holds only one condition at the time.
+ */
 public class ClassFieldContext {
 
   private final Object subject;
@@ -37,7 +43,7 @@ public class ClassFieldContext {
     conditionData.stream().
             forEach((loadableComponentData) -> {
               result.add(new LoadableComponentContext(subject, loadableComponentData));
-    });
+            });
     return result;
   }
 

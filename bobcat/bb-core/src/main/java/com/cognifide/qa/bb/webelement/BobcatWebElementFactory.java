@@ -15,8 +15,17 @@
  */
 package com.cognifide.qa.bb.webelement;
 
+/**
+ * Factory for creating Guice-aware instances of {@link BobcatWebElement}.
+ *
+ */
 public interface BobcatWebElementFactory {
 
+  /**
+   *
+   * @param bobcatWebElementContext context
+   * @return {@link BobcatWebElement} instance.
+   */
   BobcatWebElement create(BobcatWebElementContext bobcatWebElementContext);
 
 }

@@ -15,6 +15,7 @@
  */
 package com.cognifide.qa.bb.webelement;
 
+import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import com.cognifide.qa.bb.loadable.context.ConditionContext;
 
 import java.util.List;
@@ -22,33 +23,51 @@ import java.util.List;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.internal.Locatable;
 
+/**
+ * Context of internal wrapper for Selenium's {@link WebElement}. For internal use only.
+ *
+ */
 public class BobcatWebElementContext {
 
   private final WebElement webElement;
 
   private final Locatable locatable;
 
-  private List<ConditionContext> contextList;
+  private final List<ConditionContext> contextList;
 
-  public BobcatWebElementContext(WebElement webElement, Locatable locatable, List<ConditionContext> contextList) {
+  /**
+   *
+   * @param webElement web element
+   * @param locatable locatable
+   * @param contextList internal context
+   */
+  public BobcatWebElementContext(WebElement webElement, Locatable locatable,
+          List<ConditionContext> contextList) {
     this.webElement = webElement;
     this.locatable = locatable;
     this.contextList = contextList;
   }
 
-  public BobcatWebElementContext(WebElement webElement, Locatable locatable) {
-    this.webElement = webElement;
-    this.locatable = locatable;
-  }
-
+  /**
+   *
+   * @return web element
+   */
   public WebElement getWebElement() {
     return webElement;
   }
 
+  /**
+   *
+   * @return locatable
+   */
   public Locatable getLocatable() {
     return locatable;
   }
 
+  /**
+   *
+   * @return Condition list defined by {@link LoadableComponent} annotations.
+   */
   public List<ConditionContext> getLoadableConditionContext() {
     return contextList;
   }

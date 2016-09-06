@@ -15,6 +15,12 @@
  */
 package com.cognifide.qa.bb.loadable.tracker;
 
+import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
+
+/**
+ *
+ * Holds the information about evaluating single condition from {@link LoadableComponent} annotated fields.
+ */
 public class ConditionProgressStep {
 
   private final String loadableComponentInfo;
@@ -26,14 +32,26 @@ public class ConditionProgressStep {
     this.stepStatus = ConditionStatus.DIDINT_RUN;
   }
 
+  /**
+   *
+   * @param stepStatus Step status
+   */
   public void setStepStatus(ConditionStatus stepStatus) {
     this.stepStatus = stepStatus;
   }
 
+  /**
+   *
+   * @return Text information about the progress step.
+   */
   public String getLoadableComponentInfo() {
     return loadableComponentInfo;
   }
 
+  /**
+   *
+   * @return Step's current status
+   */
   public ConditionStatus getStepStatus() {
     return stepStatus;
   }

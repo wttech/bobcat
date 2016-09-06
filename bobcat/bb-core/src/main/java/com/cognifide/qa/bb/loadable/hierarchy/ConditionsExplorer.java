@@ -16,6 +16,7 @@
 package com.cognifide.qa.bb.loadable.hierarchy;
 
 import com.cognifide.qa.bb.exceptions.BobcatRuntimeException;
+import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import com.cognifide.qa.bb.loadable.context.LoadableComponentContext;
 import com.cognifide.qa.bb.loadable.hierarchy.util.LoadableComponentsUtil;
 import com.cognifide.qa.bb.qualifier.PageObject;
@@ -34,6 +35,12 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ *
+ * This runs after a test class is initialized and explores the hierarchy of {@link PageObject} elements which
+ * is needed to control hierarchical evaluation of {@link PageObject} and {@link WebElement} fields annotated
+ * with {@link LoadableComponent} annotation.
+ */
 @Singleton
 public class ConditionsExplorer {
 
@@ -45,19 +52,22 @@ public class ConditionsExplorer {
   private PageObjectInjector injector;
 
   /**
+   * Discovers the hierarchy of Loadable Conditions form provided class up to the root class which is usually
+   * the test class which have run the test.
    *
-   * @param clazz
-   * @param loadableFieldContext
-   * @return
+   * @param clazz Class which called the {@link WebElement} method.
+   * @param directClassFieldContext context of the class field that have called the {@link WebElement} method.
+   * @return Stack of hierarchical conditions from {@link LoadableComponent} annotated fields from the test
+   * class down to the "clazz" parameter with "directClassFieldContext" from that class.
    */
   public ConditionStack discoverLoadableContextHierarchy(Class clazz,
-          ClassFieldContext loadableFieldContext) {
+          ClassFieldContext directClassFieldContext) {
     Stack<LoadableComponentContext> stack = new Stack<>();
-    if (loadableFieldContext != null) {
-      loadableFieldContext.toLoadableContextList().stream().
+    if (directClassFieldContext != null) {
+      directClassFieldContext.toLoadableContextList().stream().
               forEach((context) -> {
                 stack.add(context);
-      });
+              });
     }
     ConditionHierarchyNode treeNode = findNode(clazz, treeRootNode);
     if (treeNode == null) {
@@ -75,6 +85,12 @@ public class ConditionsExplorer {
     return new ConditionStack(stack);
   }
 
+  /**
+   * Builds entire {@link PageObject} field hierarchy starting from the @param clazz parameter. This is
+   * cacheable, so it is built only once for one test class.
+   *
+   * @param clazz class. Usually this is a test class that is a root of executed tests
+   */
   public void registerLoadableContextHierarchyTree(Class clazz) {
     if (!treeAlreadyBuilt(clazz)) {
       LOG.debug("Building loadable component condition hierarchy tree from {}", clazz.getName());
@@ -94,9 +110,9 @@ public class ConditionsExplorer {
     applicableFields.stream().
             forEach((field) -> {
               ConditionHierarchyNode node = addChild(parent, new ClassFieldContext(injector.inject(field.
-                      getType()), LoadableComponentsUtil.getConditionsFormField(field)));
+                                      getType()), LoadableComponentsUtil.getConditionsFormField(field)));
               processLoadableContextForClass(field.getType(), node);
-    });
+            });
   }
 
   private void checkForDuplicatedLoadableFields(List<Field> applicableFields) {

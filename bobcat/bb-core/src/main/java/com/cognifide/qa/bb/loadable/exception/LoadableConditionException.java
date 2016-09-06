@@ -16,7 +16,12 @@
 package com.cognifide.qa.bb.loadable.exception;
 
 import com.cognifide.qa.bb.exceptions.BobcatRuntimeException;
+import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 
+/**
+ *
+ * This is thrown when {@link LoadableComponent} condition chain fails.
+ */
 public class LoadableConditionException extends BobcatRuntimeException {
 
   public LoadableConditionException(String message) {

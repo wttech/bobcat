@@ -20,6 +20,7 @@ import static com.google.inject.matcher.Matchers.only;
 import static com.google.inject.matcher.Matchers.returns;
 import static com.google.inject.matcher.Matchers.subclassesOf;
 
+import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import com.cognifide.qa.bb.loadable.hierarchy.WebElementInterceptor;
 import com.cognifide.qa.bb.loadable.context.ConditionContext;
 import com.google.inject.AbstractModule;
@@ -30,6 +31,10 @@ import java.lang.reflect.Method;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.openqa.selenium.WebElement;
 
+/**
+ * Module that provides bindings for Loadable components. See {@link LoadableComponent} annotation.
+ *
+ */
 public class LoadablesModule extends AbstractModule {
 
   @Override

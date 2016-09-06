@@ -16,16 +16,26 @@
 package com.cognifide.qa.bb.loadable.hierarchy;
 
 import com.cognifide.qa.bb.loadable.context.LoadableComponentContext;
+
 import java.util.Stack;
 
 public class ConditionStack {
 
   private final Stack<LoadableComponentContext> stack;
 
+  /**
+   *
+   * @param stack Stack with {@link LoadableComponentContext}. Hierarchy of conditions should be taken into account when
+   * building this stack.
+   */
   public ConditionStack(Stack<LoadableComponentContext> stack) {
     this.stack = stack;
   }
 
+  /**
+   *
+   * @return Stack with {@link LoadableComponentContext}
+   */
   public Stack<LoadableComponentContext> getLoadableContextStack() {
     // please note that this is not Object#clone
     return (Stack<LoadableComponentContext>) stack.clone();

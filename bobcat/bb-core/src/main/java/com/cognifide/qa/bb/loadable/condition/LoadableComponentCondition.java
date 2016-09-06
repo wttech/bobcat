@@ -15,8 +15,13 @@
  */
 package com.cognifide.qa.bb.loadable.condition;
 
-import com.cognifide.qa.bb.loadable.context.ConditionContext;
+import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 
+/**
+ *
+ * Interface that should be implemented when providing a condition for {@link LoadableComponent}.
+ * Implementations should have only default public constructor as they are instantiated by Guice.
+ */
 public interface LoadableComponentCondition {
 
   /**
@@ -25,6 +30,6 @@ public interface LoadableComponentCondition {
    * @param data Data provided by annotation
    * @return Evaluation result
    */
-  boolean check(Object subject, ConditionContext data);
+  boolean check(Object subject, LoadableComponent data);
 
 }

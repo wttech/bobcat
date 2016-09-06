@@ -15,6 +15,12 @@
  */
 package com.cognifide.qa.bb.loadable.context;
 
+import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
+
+/**
+ *
+ * Context of each field annotated with {@link LoadableComponent}
+ */
 public class LoadableComponentContext {
 
   private final Object subject;
@@ -26,12 +32,19 @@ public class LoadableComponentContext {
     this.condition = loadableData;
   }
 
-  public Object getElement() {
+  /**
+   *
+   * @return Instantiated field annotated with {@link LoadableComponent}.
+   */
+  public Object getSubject() {
     return subject;
   }
 
-  public ConditionContext getConditionData() {
+  /**
+   *
+   * @return Condition data provided by {@link LoadableComponent} annotation.
+   */
+  public ConditionContext getConditionContext() {
     return condition;
   }
-
 }

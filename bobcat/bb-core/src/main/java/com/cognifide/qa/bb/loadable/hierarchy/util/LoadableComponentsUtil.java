@@ -28,6 +28,12 @@ public class LoadableComponentsUtil {
     // util class
   }
 
+  /**
+   *
+   * @param field PageObject that can be annotated with {@link LoadableComponent} annotation
+   * @return List of Condition Context objects describing conditions provided in the {@link LoadableComponent}
+   * annotations
+   */
   public static List<ConditionContext> getConditionsFormField(Field field) {
     List<ConditionContext> fieldConditionContext = new ArrayList<>();
     for (LoadableComponent loadableComponent : field.getAnnotationsByType(LoadableComponent.class)) {

@@ -15,6 +15,7 @@
  */
 package com.cognifide.qa.bb.loadable.tracker;
 
+import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import com.cognifide.qa.bb.loadable.context.LoadableComponentContext;
 import com.cognifide.qa.bb.loadable.context.ConditionContext;
 
@@ -24,6 +25,9 @@ import java.util.Stack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Tracks evaluation of conditions defined in {@link LoadableComponent} annotations
+ */
 public class ConditionProgressTracker {
 
   private static final Logger LOG = LoggerFactory.getLogger(ConditionProgressTracker.class);
@@ -38,16 +42,26 @@ public class ConditionProgressTracker {
   }
 
   private String produceLoadableComponentInfo(ConditionContext loadableComponentData) {
-    return loadableComponentData.getEnclosingClassName() + " -> " + loadableComponentData.getFieldName() + " ~ " + loadableComponentData.
-            getCondClass().getName();
+    return loadableComponentData.getDeclaringClassName()+ " -> " + loadableComponentData.getFieldName()
+            + " ~ " + loadableComponentData.getLoadableComponent().condClass().getName();
   }
 
+  /**
+   * Register start of an step evaluation
+   *
+   * @param context The context of {@link LoadableComponent} annotation which is currently under processing
+   */
   public void stepStart(LoadableComponentContext context) {
-    String info = produceLoadableComponentInfo(context.getConditionData());
+    String info = produceLoadableComponentInfo(context.getConditionContext());
     LOG.debug("Started lodable component condition evaluation: " + info);
     progressData.add(new ConditionProgressStep(info));
   }
 
+  /**
+   * Sets the condition evaluation status after evaluation
+   *
+   * @param status Condition evaluation status
+   */
   public void provideStepResult(ConditionStatus status) {
     LOG.debug("Evaluated loadable condition "
             + progressData.peekLast().getLoadableComponentInfo() + " with status " + status.getMessage());
@@ -55,6 +69,14 @@ public class ConditionProgressTracker {
     progressData.peekLast().setStepStatus(status);
   }
 
+  /**
+   *
+   * @param rootCause Exception that caused the error
+   * @return String containing the information about conditions that have been run in hierarchical order
+   * starting from the top. The output is in the following format:    <pre>
+   *  [class that uses the field annotated with {@link LoadableComponent}] -> [fieldName] ~ [condition class that have been under evaluation] (Status)
+   * </pre>
+   */
   public String produceConditionTraceInfo(Exception rootCause) {
     StringBuilder sb = new StringBuilder("Loadable conditions trace info:");
     sb.append(System.lineSeparator());

@@ -15,6 +15,7 @@
  */
 package com.cognifide.qa.bb.loadable.hierarchy;
 
+import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import com.cognifide.qa.bb.loadable.context.ConditionContext;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.webelement.BobcatWebElement;
@@ -25,9 +26,16 @@ import java.util.List;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
+import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * This intercepts invocation of {@link WebElement} methods and runs evaluation of conditions provided in
+ * the {@link LoadableComponent} annotations on field that called the {@link WebElement} method and every
+ * field in the hierarchy above.
+ *
+ */
 public class WebElementInterceptor implements MethodInterceptor {
 
   private static final int ORIGINAL_CALLER_CLASS_LEVEL = 6;
