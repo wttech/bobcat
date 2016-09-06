@@ -15,27 +15,18 @@
  */
 package com.cognifide.qa.bb.aem.touch.siteadmin.aem61;
 
-import java.util.Objects;
-
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import com.cognifide.qa.bb.constants.Timeouts;
-import com.cognifide.qa.bb.provider.selenium.BobcatWait;
+import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
+import com.cognifide.qa.bb.loadable.condition.impl.VisibilityCondition;
 import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
-import com.cognifide.qa.bb.utils.WebElementUtils;
-import com.google.inject.Inject;
+import com.cognifide.qa.bb.aem.touch.siteadmin.aem61.conditions.NotDisabledCondition;
 
 @PageObject
 public class CreatePageWizard {
-
-  @Inject
-  private BobcatWait wait;
-
-  @Inject
-  private WebElementUtils webElementUtils;
 
   @FindPageObject
   private TemplateList templateList;
@@ -50,10 +41,12 @@ public class CreatePageWizard {
 
   @Global
   @FindBy(css = "button.coral-Wizard-nextButton[type='submit']")
+  @LoadableComponent(condClass = NotDisabledCondition.class, delay = 3)
   private WebElement createButton;
 
   @Global
   @FindBy(xpath = "//button[contains(text(), 'Done')]")
+  @LoadableComponent(condClass = VisibilityCondition.class)
   private WebElement doneButtonOnModal;
 
   public CreatePageWizard selectTemplate(String templateName) {
@@ -73,12 +66,7 @@ public class CreatePageWizard {
   }
 
   public void submit() {
-    wait.withTimeout(Timeouts.MEDIUM)
-        .until(input -> Objects.isNull(createButton.getAttribute("disabled")), Timeouts.MINIMAL);
     createButton.click();
-    wait.withTimeout(Timeouts.MEDIUM)
-        .until(input -> webElementUtils.isDisplayed(doneButtonOnModal, Timeouts.MINIMAL),
-            Timeouts.MINIMAL);
     doneButtonOnModal.click();
   }
 

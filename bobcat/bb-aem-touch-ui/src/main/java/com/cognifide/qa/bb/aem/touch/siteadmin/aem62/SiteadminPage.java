@@ -15,6 +15,7 @@
  */
 package com.cognifide.qa.bb.aem.touch.siteadmin.aem62;
 
+import com.cognifide.qa.bb.aem.touch.siteadmin.common.Loadable;
 import java.time.LocalDateTime;
 
 import javax.annotation.Nullable;
@@ -28,11 +29,13 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 
 import com.cognifide.qa.bb.aem.touch.siteadmin.SiteadminActions;
 import com.cognifide.qa.bb.aem.touch.siteadmin.common.ActivationStatus;
+import com.cognifide.qa.bb.aem.touch.siteadmin.common.IsLoadedCondition;
 import com.cognifide.qa.bb.aem.touch.siteadmin.common.PageActivationStatus;
 import com.cognifide.qa.bb.aem.touch.siteadmin.common.SiteadminLayout;
 import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.cognifide.qa.bb.constants.AemConfigKeys;
 import com.cognifide.qa.bb.constants.Timeouts;
+import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
@@ -42,7 +45,7 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
 @PageObject
-public class SiteadminPage implements SiteadminActions {
+public class SiteadminPage implements SiteadminActions, Loadable {
 
   private static final String SITEADMIN_PATH = "/sites.html";
   private static final String CHILD_PAGE_WINDOW_SELECTOR = ".cq-siteadmin-admin-childpages";
@@ -60,8 +63,9 @@ public class SiteadminPage implements SiteadminActions {
   @Inject
   private WebElementUtils webElementUtils;
 
-  @FindBy(css = ".cq-siteadmin-admin-childpages")
   @Global
+  @FindBy(css = ".cq-siteadmin-admin-childpages")
+  @LoadableComponent(condClass = IsLoadedCondition.class)
   private ChildPageWindow childPageWindow;
 
   @FindBy(css = ".granite-collection-selectionbar .granite-selectionbar .coral-ActionBar-container")
@@ -80,7 +84,6 @@ public class SiteadminPage implements SiteadminActions {
   public SiteadminActions open(String nodePath) {
     driver.manage().addCookie(SiteadminLayout.LIST.getCookie62());
     driver.get(getSiteAdminUrl() + nodePath);
-    wait.withTimeout(Timeouts.SMALL).until(input -> isLoaded(), 2);
     return this;
   }
 
@@ -101,8 +104,8 @@ public class SiteadminPage implements SiteadminActions {
     contentToolbar.getCreateButton().click();
     contentToolbar.getCreatePageButton().click();
     contentToolbar.getCreatePageWizard()
-        .selectTemplate(templateName)
-        .provideTitle(title).submit();
+            .selectTemplate(templateName)
+            .provideTitle(title).submit();
     return this;
   }
 
@@ -111,9 +114,9 @@ public class SiteadminPage implements SiteadminActions {
     contentToolbar.getCreateButton().click();
     contentToolbar.getCreatePageButton().click();
     contentToolbar.getCreatePageWizard()
-        .selectTemplate(templateName)
-        .provideName(name)
-        .provideTitle(title).submit();
+            .selectTemplate(templateName)
+            .provideName(name)
+            .provideTitle(title).submit();
     return this;
   }
 
@@ -197,6 +200,7 @@ public class SiteadminPage implements SiteadminActions {
     return childPageWindow.hasSubPages();
   }
 
+  @Override
   public ChildPageRow getPageFromList(String title) {
     return childPageWindow.getChildPageRow(title);
   }
@@ -205,6 +209,7 @@ public class SiteadminPage implements SiteadminActions {
     driver.navigate().refresh();
   }
 
+  @Override
   public boolean isLoaded() {
     boolean isLoaded = isLoadedCondition();
     if (!isLoaded) {

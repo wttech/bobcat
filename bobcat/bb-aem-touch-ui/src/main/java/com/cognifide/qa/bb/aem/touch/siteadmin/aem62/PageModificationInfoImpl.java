@@ -24,14 +24,9 @@ import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.aem.touch.siteadmin.common.PageModificationInfo;
 import com.cognifide.qa.bb.qualifier.PageObject;
-import com.cognifide.qa.bb.utils.WebElementUtils;
-import com.google.inject.Inject;
 
 @PageObject
 public class PageModificationInfoImpl implements PageModificationInfo {
-
-  @Inject
-  private WebElementUtils elementUtils;
 
   @FindBy(css = "coral-td-label.coral-Table-cellLabel > time")
   private WebElement timeElement;

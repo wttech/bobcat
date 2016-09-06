@@ -23,7 +23,17 @@ public class AopUtil {
    * @return Non-proxied class name of provided object
    */
   public static Class<?> getBaseClassForAopObject(Object object) {
+    if (object instanceof Class) {
+      return getBaseClassForAopObject((Class) object);
+    }
     Class<?> clazz = object.getClass();
+    if (clazz.getName().contains("EnhancerByGuice")) {
+      return clazz.getSuperclass();
+    }
+    return clazz;
+  }
+
+  private static Class<?> getBaseClassForAopObject(Class clazz) {
     if (clazz.getName().contains("EnhancerByGuice")) {
       return clazz.getSuperclass();
     }

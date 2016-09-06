@@ -40,12 +40,12 @@ public @interface LoadableComponent {
   /**
    * Delay between condition checks
    */
-  int delay() default 0;
+  int delay() default 2;
 
   /**
    * Timeout for positive condition evaluation
    */
-  int timeout() default 5;
+  int timeout() default 10;
 
   /**
    * Condition implementation to be evaluated. Class have to implement {@link LoadableComponentCondition}

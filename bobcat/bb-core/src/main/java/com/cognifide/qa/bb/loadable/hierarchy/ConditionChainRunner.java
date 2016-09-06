@@ -20,6 +20,7 @@ import com.cognifide.qa.bb.loadable.tracker.ConditionProgressTracker;
 import com.cognifide.qa.bb.loadable.context.LoadableComponentContext;
 import com.cognifide.qa.bb.loadable.condition.LoadableComponentCondition;
 import com.cognifide.qa.bb.loadable.exception.LoadableConditionException;
+import com.cognifide.qa.bb.utils.AopUtil;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
@@ -51,7 +52,12 @@ public class ConditionChainRunner {
       if (loadableContext.getConditionContext() != null) {
         progressTracker.stepStart(loadableContext);
         LoadableComponentCondition componentCondition = produceInitializedCondition(loadableContext);
-        evaluateCondition(componentCondition, loadableContext, progressTracker);
+        Object instance = loadableContext.getSubject();
+        if (instance == null) {
+          instance = injector.getInstance(AopUtil.getBaseClassForAopObject(loadableContext.
+                  getSubjectClass()));
+        }
+        evaluateCondition(componentCondition, instance, loadableContext, progressTracker);
       }
     }
   }
@@ -61,13 +67,14 @@ public class ConditionChainRunner {
             getLoadableComponent().condClass());
   }
 
-  private void evaluateCondition(LoadableComponentCondition componentCondition,
+  private void evaluateCondition(LoadableComponentCondition componentCondition, Object subject,
           LoadableComponentContext loadableContext, ConditionProgressTracker progressTracker) throws
           LoadableConditionException {
     boolean result = false;
     Exception exception = null;
     try {
-      result = componentCondition.check(loadableContext.getSubject(), loadableContext.getConditionContext().
+      result = componentCondition.check(subject, loadableContext.
+              getConditionContext().
               getLoadableComponent());
     } catch (Exception ex) {
       exception = ex;

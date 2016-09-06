@@ -15,6 +15,7 @@
  */
 package com.cognifide.qa.bb.aem.touch.siteadmin.aem62.calendar;
 
+import com.cognifide.qa.bb.aem.touch.siteadmin.common.Loadable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -27,19 +28,14 @@ import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
-import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
 
 @PageObject
-public class CoralCalendar {
+public class CoralCalendar implements Loadable {
 
   @Inject
   private WebDriver driver;
-
-  @CurrentScope
-  @Inject
-  private WebElement currentScope;
 
   @Inject
   private BobcatWait wait;
@@ -58,18 +54,19 @@ public class CoralCalendar {
     closeCalendar();
   }
 
-  public boolean isDisplayed() {
+  @Override
+  public boolean isLoaded() {
     return currentScope.isDisplayed();
   }
 
   private void chooseDay(int dayOfMonth) {
     String day = String.valueOf(dayOfMonth);
     List<WebElement> daysToSelect = driver.findElements(
-        By.cssSelector(".coral-Calendar-calendarBody > table > tbody > tr > td > a"));
+            By.cssSelector(".coral-Calendar-calendarBody > table > tbody > tr > td > a"));
     daysToSelect.stream().filter(t -> StringUtils.equals(t.getText(), day)).findFirst()
-        .orElseThrow(() -> new IllegalArgumentException(
-            "No clickable day of month found in the current context"))
-        .click();
+            .orElseThrow(() -> new IllegalArgumentException(
+                            "No clickable day of month found in the current context"))
+            .click();
   }
 
   private void closeCalendar() {

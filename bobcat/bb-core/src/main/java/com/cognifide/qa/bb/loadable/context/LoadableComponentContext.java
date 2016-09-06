@@ -25,10 +25,13 @@ public class LoadableComponentContext {
 
   private final Object subject;
 
+  private final Class subjectClass;
+
   private final ConditionContext condition;
 
-  public LoadableComponentContext(Object subject, ConditionContext loadableData) {
+  public LoadableComponentContext(Object subject, Class subjectClass, ConditionContext loadableData) {
     this.subject = subject;
+    this.subjectClass = subjectClass;
     this.condition = loadableData;
   }
 
@@ -47,4 +50,13 @@ public class LoadableComponentContext {
   public ConditionContext getConditionContext() {
     return condition;
   }
+
+  /**
+   *
+   * @return Subject's class
+   */
+  public Class getSubjectClass() {
+    return subjectClass;
+  }
+
 }

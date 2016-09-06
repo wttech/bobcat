@@ -18,6 +18,8 @@ package com.cognifide.qa.bb.loadable.hierarchy;
 import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import com.cognifide.qa.bb.loadable.context.LoadableComponentContext;
 import com.cognifide.qa.bb.loadable.context.ConditionContext;
+import com.cognifide.qa.bb.qualifier.PageObject;
+import com.cognifide.qa.bb.utils.AopUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +33,19 @@ public class ClassFieldContext {
 
   private final Object subject;
 
+  private final Class subjectClass;
+
   private final List<ConditionContext> conditionData;
+
+  public ClassFieldContext(Class subjectClass, List<ConditionContext> conditionData) {
+    this.subject = null;
+    this.subjectClass = AopUtil.getBaseClassForAopObject(subjectClass);
+    this.conditionData = conditionData;
+  }
 
   public ClassFieldContext(Object subject, List<ConditionContext> conditionData) {
     this.subject = subject;
+    this.subjectClass = AopUtil.getBaseClassForAopObject(subject);
     this.conditionData = conditionData;
   }
 
@@ -42,15 +53,32 @@ public class ClassFieldContext {
     List<LoadableComponentContext> result = new ArrayList<>();
     conditionData.stream().
             forEach((loadableComponentData) -> {
-              result.add(new LoadableComponentContext(subject, loadableComponentData));
+              result.add(new LoadableComponentContext(subject, subjectClass, loadableComponentData));
             });
     return result;
   }
 
+  /**
+   *
+   * @return subject instance. Null when the context is regarding {@link PageObject} which needs lazy
+   * initialization.
+   */
   public Object getSubject() {
     return subject;
   }
 
+  /**
+   *
+   * @return Subject's class
+   */
+  public Class getSubjectClass() {
+    return subjectClass;
+  }
+
+  /**
+   *
+   * @return Condition Context list form {@link LoadableComponent} annotations.
+   */
   public List<ConditionContext> getConditionData() {
     return conditionData;
   }

@@ -18,19 +18,16 @@ package com.cognifide.qa.bb.aem.touch.siteadmin.aem62;
 import java.time.LocalDateTime;
 
 import com.cognifide.qa.bb.aem.touch.siteadmin.aem62.calendar.CoralCalendar;
-import com.cognifide.qa.bb.constants.Timeouts;
-import com.cognifide.qa.bb.provider.selenium.BobcatWait;
+import com.cognifide.qa.bb.aem.touch.siteadmin.common.IsLoadedCondition;
+import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
-import com.google.inject.Inject;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 @PageObject
 public class PublishPageWizard {
-
-  @Inject
-  private BobcatWait wait;
 
   @Global
   @FindBy(css = "button.foundation-wizard-control[type='submit']")
@@ -41,6 +38,7 @@ public class PublishPageWizard {
 
   @Global
   @FindBy(css = "coral-popover.coral3-Popover")
+  @LoadableComponent(condClass = IsLoadedCondition.class)
   private CoralCalendar calendar;
 
   public void selectDateAndTime(LocalDateTime dateTime) {
@@ -49,9 +47,6 @@ public class PublishPageWizard {
     }
 
     calendarButton.click();
-    wait.withTimeout(Timeouts.MEDIUM).until(input ->
-        calendar.isDisplayed()
-    );
     calendar.selectDateAndTime(dateTime);
   }
 

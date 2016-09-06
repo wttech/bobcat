@@ -25,9 +25,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import com.cognifide.qa.bb.constants.Timeouts;
-import com.cognifide.qa.bb.provider.selenium.BobcatWait;
+import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import com.cognifide.qa.bb.qualifier.PageObject;
+import com.cognifide.qa.bb.aem.touch.siteadmin.aem61.conditions.NotDisabledCondition;
 import com.google.inject.Inject;
 
 @PageObject
@@ -36,13 +36,11 @@ public class MovePageWizard {
   @Inject
   private WebDriver driver;
 
-  @Inject
-  private BobcatWait wait;
-
   @FindBy(css = "button.coral-Button--primary[data-foundation-wizard-control-action='next']")
   private WebElement nextButton;
 
   @FindBy(css = "coral-panel.is-selected button.coral-Button--primary[data-foundation-wizard-control-action='next']")
+  @LoadableComponent(condClass = NotDisabledCondition.class)
   private WebElement moveButton;
 
   @FindBy(css = "coral-columnview-item-thumbnail")
@@ -55,7 +53,6 @@ public class MovePageWizard {
 
   public MovePageWizard overrideDestinationPage(String destination) {
     anyPage.click();
-    wait.withTimeout(Timeouts.SMALL).until(input -> moveButton.isEnabled(), Timeouts.MINIMAL);
     JavascriptExecutor jse = (JavascriptExecutor) driver;
     jse.executeScript(
         "document.getElementsByClassName('foundation-advancedselect-values')[0].removeAttribute('hidden');");

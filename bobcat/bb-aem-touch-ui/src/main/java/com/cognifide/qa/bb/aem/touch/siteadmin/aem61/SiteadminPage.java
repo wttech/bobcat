@@ -30,11 +30,14 @@ import com.cognifide.qa.bb.aem.touch.siteadmin.SiteadminActions;
 import com.cognifide.qa.bb.aem.touch.siteadmin.aem61.list.ChildPageRow;
 import com.cognifide.qa.bb.aem.touch.siteadmin.aem61.list.ChildPageWindow;
 import com.cognifide.qa.bb.aem.touch.siteadmin.common.ActivationStatus;
+import com.cognifide.qa.bb.aem.touch.siteadmin.common.IsLoadedCondition;
+import com.cognifide.qa.bb.aem.touch.siteadmin.common.Loadable;
 import com.cognifide.qa.bb.aem.touch.siteadmin.common.PageActivationStatus;
 import com.cognifide.qa.bb.aem.touch.siteadmin.common.SiteadminLayout;
 import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.cognifide.qa.bb.constants.AemConfigKeys;
 import com.cognifide.qa.bb.constants.Timeouts;
+import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
@@ -44,7 +47,7 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
 @PageObject
-public class SiteadminPage implements SiteadminActions {
+public class SiteadminPage implements Loadable, SiteadminActions {
 
   private static final String SITEADMIN_PATH = "/sites.html";
   private static final String CHILD_PAGE_WINDOW_SELECTOR = ".cq-siteadmin-admin-childpages";
@@ -70,11 +73,13 @@ public class SiteadminPage implements SiteadminActions {
 
   @Global
   @FindBy(css = ".cq-siteadmin-admin-childpages")
+  @LoadableComponent(condClass = IsLoadedCondition.class)
   private ChildPageWindow childPageWindow;
 
   @FindBy(css = "nav.foundation-layout-mode2-item.endor-ActionBar.js-granite-endor-ActionBar > div.endor-ActionBar-left")
   private SiteadminToolbar toolbar;
 
+  @Override
   public boolean isLoaded() {
     boolean isLoaded = isLoadedCondition();
     if (!isLoaded) {
@@ -97,7 +102,6 @@ public class SiteadminPage implements SiteadminActions {
     selectPage(title);
     String pageParent = getActualUrl();
     toolbar.publishPageLater(localDateTime);
-    wait.withTimeout(Timeouts.SMALL).until(input -> isLoaded(), Timeouts.MINIMAL);
     driver.get(pageParent);
     waitForExpectedStatus(title, ActivationStatus.SCHEDULED);
     return this;

@@ -31,6 +31,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 import java.util.stream.Collectors;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -102,15 +104,16 @@ public class ConditionsExplorer {
   private void processLoadableContextForClass(Class clazz, ConditionHierarchyNode parent) {
     List<Field> decalredFields = Arrays.asList(clazz.getDeclaredFields());
     List<Field> applicableFields = decalredFields.stream()
-            .filter(f -> f.isAnnotationPresent(Inject.class))
+            .filter(f -> (f.isAnnotationPresent(Inject.class)) ||
+                    (f.isAnnotationPresent(FindBy.class) && !f.getType().equals(WebElement.class)))
             .filter(f -> f.getType().isAnnotationPresent(PageObject.class))
             .collect(Collectors.toList());
     checkForDuplicatedLoadableFields(applicableFields);
 
     applicableFields.stream().
             forEach((field) -> {
-              ConditionHierarchyNode node = addChild(parent, new ClassFieldContext(injector.inject(field.
-                                      getType()), LoadableComponentsUtil.getConditionsFormField(field)));
+              ConditionHierarchyNode node = addChild(parent, new ClassFieldContext(field.getType(),
+                      LoadableComponentsUtil.getConditionsFormField(field)));
               processLoadableContextForClass(field.getType(), node);
             });
   }
@@ -136,11 +139,11 @@ public class ConditionsExplorer {
 
   private boolean treeAlreadyBuilt(Class testClass) {
     return treeRootNode.getLoadableFieldContext() != null
-            && treeRootNode.getLoadableFieldContext().getSubject().getClass().equals(testClass);
+            && treeRootNode.getLoadableFieldContext().getSubjectClass().equals(testClass);
   }
 
   private ConditionHierarchyNode findNode(Class clazz, ConditionHierarchyNode parent) {
-    Class elementClass = AopUtil.getBaseClassForAopObject(parent.getLoadableFieldContext().getSubject());
+    Class elementClass = parent.getLoadableFieldContext().getSubjectClass();
     if (elementClass.equals(clazz)) {
       return parent;
     } else {
