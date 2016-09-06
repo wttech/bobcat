@@ -29,11 +29,11 @@ public class VisibilityCondition implements LoadableComponentCondition {
   private BobcatWait wait;
 
   @Override
-  public boolean check(Object object, ConditionContext loadable) {
+  public boolean check(Object object, ConditionContext data) {
     if (object instanceof WebElement) {
       WebElement subject = (WebElement) object;
-      return wait.withTimeout(loadable.getTimeout()).
-              until(ignored -> subject.isDisplayed(), loadable.getDelay());
+      return wait.withTimeout(data.getTimeout()).
+              until(ignored -> subject.isDisplayed(), data.getDelay());
     }
     throw new LoadableConditionException("Loadable Component Condition placed on not applicable field");
 

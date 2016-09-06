@@ -15,7 +15,7 @@
  */
 package com.cognifide.qa.bb.loadable.tracker;
 
-import com.cognifide.qa.bb.loadable.context.ComponentContext;
+import com.cognifide.qa.bb.loadable.context.LoadableComponentContext;
 import com.cognifide.qa.bb.loadable.context.ConditionContext;
 
 import java.util.LinkedList;
@@ -30,9 +30,9 @@ public class ConditionProgressTracker {
 
   private final LinkedList<ConditionProgressStep> progressData;
 
-  private final Stack<ComponentContext> conditionHierarchy;
+  private final Stack<LoadableComponentContext> conditionHierarchy;
 
-  public ConditionProgressTracker(Stack<ComponentContext> conditionHierarchy) {
+  public ConditionProgressTracker(Stack<LoadableComponentContext> conditionHierarchy) {
     this.conditionHierarchy = conditionHierarchy;
     this.progressData = new LinkedList<>();
   }
@@ -42,11 +42,10 @@ public class ConditionProgressTracker {
             getCondClass().getName();
   }
 
-  public void stepStart(ComponentContext context) {
-    String info = produceLoadableComponentInfo(context.getLoadableData());
+  public void stepStart(LoadableComponentContext context) {
+    String info = produceLoadableComponentInfo(context.getConditionData());
     LOG.debug("Started lodable component condition evaluation: " + info);
-    progressData.
-            add(new ConditionProgressStep(info));
+    progressData.add(new ConditionProgressStep(info));
   }
 
   public void provideStepResult(ConditionStatus status) {
@@ -56,7 +55,7 @@ public class ConditionProgressTracker {
     progressData.peekLast().setStepStatus(status);
   }
 
-  public String produceConditionTraceInfo(String rootCause) {
+  public String produceConditionTraceInfo(Exception rootCause) {
     StringBuilder sb = new StringBuilder("Loadable conditions trace info:");
     sb.append(System.lineSeparator());
     int indent = 0;
@@ -73,8 +72,11 @@ public class ConditionProgressTracker {
       sb.append(difference);
       sb.append(" conditions left for evaluation.");
       sb.append(System.lineSeparator());
+    }
+    if (rootCause != null) {
       sb.append("Root cause: ");
-      sb.append(rootCause);
+      sb.append(System.lineSeparator());
+      sb.append(rootCause.toString());
     }
     return sb.toString();
   }

@@ -34,7 +34,7 @@ public class ClickabilityCondition implements LoadableComponentCondition {
     if (object instanceof WebElement) {
       WebElement subject = (WebElement) object;
       return wait.withTimeout(data.getTimeout()).until(ignored -> ExpectedConditions.
-              elementToBeSelected(subject), 2).apply(null);
+              elementToBeClickable(subject), data.getDelay()).apply(null) != null;
     }
     throw new LoadableConditionException("Loadable Component Condition placed on not applicable field");
 

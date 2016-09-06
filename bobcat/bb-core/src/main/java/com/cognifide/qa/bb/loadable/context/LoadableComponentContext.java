@@ -13,21 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.cognifide.qa.bb.loadable.hierarchy;
+package com.cognifide.qa.bb.loadable.context;
 
-import com.cognifide.qa.bb.loadable.context.LoadableComponentContext;
-import java.util.Stack;
+public class LoadableComponentContext {
 
-public class ConditionStack {
+  private final Object subject;
 
-  private final Stack<LoadableComponentContext> stack;
+  private final ConditionContext condition;
 
-  public ConditionStack(Stack<LoadableComponentContext> stack) {
-    this.stack = stack;
+  public LoadableComponentContext(Object subject, ConditionContext loadableData) {
+    this.subject = subject;
+    this.condition = loadableData;
   }
 
-  public Stack<LoadableComponentContext> getLoadableContextStack() {
-    // please note that this is not Object#clone
-    return (Stack<LoadableComponentContext>) stack.clone();
+  public Object getElement() {
+    return subject;
   }
+
+  public ConditionContext getConditionData() {
+    return condition;
+  }
+
 }

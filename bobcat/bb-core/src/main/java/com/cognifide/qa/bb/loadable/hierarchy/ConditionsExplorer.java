@@ -15,9 +15,9 @@
  */
 package com.cognifide.qa.bb.loadable.hierarchy;
 
-import com.cognifide.qa.bb.loadable.context.ComponentContext;
-import com.cognifide.qa.bb.loadable.context.ConditionContext;
-import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
+import com.cognifide.qa.bb.exceptions.BobcatRuntimeException;
+import com.cognifide.qa.bb.loadable.context.LoadableComponentContext;
+import com.cognifide.qa.bb.loadable.hierarchy.util.LoadableComponentsUtil;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.utils.AopUtil;
 import com.cognifide.qa.bb.utils.PageObjectInjector;
@@ -25,7 +25,6 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -48,16 +47,17 @@ public class ConditionsExplorer {
   /**
    *
    * @param clazz
-   * @param loadableContext
+   * @param loadableFieldContext
    * @return
    */
   public ConditionStack discoverLoadableContextHierarchy(Class clazz,
-          ClassFieldContext loadableContext) {
-    Stack<ComponentContext> stack = new Stack<>();
-    if (loadableContext != null) {
-      for (ComponentContext context : loadableContext.toLoadableContextList()) {
-        stack.add(context);
-      }
+          ClassFieldContext loadableFieldContext) {
+    Stack<LoadableComponentContext> stack = new Stack<>();
+    if (loadableFieldContext != null) {
+      loadableFieldContext.toLoadableContextList().stream().
+              forEach((context) -> {
+                stack.add(context);
+      });
     }
     ConditionHierarchyNode treeNode = findNode(clazz, treeRootNode);
     if (treeNode == null) {
@@ -65,7 +65,7 @@ public class ConditionsExplorer {
     }
 
     while (treeNode != null) {
-      for (ComponentContext lodableContext : treeNode.getLoadableFieldContext().
+      for (LoadableComponentContext lodableContext : treeNode.getLoadableFieldContext().
               toLoadableContextList()) {
         stack.add(lodableContext);
       }
@@ -89,13 +89,24 @@ public class ConditionsExplorer {
             .filter(f -> f.isAnnotationPresent(Inject.class))
             .filter(f -> f.getType().isAnnotationPresent(PageObject.class))
             .collect(Collectors.toList());
+    checkForDuplicatedLoadableFields(applicableFields);
 
-    //TODO Check here if page object field is the only injected field of this type. If not throw an error
+    applicableFields.stream().
+            forEach((field) -> {
+              ConditionHierarchyNode node = addChild(parent, new ClassFieldContext(injector.inject(field.
+                      getType()), LoadableComponentsUtil.getConditionsFormField(field)));
+              processLoadableContextForClass(field.getType(), node);
+    });
+  }
 
-    for (Field field : applicableFields) {
-      ConditionHierarchyNode node = addChild(parent, new ClassFieldContext(injector.inject(field.
-              getType()), getLoadableConditionsFromField(field)));
-      processLoadableContextForClass(field.getType(), node);
+  private void checkForDuplicatedLoadableFields(List<Field> applicableFields) {
+    if (!applicableFields.isEmpty()) {
+      int fieldCount = applicableFields.size();
+      int typeCount = (int) applicableFields.stream().map(f -> f.getType()).distinct().count();
+      if (typeCount < fieldCount) {
+        throw new BobcatRuntimeException("Spotted two page object fields of the same type. This is illegal. "
+                + "Class: " + applicableFields.get(0).getDeclaringClass().getName());
+      }
     }
   }
 
@@ -126,18 +137,5 @@ public class ConditionsExplorer {
       }
     }
     return null;
-  }
-
-  private List<ConditionContext> getLoadableConditionsFromField(Field field) {
-    List<ConditionContext> result = new ArrayList<>();
-    List<LoadableComponent> loadableAnnotations = Arrays.asList(field.
-            getAnnotationsByType(LoadableComponent.class));
-    if (!loadableAnnotations.isEmpty()) {
-      for (LoadableComponent loadableComponent : loadableAnnotations) {
-        result.add(new ConditionContext(loadableComponent, field.getName(), field.getDeclaringClass().
-                getName()));
-      }
-    }
-    return result;
   }
 }

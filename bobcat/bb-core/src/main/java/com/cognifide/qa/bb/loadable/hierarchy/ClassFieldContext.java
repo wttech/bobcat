@@ -15,7 +15,7 @@
  */
 package com.cognifide.qa.bb.loadable.hierarchy;
 
-import com.cognifide.qa.bb.loadable.context.ComponentContext;
+import com.cognifide.qa.bb.loadable.context.LoadableComponentContext;
 import com.cognifide.qa.bb.loadable.context.ConditionContext;
 
 import java.util.ArrayList;
@@ -32,11 +32,11 @@ public class ClassFieldContext {
     this.conditionData = conditionData;
   }
 
-  public List<ComponentContext> toLoadableContextList() {
-    List<ComponentContext> result = new ArrayList<>();
+  public List<LoadableComponentContext> toLoadableContextList() {
+    List<LoadableComponentContext> result = new ArrayList<>();
     conditionData.stream().
             forEach((loadableComponentData) -> {
-              result.add(new ComponentContext(subject, loadableComponentData));
+              result.add(new LoadableComponentContext(subject, loadableComponentData));
     });
     return result;
   }

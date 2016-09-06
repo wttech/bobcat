@@ -13,25 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.cognifide.qa.bb.loadable.context;
+package com.cognifide.qa.bb.loadable.annotation;
 
-public class ComponentContext {
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-  private final Object subject;
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+public @interface LoadableComponents {
 
-  private final ConditionContext loadable;
-
-  public ComponentContext(Object subject, ConditionContext loadableData) {
-    this.subject = subject;
-    this.loadable = loadableData;
-  }
-
-  public Object getElement() {
-    return subject;
-  }
-
-  public ConditionContext getLoadableData() {
-    return loadable;
-  }
+  LoadableComponent[] value();
 
 }

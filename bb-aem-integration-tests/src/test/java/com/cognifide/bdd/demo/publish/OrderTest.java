@@ -31,8 +31,6 @@ import com.cognifide.bdd.demo.po.publish.pages.MensPage;
 import com.cognifide.bdd.demo.po.publish.pages.ProductPage;
 import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
-import com.cognifide.qa.bb.loadable.condition.impl.VisibilityCondition;
-import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import com.google.inject.Inject;
 
 @RunWith(TestRunner.class)
@@ -46,7 +44,6 @@ public class OrderTest {
   private ProductPage productPage;
 
   @Inject
-  @LoadableComponent(condClass = VisibilityCondition.class)
   private CartPage cartPage;
 
   @Inject

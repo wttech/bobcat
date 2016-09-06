@@ -17,7 +17,7 @@ package com.cognifide.qa.bb.loadable.hierarchy;
 
 import com.cognifide.qa.bb.loadable.tracker.ConditionStatus;
 import com.cognifide.qa.bb.loadable.tracker.ConditionProgressTracker;
-import com.cognifide.qa.bb.loadable.context.ComponentContext;
+import com.cognifide.qa.bb.loadable.context.LoadableComponentContext;
 import com.cognifide.qa.bb.loadable.condition.LoadableComponentCondition;
 import com.cognifide.qa.bb.loadable.exception.LoadableConditionException;
 import com.google.inject.Inject;
@@ -33,12 +33,12 @@ public class ConditionChainRunner {
   private Injector injector;
 
   public void chainCheck(ConditionStack conditionStack) throws LoadableConditionException {
-    Stack<ComponentContext> stack = conditionStack.getLoadableContextStack();
+    Stack<LoadableComponentContext> stack = conditionStack.getLoadableContextStack();
     ConditionProgressTracker progressTracker = new ConditionProgressTracker(stack);
 
     while (!stack.isEmpty()) {
-      ComponentContext loadableContext = stack.pop();
-      if (loadableContext.getLoadableData() != null) {
+      LoadableComponentContext loadableContext = stack.pop();
+      if (loadableContext.getConditionData() != null) {
         progressTracker.stepStart(loadableContext);
         LoadableComponentCondition componentCondition = produceInitializedCondition(loadableContext);
         evaluateCondition(componentCondition, loadableContext, progressTracker);
@@ -46,17 +46,17 @@ public class ConditionChainRunner {
     }
   }
 
-  private LoadableComponentCondition produceInitializedCondition(ComponentContext loadableContext) {
-    return (LoadableComponentCondition) injector.getInstance(loadableContext.getLoadableData().getCondClass());
+  private LoadableComponentCondition produceInitializedCondition(LoadableComponentContext loadableContext) {
+    return (LoadableComponentCondition) injector.getInstance(loadableContext.getConditionData().getCondClass());
   }
 
   private void evaluateCondition(LoadableComponentCondition componentCondition,
-          ComponentContext loadableContext, ConditionProgressTracker progressTracker) throws
+          LoadableComponentContext loadableContext, ConditionProgressTracker progressTracker) throws
           LoadableConditionException {
     boolean result = false;
     Exception exception = null;
     try {
-      result = componentCondition.check(loadableContext.getElement(), loadableContext.getLoadableData());
+      result = componentCondition.check(loadableContext.getElement(), loadableContext.getConditionData());
     } catch (Exception ex) {
       exception = ex;
     } finally {
@@ -68,7 +68,7 @@ public class ConditionChainRunner {
           ConditionProgressTracker progressTracker) throws LoadableConditionException {
     if (result == false || exception != null) {
       progressTracker.provideStepResult(ConditionStatus.FAIL);
-      throw new LoadableConditionException(progressTracker.produceConditionTraceInfo(exception.getMessage()), exception);
+      throw new LoadableConditionException(progressTracker.produceConditionTraceInfo(exception));
     } else {
       progressTracker.provideStepResult(ConditionStatus.SUCCESS);
     }
