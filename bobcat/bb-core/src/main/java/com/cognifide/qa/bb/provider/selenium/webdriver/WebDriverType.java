@@ -54,7 +54,7 @@ public enum WebDriverType {
   FIREFOX {
     @Override
     public WebDriver create(Capabilities capabilities, Properties properties) {
-      return handleWebDriverProxyCookie(properties, new FirefoxDriver(capabilities));
+      return getWebDriverWithProxyCookieSupport(properties, new FirefoxDriver(capabilities));
     }
   },
   MARIONETTE {
@@ -62,43 +62,43 @@ public enum WebDriverType {
     public WebDriver create(Capabilities capabilities, Properties properties) {
       DesiredCapabilities caps = DesiredCapabilities.firefox();
       caps.setCapability("marionette", true);
-      return handleWebDriverProxyCookie(properties, new FirefoxDriver(capabilities));
+      return getWebDriverWithProxyCookieSupport(properties, new FirefoxDriver(capabilities));
     }
   },
   CHROME {
     @Override
     public WebDriver create(Capabilities capabilities, Properties properties) {
-      return handleWebDriverProxyCookie(properties, new ChromeDriver(capabilities));
+      return getWebDriverWithProxyCookieSupport(properties, new ChromeDriver(capabilities));
     }
   },
   IE {
     @Override
     public WebDriver create(Capabilities capabilities, Properties properties) {
-      return handleWebDriverProxyCookie(properties, new InternetExplorerDriver(capabilities));
+      return getWebDriverWithProxyCookieSupport(properties, new InternetExplorerDriver(capabilities));
     }
   },
   SAFARI {
     @Override
     public WebDriver create(Capabilities capabilities, Properties properties) {
-      return handleWebDriverProxyCookie(properties, new SafariDriver(capabilities));
+      return getWebDriverWithProxyCookieSupport(properties, new SafariDriver(capabilities));
     }
   },
   HTML {
     @Override
     public WebDriver create(Capabilities capabilities, Properties properties) {
-      return handleWebDriverProxyCookie(properties, new HtmlUnitDriver(capabilities));
+      return getWebDriverWithProxyCookieSupport(properties, new HtmlUnitDriver(capabilities));
     }
   },
   GHOST {
     @Override
     public WebDriver create(Capabilities capabilities, Properties properties) {
-      return handleWebDriverProxyCookie(properties, new PhantomJSDriver());
+      return getWebDriverWithProxyCookieSupport(properties, new PhantomJSDriver());
     }
   },
   APPIUM {
     @Override
     public WebDriver create(Capabilities capabilities, Properties properties) {
-      return handleWebDriverProxyCookie(properties, createMobileDriver(capabilities, properties));
+      return getWebDriverWithProxyCookieSupport(properties, createMobileDriver(capabilities, properties));
     }
 
     private WebDriver createMobileDriver(Capabilities capabilities, Properties properties) {
@@ -134,7 +134,7 @@ public enum WebDriverType {
         throw new IllegalArgumentException(e);
       }
       WebDriver driver = new RemoteWebDriver(url, capabilities);
-      return handleWebDriverProxyCookie(properties, driver);
+      return getWebDriverWithProxyCookieSupport(properties, driver);
     }
   },
   XVFB {
@@ -144,12 +144,12 @@ public enum WebDriverType {
       FirefoxBinary firefoxBinary = new FirefoxBinary(firefoxPath);
       firefoxBinary.setEnvironmentProperty("DISPLAY",
           properties.getProperty(ConfigKeys.WEBDRIVER_XVFB_ID));
-      return handleWebDriverProxyCookie(properties,
+      return getWebDriverWithProxyCookieSupport(properties,
           new FirefoxDriver(firefoxBinary, null, capabilities));
     }
   };
 
-  private static WebDriver handleWebDriverProxyCookie(Properties properties, WebDriver driver) {
+  private static WebDriver getWebDriverWithProxyCookieSupport(Properties properties, WebDriver driver) {
     if (Boolean.valueOf(properties.getProperty(ConfigKeys.WEBDRIVER_PROXY_COOKIE))) {
       driver.get(properties.getProperty(ConfigKeys.BASE_URL));
       Cookie cookie = new Cookie(
