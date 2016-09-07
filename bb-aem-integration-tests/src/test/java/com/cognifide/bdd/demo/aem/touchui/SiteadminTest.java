@@ -34,8 +34,6 @@ import com.cognifide.qa.bb.junit.TestRunner;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.google.inject.Inject;
-import com.cognifide.qa.bb.aem.touch.siteadmin.common.IsLoadedCondition;
-import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
@@ -93,7 +91,7 @@ public class SiteadminTest {
     siteadminPage.publishPage(testedPageName);
     siteadminPage.refresh();
     assertThat(getPageFromList(testedPageName).getPageActivationStatus().getActivationStatus(),
-            is(ActivationStatus.PUBLISHED));
+        is(ActivationStatus.PUBLISHED));
   }
 
   @Test
@@ -104,7 +102,7 @@ public class SiteadminTest {
     siteadminPage.unpublishPage(testedPageName);
     siteadminPage.refresh();
     assertThat(getPageFromList(testedPageName).getPageActivationStatus().getActivationStatus(),
-            is(ActivationStatus.NOT_PUBLISHED));
+        is(ActivationStatus.NOT_PUBLISHED));
   }
 
   @Test
@@ -113,7 +111,7 @@ public class SiteadminTest {
     siteadminPage.publishPageLater(testedPageName, scheduleTime);
     siteadminPage.open(CONTEXT_PATH);
     assertThat(getPageFromList(testedPageName).getPageActivationStatus().getActivationStatus(),
-            is(ActivationStatus.SCHEDULED));
+        is(ActivationStatus.SCHEDULED));
   }
 
   @Test
@@ -123,7 +121,7 @@ public class SiteadminTest {
     siteadminPage.unpublishPageLater(testedPageName, scheduleTime);
     siteadminPage.open(CONTEXT_PATH);
     assertThat(getPageFromList(testedPageName).getPageActivationStatus().getActivationStatus(),
-            is(ActivationStatus.SCHEDULED));
+        is(ActivationStatus.SCHEDULED));
   }
 
   @Test
@@ -145,7 +143,7 @@ public class SiteadminTest {
 
   private void createPage(String testedPage) {
     siteadminPage.open(CONTEXT_PATH)
-            .createNewPage(testedPage, testedPage.toLowerCase(), "Mobile Product Page");
+        .createNewPage(testedPage, testedPage.toLowerCase(), "Mobile Product Page");
     siteadminPage.open(CONTEXT_PATH);
   }
 

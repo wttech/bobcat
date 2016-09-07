@@ -62,11 +62,11 @@ public class CoralCalendar implements Loadable {
   private void chooseDay(int dayOfMonth) {
     String day = String.valueOf(dayOfMonth);
     List<WebElement> daysToSelect = driver.findElements(
-            By.cssSelector(".coral-Calendar-calendarBody > table > tbody > tr > td > a"));
+        By.cssSelector(".coral-Calendar-calendarBody > table > tbody > tr > td > a"));
     daysToSelect.stream().filter(t -> StringUtils.equals(t.getText(), day)).findFirst()
-            .orElseThrow(() -> new IllegalArgumentException(
-                            "No clickable day of month found in the current context"))
-            .click();
+        .orElseThrow(() -> new IllegalArgumentException(
+            "No clickable day of month found in the current context"))
+        .click();
   }
 
   private void closeCalendar() {

@@ -28,11 +28,8 @@ import org.openqa.selenium.WebDriver;
 import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.aem.page.PublishPage;
-import com.cognifide.qa.bb.loadable.condition.impl.ClickabilityCondition;
-import com.cognifide.qa.bb.loadable.condition.impl.VisibilityCondition;
 import com.cognifide.qa.bb.logging.ReportEntryLogger;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
-import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
 
@@ -45,9 +42,6 @@ public class CartPage extends PublishPage {
 
   @Inject
   private ReportEntryLogger reportEntryLogger;
-
-  @Inject
-  private WebDriver webDriver;
 
   @FindBy(css = "div.recommendations-default")
   private WebElement defaultRecommendationsElement;
@@ -71,15 +65,15 @@ public class CartPage extends PublishPage {
   public boolean recommendationsAreLoaded() {
     boolean replacedWithAjaxCall = !defaultRecommendationsElement.isDisplayed();
     reportEntryLogger
-            .info("checking if recommendations were loaded with AJAX: '{}'", replacedWithAjaxCall);
+        .info("checking if recommendations were loaded with AJAX: '{}'", replacedWithAjaxCall);
     return replacedWithAjaxCall;
   }
 
   public void checkout() {
     bobcatWait.withTimeout(Timeouts.MEDIUM)
-            .until(driver -> ExpectedConditions.elementToBeClickable(checkoutButton));
+        .until(driver -> ExpectedConditions.elementToBeClickable(checkoutButton));
     reportEntryLogger.info("checkout link href attribute: '{}'",
-            checkoutButton.getAttribute(HtmlTags.Attributes.HREF));
+        checkoutButton.getAttribute(HtmlTags.Attributes.HREF));
     //clicking on an anchor tag is sometimes problematic when using WebElement#click
     ((JavascriptExecutor) webDriver).executeScript("arguments[0].click();", checkoutButton);
     reportEntryLogger.info("checkout link clicked");

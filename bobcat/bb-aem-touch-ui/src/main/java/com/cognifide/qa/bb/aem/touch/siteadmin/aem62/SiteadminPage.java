@@ -15,7 +15,6 @@
  */
 package com.cognifide.qa.bb.aem.touch.siteadmin.aem62;
 
-import com.cognifide.qa.bb.aem.touch.siteadmin.common.Loadable;
 import java.time.LocalDateTime;
 
 import javax.annotation.Nullable;
@@ -27,6 +26,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
+import com.cognifide.qa.bb.aem.touch.siteadmin.common.Loadable;
 import com.cognifide.qa.bb.aem.touch.siteadmin.SiteadminActions;
 import com.cognifide.qa.bb.aem.touch.siteadmin.common.ActivationStatus;
 import com.cognifide.qa.bb.aem.touch.siteadmin.common.IsLoadedCondition;
@@ -104,8 +104,8 @@ public class SiteadminPage implements SiteadminActions, Loadable {
     contentToolbar.getCreateButton().click();
     contentToolbar.getCreatePageButton().click();
     contentToolbar.getCreatePageWizard()
-            .selectTemplate(templateName)
-            .provideTitle(title).submit();
+        .selectTemplate(templateName)
+        .provideTitle(title).submit();
     return this;
   }
 
@@ -114,9 +114,9 @@ public class SiteadminPage implements SiteadminActions, Loadable {
     contentToolbar.getCreateButton().click();
     contentToolbar.getCreatePageButton().click();
     contentToolbar.getCreatePageWizard()
-            .selectTemplate(templateName)
-            .provideName(name)
-            .provideTitle(title).submit();
+        .selectTemplate(templateName)
+        .provideName(name)
+        .provideTitle(title).submit();
     return this;
   }
 

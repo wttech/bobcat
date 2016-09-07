@@ -51,7 +51,7 @@ public class ChildPageWindow implements Loadable {
 
   public ChildPageRow getChildPageRow(String pageTitle) {
     return childPages.stream().filter(t -> t.getTitle().equals(pageTitle)).findFirst().
-            orElseThrow(() -> new IllegalStateException("Page not found in the current context"));
+        orElseThrow(() -> new IllegalStateException("Page not found in the current context"));
   }
 
   public ChildPageRow selectPage(String pageTitle) {
@@ -72,7 +72,7 @@ public class ChildPageWindow implements Loadable {
       @Nullable @Override public Object apply(@Nullable WebDriver weDriver) {
         try {
           return childPages.stream().filter(t -> t.getTitle().equals(title)).findFirst()
-                  .isPresent();
+              .isPresent();
         } catch (StaleElementReferenceException e) {
           weDriver.navigate().refresh();
           return false;
