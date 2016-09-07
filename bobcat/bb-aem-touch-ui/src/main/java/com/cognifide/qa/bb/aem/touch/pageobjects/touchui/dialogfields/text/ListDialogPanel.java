@@ -15,15 +15,15 @@
  */
 package com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.text;
 
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldType;
 import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.DialogField;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
-
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 
 /**
  * Represents list formatting dialog panel.
@@ -34,7 +34,7 @@ public class ListDialogPanel implements DialogField {
   @FindBy(css = ".coral-RichText-toolbar")
   private ControlToolbar controlToolbar;
 
-  @FindBy(css = ".coral-Popover-content")
+  @FindBy(css = "div.coral-Popover[data-id='lists'] .coral-Popover-content")
   private ListControls listControl;
 
   @Inject
@@ -80,7 +80,8 @@ public class ListDialogPanel implements DialogField {
 
   private void openListPopover() {
     controlToolbar.selectText();
-    bobcatWait.withTimeout(Timeouts.SMALL).until((ExpectedCondition<Object>) input -> controlToolbar.
+    bobcatWait.withTimeout(Timeouts.SMALL)
+        .until((ExpectedCondition<Object>) input -> controlToolbar.
             getToggleListButton().isEnabled());
     controlToolbar.getToggleListButton().click();
   }
