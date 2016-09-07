@@ -20,7 +20,6 @@ import com.cognifide.qa.bb.webelement.BobcatWebElement;
 import com.google.inject.AbstractModule;
 import com.google.inject.assistedinject.FactoryProvider;
 
-
 public class BobcatWebElementModule extends AbstractModule {
 
   @Override

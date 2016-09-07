@@ -41,7 +41,6 @@ public class VisibilityCondition implements LoadableComponentCondition {
               until(ignored -> subject.isDisplayed(), data.delay());
     }
     throw new LoadableConditionException("Loadable Component Condition placed on not applicable field");
-
   }
 
 }

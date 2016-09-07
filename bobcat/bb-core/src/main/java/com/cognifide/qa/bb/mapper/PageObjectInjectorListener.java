@@ -102,7 +102,8 @@ public class PageObjectInjectorListener implements InjectionListener<Object> {
 
   private void initFindByFields(Object object) {
     PageFactory.initElements(
-            new GuiceAwareFieldDecorator(getCurrentContext().getElementLocatorFactory(), bobcatWebElementFactoryProvider.get()), object);
+        new GuiceAwareFieldDecorator(getCurrentContext().getElementLocatorFactory(),
+            bobcatWebElementFactoryProvider.get()), object);
   }
 
   private void initPageObjectFields(Object object) {
@@ -116,7 +117,7 @@ public class PageObjectInjectorListener implements InjectionListener<Object> {
           continue;
         }
         provider.provideValue(object, f, context)
-                .ifPresent(value -> setFieldValue(f, object, value));
+            .ifPresent(value -> setFieldValue(f, object, value));
       }
     }
   }

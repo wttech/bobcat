@@ -52,14 +52,18 @@ public class ConditionChainRunner {
       if (loadableContext.getConditionContext() != null) {
         progressTracker.stepStart(loadableContext);
         LoadableComponentCondition componentCondition = produceInitializedCondition(loadableContext);
-        Object instance = loadableContext.getSubject();
-        if (instance == null) {
-          instance = injector.getInstance(AopUtil.getBaseClassForAopObject(loadableContext.
-                  getSubjectClass()));
-        }
-        evaluateCondition(componentCondition, instance, loadableContext, progressTracker);
+        Object subject = acquireSubjectInstance(loadableContext);
+        evaluateCondition(componentCondition, subject, loadableContext, progressTracker);
       }
     }
+  }
+
+  private Object acquireSubjectInstance(LoadableComponentContext loadableContext) {
+    Object result = loadableContext.getSubject();
+    if (result == null) {
+      result = injector.getInstance(AopUtil.getBaseClassForAopObject(loadableContext.getSubjectClass()));
+    }
+    return result;
   }
 
   private LoadableComponentCondition produceInitializedCondition(LoadableComponentContext loadableContext) {

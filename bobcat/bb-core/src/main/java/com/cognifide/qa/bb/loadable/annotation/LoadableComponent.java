@@ -40,7 +40,7 @@ public @interface LoadableComponent {
   /**
    * Delay between condition checks
    */
-  int delay() default 2;
+  int delay() default 1;
 
   /**
    * Timeout for positive condition evaluation

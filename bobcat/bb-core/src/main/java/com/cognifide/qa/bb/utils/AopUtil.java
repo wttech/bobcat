@@ -27,10 +27,7 @@ public class AopUtil {
       return getBaseClassForAopObject((Class) object);
     }
     Class<?> clazz = object.getClass();
-    if (clazz.getName().contains("EnhancerByGuice")) {
-      return clazz.getSuperclass();
-    }
-    return clazz;
+    return getBaseClassForAopObject(clazz);
   }
 
   private static Class<?> getBaseClassForAopObject(Class clazz) {
