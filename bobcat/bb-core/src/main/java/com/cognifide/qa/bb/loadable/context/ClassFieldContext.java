@@ -13,13 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.cognifide.qa.bb.loadable.hierarchy;
+package com.cognifide.qa.bb.loadable.context;
 
 import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
-import com.cognifide.qa.bb.loadable.context.LoadableComponentContext;
-import com.cognifide.qa.bb.loadable.context.ConditionContext;
 import com.cognifide.qa.bb.qualifier.PageObject;
-import com.cognifide.qa.bb.utils.AopUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,23 +26,17 @@ import java.util.List;
  * This keeps context of class field annotated with {@link LoadableComponent}. It gets split by list of
  * {@link ConditionContext} so the {@link LoadableComponentContext} holds only one condition at the time.
  */
-public class ClassFieldContext {
-
-  private final Object subject;
-
-  private final Class subjectClass;
+public class ClassFieldContext extends LoadableContext {
 
   private final List<ConditionContext> conditionData;
 
   public ClassFieldContext(Class subjectClass, List<ConditionContext> conditionData) {
-    this.subject = null;
-    this.subjectClass = AopUtil.getBaseClassForAopObject(subjectClass);
+    super(subjectClass);
     this.conditionData = conditionData;
   }
 
   public ClassFieldContext(Object subject, List<ConditionContext> conditionData) {
-    this.subject = subject;
-    this.subjectClass = AopUtil.getBaseClassForAopObject(subject);
+    super(subject);
     this.conditionData = conditionData;
   }
 
@@ -63,14 +54,12 @@ public class ClassFieldContext {
    * @return subject instance. Null when the context is regarding {@link PageObject} which needs lazy
    * initialization.
    */
+  @Override
   public Object getSubject() {
     return subject;
   }
 
-  /**
-   *
-   * @return Subject's class
-   */
+  @Override
   public Class getSubjectClass() {
     return subjectClass;
   }

@@ -73,9 +73,7 @@ public class ConditionChainRunner {
     boolean result = false;
     Exception exception = null;
     try {
-      result = componentCondition.check(subject, loadableContext.
-              getConditionContext().
-              getLoadableComponent());
+      result = componentCondition.check(subject, loadableContext.getConditionContext().getLoadableComponent());
     } catch (Exception ex) {
       exception = ex;
     } finally {

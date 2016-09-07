@@ -15,6 +15,7 @@
  */
 package com.cognifide.qa.bb.loadable.hierarchy;
 
+import com.cognifide.qa.bb.loadable.context.ClassFieldContext;
 import java.util.ArrayList;
 import java.util.List;
 

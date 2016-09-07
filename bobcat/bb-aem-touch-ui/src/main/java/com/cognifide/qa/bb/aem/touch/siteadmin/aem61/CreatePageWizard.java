@@ -41,7 +41,7 @@ public class CreatePageWizard {
 
   @Global
   @FindBy(css = "button.coral-Wizard-nextButton[type='submit']")
-  @LoadableComponent(condClass = NotDisabledCondition.class, delay = 3)
+  @LoadableComponent(condClass = NotDisabledCondition.class)
   private WebElement createButton;
 
   @Global

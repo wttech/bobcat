@@ -32,7 +32,7 @@ public class ReplicateLaterWindow {
 
   @Global
   @FindBy(css = "button.coral-Wizard-nextButton[type='submit']")
-  @LoadableComponent(condClass = NotDisabledCondition.class, delay = 3)
+  @LoadableComponent(condClass = NotDisabledCondition.class)
   private WebElement submitButton;
 
   @FindBy(css = "button.coral-Button.coral-Button--square")

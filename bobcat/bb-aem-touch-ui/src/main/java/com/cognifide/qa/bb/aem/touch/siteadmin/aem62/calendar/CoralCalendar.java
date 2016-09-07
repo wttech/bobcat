@@ -15,7 +15,6 @@
  */
 package com.cognifide.qa.bb.aem.touch.siteadmin.aem62.calendar;
 
-import com.cognifide.qa.bb.aem.touch.siteadmin.common.Loadable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -26,6 +25,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.cognifide.qa.bb.aem.touch.siteadmin.common.Loadable;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.PageObject;

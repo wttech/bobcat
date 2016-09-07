@@ -15,6 +15,7 @@
  */
 package com.cognifide.qa.bb.loadable.hierarchy;
 
+import com.cognifide.qa.bb.loadable.context.ClassFieldContext;
 import com.cognifide.qa.bb.exceptions.BobcatRuntimeException;
 import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import com.cognifide.qa.bb.loadable.context.LoadableComponentContext;

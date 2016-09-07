@@ -21,17 +21,12 @@ import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
  *
  * Context of each field annotated with {@link LoadableComponent}
  */
-public class LoadableComponentContext {
-
-  private final Object subject;
-
-  private final Class subjectClass;
+public class LoadableComponentContext extends LoadableContext {
 
   private final ConditionContext condition;
 
   public LoadableComponentContext(Object subject, Class subjectClass, ConditionContext loadableData) {
-    this.subject = subject;
-    this.subjectClass = subjectClass;
+    super(subject, subjectClass);
     this.condition = loadableData;
   }
 
@@ -39,8 +34,14 @@ public class LoadableComponentContext {
    *
    * @return Instantiated field annotated with {@link LoadableComponent}.
    */
+  @Override
   public Object getSubject() {
     return subject;
+  }
+
+  @Override
+  public Class getSubjectClass() {
+    return subjectClass;
   }
 
   /**
@@ -49,14 +50,6 @@ public class LoadableComponentContext {
    */
   public ConditionContext getConditionContext() {
     return condition;
-  }
-
-  /**
-   *
-   * @return Subject's class
-   */
-  public Class getSubjectClass() {
-    return subjectClass;
   }
 
 }
