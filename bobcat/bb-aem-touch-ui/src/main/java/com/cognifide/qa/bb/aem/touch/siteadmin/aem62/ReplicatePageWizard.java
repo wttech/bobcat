@@ -27,7 +27,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 @PageObject
-public class PublishPageWizard {
+public class ReplicatePageWizard {
 
   @Global
   @FindBy(css = "button.foundation-wizard-control[type='submit']")
