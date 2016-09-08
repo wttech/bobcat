@@ -24,7 +24,6 @@ import java.util.Objects;
 
 import org.openqa.selenium.WebElement;
 
-
 public class NotDisabledCondition implements LoadableComponentCondition {
 
   @Inject

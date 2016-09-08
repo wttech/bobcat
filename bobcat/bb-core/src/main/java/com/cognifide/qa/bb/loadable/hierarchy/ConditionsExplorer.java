@@ -21,8 +21,6 @@ import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import com.cognifide.qa.bb.loadable.context.LoadableComponentContext;
 import com.cognifide.qa.bb.loadable.hierarchy.util.LoadableComponentsUtil;
 import com.cognifide.qa.bb.qualifier.PageObject;
-import com.cognifide.qa.bb.utils.AopUtil;
-import com.cognifide.qa.bb.utils.PageObjectInjector;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -50,9 +48,6 @@ public class ConditionsExplorer {
   private static final Logger LOG = LoggerFactory.getLogger(ConditionsExplorer.class);
 
   private final ConditionHierarchyNode treeRootNode = new ConditionHierarchyNode(null);
-
-  @Inject
-  private PageObjectInjector injector;
 
   /**
    * Discovers the hierarchy of Loadable Conditions form provided class up to the root class which is usually
