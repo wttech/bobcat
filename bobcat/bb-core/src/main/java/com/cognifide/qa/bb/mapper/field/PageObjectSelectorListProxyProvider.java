@@ -37,6 +37,7 @@ import com.cognifide.qa.bb.scope.frame.FramePath;
 import com.cognifide.qa.bb.scope.selector.SelectorElementLocator;
 import com.cognifide.qa.bb.utils.AnnotationsHelper;
 import com.cognifide.qa.bb.utils.PageObjectInjector;
+import com.cognifide.qa.bb.webelement.BobcatWebElement;
 import com.google.inject.Inject;
 
 /**
@@ -96,7 +97,7 @@ public class PageObjectSelectorListProxyProvider extends PageObjectListProxyProv
     if (elementLocatorFactory instanceof ParentElementLocatorProvider
         && !AnnotationsHelper.isGlobal(field)) {
       searchContext =
-          ((ParentElementLocatorProvider) elementLocatorFactory).getCurrentScope().findElement();
+          ((SelectorElementLocator) ((ParentElementLocatorProvider) elementLocatorFactory).getCurrentScope()).getSearchContext();
     }
     return searchContext;
   }

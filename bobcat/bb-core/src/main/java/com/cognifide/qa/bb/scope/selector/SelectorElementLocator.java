@@ -39,7 +39,7 @@ public class SelectorElementLocator implements ElementLocator {
    * Constructs SelectorElementLocator.
    *
    * @param searchContext A context to use to find the element.
-   * @param selector      By selector used to find elements
+   * @param selector By selector used to find elements
    */
   public SelectorElementLocator(SearchContext searchContext, By selector) {
     this.searchContext = searchContext;
@@ -55,4 +55,9 @@ public class SelectorElementLocator implements ElementLocator {
   public List<WebElement> findElements() {
     return selector.findElements(searchContext);
   }
+
+  public SearchContext getSearchContext() {
+    return searchContext;
+  }
+
 }
