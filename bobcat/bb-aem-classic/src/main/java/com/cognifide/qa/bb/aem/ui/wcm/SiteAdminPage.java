@@ -73,14 +73,14 @@ public class SiteAdminPage {
   @Inject
   private BobcatWait bobcatWait;
 
-  @FindBy(id = "cq-siteadmin-tree")
+  @FindPageObject
   private AemContentTree contentTree;
 
   @Inject
   @Named(AemConfigKeys.AUTHOR_URL)
   private String authorDomain;
 
-  @FindBy(id = SiteAdminGrid.ID)
+  @FindPageObject
   private SiteAdminGrid grid;
 
   @FindPageObject

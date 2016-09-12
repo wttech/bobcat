@@ -53,7 +53,7 @@ public class SelectorElementLocator implements ElementLocator {
 
   @Override
   public List<WebElement> findElements() {
-    return selector.findElements(searchContext);
+    return searchContext.findElements(selector);
   }
 
   public SearchContext getSearchContext() {

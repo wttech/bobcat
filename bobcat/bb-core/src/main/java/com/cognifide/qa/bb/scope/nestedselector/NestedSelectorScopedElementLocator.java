@@ -36,7 +36,7 @@ import com.cognifide.qa.bb.scope.ParentElementLocatorProvider;
  * This is a two-step locator. First it constructs a scope out of the scope factory and the parent
  * field, then searches for the field with selector in this scope.
  */
-class NestedSelectorScopedElementLocator implements ElementLocator {
+public class NestedSelectorScopedElementLocator implements ElementLocator {
 
   private final ElementLocatorFactory scopeFactory;
   private final SearchContext searchContext;
@@ -85,6 +85,10 @@ class NestedSelectorScopedElementLocator implements ElementLocator {
           .collect(toList());
     }
     return searchContext.findElements(selector);
+  }
+
+  public SearchContext getSearchContext() {
+    return searchContext;
   }
 
 }
