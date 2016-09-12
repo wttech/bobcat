@@ -29,6 +29,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
+import org.openqa.selenium.support.pagefactory.ElementLocator;
 
 import com.cognifide.qa.bb.scope.PageObjectContext;
 import com.cognifide.qa.bb.scope.ParentElementLocatorProvider;
@@ -37,7 +38,6 @@ import com.cognifide.qa.bb.scope.frame.FramePath;
 import com.cognifide.qa.bb.scope.selector.SelectorElementLocator;
 import com.cognifide.qa.bb.utils.AnnotationsHelper;
 import com.cognifide.qa.bb.utils.PageObjectInjector;
-import com.cognifide.qa.bb.webelement.BobcatWebElement;
 import com.google.inject.Inject;
 
 /**
@@ -95,9 +95,20 @@ public class PageObjectSelectorListProxyProvider extends PageObjectListProxyProv
     SearchContext searchContext = webDriver;
     ElementLocatorFactory elementLocatorFactory = context.getElementLocatorFactory();
     if (elementLocatorFactory instanceof ParentElementLocatorProvider
-        && !AnnotationsHelper.isGlobal(field)) {
-      searchContext =
-          ((SelectorElementLocator) ((ParentElementLocatorProvider) elementLocatorFactory).getCurrentScope()).getSearchContext();
+            && !AnnotationsHelper.isGlobal(field)) {
+      searchContext = acquireSearchContext(elementLocatorFactory);
+    }
+    return searchContext;
+  }
+
+  private SearchContext acquireSearchContext(ElementLocatorFactory elementLocatorFactory) {
+    SearchContext searchContext;
+    ElementLocator parentElementLocator = ((ParentElementLocatorProvider) elementLocatorFactory).
+            getCurrentScope();
+    if (parentElementLocator instanceof SelectorElementLocator) {
+      searchContext = ((SelectorElementLocator) parentElementLocator).getSearchContext();
+    } else {
+      searchContext = parentElementLocator.findElement();
     }
     return searchContext;
   }
