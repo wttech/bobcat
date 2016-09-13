@@ -258,6 +258,7 @@ public class AemRichText implements Configurable {
       frameName = currentScope.findElement(By.tagName("iframe")).getAttribute("name");
     }
     frameSwitcher.switchTo("/$cq/" + frameName);
+    webDriver.switchTo().activeElement().click();
   }
 
   private String getTextAreaInnerHtml() {
