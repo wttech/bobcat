@@ -33,9 +33,9 @@ import org.openqa.selenium.support.pagefactory.ElementLocator;
 
 import com.cognifide.qa.bb.scope.PageObjectContext;
 import com.cognifide.qa.bb.scope.ParentElementLocatorProvider;
+import com.cognifide.qa.bb.scope.SearchContextAwareLocator;
 import com.cognifide.qa.bb.scope.frame.FrameMap;
 import com.cognifide.qa.bb.scope.frame.FramePath;
-import com.cognifide.qa.bb.scope.nestedselector.NestedSelectorScopedElementLocator;
 import com.cognifide.qa.bb.scope.selector.SelectorElementLocator;
 import com.cognifide.qa.bb.utils.AnnotationsHelper;
 import com.cognifide.qa.bb.utils.PageObjectInjector;
@@ -106,10 +106,8 @@ public class PageObjectSelectorListProxyProvider extends PageObjectListProxyProv
     SearchContext searchContext;
     ElementLocator parentElementLocator = ((ParentElementLocatorProvider) elementLocatorFactory).
             getCurrentScope();
-    if (parentElementLocator instanceof SelectorElementLocator) {
-      searchContext = ((SelectorElementLocator) parentElementLocator).getSearchContext();
-    } else if (parentElementLocator instanceof NestedSelectorScopedElementLocator) {
-      searchContext = ((NestedSelectorScopedElementLocator) parentElementLocator).getSearchContext();
+    if (parentElementLocator instanceof SearchContextAwareLocator) {
+      searchContext = ((SearchContextAwareLocator) parentElementLocator).getSearchContext();
     } else {
       searchContext = parentElementLocator.findElement();
     }
