@@ -24,7 +24,7 @@ limitations under the License.
     <parent>
         <artifactId>bobcat-parent</artifactId>
         <groupId>com.cognifide.qa.bb</groupId>
-        <version>1.1.1-SNAPSHOT</version>
+        <version>1.1.1</version>
     </parent>
 
     <artifactId>bobcat</artifactId>
