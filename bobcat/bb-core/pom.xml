@@ -24,7 +24,7 @@ limitations under the License.
     <parent>
         <artifactId>bobcat</artifactId>
         <groupId>com.cognifide.qa.bb</groupId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>bb-core</artifactId>
