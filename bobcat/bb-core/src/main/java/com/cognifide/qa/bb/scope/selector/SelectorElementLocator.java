@@ -19,17 +19,17 @@
  */
 package com.cognifide.qa.bb.scope.selector;
 
+import com.cognifide.qa.bb.scope.SearchContextAwareLocator;
 import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.pagefactory.ElementLocator;
 
 /**
  * Simple locator that consists of search context (for example webdriver) and a selector.
  */
-public class SelectorElementLocator implements ElementLocator {
+public class SelectorElementLocator implements SearchContextAwareLocator {
 
   private final SearchContext searchContext;
 
@@ -39,7 +39,7 @@ public class SelectorElementLocator implements ElementLocator {
    * Constructs SelectorElementLocator.
    *
    * @param searchContext A context to use to find the element.
-   * @param selector      By selector used to find elements
+   * @param selector By selector used to find elements
    */
   public SelectorElementLocator(SearchContext searchContext, By selector) {
     this.searchContext = searchContext;
@@ -53,6 +53,12 @@ public class SelectorElementLocator implements ElementLocator {
 
   @Override
   public List<WebElement> findElements() {
-    return selector.findElements(searchContext);
+    return searchContext.findElements(selector);
   }
+
+  @Override
+  public SearchContext getSearchContext() {
+    return searchContext;
+  }
+
 }

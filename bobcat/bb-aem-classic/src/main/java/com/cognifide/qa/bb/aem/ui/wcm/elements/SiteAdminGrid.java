@@ -52,10 +52,8 @@ import com.google.inject.name.Named;
 /**
  * Exposes functionality of Site Admin's grid
  */
-@PageObject
+@PageObject(css = "#cq-siteadmin-grid")
 public class SiteAdminGrid {
-
-  public static final String ID = "cq-siteadmin-grid";
 
   private static final Logger LOG = LoggerFactory.getLogger(SiteAdminGrid.class);
 
