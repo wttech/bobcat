@@ -23,6 +23,11 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import com.cognifide.bdd.demo.GuiceModule;
+import com.cognifide.bdd.demo.aem.touchui.AemCarouselTest;
+import com.cognifide.bdd.demo.aem.touchui.AemCreditCardTest;
+import com.cognifide.bdd.demo.aem.touchui.AemImageTest;
+import com.cognifide.bdd.demo.aem.touchui.AemRichtextTest;
+import com.cognifide.bdd.demo.aem.touchui.AemTitleTest;
 import com.cognifide.bdd.demo.aem.touchui.Siteadmin62Test;
 import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.concurrent.ConcurrentSuite;
@@ -30,7 +35,12 @@ import com.cognifide.qa.bb.junit.concurrent.ConcurrentSuite;
 @Modules(GuiceModule.class)
 @RunWith(ConcurrentSuite.class)
 @Suite.SuiteClasses({
-    Siteadmin62Test.class
+    Siteadmin62Test.class,
+    AemTitleTest.class,
+    AemImageTest.class,
+    AemCarouselTest.class,
+    AemCreditCardTest.class,
+    AemRichtextTest.class
 })
 public class BbAem62TouchUiSuite {
   // Test suite, nothing to add here

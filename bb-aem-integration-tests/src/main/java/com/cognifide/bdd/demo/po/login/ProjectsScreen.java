@@ -51,10 +51,10 @@ public class ProjectsScreen {
   @Inject
   private BobcatWait wait;
 
-  @FindBy(css = "a.user.icon-user, a.endor-BlackBar-item.endor-UserProfile")
+  @FindBy(css = "a.user.icon-user, a.endor-BlackBar-item.endor-UserProfile, coral-icon.coral-Icon--user")
   private WebElement userIcon;
 
-  @FindBy(css = "#user_dialog, #granite-user-properties")
+  @FindBy(css = "#user_dialog, #granite-user-properties, coral-popover.is-open")
   private UserDialog userDialog;
 
   @Inject

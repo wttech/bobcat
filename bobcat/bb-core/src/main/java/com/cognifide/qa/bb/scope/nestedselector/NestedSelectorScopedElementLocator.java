@@ -27,16 +27,16 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.pagefactory.ElementLocator;
 import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 
 import com.cognifide.qa.bb.scope.ParentElementLocatorProvider;
+import com.cognifide.qa.bb.scope.SearchContextAwareLocator;
 
 /**
  * This is a two-step locator. First it constructs a scope out of the scope factory and the parent
  * field, then searches for the field with selector in this scope.
  */
-class NestedSelectorScopedElementLocator implements ElementLocator {
+public class NestedSelectorScopedElementLocator implements SearchContextAwareLocator {
 
   private final ElementLocatorFactory scopeFactory;
   private final SearchContext searchContext;
@@ -85,6 +85,11 @@ class NestedSelectorScopedElementLocator implements ElementLocator {
           .collect(toList());
     }
     return searchContext.findElements(selector);
+  }
+
+  @Override
+  public SearchContext getSearchContext() {
+    return searchContext;
   }
 
 }

@@ -22,8 +22,8 @@ package com.cognifide.bdd.demo.po.login;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import com.cognifide.qa.bb.constants.AemConfigKeys;
 import com.cognifide.qa.bb.aem.AemAuthCookieFactory;
+import com.cognifide.qa.bb.constants.AemConfigKeys;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -31,7 +31,7 @@ import com.google.inject.name.Named;
 @PageObject
 public class UserDialog {
 
-  @FindBy(partialLinkText = "Sign Out")
+  @FindBy(css = "a[href='/system/sling/logout.html']")
   private WebElement logoutButton;
 
   @FindBy(className = "endor-Account-name")

@@ -33,7 +33,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.MarionetteDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
@@ -44,7 +43,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.constants.ConfigKeys;
-
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.remote.MobilePlatform;
@@ -56,7 +54,7 @@ public enum WebDriverType {
   FIREFOX {
     @Override
     public WebDriver create(Capabilities capabilities, Properties properties) {
-      return new FirefoxDriver(capabilities);
+      return getWebDriverWithProxyCookieSupport(properties, new FirefoxDriver(capabilities));
     }
   },
   MARIONETTE {
@@ -64,43 +62,43 @@ public enum WebDriverType {
     public WebDriver create(Capabilities capabilities, Properties properties) {
       DesiredCapabilities caps = DesiredCapabilities.firefox();
       caps.setCapability("marionette", true);
-      return new FirefoxDriver(capabilities);
+      return getWebDriverWithProxyCookieSupport(properties, new FirefoxDriver(capabilities));
     }
   },
   CHROME {
     @Override
     public WebDriver create(Capabilities capabilities, Properties properties) {
-      return new ChromeDriver(capabilities);
+      return getWebDriverWithProxyCookieSupport(properties, new ChromeDriver(capabilities));
     }
   },
   IE {
     @Override
     public WebDriver create(Capabilities capabilities, Properties properties) {
-      return new InternetExplorerDriver(capabilities);
+      return getWebDriverWithProxyCookieSupport(properties, new InternetExplorerDriver(capabilities));
     }
   },
   SAFARI {
     @Override
     public WebDriver create(Capabilities capabilities, Properties properties) {
-      return new SafariDriver(capabilities);
+      return getWebDriverWithProxyCookieSupport(properties, new SafariDriver(capabilities));
     }
   },
   HTML {
     @Override
     public WebDriver create(Capabilities capabilities, Properties properties) {
-      return new HtmlUnitDriver(capabilities);
+      return getWebDriverWithProxyCookieSupport(properties, new HtmlUnitDriver(capabilities));
     }
   },
   GHOST {
     @Override
     public WebDriver create(Capabilities capabilities, Properties properties) {
-      return new PhantomJSDriver();
+      return getWebDriverWithProxyCookieSupport(properties, new PhantomJSDriver());
     }
   },
   APPIUM {
     @Override
     public WebDriver create(Capabilities capabilities, Properties properties) {
-      return createMobileDriver(capabilities, properties);
+      return getWebDriverWithProxyCookieSupport(properties, createMobileDriver(capabilities, properties));
     }
 
     private WebDriver createMobileDriver(Capabilities capabilities, Properties properties) {
@@ -136,16 +134,7 @@ public enum WebDriverType {
         throw new IllegalArgumentException(e);
       }
       WebDriver driver = new RemoteWebDriver(url, capabilities);
-      if (Boolean.valueOf(properties.getProperty(ConfigKeys.WEBDRIVER_PROXY_COOKIE))) {
-        driver.get(properties.getProperty(ConfigKeys.BASE_URL));
-        Cookie cookie = new Cookie(
-            properties.getProperty(ConfigKeys.WEBDRIVER_PROXY_COOKIE_NAME),
-            properties.getProperty(ConfigKeys.WEBDRIVER_PROXY_COOKIE_VALUE),
-            "." + properties.getProperty(ConfigKeys.WEBDRIVER_PROXY_COOKIE_DOMAIN), "/",
-            DateUtils.addMonths(new Date(), 1));
-        driver.manage().addCookie(cookie);
-      }
-      return driver;
+      return getWebDriverWithProxyCookieSupport(properties, driver);
     }
   },
   XVFB {
@@ -155,9 +144,23 @@ public enum WebDriverType {
       FirefoxBinary firefoxBinary = new FirefoxBinary(firefoxPath);
       firefoxBinary.setEnvironmentProperty("DISPLAY",
           properties.getProperty(ConfigKeys.WEBDRIVER_XVFB_ID));
-      return new FirefoxDriver(firefoxBinary, null, capabilities);
+      return getWebDriverWithProxyCookieSupport(properties,
+          new FirefoxDriver(firefoxBinary, null, capabilities));
     }
   };
+
+  private static WebDriver getWebDriverWithProxyCookieSupport(Properties properties, WebDriver driver) {
+    if (Boolean.valueOf(properties.getProperty(ConfigKeys.WEBDRIVER_PROXY_COOKIE))) {
+      driver.get(properties.getProperty(ConfigKeys.BASE_URL));
+      Cookie cookie = new Cookie(
+          properties.getProperty(ConfigKeys.WEBDRIVER_PROXY_COOKIE_NAME),
+          properties.getProperty(ConfigKeys.WEBDRIVER_PROXY_COOKIE_VALUE),
+          "." + properties.getProperty(ConfigKeys.WEBDRIVER_PROXY_COOKIE_DOMAIN), "/",
+          DateUtils.addMonths(new Date(), 1));
+      driver.manage().addCookie(cookie);
+    }
+    return driver;
+  }
 
   private static final Logger LOG = LoggerFactory.getLogger(WebDriverType.class);
 
