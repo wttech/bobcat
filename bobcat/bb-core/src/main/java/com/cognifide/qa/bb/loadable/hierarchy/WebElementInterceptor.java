@@ -19,6 +19,7 @@ import com.cognifide.qa.bb.loadable.context.ClassFieldContext;
 import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import com.cognifide.qa.bb.loadable.context.ConditionContext;
 import com.cognifide.qa.bb.qualifier.PageObject;
+import com.cognifide.qa.bb.utils.AopUtil;
 import com.cognifide.qa.bb.webelement.BobcatWebElement;
 import com.google.inject.Inject;
 
@@ -51,17 +52,17 @@ public class WebElementInterceptor implements MethodInterceptor {
 
   @Override
   public Object invoke(MethodInvocation methodInvocation) throws Throwable {
-    Class callerClass = getCallerClass();
+    Class methodCallerClass = getMethodCallerClassWithoutGuiceContext();
 
-    if (callerClass.isAnnotationPresent(PageObject.class)) {
+    if (methodCallerClass.isAnnotationPresent(PageObject.class)) {
       LOG.
-          debug("Caught invocation of method {} from {}. Started processing loadable component conditions hierarchy",
-                      methodInvocation.getMethod().getName(), callerClass.getName());
+        debug("Caught invocation of method {} from {}. Started processing loadable component conditions hierarchy",
+          methodInvocation.getMethod().getName(), methodCallerClass.getName());
 
       BobcatWebElement caller = (BobcatWebElement) methodInvocation.getThis();
       ClassFieldContext directContext = acquireDirectContext(caller);
       ConditionStack loadableContextHierarchy
-              = loadableCondsExplorer.discoverLoadableContextHierarchy(callerClass, directContext);
+          = loadableCondsExplorer.discoverLoadableContextHierarchy(methodCallerClass, directContext);
 
       loadConditionChainRunner.chainCheck(loadableContextHierarchy);
     }
@@ -69,9 +70,10 @@ public class WebElementInterceptor implements MethodInterceptor {
 
   }
 
-  private Class getCallerClass() throws ClassNotFoundException {
-    return Class.forName(Thread.currentThread().getStackTrace()[ORIGINAL_CALLER_CLASS_LEVEL].
-            getClassName());
+  private Class getMethodCallerClassWithoutGuiceContext() throws ClassNotFoundException {
+    return AopUtil.getBaseClassForAopObject(Class.
+            forName(Thread.currentThread().getStackTrace()[ORIGINAL_CALLER_CLASS_LEVEL].
+                    getClassName()));
   }
 
   private ClassFieldContext acquireDirectContext(BobcatWebElement caller) {
