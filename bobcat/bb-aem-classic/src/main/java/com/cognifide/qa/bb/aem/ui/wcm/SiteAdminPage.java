@@ -95,11 +95,8 @@ public class SiteAdminPage {
   @FindPageObject
   private PastePageWindow pastePageWindow;
 
-  @FindBy(id = ReplicateLaterWindow.ACTIVATE_LATER_WINDOW_ID)
-  private ReplicateLaterWindow activateLaterWindow;
-
-  @FindBy(id = ReplicateLaterWindow.DEACTIVATE_LATER_WINDOW_ID)
-  private ReplicateLaterWindow deactivateLaterWindow;
+  @FindBy(xpath = "//*[@id='cq-deactivate-later-dialog-0' or @id='cq-activate-later-dialog-0']")
+  private ReplicateLaterWindow replicateLaterWindow;
 
   @FindBy(id = CreateSiteWindow.ID)
   private CreateSiteWindow createSiteWindow;
@@ -245,9 +242,9 @@ public class SiteAdminPage {
           .contains("x-item-disabled");
     });
     grid.getActionBar().clickDropDownOption(SiteAdminButtons.ACTIVATE_LATER);
-    activateLaterWindow.fillDay(day);
-    activateLaterWindow.fillTime(time);
-    activateLaterWindow.confirm();
+    replicateLaterWindow.fillDay(day);
+    replicateLaterWindow.fillTime(time);
+    replicateLaterWindow.confirm();
     grid.waitForLoaderNotPresent();
     waitForPageStatus(title, PageStatus.SCHEDULED_ACTIVATION);
     return this;
@@ -272,9 +269,9 @@ public class SiteAdminPage {
           .contains("x-item-disabled");
     });
     grid.getActionBar().clickDropDownOption(SiteAdminButtons.DEACTIVATE_LATER);
-    deactivateLaterWindow.fillDay(day);
-    deactivateLaterWindow.fillTime(time);
-    deactivateLaterWindow.confirm();
+    replicateLaterWindow.fillDay(day);
+    replicateLaterWindow.fillTime(time);
+    replicateLaterWindow.confirm();
     grid.waitForLoaderNotPresent();
     waitForPageStatus(title, PageStatus.SCHEDULED_DEACTIVATION);
     return this;
