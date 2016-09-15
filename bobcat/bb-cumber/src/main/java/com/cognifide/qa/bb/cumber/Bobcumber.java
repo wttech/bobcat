@@ -19,8 +19,10 @@
  */
 package com.cognifide.qa.bb.cumber;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -31,6 +33,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.CharEncoding;
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
 import org.junit.runner.notification.RunNotifier;
@@ -58,9 +61,13 @@ public class Bobcumber extends Cucumber {
 
   private static final String COLON = ":";
 
-  public static final String FEATURE = "feature";
+  private static final String FEATURE = "feature";
+
+  private static final String RERUN_FAILED_TESTS_CLASS_NAME = "com.cognifide.qa.bobcumber.RerunFailedTests";
 
   private boolean storeFailedResults;
+
+  private boolean noTestsToRerun = false;
 
   private File file;
 
@@ -80,12 +87,19 @@ public class Bobcumber extends Cucumber {
         PrintWriter writer = new PrintWriter(file, CharEncoding.UTF_8);
         writer.close();
       }
+      if (clazz.getName().equals(RERUN_FAILED_TESTS_CLASS_NAME) && !anyTestFailed()) {
+        noTestsToRerun = true;
+      }
     }
   }
 
   @Override
   public void run(RunNotifier notifier) {
-    if(storeFailedResults) {
+    if (noTestsToRerun) {
+      notifier.fireTestFinished(Description.EMPTY);
+      return;
+    }
+    if (storeFailedResults) {
       notifier.addListener(new RunListener() {
         public void testFailure(Failure failure) throws Exception {
           String trace = normalizeTrace(failure.getTrace());
@@ -145,5 +159,10 @@ public class Bobcumber extends Cucumber {
     } catch (IllegalAccessException e) {
       LOG.error("unable to close web driver pool", e);
     }
+  }
+
+  private boolean anyTestFailed() throws IOException {
+    BufferedReader br = new BufferedReader(new FileReader(file));
+    return !(br.readLine() == null);
   }
 }
