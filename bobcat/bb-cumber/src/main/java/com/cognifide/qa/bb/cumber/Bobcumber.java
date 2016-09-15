@@ -67,7 +67,7 @@ public class Bobcumber extends Cucumber {
 
   private boolean storeFailedResults;
 
-  private boolean noTestsToRerun = false;
+  private boolean noTestsToRerun;
 
   private File file;
 
@@ -87,7 +87,7 @@ public class Bobcumber extends Cucumber {
         PrintWriter writer = new PrintWriter(file, CharEncoding.UTF_8);
         writer.close();
       }
-      if (clazz.getName().equals(RERUN_FAILED_TESTS_CLASS_NAME) && !anyTestFailed()) {
+      if (RERUN_FAILED_TESTS_CLASS_NAME.equals(clazz.getName()) && isFeatureFileEmpty()) {
         noTestsToRerun = true;
       }
     }
@@ -161,8 +161,10 @@ public class Bobcumber extends Cucumber {
     }
   }
 
-  private boolean anyTestFailed() throws IOException {
+  private boolean isFeatureFileEmpty() throws IOException {
     BufferedReader br = new BufferedReader(new FileReader(file));
-    return !(br.readLine() == null);
+    boolean isFeatureFileEmpty = br.readLine() == null;
+    br.close();
+    return isFeatureFileEmpty;
   }
 }
