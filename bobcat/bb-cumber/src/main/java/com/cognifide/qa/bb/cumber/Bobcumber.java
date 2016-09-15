@@ -162,9 +162,8 @@ public class Bobcumber extends Cucumber {
   }
 
   private boolean isFeatureFileEmpty() throws IOException {
-    BufferedReader br = new BufferedReader(new FileReader(file));
-    boolean isFeatureFileEmpty = br.readLine() == null;
-    br.close();
-    return isFeatureFileEmpty;
+    try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+      return br.readLine() == null;
+    }
   }
 }
