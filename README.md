@@ -89,3 +89,4 @@ To work with **Bobcat** the following tools are required:
 ## Documentation
 * [Bobcat Wiki](https://github.com/Cognifide/bobcat/wiki)
 * [Bobcat 1.1.1 APIdocs](https://cognifide.github.io/bobcat/apidocs/1-1-1/)
+ 
