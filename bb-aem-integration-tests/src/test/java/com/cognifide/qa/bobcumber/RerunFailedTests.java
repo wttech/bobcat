@@ -19,6 +19,7 @@
  */
 package com.cognifide.qa.bobcumber;
 
+import com.cognifide.qa.bb.cumber.rerun.FailedTestsRunner;
 import org.junit.runner.RunWith;
 
 import com.cognifide.qa.bb.cumber.Bobcumber;
@@ -34,6 +35,7 @@ import cucumber.api.CucumberOptions;
         "json:target/rerun.json"},
     glue = "com.cognifide.qa"
 )
+@FailedTestsRunner
 public class RerunFailedTests {
   /*
   This class is empty on  purpose - it's only a runner for cucumber tests.

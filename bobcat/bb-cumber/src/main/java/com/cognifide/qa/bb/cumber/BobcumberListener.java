@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang3.CharEncoding;
+import org.junit.runner.Description;
+import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
 
@@ -17,9 +20,17 @@ public class BobcumberListener extends RunListener {
 
 	private static final String FEATURE = "feature";
 
+	private static final String SCENARIO = "Scenario";
+
 	private static final Map<String, Set<String>> ADDED_FEATURES = new HashMap<>();
 
 	private static final String COLON = ":";
+
+	private Integer scenarioCounter = 0;
+
+	private Integer testFailureCounter = 0;
+
+	private boolean alreadyRegistered;
 
 	private Bobcumber bobcumber;
 
@@ -28,10 +39,32 @@ public class BobcumberListener extends RunListener {
 	}
 
 	@Override
+	public void testRunFinished(Result result) throws Exception {
+		try (PrintWriter writer = new PrintWriter(bobcumber.getStatisticsFile(), CharEncoding.UTF_8)) {
+			writer.println(scenarioCounter);
+			writer.println(testFailureCounter);
+		}
+	}
+
+	@Override
+	public void testStarted(Description description) throws Exception {
+		String displayName = description.getDisplayName();
+		String testStep = displayName.substring(0, displayName.lastIndexOf(COLON));
+		if (SCENARIO.equals(testStep)) {
+			scenarioCounter++;
+			alreadyRegistered = false;
+		}
+	}
+
+	@Override
 	public void testFailure(Failure failure) throws Exception {
 		String trace = normalizeTrace(failure.getTrace());
 		if (trace.contains(FEATURE)) {
 			addScenario(trace);
+			if (!alreadyRegistered) {
+				testFailureCounter++;
+				alreadyRegistered = true;
+			}
 		}
 	}
 
@@ -53,7 +86,7 @@ public class BobcumberListener extends RunListener {
 			ADDED_FEATURES.put(featureName, Sets.newHashSet(failedLineNumber));
 		}
 
-		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(bobcumber.getFile(), false)));
+		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(bobcumber.getFeatureFile(), false)));
 		for (String feature : ADDED_FEATURES.keySet()) {
 			out.print(feature);
 			Set<String> lines = ADDED_FEATURES.get(feature);
