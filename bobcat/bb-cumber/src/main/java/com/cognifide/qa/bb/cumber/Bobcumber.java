@@ -19,22 +19,27 @@
  */
 package com.cognifide.qa.bb.cumber;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 
+import com.cognifide.qa.bb.cumber.rerun.FailedTestsRunner;
+import com.cognifide.qa.bb.cumber.rerun.TooManyTestsException;
 import org.apache.commons.lang3.CharEncoding;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.runner.Description;
+import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.model.InitializationError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.provider.selenium.webdriver.WebDriverRegistry;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 
 import cucumber.api.junit.Cucumber;
 import cucumber.runtime.Backend;
@@ -49,13 +54,23 @@ public class Bobcumber extends Cucumber {
 
   private static final Logger LOG = LoggerFactory.getLogger(Bobcumber.class);
 
-	private static final String RERUN_FAILED_TESTS_CLASS_NAME = "com.cognifide.qa.bobcumber.RerunFailedTests";
-
   private boolean storeFailedResults;
 
-  private boolean noTestsToRerun;
+  private boolean isItFailedTestsRerun;
 
-  private File file;
+  //TODO: fix null injection
+  @Inject
+  @Named("bobcat.report.statisticsFilePath")
+  private String statisticsFilePath = "target/testsStatisticFile.properties";
+
+  //TODO: fix null injection
+  @Inject
+  @Named("bobcat.report.maxFailedTestPercentage")
+  private Integer maxFailedTestPercentage = 30;
+
+  private File featureFile;
+
+  private File statisticsFile;
 
   /**
    * Constructor called by JUnit.
@@ -68,28 +83,42 @@ public class Bobcumber extends Cucumber {
     super(clazz);
     storeFailedResults = clazz.isAnnotationPresent(StoreFailedResults.class);
     if (storeFailedResults) {
-      file = new File(clazz.getAnnotation(StoreFailedResults.class).value());
-      if (!file.exists()) {
-        PrintWriter writer = new PrintWriter(file, CharEncoding.UTF_8);
-        writer.close();
-      }
-      if (RERUN_FAILED_TESTS_CLASS_NAME.equals(clazz.getName()) && isFeatureFileEmpty()) {
-        noTestsToRerun = true;
-      }
+      featureFile = createFile(clazz.getAnnotation(StoreFailedResults.class).value());
+      statisticsFile = createFile(statisticsFilePath);
     }
+    isItFailedTestsRerun = clazz.isAnnotationPresent(FailedTestsRunner.class);
   }
 
   @Override
   public void run(RunNotifier notifier) {
-    if (noTestsToRerun) {
-      notifier.fireTestFinished(Description.EMPTY);
-      return;
+    if (isItFailedTestsRerun) {
+      try {
+        if (StatisticsUtils.getNumberOfFailedTests(statisticsFile).equals(0)) {
+          notifier.fireTestFinished(Description.EMPTY);
+          return;
+        }
+        if (StatisticsUtils.getPercentageOfFailedTests(statisticsFile) > maxFailedTestPercentage) {
+          notifier.fireTestFailure(new Failure(null, new TooManyTestsException()));
+          return;
+        }
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     }
     if (storeFailedResults) {
       notifier.addListener(new BobcumberListener(this));
     }
     super.run(notifier);
     closeWebDriverPool();
+  }
+
+  private File createFile(String path) throws FileNotFoundException, UnsupportedEncodingException {
+    File file = new File(path);
+    if (!file.exists()) {
+      PrintWriter writer = new PrintWriter(file, CharEncoding.UTF_8);
+      writer.close();
+    }
+    return file;
   }
 
   @SuppressWarnings("unchecked")
@@ -111,13 +140,11 @@ public class Bobcumber extends Cucumber {
     }
   }
 
-  private boolean isFeatureFileEmpty() throws IOException {
-    try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-      return br.readLine() == null;
-    }
+  public File getFeatureFile() {
+    return featureFile;
   }
 
-  public File getFile() {
-    return file;
+  public File getStatisticsFile() {
+    return statisticsFile;
   }
 }
