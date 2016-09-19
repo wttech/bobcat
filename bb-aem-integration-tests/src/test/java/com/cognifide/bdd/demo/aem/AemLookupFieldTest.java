@@ -112,8 +112,8 @@ public class AemLookupFieldTest {
 
   @Test
   public void testSelectByPathWindow() {
-    lookupField.setValue("Websites/Geometrixx Mobile Demo Site/English/Company/Support");
-    assertEquals("/content/geometrixx_mobile/en/company/support", lookupField.read());
+    lookupField.setValue("Websites/Geometrixx Outdoors Site/English/Men's/Coats/Edmonton Winter");
+    assertEquals("/content/geometrixx-outdoors/en/men/coats/edmonton-winter", lookupField.read());
   }
 
   @Test
