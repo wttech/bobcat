@@ -19,10 +19,11 @@
  */
 package com.cognifide.qa.bb;
 
-/**
- * Created by szymon.nowak on 19.09.2016.
- */
 public class ConfigKeys {
+
+  private ConfigKeys() {
+    //Config class...
+  }
 
   public static final String BOBCAT_REPORT_STATISTICS_PATH = "bobcat.report.statistics.path";
 
