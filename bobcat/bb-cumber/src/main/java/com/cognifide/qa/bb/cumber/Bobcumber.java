@@ -19,16 +19,22 @@
  */
 package com.cognifide.qa.bb.cumber;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
+import java.util.Properties;
 
-import com.cognifide.qa.bb.cumber.rerun.FailedTestsRunner;
-import com.cognifide.qa.bb.cumber.rerun.TooManyTestsException;
+import com.google.inject.Inject;
 import org.apache.commons.lang3.CharEncoding;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
@@ -37,9 +43,11 @@ import org.junit.runners.model.InitializationError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.cognifide.qa.bb.ConfigKeys;
+import com.cognifide.qa.bb.PropertyBinder;
+import com.cognifide.qa.bb.cumber.rerun.FailedTestsRunner;
+import com.cognifide.qa.bb.cumber.rerun.TooManyTestsException;
 import com.cognifide.qa.bb.provider.selenium.webdriver.WebDriverRegistry;
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
 
 import cucumber.api.junit.Cucumber;
 import cucumber.runtime.Backend;
@@ -58,15 +66,12 @@ public class Bobcumber extends Cucumber {
 
   private boolean isItFailedTestsRerun;
 
-  //TODO: fix null injection
-  @Inject
-  @Named("bobcat.report.statisticsFilePath")
-  private String statisticsFilePath = "target/testsStatisticFile.properties";
+  private String statisticsFilePath;
 
-  //TODO: fix null injection
+  private Integer maxFailedTestPercentage;
+
   @Inject
-  @Named("bobcat.report.maxFailedTestPercentage")
-  private Integer maxFailedTestPercentage = 30;
+  private Properties properties;
 
   private File featureFile;
 
@@ -81,6 +86,7 @@ public class Bobcumber extends Cucumber {
    */
   public Bobcumber(Class<?> clazz) throws InitializationError, IOException {
     super(clazz);
+    bindFields();
     storeFailedResults = clazz.isAnnotationPresent(StoreFailedResults.class);
     if (storeFailedResults) {
       featureFile = createFile(clazz.getAnnotation(StoreFailedResults.class).value());
@@ -98,7 +104,7 @@ public class Bobcumber extends Cucumber {
           return;
         }
         if (StatisticsUtils.getPercentageOfFailedTests(statisticsFile) > maxFailedTestPercentage) {
-          notifier.fireTestFailure(new Failure(null, new TooManyTestsException()));
+          notifier.fireTestFailure(new Failure(Description.createSuiteDescription("Too many tests."), new TooManyTestsException()));
           return;
         }
       } catch (IOException e) {
@@ -138,6 +144,59 @@ public class Bobcumber extends Cucumber {
     } catch (IllegalAccessException e) {
       LOG.error("unable to close web driver pool", e);
     }
+  }
+
+  private void bindFields() {
+    properties = bindProperties();
+    statisticsFilePath = properties.getProperty(ConfigKeys.BOBCAT_REPORT_STATISTICS_PATH);
+    maxFailedTestPercentage = Integer.parseInt(properties.getProperty(ConfigKeys.BOBCAT_REPORT_STATISTICS_PERCENTAGE));
+  }
+
+  private Properties bindProperties() {
+    String parents = System.getProperty(com.cognifide.qa.bb.constants.ConfigKeys.CONFIGURATION_PATHS, "src/main/config/common");
+    String[] split = StringUtils.split(parents, ";");
+    Properties properties = loadDefaultProperties();
+    for (String name : split) {
+      File configParent = new File(StringUtils.trim(name));
+      try {
+        loadProperties(configParent, properties);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    return properties;
+  }
+
+  private static void loadProperties(File file, Properties properties) throws IOException {
+    if (!file.exists()) {
+      return;
+    }
+    if (file.isDirectory()) {
+      for (File child : file.listFiles()) {
+        loadProperties(child, properties);
+      }
+    } else {
+      BufferedReader reader = new BufferedReader(
+          new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
+
+      LOG.debug("loading properties from: {} (ie. {})", file, file.getAbsolutePath());
+      try {
+        properties.load(reader);
+      } finally {
+        reader.close();
+      }
+    }
+  }
+
+  private static Properties loadDefaultProperties() {
+    Properties properties = new Properties();
+    try (InputStream is = PropertyBinder.class.getClassLoader()
+        .getResourceAsStream(com.cognifide.qa.bb.constants.ConfigKeys.DEFAULT_PROPERTIES_NAME)) {
+      properties.load(is);
+    } catch (IOException e) {
+      LOG.error("Can't bind default properties", e);
+    }
+    return properties;
   }
 
   public File getFeatureFile() {
