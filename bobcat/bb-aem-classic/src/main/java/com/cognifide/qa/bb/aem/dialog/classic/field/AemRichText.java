@@ -254,11 +254,14 @@ public class AemRichText implements Configurable {
   }
 
   private void switchToTextArea() {
+    boolean isRichtextDisabled = isRichtextDisabled();
     if (StringUtils.isEmpty(frameName)) {
       frameName = currentScope.findElement(By.tagName("iframe")).getAttribute("name");
     }
     frameSwitcher.switchTo("/$cq/" + frameName);
-    webDriver.switchTo().activeElement().click();
+    if (isRichtextDisabled) {
+      webDriver.switchTo().activeElement().click();
+    }
   }
 
   private String getTextAreaInnerHtml() {
