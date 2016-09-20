@@ -28,111 +28,113 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
+import com.cognifide.qa.bb.PropertyBinder;
+import com.cognifide.qa.bb.constants.ConfigKeys;
+import com.cognifide.qa.bb.constants.Timeouts;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cognifide.qa.bb.PropertyBinder;
-import com.cognifide.qa.bb.constants.ConfigKeys;
-import com.cognifide.qa.bb.constants.Timeouts;
-
 public class PropertyUtils {
 
-	private static final Logger LOG = LoggerFactory.getLogger(PropertyUtils.class);
+  private static final Logger LOG = LoggerFactory.getLogger(PropertyUtils.class);
 
-	private static final String[] PREFIXES = new String[] { "webdriver.", "phantomjs." };
+  private static final String[] PREFIXES = new String[] {"webdriver.", "phantomjs."};
 
-	private PropertyUtils() {
-		// util class...
-	}
+  private static Properties properties = null;
 
-	/**
-	 * This util method gather system and class path properties, and returns them as <code>Properties</code>
-	 * object.
-	 * 
-	 * @return Properties - object with all properties.
-	 */
-	public static Properties gatherProperties() {
-		Properties properties = null;
-		try {
-			String parents = System.getProperty(ConfigKeys.CONFIGURATION_PATHS, "src/main/config");
-			String[] split = StringUtils.split(parents, ";");
-			properties = loadDefaultProperties();
-			for (String name : split) {
-				File configParent = new File(StringUtils.trim(name));
-				loadProperties(configParent, properties);
-			}
-			overrideFromSystemProperties(properties);
-			setSystemProperties(properties);
-			overrideTimeouts(properties);
-		} catch (IOException e) {
-			LOG.error("Can't bind properties", e);
-		}
-		return properties;
-	}
+  private PropertyUtils() {
+    // util class...
+  }
 
-	private static void overrideTimeouts(Properties properties) {
-		int big = Integer.parseInt(properties.getProperty(ConfigKeys.TIMEOUTS_BIG));
-		int medium = Integer.parseInt(properties.getProperty(ConfigKeys.TIMEOUTS_MEDIUM));
-		int small = Integer.parseInt(properties.getProperty(ConfigKeys.TIMEOUTS_SMALL));
-		int minimal = Integer.parseInt(properties.getProperty(ConfigKeys.TIMEOUTS_MINIMAL));
-		new Timeouts(big, medium, small, minimal);
-	}
+  /**
+   * This util method gather system and class path properties, and returns them as <code>Properties</code>
+   * object.
+   *
+   * @return Properties - object with all properties.
+   */
+  public static Properties gatherProperties() {
+    if (properties == null) {
+      try {
+        String parents = System.getProperty(ConfigKeys.CONFIGURATION_PATHS, "src/main/config");
+        String[] split = StringUtils.split(parents, ";");
+        properties = loadDefaultProperties();
+        for (String name : split) {
+          File configParent = new File(StringUtils.trim(name));
+          loadProperties(configParent, properties);
+        }
+        overrideFromSystemProperties(properties);
+        setSystemProperties(properties);
+        overrideTimeouts(properties);
+      } catch (IOException e) {
+        LOG.error("Can't bind properties", e);
+      }
+    }
+    return properties;
+  }
 
-	private static Properties loadDefaultProperties() throws IOException {
-		Properties properties = new Properties();
-		try (InputStream is = PropertyBinder.class.getClassLoader()
-				.getResourceAsStream(ConfigKeys.DEFAULT_PROPERTIES_NAME)) {
-			properties.load(is);
-		} catch (IOException e) {
-			LOG.error("Can't bind default properties", e);
-		}
-		return properties;
-	}
+  private static void overrideTimeouts(Properties properties) {
+    int big = Integer.parseInt(properties.getProperty(ConfigKeys.TIMEOUTS_BIG));
+    int medium = Integer.parseInt(properties.getProperty(ConfigKeys.TIMEOUTS_MEDIUM));
+    int small = Integer.parseInt(properties.getProperty(ConfigKeys.TIMEOUTS_SMALL));
+    int minimal = Integer.parseInt(properties.getProperty(ConfigKeys.TIMEOUTS_MINIMAL));
+    new Timeouts(big, medium, small, minimal);
+  }
 
-	private static void loadProperties(File file, Properties properties) throws IOException {
-		if (!file.exists()) {
-			return;
-		}
-		if (file.isDirectory()) {
-			for (File child : file.listFiles()) {
-				loadProperties(child, properties);
-			}
-		} else {
-			BufferedReader reader = new BufferedReader(
-					new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
+  private static Properties loadDefaultProperties() throws IOException {
+    Properties properties = new Properties();
+    try (InputStream is = PropertyBinder.class.getClassLoader()
+        .getResourceAsStream(ConfigKeys.DEFAULT_PROPERTIES_NAME)) {
+      properties.load(is);
+    } catch (IOException e) {
+      LOG.error("Can't bind default properties", e);
+    }
+    return properties;
+  }
 
-			LOG.debug("loading properties from: {} (ie. {})", file, file.getAbsolutePath());
-			try {
-				properties.load(reader);
-			} finally {
-				reader.close();
-			}
-		}
-	}
+  private static void loadProperties(File file, Properties properties) throws IOException {
+    if (!file.exists()) {
+      LOG.warn("{} file doesn't exists.", file.getPath());
+    } else {
+      if (file.isDirectory()) {
+        for (File child : file.listFiles()) {
+          loadProperties(child, properties);
+        }
+      } else {
+        BufferedReader reader = new BufferedReader(
+            new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
 
-	private static void overrideFromSystemProperties(Properties properties) {
-		properties.stringPropertyNames().stream().forEach((key) -> {
-			String systemProperty = System.getProperty(key);
-			if (StringUtils.isNotBlank(systemProperty)) {
-				properties.setProperty(key, systemProperty);
-			}
-		});
-	}
+        LOG.debug("loading properties from: {} (ie. {})", file, file.getAbsolutePath());
+        try {
+          properties.load(reader);
+        } finally {
+          reader.close();
+        }
+      }
+    }
+  }
 
-	private static void setSystemProperties(Properties properties) {
-		for (String key : properties.stringPropertyNames()) {
-			String systemProperty = System.getProperty(key);
-			if (StringUtils.isNotBlank(systemProperty)) {
-				continue;
-			}
-			for (String prefix : PREFIXES) {
-				if (key.startsWith(prefix)) {
-					System.setProperty(key, properties.getProperty(key));
-					break;
-				}
-			}
-		}
-	}
+  private static void overrideFromSystemProperties(Properties properties) {
+    properties.stringPropertyNames().stream().forEach((key) -> {
+      String systemProperty = System.getProperty(key);
+      if (StringUtils.isNotBlank(systemProperty)) {
+        properties.setProperty(key, systemProperty);
+      }
+    });
+  }
 
+  private static void setSystemProperties(Properties properties) {
+    for (String key : properties.stringPropertyNames()) {
+      String systemProperty = System.getProperty(key);
+      if (StringUtils.isNotBlank(systemProperty)) {
+        continue;
+      }
+      for (String prefix : PREFIXES) {
+        if (key.startsWith(prefix)) {
+          System.setProperty(key, properties.getProperty(key));
+          break;
+        }
+      }
+    }
+  }
 }

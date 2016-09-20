@@ -17,47 +17,56 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.cumber;
+package com.cognifide.qa.bb.cumber.util;
 
 import java.io.File;
-import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class StatisticsUtils {
+import com.google.inject.Singleton;
+
+@Singleton
+public class StatisticsHelper {
 
   /**
    * @param file
    * @return number of all triggered test
    */
-  public int getNumberOfTests(File file) throws IOException {
+  public int getNumberOfTests(File file) throws FileNotFoundException {
     Scanner scanner = new Scanner(file);
-    if (!scanner.hasNext()) {
-      return 0;
-    }
-    return new Integer(scanner.nextLine());
+    return nextInt(scanner);
   }
 
   /**
    * @param file
    * @return number of failed test
    */
-  public int getNumberOfFailedTests(File file) throws IOException{
+  public int getNumberOfFailedTests(File file) throws FileNotFoundException{
     Scanner scanner = new Scanner(file);
-    scanner.nextLine();
-    if (!scanner.hasNext()) {
-      return 0;
+    int returnValue = 0;
+    if (scanner.hasNext()) {
+      scanner.nextLine();
+      returnValue = nextInt(scanner);
     }
-    return new Integer(scanner.nextLine());
+    return returnValue;
   }
 
   /**
    * @param file
    * @return percentage of failed test
    */
-  public double getPercentageOfFailedTests(File file) throws IOException {
+  public double getPercentageOfFailedTests(File file) throws FileNotFoundException {
     if (getNumberOfTests(file) == 0) {
       return 0.0;
     }
     return ((double)getNumberOfFailedTests(file)/getNumberOfTests(file)) * 100;
+  }
+
+  private int nextInt(Scanner scanner) {
+    int returnValue = 0;
+    if (scanner.hasNext()) {
+      returnValue = Integer.valueOf(scanner.nextLine());
+    }
+    return returnValue;
   }
 }

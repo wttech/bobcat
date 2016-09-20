@@ -27,5 +27,5 @@ public class ConfigKeys {
 
   public static final String BOBCAT_REPORT_STATISTICS_PATH = "bobcat.report.statistics.path";
 
-  public static final String BOBCAT_REPORT_STATISTICS_PERCENTAGE = "bobcat.report.statistics.percentage";
+  public static final String BOBCAT_REPORT_STATISTICS_PERCENTAGE = "bobcat.report.statistics.retryPercentage";
 }

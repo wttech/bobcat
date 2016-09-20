@@ -27,6 +27,17 @@ import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.Properties;
 
+import com.cognifide.qa.bb.ConfigKeys;
+import com.cognifide.qa.bb.cumber.util.StatisticsHelper;
+import com.cognifide.qa.bb.cumber.rerun.FailedTestsRunner;
+import com.cognifide.qa.bb.cumber.rerun.TooManyTestsToRerunException;
+import com.cognifide.qa.bb.provider.selenium.webdriver.WebDriverRegistry;
+import com.cognifide.qa.bb.utils.PropertyUtils;
+import cucumber.api.junit.Cucumber;
+import cucumber.runtime.Backend;
+import cucumber.runtime.Runtime;
+import cucumber.runtime.java.JavaBackend;
+import cucumber.runtime.java.guice.impl.GuiceFactory;
 import org.apache.commons.lang3.CharEncoding;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.runner.Description;
@@ -36,18 +47,6 @@ import org.junit.runners.model.InitializationError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cognifide.qa.bb.ConfigKeys;
-import com.cognifide.qa.bb.cumber.rerun.FailedTestsRunner;
-import com.cognifide.qa.bb.cumber.rerun.TooManyTestsException;
-import com.cognifide.qa.bb.provider.selenium.webdriver.WebDriverRegistry;
-import com.cognifide.qa.bb.utils.PropertyUtils;
-
-import cucumber.api.junit.Cucumber;
-import cucumber.runtime.Backend;
-import cucumber.runtime.Runtime;
-import cucumber.runtime.java.JavaBackend;
-import cucumber.runtime.java.guice.impl.GuiceFactory;
-
 /**
  * Classes annotated with {@code @RunWith(Bobcumber.class)} will run a Cucumber Feature
  */
@@ -55,21 +54,21 @@ public class Bobcumber extends Cucumber {
 
   private static final Logger LOG = LoggerFactory.getLogger(Bobcumber.class);
 
+  private final Properties properties = PropertyUtils.gatherProperties();
+
+  private final double maxFailedTestPercentage = Double.parseDouble(properties.getProperty(ConfigKeys.BOBCAT_REPORT_STATISTICS_PERCENTAGE));
+
   private boolean storeFailedResults;
 
   private boolean isItFailedTestsRerun;
 
-  private Properties properties;
-
-  private String statisticsFilePath;
-
-  private Double maxFailedTestPercentage;
+  private boolean shouldTestsRun = false;
 
   private File featureFile;
 
   private File statisticsFile;
 
-  private StatisticsUtils statisticsUtils;
+  private StatisticsHelper statisticsHelper = new StatisticsHelper();
 
   /**
    * Constructor called by JUnit.
@@ -80,10 +79,10 @@ public class Bobcumber extends Cucumber {
    */
   public Bobcumber(Class<?> clazz) throws InitializationError, IOException {
     super(clazz);
-    bindFields();
     storeFailedResults = clazz.isAnnotationPresent(StoreFailedResults.class);
     if (storeFailedResults) {
       featureFile = createFile(clazz.getAnnotation(StoreFailedResults.class).value());
+      String statisticsFilePath = properties.getProperty(ConfigKeys.BOBCAT_REPORT_STATISTICS_PATH);
       statisticsFile = createFile(statisticsFilePath);
     }
     isItFailedTestsRerun = clazz.isAnnotationPresent(FailedTestsRunner.class);
@@ -91,23 +90,8 @@ public class Bobcumber extends Cucumber {
 
   @Override
   public void run(RunNotifier notifier) {
-    if (isItFailedTestsRerun) {
-      try {
-        if (statisticsUtils.getNumberOfFailedTests(statisticsFile) == 0) {
-          notifier.fireTestFinished(Description.EMPTY);
-          return;
-        }
-        double percentageOfFailedTests = statisticsUtils.getPercentageOfFailedTests(statisticsFile);
-        if (percentageOfFailedTests > maxFailedTestPercentage) {
-          notifier.fireTestFailure(new Failure(
-              Description.createSuiteDescription(
-                  "Percentage of failed tests was bigger than " + maxFailedTestPercentage + "."),
-              new TooManyTestsException("Percentage of failed tests was bigger than " + maxFailedTestPercentage + ".")));
-          return;
-        }
-      } catch (IOException e) {
-        LOG.error("Statistics file not found.");
-      }
+    if (isItFailedTestsRerun && !shouldRerun(notifier)) {
+      return;
     }
     if (storeFailedResults) {
       notifier.addListener(new BobcumberListener(this));
@@ -144,11 +128,27 @@ public class Bobcumber extends Cucumber {
     }
   }
 
-  private void bindFields() {
-    properties = PropertyUtils.gatherProperties();
-    statisticsFilePath = properties.getProperty(ConfigKeys.BOBCAT_REPORT_STATISTICS_PATH);
-    maxFailedTestPercentage = Double.parseDouble(properties.getProperty(ConfigKeys.BOBCAT_REPORT_STATISTICS_PERCENTAGE));
-    statisticsUtils = new StatisticsUtils();
+  /**
+   * Check requirements for rerun feature, and finish test if it's expected.
+   */
+  private boolean shouldRerun(RunNotifier notifier) {
+    boolean shouldRerun = true;
+    try {
+      double percentageOfFailedTests = statisticsHelper.getPercentageOfFailedTests(statisticsFile);
+      if (statisticsHelper.getNumberOfFailedTests(statisticsFile) == 0) {
+        notifier.fireTestFinished(Description.EMPTY);
+        shouldRerun = false;
+      }
+      if (percentageOfFailedTests > maxFailedTestPercentage) {
+        String failureMessage = "Percentage of failed tests was bigger than " + maxFailedTestPercentage + ".";
+        Failure failure = new Failure(Description.createSuiteDescription(failureMessage), new TooManyTestsToRerunException(failureMessage));
+        notifier.fireTestFailure(failure);
+        shouldRerun = false;
+      }
+    } catch (FileNotFoundException e) {
+      LOG.error("Statistics file not found.");
+    }
+    return shouldRerun;
   }
 
   public File getFeatureFile() {
