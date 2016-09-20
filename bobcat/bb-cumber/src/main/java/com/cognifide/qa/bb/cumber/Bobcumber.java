@@ -19,22 +19,15 @@
  */
 package com.cognifide.qa.bb.cumber;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Properties;
 
-import com.google.inject.Inject;
 import org.apache.commons.lang3.CharEncoding;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
@@ -44,10 +37,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.ConfigKeys;
-import com.cognifide.qa.bb.PropertyBinder;
 import com.cognifide.qa.bb.cumber.rerun.FailedTestsRunner;
 import com.cognifide.qa.bb.cumber.rerun.TooManyTestsException;
 import com.cognifide.qa.bb.provider.selenium.webdriver.WebDriverRegistry;
+import com.cognifide.qa.bb.utils.PropertyUtils;
 
 import cucumber.api.junit.Cucumber;
 import cucumber.runtime.Backend;
@@ -66,16 +59,17 @@ public class Bobcumber extends Cucumber {
 
   private boolean isItFailedTestsRerun;
 
+  private Properties properties;
+
   private String statisticsFilePath;
 
-  private Integer maxFailedTestPercentage;
-
-  @Inject
-  private Properties properties;
+  private Double maxFailedTestPercentage;
 
   private File featureFile;
 
   private File statisticsFile;
+
+  private StatisticsUtils statisticsUtils;
 
   /**
    * Constructor called by JUnit.
@@ -99,16 +93,20 @@ public class Bobcumber extends Cucumber {
   public void run(RunNotifier notifier) {
     if (isItFailedTestsRerun) {
       try {
-        if (StatisticsUtils.getNumberOfFailedTests(statisticsFile).equals(0)) {
+        if (statisticsUtils.getNumberOfFailedTests(statisticsFile) == 0) {
           notifier.fireTestFinished(Description.EMPTY);
           return;
         }
-        if (StatisticsUtils.getPercentageOfFailedTests(statisticsFile) > maxFailedTestPercentage) {
-          notifier.fireTestFailure(new Failure(Description.createSuiteDescription("Too many tests."), new TooManyTestsException()));
+        double percentageOfFailedTests = statisticsUtils.getPercentageOfFailedTests(statisticsFile);
+        if (percentageOfFailedTests > maxFailedTestPercentage) {
+          notifier.fireTestFailure(new Failure(
+              Description.createSuiteDescription(
+                  "Percentage of failed tests was bigger than " + maxFailedTestPercentage + "."),
+              new TooManyTestsException("Percentage of failed tests was bigger than " + maxFailedTestPercentage + ".")));
           return;
         }
       } catch (IOException e) {
-        e.printStackTrace();
+        LOG.error("Statistics file not found.");
       }
     }
     if (storeFailedResults) {
@@ -147,56 +145,10 @@ public class Bobcumber extends Cucumber {
   }
 
   private void bindFields() {
-    properties = bindProperties();
+    properties = PropertyUtils.gatherProperties();
     statisticsFilePath = properties.getProperty(ConfigKeys.BOBCAT_REPORT_STATISTICS_PATH);
-    maxFailedTestPercentage = Integer.parseInt(properties.getProperty(ConfigKeys.BOBCAT_REPORT_STATISTICS_PERCENTAGE));
-  }
-
-  private Properties bindProperties() {
-    String parents = System.getProperty(com.cognifide.qa.bb.constants.ConfigKeys.CONFIGURATION_PATHS, "src/main/config/common");
-    String[] split = StringUtils.split(parents, ";");
-    Properties properties = loadDefaultProperties();
-    for (String name : split) {
-      File configParent = new File(StringUtils.trim(name));
-      try {
-        loadProperties(configParent, properties);
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
-    return properties;
-  }
-
-  private static void loadProperties(File file, Properties properties) throws IOException {
-    if (!file.exists()) {
-      return;
-    }
-    if (file.isDirectory()) {
-      for (File child : file.listFiles()) {
-        loadProperties(child, properties);
-      }
-    } else {
-      BufferedReader reader = new BufferedReader(
-          new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
-
-      LOG.debug("loading properties from: {} (ie. {})", file, file.getAbsolutePath());
-      try {
-        properties.load(reader);
-      } finally {
-        reader.close();
-      }
-    }
-  }
-
-  private static Properties loadDefaultProperties() {
-    Properties properties = new Properties();
-    try (InputStream is = PropertyBinder.class.getClassLoader()
-        .getResourceAsStream(com.cognifide.qa.bb.constants.ConfigKeys.DEFAULT_PROPERTIES_NAME)) {
-      properties.load(is);
-    } catch (IOException e) {
-      LOG.error("Can't bind default properties", e);
-    }
-    return properties;
+    maxFailedTestPercentage = Double.parseDouble(properties.getProperty(ConfigKeys.BOBCAT_REPORT_STATISTICS_PERCENTAGE));
+    statisticsUtils = new StatisticsUtils();
   }
 
   public File getFeatureFile() {

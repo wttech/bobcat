@@ -26,6 +26,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.lang3.CharEncoding;
 import org.junit.runner.Description;
@@ -45,13 +46,13 @@ public class BobcumberListener extends RunListener {
 
 	private static final String COLON = ":";
 
-	private Integer scenarioCounter = 0;
+	private final Bobcumber bobcumber;
 
-	private Integer testFailureCounter = 0;
+	private AtomicInteger scenarioCounter = new AtomicInteger();
+
+	private AtomicInteger testFailureCounter = new AtomicInteger();
 
 	private boolean alreadyRegistered;
-
-	private Bobcumber bobcumber;
 
 	public BobcumberListener(Bobcumber bobcumber) {
 		this.bobcumber = bobcumber;
@@ -60,8 +61,8 @@ public class BobcumberListener extends RunListener {
 	@Override
 	public void testRunFinished(Result result) throws Exception {
 		try (PrintWriter writer = new PrintWriter(bobcumber.getStatisticsFile(), CharEncoding.UTF_8)) {
-			writer.println(scenarioCounter);
-			writer.println(testFailureCounter);
+			writer.println(scenarioCounter.get());
+			writer.println(testFailureCounter.get());
 		}
 	}
 
@@ -70,7 +71,7 @@ public class BobcumberListener extends RunListener {
 		String displayName = description.getDisplayName();
 		String testStep = displayName.substring(0, displayName.lastIndexOf(COLON));
 		if (SCENARIO.equals(testStep)) {
-			scenarioCounter++;
+			scenarioCounter.incrementAndGet();
 			alreadyRegistered = false;
 		}
 	}
@@ -81,7 +82,7 @@ public class BobcumberListener extends RunListener {
 		if (trace.contains(FEATURE)) {
 			addScenario(trace);
 			if (!alreadyRegistered) {
-				testFailureCounter++;
+				testFailureCounter.incrementAndGet();
 				alreadyRegistered = true;
 			}
 		}

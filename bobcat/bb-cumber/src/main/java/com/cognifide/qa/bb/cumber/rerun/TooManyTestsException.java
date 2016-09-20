@@ -20,7 +20,11 @@
 package com.cognifide.qa.bb.cumber.rerun;
 
 public class TooManyTestsException extends Exception {
-  public TooManyTestsException() {
-    super("There was too many tests failures.");
-  }
+	public TooManyTestsException() {
+		this("There was too many test failures.");
+	}
+
+	public TooManyTestsException(String msg) {
+		super(msg);
+	}
 }

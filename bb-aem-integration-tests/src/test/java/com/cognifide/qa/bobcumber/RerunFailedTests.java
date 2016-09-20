@@ -19,11 +19,11 @@
  */
 package com.cognifide.qa.bobcumber;
 
-import com.cognifide.qa.bb.cumber.rerun.FailedTestsRunner;
 import org.junit.runner.RunWith;
 
 import com.cognifide.qa.bb.cumber.Bobcumber;
 import com.cognifide.qa.bb.cumber.StoreFailedResults;
+import com.cognifide.qa.bb.cumber.rerun.FailedTestsRunner;
 
 import cucumber.api.CucumberOptions;
 
