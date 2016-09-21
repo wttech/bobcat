@@ -41,11 +41,11 @@ public class BobcumberListener extends RunListener {
 
   private final Bobcumber bobcumber;
 
-  private FeatureMap featureMap = new FeatureMap();
+  private final FeatureMap featureMap = new FeatureMap();
 
-  private AtomicInteger scenarioCounter = new AtomicInteger();
+  private final AtomicInteger scenarioCounter = new AtomicInteger();
 
-  private AtomicInteger testFailureCounter = new AtomicInteger();
+  private final AtomicInteger testFailureCounter = new AtomicInteger();
 
   private boolean alreadyRegistered;
 

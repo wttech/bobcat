@@ -28,9 +28,9 @@ import java.util.Collection;
 import java.util.Properties;
 
 import com.cognifide.qa.bb.ConfigKeys;
-import com.cognifide.qa.bb.cumber.util.StatisticsHelper;
 import com.cognifide.qa.bb.cumber.rerun.FailedTestsRunner;
 import com.cognifide.qa.bb.cumber.rerun.TooManyTestsToRerunException;
+import com.cognifide.qa.bb.cumber.util.StatisticsHelper;
 import com.cognifide.qa.bb.provider.selenium.webdriver.WebDriverRegistry;
 import com.cognifide.qa.bb.utils.PropertyUtils;
 import cucumber.api.junit.Cucumber;
@@ -62,8 +62,6 @@ public class Bobcumber extends Cucumber {
 
   private boolean isItFailedTestsRerun;
 
-  private boolean shouldTestsRun = false;
-
   private File featureFile;
 
   private File statisticsFile;
@@ -90,7 +88,8 @@ public class Bobcumber extends Cucumber {
 
   @Override
   public void run(RunNotifier notifier) {
-    if (isItFailedTestsRerun && !shouldRerun(notifier)) {
+    if (isItFailedTestsRerun && !canRerunFailedTests()) {
+      shutdownRerun(notifier);
       return;
     }
     if (storeFailedResults) {
@@ -128,27 +127,32 @@ public class Bobcumber extends Cucumber {
     }
   }
 
-  /**
-   * Check requirements for rerun feature, and finish test if it's expected.
-   */
-  private boolean shouldRerun(RunNotifier notifier) {
-    boolean shouldRerun = true;
+  private void shutdownRerun(RunNotifier notifier) {
     try {
       double percentageOfFailedTests = statisticsHelper.getPercentageOfFailedTests(statisticsFile);
-      if (statisticsHelper.getNumberOfFailedTests(statisticsFile) == 0) {
+      int failedTestsNumber = statisticsHelper.getNumberOfFailedTests(statisticsFile);
+      if (failedTestsNumber == 0) {
         notifier.fireTestFinished(Description.EMPTY);
-        shouldRerun = false;
-      }
-      if (percentageOfFailedTests > maxFailedTestPercentage) {
+      } else if (percentageOfFailedTests > maxFailedTestPercentage) {
         String failureMessage = "Percentage of failed tests was bigger than " + maxFailedTestPercentage + ".";
         Failure failure = new Failure(Description.createSuiteDescription(failureMessage), new TooManyTestsToRerunException(failureMessage));
         notifier.fireTestFailure(failure);
-        shouldRerun = false;
       }
     } catch (FileNotFoundException e) {
-      LOG.error("Statistics file not found.");
+      LOG.error("Statistics file not found.", e);
     }
-    return shouldRerun;
+  }
+
+  private boolean canRerunFailedTests() {
+    boolean statement = true;
+    try {
+      int failedTestsNumber = statisticsHelper.getNumberOfFailedTests(statisticsFile);
+      double percentageOfFailedTests = statisticsHelper.getPercentageOfFailedTests(statisticsFile);
+      statement = !((failedTestsNumber == 0) || (percentageOfFailedTests > maxFailedTestPercentage));
+    } catch (FileNotFoundException e) {
+      LOG.error("Statistics file not found.", e);
+    }
+    return statement;
   }
 
   public File getFeatureFile() {
