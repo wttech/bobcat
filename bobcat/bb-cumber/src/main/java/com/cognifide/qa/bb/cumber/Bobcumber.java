@@ -27,17 +27,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.Properties;
 
-import com.cognifide.qa.bb.ConfigKeys;
-import com.cognifide.qa.bb.cumber.rerun.FailedTestsRunner;
-import com.cognifide.qa.bb.cumber.rerun.TooManyTestsToRerunException;
-import com.cognifide.qa.bb.cumber.util.StatisticsHelper;
-import com.cognifide.qa.bb.provider.selenium.webdriver.WebDriverRegistry;
-import com.cognifide.qa.bb.utils.PropertyUtils;
-import cucumber.api.junit.Cucumber;
-import cucumber.runtime.Backend;
-import cucumber.runtime.Runtime;
-import cucumber.runtime.java.JavaBackend;
-import cucumber.runtime.java.guice.impl.GuiceFactory;
 import org.apache.commons.lang3.CharEncoding;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.runner.Description;
@@ -46,6 +35,19 @@ import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.model.InitializationError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.cognifide.qa.bb.ConfigKeys;
+import com.cognifide.qa.bb.cumber.rerun.FailedTestsRunner;
+import com.cognifide.qa.bb.cumber.rerun.TooManyTestsToRerunException;
+import com.cognifide.qa.bb.cumber.util.StatisticsHelper;
+import com.cognifide.qa.bb.provider.selenium.webdriver.WebDriverRegistry;
+import com.cognifide.qa.bb.utils.PropertyUtils;
+
+import cucumber.api.junit.Cucumber;
+import cucumber.runtime.Backend;
+import cucumber.runtime.Runtime;
+import cucumber.runtime.java.JavaBackend;
+import cucumber.runtime.java.guice.impl.GuiceFactory;
 
 /**
  * Classes annotated with {@code @RunWith(Bobcumber.class)} will run a Cucumber Feature

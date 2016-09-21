@@ -28,12 +28,13 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
-import com.cognifide.qa.bb.PropertyBinder;
-import com.cognifide.qa.bb.constants.ConfigKeys;
-import com.cognifide.qa.bb.constants.Timeouts;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.cognifide.qa.bb.PropertyBinder;
+import com.cognifide.qa.bb.constants.ConfigKeys;
+import com.cognifide.qa.bb.constants.Timeouts;
 
 public class PropertyUtils {
 
