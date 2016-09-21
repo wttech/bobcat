@@ -30,26 +30,26 @@ public class FeatureMap {
 
   private static final String COLON = ":";
 
-  private final Map<String, Set<String>> ADDED_FEATURES = new HashMap<>();
+  private Map<String, Set<String>> addedFeatures = new HashMap<>();
 
   public void addFeature(String failedScenario) {
     String featureName = failedScenario.substring(0, failedScenario.lastIndexOf(COLON));
     String failedLineNumber = failedScenario.substring(failedScenario.lastIndexOf(COLON) + 1,
         failedScenario.length());
 
-    if (ADDED_FEATURES.containsKey(featureName)) {
-      Set<String> featureFailedLines = ADDED_FEATURES.get(featureName);
+    if (addedFeatures.containsKey(featureName)) {
+      Set<String> featureFailedLines = addedFeatures.get(featureName);
       featureFailedLines.add(failedLineNumber);
-      ADDED_FEATURES.put(featureName, featureFailedLines);
+      addedFeatures.put(featureName, featureFailedLines);
     } else {
-      ADDED_FEATURES.put(featureName, Sets.newHashSet(failedLineNumber));
+      addedFeatures.put(featureName, Sets.newHashSet(failedLineNumber));
     }
   }
 
   public void writeFeatures(PrintWriter out) {
-    for (String feature : ADDED_FEATURES.keySet()) {
+    for (String feature : addedFeatures.keySet()) {
       out.print(feature);
-      Set<String> lines = ADDED_FEATURES.get(feature);
+      Set<String> lines = addedFeatures.get(feature);
       for (String line : lines) {
         out.print(COLON + line);
       }
