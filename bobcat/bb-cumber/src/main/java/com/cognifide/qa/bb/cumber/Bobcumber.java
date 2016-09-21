@@ -60,6 +60,8 @@ public class Bobcumber extends Cucumber {
 
   private final double maxFailedTestPercentage = Double.parseDouble(properties.getProperty(ConfigKeys.BOBCAT_REPORT_STATISTICS_PERCENTAGE));
 
+  private final StatisticsHelper statisticsHelper;
+
   private boolean storeFailedResults;
 
   private boolean isItFailedTestsRerun;
@@ -67,8 +69,6 @@ public class Bobcumber extends Cucumber {
   private File featureFile;
 
   private File statisticsFile;
-
-  private StatisticsHelper statisticsHelper = new StatisticsHelper();
 
   /**
    * Constructor called by JUnit.
@@ -79,6 +79,7 @@ public class Bobcumber extends Cucumber {
    */
   public Bobcumber(Class<?> clazz) throws InitializationError, IOException {
     super(clazz);
+    statisticsHelper = new StatisticsHelper();
     storeFailedResults = clazz.isAnnotationPresent(StoreFailedResults.class);
     if (storeFailedResults) {
       featureFile = createFile(clazz.getAnnotation(StoreFailedResults.class).value());
@@ -92,13 +93,13 @@ public class Bobcumber extends Cucumber {
   public void run(RunNotifier notifier) {
     if (isItFailedTestsRerun && !canRerunFailedTests()) {
       shutdownRerun(notifier);
-      return;
+    } else {
+      if (storeFailedResults) {
+        notifier.addListener(new BobcumberListener(this));
+      }
+      super.run(notifier);
+      closeWebDriverPool();
     }
-    if (storeFailedResults) {
-      notifier.addListener(new BobcumberListener(this));
-    }
-    super.run(notifier);
-    closeWebDriverPool();
   }
 
   private File createFile(String path) throws FileNotFoundException, UnsupportedEncodingException {
@@ -130,31 +131,23 @@ public class Bobcumber extends Cucumber {
   }
 
   private void shutdownRerun(RunNotifier notifier) {
-    try {
-      double percentageOfFailedTests = statisticsHelper.getPercentageOfFailedTests(statisticsFile);
-      int failedTestsNumber = statisticsHelper.getNumberOfFailedTests(statisticsFile);
-      if (failedTestsNumber == 0) {
-        notifier.fireTestFinished(Description.EMPTY);
-      } else if (percentageOfFailedTests > maxFailedTestPercentage) {
-        String failureMessage = "Percentage of failed tests was bigger than " + maxFailedTestPercentage + ".";
-        Failure failure = new Failure(Description.createSuiteDescription(failureMessage), new TooManyTestsToRerunException(failureMessage));
-        notifier.fireTestFailure(failure);
-      }
-    } catch (FileNotFoundException e) {
-      LOG.error("Statistics file not found.", e);
+    double percentageOfFailedTests = statisticsHelper.getPercentageOfFailedTests(statisticsFile);
+    int failedTestsNumber = statisticsHelper.getNumberOfFailedTests(statisticsFile);
+    if (failedTestsNumber == 0) {
+      notifier.fireTestFinished(Description.EMPTY);
+    } else if (percentageOfFailedTests > maxFailedTestPercentage) {
+      String failureMessage = "Percentage of failed tests was bigger than " + maxFailedTestPercentage + ".";
+      Failure failure = new Failure(Description.createSuiteDescription(failureMessage), new TooManyTestsToRerunException(failureMessage));
+      notifier.fireTestFailure(failure);
     }
   }
 
   private boolean canRerunFailedTests() {
-    boolean statement = true;
-    try {
-      int failedTestsNumber = statisticsHelper.getNumberOfFailedTests(statisticsFile);
-      double percentageOfFailedTests = statisticsHelper.getPercentageOfFailedTests(statisticsFile);
-      statement = !((failedTestsNumber == 0) || (percentageOfFailedTests > maxFailedTestPercentage));
-    } catch (FileNotFoundException e) {
-      LOG.error("Statistics file not found.", e);
-    }
-    return statement;
+    int failedTestsNumber = statisticsHelper.getNumberOfFailedTests(statisticsFile);
+    double percentageOfFailedTests = statisticsHelper.getPercentageOfFailedTests(statisticsFile);
+    boolean zeroTests = (failedTestsNumber == 0);
+    boolean haveTooManyTests = (percentageOfFailedTests > maxFailedTestPercentage);
+    return !(zeroTests || haveTooManyTests);
   }
 
   public File getFeatureFile() {

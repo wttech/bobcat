@@ -23,30 +23,56 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.inject.Singleton;
 
 @Singleton
 public class StatisticsHelper {
 
+  public static final String NO_STATISTICS_FILE_FOUND_MESSAGE =
+      "There was no statistics file found. Returning default value.";
+
+  private static final Logger LOG = LoggerFactory.getLogger(StatisticsHelper.class);
+
   /**
    * @param file
    * @return number of all triggered test
    */
-  public int getNumberOfTests(File file) throws FileNotFoundException {
-    Scanner scanner = new Scanner(file);
-    return nextInt(scanner);
+  public int getNumberOfTests(File file) {
+    return getNumberOfTests(file, 0);
+  }
+
+  public int getNumberOfTests(File file, int defaultValue) {
+    int returnValue = defaultValue;
+    try {
+      Scanner scanner = new Scanner(file);
+      returnValue = nextInt(scanner);
+    } catch (FileNotFoundException e) {
+      LOG.warn(NO_STATISTICS_FILE_FOUND_MESSAGE);
+    }
+    return returnValue;
   }
 
   /**
    * @param file
    * @return number of failed test
    */
-  public int getNumberOfFailedTests(File file) throws FileNotFoundException{
-    Scanner scanner = new Scanner(file);
-    int returnValue = 0;
-    if (scanner.hasNext()) {
-      scanner.nextLine();
-      returnValue = nextInt(scanner);
+  public int getNumberOfFailedTests(File file) {
+    return getNumberOfFailedTests(file, 0);
+  }
+
+  public int getNumberOfFailedTests(File file, int defaultValue) {
+    int returnValue = defaultValue;
+    try {
+      Scanner scanner = new Scanner(file);
+      if (scanner.hasNext()) {
+        scanner.nextLine();
+        returnValue = nextInt(scanner);
+      }
+    } catch (FileNotFoundException e) {
+      LOG.warn(NO_STATISTICS_FILE_FOUND_MESSAGE);
     }
     return returnValue;
   }
@@ -55,7 +81,7 @@ public class StatisticsHelper {
    * @param file
    * @return percentage of failed test
    */
-  public double getPercentageOfFailedTests(File file) throws FileNotFoundException {
+  public double getPercentageOfFailedTests(File file) {
     if (getNumberOfTests(file) == 0) {
       return 0.0;
     }
