@@ -41,11 +41,6 @@ public class ConditionProgressTracker {
     this.progressData = new LinkedList<>();
   }
 
-  private String produceLoadableComponentInfo(ConditionContext loadableComponentData) {
-    return loadableComponentData.getDeclaringClassName()+ " -> " + loadableComponentData.getFieldName()
-            + " ~ " + loadableComponentData.getLoadableComponent().condClass().getName();
-  }
-
   /**
    * Register start of an step evaluation
    *
@@ -64,7 +59,7 @@ public class ConditionProgressTracker {
    */
   public void provideStepResult(ConditionStatus status) {
     LOG.debug("Evaluated loadable condition "
-            + progressData.peekLast().getLoadableComponentInfo() + " with status " + status.getMessage());
+      + progressData.peekLast().getLoadableComponentInfo() + " with status " + status.getMessage());
 
     progressData.peekLast().setStepStatus(status);
   }
@@ -101,6 +96,11 @@ public class ConditionProgressTracker {
       sb.append(rootCause.toString());
     }
     return sb.toString();
+  }
+
+  private String produceLoadableComponentInfo(ConditionContext loadableComponentData) {
+    return loadableComponentData.getDeclaringClassName() + " -> " + loadableComponentData.getFieldName()
+      + " ~ " + loadableComponentData.getLoadableComponent().condClass().getName();
   }
 
 }
