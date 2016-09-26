@@ -2,7 +2,7 @@ image:
   Image:
     - label: Image asset
       type: IMAGE
-      value: cover
+      value: cover.jpg
     - label: Title
       type: TEXTFIELD
       value: TestTitle
