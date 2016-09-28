@@ -15,18 +15,15 @@
  */
 package com.cognifide.qa.bb.aem.touch.siteadmin.aem61;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.common.collect.Lists;
-import com.google.inject.Inject;
 
 @PageObject
 public class MovePageWizard extends CoralWizard {
@@ -39,10 +36,6 @@ public class MovePageWizard extends CoralWizard {
   @FindBy(css = "nav.endor-Crumbs")
   @Global
   private WebElement browsePathBreadcrumb;
-
-  @CurrentScope
-  @Inject
-  private WebElement currentScope;
 
   public void moveToDestination(String destination) {
     this.next();

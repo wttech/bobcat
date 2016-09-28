@@ -24,21 +24,17 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.constants.Timeouts;
+import com.cognifide.qa.bb.aem.touch.siteadmin.common.Loadable;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
-import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.scope.CurrentScopeHelper;
 import com.google.inject.Inject;
 
 @PageObject
-public class GraniteCalendar {
+public class GraniteCalendar implements Loadable {
 
   @Inject
   private CurrentScopeHelper currentScopeHelper;
-
-  @Inject
-  @CurrentScope
-  private WebElement currentScope;
 
   @Inject
   private BobcatWait wait;
@@ -54,7 +50,7 @@ public class GraniteCalendar {
 
   public void selectDateAndTime(LocalDateTime localDateTime) {
     yearMonthPicker.selectDate(localDateTime.getYear(), localDateTime.getMonth());
-    wait.withTimeout(Timeouts.MEDIUM).until(input -> isDisplayed(), Timeouts.MINIMAL);
+    wait.withTimeout(Timeouts.MEDIUM).until(input -> isLoaded(), Timeouts.MINIMAL);
     timePicker.selectTime(localDateTime.getHour(), localDateTime.getMinute());
     selectDay(localDateTime.getDayOfMonth());
   }
@@ -71,7 +67,8 @@ public class GraniteCalendar {
     currentScope.sendKeys(Keys.ESCAPE);
   }
 
-  public boolean isDisplayed() {
+  @Override
+  public boolean isLoaded() {
     return currentScopeHelper.isCurrentScopeVisible(this);
   }
 

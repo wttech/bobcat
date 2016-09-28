@@ -20,16 +20,11 @@ import java.util.List;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import com.cognifide.qa.bb.qualifier.CurrentScope;
+import com.cognifide.qa.bb.aem.touch.siteadmin.common.Loadable;
 import com.cognifide.qa.bb.qualifier.PageObject;
-import com.google.inject.Inject;
 
 @PageObject
-public class ChildPageWindow {
-
-  @CurrentScope
-  @Inject
-  private WebElement currentScope;
+public class ChildPageWindow implements Loadable {
 
   @FindBy(css = "tr.foundation-collection-item.foundation-collection-navigator")
   private List<ChildPageRow> childPageRows;
@@ -50,6 +45,7 @@ public class ChildPageWindow {
     selectAllPagesButton.click();
   }
 
+  @Override
   public boolean isLoaded() {
     return currentScope.isDisplayed();
   }

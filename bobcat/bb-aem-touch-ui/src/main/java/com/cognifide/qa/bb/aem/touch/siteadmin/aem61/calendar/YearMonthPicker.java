@@ -15,6 +15,7 @@
  */
 package com.cognifide.qa.bb.aem.touch.siteadmin.aem61.calendar;
 
+import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import java.time.Month;
 
 import org.openqa.selenium.WebElement;
@@ -26,6 +27,7 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 public class YearMonthPicker {
 
   @FindBy(css = ".coral-Heading")
+  @LoadableComponent(condClass = WaitForDynamicRedraw.class)
   private WebElement yearMonthHeader;
 
   @FindBy(css = ".coral-DatePicker-nextMonth")

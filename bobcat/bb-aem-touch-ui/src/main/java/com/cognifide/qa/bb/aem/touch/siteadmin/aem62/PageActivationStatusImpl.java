@@ -26,17 +26,12 @@ import org.openqa.selenium.support.FindBy;
 import com.cognifide.qa.bb.aem.touch.siteadmin.common.ActivationStatus;
 import com.cognifide.qa.bb.aem.touch.siteadmin.common.PageActivationStatus;
 import com.cognifide.qa.bb.constants.Timeouts;
-import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.utils.WebElementUtils;
 import com.google.inject.Inject;
 
 @PageObject
 public class PageActivationStatusImpl implements PageActivationStatus {
-
-  @CurrentScope
-  @Inject
-  private WebElement currentScope;
 
   @Inject
   private WebElementUtils elementUtils;

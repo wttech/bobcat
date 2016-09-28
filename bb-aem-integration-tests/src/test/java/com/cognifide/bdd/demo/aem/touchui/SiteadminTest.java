@@ -29,25 +29,24 @@ import com.cognifide.qa.bb.aem.AemLogin;
 import com.cognifide.qa.bb.aem.touch.siteadmin.aem61.SiteadminPage;
 import com.cognifide.qa.bb.aem.touch.siteadmin.aem61.list.ChildPageRow;
 import com.cognifide.qa.bb.aem.touch.siteadmin.common.ActivationStatus;
-import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
+import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.google.inject.Inject;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 @RunWith(TestRunner.class)
 @Modules(GuiceModule.class)
 public class SiteadminTest {
 
-  private static final String CONTEXT_PATH =
-      "/content/geometrixx-outdoors-mobile/en/user/mailbox/sent-items";
+  private static final String CONTEXT_PATH
+          = "/content/geometrixx-outdoors-mobile/en/user/mailbox/sent-items";
 
-  private static final String COMPOSE_MESSAGE_PATH =
-      "/content/geometrixx-outdoors-mobile/en/user/mailbox/compose-message";
+  private static final String COMPOSE_MESSAGE_PATH
+          = "/content/geometrixx-outdoors-mobile/en/user/mailbox/compose-message";
 
   @Inject
   private SiteadminPage siteadminPage;
@@ -61,8 +60,8 @@ public class SiteadminTest {
   @Inject
   private BobcatWait wait;
 
-  private final LocalDateTime scheduleTime =
-      LocalDateTime.now().plusMonths(2).plusDays(1).plusMinutes(2);
+  private final LocalDateTime scheduleTime
+          = LocalDateTime.now().plusMonths(2).plusDays(1).plusMinutes(2);
 
   private String testedPageName;
 
@@ -70,7 +69,6 @@ public class SiteadminTest {
   public void setUp() {
     login.authorLogin();
     siteadminPage.open(CONTEXT_PATH);
-    assertTrue(siteadminPage.isLoaded());
     testedPageName = UUID.randomUUID().toString().replace("-", "");
   }
 

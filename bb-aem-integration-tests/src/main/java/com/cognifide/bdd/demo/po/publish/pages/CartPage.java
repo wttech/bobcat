@@ -43,9 +43,6 @@ public class CartPage extends PublishPage {
   @Inject
   private ReportEntryLogger reportEntryLogger;
 
-  @Inject
-  private WebDriver webDriver;
-
   @FindBy(css = "div.recommendations-default")
   private WebElement defaultRecommendationsElement;
 
