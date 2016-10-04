@@ -21,13 +21,26 @@ import com.google.inject.spi.TypeListener;
 
 import org.junit.runner.RunWith;
 
+import cucumber.api.CucumberOptions;
+import cucumber.runtime.java.guice.ScenarioScoped;
+
 public class TestObjectTypeListener implements TypeListener {
 
   @Override
   public <I> void hear(TypeLiteral<I> type, TypeEncounter<I> encounter) {
-    if(type.getRawType().isAnnotationPresent(RunWith.class)) {
+    Class<? super I> rawType = type.getRawType();
+    if (isApplicable(rawType)) {
       encounter.register(new TestClassInjectionListener(encounter));
     }
   }
 
+  private <I> boolean isApplicable(Class<? super I> rawType) {
+    boolean result;
+    if (rawType.isAnnotationPresent(RunWith.class) && !rawType.isAnnotationPresent(CucumberOptions.class)) {
+      result = true;
+    } else {
+      result = rawType.isAnnotationPresent(ScenarioScoped.class);
+    }
+    return result;
+  }
 }

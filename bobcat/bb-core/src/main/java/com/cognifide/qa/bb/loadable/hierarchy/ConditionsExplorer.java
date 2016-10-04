@@ -30,11 +30,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 import java.util.stream.Collectors;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.cognifide.qa.bb.utils.AopUtil;
 
 /**
  *
@@ -59,13 +62,13 @@ public class ConditionsExplorer {
    * class down to the "clazz" parameter with "directClassFieldContext" from that class.
    */
   public ConditionStack discoverLoadableContextHierarchy(Class clazz,
-          ClassFieldContext directClassFieldContext) {
+    ClassFieldContext directClassFieldContext) {
     Stack<LoadableComponentContext> stack = new Stack<>();
     if (directClassFieldContext != null) {
       directClassFieldContext.toLoadableContextList().stream().
-              forEach((context) -> {
-                stack.add(context);
-              });
+        forEach((context) -> {
+          stack.add(context);
+        });
     }
     ConditionHierarchyNode treeNode = findNode(clazz, treeRootNode);
     if (treeNode == null) {
@@ -74,7 +77,7 @@ public class ConditionsExplorer {
 
     while (treeNode != null) {
       for (LoadableComponentContext lodableContext : treeNode.getLoadableFieldContext().
-              toLoadableContextList()) {
+        toLoadableContextList()) {
         stack.add(lodableContext);
       }
       treeNode = treeNode.getParent();
@@ -90,28 +93,29 @@ public class ConditionsExplorer {
    * @param clazz class. Usually this is a test class that is a root of executed tests
    */
   public void registerLoadableContextHierarchyTree(Class clazz) {
-    if (!treeAlreadyBuilt(clazz)) {
-      LOG.debug("Building loadable component condition hierarchy tree from {}", clazz.getName());
-      treeRootNode.setLoadableFieldContext(new ClassFieldContext(clazz, Collections.emptyList()));
-      processLoadableContextForClass(clazz, treeRootNode);
+    Class normalizedClass = AopUtil.getBaseClassForAopObject(clazz);
+    if (!treeAlreadyBuilt(normalizedClass)) {
+      LOG.debug("Building loadable component condition hierarchy tree from {}", normalizedClass.getName());
+      treeRootNode.setLoadableFieldContext(new ClassFieldContext(normalizedClass, Collections.emptyList()));
+      processLoadableContextForClass(normalizedClass, treeRootNode);
     }
   }
 
   private void processLoadableContextForClass(Class clazz, ConditionHierarchyNode parent) {
     List<Field> decalredFields = Arrays.asList(clazz.getDeclaredFields());
     List<Field> applicableFields = decalredFields.stream()
-            .filter(f -> (f.isAnnotationPresent(Inject.class)) ||
-                    (f.isAnnotationPresent(FindBy.class) && !f.getType().equals(WebElement.class)))
-            .filter(f -> f.getType().isAnnotationPresent(PageObject.class))
-            .collect(Collectors.toList());
+      .filter(f -> (f.isAnnotationPresent(Inject.class))
+        || (f.isAnnotationPresent(FindBy.class) && !f.getType().equals(WebElement.class)))
+      .filter(f -> f.getType().isAnnotationPresent(PageObject.class))
+      .collect(Collectors.toList());
     checkForDuplicatedLoadableFields(applicableFields);
 
     applicableFields.stream().
-            forEach((field) -> {
-              ConditionHierarchyNode node = addChild(parent, new ClassFieldContext(field.getType(),
-                      LoadableComponentsUtil.getConditionsFormField(field)));
-              processLoadableContextForClass(field.getType(), node);
-            });
+      forEach((field) -> {
+        ConditionHierarchyNode node = addChild(parent, new ClassFieldContext(field.getType(),
+            LoadableComponentsUtil.getConditionsFormField(field)));
+        processLoadableContextForClass(field.getType(), node);
+      });
   }
 
   private void checkForDuplicatedLoadableFields(List<Field> applicableFields) {
@@ -120,13 +124,13 @@ public class ConditionsExplorer {
       int typeCount = (int) applicableFields.stream().map(f -> f.getType()).distinct().count();
       if (typeCount < fieldCount) {
         throw new BobcatRuntimeException("Spotted two page object fields of the same type. This is illegal. "
-                + "Class: " + applicableFields.get(0).getDeclaringClass().getName());
+          + "Class: " + applicableFields.get(0).getDeclaringClass().getName());
       }
     }
   }
 
   private ConditionHierarchyNode addChild(ConditionHierarchyNode parent,
-          ClassFieldContext loadableContext) {
+    ClassFieldContext loadableContext) {
     ConditionHierarchyNode node = new ConditionHierarchyNode(parent);
     node.setLoadableFieldContext(loadableContext);
     parent.getChildren().add(node);
@@ -136,7 +140,7 @@ public class ConditionsExplorer {
   private boolean treeAlreadyBuilt(Class testClass) {
     return treeRootNode.getLoadableFieldContext() != null
             && treeRootNode.getLoadableFieldContext().getSubjectClass().equals(testClass);
-  }
+    }
 
   private ConditionHierarchyNode findNode(Class clazz, ConditionHierarchyNode parent) {
     Class elementClass = parent.getLoadableFieldContext().getSubjectClass();
