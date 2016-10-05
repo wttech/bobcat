@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.cumber.util;
+package com.cognifide.qa.bb.cumber;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -26,29 +26,18 @@ import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.inject.Singleton;
-
-@Singleton
-public class StatisticsHelper {
+class StatisticsHelper {
 
   private static final String NO_STATISTICS_FILE_FOUND_MESSAGE =
       "There was no statistics file found. Returning default value.";
 
   private static final Logger LOG = LoggerFactory.getLogger(StatisticsHelper.class);
 
-  /**
-   * @param file
-   * @return number of all triggered test
-   */
-  public int getNumberOfTests(File file) {
+  private int getNumberOfTests(File file) {
     return getNumberOfTests(file, 0);
   }
 
-  /**
-   * @param file
-   * @return number of failed test
-   */
-  public int getNumberOfTests(File file, int defaultValue) {
+  private int getNumberOfTests(File file, int defaultValue) {
     int returnValue = defaultValue;
     try {
       Scanner scanner = new Scanner(file);
@@ -59,19 +48,11 @@ public class StatisticsHelper {
     return returnValue;
   }
 
-  /**
-   * @param file
-   * @return number of failed test
-   */
-  public int getNumberOfFailedTests(File file) {
+  int getNumberOfFailedTests(File file) {
     return getNumberOfFailedTests(file, 0);
   }
 
-  /**
-   * @param file
-   * @return number of failed test
-   */
-  public int getNumberOfFailedTests(File file, int defaultValue) {
+  int getNumberOfFailedTests(File file, int defaultValue) {
     int returnValue = defaultValue;
     try {
       Scanner scanner = new Scanner(file);
@@ -85,11 +66,7 @@ public class StatisticsHelper {
     return returnValue;
   }
 
-  /**
-   * @param file
-   * @return percentage of failed test
-   */
-  public double getPercentageOfFailedTests(File file) {
+  double getPercentageOfFailedTests(File file) {
     int numberOfTests = getNumberOfTests(file);
     double result;
     if (numberOfTests == 0) {

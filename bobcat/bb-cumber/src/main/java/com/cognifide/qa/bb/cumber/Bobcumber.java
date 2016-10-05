@@ -39,7 +39,6 @@ import org.slf4j.LoggerFactory;
 import com.cognifide.qa.bb.ConfigKeys;
 import com.cognifide.qa.bb.cumber.rerun.FailedTestsRunner;
 import com.cognifide.qa.bb.cumber.rerun.TooManyTestsToRerunException;
-import com.cognifide.qa.bb.cumber.util.StatisticsHelper;
 import com.cognifide.qa.bb.provider.selenium.webdriver.WebDriverRegistry;
 import com.cognifide.qa.bb.utils.PropertyUtils;
 
