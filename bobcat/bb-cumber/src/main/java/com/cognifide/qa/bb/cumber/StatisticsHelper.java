@@ -72,7 +72,7 @@ class StatisticsHelper {
     if (numberOfTests == 0) {
       result = 0.0;
     } else {
-      result = (getNumberOfFailedTests(file) / numberOfTests) * 100;
+      result = ((double)getNumberOfFailedTests(file) / numberOfTests) * 100;
     }
     return result;
   }
