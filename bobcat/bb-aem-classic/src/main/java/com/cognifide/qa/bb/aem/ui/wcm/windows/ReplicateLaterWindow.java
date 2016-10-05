@@ -30,10 +30,6 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 @PageObject
 public class ReplicateLaterWindow implements DecisionWindow {
 
-  public static final String ACTIVATE_LATER_WINDOW_ID = "cq-activate-later-dialog-0";
-
-  public static final String DEACTIVATE_LATER_WINDOW_ID = "cq-deactivate-later-dialog-0";
-
   @FindBy(xpath = ".//td[@class='ux-datetime-date']//input")
   private WebElement dateField;
 

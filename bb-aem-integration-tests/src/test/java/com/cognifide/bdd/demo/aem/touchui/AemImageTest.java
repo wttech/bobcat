@@ -19,7 +19,10 @@
  */
 package com.cognifide.bdd.demo.aem.touchui;
 
-import java.util.List;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.StringEndsWith.endsWith;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,8 +31,6 @@ import org.junit.runner.RunWith;
 import com.cognifide.bdd.demo.GuiceModule;
 import com.cognifide.bdd.demo.po.touchui.ImageComponent;
 import com.cognifide.qa.bb.aem.AemLogin;
-import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfiguration;
-import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldConfig;
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldType;
 import com.cognifide.qa.bb.aem.touch.data.components.Components;
 import com.cognifide.qa.bb.aem.touch.data.pages.Pages;
@@ -39,11 +40,6 @@ import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
 import com.google.inject.Inject;
 
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.StringEndsWith.endsWith;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
 @RunWith(TestRunner.class)
 @Modules(GuiceModule.class)
 public class AemImageTest {
@@ -51,11 +47,11 @@ public class AemImageTest {
   private static final String CONFIGURATION = "Image - Update&Read";
 
   private static final String COMPONENT_NAME = "Image";
-  public static final String IMAGE_PATH = "cover";
+  public static final String IMAGE_PATH = "cover.jpg";
   public static final String IMAGE_TITLE = "TestTitle";
   public static final String IMAGE_ALT_TEXT = "TestAlt";
   public static final String IMAGE_LINK = "/content/geometrixx";
-  public static final String IMAGE_DESCRIPTION = "TextDescription";
+  public static final String IMAGE_DESCRIPTION = "TestDescription";
 
   @Inject
   private AemLogin aemLogin;
@@ -85,21 +81,9 @@ public class AemImageTest {
 
   @Test
   public void configureImageTest() {
-    ComponentConfiguration componentConfig = page.configureComponent(parsys,
-        COMPONENT_NAME, COMPONENT_NAME);
+    page.configureComponent(parsys, COMPONENT_NAME, COMPONENT_NAME);
 
-    ImageComponent component =
-        (ImageComponent) page.getContent(components.getClazz(COMPONENT_NAME));
-
-    List<FieldConfig> configuration = componentConfig.getConfigurationForTab(COMPONENT_NAME);
-    assertThat("Wrong image path", component.getImagePath(),
-        endsWith(configuration.get(0).getValue().toString()));
-    assertThat("Wrong image title", configuration.get(1).getValue(), is(component.getTitle()));
-    assertThat("Wrong image alt", configuration.get(2).getValue(), is(component.getAltText()));
-    assertThat("Wrong image link to", component.getLinkTo(),
-        endsWith(configuration.get(3).getValue().toString() + ".html"));
-    assertThat("Wrong image description", configuration.get(4).getValue(),
-        is(component.getDescription()));
+    assertImageComponent();
   }
 
   @Test
@@ -114,16 +98,17 @@ public class AemImageTest {
         .setField("Description", FieldType.TEXTFIELD.name(), IMAGE_DESCRIPTION)
         .confirm();
 
+    assertImageComponent();
+  }
+
+  private void assertImageComponent() {
     ImageComponent component =
         (ImageComponent) page.getContent(components.getClazz(COMPONENT_NAME));
 
-    assertThat("Wrong image path", component.getImagePath(),
-        endsWith(IMAGE_PATH));
+    assertThat("Wrong image path", component.getImagePath(), endsWith(IMAGE_PATH));
     assertThat("Wrong image title", IMAGE_TITLE, is(component.getTitle()));
     assertThat("Wrong image alt", IMAGE_ALT_TEXT, is(component.getAltText()));
-    assertThat("Wrong image link to", component.getLinkTo(),
-        endsWith(IMAGE_LINK + ".html"));
-    assertThat("Wrong image description", IMAGE_DESCRIPTION,
-        is(component.getDescription()));
+    assertThat("Wrong image link to", component.getLinkTo(), endsWith(IMAGE_LINK + ".html"));
+    assertThat("Wrong image description", IMAGE_DESCRIPTION, is(component.getDescription()));
   }
 }

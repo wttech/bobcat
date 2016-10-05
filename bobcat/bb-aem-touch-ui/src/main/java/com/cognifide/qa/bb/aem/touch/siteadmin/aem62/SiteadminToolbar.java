@@ -57,12 +57,8 @@ public class SiteadminToolbar {
   private WebElement dialog;
 
   @Global
-  @FindBy(css = "form.cq-siteadmin-admin-publishpage-form")
-  private PublishPageWizard publishPageWizard;
-
-  @Global
-  @FindBy(css = "form.cq-siteadmin-admin-unpublishpage-form")
-  private PublishPageWizard unpublishPageWizard;
+  @FindBy(xpath = "//form[contains(@class,'publishpage-form')]")
+  private ReplicatePageWizard replicatePageWizard;
 
   @Global
   @FindBy(css = "form#cq-siteadmin-admin-movepage-form")
@@ -86,15 +82,15 @@ public class SiteadminToolbar {
 
   public SiteadminToolbar publishPageLater(LocalDateTime scheduledTime) {
     publishLaterButton.click();
-    publishPageWizard.selectDateAndTime(scheduledTime);
-    publishPageWizard.submit();
+    replicatePageWizard.selectDateAndTime(scheduledTime);
+    replicatePageWizard.submit();
     return this;
   }
 
   public SiteadminToolbar unpublishPageLater(LocalDateTime scheduledTime) {
     unpublishLaterButton.click();
-    unpublishPageWizard.selectDateAndTime(scheduledTime);
-    unpublishPageWizard.submit();
+    replicatePageWizard.selectDateAndTime(scheduledTime);
+    replicatePageWizard.submit();
     return this;
   }
 

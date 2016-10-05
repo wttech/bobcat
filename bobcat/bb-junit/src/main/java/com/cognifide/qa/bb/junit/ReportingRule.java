@@ -31,6 +31,7 @@ import com.google.inject.Binding;
 import com.google.inject.Injector;
 import com.google.inject.Provider;
 import com.google.inject.TypeLiteral;
+import com.cognifide.qa.bb.utils.AopUtil;
 
 /**
  * This is a test rule that registers all breakpoints in test's lifecycle as entries in TestEventCollector, so that it
@@ -69,13 +70,6 @@ public class ReportingRule extends TestWatcher {
     collect(TestEventCollector::end);
   }
 
-  private static Class<?> getBaseClassForAopObject(Class<?> c) {
-    if (c.getName().contains("EnhancerByGuice")) {
-      return c.getSuperclass();
-    }
-    return c;
-  }
-
   private void collect(Consumer<TestEventCollector> consumer) {
     injector.findBindingsByType(TypeLiteral.get(TestEventCollector.class)).stream()
         .map(Binding::getProvider)
@@ -101,7 +95,7 @@ public class ReportingRule extends TestWatcher {
   }
 
   private String getTestName(Description d) {
-    return String.format("%s - %s", getBaseClassForAopObject(d.getTestClass()).getSimpleName(),
+    return String.format("%s - %s", AopUtil.getBaseClassForAopObject(d.getTestClass()).getSimpleName(),
         d.getMethodName());
   }
 

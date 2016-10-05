@@ -23,18 +23,12 @@ import org.openqa.selenium.support.FindBy;
 import com.cognifide.qa.bb.aem.touch.siteadmin.common.PageActivationStatus;
 import com.cognifide.qa.bb.aem.touch.siteadmin.common.PageModificationInfo;
 import com.cognifide.qa.bb.aem.touch.siteadmin.common.SiteadminChildPage;
-import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
-import com.google.inject.Inject;
 
 @PageObject
 public class ChildPageRow implements SiteadminChildPage {
 
   private static final int SELECT_PAGE_COLUMN_INDEX = 0;
-
-  @CurrentScope
-  @Inject
-  private WebElement currentScope;
 
   @FindBy(css = "td.coral-Table-cell:nth-of-type(4)")
   private PageActivationStatusImpl pageActivationStatus;

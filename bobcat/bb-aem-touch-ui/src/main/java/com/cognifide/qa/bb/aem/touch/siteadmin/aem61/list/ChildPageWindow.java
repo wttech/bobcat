@@ -30,10 +30,11 @@ import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.scope.CurrentScopeHelper;
 import com.cognifide.qa.bb.utils.WebElementUtils;
+import com.cognifide.qa.bb.aem.touch.siteadmin.common.Loadable;
 import com.google.inject.Inject;
 
 @PageObject
-public class ChildPageWindow {
+public class ChildPageWindow implements Loadable {
 
   @Inject
   private WebElementUtils webElementUtils;
@@ -61,6 +62,7 @@ public class ChildPageWindow {
     selectAllPagesButton.click();
   }
 
+  @Override
   public boolean isLoaded() {
     return currentScopeHelper.isCurrentScopeVisible(this);
   }

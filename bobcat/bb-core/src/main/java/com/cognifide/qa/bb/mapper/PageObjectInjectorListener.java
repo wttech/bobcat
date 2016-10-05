@@ -30,12 +30,14 @@ import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.cognifide.qa.bb.webelement.BobcatWebElementFactory;
 import com.cognifide.qa.bb.mapper.field.FieldProvider;
 import com.cognifide.qa.bb.qualifier.Frame;
 import com.cognifide.qa.bb.scope.ContextStack;
 import com.cognifide.qa.bb.scope.PageObjectContext;
 import com.cognifide.qa.bb.scope.frame.FrameMap;
 import com.cognifide.qa.bb.scope.frame.FramePath;
+import com.cognifide.qa.bb.utils.AopUtil;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.spi.InjectionListener;
@@ -48,6 +50,8 @@ import com.google.inject.spi.TypeEncounter;
 public class PageObjectInjectorListener implements InjectionListener<Object> {
 
   private static final Logger LOG = LoggerFactory.getLogger(PageObjectInjectorListener.class);
+
+  private final Provider<BobcatWebElementFactory> bobcatWebElementFactoryProvider;
 
   private final Provider<WebDriver> webDriverProvider;
 
@@ -67,6 +71,7 @@ public class PageObjectInjectorListener implements InjectionListener<Object> {
     this.locatorStackProvider = typeEncounter.getProvider(ContextStack.class);
     this.registry = typeEncounter.getProvider(FieldProviderRegistry.class);
     this.frameMap = typeEncounter.getProvider(FrameMap.class);
+    this.bobcatWebElementFactoryProvider = typeEncounter.getProvider(BobcatWebElementFactory.class);
   }
 
   /**
@@ -97,12 +102,13 @@ public class PageObjectInjectorListener implements InjectionListener<Object> {
 
   private void initFindByFields(Object object) {
     PageFactory.initElements(
-        new GuiceAwareFieldDecorator(getCurrentContext().getElementLocatorFactory()), object);
+        new GuiceAwareFieldDecorator(getCurrentContext().getElementLocatorFactory(),
+            bobcatWebElementFactoryProvider.get()), object);
   }
 
   private void initPageObjectFields(Object object) {
     PageObjectContext context = getCurrentContext();
-    for (Field f : getBaseClassForAopObject(object).getDeclaredFields()) {
+    for (Field f : AopUtil.getBaseClassForAopObject(object).getDeclaredFields()) {
       if (f.isAnnotationPresent(Inject.class)) {
         continue;
       }
@@ -123,14 +129,6 @@ public class PageObjectInjectorListener implements InjectionListener<Object> {
     } catch (IllegalArgumentException | IllegalAccessException e) {
       LOG.error("Can't set field", e);
     }
-  }
-
-  private Class<?> getBaseClassForAopObject(Object object) {
-    Class<?> clazz = object.getClass();
-    if (clazz.getName().contains("EnhancerByGuice")) {
-      return clazz.getSuperclass();
-    }
-    return clazz;
   }
 
   private void invokePostConstruct(Object object) {

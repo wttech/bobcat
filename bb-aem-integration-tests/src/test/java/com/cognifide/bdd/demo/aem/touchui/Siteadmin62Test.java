@@ -69,7 +69,6 @@ public class Siteadmin62Test {
   public void setUp() {
     login.authorLogin();
     siteadminPage.open(CONTEXT_PATH);
-    assertTrue(siteadminPage.isLoaded());
   }
 
   @After

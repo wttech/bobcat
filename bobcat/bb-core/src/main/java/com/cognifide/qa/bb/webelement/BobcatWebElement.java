@@ -19,6 +19,11 @@
  */
 package com.cognifide.qa.bb.webelement;
 
+import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
+import com.cognifide.qa.bb.loadable.context.ConditionContext;
+import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
+
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -45,9 +50,13 @@ public class BobcatWebElement implements WebElement, Locatable, WrapsElement {
 
   private final Locatable locatable;
 
-  public BobcatWebElement(WebElement element, Locatable locatable) {
-    this.element = element;
-    this.locatable = locatable;
+  private final List<ConditionContext> conditionContext;
+
+  @Inject
+  public BobcatWebElement(@Assisted BobcatWebElementContext context) {
+    this.element = context.getWebElement();
+    this.locatable = context.getLocatable();
+    this.conditionContext = context.getLoadableConditionContext();
   }
 
   @Override
@@ -169,6 +178,14 @@ public class BobcatWebElement implements WebElement, Locatable, WrapsElement {
   @Override
   public String toString() {
     return String.format("%s(%s)", this.getClass().getSimpleName(), getWrappedElement());
+  }
+
+  /**
+   *
+   * @return Conditions defined by {@link LoadableComponent} annotations.
+   */
+  public List<ConditionContext> getLoadableConditionContext() {
+    return conditionContext;
   }
 
   private boolean isUploadField(WebElement webElement) {
