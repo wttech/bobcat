@@ -62,9 +62,9 @@ public class Bobcumber extends Cucumber {
 
   private final StatisticsHelper statisticsHelper;
 
-  private boolean storeFailedResults;
+  private final boolean storeFailedResults;
 
-  private boolean isItFailedTestsRerun;
+  private final boolean isItFailedTestsRerun;
 
   private File featureFile;
 
@@ -137,7 +137,8 @@ public class Bobcumber extends Cucumber {
       notifier.fireTestFinished(Description.EMPTY);
     } else if (percentageOfFailedTests > maxFailedTestPercentage) {
       String failureMessage = "Percentage of failed tests was bigger than " + maxFailedTestPercentage + ".";
-      Failure failure = new Failure(Description.createSuiteDescription(failureMessage), new TooManyTestsToRerunException(failureMessage));
+      Failure failure = new Failure(Description.createSuiteDescription(failureMessage),
+          new TooManyTestsToRerunException(failureMessage));
       notifier.fireTestFailure(failure);
     }
   }
@@ -145,9 +146,9 @@ public class Bobcumber extends Cucumber {
   private boolean canRerunFailedTests() {
     int failedTestsNumber = statisticsHelper.getNumberOfFailedTests(statisticsFile);
     double percentageOfFailedTests = statisticsHelper.getPercentageOfFailedTests(statisticsFile);
-    boolean zeroTests = (failedTestsNumber == 0);
+    boolean haveNoTests = (failedTestsNumber == 0);
     boolean haveTooManyTests = (percentageOfFailedTests > maxFailedTestPercentage);
-    return !(zeroTests || haveTooManyTests);
+    return !haveNoTests && !haveTooManyTests;
   }
 
   public File getFeatureFile() {

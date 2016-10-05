@@ -41,16 +41,19 @@ public class BobcumberListener extends RunListener {
 
   private final Bobcumber bobcumber;
 
-  private final FeatureMap featureMap = new FeatureMap();
+  private final FeatureMap featureMap;
 
-  private final AtomicInteger scenarioCounter = new AtomicInteger();
+  private final AtomicInteger scenarioCounter;
 
-  private final AtomicInteger testFailureCounter = new AtomicInteger();
+  private final AtomicInteger testFailureCounter;
 
   private boolean alreadyRegistered;
 
   public BobcumberListener(Bobcumber bobcumber) {
     this.bobcumber = bobcumber;
+    featureMap = new FeatureMap();
+    scenarioCounter = new AtomicInteger();
+    testFailureCounter = new AtomicInteger();
   }
 
   @Override
@@ -88,9 +91,9 @@ public class BobcumberListener extends RunListener {
   }
 
   private synchronized void addScenario(String failedScenario) throws IOException {
-    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(bobcumber.getFeatureFile(), false)));
-    featureMap.addFeature(failedScenario);
-    featureMap.writeFeatures(out);
-    out.close();
+    try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(bobcumber.getFeatureFile(), false)))) {
+      featureMap.addFeature(failedScenario);
+      featureMap.writeFeatures(out);
+    }
   }
 }
