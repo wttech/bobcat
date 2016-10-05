@@ -24,6 +24,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * That annotation informs Bobcumber that annotated runner should rerun failed test. It
+ * provides feature of triggering failed tests, based on number of failed tests.
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface FailedTestsRunner {
