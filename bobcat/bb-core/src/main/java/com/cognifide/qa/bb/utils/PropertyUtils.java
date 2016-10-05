@@ -36,6 +36,9 @@ import com.cognifide.qa.bb.PropertyBinder;
 import com.cognifide.qa.bb.constants.ConfigKeys;
 import com.cognifide.qa.bb.constants.Timeouts;
 
+/**
+ * This class contains utility methods for loading properties from classpath and system.
+ */
 public class PropertyUtils {
 
   private static final Logger LOG = LoggerFactory.getLogger(PropertyUtils.class);

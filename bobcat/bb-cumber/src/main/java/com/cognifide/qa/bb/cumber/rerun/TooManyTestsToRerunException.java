@@ -19,6 +19,9 @@
  */
 package com.cognifide.qa.bb.cumber.rerun;
 
+/**
+ * Thrown to indicate that number of failed tests to rerun was bigger than assumed value
+ */
 public class TooManyTestsToRerunException extends Exception {
   public TooManyTestsToRerunException() {
     this("There was too many test failures to rerun.");
