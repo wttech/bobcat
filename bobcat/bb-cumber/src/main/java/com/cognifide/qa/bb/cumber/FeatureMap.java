@@ -46,7 +46,7 @@ public class FeatureMap {
     }
   }
 
-  public void writeFeatures(PrintWriter out) {
+  void writeFeatures(PrintWriter out) {
     for (String feature : addedFeatures.keySet()) {
       out.print(feature);
       Set<String> lines = addedFeatures.get(feature);

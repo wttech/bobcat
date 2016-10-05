@@ -82,10 +82,14 @@ public class StatisticsHelper {
    * @return percentage of failed test
    */
   public double getPercentageOfFailedTests(File file) {
-    if (getNumberOfTests(file) == 0) {
-      return 0.0;
+    int numberOfTests = getNumberOfTests(file);
+    double result;
+    if (numberOfTests == 0) {
+      result = 0.0;
+    } else {
+      result = (getNumberOfFailedTests(file) / numberOfTests) * 100;
     }
-    return ((double)getNumberOfFailedTests(file)/getNumberOfTests(file)) * 100;
+    return result;
   }
 
   private int nextInt(Scanner scanner) {
