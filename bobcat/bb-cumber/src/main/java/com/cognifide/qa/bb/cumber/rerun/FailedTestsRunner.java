@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.cumber;
+package com.cognifide.qa.bb.cumber.rerun;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -25,26 +25,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Add this annotation to Cucumber's test. Bobcat will store information about failed tests to file.
+ * That annotation informs Bobcumber that annotated runner should rerun failed test. It
+ * provides feature of triggering failed tests, based on number of failed tests.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface StoreFailedResults {
-  /**
-   * @return a path to failed tests report.
-   */
-  String value();
-  /**
-   * Use this property to identify the page object by css selector
-   *
-   * @return page object css class
-   */
-  String css() default "";
-
-  /**
-   * Use this property to identify the page object by xpath selector
-   *
-   * @return page object xpath
-   */
-  String xpath() default "";
+public @interface FailedTestsRunner {
 }
