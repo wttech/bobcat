@@ -26,13 +26,13 @@ import java.util.Set;
 
 import com.google.common.collect.Sets;
 
-public class FeatureMap {
+class FeatureMap {
 
   private static final String COLON = ":";
 
   private Map<String, Set<String>> addedFeatures = new HashMap<>();
 
-  public void addFeature(String failedScenario) {
+  void addFeature(String failedScenario) {
     String featureName = failedScenario.substring(0, failedScenario.lastIndexOf(COLON));
     String failedLineNumber = failedScenario.substring(failedScenario.lastIndexOf(COLON) + 1,
         failedScenario.length());

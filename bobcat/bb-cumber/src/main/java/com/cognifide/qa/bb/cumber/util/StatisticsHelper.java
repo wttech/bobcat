@@ -31,7 +31,7 @@ import com.google.inject.Singleton;
 @Singleton
 public class StatisticsHelper {
 
-  public static final String NO_STATISTICS_FILE_FOUND_MESSAGE =
+  private static final String NO_STATISTICS_FILE_FOUND_MESSAGE =
       "There was no statistics file found. Returning default value.";
 
   private static final Logger LOG = LoggerFactory.getLogger(StatisticsHelper.class);
@@ -44,6 +44,10 @@ public class StatisticsHelper {
     return getNumberOfTests(file, 0);
   }
 
+  /**
+   * @param file
+   * @return number of failed test
+   */
   public int getNumberOfTests(File file, int defaultValue) {
     int returnValue = defaultValue;
     try {
@@ -63,6 +67,10 @@ public class StatisticsHelper {
     return getNumberOfFailedTests(file, 0);
   }
 
+  /**
+   * @param file
+   * @return number of failed test
+   */
   public int getNumberOfFailedTests(File file, int defaultValue) {
     int returnValue = defaultValue;
     try {

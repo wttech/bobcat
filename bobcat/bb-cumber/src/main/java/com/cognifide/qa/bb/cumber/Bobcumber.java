@@ -151,11 +151,11 @@ public class Bobcumber extends Cucumber {
     return !haveNoTests && !haveTooManyTests;
   }
 
-  public File getFeatureFile() {
+  File getFeatureFile() {
     return featureFile;
   }
 
-  public File getStatisticsFile() {
+  File getStatisticsFile() {
     return statisticsFile;
   }
 }
