@@ -24,6 +24,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.constants.Timeouts;
+import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
+import com.cognifide.qa.bb.loadable.condition.impl.VisibilityCondition;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
@@ -80,6 +82,7 @@ public class SiteadminToolbar {
 
   @Global
   @FindBy(css = "button.coral-Button[title='Move']")
+  @LoadableComponent(condClass = VisibilityCondition.class)
   private WebElement moveButton;
 
   @FindBy(css = "div.foundation-ui-notification.coral-Alert.coral-Alert--info")
@@ -121,7 +124,6 @@ public class SiteadminToolbar {
   }
 
   public void movePage(String destination) {
-    wait.withTimeout(Timeouts.MINIMAL).until(ignored -> moveButton.isDisplayed());
     moveButton.click();
     movePageWizard.moveToDestination(destination);
   }
