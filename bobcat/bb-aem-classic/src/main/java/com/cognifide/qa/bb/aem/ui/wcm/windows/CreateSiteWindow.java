@@ -52,7 +52,7 @@ public class CreateSiteWindow {
 
   @CacheLookup
   @FindBy(xpath = ".//input[@name='label' or @name='./jcr:title']/..")
-  private AemTextField textField;
+  private List<AemTextField> textFields;
 
   @FindBy(css = "div.cq-template-view div.template-item")
   private List<WebElement> templatesList;
@@ -96,7 +96,7 @@ public class CreateSiteWindow {
    * @return this CreateSiteWindow
    */
   public CreateSiteWindow typeTitle(String title) {
-    textField.setValue(title);
+    textFields.get(0).setValue(title);
     return this;
   }
 
@@ -107,7 +107,7 @@ public class CreateSiteWindow {
    * @return this CreateSiteWindow
    */
   public CreateSiteWindow typeName(String name) {
-    textField.setValue(name);
+    textFields.get(1).setValue(name);
     return this;
   }
 
