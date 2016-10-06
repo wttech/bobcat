@@ -23,6 +23,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.lang3.CharEncoding;
@@ -30,14 +32,18 @@ import org.junit.runner.Description;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import gherkin.formatter.model.BasicStatement;
 
 class BobcumberListener extends RunListener {
+
+  private static final Logger LOG = LoggerFactory.getLogger(BobcumberListener.class);
 
   private static final String FEATURE_STATEMENT = "feature";
 
   private static final String SCENARIO_STATEMENT = "Scenario";
-
-  private static final String COLON = ":";
 
   private final Bobcumber bobcumber;
 
@@ -66,9 +72,8 @@ class BobcumberListener extends RunListener {
 
   @Override
   public void testStarted(Description description) throws Exception {
-    String displayName = description.getDisplayName();
-    String testStep = displayName.substring(0, displayName.lastIndexOf(COLON));
-    if (SCENARIO_STATEMENT.equals(testStep)) {
+    String keyword = getStatementKeyword(description);
+    if (keyword.contains(SCENARIO_STATEMENT)) {
       scenarioCounter.incrementAndGet();
       alreadyRegistered = false;
     }
@@ -95,5 +100,21 @@ class BobcumberListener extends RunListener {
       featureMap.addFeature(failedScenario);
       featureMap.writeFeatures(out);
     }
+  }
+
+  private synchronized String getStatementKeyword(Description description) {
+    String keyword = "";
+    try {
+      Field privateSerializableField = Description.class.getDeclaredField("fUniqueId");
+      privateSerializableField.setAccessible(true);
+      Serializable statementCandidate = (Serializable) privateSerializableField.get(description);
+      if (statementCandidate instanceof BasicStatement) {
+        BasicStatement scenario = (BasicStatement) statementCandidate;
+        keyword = scenario.getKeyword();
+      }
+    } catch (NoSuchFieldException | IllegalAccessException | ClassCastException e) {
+      LOG.error("Cannot access Scenario object at: " + description.toString(), e);
+    }
+    return keyword;
   }
 }
