@@ -30,11 +30,6 @@ public class ClassFieldContext extends LoadableContext {
 
   private final List<ConditionContext> conditionData;
 
-  public ClassFieldContext(Class subjectClass, List<ConditionContext> conditionData) {
-    super(subjectClass);
-    this.conditionData = conditionData;
-  }
-
   public ClassFieldContext(Object subject, List<ConditionContext> conditionData) {
     super(subject);
     this.conditionData = conditionData;

@@ -13,23 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.cognifide.qa.bb.aem.touch.siteadmin.common;
+package com.cognifide.qa.bb.test.loadable;
+
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
-import com.cognifide.qa.bb.loadable.condition.LoadableComponentCondition;
-import com.cognifide.qa.bb.provider.selenium.BobcatWait;
-import com.google.inject.Inject;
+import com.cognifide.qa.bb.qualifier.PageObject;
 
-public class IsLoadedCondition implements LoadableComponentCondition {
+@PageObject
+public class InputElementWrapper {
 
-  @Inject
-  private BobcatWait wait;
+  @FindBy(xpath = ".")
+  @LoadableComponent(condClass = TestCondition.class)
+  private WebElement thiz;
 
-  @Override
-  public boolean check(Object subject, LoadableComponent data) {
-    Loadable childPageWindow = (Loadable) subject;
-    return wait.withTimeout(data.timeout())
-            .until(ignored -> childPageWindow.isLoaded(), data.delay());
+  public void sendKeys(String string) {
+    thiz.sendKeys(string);
   }
-
 }

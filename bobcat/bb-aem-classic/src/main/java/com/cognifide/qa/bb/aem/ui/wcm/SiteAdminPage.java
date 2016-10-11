@@ -337,7 +337,7 @@ public class SiteAdminPage {
   }
 
   /**
-   * Wait's for page not exists in site admin grid.
+   * Waits for page not exists in site admin grid.
    *
    * @param title title of the page
    * @return this SiteAdminPage

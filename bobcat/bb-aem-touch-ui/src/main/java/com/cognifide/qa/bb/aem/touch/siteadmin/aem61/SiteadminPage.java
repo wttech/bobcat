@@ -100,9 +100,8 @@ public class SiteadminPage implements Loadable, SiteadminActions {
   @Override
   public SiteadminActions publishPageLater(String title, LocalDateTime localDateTime) {
     selectPage(title);
-    String pageParent = getActualUrl();
     toolbar.publishPageLater(localDateTime);
-    driver.get(pageParent);
+    driver.navigate().back();
     waitForExpectedStatus(title, ActivationStatus.SCHEDULED);
     return this;
   }
@@ -229,10 +228,6 @@ public class SiteadminPage implements Loadable, SiteadminActions {
 
   private String getSiteAdminUrl() {
     return url + SITEADMIN_PATH;
-  }
-
-  private String getActualUrl() {
-    return driver.getCurrentUrl();
   }
 
   private void waitForExpectedStatus(final String title, ActivationStatus status) {

@@ -144,7 +144,7 @@ public class SiteadminTest {
   private void createPage(String testedPage) {
     siteadminPage.open(CONTEXT_PATH)
         .createNewPage(testedPage, testedPage.toLowerCase(), "Mobile Product Page");
-    siteadminPage.open(CONTEXT_PATH);
+    driver.navigate().refresh();
   }
 
   private ChildPageRow getPageFromList(String pageTitle) {

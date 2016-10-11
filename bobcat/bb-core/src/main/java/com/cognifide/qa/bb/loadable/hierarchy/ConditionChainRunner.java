@@ -67,7 +67,7 @@ public class ConditionChainRunner {
   }
 
   private LoadableComponentCondition produceInitializedCondition(LoadableComponentContext loadableContext) {
-    return (LoadableComponentCondition) injector.getInstance(loadableContext.getConditionContext().
+    return injector.getInstance(loadableContext.getConditionContext().
             getLoadableComponent().condClass());
   }
 
