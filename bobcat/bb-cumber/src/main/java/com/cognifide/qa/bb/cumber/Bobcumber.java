@@ -19,14 +19,16 @@
  */
 package com.cognifide.qa.bb.cumber;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.util.Collection;
-import java.util.Properties;
-
+import com.cognifide.qa.bb.ConfigKeys;
+import com.cognifide.qa.bb.cumber.rerun.FailedTestsRunner;
+import com.cognifide.qa.bb.cumber.rerun.TooManyTestsToRerunException;
+import com.cognifide.qa.bb.provider.selenium.webdriver.WebDriverRegistry;
+import com.cognifide.qa.bb.utils.PropertyUtils;
+import cucumber.api.junit.Cucumber;
+import cucumber.runtime.Backend;
+import cucumber.runtime.Runtime;
+import cucumber.runtime.java.JavaBackend;
+import cucumber.runtime.java.guice.impl.GuiceFactory;
 import org.apache.commons.lang3.CharEncoding;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.runner.Description;
@@ -36,17 +38,9 @@ import org.junit.runners.model.InitializationError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cognifide.qa.bb.ConfigKeys;
-import com.cognifide.qa.bb.cumber.rerun.FailedTestsRunner;
-import com.cognifide.qa.bb.cumber.rerun.TooManyTestsToRerunException;
-import com.cognifide.qa.bb.provider.selenium.webdriver.WebDriverRegistry;
-import com.cognifide.qa.bb.utils.PropertyUtils;
-
-import cucumber.api.junit.Cucumber;
-import cucumber.runtime.Backend;
-import cucumber.runtime.Runtime;
-import cucumber.runtime.java.JavaBackend;
-import cucumber.runtime.java.guice.impl.GuiceFactory;
+import java.io.*;
+import java.util.Collection;
+import java.util.Properties;
 
 /**
  * Classes annotated with {@code @RunWith(Bobcumber.class)} will run a Cucumber Feature
@@ -55,9 +49,12 @@ public class Bobcumber extends Cucumber {
 
   private static final Logger LOG = LoggerFactory.getLogger(Bobcumber.class);
 
+  private final String quarantineEnabled;
+
   private final Properties properties = PropertyUtils.gatherProperties();
 
-  private final double maxFailedTestPercentage = Double.parseDouble(properties.getProperty(ConfigKeys.BOBCAT_REPORT_STATISTICS_PERCENTAGE));
+  private final double maxFailedTestPercentage =
+      Double.parseDouble(properties.getProperty(ConfigKeys.BOBCAT_REPORT_STATISTICS_PERCENTAGE));
 
   private final StatisticsHelper statisticsHelper;
 
@@ -73,7 +70,7 @@ public class Bobcumber extends Cucumber {
    * Constructor called by JUnit.
    *
    * @param clazz the class with the @RunWith annotation.
-   * @throws java.io.IOException                         if there is a problem
+   * @throws java.io.IOException if there is a problem
    * @throws org.junit.runners.model.InitializationError if there is another problem
    */
   public Bobcumber(Class<?> clazz) throws InitializationError, IOException {
@@ -85,6 +82,8 @@ public class Bobcumber extends Cucumber {
       String statisticsFilePath = properties.getProperty(ConfigKeys.BOBCAT_REPORT_STATISTICS_PATH);
       statisticsFile = createFile(statisticsFilePath);
     }
+    this.quarantineEnabled =properties.getProperty("quarantine.enabled");
+
     isItFailedTestsRerun = clazz.isAnnotationPresent(FailedTestsRunner.class);
   }
 
@@ -92,13 +91,28 @@ public class Bobcumber extends Cucumber {
   public void run(RunNotifier notifier) {
     if (isItFailedTestsRerun && !canRerunFailedTests()) {
       shutdownRerun(notifier);
+    } else if (Boolean.valueOf(quarantineEnabled)) {
+      RunNotifier custom = new RunNotifier();
+      custom.addFirstListener(new QuarantineAwareRunListener(getDescription(), notifier));
+      if (storeFailedResults) {
+        custom.addListener(new RerunAwareRunListener(this));
+      }
+      super.run(custom);
     } else {
       if (storeFailedResults) {
-        notifier.addListener(new BobcumberListener(this));
+        notifier.addListener(new RerunAwareRunListener(this));
       }
       super.run(notifier);
-      closeWebDriverPool();
     }
+    closeWebDriverPool();
+  }
+
+  File getFeatureFile() {
+    return featureFile;
+  }
+
+  File getStatisticsFile() {
+    return statisticsFile;
   }
 
   private File createFile(String path) throws FileNotFoundException, UnsupportedEncodingException {
@@ -135,7 +149,8 @@ public class Bobcumber extends Cucumber {
     if (failedTestsNumber == 0) {
       notifier.fireTestFinished(Description.EMPTY);
     } else if (percentageOfFailedTests > maxFailedTestPercentage) {
-      String failureMessage = "Percentage of failed tests was bigger than " + maxFailedTestPercentage + ".";
+      String failureMessage =
+          "Percentage of failed tests was bigger than " + maxFailedTestPercentage + ".";
       Failure failure = new Failure(Description.createSuiteDescription(failureMessage),
           new TooManyTestsToRerunException(failureMessage));
       notifier.fireTestFailure(failure);
@@ -150,11 +165,4 @@ public class Bobcumber extends Cucumber {
     return !haveNoTests && !haveTooManyTests;
   }
 
-  File getFeatureFile() {
-    return featureFile;
-  }
-
-  File getStatisticsFile() {
-    return statisticsFile;
-  }
 }

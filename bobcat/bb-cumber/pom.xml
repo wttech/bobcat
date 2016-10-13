@@ -56,6 +56,11 @@
             <plugin>
                 <groupId>org.apache.rat</groupId>
                 <artifactId>apache-rat-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>src/main/resources/jquery-1.8.2.min.js</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
         </plugins>
     </build>

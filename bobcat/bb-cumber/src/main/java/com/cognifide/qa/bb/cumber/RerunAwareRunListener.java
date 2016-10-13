@@ -31,7 +31,7 @@ import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
 
-class BobcumberListener extends RunListener {
+class RerunAwareRunListener extends RunListener {
 
   private static final String FEATURE_STATEMENT = "feature";
 
@@ -49,7 +49,7 @@ class BobcumberListener extends RunListener {
 
   private boolean alreadyRegistered;
 
-  BobcumberListener(Bobcumber bobcumber) {
+  RerunAwareRunListener(Bobcumber bobcumber) {
     this.bobcumber = bobcumber;
     featureMap = new FeatureMap();
     scenarioCounter = new AtomicInteger();

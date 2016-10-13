@@ -17,21 +17,20 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bobcumber;
-
-import java.util.List;
+package com.cognifide.qa.bb.logging;
 
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
-import com.cognifide.qa.bb.logging.BrowserLogEntryCollector;
 import com.cognifide.qa.bb.logging.entries.BrowserLogEntry;
 import com.cognifide.qa.bb.logging.entries.LogEntry;
 import com.google.inject.Inject;
 
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
+
+import java.util.List;
 
 /**
  * Container for methods fired up before and after Cucumber scenarios.
@@ -53,8 +52,8 @@ public class GlobalHooks {
       addPageLink(scenario);
       addJSConsoleErrors(scenario);
     }
-
     webDriver.quit();
+
   }
 
   private void addJSConsoleErrors(Scenario scenario) {

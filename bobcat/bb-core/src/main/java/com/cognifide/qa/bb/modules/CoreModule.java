@@ -19,6 +19,7 @@
  */
 package com.cognifide.qa.bb.modules;
 
+import com.cognifide.qa.bb.quarantine.QuarantineModule;
 import com.cognifide.qa.bb.guice.ThreadLocalScope;
 import com.cognifide.qa.bb.guice.ThreadScoped;
 import com.google.inject.AbstractModule;
@@ -60,6 +61,8 @@ public class CoreModule extends AbstractModule {
     install(new ProxyModule());
 
     install(new DefaultModifiersModule());
+
+    install(new QuarantineModule());
 
     install(new LoadablesModule());
 

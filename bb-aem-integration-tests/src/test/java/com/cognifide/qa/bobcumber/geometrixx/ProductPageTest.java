@@ -31,7 +31,7 @@ import cucumber.api.CucumberOptions;
 @CucumberOptions(
     features = "src/test/resources/",
     plugin = {"pretty", "html:target/cucumber-html-report/product-page",
-        "json:target/productPageTest.json"},
+        "com.cognifide.qa.bb.cumber.formatter.BobcatJsonFormatter:target/productPageTest.json"},
     tags = {"@productPage", "~@disabled"},
     glue = "com.cognifide.qa"
 )
