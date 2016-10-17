@@ -15,6 +15,9 @@
  */
 package com.cognifide.qa.bb.quarantine;
 
+import static com.cognifide.qa.bb.constants.ConfigKeys.QUARANTINE_LOCATION;
+import static com.cognifide.qa.bb.constants.ConfigKeys.QUARANTINE_LOCATION_PREFIX;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,15 +34,17 @@ public class TestsQuarantine {
 
   private static final Logger LOG = LoggerFactory.getLogger(TestsQuarantine.class);
 
+  private static final String HTTP_REGEX = "^(http|https)://.*$";
+
   private static String quarantineUrl;
 
   private final QuarantineManager remoteQuarantineManager;
 
   @Inject
-  public TestsQuarantine(@Named("quarantine.location.prefix") String quarantineId,
-    @Named("quarantine.location") String quarantineLocation, QuarantineManager quarantineManager) {
+  public TestsQuarantine(@Named(QUARANTINE_LOCATION_PREFIX) String quarantineId,
+    @Named(QUARANTINE_LOCATION) String quarantineLocation, QuarantineManager quarantineManager) {
     this.remoteQuarantineManager = quarantineManager;
-    if (StringUtils.isBlank(quarantineLocation) || !quarantineLocation.matches("^(http|https)://.*$")) {
+    if (StringUtils.isBlank(quarantineLocation) || !quarantineLocation.matches(HTTP_REGEX)) {
       throw new RuntimeException("Invalid URL for quarantine location !");
     }
     quarantineUrl = quarantineLocation + "/" + quarantineId;
@@ -61,6 +66,6 @@ public class TestsQuarantine {
 
   public void removeTestFromQuarantine(QuarantinedElement element) throws
     TestQuarantineEception {
-    remoteQuarantineManager.putElementToQuarantine(quarantineUrl, element);
+    remoteQuarantineManager.removeElementFromQuarantine(quarantineUrl, element);
   }
 }

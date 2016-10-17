@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2016 Cognifide Ltd..
  *
  * Licensed under the Apache License, Version 2.0 (the 'License');
@@ -29,7 +29,6 @@
       var features = $('.feature-line');
       $.each(features, function (index, feature) {
         var featureName = $(feature).text().replace('Feature: ', '').trim();
-        ;
         var scenarios = $(feature).parent().parent().find('.element-name');
         $.each(scenarios, function (index, scenario) {
 

@@ -23,7 +23,6 @@ import com.google.inject.name.Named;
 
 import cucumber.runtime.formatter.CucumberJSONFormatter;
 
-import gherkin.formatter.model.*;
 import gherkin.formatter.model.Scenario;
 
 import org.apache.commons.io.IOUtils;
@@ -33,6 +32,10 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.io.StringWriter;
 
+import gherkin.formatter.model.Feature;
+import gherkin.formatter.model.Match;
+import gherkin.formatter.model.Result;
+
 public class BobcatJsonFormatter extends CucumberJSONFormatter {
 
   private static final Logger LOG = LoggerFactory.getLogger(BobcatJsonFormatter.class);
@@ -40,6 +43,14 @@ public class BobcatJsonFormatter extends CucumberJSONFormatter {
   private static final String SKIPPED_STATUS = "skipped";
 
   private static final String FAILED_STATUS = "failed";
+
+  private static final String SERVICE_URL_PLACEHOLDER = "<#serviceUrl>";
+
+  private static final String JS_FILE_NAME = "quarantine.js";
+
+  private static final String CSS_FILE_NAME = "quarantine.css";
+
+  private static final String JQUERY_FILE_NAME = "jquery-1.8.2.min.js";
 
   private boolean isFirstStep = true;
 
@@ -83,7 +94,7 @@ public class BobcatJsonFormatter extends CucumberJSONFormatter {
   public void result(Result result) {
     if (FAILED_STATUS.equals(result.getStatus())) {
       if (testsQuarantine.getQuarantined()
-          .contains(new QuarantinedElement(currentFeatureName, currentScenarioName))) {
+        .contains(new QuarantinedElement(currentFeatureName, currentScenarioName))) {
         result = new Result(SKIPPED_STATUS, result.getDuration(), result.getErrorMessage());
         this.write("This scenario has failed but it was quarantined");
       }
@@ -94,7 +105,7 @@ public class BobcatJsonFormatter extends CucumberJSONFormatter {
   @Override
   public void after(Match match, Result result) {
     super.after(match, result);
-    if (isFirstStep) {
+    if (isFirstStep && quarantineEnabled) {
       includeQuarantineLogic();
       isFirstStep = false;
     }
@@ -102,10 +113,10 @@ public class BobcatJsonFormatter extends CucumberJSONFormatter {
 
   private void includeQuarantineLogic() {
     try {
-      includeJsScript(getScriptBody("jquery-1.8.2.min.js"));
-      includeCssStylesheet(getScriptBody("quarantine.css"));
-      String quarantineJs = getScriptBody("quarantine.js").
-              replace("<#serviceUrl>", quarantineLocation + "/" + quarantineLocationPrefix);
+      includeJsScript(getScriptBody(JQUERY_FILE_NAME));
+      includeCssStylesheet(getScriptBody(CSS_FILE_NAME));
+      String quarantineJs = getScriptBody(JS_FILE_NAME).
+        replace(SERVICE_URL_PLACEHOLDER, quarantineLocation + "/" + quarantineLocationPrefix);
       includeJsScript(quarantineJs);
     } catch (IOException ex) {
       LOG.error(ex.getMessage(), ex);

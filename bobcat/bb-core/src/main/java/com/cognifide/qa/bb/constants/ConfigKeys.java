@@ -74,6 +74,12 @@ public final class ConfigKeys {
 
   public static final String TIMEOUTS_MINIMAL = "timeouts.minimal";
 
+  public static final String QUARANTINE_LOCATION = "quarantine.location";
+
+  public static final String QUARANTINE_LOCATION_PREFIX = "quarantine.location.prefix";
+
+  public static final String QUARANTINE_ENABLED = "quarantine.enabled";
+
   private ConfigKeys() {
   }
 
