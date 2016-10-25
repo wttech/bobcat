@@ -29,6 +29,7 @@ import com.cognifide.qa.bb.traffic.TrafficModule;
 import com.google.inject.AbstractModule;
 
 public class GuiceModule extends AbstractModule {
+
   @Override
   protected void configure() {
     if (System.getProperty("configuration.paths") == null) {
