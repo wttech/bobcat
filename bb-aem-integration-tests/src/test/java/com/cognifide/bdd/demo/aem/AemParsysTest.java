@@ -63,6 +63,10 @@ public class AemParsysTest {
 
   private static final int WAIT_TIME = 5;
 
+  private static final By ARTICLE_COMPONENT_CLICKABLE_AREA = By.cssSelector("img.cq-dd-file");
+
+  private static final By TITLE_COMPONENT_CLICKABLE_AREA = By.cssSelector("h1");
+
   @Inject
   private WebDriver webDriver;
 
@@ -129,6 +133,15 @@ public class AemParsysTest {
   }
 
   @Test
+  public void removeByComponentTypeAndClickableArea() {
+    topParsys.insertComponent(GENERAL_GROUP, LIST_COMPONENT);
+    topParsys.insertFirstComponentType(ArticleComponent.class);
+    topParsys.insertComponent(GENERAL_GROUP, LIST_COMPONENT);
+    topParsys.removeFirstComponentOfType(ArticleComponent.class, ARTICLE_COMPONENT_CLICKABLE_AREA);
+    assertTrue(topParsys.isComponentNotPresent(ArticleComponent.class));
+  }
+
+  @Test
   public void removeByComponentType() {
     topParsys.insertComponent(GENERAL_GROUP, LIST_COMPONENT);
     topParsys.insertFirstComponentType(ArticleComponent.class);
@@ -145,6 +158,19 @@ public class AemParsysTest {
     changeTitle(title, TEST_TEXT);
 
     topParsys.removeNthComponentOfType(TitleComponent.class, 0);
+
+    title = topParsys.getFirstComponentOfType(TitleComponent.class);
+    assertTitleEquals(TEST_TEXT, title);
+  }
+
+  @Test
+  public void removeByComponentTypeAndIndexAndClickableArea() {
+    topParsys.insertFirstComponentType(TitleComponent.class);
+    topParsys.insertComponent(GENERAL_GROUP, LIST_COMPONENT);
+    TitleComponent title = topParsys.insertComponent(TitleComponent.class);
+    changeTitle(title, TEST_TEXT);
+
+    topParsys.removeNthComponentOfType(TitleComponent.class, 0, TITLE_COMPONENT_CLICKABLE_AREA);
 
     title = topParsys.getFirstComponentOfType(TitleComponent.class);
     assertTitleEquals(TEST_TEXT, title);
