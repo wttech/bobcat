@@ -364,7 +364,7 @@ public class AemParsys {
   public AemParsys removeNthComponentOfType(Class<?> componentClass, int n) {
     WebElement webElement = getComponentScope(componentClass, n);
     removeComponentByContextMenu(webElement);
-    waitForComponentRemoved(webElement);
+    waitForComponentToBeRemoved(webElement);
     return this;
   }
 
@@ -378,7 +378,7 @@ public class AemParsys {
   public AemParsys removeNthComponentOfType(Class<?> componentClass, int n, By clickableArea) {
     WebElement webElement = getComponentScope(componentClass, n).findElement(clickableArea);
     removeComponentByContextMenu(webElement);
-    waitForComponentRemoved(webElement);
+    waitForComponentToBeRemoved(webElement);
     return this;
   }
 
@@ -413,7 +413,7 @@ public class AemParsys {
       WebElement webElement = currentScope
           .findElements(By.cssSelector(SELECTOR_FOR_COMPONENT_IN_PARSYS)).get(index);
       removeComponentByContextMenu(webElement);
-      waitForComponentRemoved(webElement);
+      waitForComponentToBeRemoved(webElement);
     } catch (ArrayIndexOutOfBoundsException e) {
       throw new NoSuchComponentException(e);
     }
@@ -488,7 +488,7 @@ public class AemParsys {
     };
   }
 
-  private void waitForComponentRemoved(WebElement webElement) {
+  private void waitForComponentToBeRemoved(WebElement webElement) {
     wait.withTimeout(Timeouts.SMALL).until(ExpectedConditions.stalenessOf(webElement));
   }
 
