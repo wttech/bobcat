@@ -363,7 +363,7 @@ public class AemParsys {
    */
   public AemParsys removeNthComponentOfType(Class<?> componentClass, int n) {
     WebElement webElement = getComponentScope(componentClass, n);
-    clickDeleteInContextMenuAndAcceptConfirmationWindow(webElement);
+    removeComponentByContextMenu(webElement);
     waitForComponentRemoved(webElement);
     return this;
   }
@@ -377,7 +377,7 @@ public class AemParsys {
    */
   public AemParsys removeNthComponentOfType(Class<?> componentClass, int n, By clickableArea) {
     WebElement webElement = getComponentScope(componentClass, n).findElement(clickableArea);
-    clickDeleteInContextMenuAndAcceptConfirmationWindow(webElement);
+    removeComponentByContextMenu(webElement);
     waitForComponentRemoved(webElement);
     return this;
   }
@@ -412,7 +412,7 @@ public class AemParsys {
     try {
       WebElement webElement = currentScope
           .findElements(By.cssSelector(SELECTOR_FOR_COMPONENT_IN_PARSYS)).get(index);
-      clickDeleteInContextMenuAndAcceptConfirmationWindow(webElement);
+      removeComponentByContextMenu(webElement);
       waitForComponentRemoved(webElement);
     } catch (ArrayIndexOutOfBoundsException e) {
       throw new NoSuchComponentException(e);
@@ -428,7 +428,7 @@ public class AemParsys {
   public AemParsys clear() {
     List<WebElement> list =
         currentScope.findElements(By.cssSelector(SELECTOR_FOR_COMPONENT_IN_PARSYS));
-    list.forEach(this::clickDeleteInContextMenuAndAcceptConfirmationWindow);
+    list.forEach(this::removeComponentByContextMenu);
     return this;
   }
 
@@ -464,7 +464,7 @@ public class AemParsys {
     return By.cssSelector(String.format(componentLocatorFormat, componentCssClass));
   }
 
-  private void clickDeleteInContextMenuAndAcceptConfirmationWindow(WebElement webElement) {
+  private void removeComponentByContextMenu(WebElement webElement) {
     contextMenu.open(webElement).clickOption(MenuOption.DELETE);
     confirmationWindow.acceptConfirmationWindow();
   }
