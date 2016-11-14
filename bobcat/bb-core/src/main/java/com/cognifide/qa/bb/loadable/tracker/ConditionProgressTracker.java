@@ -68,9 +68,8 @@ public class ConditionProgressTracker {
    *
    * @param rootCause Exception that caused the error
    * @return String containing the information about conditions that have been run in hierarchical order
-   * starting from the top. The output is in the following format:    <pre>
-   *  [class that uses the field annotated with {@link LoadableComponent}] -> [fieldName] ~ [condition class that have been under evaluation] (Status)
-   * </pre>
+   * starting from the top. The output is in the following format:
+   *  [class that uses the field annotated with {@link LoadableComponent}] - [fieldName] ~ [condition class that have been under evaluation] (Status)
    */
   public String produceConditionTraceInfo(Exception rootCause) {
     StringBuilder sb = new StringBuilder("Loadable conditions trace info:");

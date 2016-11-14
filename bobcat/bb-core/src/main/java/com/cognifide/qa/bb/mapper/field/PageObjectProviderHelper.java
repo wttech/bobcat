@@ -42,7 +42,7 @@ public class PageObjectProviderHelper {
   /**
    * Gets selector from {@link PageObject} if class annoted by this annotation is used in list
    * 
-   * @param field
+   * @param field class field
    * @return selector
    */
   public static By getSelectorFromGenericPageObject(Field field) {
@@ -52,7 +52,7 @@ public class PageObjectProviderHelper {
   /**
    * Gets selector from {@link PageObject}
    * 
-   * @param field
+   * @param field class field
    * @return selector
    */
   public static By getSelectorFromPageObject(Field field) {
@@ -62,8 +62,8 @@ public class PageObjectProviderHelper {
   /**
    * Gets generic type from field (if field type is {@link ParameterizedType})
    * 
-   * @param field
-   * @return
+   * @param field class field
+   * @return generic type
    */
   public static Class<?> getGenericType(Field field) {
     Type type = field.getGenericType();

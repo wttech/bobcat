@@ -44,9 +44,9 @@ public class ScopedElementLocator implements ElementLocator {
   /**
    * Constructs ScopedElementLocator.
    *
-   * @param scopeFactory
-   * @param scopeField
-   * @param searchField
+   * @param scopeFactory instance of ElementLocatorFactory
+   * @param scopeField field for scope definition
+   * @param searchField class field
    */
   public ScopedElementLocator(ElementLocatorFactory scopeFactory,
       Field scopeField, Field searchField) {

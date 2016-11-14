@@ -33,7 +33,8 @@ import com.cognifide.qa.bb.scope.frame.FramePath;
 import com.cognifide.qa.bb.utils.PageObjectInjector;
 
 /**
- * This class is a Java proxy handler. It is created and registered in PageObjectListProxyProvider. Its
+ * This class is a Java proxy handler. It is created and registered in
+ * PageObjectListProxyProvider. Its
  * responsibility is to provide up-to-date list of PageObjects identified by the locator.
  */
 public class PageObjectListInvocationHandler implements InvocationHandler {
@@ -55,8 +56,10 @@ public class PageObjectListInvocationHandler implements InvocationHandler {
    *
    * @param genericType    Type of the element stored in the list.
    * @param elementLocator Locator that is used to fetch elements from the page.
-   * @param injector       Injector that will create items from webelements identified by elementLocator.
-   * @param cacheResults   If this flag is set, PageObjectListInvocationHandler will generate the list once.
+   * @param injector       Injector that will create items from webelements identified by
+   *                       elementLocator.
+   * @param cacheResults   If this flag is set, PageObjectListInvocationHandler will generate the
+   *                       list once.
    *                       If it's false, list will be generated each time this handler is invoked.
    * @param framePath      Injector performs injection in the frame indicated by framePath.
    */
@@ -70,10 +73,14 @@ public class PageObjectListInvocationHandler implements InvocationHandler {
   }
 
   /**
-   * This method intercepts all methods on the proxied object. First it constructs the list of PageObjects
+   * This method intercepts all methods on the proxied object. First it constructs the list of
+   * PageObjects
    * (or reuses existing one if caching is allowed), then proceeds with the original method.
-   * @throws java.lang.reflect.InvocationTargetException
-   * @throws java.lang.IllegalAccessException
+   *
+   * @throws java.lang.reflect.InvocationTargetException if the underlying method throws an
+   * exception.
+   * @throws java.lang.IllegalAccessException            if this object is enforcing Java
+   * language access control and the underlying method is inaccessible.
    */
   @Override
   public Object invoke(Object proxy, Method method, Object[] args) throws InvocationTargetException,
