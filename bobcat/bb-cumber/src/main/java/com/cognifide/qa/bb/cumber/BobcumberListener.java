@@ -26,6 +26,7 @@ import java.io.PrintWriter;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.lang3.CharEncoding;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.runner.Description;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
@@ -92,7 +93,8 @@ class BobcumberListener extends RunListener {
   }
 
   private synchronized void addScenario(String failedScenario) throws IOException {
-    try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(bobcumber.getFeatureFile(), false)))) {
+    try (PrintWriter out = new PrintWriter(
+        new BufferedWriter(new FileWriter(bobcumber.getFeatureFile(), false)))) {
       featureMap.addFeature(failedScenario);
       featureMap.writeFeatures(out);
     }
@@ -101,7 +103,7 @@ class BobcumberListener extends RunListener {
   private boolean isScenario(String displayName) {
     boolean isScenario = false;
     if (displayName.contains(COLON)) {
-      String testStep = displayName.substring(0, displayName.lastIndexOf(COLON));
+      String testStep = StringUtils.substringBefore(displayName, COLON);
       isScenario = SCENARIO_STATEMENT.equals(testStep);
     }
     return isScenario;
