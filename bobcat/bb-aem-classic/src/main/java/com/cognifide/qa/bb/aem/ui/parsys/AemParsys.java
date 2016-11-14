@@ -73,7 +73,8 @@ public class AemParsys {
   private PageObjectInjector pageObjectInjector;
 
   @FindBy(
-      xpath = "//div[contains(@class, 'cq-insertdialog') and contains(@style, 'visibility: visible')]")
+      xpath = "//div[contains(@class, 'cq-insertdialog') and contains(@style, 'visibility: "
+          + "visible')]")
   @Global
   private AemInsertWindow insertWindow;
 
@@ -362,8 +363,22 @@ public class AemParsys {
    */
   public AemParsys removeNthComponentOfType(Class<?> componentClass, int n) {
     WebElement webElement = getComponentScope(componentClass, n);
-    clickDeleteInContextMenu(webElement);
-    wait.withTimeout(Timeouts.SMALL).until(ExpectedConditions.stalenessOf(webElement));
+    removeComponentByContextMenu(webElement);
+    waitForComponentToBeRemoved(webElement);
+    return this;
+  }
+
+  /**
+   * Remove the n-th occurrence of componentClass using custom clickable area. Indexing starts at 0.
+   *
+   * @param componentClass component class
+   * @param n              component index
+   * @return This AemParsys.
+   */
+  public AemParsys removeNthComponentOfType(Class<?> componentClass, int n, By clickableArea) {
+    WebElement webElement = getComponentScope(componentClass, n).findElement(clickableArea);
+    removeComponentByContextMenu(webElement);
+    waitForComponentToBeRemoved(webElement);
     return this;
   }
 
@@ -378,6 +393,16 @@ public class AemParsys {
   }
 
   /**
+   * Remove the first occurrence of componentClass using custom clickable area.
+   *
+   * @param componentClass component class
+   * @return This AemParsys.
+   */
+  public AemParsys removeFirstComponentOfType(Class<?> componentClass, By clickableArea) {
+    return removeNthComponentOfType(componentClass, 0, clickableArea);
+  }
+
+  /**
    * Remove the n-th(index) component, not matter what type it is. Indexing starts at 0.
    *
    * @param index component index
@@ -387,8 +412,8 @@ public class AemParsys {
     try {
       WebElement webElement = currentScope
           .findElements(By.cssSelector(SELECTOR_FOR_COMPONENT_IN_PARSYS)).get(index);
-      clickDeleteInContextMenu(webElement);
-      wait.withTimeout(Timeouts.SMALL).until(ExpectedConditions.stalenessOf(webElement));
+      removeComponentByContextMenu(webElement);
+      waitForComponentToBeRemoved(webElement);
     } catch (ArrayIndexOutOfBoundsException e) {
       throw new NoSuchComponentException(e);
     }
@@ -403,7 +428,7 @@ public class AemParsys {
   public AemParsys clear() {
     List<WebElement> list =
         currentScope.findElements(By.cssSelector(SELECTOR_FOR_COMPONENT_IN_PARSYS));
-    list.forEach(this::clickDeleteInContextMenu);
+    list.forEach(this::removeComponentByContextMenu);
     return this;
   }
 
@@ -439,7 +464,7 @@ public class AemParsys {
     return By.cssSelector(String.format(componentLocatorFormat, componentCssClass));
   }
 
-  private void clickDeleteInContextMenu(WebElement webElement) {
+  private void removeComponentByContextMenu(WebElement webElement) {
     contextMenu.open(webElement).clickOption(MenuOption.DELETE);
     confirmationWindow.acceptConfirmationWindow();
   }
@@ -462,4 +487,9 @@ public class AemParsys {
       return xPositionDiff + yPositionDiff <= parsysOffset;
     };
   }
+
+  private void waitForComponentToBeRemoved(WebElement webElement) {
+    wait.withTimeout(Timeouts.SMALL).until(ExpectedConditions.stalenessOf(webElement));
+  }
+
 }
