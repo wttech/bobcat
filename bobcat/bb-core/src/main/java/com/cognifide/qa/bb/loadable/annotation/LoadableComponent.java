@@ -39,11 +39,13 @@ public @interface LoadableComponent {
 
   /**
    * Delay between condition checks
+   * @return default delay value, 1 second
    */
   int delay() default 1;
 
   /**
    * Timeout for positive condition evaluation
+   * @return default condition timeout value, 10 seconds
    */
   int timeout() default 10;
 

@@ -18,7 +18,7 @@ package com.cognifide.qa.bb.loadable.tracker;
 import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 
 /**
- * Describes status of condition provided in {@link LoadableComponent annotated fields.
+ * Describes status of condition provided in {@link LoadableComponent} annotated fields.
  */
 public enum ConditionStatus {
 
