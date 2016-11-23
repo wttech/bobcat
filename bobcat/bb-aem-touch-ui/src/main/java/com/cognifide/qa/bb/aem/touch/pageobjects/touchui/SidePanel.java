@@ -84,7 +84,6 @@ public class SidePanel {
     }
     verifyResultsVisible();
     searchInput.clear();
-    System.out.println("££££££££££££££££££££££££££££££££££££££££££££££££££££££££££");
     searchInput.sendKeys(asset);
     searchInput.sendKeys(Keys.ENTER);
     verifyResultsVisible();
