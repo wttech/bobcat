@@ -80,7 +80,6 @@ public class DialogConfigurer {
    */
   public DialogField getDialogField(WebElement parentElement, String type) {
     WebElement scope = parentElement.findElement(By.tagName("input"));
-    scope.clear();
     return getFieldObject(scope, type);
   }
 

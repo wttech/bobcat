@@ -83,7 +83,8 @@ public class SidePanel {
       pageObjectInjector.inject(GlobalBar.class).toggleSidePanel();
     }
     verifyResultsVisible();
-
+    searchInput.clear();
+    System.out.println("££££££££££££££££££££££££££££££££££££££££££££££££££££££££££");
     searchInput.sendKeys(asset);
     searchInput.sendKeys(Keys.ENTER);
     verifyResultsVisible();
