@@ -82,6 +82,7 @@ public class SidePanel {
     if (isClosed()) {
       pageObjectInjector.inject(GlobalBar.class).toggleSidePanel();
     }
+
     verifyResultsVisible();
     searchInput.clear();
     searchInput.sendKeys(asset);
