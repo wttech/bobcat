@@ -26,8 +26,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.aem.DialogComponent;
+import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.frame.FrameSwitcher;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
@@ -120,7 +120,7 @@ public class AemRichText implements Configurable {
       actions.sendKeys(text).perform();
       return this;
     } finally {
-      frameSwitcher.switchTo("/$cq");
+      frameSwitcher.switchBack();
     }
   }
 
@@ -134,14 +134,14 @@ public class AemRichText implements Configurable {
     try {
       bobcatWait.withTimeout(Timeouts.BIG).until(driver -> {
         actions.sendKeys(Keys.chord(Keys.CONTROL, "a")).sendKeys(Keys.BACK_SPACE).sendKeys(Keys.BACK_SPACE).
-                perform();
+            perform();
         WebElement activeElement = webDriver.switchTo().activeElement();
         String text = activeElement.getText();
         return text.isEmpty();
       }, 2);
       return this;
     } finally {
-      frameSwitcher.switchTo("/$cq");
+      frameSwitcher.switchBack();
     }
   }
 
@@ -175,7 +175,7 @@ public class AemRichText implements Configurable {
       actions.sendKeys(Keys.chord(Keys.CONTROL, "a")).perform();
       return this;
     } finally {
-      frameSwitcher.switchTo("/$cq");
+      frameSwitcher.switchBack();
     }
   }
 
@@ -207,7 +207,7 @@ public class AemRichText implements Configurable {
     try {
       return webDriver.findElement(By.xpath(".//body")).getText();
     } finally {
-      frameSwitcher.switchTo("/$cq");
+      frameSwitcher.switchBack();
     }
   }
 
@@ -215,7 +215,7 @@ public class AemRichText implements Configurable {
    * Selects text in the text area between indices provided as parameters.
    *
    * @param startPos the beginning position
-   * @param endPos the ending position
+   * @param endPos   the ending position
    * @return This instance.
    */
   public AemRichText selectText(int startPos, int endPos) {
@@ -232,7 +232,7 @@ public class AemRichText implements Configurable {
       actions.keyUp(Keys.SHIFT).perform();
       return this;
     } finally {
-      frameSwitcher.switchTo("/$cq");
+      frameSwitcher.switchBack();
     }
   }
 
@@ -244,7 +244,7 @@ public class AemRichText implements Configurable {
     try {
       return webDriver.findElement(By.xpath(".//body")).getAttribute(INNER_HTML_ATTRIBUTE);
     } finally {
-      frameSwitcher.switchTo("/$cq");
+      frameSwitcher.switchBack();
     }
   }
 
@@ -267,13 +267,13 @@ public class AemRichText implements Configurable {
   private String getTextAreaInnerHtml() {
     switchToTextArea();
     String value = webDriver.switchTo().activeElement().getAttribute(INNER_HTML_ATTRIBUTE);
-    frameSwitcher.switchTo("/$cq");
+    frameSwitcher.switchBack();
     return value;
   }
 
   private boolean buttonSelected(RtButton button) {
     return webDriver.findElement(By.cssSelector(SELECTED_BUTTON)).getAttribute(CLASS_ATTRIBUTE)
-            .contains(button.getCss());
+        .contains(button.getCss());
   }
 
   private void enableRichTextIfDisabled() {
@@ -287,6 +287,6 @@ public class AemRichText implements Configurable {
 
   private boolean isRichtextDisabled() {
     return currentScope.findElement(By.className(BUTTON_CLASS_NAME)).getAttribute(CLASS_ATTRIBUTE)
-            .contains(DISABLED_CLASS_NAME);
+        .contains(DISABLED_CLASS_NAME);
   }
 }
