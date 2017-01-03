@@ -24,6 +24,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.constants.Timeouts;
+import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
+import com.cognifide.qa.bb.loadable.condition.impl.VisibilityCondition;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
@@ -39,21 +41,21 @@ public class SiteadminToolbar {
 
   private static final String DELETE_LABEL = "Delete";
 
-  private static final String BUTTON_LIST_SELECTOR =
-      "div.coral-Popover-content > div.endor-List > a";
+  private static final String BUTTON_LIST_SELECTOR
+    = "div.coral-Popover-content > div.endor-List > a";
 
   private static final String TOOLBAR_CREATE_BUTTON_SELECTOR = "a.coral-Button[title='Create']";
 
-  private static final String POPOVER_CREATE_PAGE_BUTTON_SELECTOR =
-      ".endor-List-item.cq-siteadmin-admin-createpage";
+  private static final String POPOVER_CREATE_PAGE_BUTTON_SELECTOR
+    = ".endor-List-item.cq-siteadmin-admin-createpage";
 
   private static final String MORE_BUTTON_SELECTOR = "i.coral-Icon.coral-Icon--more";
 
-  private static final String PUBLISH_BUTTON_SELECTOR =
-      "a.cq-siteadmin-admin-actions-publish-activator[title='Publish']";
+  private static final String PUBLISH_BUTTON_SELECTOR
+    = "a.cq-siteadmin-admin-actions-publish-activator[title='Publish']";
 
-  private static final String UNPUBLISH_BUTTON_SELECTOR =
-      "a.cq-siteadmin-admin-actions-unpublish-activator[title='Unpublish']";
+  private static final String UNPUBLISH_BUTTON_SELECTOR
+    = "a.cq-siteadmin-admin-actions-unpublish-activator[title='Unpublish']";
 
   @Inject
   private WebDriver driver;
@@ -80,6 +82,7 @@ public class SiteadminToolbar {
 
   @Global
   @FindBy(css = "button.coral-Button[title='Move']")
+  @LoadableComponent(condClass = VisibilityCondition.class)
   private WebElement moveButton;
 
   @FindBy(css = "div.foundation-ui-notification.coral-Alert.coral-Alert--info")
@@ -128,19 +131,19 @@ public class SiteadminToolbar {
   public SiteadminToolbar createPage(String title, String templateName) {
     clickCreatePageButton();
     createPageWizard
-        .selectTemplate(templateName)
-        .provideTitle(title)
-        .submit();
+      .selectTemplate(templateName)
+      .provideTitle(title)
+      .submit();
     return this;
   }
 
   public SiteadminToolbar createPage(String title, String name, String templateName) {
     clickCreatePageButton();
     createPageWizard
-        .selectTemplate(templateName)
-        .provideTitle(title)
-        .provideName(name)
-        .submit();
+      .selectTemplate(templateName)
+      .provideTitle(title)
+      .provideName(name)
+      .submit();
     return this;
   }
 
@@ -175,7 +178,7 @@ public class SiteadminToolbar {
 
   private WebElement getPublishButton() {
     return driver.findElement(By.
-        cssSelector(PUBLISH_BUTTON_SELECTOR));
+      cssSelector(PUBLISH_BUTTON_SELECTOR));
   }
 
   private WebElement getDeleteButton() {
@@ -188,7 +191,7 @@ public class SiteadminToolbar {
 
   private WebElement getUnpublishButton() {
     return driver.findElement(By.
-        cssSelector(UNPUBLISH_BUTTON_SELECTOR));
+      cssSelector(UNPUBLISH_BUTTON_SELECTOR));
   }
 
   private void clickCreatePageButton() {
@@ -199,10 +202,10 @@ public class SiteadminToolbar {
   private void clickButtonFromMoreSection(String buttonLabel) {
     List<WebElement> elements = driver.findElements(By.cssSelector(BUTTON_LIST_SELECTOR));
     elements.stream()
-        .filter(t -> t.getText().equals(buttonLabel))
-        .findFirst()
-        .orElseThrow(() -> new IllegalStateException("Specified element is not present"))
-        .click();
+      .filter(t -> t.getText().equals(buttonLabel))
+      .findFirst()
+      .orElseThrow(() -> new IllegalStateException("Specified element is not present"))
+      .click();
   }
 
   private void clickButtonInConfirmationModal(String buttonLabel) {
