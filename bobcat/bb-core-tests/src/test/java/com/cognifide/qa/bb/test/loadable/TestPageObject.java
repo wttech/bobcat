@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.cognifide.qa.bb.loadable.hierarchy;
+package com.cognifide.qa.bb.test.loadable;
 
 import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import com.cognifide.qa.bb.loadable.condition.impl.VisibilityCondition;
@@ -31,20 +31,28 @@ public class TestPageObject {
   @Inject
   private WebDriver webDriver;
 
-  @FindBy(tagName = "input")
-  @LoadableComponent(condClass = TestCondition.class, delay = 5, timeout = 5)
-  private WebElement inputElement;
+  @FindBy(css = "input[name='1']")
+  @LoadableComponent(condClass = TestCondition.class, delay = 3, timeout = 3)
+  private InputElementWrapper inputElement1;
+
+  @FindBy(css = "input[name='2']")
+  @LoadableComponent(condClass = TestCondition.class, delay = 8, timeout = 8)
+  private InputElementWrapper inputElement2;
 
   @FindBy(tagName = "invalidTag")
   @LoadableComponent(condClass = VisibilityCondition.class, delay = 5, timeout = 5)
   private WebElement invalidElement;
 
   public void open() {
-    webDriver.get(PageUtils.buildTestPageUrl(BobcatActionsTest.class));
+    webDriver.get(PageUtils.buildTestPageUrl(LoadableComponentsTest.class));
   }
 
-  public void sendKeysWithSuccess() {
-    inputElement.sendKeys("test");
+  public void sendKeysWithSuccessToFirstSubj() {
+    inputElement1.sendKeys("test");
+  }
+
+  public void sendKeysWithSuccessToSecondSubj() {
+    inputElement2.sendKeys("test");
   }
 
   public void sendKeysWithFailure() {

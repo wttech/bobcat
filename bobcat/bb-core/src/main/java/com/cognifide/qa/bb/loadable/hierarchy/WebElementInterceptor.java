@@ -33,9 +33,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This intercepts invocation of {@link WebElement} methods and runs evaluation of conditions provided in
- * the {@link LoadableComponent} annotations on field that called the {@link WebElement} method and every
- * field in the hierarchy above.
+ * This intercepts invocation of {@link WebElement} methods and runs evaluation of conditions provided in the
+ * {@link LoadableComponent} annotations on field that called the {@link WebElement} method and every field in
+ * the hierarchy above.
  *
  */
 public class WebElementInterceptor implements MethodInterceptor {
@@ -50,11 +50,15 @@ public class WebElementInterceptor implements MethodInterceptor {
   @Inject
   private ConditionChainRunner loadConditionChainRunner;
 
+  @Inject
+  private PageObjectInvocationTracker pageObjectInvocationTracker;
+
   @Override
   public Object invoke(MethodInvocation methodInvocation) throws Throwable {
     Class methodCallerClass = getMethodCallerClassWithoutGuiceContext();
 
     if (methodCallerClass.isAnnotationPresent(PageObject.class)) {
+
       LOG.
         debug("Caught invocation of method {} from {}. Started processing loadable component conditions hierarchy",
           methodInvocation.getMethod().getName(), methodCallerClass.getName());
@@ -62,7 +66,9 @@ public class WebElementInterceptor implements MethodInterceptor {
       BobcatWebElement caller = (BobcatWebElement) methodInvocation.getThis();
       ClassFieldContext directContext = acquireDirectContext(caller);
       ConditionStack loadableContextHierarchy
-          = loadableCondsExplorer.discoverLoadableContextHierarchy(methodCallerClass, directContext);
+        = loadableCondsExplorer.
+        discoverLoadableContextHierarchy(directContext, pageObjectInvocationTracker.
+          getSubjectStack());
 
       loadConditionChainRunner.chainCheck(loadableContextHierarchy);
     }
