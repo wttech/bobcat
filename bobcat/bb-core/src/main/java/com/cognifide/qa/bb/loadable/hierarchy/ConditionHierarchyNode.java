@@ -15,16 +15,15 @@
  */
 package com.cognifide.qa.bb.loadable.hierarchy;
 
-import com.cognifide.qa.bb.loadable.context.ClassFieldContext;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+
+import com.cognifide.qa.bb.loadable.context.ClassFieldContext;
+import com.google.common.collect.ImmutableList;
 
 class ConditionHierarchyNode {
 
-  private final List<ConditionHierarchyNode> children =
-      Collections.synchronizedList(new ArrayList<>());
+  private final List<ConditionHierarchyNode> children = new ArrayList<>();
 
   private final ConditionHierarchyNode parent;
 
@@ -43,10 +42,14 @@ class ConditionHierarchyNode {
   }
 
   public List<ConditionHierarchyNode> getChildren() {
-    return children;
+    return ImmutableList.copyOf(children);
   }
 
   public ConditionHierarchyNode getParent() {
     return parent;
+  }
+
+  public void addChild(ConditionHierarchyNode node) {
+    children.add(node);
   }
 }

@@ -127,7 +127,7 @@ public class ConditionsExplorer {
       ClassFieldContext loadableContext) {
     ConditionHierarchyNode node = new ConditionHierarchyNode(parent);
     node.setLoadableFieldContext(loadableContext);
-    parent.getChildren().add(node);
+    parent.addChild(node);
     return node;
   }
 
