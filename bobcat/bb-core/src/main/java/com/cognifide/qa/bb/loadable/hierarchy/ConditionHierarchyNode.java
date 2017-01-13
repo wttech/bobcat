@@ -16,12 +16,15 @@
 package com.cognifide.qa.bb.loadable.hierarchy;
 
 import com.cognifide.qa.bb.loadable.context.ClassFieldContext;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 class ConditionHierarchyNode {
 
-  private final List<ConditionHierarchyNode> children = new ArrayList<>();
+  private final List<ConditionHierarchyNode> children =
+      Collections.synchronizedList(new ArrayList<>());
 
   private final ConditionHierarchyNode parent;
 
