@@ -33,7 +33,7 @@ import org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler;
 
 /**
  * This class can be used to create proxies to web elements.
- * It may be useful when creating {@link com.cognifide.qa.bb.qualifier.PageObject} manually using: {@link com.cognifide.qa.bb.utils.PageObjectInjector} and the element is not yet available on the page.
+ * It may be useful when creating {@link com.cognifide.qa.bb.qualifier.PageObject} manually using: {@link com.cognifide.qa.bb.utils.PageObjectInjector} when the element is not yet available on the page.
  * It works in similar way as {@link org.openqa.selenium.support.FindBy} annotation.
  */
 public class WebElementProxyFactory {
