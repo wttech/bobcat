@@ -115,7 +115,7 @@ public class ConditionsExplorer {
       });
   }
 
-  private ConditionHierarchyNode addChild(ConditionHierarchyNode parent,
+  private synchronized ConditionHierarchyNode addChild(ConditionHierarchyNode parent,
     ClassFieldContext loadableContext) {
     ConditionHierarchyNode node = new ConditionHierarchyNode(parent);
     node.setLoadableFieldContext(loadableContext);
