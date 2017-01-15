@@ -28,7 +28,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Stack;
 import java.util.stream.Collectors;
@@ -72,10 +71,7 @@ public class ConditionsExplorer {
       LinkedList<Object> subjectStack) {
     Stack<LoadableComponentContext> stack = new Stack<>();
     if (directClassFieldContext != null) {
-      directClassFieldContext.toLoadableContextList().stream().
-          forEach((context) -> {
-            stack.add(context);
-          });
+      directClassFieldContext.toLoadableContextList().forEach(stack::add);
     }
     while (!subjectStack.isEmpty()) {
 
@@ -108,19 +104,18 @@ public class ConditionsExplorer {
         .filter(f -> f.getType().isAnnotationPresent(PageObject.class))
         .collect(Collectors.toList());
 
-    applicableFields.stream().
-        forEach((field) -> {
-          field.setAccessible(true);
-          Object subjectInstance = null;
-          try {
-            subjectInstance = field.get(injectee);
-          } catch (IllegalArgumentException | IllegalAccessException ex) {
-            LOG.error(ex.getMessage(), ex);
-          }
-          ConditionHierarchyNode node = addChild(parent, new ClassFieldContext(subjectInstance,
+    applicableFields.forEach((field) -> {
+      field.setAccessible(true);
+      Object subjectInstance = null;
+      try {
+        subjectInstance = field.get(injectee);
+      } catch (IllegalArgumentException | IllegalAccessException ex) {
+        LOG.error(ex.getMessage(), ex);
+      }
+      ConditionHierarchyNode node = addChild(parent, new ClassFieldContext(subjectInstance,
               LoadableComponentsUtil.getConditionsFormField(field)));
-          processLoadableContextForClass(field.getType(), node, subjectInstance);
-        });
+      processLoadableContextForClass(field.getType(), node, subjectInstance);
+    });
   }
 
   private ConditionHierarchyNode addChild(ConditionHierarchyNode parent,
