@@ -28,7 +28,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
@@ -41,9 +41,10 @@ import org.slf4j.LoggerFactory;
 import com.cognifide.qa.bb.utils.AopUtil;
 
 /**
- *
- * This runs after a test class is initialized and explores the hierarchy of {@link PageObject} elements which
- * is needed to control hierarchical evaluation of {@link PageObject} and {@link WebElement} fields annotated
+ * This runs after a test class is initialized and explores the hierarchy of {@link PageObject}
+ * elements which
+ * is needed to control hierarchical evaluation of {@link PageObject} and {@link WebElement}
+ * fields annotated
  * with {@link LoadableComponent} annotation.
  */
 @Singleton
@@ -54,22 +55,23 @@ public class ConditionsExplorer {
   private final ConditionHierarchyNode treeRootNode = new ConditionHierarchyNode(null);
 
   /**
-   * Discovers the hierarchy of Loadable Conditions form provided class up to the root class which is usually
+   * Discovers the hierarchy of Loadable Conditions form provided class up to the root class
+   * which is usually
    * the test class which have run the test.
    *
-   * @param directClassFieldContext context of the class field that have called the {@link WebElement} method.
-   * @param subjectStack stack of subjects which taken part in invocation of WebElement's method
-   * @return Stack of hierarchical conditions from {@link LoadableComponent} annotated fields from the test
+   * @param directClassFieldContext context of the class field that have called the
+   *                                {@link WebElement} method.
+   * @param subjectStack            stack of subjects which taken part in invocation of
+   *                                WebElement's method
+   * @return Stack of hierarchical conditions from {@link LoadableComponent} annotated fields
+   * from the test
    * class down to the "clazz" parameter with "directClassFieldContext" from that class.
    */
   public ConditionStack discoverLoadableContextHierarchy(ClassFieldContext directClassFieldContext,
-                                                         LinkedList<Object> subjectStack) {
+      LinkedList<Object> subjectStack) {
     Stack<LoadableComponentContext> stack = new Stack<>();
     if (directClassFieldContext != null) {
-      directClassFieldContext.toLoadableContextList().stream().
-        forEach((context) -> {
-          stack.add(context);
-        });
+      directClassFieldContext.toLoadableContextList().forEach(stack::add);
     }
     while (!subjectStack.isEmpty()) {
 
@@ -88,38 +90,39 @@ public class ConditionsExplorer {
   public void registerLoadableContextHierarchyTree(Object injectee) {
     Class clazz = injectee.getClass();
     Class normalizedClass = AopUtil.getBaseClassForAopObject(clazz);
-    treeRootNode.setLoadableFieldContext(new ClassFieldContext(normalizedClass, Collections.emptyList()));
+    treeRootNode
+        .setLoadableFieldContext(new ClassFieldContext(normalizedClass, Collections.emptyList()));
     processLoadableContextForClass(normalizedClass, treeRootNode, injectee);
   }
 
-  private void processLoadableContextForClass(Class clazz, ConditionHierarchyNode parent, Object injectee) {
+  private void processLoadableContextForClass(Class clazz, ConditionHierarchyNode parent,
+      Object injectee) {
     List<Field> declaredFields = Arrays.asList(clazz.getDeclaredFields());
     List<Field> applicableFields = declaredFields.stream()
-      .filter(f -> (f.isAnnotationPresent(Inject.class))
-        || (f.isAnnotationPresent(FindBy.class) && !f.getType().equals(WebElement.class)))
-      .filter(f -> f.getType().isAnnotationPresent(PageObject.class))
-      .collect(Collectors.toList());
+        .filter(f -> (f.isAnnotationPresent(Inject.class))
+            || (f.isAnnotationPresent(FindBy.class) && !f.getType().equals(WebElement.class)))
+        .filter(f -> f.getType().isAnnotationPresent(PageObject.class))
+        .collect(Collectors.toList());
 
-    applicableFields.stream().
-      forEach((field) -> {
-        field.setAccessible(true);
-        Object subjectInstance = null;
-        try {
-          subjectInstance = field.get(injectee);
-        } catch (IllegalArgumentException | IllegalAccessException ex) {
-          LOG.error(ex.getMessage(), ex);
-        }
-        ConditionHierarchyNode node = addChild(parent, new ClassFieldContext(subjectInstance,
-            LoadableComponentsUtil.getConditionsFormField(field)));
-        processLoadableContextForClass(field.getType(), node, subjectInstance);
-      });
+    applicableFields.forEach((field) -> {
+      field.setAccessible(true);
+      Object subjectInstance = null;
+      try {
+        subjectInstance = field.get(injectee);
+      } catch (IllegalArgumentException | IllegalAccessException ex) {
+        LOG.error(ex.getMessage(), ex);
+      }
+      ConditionHierarchyNode node = addChild(parent, new ClassFieldContext(subjectInstance,
+              LoadableComponentsUtil.getConditionsFormField(field)));
+      processLoadableContextForClass(field.getType(), node, subjectInstance);
+    });
   }
 
   private ConditionHierarchyNode addChild(ConditionHierarchyNode parent,
-    ClassFieldContext loadableContext) {
+      ClassFieldContext loadableContext) {
     ConditionHierarchyNode node = new ConditionHierarchyNode(parent);
     node.setLoadableFieldContext(loadableContext);
-    parent.getChildren().add(node);
+    parent.addChild(node);
     return node;
   }
 
@@ -129,13 +132,11 @@ public class ConditionsExplorer {
     if (loadableFiledContext.getSubject().equals(subject)) {
       return parent;
     } else {
-      for (ConditionHierarchyNode node : parent.getChildren()) {
-        ConditionHierarchyNode result = findNode(node, subject);
-        if (result != null) {
-          return result;
-        }
-      }
+      return parent.getChildren().stream() //
+          .map(node -> findNode(node, subject)) //
+          .filter(Objects::nonNull) //
+          .findFirst() //
+          .orElse(null);
     }
-    return null;
   }
 }
