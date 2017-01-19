@@ -18,11 +18,14 @@ package com.cognifide.qa.bb.aem.touch.siteadmin.aem61;
 import java.time.LocalDateTime;
 import java.util.List;
 
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
+import com.cognifide.qa.bb.loadable.condition.impl.VisibilityCondition;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.Global;
@@ -80,6 +83,7 @@ public class SiteadminToolbar {
 
   @Global
   @FindBy(css = "button.coral-Button[title='Move']")
+  @LoadableComponent(condClass = VisibilityCondition.class)
   private WebElement moveButton;
 
   @FindBy(css = "div.foundation-ui-notification.coral-Alert.coral-Alert--info")

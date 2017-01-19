@@ -63,5 +63,7 @@ public class CoreModule extends AbstractModule {
 
     install(new LoadablesModule());
 
+    install(new DragAndDropModule());
+
   }
 }

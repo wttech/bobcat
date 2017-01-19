@@ -76,7 +76,7 @@ Bobcat accelerates test development, especially when it comes to AEM authoring. 
 To work with **Bobcat** the following tools are required:
 
 - JDK 8 (from _065)
-- Maven 3.0.4
+- Maven 3
 - Chrome Driver - if tests will be executed on chrome
 
 ## Roadmap
@@ -88,5 +88,5 @@ To work with **Bobcat** the following tools are required:
 
 ## Documentation
 * [Bobcat Wiki](https://github.com/Cognifide/bobcat/wiki)
-* [Bobcat 1.1.2 APIdocs](https://cognifide.github.io/bobcat/apidocs/1-1-2/)
+* [Bobcat 1.1.3 APIdocs](https://cognifide.github.io/bobcat/apidocs/1-1-3/)
  

@@ -66,7 +66,7 @@ public class BobcatWait {
    */
   public static void sleep(double durationInSec) {
     try {
-      TimeUnit.SECONDS.sleep((long) (durationInSec));
+      TimeUnit.MILLISECONDS.sleep((long) (durationInSec * 1000));
     } catch (InterruptedException e) {
       LOG.error("Sleep was interrupted", e);
     }

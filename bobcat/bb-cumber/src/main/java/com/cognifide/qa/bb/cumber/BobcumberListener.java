@@ -82,7 +82,8 @@ class BobcumberListener extends RunListener {
   }
 
   /**
-   * This method opens connection to file and if file is empty, it cause action on file specified in action param.
+   * This method opens connection to file and if file is empty, it cause action on file specified
+   * in action param.
    * It is used to report information about failed tests and some statistics.
    */
   private synchronized void fillEmptyBobcumberFile(File file, ActionOnFile action)

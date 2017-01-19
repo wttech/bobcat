@@ -19,14 +19,12 @@
  */
 package com.cognifide.qa.bb.mapper;
 
-import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import com.cognifide.qa.bb.loadable.context.ConditionContext;
 import com.cognifide.qa.bb.loadable.hierarchy.util.LoadableComponentsUtil;
 import com.cognifide.qa.bb.webelement.BobcatWebElementContext;
 import com.cognifide.qa.bb.webelement.BobcatWebElementFactory;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.WebElement;
@@ -36,9 +34,9 @@ import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 
 import com.google.inject.Inject;
 
-
 /**
- * This class extends Selenium's default field decorator so that Selenium will initalize all fields except the
+ * This class extends Selenium's default field decorator so that Selenium will initalize all
+ * fields except the
  * ones annotated with Inject. This class should not be used by Bobcat's users.
  */
 public class GuiceAwareFieldDecorator extends DefaultFieldDecorator {
@@ -46,25 +44,28 @@ public class GuiceAwareFieldDecorator extends DefaultFieldDecorator {
   private final BobcatWebElementFactory bobcatWebElementFactory;
 
   /**
-   * Constructor. Initializes decorator with the element locator factory that will be used for producing
+   * Constructor. Initializes decorator with the element locator factory that will be used for
+   * producing
    * values for decorated fields.
    *
-   * @param factory represents ElementLocatorFactory
-   * @param bobcatWebElementFactory
+   * @param factory                 represents ElementLocatorFactory
+   * @param bobcatWebElementFactory instance of BobcatWebElementFactory
    */
   public GuiceAwareFieldDecorator(ElementLocatorFactory factory,
-          BobcatWebElementFactory bobcatWebElementFactory) {
+      BobcatWebElementFactory bobcatWebElementFactory) {
     super(factory);
     this.bobcatWebElementFactory = bobcatWebElementFactory;
   }
 
   /**
-   * This method decorates the field with the generated value. It should not be used directly. Selenium's
-   * PageFactory calls this method. If the field has Inject annotation, Selenium will ignore it. Otherwise
+   * This method decorates the field with the generated value. It should not be used directly.
+   * Selenium's
+   * PageFactory calls this method. If the field has Inject annotation, Selenium will ignore it.
+   * Otherwise
    * Selenium will try to generate the value for this field.
    *
    * @param loader ClassLoader
-   * @param field Field to be initialized
+   * @param field  Field to be initialized
    * @return decorated field Object
    */
   @Override
@@ -76,8 +77,10 @@ public class GuiceAwareFieldDecorator extends DefaultFieldDecorator {
       if (decoratedField instanceof WebElement) {
         WebElement element = (WebElement) decoratedField;
         Locatable locatable = (Locatable) decoratedField;
-        List<ConditionContext> fieldConditionContext = LoadableComponentsUtil.getConditionsFormField(field);
-        BobcatWebElementContext context = new BobcatWebElementContext(element, locatable, fieldConditionContext);
+        List<ConditionContext> fieldConditionContext =
+            LoadableComponentsUtil.getConditionsFormField(field);
+        BobcatWebElementContext context =
+            new BobcatWebElementContext(element, locatable, fieldConditionContext);
         return bobcatWebElementFactory.create(context);
       }
       return decoratedField;

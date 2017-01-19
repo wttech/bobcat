@@ -46,10 +46,10 @@ public class NestedSelectorScopedElementLocator implements SearchContextAwareLoc
   /**
    * Constructs NestedSelectorScopedElementLocator.
    *
-   * @param searchContext
-   * @param scopeFactory
-   * @param selector
-   * @param globalCurrentScope
+   * @param searchContext instance of SearchContext
+   * @param scopeFactory instance of ElementLocatorFactory
+   * @param selector selector
+   * @param globalCurrentScope indicates if field is in global scope
    */
   public NestedSelectorScopedElementLocator(SearchContext searchContext,
       ElementLocatorFactory scopeFactory, By selector, boolean globalCurrentScope) {

@@ -18,8 +18,7 @@ package com.cognifide.qa.bb.utils;
 public class AopUtil {
 
   /**
-   *
-   * @param object
+   * @param object object
    * @return Non-proxied class name of provided object
    */
   public static Class<?> getBaseClassForAopObject(Object object) {

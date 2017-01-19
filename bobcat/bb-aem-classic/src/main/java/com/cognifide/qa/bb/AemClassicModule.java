@@ -21,14 +21,9 @@ package com.cognifide.qa.bb;
 
 import org.apache.http.impl.client.CloseableHttpClient;
 
-import com.cognifide.qa.bb.constants.AemConfigKeys;
 import com.cognifide.qa.bb.aem.dialog.configurer.ComponentConfigurerFactory;
 import com.cognifide.qa.bb.aem.ui.DialogFieldProvider;
-import com.cognifide.qa.bb.dragdrop.DragAndDropFactory;
-import com.cognifide.qa.bb.dragdrop.Draggable;
-import com.cognifide.qa.bb.dragdrop.DraggableWebElement;
-import com.cognifide.qa.bb.dragdrop.Droppable;
-import com.cognifide.qa.bb.dragdrop.DroppableWebElement;
+import com.cognifide.qa.bb.constants.AemConfigKeys;
 import com.cognifide.qa.bb.mapper.field.FieldProvider;
 import com.cognifide.qa.bb.provider.http.HttpClientProvider;
 import com.google.inject.AbstractModule;
@@ -66,11 +61,6 @@ public class AemClassicModule extends AbstractModule {
   protected void configure() {
     Multibinder<FieldProvider> uriBinder = Multibinder.newSetBinder(binder(), FieldProvider.class);
     uriBinder.addBinding().to(DialogFieldProvider.class);
-
-    // DragAndDrop Factory
-    install(new FactoryModuleBuilder().implement(Draggable.class, DraggableWebElement.class)
-        .implement(Droppable.class, DroppableWebElement.class)
-        .build(DragAndDropFactory.class));
 
     install(new FactoryModuleBuilder().build(ComponentConfigurerFactory.class));
   }

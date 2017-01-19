@@ -19,7 +19,6 @@ package com.cognifide.qa.bb.mapper.field;
  * limitations under the License.
  * #L%
  */
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Proxy;
 import java.util.List;
@@ -31,19 +30,20 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
 
+import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.scope.PageObjectContext;
 import com.cognifide.qa.bb.scope.ParentElementLocatorProvider;
 import com.cognifide.qa.bb.scope.SearchContextAwareLocator;
 import com.cognifide.qa.bb.scope.frame.FrameMap;
 import com.cognifide.qa.bb.scope.frame.FramePath;
-import com.cognifide.qa.bb.scope.selector.SelectorElementLocator;
+import com.cognifide.qa.bb.scope.nestedselector.NestedSelectorScopedElementLocator;
 import com.cognifide.qa.bb.utils.AnnotationsHelper;
 import com.cognifide.qa.bb.utils.PageObjectInjector;
 import com.google.inject.Inject;
 
 /**
- * This class is a provider of Java proxies that will intercept access to PageObject fields that are
- * lists of PageObjects and are marked by {@link com.cognifide.qa.bb.qualifier.FindPageObject}.
+ * This class is a provider of Java proxies that will intercept access to PageObject fields that are lists of
+ * PageObjects and are marked by {@link com.cognifide.qa.bb.qualifier.FindPageObject}.
  */
 public class PageObjectSelectorListProxyProvider extends PageObjectListProxyProvider {
 
@@ -57,8 +57,8 @@ public class PageObjectSelectorListProxyProvider extends PageObjectListProxyProv
   private FrameMap frameMap;
 
   /**
-   * PageObjectInjectorListener calls this method to check if the provider is able to handle
-   * currently injected field.
+   * PageObjectInjectorListener calls this method to check if the provider is able to handle currently
+   * injected field.
    * <p>
    * PageObjectListProxyProvider handles fields that are:
    * <ul>
@@ -69,26 +69,28 @@ public class PageObjectSelectorListProxyProvider extends PageObjectListProxyProv
   @Override
   public boolean accepts(Field field) {
     return isList(field) && AnnotationsHelper.isFindPageObjectAnnotationPresent(field)
-        && AnnotationsHelper.isGenericTypeAnnotedWithPageObject(field);
+      && AnnotationsHelper.isGenericTypeAnnotedWithPageObject(field);
   }
 
   /**
-   * Produces a proxy that will provide value for the list of PageObjects. Handler of this proxy is
-   * an instance of PageObjectListInvocationHandler.
+   * Produces a proxy that will provide value for the list of PageObjects. Handler of this proxy is an
+   * instance of PageObjectListInvocationHandler.
    */
   @Override
   public Optional<Object> provideValue(Object pageObject, Field field, PageObjectContext context) {
     FramePath framePath = frameMap.get(pageObject);
     By selector = PageObjectProviderHelper.getSelectorFromGenericPageObject(field);
     SearchContext searchContext = getSearchContext(context, field);
-    PageObjectListInvocationHandler handler =
-        new PageObjectListInvocationHandler(PageObjectProviderHelper.getGenericType(field),
-            new SelectorElementLocator(searchContext, selector), injector,
-            shouldCacheResults(field),
-            framePath);
+    NestedSelectorScopedElementLocator locator = new NestedSelectorScopedElementLocator(searchContext,
+      context.getElementLocatorFactory(), selector, field.isAnnotationPresent(Global.class));
+
+    PageObjectListInvocationHandler handler
+      = new PageObjectListInvocationHandler(PageObjectProviderHelper.getGenericType(field), locator, injector,
+        shouldCacheResults(field), framePath);
 
     ClassLoader classLoader = PageObjectProviderHelper.getGenericType(field).getClassLoader();
-    Object proxyInstance = Proxy.newProxyInstance(classLoader, new Class[] {List.class}, handler);
+    Object proxyInstance = Proxy.newProxyInstance(classLoader, new Class[]{List.class}, handler);
+
     return Optional.of(proxyInstance);
   }
 
@@ -96,7 +98,7 @@ public class PageObjectSelectorListProxyProvider extends PageObjectListProxyProv
     SearchContext searchContext = webDriver;
     ElementLocatorFactory elementLocatorFactory = context.getElementLocatorFactory();
     if (elementLocatorFactory instanceof ParentElementLocatorProvider
-            && !AnnotationsHelper.isGlobal(field)) {
+      && !AnnotationsHelper.isGlobal(field)) {
       searchContext = acquireSearchContext(elementLocatorFactory);
     }
     return searchContext;
@@ -105,7 +107,7 @@ public class PageObjectSelectorListProxyProvider extends PageObjectListProxyProv
   private SearchContext acquireSearchContext(ElementLocatorFactory elementLocatorFactory) {
     SearchContext searchContext;
     ElementLocator parentElementLocator = ((ParentElementLocatorProvider) elementLocatorFactory).
-            getCurrentScope();
+      getCurrentScope();
     if (parentElementLocator instanceof SearchContextAwareLocator) {
       searchContext = ((SearchContextAwareLocator) parentElementLocator).getSearchContext();
     } else {

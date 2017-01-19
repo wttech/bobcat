@@ -30,7 +30,7 @@ class TestClassInjectionListener implements InjectionListener {
 
   @Override
   public void afterInjection(Object injectee) {
-    loadablesExplorer.get().registerLoadableContextHierarchyTree(injectee.getClass());
+    loadablesExplorer.get().registerLoadableContextHierarchyTree(injectee);
   }
 
 }
