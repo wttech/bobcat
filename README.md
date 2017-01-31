@@ -7,7 +7,7 @@
 # Bobcat
 
 <p align="center">
-  <img src="assets/bobcat-logo.png" alt="Bobcat Logo"/>
+  <img src="assets/bobcat-384-384.png" alt="Bobcat Logo"/>
 </p>
 
 Bobcat is an automated testing framework for functional testing of web applications. It wraps Selenium Browser Automation with a handy set of tools (accelerators). Since using Selenium (Webdriver), it aims to mimic the behaviour of a real user, and as such interacts with the HTML of the application. 
