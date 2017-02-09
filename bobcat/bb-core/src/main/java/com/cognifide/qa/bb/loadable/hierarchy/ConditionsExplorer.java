@@ -114,7 +114,15 @@ public class ConditionsExplorer {
       }
       ConditionHierarchyNode node = addChild(parent, new ClassFieldContext(subjectInstance,
               LoadableComponentsUtil.getConditionsFormField(field)));
-      processLoadableContextForClass(field.getType(), node, subjectInstance);
+
+      if(node.equals(findFirstOccurrence(node))) {
+        LOG.debug("Building loadable components hierarchy tree for "
+            + node.getLoadableFieldContext().getSubjectClass().getCanonicalName());
+        processLoadableContextForClass(field.getType(), node, subjectInstance);
+      } else {
+        LOG.debug("Loadable components hierarchy tree for "
+            + node.getLoadableFieldContext().getSubjectClass().getCanonicalName() + " has already been built, skipping.");
+      }
     });
   }
 
@@ -137,6 +145,18 @@ public class ConditionsExplorer {
           .filter(Objects::nonNull) //
           .findFirst() //
           .orElse(null);
+    }
+  }
+
+  private ConditionHierarchyNode findFirstOccurrence(ConditionHierarchyNode node) {
+    if (treeRootNode.equals(node)) {
+      return treeRootNode;
+    } else {
+      return treeRootNode.getChildren().stream() //
+              .map(temp -> findNode(temp, node.getLoadableFieldContext().getSubject())) //
+              .filter(Objects::nonNull) //
+              .findFirst() //
+              .orElse(null);
     }
   }
 }
