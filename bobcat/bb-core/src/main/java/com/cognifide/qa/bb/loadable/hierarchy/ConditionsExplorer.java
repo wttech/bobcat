@@ -115,13 +115,12 @@ public class ConditionsExplorer {
       ConditionHierarchyNode node = addChild(parent, new ClassFieldContext(subjectInstance,
               LoadableComponentsUtil.getConditionsFormField(field)));
 
+      String className = node.getLoadableFieldContext().getSubjectClass().getCanonicalName();
       if(node.equals(findFirstOccurrence(node))) {
-        LOG.debug("Building loadable components hierarchy tree for "
-            + node.getLoadableFieldContext().getSubjectClass().getCanonicalName());
+        LOG.debug("Building loadable components hierarchy tree for " + className);
         processLoadableContextForClass(field.getType(), node, subjectInstance);
       } else {
-        LOG.debug("Loadable components hierarchy tree for "
-            + node.getLoadableFieldContext().getSubjectClass().getCanonicalName() + " has already been built, skipping.");
+        LOG.debug("Loadable components hierarchy tree for " + className + " has already been built, skipping.");
       }
     });
   }
