@@ -58,6 +58,8 @@ public class SiteadminToolbar {
   private static final String UNPUBLISH_BUTTON_SELECTOR =
       "a.cq-siteadmin-admin-actions-unpublish-activator[title='Unpublish']";
 
+  private static final String MOVE_BUTTON_SELECTOR = "button.coral-Button[title='Move']";
+
   @Inject
   private WebDriver driver;
 
@@ -80,11 +82,6 @@ public class SiteadminToolbar {
   @Global
   @FindBy(css = "i.coral-Icon.coral-Icon--delete")
   private WebElement deleteButton;
-
-  @Global
-  @FindBy(css = "button.coral-Button[title='Move']")
-  @LoadableComponent(condClass = VisibilityCondition.class)
-  private WebElement moveButton;
 
   @FindBy(css = "div.foundation-ui-notification.coral-Alert.coral-Alert--info")
   private WebElement successInfo;
@@ -125,6 +122,10 @@ public class SiteadminToolbar {
   }
 
   public void movePage(String destination) {
+    WebElement moveButton = getMoveButton();
+    if(!moveButton.isDisplayed()) {
+      getMoreButton().click();
+    }
     moveButton.click();
     movePageWizard.moveToDestination(destination);
   }
@@ -175,6 +176,10 @@ public class SiteadminToolbar {
 
   private WebElement getMoreButton() {
     return driver.findElement(By.cssSelector(MORE_BUTTON_SELECTOR));
+  }
+
+  private WebElement getMoveButton() {
+    return driver.findElement(By.cssSelector(MOVE_BUTTON_SELECTOR));
   }
 
   private WebElement getPublishButton() {

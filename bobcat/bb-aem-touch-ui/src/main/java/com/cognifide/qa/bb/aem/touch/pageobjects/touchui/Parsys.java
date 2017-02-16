@@ -26,12 +26,12 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfiguration;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Predicate;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldConfig;
@@ -56,6 +56,9 @@ public class Parsys {
 
   @Inject
   private Conditions conditions;
+
+  @Inject
+  private Actions actions;
 
   @Inject
   private Components components;
@@ -203,7 +206,7 @@ public class Parsys {
   private void tryToOpenInsertWindow() {
     conditions.verify(ignored -> {
       try {
-        dropArea.click();
+        actions.doubleClick(dropArea).perform();
       } catch (WebDriverException e) {
         return e.getMessage().contains("Other element would receive the click");
       }
