@@ -29,8 +29,11 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldConfig;
@@ -53,11 +56,16 @@ public class Parsys {
 
   private static final String IS_SELECTED = "is-selected";
 
+  private static final String INSERT_BUTTON_SELECTOR = "button[data-action='INSERT']";
+
   @Inject
   private Conditions conditions;
 
   @Inject
   private Components components;
+
+  @Inject
+  private Actions actions;
 
   @FindBy(css = ".cq-Overlay--placeholder[data-text='Drag components here']")
   private WebElement dropArea;
@@ -74,8 +82,11 @@ public class Parsys {
   private WebElement currentScope;
 
   @Global
-  @FindBy(css = "button[data-action='INSERT']")
+  @FindBy(css = INSERT_BUTTON_SELECTOR)
   private WebElement insertButton;
+
+  @Inject
+  private WebDriver driver;
 
   /**
    * @return data path of parsys
@@ -206,10 +217,16 @@ public class Parsys {
   private void tryToOpenInsertWindow() {
     conditions.verify(ignored -> {
       try {
-      	if(!insertButton.isDisplayed()) {
-          dropArea.click();
+        boolean isInsertButtonPresent = driver
+                .findElements(By.cssSelector(INSERT_BUTTON_SELECTOR))
+                .size() > 0;
+        if(!isInsertButtonPresent) {
+          // AEM 6.1
+          actions.doubleClick(dropArea).perform();
+        } else {
+          // AEM 6.2
+          insertButton.click();
         }
-        insertButton.click();
       } catch (WebDriverException e) {
         return e.getMessage().contains("Other element would receive the click");
       }
