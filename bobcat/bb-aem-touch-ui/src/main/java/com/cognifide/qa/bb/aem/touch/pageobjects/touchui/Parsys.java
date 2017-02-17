@@ -31,7 +31,6 @@ import java.util.function.Predicate;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldConfig;
@@ -58,9 +57,6 @@ public class Parsys {
   private Conditions conditions;
 
   @Inject
-  private Actions actions;
-
-  @Inject
   private Components components;
 
   @FindBy(css = ".cq-Overlay--placeholder[data-text='Drag components here']")
@@ -76,6 +72,10 @@ public class Parsys {
   @Inject
   @CurrentScope
   private WebElement currentScope;
+
+  @Global
+  @FindBy(css = "button[data-action='INSERT']")
+  private WebElement insertButton;
 
   /**
    * @return data path of parsys
@@ -206,7 +206,10 @@ public class Parsys {
   private void tryToOpenInsertWindow() {
     conditions.verify(ignored -> {
       try {
-        actions.doubleClick(dropArea).perform();
+      	if(!insertButton.isDisplayed()) {
+          dropArea.click();
+        }
+        insertButton.click();
       } catch (WebDriverException e) {
         return e.getMessage().contains("Other element would receive the click");
       }
