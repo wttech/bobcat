@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 import javax.annotation.Nullable;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -84,6 +85,12 @@ public class SiteadminPage implements SiteadminActions, Loadable {
   public SiteadminActions open(String nodePath) {
     driver.manage().addCookie(SiteadminLayout.LIST.getCookie62());
     driver.get(getSiteAdminUrl() + nodePath);
+    return this;
+  }
+
+  private SiteadminActions openUsingJavascript(String nodePath) {
+    ((JavascriptExecutor)driver)
+            .executeScript("window.location.pathname = \"/sites.html" + nodePath +"\";");
     return this;
   }
 
@@ -176,7 +183,7 @@ public class SiteadminPage implements SiteadminActions, Loadable {
   public SiteadminActions copyPage(String title, String destination) {
     childPageWindow.selectPage(title);
     siteadminToolbar.copyPage();
-    open(destination);
+    openUsingJavascript(destination);
     int pageCount = childPageWindow.getPageCount();
     contentToolbar.pastePage();
     waitForPageCount(pageCount + 1);
