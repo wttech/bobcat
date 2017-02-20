@@ -45,6 +45,7 @@ import com.cognifide.qa.bb.utils.PageObjectInjector;
 import com.cognifide.qa.bb.utils.WebElementUtils;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 @PageObject
 public class SiteadminPage implements SiteadminActions, Loadable {
@@ -283,21 +284,22 @@ public class SiteadminPage implements SiteadminActions, Loadable {
       boolean isGoBackNeeded = !destination.startsWith(currentUrl);
       if (isGoBackNeeded) {
         goBackUsingNavigator(destination, currentUrl);
-        navigateInteractively(destination);
       } else {
         goForwardToDestination(currentUrl, destination);
-        navigateInteractively(destination);
       }
+      wait.withTimeout(Timeouts.SMALL).until(
+          ExpectedConditions.not(ExpectedConditions.urlToBe(currentUrl)));
+      navigateInteractively(destination);
     }
   }
 
   private void goForwardToDestination(String currentUrl, String destination) {
     ChildPageRow closestPage =
-            getChildPageWindow().getChildPageRows().stream()
+        getChildPageWindow().getChildPageRows().stream()
             .filter(childPage -> childPage.getHref().equals(destination))
             .findFirst()
             .orElseGet(() ->
-                    getChildPageWindow().getChildPageRows().stream()
+                getChildPageWindow().getChildPageRows().stream()
                     .collect(Collectors.toMap(Function.identity(),
                         childPageRow -> StringUtils.difference(currentUrl, childPageRow.getHref())
                         ))
