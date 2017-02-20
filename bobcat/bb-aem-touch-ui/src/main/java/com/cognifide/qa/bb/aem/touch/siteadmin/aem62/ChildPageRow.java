@@ -30,14 +30,13 @@ public class ChildPageRow implements SiteadminChildPage {
 
   private static final int SELECT_PAGE_COLUMN_INDEX = 0;
 
+  private static final String PATH_ATTR = "data-foundation-collection-item-id";
+
   @FindBy(css = "td.coral-Table-cell:nth-of-type(4)")
   private PageActivationStatusImpl pageActivationStatus;
 
   @FindBy(css = "td.coral-Table-cell:nth-of-type(3)")
   private PageModificationInfoImpl pageModificationInfo;
-
-  @FindBy(tagName = "a")
-  private WebElement anchor;
 
   @FindBy(css = "td")
   private List<WebElement> cells;
@@ -58,7 +57,7 @@ public class ChildPageRow implements SiteadminChildPage {
 
   @Override
   public String getHref() {
-    return anchor.getAttribute("href");
+    return currentScope.getAttribute(PATH_ATTR);
   }
 
   @Override
