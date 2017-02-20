@@ -79,12 +79,16 @@ public class NavigatorDropdown {
   }
 
   public List<String> getAvailablePaths() {
+    wait.withTimeout(Timeouts.SMALL).until(
+            ExpectedConditions.presenceOfElementLocated(By.cssSelector(DROPDOWN_ITEMS_SELECTOR)));
     return getDropdownOptions().stream()
         .map(webElement -> webElement.getAttribute(PATH_ATTR))
         .collect(Collectors.toList());
   }
 
   public List<String> getAvailableTitles() {
+    wait.withTimeout(Timeouts.SMALL).until(
+            ExpectedConditions.presenceOfElementLocated(By.cssSelector(DROPDOWN_ITEMS_SELECTOR)));
     return getDropdownOptions().stream()
         .map(webElement -> webElement.getAttribute("innerHTML"))
         .collect(Collectors.toList());
