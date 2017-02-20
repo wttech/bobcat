@@ -21,6 +21,7 @@ package com.cognifide.qa.bb.aem.touch.siteadmin.aem62;
 
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
+import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
 import org.openqa.selenium.By;
@@ -42,7 +43,7 @@ public class NavigatorDropdown {
 
   private static final String DROPDOWN_ITEMS_SELECTOR = "coral-popover.granite-collection-navigator coral-selectlist-item";
 
-  @FindBy(css = "button.granite-breadcrumb-button")
+  @FindBy(css = "button.granite-breadcrumbs-button")
   private WebElement revealNavigatorDropdownBtn;
 
   @Inject
