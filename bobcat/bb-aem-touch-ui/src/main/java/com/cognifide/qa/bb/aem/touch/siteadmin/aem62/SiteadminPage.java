@@ -22,6 +22,7 @@ import javax.annotation.Nullable;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -45,7 +46,6 @@ import com.cognifide.qa.bb.utils.PageObjectInjector;
 import com.cognifide.qa.bb.utils.WebElementUtils;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 @PageObject
 public class SiteadminPage implements SiteadminActions, Loadable {
@@ -287,8 +287,9 @@ public class SiteadminPage implements SiteadminActions, Loadable {
       } else {
         goForwardToDestination(currentUrl, destination);
       }
-      wait.withTimeout(Timeouts.SMALL).until(
-          ExpectedConditions.not(ExpectedConditions.urlToBe(currentUrl)));
+      wait.withTimeout(Timeouts.SMALL).until((ExpectedCondition<Object>) input ->
+          ((JavascriptExecutor) driver).executeScript("return $.active").toString().equals("0")
+          );
       navigateInteractively(destination);
     }
   }
@@ -308,7 +309,6 @@ public class SiteadminPage implements SiteadminActions, Loadable {
                     .min(Comparator.comparingInt(a -> a.getValue().length()))
                     .get()
                     .getKey());
-
     closestPage.click();
   }
 
