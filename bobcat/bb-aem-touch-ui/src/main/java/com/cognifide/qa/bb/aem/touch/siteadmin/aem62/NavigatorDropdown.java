@@ -19,6 +19,7 @@
  */
 package com.cognifide.qa.bb.aem.touch.siteadmin.aem62;
 
+import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.PageObject;
@@ -32,9 +33,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by mikolaj.manski on 2017-02-20.
- */
 @PageObject
 public class NavigatorDropdown {
 
@@ -89,7 +87,7 @@ public class NavigatorDropdown {
     wait.withTimeout(Timeouts.SMALL).until(
             ExpectedConditions.presenceOfElementLocated(By.cssSelector(DROPDOWN_ITEMS_SELECTOR)));
     return getDropdownOptions().stream()
-        .map(webElement -> webElement.getAttribute("innerHTML"))
+        .map(webElement -> webElement.getAttribute(HtmlTags.Properties.INNER_HTML))
         .collect(Collectors.toList());
   }
 }
