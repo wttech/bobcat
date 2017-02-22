@@ -16,8 +16,11 @@
 package com.cognifide.qa.bb.test.loadable;
 
 import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
+import com.cognifide.qa.bb.loadable.condition.CommonMonitoredMethods;
 import com.cognifide.qa.bb.loadable.condition.LoadableComponentCondition;
 import com.google.inject.Inject;
+
+import java.util.List;
 
 public class TestCondition implements LoadableComponentCondition {
 
@@ -30,4 +33,8 @@ public class TestCondition implements LoadableComponentCondition {
     return true;
   }
 
+  @Override
+  public List<String> getMonitoredMethods() {
+    return CommonMonitoredMethods.INTERACTIVE_METHODS.getMethodNames();
+  }
 }

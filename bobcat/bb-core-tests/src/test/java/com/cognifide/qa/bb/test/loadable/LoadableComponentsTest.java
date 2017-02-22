@@ -19,6 +19,7 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
@@ -88,6 +89,17 @@ public class LoadableComponentsTest {
             "com.cognifide.qa.bb.test.loadable.LoadableComponentsTest -> testPage ~ com.cognifide.qa.bb.test.loadable.TestCondition (Success)"));
     assertThat(exception.getMessage(), containsString(
             "com.cognifide.qa.bb.test.loadable.TestPageObject -> invalidElement ~ com.cognifide.qa.bb.loadable.condition.impl.VisibilityCondition (Fail)"));
+  }
+
+  @Test
+  public void shouldEvaluateConditionsOnMonitoredMethodsOnly() {
+    testPage.getInnerHtmlWithoutCheck();
+    assertTrue(captor.getSubjects().isEmpty());
+
+    captor.reset();
+
+    testPage.getInnerHtmlWithCheck();
+    assertThat(captor.getConditionInfo().size(), is(2));
   }
 
   private void assertProperContext(int delayForMiddleObj, int timeoutForMiddleObj) {

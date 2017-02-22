@@ -18,7 +18,6 @@ package com.cognifide.qa.bb.test.loadable;
 import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import com.cognifide.qa.bb.loadable.condition.impl.VisibilityCondition;
 import com.cognifide.qa.bb.qualifier.PageObject;
-import com.cognifide.qa.bb.test.actions.BobcatActionsTest;
 import com.cognifide.qa.test.util.PageUtils;
 import com.google.inject.Inject;
 import org.openqa.selenium.WebDriver;
@@ -39,6 +38,11 @@ public class TestPageObject {
   @LoadableComponent(condClass = TestCondition.class, delay = 8, timeout = 8)
   private InputElementWrapper inputElement2;
 
+  @FindBy(css = "input[name='3']")
+  @LoadableComponent(condClass = VisibilityCondition.class)
+  @LoadableComponent(condClass = TestCondition.class, delay = 8, timeout = 8)
+  private WebElement inputElement3;
+
   @FindBy(tagName = "invalidTag")
   @LoadableComponent(condClass = VisibilityCondition.class, delay = 5, timeout = 5)
   private WebElement invalidElement;
@@ -53,6 +57,14 @@ public class TestPageObject {
 
   public void sendKeysWithSuccessToSecondSubj() {
     inputElement2.sendKeys("test");
+  }
+
+  public String getInnerHtmlWithoutCheck() {
+    return inputElement2.getAttribute("innerHTML");
+  }
+
+  public String getInnerHtmlWithCheck() {
+    return inputElement3.getAttribute("innerHTML");
   }
 
   public void sendKeysWithFailure() {
