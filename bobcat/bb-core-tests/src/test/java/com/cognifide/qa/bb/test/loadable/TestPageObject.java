@@ -15,6 +15,7 @@
  */
 package com.cognifide.qa.bb.test.loadable;
 
+import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import com.cognifide.qa.bb.loadable.condition.impl.VisibilityCondition;
 import com.cognifide.qa.bb.qualifier.PageObject;
@@ -60,11 +61,11 @@ public class TestPageObject {
   }
 
   public String getInnerHtmlWithoutCheck() {
-    return inputElement2.getAttribute("innerHTML");
+    return inputElement2.getAttribute(HtmlTags.Properties.INNER_HTML);
   }
 
   public String getInnerHtmlWithCheck() {
-    return inputElement3.getAttribute("innerHTML");
+    return inputElement3.getAttribute(HtmlTags.Properties.INNER_HTML);
   }
 
   public void sendKeysWithFailure() {
