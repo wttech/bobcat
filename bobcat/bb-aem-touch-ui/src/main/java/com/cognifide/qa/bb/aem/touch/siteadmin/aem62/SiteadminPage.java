@@ -1,25 +1,28 @@
 /*
  * Copyright 2016 Cognifide Ltd..
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  */
 package com.cognifide.qa.bb.aem.touch.siteadmin.aem62;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import javax.annotation.Nullable;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -67,6 +70,9 @@ public class SiteadminPage implements SiteadminActions, Loadable {
   @FindBy(css = ".cq-siteadmin-admin-childpages")
   @LoadableComponent(condClass = IsLoadedCondition.class)
   private ChildPageWindow childPageWindow;
+
+  @Inject
+  private NavigatorDropdown navigatorDropdown;
 
   @FindBy(css = ".granite-collection-selectionbar .granite-selectionbar .coral-ActionBar-container")
   private SiteadminToolbar siteadminToolbar;
@@ -176,7 +182,7 @@ public class SiteadminPage implements SiteadminActions, Loadable {
   public SiteadminActions copyPage(String title, String destination) {
     childPageWindow.selectPage(title);
     siteadminToolbar.copyPage();
-    open(destination);
+    navigateInteractively(destination);
     int pageCount = childPageWindow.getPageCount();
     contentToolbar.pastePage();
     waitForPageCount(pageCount + 1);
@@ -221,7 +227,9 @@ public class SiteadminPage implements SiteadminActions, Loadable {
   @Override
   public SiteadminActions waitForPageCount(int pageCount) {
     boolean conditionNotMet = !webElementUtils.isConditionMet(new ExpectedCondition<Object>() {
-      @Nullable @Override public Object apply(@Nullable WebDriver webDriver) {
+      @Nullable
+      @Override
+      public Object apply(@Nullable WebDriver webDriver) {
         try {
           return (pageCount == getChildPageWindow().getPageCount());
         } catch (StaleElementReferenceException e) {
@@ -238,7 +246,9 @@ public class SiteadminPage implements SiteadminActions, Loadable {
 
   private void waitForExpectedStatus(final String title, ActivationStatus status) {
     wait.withTimeout(Timeouts.MEDIUM).until(new ExpectedCondition<Boolean>() {
-      @Nullable @Override public Boolean apply(@Nullable WebDriver webDriver) {
+      @Nullable
+      @Override
+      public Boolean apply(@Nullable WebDriver webDriver) {
         webDriver.navigate().refresh();
         ChildPageRow childPageRow = getChildPageWindow().getChildPageRow(title);
         PageActivationStatus pageActivationStatusCell = childPageRow.getPageActivationStatus();
@@ -268,4 +278,52 @@ public class SiteadminPage implements SiteadminActions, Loadable {
     return conditions.isConditionMet(ignored -> childPageWindow.isLoaded());
   }
 
+  private void navigateInteractively(String destination) {
+    String currentUrl = StringUtils.substringAfter(driver.getCurrentUrl(), "sites.html");
+    if (!currentUrl.endsWith(destination)) {
+      boolean isGoBackNeeded = !destination.startsWith(currentUrl);
+      if (isGoBackNeeded) {
+        goBackUsingNavigator(destination, currentUrl);
+      } else {
+        goForwardToDestination(currentUrl, destination);
+      }
+      wait.withTimeout(Timeouts.SMALL).until((ExpectedCondition<Object>) input ->
+          ((JavascriptExecutor) driver).executeScript("return $.active").toString().equals("0")
+          );
+      navigateInteractively(destination);
+    }
+  }
+
+  private void goForwardToDestination(String currentUrl, String destination) {
+    ChildPageRow closestPage =
+        getChildPageWindow().getChildPageRows().stream()
+            .filter(childPage -> childPage.getHref().equals(destination))
+            .findFirst()
+            .orElseGet(() ->
+                getChildPageWindow().getChildPageRows().stream()
+                    .collect(Collectors.toMap(Function.identity(),
+                        childPageRow -> StringUtils.difference(currentUrl, childPageRow.getHref())
+                        ))
+                    .entrySet()
+                    .stream()
+                    .min(Comparator.comparingInt(a -> a.getValue().length()))
+                    .get()
+                    .getKey());
+    closestPage.click();
+  }
+
+  private void goBackUsingNavigator(String destination, String currentUrl) {
+    String closestPath =
+        navigatorDropdown.getAvailablePaths().stream().distinct()
+            .filter(path -> !currentUrl.equals(path))
+            .collect(Collectors.toMap(
+                Function.identity(), path -> StringUtils.difference(path, destination)
+                ))
+            .entrySet()
+            .stream()
+            .min(Comparator.comparingInt(a -> a.getValue().length()))
+            .get()
+            .getKey();
+    navigatorDropdown.selectByPath(closestPath);
+  }
 }

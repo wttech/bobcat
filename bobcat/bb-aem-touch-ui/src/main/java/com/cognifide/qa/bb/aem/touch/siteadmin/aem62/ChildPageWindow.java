@@ -63,4 +63,7 @@ public class ChildPageWindow implements Loadable {
     return !childPageRows.isEmpty();
   }
 
+  public List<ChildPageRow> getChildPageRows() {
+    return childPageRows;
+  }
 }
