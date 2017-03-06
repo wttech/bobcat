@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,10 +19,15 @@
  */
 package com.cognifide.qa.bb.provider.selenium.webdriver;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.Connection;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.ContextAware;
 import org.openqa.selenium.HasCapabilities;
@@ -39,6 +44,7 @@ import org.openqa.selenium.internal.FindsByLinkText;
 import org.openqa.selenium.internal.FindsByName;
 import org.openqa.selenium.internal.FindsByTagName;
 import org.openqa.selenium.internal.FindsByXPath;
+import org.openqa.selenium.internal.HasIdentity;
 import org.openqa.selenium.remote.Response;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
@@ -52,37 +58,33 @@ import io.appium.java_client.HasAppStrings;
 import io.appium.java_client.InteractsWithApps;
 import io.appium.java_client.InteractsWithFiles;
 import io.appium.java_client.MobileDriver;
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.MultiTouchAction;
-import io.appium.java_client.NetworkConnectionSetting;
 import io.appium.java_client.PerformsTouchActions;
-import io.appium.java_client.ScrollsTo;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.TouchShortcuts;
 import io.appium.java_client.android.AndroidDeviceActionShortcuts;
 import io.appium.java_client.android.HasNetworkConnection;
 import io.appium.java_client.android.PushesFiles;
 import io.appium.java_client.android.StartsActivity;
-import io.appium.java_client.ios.GetsNamedTextField;
 import io.appium.java_client.ios.IOSDeviceActionShortcuts;
 
 /**
- * This class is a "simple" extension of Selenium's EventFiringWebDriver that additionally implements several
- * useful interfaces.
+ * This class is a "simple" extension of Selenium's EventFiringWebDriver that additionally
+ * implements several useful interfaces.
  */
 public class WebDriverWrapper extends EventFiringWebDriver implements FindsById, FindsByClassName,
-    FindsByLinkText, FindsByName, FindsByCssSelector, FindsByTagName, FindsByXPath, HasCapabilities,
-    MobileDriver, Rotatable, FindsByAccessibilityId, LocationContext, TouchShortcuts,
-    InteractsWithApps, ScrollsTo, AndroidDeviceActionShortcuts, HasAppStrings, HasNetworkConnection,
-    PushesFiles, StartsActivity, FindsByAndroidUIAutomator, IOSDeviceActionShortcuts,
-    GetsNamedTextField, FindsByIosUIAutomation {
+    FindsByLinkText, FindsByName, FindsByCssSelector, FindsByTagName, FindsByXPath,
+    HasCapabilities, MobileDriver, Rotatable, LocationContext,
+    TouchShortcuts, InteractsWithApps, AndroidDeviceActionShortcuts, HasAppStrings,
+    HasNetworkConnection, PushesFiles, StartsActivity, FindsByAndroidUIAutomator,
+    IOSDeviceActionShortcuts, FindsByIosUIAutomation, HasIdentity, PerformsTouchActions {
 
   private final FrameSwitcher frameSwitcher;
 
   /**
    * Constructs WebDriverWrapper.
    *
-   * @param driver        instance of WebDriver.
+   * @param driver instance of WebDriver.
    * @param frameSwitcher instance of FrameSwitcher.
    */
   public WebDriverWrapper(WebDriver driver, FrameSwitcher frameSwitcher) {
@@ -239,16 +241,6 @@ public class WebDriverWrapper extends EventFiringWebDriver implements FindsById,
   }
 
   @Override
-  public MobileElement scrollTo(String text) {
-    return ((ScrollsTo) super.getWrappedDriver()).scrollTo(text);
-  }
-
-  @Override
-  public MobileElement scrollToExact(String text) {
-    return ((ScrollsTo) super.getWrappedDriver()).scrollToExact(text);
-  }
-
-  @Override
   public void launchApp() {
     ((InteractsWithApps) super.getWrappedDriver()).launchApp();
   }
@@ -334,8 +326,8 @@ public class WebDriverWrapper extends EventFiringWebDriver implements FindsById,
   }
 
   @Override
-  public void sendKeyEvent(int key) {
-    ((DeviceActionShortcuts) super.getWrappedDriver()).sendKeyEvent(key);
+  public String getDeviceTime() {
+    return ((DeviceActionShortcuts) this.getWrappedDriver()).getDeviceTime();
   }
 
   @Override
@@ -364,13 +356,13 @@ public class WebDriverWrapper extends EventFiringWebDriver implements FindsById,
   }
 
   @Override
-  public void rotate(ScreenOrientation arg0) {
-    ((Rotatable) super.getWrappedDriver()).rotate(arg0);
+  public void rotate(ScreenOrientation screenOrientation) {
+    ((Rotatable) super.getWrappedDriver()).rotate(screenOrientation);
   }
 
   @Override
-  public WebDriver context(String arg0) {
-    return ((ContextAware) super.getWrappedDriver()).context(arg0);
+  public WebDriver context(String name) {
+    return ((ContextAware) super.getWrappedDriver()).context(name);
   }
 
   @Override
@@ -384,7 +376,7 @@ public class WebDriverWrapper extends EventFiringWebDriver implements FindsById,
   }
 
   @Override
-  public Response execute(String driverCommand, Map<String, ?> parameters) {
+  public Response execute(String driverCommand, Map parameters) {
     return ((MobileDriver) super.getWrappedDriver()).execute(driverCommand, parameters);
   }
 
@@ -396,11 +388,6 @@ public class WebDriverWrapper extends EventFiringWebDriver implements FindsById,
   @Override
   public List<WebElement> findElementsByIosUIAutomation(String using) {
     return ((FindsByIosUIAutomation) super.getWrappedDriver()).findElementsByIosUIAutomation(using);
-  }
-
-  @Override
-  public WebElement getNamedTextField(String name) {
-    return ((GetsNamedTextField) super.getWrappedDriver()).getNamedTextField(name);
   }
 
   @Override
@@ -432,6 +419,13 @@ public class WebDriverWrapper extends EventFiringWebDriver implements FindsById,
 
   @Override
   public void startActivity(String appPackage, String appActivity, String appWaitPackage,
+      String appWaitActivity, boolean stopApp) throws IllegalArgumentException {
+    ((StartsActivity) super.getWrappedDriver()).startActivity(appPackage, appActivity,
+        appWaitPackage, appWaitActivity, stopApp);
+  }
+
+  @Override
+  public void startActivity(String appPackage, String appActivity, String appWaitPackage,
       String appWaitActivity) {
     ((StartsActivity) super.getWrappedDriver())
         .startActivity(appPackage, appActivity, appWaitPackage, appWaitActivity);
@@ -443,37 +437,87 @@ public class WebDriverWrapper extends EventFiringWebDriver implements FindsById,
   }
 
   @Override
+  public void startActivity(String appPackage, String appActivity, String appWaitPackage,
+      String appWaitActivity, String intentAction, String intentCategory, String intentFlags,
+      String intentOptionalArgs) throws IllegalArgumentException {
+    ((StartsActivity) super.getWrappedDriver()).startActivity(appPackage, appActivity,
+        appWaitPackage, appWaitActivity, intentAction, intentCategory, intentFlags,
+        intentOptionalArgs);
+
+  }
+
+  @Override
+  public void startActivity(String appPackage, String appActivity, String appWaitPackage,
+      String appWaitActivity, String intentAction, String intentCategory, String intentFlags,
+      String intentOptionalArgs, boolean stopApp) throws IllegalArgumentException {
+    ((StartsActivity) super.getWrappedDriver()).startActivity(appPackage, appActivity,
+        appWaitPackage, appWaitActivity, intentAction, intentCategory, intentFlags,
+        intentOptionalArgs, stopApp);
+  }
+
+  @Override
   public void pushFile(String remotePath, byte[] base64Data) {
     ((PushesFiles) super.getWrappedDriver()).pushFile(remotePath, base64Data);
   }
 
   @Override
-  public NetworkConnectionSetting getNetworkConnection() {
-    return ((HasNetworkConnection) super.getWrappedDriver()).getNetworkConnection();
-  }
-
-  @Override
-  public void setNetworkConnection(NetworkConnectionSetting connection) {
-    ((HasNetworkConnection) super.getWrappedDriver()).setNetworkConnection(connection);
-  }
-
-  @Override
-  public String getAppStrings() {
-    return ((HasAppStrings) super.getWrappedDriver()).getAppStrings();
-  }
-
-  @Override
-  public String getAppStrings(String language) {
-    return ((HasAppStrings) super.getWrappedDriver()).getAppStrings(language);
-  }
-
-  @Override
-  public void sendKeyEvent(int key, Integer metastate) {
-    ((AndroidDeviceActionShortcuts) super.getWrappedDriver()).sendKeyEvent(key, metastate);
+  public void pushFile(String remotePath, File file) throws IOException {
+    ((PushesFiles) super.getWrappedDriver()).pushFile(remotePath, file);
   }
 
   @Override
   public TargetLocator switchTo() {
     return new BobcatTargetLocator(super.getWrappedDriver().switchTo(), frameSwitcher);
   }
+
+  @Override
+  public Map<String, String> getAppStringMap() {
+    return ((HasAppStrings) this.getWrappedDriver()).getAppStringMap();
+  }
+
+  @Override
+  public Map<String, String> getAppStringMap(String language) {
+    return ((HasAppStrings) this.getWrappedDriver()).getAppStringMap(language);
+  }
+
+  @Override
+  public Map<String, String> getAppStringMap(String language, String stringFile) {
+    return ((HasAppStrings) this.getWrappedDriver()).getAppStringMap(language, stringFile);
+  }
+
+  @Override
+  public void pressKeyCode(int key) {
+    ((AndroidDriver) this.getWrappedDriver()).longPressKeyCode(key);
+  }
+
+  @Override
+  public void pressKeyCode(int key, Integer metastate) {
+    ((AndroidDriver) this.getWrappedDriver()).pressKeyCode(key, metastate);
+  }
+
+  @Override
+  public void longPressKeyCode(int key) {
+    ((AndroidDriver) this.getWrappedDriver()).longPressKeyCode(key);
+  }
+
+  @Override
+  public void longPressKeyCode(int key, Integer metastate) {
+    ((AndroidDriver) this.getWrappedDriver()).longPressKeyCode(key, metastate);
+  }
+
+  @Override
+  public void setConnection(Connection connection) {
+    ((HasNetworkConnection) this.getWrappedDriver()).setConnection(connection);
+  }
+
+  @Override
+  public Connection getConnection() {
+    return ((HasNetworkConnection) this.getWrappedDriver()).getConnection();
+  }
+
+  @Override
+  public String getId() {
+    return UUID.randomUUID().toString();
+  }
+
 }

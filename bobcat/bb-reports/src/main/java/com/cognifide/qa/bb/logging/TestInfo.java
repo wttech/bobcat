@@ -30,6 +30,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 
+import io.appium.java_client.MobileDriver;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.HasCapabilities;
 import org.openqa.selenium.WebDriver;
@@ -65,6 +66,8 @@ public class TestInfo {
       (o1, o2) -> o1.getStart().compareTo(o2.getStart());
 
   private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(TestInfo.class);
+
+  private static final String NATIVE_APP_CONTEXT = "NATIVE_APP";
 
   private final Date start;
 
@@ -254,7 +257,16 @@ public class TestInfo {
    */
   public void screenshot(String message) {
     try {
-      addLogEntry(new ScreenshotEntry(webDriver, fileCreator, message));
+      if((webDriver instanceof MobileDriver)) {
+        MobileDriver mobileDriver = (MobileDriver) this.webDriver;
+        String originalContext =  mobileDriver.getContext();
+        mobileDriver.context(NATIVE_APP_CONTEXT);
+        ScreenshotEntry screenshotEntry = new ScreenshotEntry(this.webDriver, fileCreator, message);
+        mobileDriver.context(originalContext);
+        addLogEntry(screenshotEntry);
+      } else {
+        addLogEntry(new ScreenshotEntry(webDriver,fileCreator,message));
+      }
     } catch (IOException e) {
       LOG.error("Can't take screenshot", e);
     }
