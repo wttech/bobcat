@@ -265,7 +265,7 @@ public class TestInfo {
         mobileDriver.context(originalContext);
         addLogEntry(screenshotEntry);
       } else {
-        addLogEntry(new ScreenshotEntry(webDriver,fileCreator,message));
+        addLogEntry(new ScreenshotEntry(webDriver, fileCreator, message));
       }
     } catch (IOException e) {
       LOG.error("Can't take screenshot", e);

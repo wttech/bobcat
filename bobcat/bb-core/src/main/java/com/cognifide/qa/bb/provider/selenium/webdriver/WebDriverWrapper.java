@@ -327,7 +327,7 @@ public class WebDriverWrapper extends EventFiringWebDriver implements FindsById,
 
   @Override
   public String getDeviceTime() {
-    return ((DeviceActionShortcuts) this.getWrappedDriver()).getDeviceTime();
+    return ((DeviceActionShortcuts) super.getWrappedDriver()).getDeviceTime();
   }
 
   @Override
@@ -472,47 +472,47 @@ public class WebDriverWrapper extends EventFiringWebDriver implements FindsById,
 
   @Override
   public Map<String, String> getAppStringMap() {
-    return ((HasAppStrings) this.getWrappedDriver()).getAppStringMap();
+    return ((HasAppStrings) super.getWrappedDriver()).getAppStringMap();
   }
 
   @Override
   public Map<String, String> getAppStringMap(String language) {
-    return ((HasAppStrings) this.getWrappedDriver()).getAppStringMap(language);
+    return ((HasAppStrings) super.getWrappedDriver()).getAppStringMap(language);
   }
 
   @Override
   public Map<String, String> getAppStringMap(String language, String stringFile) {
-    return ((HasAppStrings) this.getWrappedDriver()).getAppStringMap(language, stringFile);
+    return ((HasAppStrings) super.getWrappedDriver()).getAppStringMap(language, stringFile);
   }
 
   @Override
   public void pressKeyCode(int key) {
-    ((AndroidDriver) this.getWrappedDriver()).longPressKeyCode(key);
+    ((AndroidDriver) super.getWrappedDriver()).longPressKeyCode(key);
   }
 
   @Override
   public void pressKeyCode(int key, Integer metastate) {
-    ((AndroidDriver) this.getWrappedDriver()).pressKeyCode(key, metastate);
+    ((AndroidDriver) super.getWrappedDriver()).pressKeyCode(key, metastate);
   }
 
   @Override
   public void longPressKeyCode(int key) {
-    ((AndroidDriver) this.getWrappedDriver()).longPressKeyCode(key);
+    ((AndroidDriver) super.getWrappedDriver()).longPressKeyCode(key);
   }
 
   @Override
   public void longPressKeyCode(int key, Integer metastate) {
-    ((AndroidDriver) this.getWrappedDriver()).longPressKeyCode(key, metastate);
+    ((AndroidDriver) super.getWrappedDriver()).longPressKeyCode(key, metastate);
   }
 
   @Override
   public void setConnection(Connection connection) {
-    ((HasNetworkConnection) this.getWrappedDriver()).setConnection(connection);
+    ((HasNetworkConnection) super.getWrappedDriver()).setConnection(connection);
   }
 
   @Override
   public Connection getConnection() {
-    return ((HasNetworkConnection) this.getWrappedDriver()).getConnection();
+    return ((HasNetworkConnection) super.getWrappedDriver()).getConnection();
   }
 
   @Override
