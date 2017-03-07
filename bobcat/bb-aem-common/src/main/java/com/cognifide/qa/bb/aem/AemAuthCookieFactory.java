@@ -45,12 +45,16 @@ import com.cognifide.qa.bb.guice.ThreadScoped;
 import com.google.inject.Inject;
 
 /**
- * This class provide authentication cookie for aem instance (cookie name: login-token)
+ * This class provide authentication cookie for aem instance (default cookie name: login-token)
  */
 @ThreadScoped
 public class AemAuthCookieFactory {
 
   private static final Logger LOG = LoggerFactory.getLogger(AemAuthCookieFactory.class);
+
+  private static final String DEFAULT_LOGIN_TOKEN = "login-token";
+
+  private final Map<String, Cookie> cookieJar = new HashMap<>();
 
   @Inject
   private Properties properties;
@@ -58,13 +62,11 @@ public class AemAuthCookieFactory {
   @Inject
   private CloseableHttpClient httpClient;
 
-  private final Map<String, Cookie> cookieJar = new HashMap<>();
-
   /**
    * This method provides browser cookie for authenticating user to AEM instance
    *
-   * @param url      URL to AEM instance, like http://localhost:4502
-   * @param login    Username to use
+   * @param url URL to AEM instance, like http://localhost:4502
+   * @param login Username to use
    * @param password Password to use
    * @return Cookie for selenium WebDriver.
    */
@@ -114,9 +116,10 @@ public class AemAuthCookieFactory {
     cookieJar.remove(url);
   }
 
-  private static Cookie findAuthenticationCookie(List<org.apache.http.cookie.Cookie> cookies) {
+  private Cookie findAuthenticationCookie(List<org.apache.http.cookie.Cookie> cookies) {
     for (org.apache.http.cookie.Cookie cookie : cookies) {
-      if ("login-token".equals(cookie.getName())) {
+      if (properties.getProperty(ConfigKeys.LOGIN_TOKEN, DEFAULT_LOGIN_TOKEN)
+          .equals(cookie.getName())) {
         return new Cookie(cookie.getName(), cookie.getValue(), cookie.getDomain(), cookie.getPath(),
             cookie.getExpiryDate());
       }

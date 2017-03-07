@@ -32,6 +32,8 @@ public final class ConfigKeys {
 
   public static final String BASE_URL = "base.url";
 
+  public static final String LOGIN_TOKEN = "login.token.name";
+
   public static final String WEBDRIVER_APPIUM_URL = "webdriver.appium.url";
 
   public static final String WEBDRIVER_CAP_PLATFORM_NAME = "webdriver.cap.platformName";
