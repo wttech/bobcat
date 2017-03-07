@@ -67,7 +67,7 @@ public class BobcatWebDriverWait {
    */
   public <T> T until(ExpectedCondition<T> condition) {
     webDriver.manage().timeouts().implicitlyWait(IMPLICITLY_WAIT_TIME, TimeUnit.SECONDS);
-    final T result = new WebDriverWait(webDriver, timeOutInSeconds).until(condition);
+    final T result = new WebDriverWait(webDriver, timeOutInSeconds).until(condition::apply);
     webDriver.manage().timeouts().implicitlyWait(defaultTimeout, TimeUnit.SECONDS);
     return result;
   }
@@ -88,7 +88,7 @@ public class BobcatWebDriverWait {
    */
   public <T> T until(ExpectedCondition<T> condition, long delay) {
     webDriver.manage().timeouts().implicitlyWait(IMPLICITLY_WAIT_TIME, TimeUnit.SECONDS);
-    final T result = new WebDriverWait(webDriver, timeOutInSeconds, delay * 1000L).until(condition);
+    final T result = new WebDriverWait(webDriver, timeOutInSeconds, delay * 1000L).until(condition::apply);
     webDriver.manage().timeouts().implicitlyWait(defaultTimeout, TimeUnit.SECONDS);
     return result;
   }

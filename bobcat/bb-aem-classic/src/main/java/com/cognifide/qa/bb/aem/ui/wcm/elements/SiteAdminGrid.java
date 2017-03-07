@@ -27,8 +27,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -86,6 +88,9 @@ public class SiteAdminGrid {
   @FindPageObject
   private ActivateReferencesWindow activateReferencesWindow;
 
+  @FindBy(css = "div.x-grid3-scroller")
+  private WebElement scrollPane;
+
   /**
    * Custom {@link org.openqa.selenium.support.ui.ExpectedCondition} that checks
    * {@link ActivationStatus} of page by provided {@link SiteAdminPage} and page title
@@ -95,7 +100,7 @@ public class SiteAdminGrid {
    * @param pageTitle page title to be checked
    * @return true if actual status matches the expected one
    */
-  public static ExpectedCondition<Boolean> pageActivationStatusIs(final ActivationStatus status,
+  public ExpectedCondition<Boolean> pageActivationStatusIs(final ActivationStatus status,
       final SiteAdminPage page, final String pageTitle) {
     return driver -> {
       if (pageActivationStatusMatches(status, page, pageTitle)) {
@@ -116,7 +121,7 @@ public class SiteAdminGrid {
    * @param pageTitle page title to be checked
    * @return true if actual status matches the expected one
    */
-  public static ExpectedCondition<Object> pageStatusIs(PageStatus status, SiteAdminPage page,
+  public ExpectedCondition<Object> pageStatusIs(PageStatus status, SiteAdminPage page,
       String pageTitle) {
     return driver -> {
       if (pageStatusMatches(status, page, pageTitle)) {
@@ -128,13 +133,14 @@ public class SiteAdminGrid {
     };
   }
 
-  private static boolean pageActivationStatusMatches(ActivationStatus status, SiteAdminPage page,
+  private boolean pageActivationStatusMatches(ActivationStatus status, SiteAdminPage page,
       String pageTitle) {
     return status == page.getGrid().selectPageByTitle(pageTitle).getActivationStatus();
   }
 
-  private static boolean pageStatusMatches(PageStatus status, SiteAdminPage page,
+  private boolean pageStatusMatches(PageStatus status, SiteAdminPage page,
       String pageTitle) {
+    bobcatWait.withTimeout(Timeouts.SMALL).until(ignored -> page.getGrid().isPageOnTheList(pageTitle));
     SiteAdminGridRow row = page.getGrid().selectPageByTitle(pageTitle);
     return row.getPageStatusToolTip().contains(status.getStatusCss());
   }
@@ -241,6 +247,7 @@ public class SiteAdminGrid {
   public SiteAdminGrid waitForLoaderNotPresent() {
     bobcatWait.withTimeout(Timeouts.BIG).until(
         CommonExpectedConditions.elementNotPresentOrVisible(LOADER_LOCATOR));
+    bobcatWait.withTimeout(Timeouts.SMALL).until(ExpectedConditions.elementToBeClickable(scrollPane));
     return this;
   }
 

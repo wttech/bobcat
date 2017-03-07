@@ -455,7 +455,7 @@ public class SiteAdminPage {
   private void waitForPageActivationStatus(String title, ActivationStatus status) {
     try {
       bobcatWait.withTimeout(Timeouts.BIG)
-          .until(SiteAdminGrid.pageActivationStatusIs(status, this, title));
+          .until(ignored -> grid.pageActivationStatusIs(status, this, title));
     } catch (TimeoutException te) {
       LOG.error("Error while activating page");
       throw te;
@@ -464,7 +464,7 @@ public class SiteAdminPage {
 
   private void waitForPageStatus(String title, PageStatus status) {
     try {
-      bobcatWait.withTimeout(Timeouts.BIG).until(SiteAdminGrid.pageStatusIs(status, this, title));
+      bobcatWait.withTimeout(Timeouts.BIG).until(ignored -> grid.pageStatusIs(status, this, title));
     } catch (TimeoutException te) {
       LOG.error("Error while activating page");
       throw te;
