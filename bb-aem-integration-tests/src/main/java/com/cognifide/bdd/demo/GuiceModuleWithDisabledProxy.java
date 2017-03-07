@@ -22,6 +22,7 @@ package com.cognifide.bdd.demo;
 import com.cognifide.qa.bb.constants.ConfigKeys;
 
 public class GuiceModuleWithDisabledProxy extends GuiceModule {
+
   @Override
   protected void configure() {
     System.setProperty(ConfigKeys.PROXY_ENABLED, "false");

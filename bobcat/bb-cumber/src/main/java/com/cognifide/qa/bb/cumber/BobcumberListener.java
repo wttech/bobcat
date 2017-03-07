@@ -19,14 +19,12 @@
  */
 package com.cognifide.qa.bb.cumber;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.apache.commons.lang3.CharEncoding;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.runner.Description;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
@@ -36,12 +34,6 @@ class BobcumberListener extends RunListener {
 
   private static final String FEATURE_STATEMENT = "feature";
 
-  private static final String SCENARIO_STATEMENT = "Scenario";
-
-  private static final String COLON = ":";
-
-  private static final String PIPE = "|";
-
   private final Bobcumber bobcumber;
 
   private final FeatureMap featureMap;
@@ -50,7 +42,7 @@ class BobcumberListener extends RunListener {
 
   private final AtomicInteger testFailureCounter;
 
-  private boolean alreadyRegistered;
+  private boolean failureRegistered;
 
   BobcumberListener(Bobcumber bobcumber) {
     this.bobcumber = bobcumber;
@@ -61,18 +53,15 @@ class BobcumberListener extends RunListener {
 
   @Override
   public void testRunFinished(Result result) throws Exception {
-    try (PrintWriter writer = new PrintWriter(bobcumber.getStatisticsFile(), CharEncoding.UTF_8)) {
-      writer.println(scenarioCounter.get());
-      writer.println(testFailureCounter.get());
-    }
+    updateStatisticsFile();
+    updateFailedFeaturesFile();
   }
 
   @Override
   public void testStarted(Description description) throws Exception {
-    String displayName = description.getDisplayName();
-    if (isScenario(displayName) || isScenarioOutline(displayName)) {
+    if (description.isSuite()) {
       scenarioCounter.incrementAndGet();
-      alreadyRegistered = false;
+      failureRegistered = false;
     }
   }
 
@@ -80,10 +69,10 @@ class BobcumberListener extends RunListener {
   public void testFailure(Failure failure) throws Exception {
     String trace = normalizeTrace(failure.getTrace());
     if (trace.contains(FEATURE_STATEMENT)) {
-      addScenario(trace);
-      if (!alreadyRegistered) {
+      if (!failureRegistered) {
+        addScenario(trace);
         testFailureCounter.incrementAndGet();
-        alreadyRegistered = true;
+        failureRegistered = true;
       }
     }
   }
@@ -92,24 +81,39 @@ class BobcumberListener extends RunListener {
     return trace.substring(trace.lastIndexOf("(") + 1, trace.lastIndexOf(")"));
   }
 
-  private synchronized void addScenario(String failedScenario) throws IOException {
-    try (PrintWriter out = new PrintWriter(
-        new BufferedWriter(new FileWriter(bobcumber.getFeatureFile(), false)))) {
-      featureMap.addFeature(failedScenario);
-      featureMap.writeFeatures(out);
+  /**
+   * This method opens connection to file and if file is empty, it cause action on file specified
+   * in action param.
+   * It is used to report information about failed tests and some statistics.
+   */
+  private synchronized void fillEmptyBobcumberFile(File file, ActionOnFile action)
+      throws FileNotFoundException {
+    try (Scanner scanner = new Scanner(file)) {
+      if (!scanner.hasNext()) {
+        try (PrintWriter writer = new PrintWriter(file)) {
+          action.action(writer);
+        }
+      }
     }
   }
 
-  private boolean isScenario(String displayName) {
-    boolean isScenario = false;
-    if (displayName.contains(COLON)) {
-      String testStep = StringUtils.substringBefore(displayName, COLON);
-      isScenario = SCENARIO_STATEMENT.equals(testStep);
-    }
-    return isScenario;
+  private synchronized void addScenario(String failedScenario) {
+    featureMap.addFeature(failedScenario);
   }
 
-  private boolean isScenarioOutline(String displayName) {
-    return displayName.startsWith(PIPE);
+  private void updateStatisticsFile() throws FileNotFoundException {
+    fillEmptyBobcumberFile(bobcumber.getStatisticsFile(), writer -> {
+      writer.println(scenarioCounter.get());
+      writer.println(testFailureCounter.get());
+    });
+  }
+
+  private void updateFailedFeaturesFile() throws FileNotFoundException {
+    fillEmptyBobcumberFile(bobcumber.getFeatureFile(), writer ->
+        featureMap.writeFeatures(writer));
+  }
+
+  private interface ActionOnFile {
+    void action(PrintWriter writer);
   }
 }

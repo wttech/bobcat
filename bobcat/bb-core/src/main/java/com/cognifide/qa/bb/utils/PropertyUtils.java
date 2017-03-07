@@ -43,7 +43,7 @@ public class PropertyUtils {
 
   private static final Logger LOG = LoggerFactory.getLogger(PropertyUtils.class);
 
-  private static final String[] PREFIXES = new String[] {"webdriver.", "phantomjs."};
+  private static final String[] PREFIXES = new String[]{"webdriver.", "phantomjs."};
 
   private static Properties properties = null;
 
@@ -58,21 +58,19 @@ public class PropertyUtils {
    * @return Properties - object with all properties.
    */
   public static Properties gatherProperties() {
-    if (properties == null) {
-      try {
-        String parents = System.getProperty(ConfigKeys.CONFIGURATION_PATHS, "src/main/config");
-        String[] split = StringUtils.split(parents, ";");
-        properties = loadDefaultProperties();
-        for (String name : split) {
-          File configParent = new File(StringUtils.trim(name));
-          loadProperties(configParent, properties);
-        }
-        overrideFromSystemProperties(properties);
-        setSystemProperties(properties);
-        overrideTimeouts(properties);
-      } catch (IOException e) {
-        LOG.error("Can't bind properties", e);
+    try {
+      String parents = System.getProperty(ConfigKeys.CONFIGURATION_PATHS, "src/main/config");
+      String[] split = StringUtils.split(parents, ";");
+      properties = loadDefaultProperties();
+      for (String name : split) {
+        File configParent = new File(StringUtils.trim(name));
+        loadProperties(configParent, properties);
       }
+      overrideFromSystemProperties(properties);
+      setSystemProperties(properties);
+      overrideTimeouts(properties);
+    } catch (IOException e) {
+      LOG.error("Can't bind properties", e);
     }
     return properties;
   }
@@ -88,7 +86,7 @@ public class PropertyUtils {
   private static Properties loadDefaultProperties() throws IOException {
     Properties properties = new Properties();
     try (InputStream is = PropertyBinder.class.getClassLoader()
-        .getResourceAsStream(ConfigKeys.DEFAULT_PROPERTIES_NAME)) {
+      .getResourceAsStream(ConfigKeys.DEFAULT_PROPERTIES_NAME)) {
       properties.load(is);
     } catch (IOException e) {
       LOG.error("Can't bind default properties", e);
@@ -106,7 +104,7 @@ public class PropertyUtils {
         }
       } else {
         BufferedReader reader = new BufferedReader(
-            new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
+          new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
 
         LOG.debug("loading properties from: {} (ie. {})", file, file.getAbsolutePath());
         try {
@@ -119,7 +117,7 @@ public class PropertyUtils {
   }
 
   private static void overrideFromSystemProperties(Properties properties) {
-    properties.stringPropertyNames().stream().forEach((key) -> {
+    properties.stringPropertyNames().forEach((key) -> {
       String systemProperty = System.getProperty(key);
       if (StringUtils.isNotBlank(systemProperty)) {
         properties.setProperty(key, systemProperty);

@@ -30,7 +30,7 @@ class FeatureMap {
 
   private static final String COLON = ":";
 
-  private Map<String, Set<String>> addedFeatures = new HashMap<>();
+  private final Map<String, Set<String>> addedFeatures = new HashMap<>();
 
   void addFeature(String failedScenario) {
     String featureName = failedScenario.substring(0, failedScenario.lastIndexOf(COLON));
