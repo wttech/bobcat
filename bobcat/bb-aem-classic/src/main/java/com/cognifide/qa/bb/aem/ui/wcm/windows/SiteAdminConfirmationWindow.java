@@ -71,4 +71,12 @@ public class SiteAdminConfirmationWindow implements DecisionWindow {
   public void cancel() {
     bobcatWait.withTimeout(Timeouts.BIG).until(WindowActions.clickButton(noButton));
   }
+
+  /**
+   *
+   * @return true if the confirmation window is visible. Otherwise returns false
+   */
+  public boolean isVisible() {
+    return currentScope.isDisplayed();
+  }
 }
