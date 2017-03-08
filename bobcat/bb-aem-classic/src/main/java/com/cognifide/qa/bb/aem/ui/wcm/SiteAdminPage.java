@@ -363,6 +363,7 @@ public class SiteAdminPage {
     if(siteAdminConfirmationWindow.isVisible()) {
       // "This page is referenced" confirmation window have popped up
       clickYesOnConfirmationWindow();
+      grid.waitForLoaderNotPresent();
     }
     return this;
   }

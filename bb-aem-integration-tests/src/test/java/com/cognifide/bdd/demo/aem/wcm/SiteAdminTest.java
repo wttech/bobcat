@@ -182,8 +182,6 @@ public class SiteAdminTest {
     page.open(parentPath);
     if (page.isPagePresent(siteTitle)) {
       page.clickDeleteAndConfirm(siteTitle);
-      page.waitForConfirmationWindow();
-      page.clickYesOnConfirmationWindow();
     }
   }
 
