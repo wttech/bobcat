@@ -6,8 +6,9 @@ addons:
   apt:
     packages:
       - oracle-java8-installer
+  firefox: "49.0"
 
 install: true
 
 sudo: false
-script: mvn clean verify -DskipTests
+script: mvn clean install -Dwebdriver.type=firefox -Dwebdriver.firefox.bin="$(which firefox)" 
