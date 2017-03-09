@@ -6,7 +6,7 @@ addons:
   apt:
     packages:
       - oracle-java8-installer
-  firefox: "49.0"
+  firefox: "24.0"
 
 install: true
 
