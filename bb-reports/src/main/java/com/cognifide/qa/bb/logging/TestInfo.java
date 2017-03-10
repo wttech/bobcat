@@ -30,6 +30,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileDriver;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.HasCapabilities;
@@ -257,9 +258,9 @@ public class TestInfo {
    */
   public void screenshot(String message) {
     try {
-      if((webDriver instanceof MobileDriver)) {
-        MobileDriver mobileDriver = (MobileDriver) this.webDriver;
-        String originalContext =  mobileDriver.getContext();
+      if ((webDriver instanceof AppiumDriver)) {
+        AppiumDriver mobileDriver = (AppiumDriver) this.webDriver;
+        String originalContext = mobileDriver.getContext();
         mobileDriver.context(NATIVE_APP_CONTEXT);
         ScreenshotEntry screenshotEntry = new ScreenshotEntry(this.webDriver, fileCreator, message);
         mobileDriver.context(originalContext);

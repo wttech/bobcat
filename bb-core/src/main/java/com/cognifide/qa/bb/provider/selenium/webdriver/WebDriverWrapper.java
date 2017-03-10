@@ -75,7 +75,7 @@ import io.appium.java_client.ios.IOSDeviceActionShortcuts;
  */
 public class WebDriverWrapper extends EventFiringWebDriver implements FindsById, FindsByClassName,
     FindsByLinkText, FindsByName, FindsByCssSelector, FindsByTagName, FindsByXPath,
-    HasCapabilities, MobileDriver, Rotatable, LocationContext,
+    HasCapabilities, MobileDriver, Rotatable, LocationContext, ContextAware,
     TouchShortcuts, InteractsWithApps, AndroidDeviceActionShortcuts, HasAppStrings,
     HasNetworkConnection, PushesFiles, StartsActivity, FindsByAndroidUIAutomator,
     IOSDeviceActionShortcuts, FindsByIosUIAutomation, HasIdentity, PerformsTouchActions {
