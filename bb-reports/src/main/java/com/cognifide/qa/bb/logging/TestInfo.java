@@ -30,6 +30,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 
+import com.cognifide.qa.bb.provider.selenium.webdriver.close.ClosingAwareWebDriverWrapper;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileDriver;
 import org.openqa.selenium.Capabilities;
@@ -258,12 +259,14 @@ public class TestInfo {
    */
   public void screenshot(String message) {
     try {
-      if ((webDriver instanceof AppiumDriver)) {
-        AppiumDriver mobileDriver = (AppiumDriver) this.webDriver;
-        String originalContext = mobileDriver.getContext();
-        mobileDriver.context(NATIVE_APP_CONTEXT);
+      if (webDriver instanceof ClosingAwareWebDriverWrapper
+          && ((ClosingAwareWebDriverWrapper) this.webDriver).getWrappedDriver() instanceof AppiumDriver) {
+        AppiumDriver appiumDriver =
+            (AppiumDriver) ((ClosingAwareWebDriverWrapper) this.webDriver).getWrappedDriver();
+        String originalContext = appiumDriver.getContext();
+        appiumDriver.context(NATIVE_APP_CONTEXT);
         ScreenshotEntry screenshotEntry = new ScreenshotEntry(this.webDriver, fileCreator, message);
-        mobileDriver.context(originalContext);
+        appiumDriver.context(originalContext);
         addLogEntry(screenshotEntry);
       } else {
         addLogEntry(new ScreenshotEntry(webDriver, fileCreator, message));
