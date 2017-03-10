@@ -142,8 +142,8 @@ public class SiteAdminPage {
    * Creates a new page based on provided the values. During creation specified template is used in
    * CreatePageWindow.
    *
-   * @param title        title of the created page
-   * @param name         name of the created page
+   * @param title title of the created page
+   * @param name name of the created page
    * @param templateName template of the created page
    * @return this SiteadminPage
    */
@@ -158,8 +158,8 @@ public class SiteAdminPage {
    * Assumes that the "Create Page" dialog has been already opened and creates a new page based on
    * provided the values. During creation specified template is used in CreatePageWindow.
    *
-   * @param title        title of the created page
-   * @param name         name of the created page
+   * @param title title of the created page
+   * @param name name of the created page
    * @param templateName template of the created page
    * @return this SiteadminPage
    */
@@ -173,7 +173,7 @@ public class SiteAdminPage {
    * Creates a new page based on the provided values. name is omitted (default one is set by AEM).
    * During creation specified template is used in CreatePageWindow
    *
-   * @param title        title of the created page
+   * @param title title of the created page
    * @param templateName template of the created page
    * @return this SiteadminPage
    */
@@ -200,7 +200,7 @@ public class SiteAdminPage {
    * Assumes that the "Create Page" dialog has been already opened and creates a new page based on
    * provided the values. During creation specified template is used in CreatePageWindow.
    *
-   * @param title        title of the created page
+   * @param title title of the created page
    * @param templateName template of the created page
    * @return this SiteAdminPage
    */
@@ -228,8 +228,8 @@ public class SiteAdminPage {
    * Activate drop down.
    *
    * @param title title of the page
-   * @param day   day in format dd/mm/yy
-   * @param time  time in format hh:mm a (10:12 AM)
+   * @param day day in format dd/mm/yy
+   * @param time time in format hh:mm a (10:12 AM)
    * @return this SiteadminPage
    */
   public SiteAdminPage activatePageLater(String title, String day, String time) {
@@ -255,8 +255,8 @@ public class SiteAdminPage {
    * in Deactivate drop down.
    *
    * @param title title of the page
-   * @param day   day in format dd/mm/yy
-   * @param time  time in format hh:mm a (10:12 AM)
+   * @param day day in format dd/mm/yy
+   * @param time time in format hh:mm a (10:12 AM)
    * @return this SiteadminPage
    */
   public SiteAdminPage deactivatePageLater(String title, String day, String time) {
@@ -356,7 +356,15 @@ public class SiteAdminPage {
   public SiteAdminPage clickDeleteAndConfirm(String title) {
     grid.selectPageByTitle(title);
     grid.getActionBar().clickOnButton(SiteAdminButtons.DELETE, siteAdminConfirmationWindow);
+    waitForConfirmationWindow();
     clickYesOnConfirmationWindow();
+    grid.waitForLoaderNotPresent();
+
+    if(siteAdminConfirmationWindow.isVisible()) {
+      // "This page is referenced" confirmation window have popped up
+      clickYesOnConfirmationWindow();
+      grid.waitForLoaderNotPresent();
+    }
     return this;
   }
 
@@ -384,7 +392,7 @@ public class SiteAdminPage {
    * Moves the page with provided title to provided destination path by selecting it and pressing
    * Move button on Action Bar
    *
-   * @param title           page title
+   * @param title page title
    * @param destinationPath destination page path
    * @return this SiteadminPage
    */
@@ -411,7 +419,7 @@ public class SiteAdminPage {
   /**
    * Checks if a specified template with provided title is displayed in the SiteAdminGrid.
    *
-   * @param title    title of the template
+   * @param title title of the template
    * @param template name of the template
    * @return true if template is present
    */
@@ -455,7 +463,7 @@ public class SiteAdminPage {
   private void waitForPageActivationStatus(String title, ActivationStatus status) {
     try {
       bobcatWait.withTimeout(Timeouts.BIG)
-          .until(SiteAdminGrid.pageActivationStatusIs(status, this, title));
+          .until(grid.pageActivationStatusIs(status, this, title));
     } catch (TimeoutException te) {
       LOG.error("Error while activating page");
       throw te;
@@ -464,7 +472,7 @@ public class SiteAdminPage {
 
   private void waitForPageStatus(String title, PageStatus status) {
     try {
-      bobcatWait.withTimeout(Timeouts.BIG).until(SiteAdminGrid.pageStatusIs(status, this, title));
+      bobcatWait.withTimeout(Timeouts.BIG).until(grid.pageStatusIs(status, this, title));
     } catch (TimeoutException te) {
       LOG.error("Error while activating page");
       throw te;

@@ -87,7 +87,7 @@ limitations under the License.
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jacoco.version>0.7.7.201606060606</jacoco.version>
-        <selenium.version>2.53.1</selenium.version>
+        <selenium.version>3.2.0</selenium.version>
         <guice.version>3.0</guice.version>
         <cucumber.version>1.2.3</cucumber.version>
         <version.logback>1.1.7</version.logback>
@@ -176,7 +176,7 @@ limitations under the License.
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>17.0</version>
+                <version>21.0</version>
             </dependency>
             <dependency>
                 <groupId>org.freemarker</groupId>

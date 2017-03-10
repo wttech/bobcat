@@ -63,6 +63,26 @@ public class WebDriverLogger implements WebDriverEventListener {
   }
 
   @Override
+  public void beforeAlertAccept(WebDriver webDriver) {
+   beforeEvent("alertAccept");
+  }
+
+  @Override
+  public void afterAlertAccept(WebDriver webDriver) {
+    afterEvent();
+  }
+
+  @Override
+  public void afterAlertDismiss(WebDriver webDriver) {
+    afterEvent();
+  }
+
+  @Override
+  public void beforeAlertDismiss(WebDriver webDriver) {
+    beforeEvent("alertDismiss");
+  }
+
+  @Override
   public void beforeNavigateTo(String url, WebDriver driver) {
     beforeEvent("navigateTo", url);
   }
@@ -122,7 +142,7 @@ public class WebDriverLogger implements WebDriverEventListener {
   }
 
   @Override
-  public void beforeChangeValueOf(WebElement element, WebDriver driver) {
+  public void beforeChangeValueOf(WebElement element, WebDriver driver, CharSequence[] keysToSend) {
     StringBuilder sb = new StringBuilder();
     sb.append(element.toString());
     sb.append(" value: [");
@@ -132,7 +152,7 @@ public class WebDriverLogger implements WebDriverEventListener {
   }
 
   @Override
-  public void afterChangeValueOf(WebElement element, WebDriver driver) {
+  public void afterChangeValueOf(WebElement element, WebDriver driver, CharSequence[] keysToSend) {
     afterEvent(element.getAttribute("value") + "]");
   }
 

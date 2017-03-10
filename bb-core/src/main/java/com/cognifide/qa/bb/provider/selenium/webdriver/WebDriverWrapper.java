@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,6 +25,7 @@ import java.util.Set;
 
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.ContextAware;
+import org.openqa.selenium.DeviceRotation;
 import org.openqa.selenium.HasCapabilities;
 import org.openqa.selenium.Rotatable;
 import org.openqa.selenium.ScreenOrientation;
@@ -361,6 +362,16 @@ public class WebDriverWrapper extends EventFiringWebDriver implements FindsById,
   @Override
   public ScreenOrientation getOrientation() {
     return ((Rotatable) super.getWrappedDriver()).getOrientation();
+  }
+
+  @Override
+  public void rotate(DeviceRotation deviceRotation) {
+    ((Rotatable) super.getWrappedDriver()).rotate(deviceRotation);
+  }
+
+  @Override
+  public DeviceRotation rotation() {
+    return ((Rotatable) super.getWrappedDriver()).rotation();
   }
 
   @Override

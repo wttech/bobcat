@@ -32,6 +32,6 @@ public class ActionsProvider implements Provider<Actions> {
 
   @Override
   public Actions get() {
-    return SendKeysByOneActionsInterceptor.wrap(new Actions(webDriver));
+    return new Actions(webDriver);
   }
 }
