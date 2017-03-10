@@ -125,7 +125,7 @@ limitations under the License.
             <dependency>
                 <groupId>io.appium</groupId>
                 <artifactId>java-client</artifactId>
-                <version>2.1.0</version>
+                <version>4.1.2</version>
             </dependency>
             <dependency>
                 <groupId>net.lightbody.bmp</groupId>

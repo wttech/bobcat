@@ -30,6 +30,9 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 
+import com.cognifide.qa.bb.provider.selenium.webdriver.close.ClosingAwareWebDriverWrapper;
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileDriver;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.HasCapabilities;
 import org.openqa.selenium.WebDriver;
@@ -65,6 +68,8 @@ public class TestInfo {
       (o1, o2) -> o1.getStart().compareTo(o2.getStart());
 
   private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(TestInfo.class);
+
+  private static final String NATIVE_APP_CONTEXT = "NATIVE_APP";
 
   private final Date start;
 
@@ -254,7 +259,18 @@ public class TestInfo {
    */
   public void screenshot(String message) {
     try {
-      addLogEntry(new ScreenshotEntry(webDriver, fileCreator, message));
+      if (webDriver instanceof ClosingAwareWebDriverWrapper
+          && ((ClosingAwareWebDriverWrapper) this.webDriver).getWrappedDriver() instanceof AppiumDriver) {
+        AppiumDriver appiumDriver =
+            (AppiumDriver) ((ClosingAwareWebDriverWrapper) this.webDriver).getWrappedDriver();
+        String originalContext = appiumDriver.getContext();
+        appiumDriver.context(NATIVE_APP_CONTEXT);
+        ScreenshotEntry screenshotEntry = new ScreenshotEntry(this.webDriver, fileCreator, message);
+        appiumDriver.context(originalContext);
+        addLogEntry(screenshotEntry);
+      } else {
+        addLogEntry(new ScreenshotEntry(webDriver, fileCreator, message));
+      }
     } catch (IOException e) {
       LOG.error("Can't take screenshot", e);
     }
