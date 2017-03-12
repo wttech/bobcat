@@ -1,7 +1,7 @@
 ![Cognifide logo](http://cognifide.github.io/images/cognifide-logo.png)
 
 [![Build Status](https://travis-ci.org/Cognifide/bobcat.svg?branch=master)](https://travis-ci.org/Cognifide/bobcat)
-[![Maven Central](https://img.shields.io/maven-central/v/com.cognifide.qa.bb/bobcat-parent.svg?label=Maven%20Central)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.cognifide.qa.bb%22%20AND%20a%3A%22bobcat%22)
+[![Maven Central](https://img.shields.io/maven-central/v/com.cognifide.qa.bb/bobcat.svg?label=Maven%20Central)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.cognifide.qa.bb%22%20AND%20a%3A%22bobcat%22)
 [![Apache License, Version 2.0, January 2004](https://img.shields.io/github/license/cognifide/bobcat.svg?label=License)](http://www.apache.org/licenses/)
 
 # Bobcat
