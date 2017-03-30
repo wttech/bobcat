@@ -21,6 +21,7 @@ package com.cognifide.qa.bb.mapper;
 
 import com.cognifide.qa.bb.loadable.context.ConditionContext;
 import com.cognifide.qa.bb.loadable.hierarchy.util.LoadableComponentsUtil;
+import com.cognifide.qa.bb.qualifier.IgnoreCache;
 import com.cognifide.qa.bb.webelement.BobcatWebElementContext;
 import com.cognifide.qa.bb.webelement.BobcatWebElementFactory;
 
@@ -79,12 +80,16 @@ public class GuiceAwareFieldDecorator extends DefaultFieldDecorator {
         Locatable locatable = (Locatable) decoratedField;
         List<ConditionContext> fieldConditionContext =
             LoadableComponentsUtil.getConditionsFormField(field);
+        WebElementCachePolicy cachePolicy = field.isAnnotationPresent(IgnoreCache.class)
+                ? WebElementCachePolicy.POLICY_IGNORE
+                : WebElementCachePolicy.POLICY_DEFAULT;
         BobcatWebElementContext context =
-            new BobcatWebElementContext(element, locatable, fieldConditionContext);
+            new BobcatWebElementContext(element, locatable, fieldConditionContext, cachePolicy);
         return bobcatWebElementFactory.create(context);
       }
       return decoratedField;
     }
   }
+
 
 }

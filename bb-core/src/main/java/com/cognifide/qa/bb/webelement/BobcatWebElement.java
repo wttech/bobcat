@@ -21,6 +21,7 @@ package com.cognifide.qa.bb.webelement;
 
 import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import com.cognifide.qa.bb.loadable.context.ConditionContext;
+import com.cognifide.qa.bb.mapper.WebElementCachePolicy;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 
@@ -54,11 +55,14 @@ public class BobcatWebElement implements WebElement, Locatable, WrapsElement, Ha
 
   private final List<ConditionContext> conditionContext;
 
+  private final WebElementCachePolicy cachePolicy;
+
   @Inject
   public BobcatWebElement(@Assisted BobcatWebElementContext context) {
     this.element = context.getWebElement();
     this.locatable = context.getLocatable();
     this.conditionContext = context.getLoadableConditionContext();
+    this.cachePolicy = context.getCachePolicy();
   }
 
   @Override
@@ -72,8 +76,8 @@ public class BobcatWebElement implements WebElement, Locatable, WrapsElement, Ha
   }
 
   /**
-   * As there is known selenium
-   * <a href="https://github.com/seleniumhq/selenium-google-code-issue-archive/issues/4446">4446</a>
+   * As there is known selenium <a
+   * href="https://github.com/seleniumhq/selenium-google-code-issue-archive/issues/4446">4446</a>
    * bug this method retries sending keys until input field value is valid.
    *
    * @param keysToSend keyboard keys to send
@@ -208,5 +212,39 @@ public class BobcatWebElement implements WebElement, Locatable, WrapsElement, Ha
   @Override
   public String getId() {
     return UUID.randomUUID().toString();
+  }
+
+  /**
+   *
+   * @return Cache policy connected to the @IgnoreCache annotation
+   */
+  public WebElementCachePolicy getCachePolicy() {
+    return cachePolicy;
+  }
+
+  /**
+   *
+   * @return WebElement's locatable
+   */
+  public Locatable getLocatable() {
+    return locatable;
+  }
+
+  /**
+   *
+   * @return {@link By} locator produced from WebElement's description
+   */
+  public By convertWebElementToByReference() {
+    String elementDescription = element.toString();
+    if (elementDescription.contains("->")) {
+
+      String elementTypeAndValue[] =
+          (elementDescription.substring(elementDescription.lastIndexOf("-> ") + 3,
+              elementDescription.lastIndexOf("]"))).split(":");
+
+      return LocatorUtil.produceLocatorFromTypeAndValue(elementTypeAndValue[0],
+          elementTypeAndValue[1]);
+    }
+    return null;
   }
 }

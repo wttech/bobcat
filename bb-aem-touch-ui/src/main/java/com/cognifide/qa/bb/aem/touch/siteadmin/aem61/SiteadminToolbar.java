@@ -19,13 +19,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 
+import com.cognifide.qa.bb.qualifier.IgnoreCache;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
-import com.cognifide.qa.bb.loadable.condition.impl.VisibilityCondition;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.Global;
@@ -98,15 +97,45 @@ public class SiteadminToolbar {
   @FindBy(css = "div.coral-Modal.coral-Modal--notice")
   private ConfirmationModal confirmationModal;
 
+  @Global
+  @IgnoreCache
+  @FindBy(css = PUBLISH_BUTTON_SELECTOR)
+  private WebElement publishButton;
+
+  @Global
+  @IgnoreCache
+  @FindBy(css = MORE_BUTTON_SELECTOR)
+  private WebElement moreButton;
+
+  @Global
+  @IgnoreCache
+  @FindBy(css = MOVE_BUTTON_SELECTOR)
+  private WebElement moveButton;
+
+  @Global
+  @IgnoreCache
+  @FindBy(css = UNPUBLISH_BUTTON_SELECTOR)
+  private WebElement unpublishButton;
+
+  @Global
+  @IgnoreCache
+  @FindBy(css = TOOLBAR_CREATE_BUTTON_SELECTOR)
+  private WebElement createPageButton;
+
+  @Global
+  @IgnoreCache
+  @FindBy(css = POPOVER_CREATE_PAGE_BUTTON_SELECTOR)
+  private WebElement createPagePopoverButton;
+
   public void publishPage() {
-    getMoreButton().click();
-    getPublishButton().click();
+    moreButton.click();
+    publishButton.click();
     clickButtonFromMoreSection(PUBLISH_LABEL);
   }
 
   public void unpublishPage() {
-    getMoreButton().click();
-    getUnpublishButton().click();
+    moreButton.click();
+    unpublishButton.click();
     clickButtonFromMoreSection(UNPUBLISH_LABEL);
     if (!isSuccessInfoDisplayed() && confirmationModal.isDisplayed()) {
       clickButtonInConfirmationModal("Continue");
@@ -122,9 +151,8 @@ public class SiteadminToolbar {
   }
 
   public void movePage(String destination) {
-    WebElement moveButton = getMoveButton();
     if(!moveButton.isDisplayed()) {
-      getMoreButton().click();
+      moreButton.click();
     }
     moveButton.click();
     movePageWizard.moveToDestination(destination);
@@ -155,16 +183,16 @@ public class SiteadminToolbar {
   }
 
   public void unpublishPageLater(LocalDateTime localDateTime) {
-    getMoreButton().click();
-    getUnpublishButton().click();
+    moreButton.click();
+    unpublishButton.click();
     clickButtonFromMoreSection("Unpublish later");
     replicateLaterWindow.selectDateAndTime(localDateTime);
     replicateLaterWindow.submit();
   }
 
   public void publishPageLater(LocalDateTime localDateTime) {
-    getMoreButton().click();
-    getPublishButton().click();
+    moreButton.click();
+    publishButton.click();
     clickButtonFromMoreSection("Publish later");
     replicateLaterWindow.selectDateAndTime(localDateTime);
     replicateLaterWindow.submit();
@@ -174,35 +202,18 @@ public class SiteadminToolbar {
     return webElementUtils.isDisplayed(successInfo, Timeouts.MINIMAL);
   }
 
-  private WebElement getMoreButton() {
-    return driver.findElement(By.cssSelector(MORE_BUTTON_SELECTOR));
-  }
-
-  private WebElement getMoveButton() {
-    return driver.findElement(By.cssSelector(MOVE_BUTTON_SELECTOR));
-  }
-
-  private WebElement getPublishButton() {
-    return driver.findElement(By.
-        cssSelector(PUBLISH_BUTTON_SELECTOR));
-  }
 
   private WebElement getDeleteButton() {
     if (!deleteButton.isDisplayed()) {
-      getMoreButton().click();
+      moreButton.click();
       wait.withTimeout(1);
     }
     return deleteButton;
   }
 
-  private WebElement getUnpublishButton() {
-    return driver.findElement(By.
-        cssSelector(UNPUBLISH_BUTTON_SELECTOR));
-  }
-
   private void clickCreatePageButton() {
-    driver.findElement(By.cssSelector(TOOLBAR_CREATE_BUTTON_SELECTOR)).click();
-    driver.findElement(By.cssSelector(POPOVER_CREATE_PAGE_BUTTON_SELECTOR)).click();
+    createPageButton.click();
+    createPagePopoverButton.click();
   }
 
   private void clickButtonFromMoreSection(String buttonLabel) {
