@@ -116,9 +116,9 @@ public class ProxyLogger implements ProxyEventListener {
   @Override
   public void dispatch() {
     entries.stream().
-            forEach((e) -> {
-              eventCollector.getCurrentTest().addLogEntry(e);
-    });
+        forEach((e) ->
+            eventCollector.getCurrentTest().addLogEntry(e)
+        );
     entries.clear();
   }
 }

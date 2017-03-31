@@ -121,7 +121,7 @@ public class SiteadminPage implements Loadable, SiteadminActions {
   public SiteadminActions waitForPageCount(int pageCount) {
     boolean conditionNotMet = !webElementUtils.isConditionMet(webDriver -> {
       try {
-        return (pageCount == getChildPageWindow().getPageCount());
+        return pageCount == getChildPageWindow().getPageCount();
       } catch (StaleElementReferenceException e) {
         webDriver.navigate().refresh();
         return false;
@@ -249,11 +249,11 @@ public class SiteadminPage implements Loadable, SiteadminActions {
   }
 
   private void retryLoad() {
-    conditions.verify(driver -> {
-        if (!isLoadedCondition()) {
-          driver.navigate().refresh();
-        }
-        return isLoadedCondition();
+    conditions.verify(webDriver -> {
+      if (!isLoadedCondition()) {
+        webDriver.navigate().refresh();
+      }
+      return isLoadedCondition();
     }, Timeouts.MEDIUM);
   }
 

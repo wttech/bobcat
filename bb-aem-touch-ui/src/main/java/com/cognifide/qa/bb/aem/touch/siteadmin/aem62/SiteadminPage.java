@@ -251,13 +251,13 @@ public class SiteadminPage implements SiteadminActions, Loadable {
   }
 
   private ChildPageWindow getChildPageWindow() {
-    WebElement childPageWindow = driver.findElement(By.cssSelector(CHILD_PAGE_WINDOW_SELECTOR));
-    return pageObjectInjector.inject(ChildPageWindow.class, childPageWindow);
+    WebElement chldPageWindow = driver.findElement(By.cssSelector(CHILD_PAGE_WINDOW_SELECTOR));
+    return pageObjectInjector.inject(ChildPageWindow.class, chldPageWindow);
   }
 
   private void retryLoad() {
-    conditions.verify(driver -> {
-        driver.navigate().refresh();
+    conditions.verify(webDriver -> {
+        webDriver.navigate().refresh();
         return isLoadedCondition();
     }, Timeouts.MEDIUM);
   }

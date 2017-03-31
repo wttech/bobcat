@@ -19,6 +19,7 @@ import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import com.cognifide.qa.bb.loadable.context.LoadableComponentContext;
 import com.cognifide.qa.bb.loadable.context.ConditionContext;
 
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Stack;
 
@@ -34,9 +35,9 @@ public class ConditionProgressTracker {
 
   private final LinkedList<ConditionProgressStep> progressData;
 
-  private final Stack<LoadableComponentContext> conditionHierarchy;
+  private final Deque<LoadableComponentContext> conditionHierarchy;
 
-  public ConditionProgressTracker(Stack<LoadableComponentContext> conditionHierarchy) {
+  public ConditionProgressTracker(Deque<LoadableComponentContext> conditionHierarchy) {
     this.conditionHierarchy = conditionHierarchy;
     this.progressData = new LinkedList<>();
   }

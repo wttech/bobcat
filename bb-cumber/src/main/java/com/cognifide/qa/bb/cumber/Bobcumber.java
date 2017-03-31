@@ -145,8 +145,8 @@ public class Bobcumber extends Cucumber {
   private boolean canRerunFailedTests() {
     int failedTestsNumber = statisticsHelper.getNumberOfFailedTests(statisticsFile);
     double percentageOfFailedTests = statisticsHelper.getPercentageOfFailedTests(statisticsFile);
-    boolean haveNoTests = (failedTestsNumber == 0);
-    boolean haveTooManyTests = (percentageOfFailedTests > maxFailedTestPercentage);
+    boolean haveNoTests = failedTestsNumber == 0;
+    boolean haveTooManyTests = percentageOfFailedTests > maxFailedTestPercentage;
     return !haveNoTests && !haveTooManyTests;
   }
 

@@ -25,6 +25,7 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
 
+import java.util.Deque;
 import java.util.Stack;
 
 /**
@@ -44,7 +45,7 @@ public class ConditionChainRunner {
    * @throws LoadableConditionException when some condition fails
    */
   public void chainCheck(ConditionStack conditionStack) throws LoadableConditionException {
-    Stack<LoadableComponentContext> stack = conditionStack.getLoadableContextStack();
+    Deque<LoadableComponentContext> stack = conditionStack.getLoadableContextStack();
     ConditionProgressTracker progressTracker = new ConditionProgressTracker(stack);
 
     while (!stack.isEmpty()) {

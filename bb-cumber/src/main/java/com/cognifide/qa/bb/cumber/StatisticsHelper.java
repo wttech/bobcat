@@ -44,7 +44,7 @@ class StatisticsHelper {
       Scanner scanner = new Scanner(file, StandardCharsets.UTF_8.name());
       returnValue = nextInt(scanner);
     } catch (FileNotFoundException e) {
-      LOG.warn(NO_STATISTICS_FILE_FOUND_MESSAGE);
+      LOG.warn(NO_STATISTICS_FILE_FOUND_MESSAGE, e);
     }
     return returnValue;
   }
@@ -62,7 +62,7 @@ class StatisticsHelper {
         returnValue = nextInt(scanner);
       }
     } catch (FileNotFoundException e) {
-      LOG.warn(NO_STATISTICS_FILE_FOUND_MESSAGE);
+      LOG.warn(NO_STATISTICS_FILE_FOUND_MESSAGE, e);
     }
     return returnValue;
   }
