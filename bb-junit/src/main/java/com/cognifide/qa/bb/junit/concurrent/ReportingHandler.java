@@ -111,6 +111,7 @@ public class ReportingHandler implements Runnable {
         TimeUnit.MILLISECONDS.sleep(DEFAULT_SLEEP_TIME);
       } catch (InterruptedException e) {
         LOG.error("Sleep was interrupted", e);
+        Thread.currentThread().interrupt();
       }
     }
   }

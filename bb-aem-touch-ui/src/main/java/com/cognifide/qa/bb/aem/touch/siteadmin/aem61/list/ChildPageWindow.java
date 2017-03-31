@@ -68,16 +68,14 @@ public class ChildPageWindow implements Loadable {
   }
 
   public boolean containsPage(String title) {
-    return webElementUtils.isConditionMet(new ExpectedCondition<Object>() {
-      @Nullable @Override public Object apply(@Nullable WebDriver weDriver) {
+    return webElementUtils.isConditionMet(webDriver -> {
         try {
           return childPages.stream().filter(t -> t.getTitle().equals(title)).findFirst()
               .isPresent();
         } catch (StaleElementReferenceException e) {
-          weDriver.navigate().refresh();
+          webDriver.navigate().refresh();
           return false;
         }
-      }
     }, Timeouts.SMALL);
   }
 

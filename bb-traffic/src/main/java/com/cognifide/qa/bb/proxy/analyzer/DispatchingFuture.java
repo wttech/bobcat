@@ -61,8 +61,8 @@ class DispatchingFuture extends FutureWrapper<Boolean> {
 
   private void dispatch() {
     proxyListeners.stream().
-            forEach((listener) -> {
-              listener.dispatch();
-    });
+        forEach((listener) ->
+            listener.dispatch()
+        );
   }
 }

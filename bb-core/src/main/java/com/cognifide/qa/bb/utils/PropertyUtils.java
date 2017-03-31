@@ -39,13 +39,13 @@ import com.cognifide.qa.bb.constants.Timeouts;
 /**
  * This class contains utility methods for loading properties from classpath and system.
  */
-public class PropertyUtils {
+public final class PropertyUtils {
 
   private static final Logger LOG = LoggerFactory.getLogger(PropertyUtils.class);
 
   private static final String[] PREFIXES = new String[] {"webdriver.", "phantomjs."};
 
-  private static Properties properties = null;
+  private static volatile Properties properties = null;
 
   private PropertyUtils() {
     // util class...

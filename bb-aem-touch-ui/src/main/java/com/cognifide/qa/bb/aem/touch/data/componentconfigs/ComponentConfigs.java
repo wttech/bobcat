@@ -52,9 +52,9 @@ public class ComponentConfigs {
     configsData.keySet().stream().forEach((configName) -> {
               Map<String, List<FieldConfig>> data = configsData.get(configName);
               List<TabConfig> tabsConfig = new ArrayList<>();
-              data.entrySet().stream().forEach((entry) -> {
-                tabsConfig.add(new TabConfig(entry.getKey(), entry.getValue()));
-              });
+              data.entrySet().stream().forEach((entry) ->
+                tabsConfig.add(new TabConfig(entry.getKey(), entry.getValue()))
+              );
               result.put(configName, new ComponentConfiguration(tabsConfig));
             });
 

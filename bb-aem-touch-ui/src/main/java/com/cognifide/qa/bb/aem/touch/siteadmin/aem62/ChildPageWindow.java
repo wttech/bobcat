@@ -51,7 +51,7 @@ public class ChildPageWindow implements Loadable {
   }
 
   public boolean containsPage(String title) {
-    return childPageRows.size() > 0 && childPageRows.stream()
+    return !childPageRows.isEmpty() && childPageRows.stream()
         .filter(t -> t.getTitle().equals(title)).findFirst().isPresent();
   }
 

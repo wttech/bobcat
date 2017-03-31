@@ -1,17 +1,15 @@
 /*
  * Copyright 2016 Cognifide Ltd..
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  */
 package com.cognifide.qa.bb.aem.touch.siteadmin.aem61;
 
@@ -76,7 +74,8 @@ public class SiteadminPage implements Loadable, SiteadminActions {
   @LoadableComponent(condClass = IsLoadedCondition.class)
   private ChildPageWindow childPageWindow;
 
-  @FindBy(css = "nav.foundation-layout-mode2-item.endor-ActionBar.js-granite-endor-ActionBar > div.endor-ActionBar-left")
+  @FindBy(
+      css = "nav.foundation-layout-mode2-item.endor-ActionBar.js-granite-endor-ActionBar > div.endor-ActionBar-left")
   private SiteadminToolbar toolbar;
 
   @Override
@@ -120,14 +119,12 @@ public class SiteadminPage implements Loadable, SiteadminActions {
 
   @Override
   public SiteadminActions waitForPageCount(int pageCount) {
-    boolean conditionNotMet = !webElementUtils.isConditionMet(new ExpectedCondition<Object>() {
-      @Nullable @Override public Object apply(@Nullable WebDriver webDriver) {
-        try {
-          return (pageCount == getChildPageWindow().getPageCount());
-        } catch (StaleElementReferenceException e) {
-          webDriver.navigate().refresh();
-          return false;
-        }
+    boolean conditionNotMet = !webElementUtils.isConditionMet(webDriver -> {
+      try {
+        return (pageCount == getChildPageWindow().getPageCount());
+      } catch (StaleElementReferenceException e) {
+        webDriver.navigate().refresh();
+        return false;
       }
     }, Timeouts.SMALL);
     if (conditionNotMet) {
@@ -231,23 +228,18 @@ public class SiteadminPage implements Loadable, SiteadminActions {
   }
 
   private void waitForExpectedStatus(final String title, ActivationStatus status) {
-    wait.withTimeout(Timeouts.MEDIUM).until(new ExpectedCondition<Boolean>() {
-      @Nullable @Override public Boolean apply(@Nullable WebDriver webDriver) {
-        webDriver.navigate().refresh();
-        ChildPageRow childPage = getChildPageWindow().getChildPageRow(title);
-        PageActivationStatus pageActivationStatusCell = childPage.getPageActivationStatus();
-        ActivationStatus activationStatus = pageActivationStatusCell.getActivationStatus();
-        return activationStatus.equals(status);
-      }
+    wait.withTimeout(Timeouts.MEDIUM).until(webDriver -> {
+      webDriver.navigate().refresh();
+      ChildPageRow childPage = getChildPageWindow().getChildPageRow(title);
+      PageActivationStatus pageActivationStatusCell = childPage.getPageActivationStatus();
+      ActivationStatus activationStatus = pageActivationStatusCell.getActivationStatus();
+      return activationStatus.equals(status);
     }, Timeouts.SMALL);
   }
 
   private void waitForPageToAppearOnTheList(final String title) {
-    wait.withTimeout(Timeouts.MEDIUM).until(new ExpectedCondition<Boolean>() {
-      @Nullable @Override public Boolean apply(@Nullable WebDriver webDriver) {
-        return getChildPageWindow().containsPage(title);
-      }
-    }, Timeouts.SMALL);
+    wait.withTimeout(Timeouts.MEDIUM).until(webDriver -> getChildPageWindow().containsPage(title),
+        Timeouts.SMALL);
   }
 
   private ChildPageWindow getChildPageWindow() {
@@ -257,15 +249,11 @@ public class SiteadminPage implements Loadable, SiteadminActions {
   }
 
   private void retryLoad() {
-    conditions.verify(new ExpectedCondition<Object>() {
-      @Nullable
-      @Override
-      public Object apply(WebDriver driver) {
+    conditions.verify(driver -> {
         if (!isLoadedCondition()) {
           driver.navigate().refresh();
         }
         return isLoadedCondition();
-      }
     }, Timeouts.MEDIUM);
   }
 

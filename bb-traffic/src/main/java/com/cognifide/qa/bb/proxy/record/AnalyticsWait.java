@@ -67,6 +67,7 @@ public class AnalyticsWait {
       this.wait(timeout);
     } catch (InterruptedException e) {
       LOG.error("Sleep was interrupted", e);
+      Thread.currentThread().interrupt();
     }
   }
 

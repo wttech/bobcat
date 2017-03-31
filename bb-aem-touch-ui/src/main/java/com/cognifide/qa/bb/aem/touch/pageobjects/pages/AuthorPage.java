@@ -229,12 +229,10 @@ public class AuthorPage {
   }
 
   private void retryLoad() {
-    conditions.verify(new ExpectedCondition<Object>() {
-      @Nullable @Override public Object apply(WebDriver driver) {
+    conditions.verify(ignored -> {
         LOG.debug("Retrying page open");
         driver.navigate().refresh();
         return isLoadedCondition();
-      }
     }, Timeouts.MEDIUM);
   }
 

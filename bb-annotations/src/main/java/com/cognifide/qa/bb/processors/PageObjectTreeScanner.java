@@ -109,7 +109,7 @@ class PageObjectTreeScanner extends TreePathScanner<Object, CompilationUnitTree>
     return classDef.defs.stream()
             .filter(t -> t instanceof JCVariableDecl)
             .map((elem) -> (JCVariableDecl) elem)
-            .anyMatch((var) -> (var.getName().equals(name)));
+            .anyMatch((var) -> var.getName().equals(name));
   }
 
 }

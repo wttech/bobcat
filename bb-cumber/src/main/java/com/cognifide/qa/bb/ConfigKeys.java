@@ -19,7 +19,7 @@
  */
 package com.cognifide.qa.bb;
 
-public class ConfigKeys {
+public final class ConfigKeys {
 
   private ConfigKeys() {
     //Config class...

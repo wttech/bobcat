@@ -47,9 +47,10 @@ public class BrowserLogEntryCollector {
         webDriver.manage().logs().get(LogType.BROWSER)
             .filter(Level.SEVERE);
     browserEntries.stream().
-            forEach((browserEntry) -> {
-              toReturn.add(new BrowserLogEntry(browserEntry.toString()));
-    });
+            forEach((browserEntry) ->
+              toReturn.add(new BrowserLogEntry(browserEntry.toString()))
+            );
+
     return toReturn;
   }
 
