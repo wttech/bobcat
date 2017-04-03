@@ -44,9 +44,7 @@ public class ThreadLocalScope implements Scope {
         threadScopedObjects.put(key, newInstance);
       }
 
-      @SuppressWarnings("unchecked")
-      T instance = (T) threadScopedObjects.get(key);
-      return instance;
+      return (T) threadScopedObjects.get(key);
     };
   }
 

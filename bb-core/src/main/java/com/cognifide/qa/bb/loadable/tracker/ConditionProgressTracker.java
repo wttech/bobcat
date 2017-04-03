@@ -1,17 +1,15 @@
 /*
  * Copyright 2016 Cognifide Ltd..
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  */
 package com.cognifide.qa.bb.loadable.tracker;
 
@@ -21,7 +19,6 @@ import com.cognifide.qa.bb.loadable.context.ConditionContext;
 
 import java.util.Deque;
 import java.util.LinkedList;
-import java.util.Stack;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,11 +42,12 @@ public class ConditionProgressTracker {
   /**
    * Register start of an step evaluation
    *
-   * @param context The context of {@link LoadableComponent} annotation which is currently under processing
+   * @param context The context of {@link LoadableComponent} annotation which is currently under
+   *        processing
    */
   public void stepStart(LoadableComponentContext context) {
     String info = produceLoadableComponentInfo(context.getConditionContext());
-    LOG.debug("Started lodable component condition evaluation: " + info);
+    LOG.debug("Started lodable component condition evaluation: {}", info);
     progressData.add(new ConditionProgressStep(info));
   }
 
@@ -59,18 +57,20 @@ public class ConditionProgressTracker {
    * @param status Condition evaluation status
    */
   public void provideStepResult(ConditionStatus status) {
-    LOG.debug("Evaluated loadable condition "
-      + progressData.peekLast().getLoadableComponentInfo() + " with status " + status.getMessage());
+    ConditionProgressStep lastStep = progressData.peekLast();
+    LOG.debug("Evaluated loadable condition {} with status {}", lastStep.getLoadableComponentInfo(),
+        status.getMessage());
 
-    progressData.peekLast().setStepStatus(status);
+    lastStep.setStepStatus(status);
   }
 
   /**
    *
    * @param rootCause Exception that caused the error
-   * @return String containing the information about conditions that have been run in hierarchical order
-   * starting from the top. The output is in the following format:
-   *  [class that uses the field annotated with {@link LoadableComponent}] - [fieldName] ~ [condition class that have been under evaluation] (Status)
+   * @return String containing the information about conditions that have been run in hierarchical
+   *         order starting from the top. The output is in the following format: [class that uses
+   *         the field annotated with {@link LoadableComponent}] - [fieldName] ~ [condition class
+   *         that have been under evaluation] (Status)
    */
   public String produceConditionTraceInfo(Exception rootCause) {
     StringBuilder sb = new StringBuilder("Loadable conditions trace info:");
@@ -93,14 +93,15 @@ public class ConditionProgressTracker {
     if (rootCause != null) {
       sb.append("Root cause: ");
       sb.append(System.lineSeparator());
-      sb.append(rootCause.toString());
+      sb.append(rootCause);
     }
     return sb.toString();
   }
 
   private String produceLoadableComponentInfo(ConditionContext loadableComponentData) {
-    return loadableComponentData.getDeclaringClassName() + " -> " + loadableComponentData.getFieldName()
-      + " ~ " + loadableComponentData.getLoadableComponent().condClass().getName();
+    return loadableComponentData.getDeclaringClassName() + " -> "
+        + loadableComponentData.getFieldName()
+        + " ~ " + loadableComponentData.getLoadableComponent().condClass().getName();
   }
 
 }

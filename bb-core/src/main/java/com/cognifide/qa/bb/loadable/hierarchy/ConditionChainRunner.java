@@ -44,7 +44,7 @@ public class ConditionChainRunner {
    * @param conditionStack Stack of conditions to be evaluated
    * @throws LoadableConditionException when some condition fails
    */
-  public void chainCheck(ConditionStack conditionStack) throws LoadableConditionException {
+  public void chainCheck(ConditionStack conditionStack) {
     Deque<LoadableComponentContext> stack = conditionStack.getLoadableContextStack();
     ConditionProgressTracker progressTracker = new ConditionProgressTracker(stack);
 
@@ -73,8 +73,7 @@ public class ConditionChainRunner {
   }
 
   private void evaluateCondition(LoadableComponentCondition componentCondition, Object subject,
-          LoadableComponentContext loadableContext, ConditionProgressTracker progressTracker) throws
-          LoadableConditionException {
+          LoadableComponentContext loadableContext, ConditionProgressTracker progressTracker) {
     boolean result = false;
     Exception exception = null;
     try {
@@ -87,7 +86,7 @@ public class ConditionChainRunner {
   }
 
   private void manageEvaluationResult(boolean result, Exception exception,
-          ConditionProgressTracker progressTracker) throws LoadableConditionException {
+          ConditionProgressTracker progressTracker) {
     if (result == false || exception != null) {
       progressTracker.provideStepResult(ConditionStatus.FAIL);
       throw new LoadableConditionException(progressTracker.produceConditionTraceInfo(exception));

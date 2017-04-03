@@ -53,16 +53,15 @@ public class ConditionsExplorer {
   private final ConditionHierarchyNode treeRootNode = new ConditionHierarchyNode(null);
 
   /**
-   * Discovers the hierarchy of Loadable Conditions form provided class up to the root class
-   * which is usually the test class which have run the test.
+   * Discovers the hierarchy of Loadable Conditions form provided class up to the root class which
+   * is usually the test class which have run the test.
    *
    * @param directClassFieldContext context of the class field that have called the
-   *                                {@link WebElement} method.
-   * @param subjectStack            stack of subjects which taken part in invocation of
-   *                                WebElement's method
-   * @return Stack of hierarchical conditions from {@link LoadableComponent} annotated fields
-   * from the test
-   * class down to the "clazz" parameter with "directClassFieldContext" from that class.
+   *        {@link WebElement} method.
+   * @param subjectStack stack of subjects which taken part in invocation of WebElement's method
+   * @return Stack of hierarchical conditions from {@link LoadableComponent} annotated fields from
+   *         the test class down to the "clazz" parameter with "directClassFieldContext" from that
+   *         class.
    */
   public ConditionStack discoverLoadableContextHierarchy(ClassFieldContext directClassFieldContext,
       LinkedList<Object> subjectStack) {
@@ -105,7 +104,7 @@ public class ConditionsExplorer {
         .filter(f -> f.getType().isAnnotationPresent(PageObject.class))
         .collect(Collectors.toList());
 
-    applicableFields.forEach((field) -> {
+    applicableFields.forEach(field -> {
       field.setAccessible(true);
       Object subjectInstance = null;
       try {
@@ -118,11 +117,11 @@ public class ConditionsExplorer {
 
       String className = node.getLoadableFieldContext().getSubjectClass().getCanonicalName();
       if (node.equals(findFirstOccurrence(node))) {
-        LOG.debug("Building loadable components hierarchy tree for " + className);
+        LOG.debug("Building loadable components hierarchy tree for {}", className);
         processLoadableContextForClass(field.getType(), node, subjectInstance);
       } else {
-        LOG.debug("Loadable components hierarchy tree for " + className
-            + " has already been built, skipping.");
+        LOG.debug("Loadable components hierarchy tree for {} has already been built, skipping.",
+            className);
       }
     });
   }

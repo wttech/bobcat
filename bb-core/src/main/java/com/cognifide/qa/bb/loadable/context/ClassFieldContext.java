@@ -36,7 +36,7 @@ public class ClassFieldContext extends LoadableContext {
   public List<LoadableComponentContext> toLoadableContextList() {
     List<LoadableComponentContext> result = new ArrayList<>();
     conditionData.stream().
-        forEach((loadableComponentData) ->
+        forEach(loadableComponentData ->
             result.add(new LoadableComponentContext(subject, subjectClass, loadableComponentData))
         );
     return result;

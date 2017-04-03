@@ -106,7 +106,7 @@ class AnalyzerCallable implements Callable<Boolean> {
 
   private void fireWaitingEvent() {
     proxyListeners.stream().
-            forEach((listener) ->
+            forEach(listener ->
               listener.waitingForRequest(requestPredicate, closestHarEntryElector)
     );
   }

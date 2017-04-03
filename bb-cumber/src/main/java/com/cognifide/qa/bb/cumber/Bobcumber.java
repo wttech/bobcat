@@ -24,10 +24,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Properties;
 
-import org.apache.commons.lang3.CharEncoding;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
@@ -104,7 +104,7 @@ public class Bobcumber extends Cucumber {
   private File createFile(String path) throws FileNotFoundException, UnsupportedEncodingException {
     File file = new File(path);
     if (!file.exists()) {
-      PrintWriter writer = new PrintWriter(file, CharEncoding.UTF_8);
+      PrintWriter writer = new PrintWriter(file, StandardCharsets.UTF_8.name());
       writer.close();
     }
     return file;

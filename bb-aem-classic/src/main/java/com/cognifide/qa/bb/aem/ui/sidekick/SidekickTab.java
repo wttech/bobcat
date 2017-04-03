@@ -28,7 +28,7 @@ public enum SidekickTab {
 
   private final String tabName;
 
-  private SidekickTab(final String tabName) {
+  SidekickTab(final String tabName) {
     this.tabName = tabName;
   }
 

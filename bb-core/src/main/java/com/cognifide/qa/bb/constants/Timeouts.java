@@ -29,4 +29,8 @@ public final class Timeouts {
 
   public static final int MINIMAL = 1;
 
+  private Timeouts() {
+    //class with constants
+  }
+
 }

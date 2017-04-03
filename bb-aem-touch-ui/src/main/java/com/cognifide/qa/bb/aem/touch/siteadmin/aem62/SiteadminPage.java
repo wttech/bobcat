@@ -18,8 +18,6 @@ import java.util.Comparator;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import javax.annotation.Nullable;
-
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -246,7 +244,7 @@ public class SiteadminPage implements SiteadminActions, Loadable {
         ChildPageRow childPageRow = getChildPageWindow().getChildPageRow(title);
         PageActivationStatus pageActivationStatusCell = childPageRow.getPageActivationStatus();
         ActivationStatus activationStatus = pageActivationStatusCell.getActivationStatus();
-        return activationStatus.equals(status);
+        return activationStatus == status;
     }, Timeouts.MINIMAL);
   }
 

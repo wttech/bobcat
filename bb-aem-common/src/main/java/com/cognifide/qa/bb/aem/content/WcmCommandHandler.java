@@ -149,7 +149,7 @@ public class WcmCommandHandler {
     HttpPost request = new HttpPost(String.format(commandUrl, authorIp));
     List<BasicNameValuePair> params = new ArrayList<>();
     postProperties.entrySet().stream().
-            forEach((property) ->
+            forEach(property ->
               params.add(new BasicNameValuePair(property.getKey(), property.getValue()))
             );
     request.setEntity(new UrlEncodedFormEntity(params, Consts.UTF_8));

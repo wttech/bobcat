@@ -173,7 +173,7 @@ public class BobcatWebElement implements WebElement, Locatable, WrapsElement, Ha
   }
 
   @Override
-  public <T> T getScreenshotAs(OutputType<T> target) throws WebDriverException {
+  public <T> T getScreenshotAs(OutputType<T> target) {
     return element.getScreenshotAs(target);
   }
 

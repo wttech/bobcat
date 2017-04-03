@@ -21,7 +21,6 @@ package com.cognifide.qa.bb.cumber;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -64,7 +63,8 @@ class BobcumberListener extends RunListener {
 
   @Override
   public void testRunFinished(Result result) throws Exception {
-    try (PrintWriter writer = new PrintWriter(bobcumber.getStatisticsFile(), CharEncoding.UTF_8)) {
+    try (PrintWriter writer =
+        new PrintWriter(bobcumber.getStatisticsFile(), StandardCharsets.UTF_8.name())) {
       writer.println(scenarioCounter.get());
       writer.println(testFailureCounter.get());
     }
@@ -92,7 +92,7 @@ class BobcumberListener extends RunListener {
   }
 
   private String normalizeTrace(String trace) {
-    return trace.substring(trace.lastIndexOf("(") + 1, trace.lastIndexOf(")"));
+    return trace.substring(trace.lastIndexOf('(') + 1, trace.lastIndexOf(')'));
   }
 
   private synchronized void addScenario(String failedScenario) throws IOException {

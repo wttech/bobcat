@@ -52,8 +52,8 @@ class TrafficLogContains extends TypeSafeMatcher<TrafficLog> {
   @Override
   protected boolean matchesSafely(TrafficLog item) {
     return item.getHars().stream().
-            anyMatch((har) -> har.getLog().getEntries().stream().
-                    anyMatch((entry) -> harEntryMatchesPredicates(entry)));
+            anyMatch(har -> har.getLog().getEntries().stream().
+                    anyMatch(this::harEntryMatchesPredicates));
   }
 
   private boolean harEntryMatchesPredicates(HarEntry entry) {

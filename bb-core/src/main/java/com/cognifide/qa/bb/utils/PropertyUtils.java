@@ -34,7 +34,6 @@ import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.PropertyBinder;
 import com.cognifide.qa.bb.constants.ConfigKeys;
-import com.cognifide.qa.bb.constants.Timeouts;
 
 /**
  * This class contains utility methods for loading properties from classpath and system.
@@ -110,7 +109,7 @@ public final class PropertyUtils {
   }
 
   private static void overrideFromSystemProperties(Properties properties) {
-    properties.stringPropertyNames().stream().forEach((key) -> {
+    properties.stringPropertyNames().stream().forEach(key -> {
       String systemProperty = System.getProperty(key);
       if (StringUtils.isNotBlank(systemProperty)) {
         properties.setProperty(key, systemProperty);

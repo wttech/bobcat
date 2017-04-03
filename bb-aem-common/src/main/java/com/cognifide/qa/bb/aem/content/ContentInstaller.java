@@ -70,7 +70,7 @@ public class ContentInstaller {
    * @param packageName Name of the package to be activated.
    * @throws IOException Thrown when AEM instance returns NOK response.
    */
-  public void activateAemPackage(String packageName) throws IOException, IllegalArgumentException {
+  public void activateAemPackage(String packageName) throws IOException {
     HttpPost upload = builder.createUploadRequest();
     MultipartEntityBuilder entityBuilder = MultipartEntityBuilder.create();
     File file = new File(CONTENT_PATH, packageName);

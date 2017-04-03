@@ -49,10 +49,10 @@ public class ComponentConfigs {
 
     Map<String, ComponentConfiguration> result = new HashMap<>();
 
-    configsData.keySet().stream().forEach((configName) -> {
+    configsData.keySet().stream().forEach(configName -> {
               Map<String, List<FieldConfig>> data = configsData.get(configName);
               List<TabConfig> tabsConfig = new ArrayList<>();
-              data.entrySet().stream().forEach((entry) ->
+              data.entrySet().stream().forEach(entry ->
                 tabsConfig.add(new TabConfig(entry.getKey(), entry.getValue()))
               );
               result.put(configName, new ComponentConfiguration(tabsConfig));

@@ -22,18 +22,15 @@ package com.cognifide.qa.bb.aem.touch.pageobjects.pages;
 import static org.openqa.selenium.support.ui.ExpectedConditions.not;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 import com.cognifide.qa.bb.qualifier.FindPageObject;
-import javax.annotation.Nullable;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

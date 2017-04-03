@@ -41,7 +41,7 @@ public class YearMonthPicker {
     String[] headerParts = yearMonthHeader.getText().toUpperCase().split(" ");
     Month selectedMonth = Month.valueOf(headerParts[0]);
     int selectedYear = Integer.parseInt(headerParts[1].toUpperCase());
-    return year == selectedYear && selectedMonth.equals(month);
+    return year == selectedYear && selectedMonth == month;
   }
 
 }
