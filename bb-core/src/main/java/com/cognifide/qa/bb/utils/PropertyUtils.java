@@ -69,20 +69,11 @@ public final class PropertyUtils {
         }
         overrideFromSystemProperties(properties);
         setSystemProperties(properties);
-        overrideTimeouts(properties);
       } catch (IOException e) {
         LOG.error("Can't bind properties", e);
       }
     }
     return properties;
-  }
-
-  private static void overrideTimeouts(Properties properties) {
-    int big = Integer.parseInt(properties.getProperty(ConfigKeys.TIMEOUTS_BIG));
-    int medium = Integer.parseInt(properties.getProperty(ConfigKeys.TIMEOUTS_MEDIUM));
-    int small = Integer.parseInt(properties.getProperty(ConfigKeys.TIMEOUTS_SMALL));
-    int minimal = Integer.parseInt(properties.getProperty(ConfigKeys.TIMEOUTS_MINIMAL));
-    new Timeouts(big, medium, small, minimal);
   }
 
   private static Properties loadDefaultProperties() throws IOException {
