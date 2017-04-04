@@ -16,6 +16,7 @@
 package com.cognifide.qa.bb.loadable.condition.impl;
 
 import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
+import com.cognifide.qa.bb.loadable.condition.CommonMonitoredMethods;
 import com.cognifide.qa.bb.loadable.condition.LoadableComponentCondition;
 import com.cognifide.qa.bb.loadable.exception.LoadableConditionException;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
@@ -23,6 +24,8 @@ import com.google.inject.Inject;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.util.List;
 
 /**
  *
@@ -42,5 +45,10 @@ public class ClickabilityCondition implements LoadableComponentCondition {
               elementToBeClickable(subject), data.delay()).apply(null) != null;
     }
     throw new LoadableConditionException("Loadable Component Condition placed on not applicable field");
+  }
+
+  @Override
+  public List<String> getMonitoredMethods() {
+    return CommonMonitoredMethods.INTERACTIVE_METHODS.getMethodNames();
   }
 }

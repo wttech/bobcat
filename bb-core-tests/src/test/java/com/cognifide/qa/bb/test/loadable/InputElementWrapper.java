@@ -31,4 +31,8 @@ public class InputElementWrapper {
   public void sendKeys(String string) {
     thiz.sendKeys(string);
   }
+
+  public String getAttribute(String attrName) {
+    return thiz.getAttribute(attrName);
+  }
 }

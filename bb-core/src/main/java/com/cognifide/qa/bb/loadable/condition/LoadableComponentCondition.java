@@ -1,21 +1,22 @@
 /*
  * Copyright 2016 Cognifide Ltd..
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  */
 package com.cognifide.qa.bb.loadable.condition;
 
 import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 /**
  *
@@ -32,4 +33,14 @@ public interface LoadableComponentCondition {
    */
   boolean check(Object subject, LoadableComponent data);
 
+  /**
+   *
+   * @return List of method names that come from {@link org.openqa.selenium.WebElement} class that
+   *         are monitored. Invocation of monitored function result in execution of loadable
+   *         condition hierarchy. By default all methods are monitored but this can be set to only
+   *         ones that are interactive like {@link WebElement#click()} or can be fully customized.
+   */
+  default List<String> getMonitoredMethods() {
+    return CommonMonitoredMethods.ALL_METHODS.getMethodNames();
+  }
 }
