@@ -19,28 +19,21 @@
  */
 package com.cognifide.qa.bb.webelement;
 
+import java.util.List;
+import java.util.UUID;
+
+import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.internal.Coordinates;
+import org.openqa.selenium.internal.HasIdentity;
+import org.openqa.selenium.internal.Locatable;
+import org.openqa.selenium.internal.WrapsElement;
+
 import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import com.cognifide.qa.bb.loadable.context.ConditionContext;
 import com.cognifide.qa.bb.mapper.WebElementCachePolicy;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
-
-import java.util.List;
-import java.util.UUID;
-
-import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.Point;
-import org.openqa.selenium.Rectangle;
-import org.openqa.selenium.WebDriverException;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.internal.Coordinates;
-import org.openqa.selenium.internal.HasIdentity;
-import org.openqa.selenium.internal.Locatable;
-import org.openqa.selenium.internal.WrapsElement;
 
 /**
  * Improves WebElement implementation with custom {@link #sendKeys(CharSequence...)} method
@@ -76,8 +69,8 @@ public class BobcatWebElement implements WebElement, Locatable, WrapsElement, Ha
   }
 
   /**
-   * As there is known selenium <a
-   * href="https://github.com/seleniumhq/selenium-google-code-issue-archive/issues/4446">4446</a>
+   * As there is known selenium
+   * <a href="https://github.com/seleniumhq/selenium-google-code-issue-archive/issues/4446">4446</a>
    * bug this method retries sending keys until input field value is valid.
    *
    * @param keysToSend keyboard keys to send
@@ -236,15 +229,30 @@ public class BobcatWebElement implements WebElement, Locatable, WrapsElement, Ha
    */
   public By convertWebElementToByReference() {
     String elementDescription = element.toString();
-    if (elementDescription.contains("->")) {
+    if (descriptionHasLocator(elementDescription)) {
 
-      String elementTypeAndValue[] =
-          (elementDescription.substring(elementDescription.lastIndexOf("-> ") + 3,
-              elementDescription.lastIndexOf("]"))).split(":");
+      Locator elementLocator = new Locator(elementDescription);
 
-      return LocatorUtil.produceLocatorFromTypeAndValue(elementTypeAndValue[0],
-          elementTypeAndValue[1]);
+      return LocatorUtil.produceLocatorFromTypeAndValue(elementLocator.type,
+          elementLocator.value);
     }
     return null;
+  }
+
+  private boolean descriptionHasLocator(String elementDescription) {
+    return elementDescription.contains("->");
+  }
+
+  private static class Locator {
+    private String type;
+
+    private String value;
+
+    public Locator(String elementDescription) {
+      String[] data = (elementDescription.substring(elementDescription.lastIndexOf("-> ") + 3,
+          elementDescription.lastIndexOf("]"))).split(":");
+      this.type = data[0];
+      this.value = data[1];
+    }
   }
 }
