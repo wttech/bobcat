@@ -13,6 +13,7 @@
  */
 package com.cognifide.qa.bb.loadable.mapper;
 
+import com.cognifide.qa.bb.loadable.hierarchy.util.LoadableComponentsUtil;
 import com.google.inject.TypeLiteral;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
@@ -44,28 +45,11 @@ public class TestObjectTypeListener implements TypeListener {
         && !rawType.isAnnotationPresent(CucumberOptions.class)) {
       result = true;
     } else {
-      result = isStepsImplementationClass(rawType);
+      result = LoadableComponentsUtil.isStepsImplementationClass(rawType);
     }
     return result;
   }
 
-  private boolean isStepsImplementationClass(Class clazz) {
-      return clazz.isAnnotationPresent(ScenarioScoped.class)
-          || Arrays.stream(clazz.getDeclaredMethods()).anyMatch(method ->
-              Arrays.stream(method.getAnnotations())
-                      .anyMatch(annotation ->
-                              isHookAnnotation(annotation) || isStepDefinitionAnnotation(annotation)
-                      ));
-  }
 
-  private boolean isHookAnnotation(Annotation annotation) {
-    Class annotationType = annotation.annotationType();
-    return annotationType.equals(Before.class) || annotationType.equals(After.class);
-  }
-
-  private boolean isStepDefinitionAnnotation(Annotation annotation) {
-    Class annotationType = annotation.annotationType();
-    return annotationType.getAnnotation(StepDefAnnotation.class) != null;
-  }
 
 }
