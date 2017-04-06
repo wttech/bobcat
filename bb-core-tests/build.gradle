@@ -1,0 +1,11 @@
+
+description = 'Bobcat Core Tests'
+dependencies {
+  compile project(':bb-core')
+  compile project(':bb-junit')
+  compile project(':bb-annotations')
+  compile project(':bb-reports')
+    testCompile group: 'org.eclipse.jetty', name: 'jetty-server', version:'9.3.9.v20160517'
+    testCompile group: 'org.mockito', name: 'mockito-core', version:'1.10.19'
+    testCompile group: 'org.assertj', name: 'assertj-core', version:'3.2.0'
+}

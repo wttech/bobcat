@@ -1,0 +1,10 @@
+
+description = 'Bobcat AEM Common'
+dependencies {
+  compile project(':bb-core')
+  compile project(':bb-annotations')
+    compile group: 'org.apache.commons', name: 'commons-lang3', version:'3.4'
+    compile group: 'javax.jcr', name: 'jcr', version:'2.0'
+    compile group: 'org.apache.jackrabbit', name: 'jackrabbit-jcr2dav', version:'2.9.0'
+    compile group: 'org.apache.maven', name: 'maven-artifact', version:'3.2.3'
+}

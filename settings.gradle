@@ -1,0 +1,24 @@
+rootProject.name = 'bobcat'
+include ':bb-core'
+include ':bb-core-tests'
+include ':bb-junit'
+include ':bb-reports'
+include ':bb-cumber'
+include ':bb-email'
+include ':bb-traffic'
+include ':bb-aem-common'
+include ':bb-aem-classic'
+include ':bb-aem-touch-ui'
+include ':bb-annotations'
+
+project(':bb-core').projectDir = "$rootDir/bb-core" as File
+project(':bb-core-tests').projectDir = "$rootDir/bb-core-tests" as File
+project(':bb-junit').projectDir = "$rootDir/bb-junit" as File
+project(':bb-reports').projectDir = "$rootDir/bb-reports" as File
+project(':bb-cumber').projectDir = "$rootDir/bb-cumber" as File
+project(':bb-email').projectDir = "$rootDir/bb-email" as File
+project(':bb-traffic').projectDir = "$rootDir/bb-traffic" as File
+project(':bb-aem-common').projectDir = "$rootDir/bb-aem-common" as File
+project(':bb-aem-classic').projectDir = "$rootDir/bb-aem-classic" as File
+project(':bb-aem-touch-ui').projectDir = "$rootDir/bb-aem-touch-ui" as File
+project(':bb-annotations').projectDir = "$rootDir/bb-annotations" as File

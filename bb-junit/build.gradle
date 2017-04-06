@@ -1,0 +1,9 @@
+
+description = 'Bobcat Junit'
+dependencies {
+  compile project(':bb-core')
+    compile group: 'com.google.inject', name: 'guice', version:'3.0'
+    compile(group: 'junit', name: 'junit', version:'4.12') {
+exclude(module: 'hamcrest-core')
+    }
+}

@@ -1,0 +1,9 @@
+
+description = 'Bobcat Annotations'
+dependencies {
+    compile group: 'com.google.inject', name: 'guice', version:'3.0'
+    compile(group: 'org.seleniumhq.selenium', name: 'selenium-java', version:'3.2.0') {
+exclude(module: 'gson')
+    }
+    compile files("$System.env.JAVA_HOME" + "/lib/tools.jar")
+}

@@ -1,0 +1,12 @@
+
+description = 'Bobcat Email'
+dependencies {
+    compile group: 'com.google.inject', name: 'guice', version:'3.0'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version:'3.4'
+    compile group: 'org.apache.commons', name: 'commons-email', version:'1.3.3'
+    compile group: 'com.google.guava', name: 'guava', version:'21.0'
+    compile group: 'joda-time', name: 'joda-time', version:'2.4'
+    compile group: 'org.slf4j', name: 'slf4j-api', version:'1.7.4'
+    compile group: 'org.hamcrest', name: 'hamcrest-core', version:'1.3'
+    testCompile group: 'com.icegreen', name: 'greenmail', version:'1.5.0'
+}

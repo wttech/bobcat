@@ -1,0 +1,31 @@
+allprojects  {
+  apply plugin: 'maven'
+
+  group = 'com.cognifide.qa.bb'
+version = '1.2.1-SNAPSHOT'
+}
+
+subprojects {
+  apply plugin: 'java'
+  sourceCompatibility = 1.8
+  targetCompatibility = 1.8
+  tasks.withType(JavaCompile) {
+  	options.encoding = 'UTF-8'
+options.fork = true
+  options.forkOptions.executable = "${System.properties['java.home']}/../bin/javac"
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+  }
+
+  
+  repositories {
+    mavenLocal()
+	mavenCentral()
+    
+    maven { url "http://repo.maven.apache.org/maven2" }
+  }
+
+  
+  
+  
+}

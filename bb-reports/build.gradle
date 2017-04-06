@@ -1,0 +1,8 @@
+
+description = 'Bobcat Reports'
+dependencies {
+  compile project(':bb-core')
+  compile project(':bb-junit')
+    compile group: 'org.freemarker', name: 'freemarker', version:'2.3.20'
+    testCompile group: 'org.mockito', name: 'mockito-core', version:'1.10.19'
+}

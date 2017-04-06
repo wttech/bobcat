@@ -1,0 +1,8 @@
+
+description = 'Bobcat Cumber'
+dependencies {
+  compile project(':bb-core')
+    compile group: 'org.hamcrest', name: 'hamcrest-core', version:'1.3'
+    compile group: 'info.cukes', name: 'cucumber-guice', version:'1.2.3'
+    compile group: 'info.cukes', name: 'cucumber-junit', version:'1.2.3'
+}
