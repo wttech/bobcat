@@ -217,7 +217,7 @@ public class Parsys {
   private void tryToOpenInsertWindow() {
     conditions.verify(ignored -> {
       try {
-        boolean isInsertButtonPresent = driver
+        boolean isInsertButtonPresent = !driver
                 .findElements(By.cssSelector(INSERT_BUTTON_SELECTOR))
                 .isEmpty();
         if(!isInsertButtonPresent) {
