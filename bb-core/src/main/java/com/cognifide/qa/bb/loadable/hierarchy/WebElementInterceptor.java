@@ -13,12 +13,14 @@
  */
 package com.cognifide.qa.bb.loadable.hierarchy;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
+import com.cognifide.qa.bb.loadable.LoadableProcessorFilter;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
-import org.junit.runner.RunWith;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +28,6 @@ import org.slf4j.LoggerFactory;
 import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import com.cognifide.qa.bb.loadable.context.ClassFieldContext;
 import com.cognifide.qa.bb.loadable.context.ConditionContext;
-import com.cognifide.qa.bb.loadable.hierarchy.util.LoadableComponentsUtil;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.utils.AopUtil;
 import com.cognifide.qa.bb.webelement.BobcatWebElement;
@@ -53,6 +54,9 @@ public class WebElementInterceptor implements MethodInterceptor {
   @Inject
   private PageObjectInvocationTracker pageObjectInvocationTracker;
 
+  @Inject
+  private Set<LoadableProcessorFilter> loadableProcessorFilterSet;
+
   @Override
   public Object invoke(MethodInvocation methodInvocation) throws Throwable {
     Class methodCallerClass = getMethodCallerClassWithoutGuiceContext();
@@ -75,15 +79,14 @@ public class WebElementInterceptor implements MethodInterceptor {
 
   }
 
-  private boolean isApplicable(Class methodCallerClass) {
-    return methodCallerClass.isAnnotationPresent(PageObject.class)
-        || LoadableComponentsUtil.isStepsImplementationClass(methodCallerClass)
-        || methodCallerClass.isAnnotationPresent(RunWith.class);
-  }
-
-  private Class getMethodCallerClassWithoutGuiceContext() throws ClassNotFoundException {
-    return AopUtil.getBaseClassForAopObject(Class.forName(
-        Thread.currentThread().getStackTrace()[ORIGINAL_CALLER_CLASS_LEVEL].getClassName()));
+  private Class getMethodCallerClassWithoutGuiceContext() {
+    try {
+      return AopUtil.getBaseClassForAopObject(Class.forName(
+          Thread.currentThread().getStackTrace()[ORIGINAL_CALLER_CLASS_LEVEL].getClassName()));
+    } catch (ClassNotFoundException e) {
+      LOG.error("Class calling web element not found!", e);
+    }
+    return null;
   }
 
   private ClassFieldContext acquireDirectContext(BobcatWebElement caller) {
@@ -95,5 +98,22 @@ public class WebElementInterceptor implements MethodInterceptor {
       directContext = new ClassFieldContext(caller, Collections.emptyList());
     }
     return directContext;
+  }
+
+  private boolean isApplicable(Class clazz) {
+    if (clazz.isAnnotationPresent(PageObject.class)) {
+      return Arrays.stream(Thread.currentThread().getStackTrace())
+          .map(StackTraceElement::getClassName).map(className -> {
+            try {
+              return Class.forName(className);
+            } catch (ClassNotFoundException e) {
+              LOG.error("Caller class from the stacktrace not found!", e);
+            }
+            return null;
+          }).anyMatch(clazzAbove -> loadableProcessorFilterSet.stream()
+              .anyMatch(filter -> filter.isApplicable(clazzAbove)));
+    } else {
+      return loadableProcessorFilterSet.stream().anyMatch(filter -> filter.isApplicable(clazz));
+    }
   }
 }

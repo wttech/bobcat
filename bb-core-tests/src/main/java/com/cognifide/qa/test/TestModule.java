@@ -19,6 +19,7 @@
  */
 package com.cognifide.qa.test;
 
+import com.cognifide.qa.bb.junit.JUnitModule;
 import com.cognifide.qa.bb.logging.ReporterModule;
 import com.cognifide.qa.bb.modules.CoreModule;
 import com.google.inject.AbstractModule;

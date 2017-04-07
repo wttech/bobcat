@@ -19,6 +19,7 @@
  */
 package com.cognifide.qa.bb.logging;
 
+import com.cognifide.qa.bb.junit.JUnitModule;
 import org.openqa.selenium.support.events.WebDriverEventListener;
 
 import com.cognifide.qa.bb.junit.TestEventCollector;
@@ -61,6 +62,7 @@ public class ReporterModule extends AbstractModule {
     Multibinder<ProxyEventListener> proxyListenerBinder = Multibinder.newSetBinder(binder(),
         ProxyEventListener.class);
     proxyListenerBinder.addBinding().to(ProxyLogger.class);
+    install(new JUnitModule());
 
   }
 }

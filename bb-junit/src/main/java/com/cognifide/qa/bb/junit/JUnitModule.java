@@ -11,27 +11,22 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.cognifide.qa.bb.loadable.mapper;
+package com.cognifide.qa.bb.junit;
 
+import com.cognifide.qa.bb.junit.loadable.JUnitLoadableProcessorFilter;
 import com.cognifide.qa.bb.loadable.LoadableProcessorFilter;
-import com.google.inject.Inject;
-import com.google.inject.TypeLiteral;
-import com.google.inject.spi.TypeEncounter;
-import com.google.inject.spi.TypeListener;
+import com.google.inject.AbstractModule;
+import com.google.inject.multibindings.Multibinder;
 
-import java.util.Set;
+import static com.google.inject.matcher.Matchers.any;
 
-public class TestObjectTypeListener implements TypeListener {
-
-  @Inject
-  private Set<LoadableProcessorFilter> loadableProcessorFilterSet;
+public class JUnitModule extends AbstractModule {
 
   @Override
-  public <I> void hear(TypeLiteral<I> type, TypeEncounter<I> encounter) {
-    Class<? super I> rawType = type.getRawType();
-    if (loadableProcessorFilterSet.stream()
-        .anyMatch(filter -> filter.isApplicable(rawType))) {
-      encounter.register(new TestClassInjectionListener(encounter));
-    }
+  protected void configure() {
+    bindListener(any(), new JUnitLoadableProcessorFilter());
+    Multibinder<LoadableProcessorFilter> processorFilterMultiBinder =
+        Multibinder.newSetBinder(binder(), LoadableProcessorFilter.class);
+    processorFilterMultiBinder.addBinding().to(JUnitLoadableProcessorFilter.class);
   }
 }

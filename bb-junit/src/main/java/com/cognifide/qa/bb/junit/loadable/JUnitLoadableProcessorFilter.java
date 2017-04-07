@@ -11,26 +11,31 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.cognifide.qa.bb.loadable.mapper;
+package com.cognifide.qa.bb.junit.loadable;
 
 import com.cognifide.qa.bb.loadable.LoadableProcessorFilter;
-import com.google.inject.Inject;
+import com.cognifide.qa.bb.loadable.mapper.TestClassInjectionListener;
 import com.google.inject.TypeLiteral;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
+import cucumber.api.CucumberOptions;
+import org.junit.runner.RunWith;
 
-import java.util.Set;
+public class JUnitLoadableProcessorFilter implements LoadableProcessorFilter, TypeListener {
 
-public class TestObjectTypeListener implements TypeListener {
+  @Override
+  public boolean isApplicable(Class clazz) {
+    return isJunitTestRunner(clazz);
+  }
 
-  @Inject
-  private Set<LoadableProcessorFilter> loadableProcessorFilterSet;
+  private boolean isJunitTestRunner(Class clazz) {
+    return clazz != null && !clazz.isAnnotationPresent(CucumberOptions.class)
+        && clazz.isAnnotationPresent(RunWith.class);
+  }
 
   @Override
   public <I> void hear(TypeLiteral<I> type, TypeEncounter<I> encounter) {
-    Class<? super I> rawType = type.getRawType();
-    if (loadableProcessorFilterSet.stream()
-        .anyMatch(filter -> filter.isApplicable(rawType))) {
+    if (isJunitTestRunner(type.getRawType())) {
       encounter.register(new TestClassInjectionListener(encounter));
     }
   }

@@ -15,29 +15,34 @@
  */
 package com.cognifide.qa.bb.loadable.hierarchy;
 
+import com.cognifide.qa.bb.loadable.LoadableProcessorFilter;
 import cucumber.runtime.java.guice.ScenarioScoped;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
-import org.junit.runner.RunWith;
 
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.utils.AopUtil;
 import com.google.inject.Inject;
+
+import java.util.Set;
 
 public class PageObjectInterceptor implements MethodInterceptor {
 
   @Inject
   private PageObjectInvocationTracker pageObjectInvocationTracker;
 
+  @Inject
+  private Set<LoadableProcessorFilter> loadableProcessorFilters;
+
   @Override
   public Object invoke(MethodInvocation methodInvocation) throws Throwable {
     Class<?> clazz = AopUtil.getBaseClassForAopObject(Class.forName(Thread.currentThread().getStackTrace()[8].
       getClassName()));
-    if (clazz.isAnnotationPresent(RunWith.class) || clazz.isAnnotationPresent(ScenarioScoped.class)) {
+    if (loadableProcessorFilters.stream().anyMatch(filter -> filter.isApplicable(clazz))) {
       pageObjectInvocationTracker.clearStack();
     }
     if (methodInvocation.getMethod().getDeclaringClass().isAnnotationPresent(PageObject.class)) {
-      pageObjectInvocationTracker.add(clazz, methodInvocation.getThis());
+      pageObjectInvocationTracker.add(methodInvocation.getMethod().getDeclaringClass(), methodInvocation.getThis());
     }
     return methodInvocation.proceed();
   }

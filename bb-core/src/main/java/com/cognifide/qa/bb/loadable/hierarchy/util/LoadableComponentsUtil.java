@@ -13,19 +13,12 @@
  */
 package com.cognifide.qa.bb.loadable.hierarchy.util;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import com.cognifide.qa.bb.loadable.context.ConditionContext;
-
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
-import cucumber.runtime.java.StepDefAnnotation;
-import cucumber.runtime.java.guice.ScenarioScoped;
 
 public class LoadableComponentsUtil {
 
@@ -47,30 +40,6 @@ public class LoadableComponentsUtil {
           field.getDeclaringClass().getName()));
     }
     return fieldConditionContext;
-  }
-
-  /**
-   *
-   * @param clazz class to check
-   * @return true if class from argument contains Cucumber steps implementation or Cucumber hooks.
-   *         False otherwise
-   */
-  public static boolean isStepsImplementationClass(Class clazz) {
-    return clazz.isAnnotationPresent(ScenarioScoped.class)
-        || Arrays.stream(clazz.getDeclaredMethods())
-            .anyMatch(method -> Arrays.stream(method.getAnnotations())
-                .anyMatch(annotation -> isHookAnnotation(annotation)
-                    || isStepDefinitionAnnotation(annotation)));
-  }
-
-  private static boolean isHookAnnotation(Annotation annotation) {
-    Class annotationType = annotation.annotationType();
-    return annotationType.equals(Before.class) || annotationType.equals(After.class);
-  }
-
-  private static boolean isStepDefinitionAnnotation(Annotation annotation) {
-    Class annotationType = annotation.annotationType();
-    return annotationType.getAnnotation(StepDefAnnotation.class) != null;
   }
 
 }
