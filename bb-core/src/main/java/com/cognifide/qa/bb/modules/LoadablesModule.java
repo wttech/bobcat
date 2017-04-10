@@ -20,6 +20,7 @@ import static com.google.inject.matcher.Matchers.subclassesOf;
 import static com.google.inject.matcher.Matchers.annotatedWith;
 import static com.google.inject.matcher.Matchers.any;
 
+import com.cognifide.qa.bb.loadable.LoadableProcessorFilter;
 import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import com.cognifide.qa.bb.loadable.hierarchy.WebElementInterceptor;
 import com.cognifide.qa.bb.loadable.context.ConditionContext;
@@ -30,6 +31,7 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 
 import java.lang.reflect.Method;
 
+import com.google.inject.multibindings.Multibinder;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.openqa.selenium.WebElement;
 
@@ -48,6 +50,7 @@ public class LoadablesModule extends AbstractModule {
     bindInterceptor(subclassesOf(WebElement.class), not(returns(only(ConditionContext.class))),
         webElementInterceptor);
     bindInterceptor(annotatedWith(PageObject.class), any(), pageObjectInterceptor);
+    Multibinder.newSetBinder(binder(), LoadableProcessorFilter.class);
 
   }
 

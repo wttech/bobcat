@@ -42,7 +42,7 @@ public class PageObjectInterceptor implements MethodInterceptor {
       pageObjectInvocationTracker.clearStack();
     }
     if (methodInvocation.getMethod().getDeclaringClass().isAnnotationPresent(PageObject.class)) {
-      pageObjectInvocationTracker.add(methodInvocation.getMethod().getDeclaringClass(), methodInvocation.getThis());
+      pageObjectInvocationTracker.add(clazz, methodInvocation.getThis());
     }
     return methodInvocation.proceed();
   }
