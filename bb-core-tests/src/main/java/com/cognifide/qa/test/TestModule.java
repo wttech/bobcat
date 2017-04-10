@@ -29,6 +29,7 @@ public class TestModule extends AbstractModule {
   @Override
   protected void configure() {
     install(new CoreModule());
+    install(new JUnitModule());
     install(new ReporterModule());
   }
 
