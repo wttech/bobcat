@@ -87,7 +87,7 @@ public class ConditionChainRunner {
 
   private void manageEvaluationResult(boolean result, Exception exception,
           ConditionProgressTracker progressTracker) {
-    if (result == false || exception != null) {
+    if (!result || exception != null) {
       progressTracker.provideStepResult(ConditionStatus.FAIL);
       throw new LoadableConditionException(progressTracker.produceConditionTraceInfo(exception));
     } else {

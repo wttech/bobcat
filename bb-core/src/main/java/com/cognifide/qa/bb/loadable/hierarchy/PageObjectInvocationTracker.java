@@ -27,11 +27,11 @@ public class PageObjectInvocationTracker {
 
   private final LinkedList<RuntimeContext> subjectStack = new LinkedList<>();
 
-  private final Supplier<LinkedList<Object>> supplier = LinkedList::new;
+  private static final Supplier<LinkedList<Object>> SUPPLIER = LinkedList::new;
 
   public List<Object> getSubjectStack() {
     return subjectStack.stream().map(RuntimeContext::getSubject).collect(Collectors.
-      toCollection(supplier));
+      toCollection(SUPPLIER));
   }
 
   public void add(Class clazz, Object subject) {
