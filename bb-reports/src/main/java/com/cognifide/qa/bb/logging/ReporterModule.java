@@ -62,7 +62,6 @@ public class ReporterModule extends AbstractModule {
     Multibinder<ProxyEventListener> proxyListenerBinder = Multibinder.newSetBinder(binder(),
         ProxyEventListener.class);
     proxyListenerBinder.addBinding().to(ProxyLogger.class);
-    install(new JUnitModule());
 
   }
 }
