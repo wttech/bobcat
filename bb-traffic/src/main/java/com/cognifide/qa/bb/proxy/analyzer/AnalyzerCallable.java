@@ -78,9 +78,11 @@ class AnalyzerCallable implements Callable<Boolean> {
     registry.add(filter);
     controller.startAnalysis();
     fireWaitingEvent();
+    long timeoutPoint = System.currentTimeMillis() + (timeoutInSeconds * 1000L);
     synchronized (filter) {
       try {
-        filter.wait(timeoutInSeconds * 1000L);
+        while (System.currentTimeMillis() < timeoutPoint)
+          filter.wait();
       } catch (InterruptedException e) {
         LOG.error("Interrupted waiting for request", e);
         throw e;
@@ -105,9 +107,8 @@ class AnalyzerCallable implements Callable<Boolean> {
   }
 
   private void fireWaitingEvent() {
-    proxyListeners.stream().
-            forEach(listener ->
-              listener.waitingForRequest(requestPredicate, closestHarEntryElector)
+    proxyListeners.stream().forEach(listener ->
+      listener.waitingForRequest(requestPredicate, closestHarEntryElector)
     );
   }
 }
