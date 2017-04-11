@@ -21,6 +21,9 @@ import com.google.inject.spi.TypeListener;
 import cucumber.api.CucumberOptions;
 import org.junit.runner.RunWith;
 
+/**
+ * This class is registering every jUnit runner class in the context of Loadable Components
+ */
 public class JUnitLoadableProcessorFilter implements LoadableProcessorFilter, TypeListener {
 
   @Override

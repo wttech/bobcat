@@ -21,6 +21,9 @@ import com.google.inject.spi.TypeListener;
 
 import java.util.Set;
 
+/**
+ * Determines whether to register a class as a test runner in context of Loadable Conditions
+ */
 public class TestObjectTypeListener implements TypeListener {
 
   @Inject

@@ -13,7 +13,18 @@
  */
 package com.cognifide.qa.bb.loadable;
 
+/**
+ * Implementations of this are meant to provide logic for determining whether class that have called
+ * a {@link org.openqa.selenium.WebElement} instance is applicable for Loadable Conditions Chain
+ * execution
+ */
 public interface LoadableProcessorFilter {
 
-	boolean isApplicable(Class clazz);
+  /**
+   *
+   * @param clazz class that calls the {@link org.openqa.selenium.WebElement} instance
+   * @return true, when the class applies for run chain loadable conditions. Typically this method
+   *         should determine whether the clazz is a tesr runner class or not
+   */
+  boolean isApplicable(Class clazz);
 }

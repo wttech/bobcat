@@ -20,6 +20,9 @@ import com.google.inject.Provider;
 import com.google.inject.spi.InjectionListener;
 import com.google.inject.spi.TypeEncounter;
 
+/**
+ * Registers a test runner for Loadable Conditions chain execution
+ */
 public class TestClassInjectionListener implements InjectionListener {
 
   private final Provider<ConditionsExplorer> loadablesExplorer;

@@ -22,11 +22,20 @@ import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.runtime.java.StepDefAnnotation;
 import cucumber.runtime.java.guice.ScenarioScoped;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
 
+/**
+ * Registers Cucumber test runners in context of Loadable Components
+ */
 public class CucumberLoadableProcessorFilter implements LoadableProcessorFilter, TypeListener {
+
+  private static final Logger LOGGER =
+      LoggerFactory.getLogger(CucumberLoadableProcessorFilter.class);
+
   @Override
   public boolean isApplicable(Class clazz) {
     return clazz != null
@@ -43,7 +52,7 @@ public class CucumberLoadableProcessorFilter implements LoadableProcessorFilter,
         }
       }
     } catch (ClassNotFoundException e) {
-      e.printStackTrace();
+      LOGGER.error("Didn't find class from the execution stack", e);
     }
     return false;
   }

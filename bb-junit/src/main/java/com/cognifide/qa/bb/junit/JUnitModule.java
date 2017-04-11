@@ -20,6 +20,10 @@ import com.google.inject.multibindings.Multibinder;
 
 import static com.google.inject.matcher.Matchers.any;
 
+/**
+ * This class contains binding to the {@link JUnitLoadableProcessorFilter} which allows jUnit tests
+ * to be run with Loadable Conditions context
+ */
 public class JUnitModule extends AbstractModule {
 
   @Override

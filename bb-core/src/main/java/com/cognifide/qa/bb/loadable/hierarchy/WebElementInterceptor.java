@@ -18,6 +18,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import com.cognifide.qa.bb.exceptions.BobcatRuntimeException;
 import com.cognifide.qa.bb.loadable.LoadableProcessorFilter;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
@@ -84,9 +85,8 @@ public class WebElementInterceptor implements MethodInterceptor {
       return AopUtil.getBaseClassForAopObject(Class.forName(
           Thread.currentThread().getStackTrace()[ORIGINAL_CALLER_CLASS_LEVEL].getClassName()));
     } catch (ClassNotFoundException e) {
-      LOG.error("Class calling web element not found!", e);
+      throw new BobcatRuntimeException("Class calling web element not found!", e);
     }
-    return null;
   }
 
   private ClassFieldContext acquireDirectContext(BobcatWebElement caller) {
