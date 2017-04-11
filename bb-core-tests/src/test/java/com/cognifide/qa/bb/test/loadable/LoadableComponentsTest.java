@@ -77,7 +77,7 @@ public class LoadableComponentsTest {
   public void shouldHandleErrorsProperly() {
     Exception exception = null;
     try {
-      testPage.sendKeysWithFailure();
+      testPage.getInvalidElement().sendKeys("input");
     } catch (Exception ex) {
       exception = ex;
     }

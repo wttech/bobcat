@@ -20,26 +20,37 @@
 package com.cognifide.qa.bb.cumber.guice;
 
 import com.cognifide.qa.bb.assertions.soft.SoftAssertionsAspect;
+import com.cognifide.qa.bb.loadable.CucumberLoadableProcessorFilter;
+import com.cognifide.qa.bb.loadable.LoadableProcessorFilter;
 import com.google.inject.AbstractModule;
 import com.google.inject.matcher.Matchers;
 
+import com.google.inject.multibindings.Multibinder;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.But;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+import static com.google.inject.matcher.Matchers.any;
+
 public class BobcumberModule extends AbstractModule {
 
   @Override
   protected void configure() {
+
+    bindListener(any(), new CucumberLoadableProcessorFilter());
     // soft assertion aspect
     SoftAssertionsAspect softAssertAspect = new SoftAssertionsAspect();
     requestInjection(softAssertAspect);
-    bindInterceptor(Matchers.any(), Matchers.annotatedWith(When.class), softAssertAspect);
-    bindInterceptor(Matchers.any(), Matchers.annotatedWith(Then.class), softAssertAspect);
-    bindInterceptor(Matchers.any(), Matchers.annotatedWith(And.class), softAssertAspect);
-    bindInterceptor(Matchers.any(), Matchers.annotatedWith(But.class), softAssertAspect);
-    bindInterceptor(Matchers.any(), Matchers.annotatedWith(Given.class), softAssertAspect);
+    bindInterceptor(any(), Matchers.annotatedWith(When.class), softAssertAspect);
+    bindInterceptor(any(), Matchers.annotatedWith(Then.class), softAssertAspect);
+    bindInterceptor(any(), Matchers.annotatedWith(And.class), softAssertAspect);
+    bindInterceptor(any(), Matchers.annotatedWith(But.class), softAssertAspect);
+    bindInterceptor(any(), Matchers.annotatedWith(Given.class), softAssertAspect);
+    Multibinder<LoadableProcessorFilter> processorFilterMultiBinder =
+        Multibinder.newSetBinder(binder(), LoadableProcessorFilter.class);
+    processorFilterMultiBinder.addBinding().to(CucumberLoadableProcessorFilter.class);
+
   }
 }
