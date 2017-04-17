@@ -19,19 +19,19 @@
  */
 package com.cognifide.qa.bb.aem.touch.modules;
 
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.Checkbox;
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.DialogField;
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.Image;
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.Multifield;
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.MultifieldItem;
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.PathBrowser;
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.RichText;
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.Select;
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.Textfield;
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.Variant;
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.text.FontFormat;
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.text.JustifyDialogPanel;
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields.text.ListDialogPanel;
+import com.cognifide.qa.bb.aem.touch.pageobjects.dialogfields.Checkbox;
+import com.cognifide.qa.bb.aem.touch.pageobjects.dialogfields.DialogField;
+import com.cognifide.qa.bb.aem.touch.pageobjects.dialogfields.Image;
+import com.cognifide.qa.bb.aem.touch.pageobjects.dialogfields.Multifield;
+import com.cognifide.qa.bb.aem.touch.pageobjects.dialogfields.MultifieldItem;
+import com.cognifide.qa.bb.aem.touch.pageobjects.dialogfields.PathBrowser;
+import com.cognifide.qa.bb.aem.touch.pageobjects.dialogfields.RichText;
+import com.cognifide.qa.bb.aem.touch.pageobjects.dialogfields.Select;
+import com.cognifide.qa.bb.aem.touch.pageobjects.dialogfields.Textfield;
+import com.cognifide.qa.bb.aem.touch.pageobjects.dialogfields.Variant;
+import com.cognifide.qa.bb.aem.touch.pageobjects.dialogfields.richtext.FontFormat;
+import com.cognifide.qa.bb.aem.touch.pageobjects.dialogfields.richtext.JustifyDialogPanel;
+import com.cognifide.qa.bb.aem.touch.pageobjects.dialogfields.richtext.ListDialogPanel;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
 
