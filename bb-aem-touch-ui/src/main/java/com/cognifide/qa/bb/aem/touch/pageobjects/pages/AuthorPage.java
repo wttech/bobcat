@@ -22,7 +22,6 @@ package com.cognifide.qa.bb.aem.touch.pageobjects.pages;
 import static org.openqa.selenium.support.ui.ExpectedConditions.not;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 import com.cognifide.qa.bb.qualifier.FindPageObject;
@@ -40,8 +39,8 @@ import org.slf4j.LoggerFactory;
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfigs;
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfiguration;
 import com.cognifide.qa.bb.aem.touch.data.components.Components;
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.GlobalBar;
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.Parsys;
+import com.cognifide.qa.bb.aem.touch.pageobjects.GlobalBar;
+import com.cognifide.qa.bb.aem.touch.pageobjects.Parsys;
 import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.cognifide.qa.bb.aem.touch.util.DataPathUtil;
 import com.cognifide.qa.bb.constants.HtmlTags;

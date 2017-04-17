@@ -27,7 +27,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.constants.Timeouts;
-import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.AuthorLoader;
+import com.cognifide.qa.bb.aem.touch.pageobjects.AuthorLoader;
 import com.google.inject.Inject;
 
 /**
