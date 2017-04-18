@@ -22,7 +22,7 @@ package com.cognifide.qa.bb.aem.touch.data.componentconfigs;
 import java.util.Map;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.cognifide.qa.bb.aem.touch.util.YamlReader;
+import com.cognifide.qa.bb.utils.config.YamlReader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
