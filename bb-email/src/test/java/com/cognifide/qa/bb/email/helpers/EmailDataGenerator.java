@@ -48,16 +48,27 @@ public class EmailDataGenerator {
     List<EmailData> result = new ArrayList<>();
 
     for (int i = 0; i < number; i++) {
-      EmailData emailData = new EmailData();
-      emailData.setAddressFrom(addressFrom);
-      emailData.setAddressTo(addressTo);
-      emailData.setMessageContent(
-          "this is bobcat test message [" + i + "]: " + getRandomString());
-      emailData.setSubject("test message " + getRandomString());
+      String message = "this is bobcat test message [" + i + "]: " + getRandomString();
+      String subject = "test message " + getRandomString();
+      EmailData emailData = createEmailData(subject, message);
 
       result.add(emailData);
     }
     return result;
+  }
+
+  public EmailData generateEmailData(String subject) {
+    String message = "this is bobcat test message : " + getRandomString();
+    return createEmailData(subject, message);
+  }
+
+  private EmailData createEmailData(String subject, String message) {
+    EmailData emailData = new EmailData();
+    emailData.setAddressFrom(addressFrom);
+    emailData.setAddressTo(addressTo);
+    emailData.setMessageContent(message);
+    emailData.setSubject(subject);
+    return emailData;
   }
 
   private String getRandomString() {
