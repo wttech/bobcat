@@ -99,7 +99,7 @@ public class EmailTest {
 
   @Test
   public void canReceiveMailBySubject() {
-    String subject = "dupa";
+    String subject = "test";
     EmailData sentEmail = dataGenerator.generateEmailData(subject);
 
     sender.sendEmail(sentEmail);
