@@ -134,7 +134,7 @@ public class EmailTest {
 
     client.connect();
 
-    client.removeAllEmailsWithTopic(subject);
+    client.removeAllEmails(subject);
 
     //reconnect to apply delete of messages
     client.close();
