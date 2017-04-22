@@ -31,16 +31,15 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import com.cognifide.qa.bb.aem.touch.pageobjects.GlobalBar;
+import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.cognifide.qa.bb.constants.HtmlTags;
+import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.dragdrop.DragAndDropFactory;
 import com.cognifide.qa.bb.dragdrop.Draggable;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.scope.frame.FramePath;
 import com.cognifide.qa.bb.utils.PageObjectInjector;
-import com.cognifide.qa.bb.constants.Timeouts;
-import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.google.inject.Inject;
 
 /**
@@ -74,7 +73,7 @@ public class SidePanel {
   private List<WebElement> searchResults;
 
   /**
-   * Searches for assets for given asset name and return it as draggable.
+   * Searches for assets for given asset name and return it as draggable. Opens the Side panel if its closed.
    *
    * @param asset name.
    * @return {@link Draggable} instance of the asset.
@@ -98,7 +97,7 @@ public class SidePanel {
   }
 
   private void verifyResultsVisible() {
-    conditions.optionalWait(visibilityOf(resultsLoader));
+    //conditions.optionalWait(visibilityOf(resultsLoader)); //todo remove this, seems like a faulty design
     conditions.verify(not(visibilityOf(resultsLoader)), Timeouts.MEDIUM);
     searchResults.stream().forEach(result -> conditions.verify(ignored -> {
       try {

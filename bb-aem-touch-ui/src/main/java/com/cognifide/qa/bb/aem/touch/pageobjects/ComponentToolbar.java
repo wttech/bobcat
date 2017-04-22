@@ -24,7 +24,6 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import com.cognifide.qa.bb.aem.touch.pageobjects.ToolbarOptions;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.aem.touch.util.Conditions;

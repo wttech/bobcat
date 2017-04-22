@@ -19,6 +19,9 @@
  */
 package com.cognifide.qa.bb.aem.touch.pageobjects;
 
+import static com.cognifide.qa.bb.aem.touch.util.ContentHelper.JCR_CONTENT;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
+
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -27,16 +30,13 @@ import org.openqa.selenium.WebElement;
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfiguration;
 import com.cognifide.qa.bb.aem.touch.pageobjects.dialogs.ConfigDialog;
 import com.cognifide.qa.bb.aem.touch.pageobjects.dialogs.DeleteDialog;
-import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
+import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.google.inject.Inject;
-
-import static com.cognifide.qa.bb.aem.touch.util.ContentHelper.JCR_CONTENT;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
 /**
  * Class representing page component.
