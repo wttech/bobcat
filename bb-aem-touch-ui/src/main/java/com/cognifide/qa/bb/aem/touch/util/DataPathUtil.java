@@ -33,7 +33,9 @@ public final class DataPathUtil {
 
   /**
    * Method normalizes data path. Checks if last character of path is digit, if yes, then returns substring
-   * before last {@code _} occurrence.
+   * before last {@code _} occurrence - such datapaths are usually present where there is more than a single
+   * component in a given context. NOTE: Nested components will be handled the same way, it will only remove the last
+   * numerical identifier.
    * Example: for given in parameter string '/title_1234' method will return '/title'
    *
    * @param dataPath data path.

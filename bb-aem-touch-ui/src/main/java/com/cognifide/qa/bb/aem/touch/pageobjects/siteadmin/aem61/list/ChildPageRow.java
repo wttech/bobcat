@@ -19,10 +19,16 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.aem.touch.pageobjects.siteadmin.common.SiteadminChildPage;
+import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
+import com.google.inject.Inject;
 
 @PageObject
 public class ChildPageRow implements SiteadminChildPage {
+
+  @Inject
+  @CurrentScope
+  private WebElement currentScope;
 
   @FindBy(css = "i.select")
   private WebElement checkBox;

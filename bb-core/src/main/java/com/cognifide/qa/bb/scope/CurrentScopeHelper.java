@@ -65,7 +65,7 @@ public class CurrentScopeHelper {
    * @param pageObject object to verify.
    * @return true if element represented by PageObject class is visible.
    */
-  public boolean isCurrentScopeVisible(Object pageObject) {
+  public boolean isCurrentScopeVisible(Object pageObject) { //todo this should simply use BobcatWait
     webDriver.manage().timeouts().implicitlyWait(Timeouts.MINIMAL, TimeUnit.SECONDS);
     boolean isDisplayed = false;
 
