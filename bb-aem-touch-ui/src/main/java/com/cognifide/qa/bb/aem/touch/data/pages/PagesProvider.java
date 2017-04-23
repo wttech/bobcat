@@ -23,7 +23,7 @@ import java.util.Map;
 
 import com.cognifide.qa.bb.guice.ThreadScoped;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.cognifide.qa.bb.aem.touch.util.YamlReader;
+import com.cognifide.qa.bb.utils.config.YamlReader;
 import com.google.inject.Provider;
 
 /**

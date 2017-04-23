@@ -17,10 +17,15 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.touch.util;
+package com.cognifide.qa.bb.wait;
 
 import org.openqa.selenium.WebElement;
 
+/**
+ * Allows wrapping WebElement methods for conditional operations
+ * @param <T> type returned by given WebElement's method
+ */
+@FunctionalInterface
 public interface WebElementCallable<T> {
   T call(WebElement element);
 }

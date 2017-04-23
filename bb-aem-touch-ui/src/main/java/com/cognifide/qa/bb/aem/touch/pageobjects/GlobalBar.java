@@ -19,12 +19,15 @@
  */
 package com.cognifide.qa.bb.aem.touch.pageobjects;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.attributeContains;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.cognifide.qa.bb.constants.HtmlTags;
+import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.PageObject;
-import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.google.inject.Inject;
 
 /**
@@ -36,7 +39,7 @@ public class GlobalBar {
   public static final String IS_SELECTED = "is-selected";
 
   @Inject
-  private Conditions conditions;
+  private BobcatWait bobcatWait;
 
   @Inject
   private WebDriver webDriver;
@@ -67,6 +70,7 @@ public class GlobalBar {
       webDriver.navigate().refresh();
     }
   }
+
   /**
    * Checks if preview mode isn't already on, and if not then performs click() action on previewModeButton
    * {@link WebElement} and refreshes page.
@@ -79,10 +83,10 @@ public class GlobalBar {
   }
 
   public boolean isInPreviewMode() {
-    return conditions.classContains(previewModeButton, IS_SELECTED);
+    return bobcatWait.isConditionMet(attributeContains(previewModeButton, HtmlTags.Attributes.CLASS, IS_SELECTED));
   }
 
   public boolean isInEditMode() {
-    return conditions.classContains(editModeButton, IS_SELECTED);
+    return bobcatWait.isConditionMet(attributeContains(editModeButton, HtmlTags.Attributes.CLASS, IS_SELECTED));
   }
 }

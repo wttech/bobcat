@@ -22,12 +22,18 @@ package com.cognifide.qa.bb.provider.selenium;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.constants.ConfigKeys;
+import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.provider.selenium.webdriver.WebDriverProvider;
+import com.cognifide.qa.bb.wait.WebElementCallable;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
@@ -69,6 +75,7 @@ public class BobcatWait {
       TimeUnit.MILLISECONDS.sleep((long) (durationInSec * 1000));
     } catch (InterruptedException e) {
       LOG.error("Sleep was interrupted", e);
+      Thread.currentThread().interrupt();
     }
   }
 
@@ -96,5 +103,88 @@ public class BobcatWait {
     } finally {
       webDriver.manage().timeouts().implicitlyWait(defaultTimeout, TimeUnit.SECONDS);
     }
+  }
+
+  /**
+   * Checks if {@link ExpectedCondition} given in method parameter is met in small timeout ({@link Timeouts#SMALL})
+   *
+   * @param condition {@link ExpectedCondition} instance that will be examined
+   * @return true if the condition is met without violating the timeout
+   */
+  public boolean isConditionMet(ExpectedCondition condition) {
+    return isConditionMet(condition, Timeouts.SMALL);
+  }
+
+  /**
+   * Checks if provided {@link ExpectedCondition} is met in a given timeout
+   *
+   * @param condition {@link ExpectedCondition} instance that will be examined
+   * @param timeout   timeout limit for the condition examination
+   * @return true if condition is met in given timeout
+   */
+  public boolean isConditionMet(ExpectedCondition condition, int timeout) {
+    boolean result = true;
+    try {
+      verify(condition, timeout);
+    } catch (TimeoutException | StaleElementReferenceException e) {
+      result = false;
+    }
+    return result;
+  }
+
+  /**
+   * Checks if {@link ExpectedCondition} given in method parameter is met in small timeout ({@link Timeouts#SMALL})
+   *
+   * @param condition {@link ExpectedCondition} instance  hat will be examined
+   * @return result from the provided {@link ExpectedCondition}
+   */
+  public <T> T verify(ExpectedCondition<T> condition) {
+    return verify(condition, Timeouts.SMALL);
+  }
+
+  /**
+   * Checks if {@link ExpectedCondition} given in method parameter is met in given timeout. Syntactic sugar for
+   * {@code withTimeout(timeout).until(condition)} chain.
+   *
+   * @param condition {@link ExpectedCondition} instance that will be examined
+   * @param timeout   timeout limit for the condition examination
+   * @return result from the provided {@link ExpectedCondition}
+   */
+  public <T> T verify(ExpectedCondition<T> condition, int timeout) {
+    return withTimeout(timeout).until(condition);
+  }
+
+  /**
+   * Executes a wrapped WebElement's method in a StaleReferenceElementException-safe way.
+   *
+   * @param element         element from which method will be invoked
+   * @param elementCallable method to be wrapped
+   * @param <T>             type of the returned value
+   * @return result from the called method
+   */
+  public <T> T staleSafe(WebElement element, WebElementCallable<T> elementCallable) {
+    return verify(ignored -> {
+      try {
+        return elementCallable.call(element);
+      } catch (StaleElementReferenceException e) {
+        return null;
+      }
+    }, Timeouts.MEDIUM);
+  }
+
+  /**
+   * Checks if a WebElement is ready to be operated on, i.e. is visible and not stale and returns that element
+   *
+   * @param element WebElement to be checked
+   * @return checked element
+   */
+  public WebElement elementReady(WebElement element) {
+    return verify(ignored -> {
+      try {
+        return element.isDisplayed() ? element : null;
+      } catch (StaleElementReferenceException e) {
+        return null;
+      }
+    }, Timeouts.MEDIUM);
   }
 }

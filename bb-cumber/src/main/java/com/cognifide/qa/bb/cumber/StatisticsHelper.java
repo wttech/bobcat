@@ -21,6 +21,7 @@ package com.cognifide.qa.bb.cumber;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 import org.slf4j.Logger;
@@ -40,10 +41,10 @@ class StatisticsHelper {
   private int getNumberOfTests(File file, int defaultValue) {
     int returnValue = defaultValue;
     try {
-      Scanner scanner = new Scanner(file);
+      Scanner scanner = new Scanner(file, StandardCharsets.UTF_8.name());
       returnValue = nextInt(scanner);
     } catch (FileNotFoundException e) {
-      LOG.warn(NO_STATISTICS_FILE_FOUND_MESSAGE);
+      LOG.warn(NO_STATISTICS_FILE_FOUND_MESSAGE, e);
     }
     return returnValue;
   }
@@ -55,13 +56,13 @@ class StatisticsHelper {
   int getNumberOfFailedTests(File file, int defaultValue) {
     int returnValue = defaultValue;
     try {
-      Scanner scanner = new Scanner(file);
+      Scanner scanner = new Scanner(file, StandardCharsets.UTF_8.name());
       if (scanner.hasNext()) {
         scanner.nextLine();
         returnValue = nextInt(scanner);
       }
     } catch (FileNotFoundException e) {
-      LOG.warn(NO_STATISTICS_FILE_FOUND_MESSAGE);
+      LOG.warn(NO_STATISTICS_FILE_FOUND_MESSAGE, e);
     }
     return returnValue;
   }

@@ -16,6 +16,7 @@
 package com.cognifide.qa.bb.loadable.hierarchy;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -26,11 +27,11 @@ public class PageObjectInvocationTracker {
 
   private final LinkedList<RuntimeContext> subjectStack = new LinkedList<>();
 
-  private final Supplier<LinkedList<Object>> supplier = () -> new LinkedList<>();
+  private static final Supplier<LinkedList<Object>> SUPPLIER = LinkedList::new;
 
-  public LinkedList<Object> getSubjectStack() {
-    return subjectStack.stream().map(element -> element.getSubject()).collect(Collectors.
-      toCollection(supplier));
+  public List<Object> getSubjectStack() {
+    return subjectStack.stream().map(RuntimeContext::getSubject).collect(Collectors.
+      toCollection(SUPPLIER));
   }
 
   public void add(Class clazz, Object subject) {

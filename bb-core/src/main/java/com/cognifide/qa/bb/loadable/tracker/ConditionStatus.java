@@ -28,7 +28,7 @@ public enum ConditionStatus {
 
   private final String message;
 
-  private ConditionStatus(String message) {
+  ConditionStatus(String message) {
     this.message = message;
   }
 

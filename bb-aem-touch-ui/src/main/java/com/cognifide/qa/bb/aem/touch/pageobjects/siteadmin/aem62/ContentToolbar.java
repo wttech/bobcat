@@ -55,7 +55,7 @@ public class ContentToolbar {
   public WebElement getCreateButton() {
     List<WebElement> buttonsLabels = driver.findElements(
         By.cssSelector("button.coral-Button--primary coral-button-label.coral-Button-label"));
-    return buttonsLabels.stream().filter(label -> label.getText().equals(CREATE_BTN_LABEL))
+    return buttonsLabels.stream().filter(label -> CREATE_BTN_LABEL.equals(label.getText()))
         .findFirst()
         .orElseThrow(() -> new IllegalStateException("Expected element is not found"));
   }

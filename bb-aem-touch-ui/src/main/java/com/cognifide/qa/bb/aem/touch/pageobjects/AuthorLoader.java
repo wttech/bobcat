@@ -24,8 +24,8 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfEl
 import org.openqa.selenium.By;
 
 import com.cognifide.qa.bb.constants.Timeouts;
+import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.PageObject;
-import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.google.inject.Inject;
 
 /**
@@ -34,16 +34,23 @@ import com.google.inject.Inject;
 @PageObject
 public class AuthorLoader {
 
-  private static final By LOADER_LOCATOR = By.cssSelector( //
-      ".coral-Modal-backdrop .coral-Wait.coral-Wait--center.coral-Wait--large");
+  private static final By LOADER_LOCATOR =
+      By.cssSelector(".coral-Modal-backdrop .coral-Wait.coral-Wait--center.coral-Wait--large");
 
   @Inject
-  private Conditions conditions;
+  private BobcatWait bobcatWait;
 
   /**
-   * Method verifies if loading visual effect is hidden.
+   * Verifies if loader is hidden.
    */
   public void verifyIsHidden() {
-    conditions.verify(invisibilityOfElementLocated(LOADER_LOCATOR), Timeouts.MEDIUM);
+    verifyIsHidden(Timeouts.MEDIUM);
+  }
+
+  /**
+   * Verifies if loader is hidden before given timeout
+   */
+  public void verifyIsHidden(int timeout) {
+    bobcatWait.verify(invisibilityOfElementLocated(LOADER_LOCATOR), timeout);
   }
 }

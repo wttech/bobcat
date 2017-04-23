@@ -24,10 +24,9 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import com.cognifide.qa.bb.aem.touch.pageobjects.ToolbarOptions;
+import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
-import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.google.inject.Inject;
 
 /**
@@ -39,7 +38,7 @@ public class ComponentToolbar {
   private static final String BUTTON_XPATH_TEMPLATE = ".//button[contains(@title, '%s')]";
 
   @Inject
-  private Conditions conditions;
+  private BobcatWait bobcatWait;
 
   @Inject
   @CurrentScope
@@ -59,6 +58,6 @@ public class ComponentToolbar {
    * Method verifies if the component toolbar is visible.
    */
   public void verifyIsDisplayed() {
-    conditions.verify(visibilityOf(toolbar));
+    bobcatWait.verify(visibilityOf(toolbar));
   }
 }

@@ -1,30 +1,25 @@
 /*
  * Copyright 2016 Cognifide Ltd..
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  */
 package com.cognifide.qa.bb.aem.touch.pageobjects.siteadmin.aem61;
 
 import java.time.LocalDateTime;
-
-import javax.annotation.Nullable;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 
 import com.cognifide.qa.bb.aem.touch.pageobjects.siteadmin.SiteadminActions;
 import com.cognifide.qa.bb.aem.touch.pageobjects.siteadmin.aem61.list.ChildPageRow;
@@ -34,7 +29,6 @@ import com.cognifide.qa.bb.aem.touch.pageobjects.siteadmin.common.IsLoadedCondit
 import com.cognifide.qa.bb.aem.touch.pageobjects.siteadmin.common.Loadable;
 import com.cognifide.qa.bb.aem.touch.pageobjects.siteadmin.common.PageActivationStatus;
 import com.cognifide.qa.bb.aem.touch.pageobjects.siteadmin.common.SiteadminLayout;
-import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.cognifide.qa.bb.constants.AemConfigKeys;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
@@ -54,13 +48,13 @@ public class SiteadminPage implements Loadable, SiteadminActions {
 
   @Inject
   @Named(AemConfigKeys.AUTHOR_URL)
-  String url;
+  private String url;
 
   @Inject
   private WebElementUtils webElementUtils;
 
   @Inject
-  private Conditions conditions;
+  private BobcatWait bobcatWait;
 
   @Inject
   private WebDriver driver;
@@ -76,7 +70,8 @@ public class SiteadminPage implements Loadable, SiteadminActions {
   @LoadableComponent(condClass = IsLoadedCondition.class)
   private ChildPageWindow childPageWindow;
 
-  @FindBy(css = "nav.foundation-layout-mode2-item.endor-ActionBar.js-granite-endor-ActionBar > div.endor-ActionBar-left")
+  @FindBy(
+      css = "nav.foundation-layout-mode2-item.endor-ActionBar.js-granite-endor-ActionBar > div.endor-ActionBar-left")
   private SiteadminToolbar toolbar;
 
   @Override
@@ -120,19 +115,14 @@ public class SiteadminPage implements Loadable, SiteadminActions {
 
   @Override
   public SiteadminActions waitForPageCount(int pageCount) {
-    boolean conditionNotMet = !webElementUtils.isConditionMet(new ExpectedCondition<Object>() {
-      @Nullable @Override public Object apply(@Nullable WebDriver webDriver) {
-        try {
-          return (pageCount == getChildPageWindow().getPageCount());
-        } catch (StaleElementReferenceException e) {
-          webDriver.navigate().refresh();
-          return false;
-        }
+    bobcatWait.verify(wd -> {
+      try {
+        return (pageCount == getChildPageWindow().getPageCount());
+      } catch (StaleElementReferenceException e) {
+        wd.navigate().refresh();
+        return false;
       }
     }, Timeouts.SMALL);
-    if (conditionNotMet) {
-      throw new IllegalStateException("Timeout when waiting for page count: " + pageCount);
-    }
     return this;
   }
 
@@ -231,46 +221,36 @@ public class SiteadminPage implements Loadable, SiteadminActions {
   }
 
   private void waitForExpectedStatus(final String title, ActivationStatus status) {
-    wait.withTimeout(Timeouts.MEDIUM).until(new ExpectedCondition<Boolean>() {
-      @Nullable @Override public Boolean apply(@Nullable WebDriver webDriver) {
-        webDriver.navigate().refresh();
-        ChildPageRow childPage = getChildPageWindow().getChildPageRow(title);
-        PageActivationStatus pageActivationStatusCell = childPage.getPageActivationStatus();
-        ActivationStatus activationStatus = pageActivationStatusCell.getActivationStatus();
-        return activationStatus.equals(status);
-      }
+    wait.withTimeout(Timeouts.MEDIUM).until(wd -> {
+      wd.navigate().refresh();
+      ChildPageRow childPage = getChildPageWindow().getChildPageRow(title);
+      PageActivationStatus pageActivationStatusCell = childPage.getPageActivationStatus();
+      ActivationStatus activationStatus = pageActivationStatusCell.getActivationStatus();
+      return activationStatus.equals(status);
     }, Timeouts.SMALL);
   }
 
   private void waitForPageToAppearOnTheList(final String title) {
-    wait.withTimeout(Timeouts.MEDIUM).until(new ExpectedCondition<Boolean>() {
-      @Nullable @Override public Boolean apply(@Nullable WebDriver webDriver) {
-        return getChildPageWindow().containsPage(title);
-      }
-    }, Timeouts.SMALL);
+    wait.withTimeout(Timeouts.MEDIUM).until(ignored -> getChildPageWindow().containsPage(title), Timeouts.SMALL);
   }
 
   private ChildPageWindow getChildPageWindow() {
     WebElement childPagesElement =
-        driver.findElement(By.cssSelector(CHILD_PAGE_WINDOW_SELECTOR));
+        driver.findElement(By.cssSelector(CHILD_PAGE_WINDOW_SELECTOR));//todo replace this with @Global field
     return pageObjectInjector.inject(ChildPageWindow.class, childPagesElement);
   }
 
   private void retryLoad() {
-    conditions.verify(new ExpectedCondition<Object>() {
-      @Nullable
-      @Override
-      public Object apply(WebDriver driver) {
-        if (!isLoadedCondition()) {
-          driver.navigate().refresh();
-        }
-        return isLoadedCondition();
+    bobcatWait.verify(wd -> {
+      if (!isLoadedCondition()) {
+        wd.navigate().refresh();
       }
+      return isLoadedCondition();
     }, Timeouts.MEDIUM);
   }
 
   private boolean isLoadedCondition() {
-    return conditions.isConditionMet(ignored -> childPageWindow.isLoaded());
+    return bobcatWait.isConditionMet(ignored -> childPageWindow.isLoaded());
   }
 
 }

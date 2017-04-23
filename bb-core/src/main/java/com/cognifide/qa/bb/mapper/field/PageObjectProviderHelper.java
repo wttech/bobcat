@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.mapper.field;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,7 @@ package com.cognifide.qa.bb.mapper.field;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.mapper.field;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -33,7 +32,7 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 /**
  * Helper class for Page Objects
  */
-public class PageObjectProviderHelper {
+public final class PageObjectProviderHelper {
 
   private PageObjectProviderHelper() {
     // Empty for helper class
@@ -41,7 +40,7 @@ public class PageObjectProviderHelper {
 
   /**
    * Gets selector from {@link PageObject} if class annoted by this annotation is used in list
-   * 
+   *
    * @param field class field
    * @return selector
    */
@@ -51,7 +50,7 @@ public class PageObjectProviderHelper {
 
   /**
    * Gets selector from {@link PageObject}
-   * 
+   *
    * @param field class field
    * @return selector
    */
@@ -61,7 +60,7 @@ public class PageObjectProviderHelper {
 
   /**
    * Gets generic type from field (if field type is {@link ParameterizedType})
-   * 
+   *
    * @param field class field
    * @return generic type
    */

@@ -19,7 +19,6 @@
  */
 package com.cognifide.qa.bb.aem.touch.pageobjects;
 
-import static com.cognifide.qa.bb.aem.touch.util.ContentHelper.JCR_CONTENT;
 import static org.openqa.selenium.support.ui.ExpectedConditions.not;
 import static org.openqa.selenium.support.ui.ExpectedConditions.stalenessOf;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
@@ -39,10 +38,10 @@ import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfiguratio
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldConfig;
 import com.cognifide.qa.bb.aem.touch.data.components.Components;
 import com.cognifide.qa.bb.aem.touch.pageobjects.dialogs.InsertComponentDialog;
-import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.cognifide.qa.bb.aem.touch.util.DataPathUtil;
 import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.constants.Timeouts;
+import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.Global;
@@ -60,7 +59,7 @@ public class Parsys {
   private static final String INSERT_BUTTON_SELECTOR = "button[data-action='INSERT']";
 
   @Inject
-  private Conditions conditions;
+  private BobcatWait bobcatWait;
 
   @Inject
   private Components components;
@@ -94,7 +93,7 @@ public class Parsys {
    */
   public String getDataPath() {
     String rawValue = currentScope.getAttribute(HtmlTags.Attributes.DATA_PATH);
-    return StringUtils.substringAfter(rawValue, JCR_CONTENT);
+    return DataPathUtil.extract(rawValue);
   }
 
   /**
@@ -165,7 +164,7 @@ public class Parsys {
    * Configures component with given name with given map of fields cofig ({@link FieldConfig})
    *
    * @param componentName name of the component.
-   * @param data map of configuration parameters for the component.
+   * @param data          map of configuration parameters for the component.
    */
   public void configureComponent(String componentName, ComponentConfiguration data) {
     getComponent(componentName).configure(data);
@@ -200,12 +199,12 @@ public class Parsys {
    * @return true if the parsys is not stale.
    */
   public boolean isNotStale() {
-    return conditions.isConditionMet(not(stalenessOf(currentScope)));
+    return bobcatWait.isConditionMet(not(stalenessOf(currentScope)));
   }
 
   private void tryToSelect() {
-    conditions.verify(input -> {
-      conditions.verify(visibilityOf(dropArea)).click();
+    bobcatWait.verify(input -> {
+      bobcatWait.verify(visibilityOf(dropArea)).click();
       return dropArea.getAttribute(HtmlTags.Attributes.CLASS).contains(IS_SELECTED);
     }, Timeouts.MEDIUM);
   }
@@ -213,15 +212,15 @@ public class Parsys {
   /**
    * it may happen that the window pops up just a moment before {@code dropArea.click(} happens,
    * which results in WebdriverException: 'Other element would receive the click' - thus it is
-   * catched and validated
+   * caught and validated
    */
   private void tryToOpenInsertWindow() {
-    conditions.verify(ignored -> {
+    bobcatWait.verify(ignored -> {
       try {
-        boolean isInsertButtonPresent = driver
-                .findElements(By.cssSelector(INSERT_BUTTON_SELECTOR))
-                .size() > 0;
-        if(!isInsertButtonPresent) {
+        boolean isInsertButtonPresent = !driver
+            .findElements(By.cssSelector(INSERT_BUTTON_SELECTOR))
+            .isEmpty();
+        if (!isInsertButtonPresent) {
           // AEM 6.1
           actions.doubleClick(dropArea).perform();
         } else {

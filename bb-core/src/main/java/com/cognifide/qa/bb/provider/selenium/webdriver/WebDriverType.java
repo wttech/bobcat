@@ -149,6 +149,8 @@ public enum WebDriverType {
     }
   };
 
+  private static final Logger LOG = LoggerFactory.getLogger(WebDriverType.class);
+
   private static WebDriver getWebDriverWithProxyCookieSupport(Properties properties, WebDriver driver) {
     if (Boolean.valueOf(properties.getProperty(ConfigKeys.WEBDRIVER_PROXY_COOKIE))) {
       driver.get(properties.getProperty(ConfigKeys.BASE_URL));
@@ -161,8 +163,6 @@ public enum WebDriverType {
     }
     return driver;
   }
-
-  private static final Logger LOG = LoggerFactory.getLogger(WebDriverType.class);
 
   public abstract WebDriver create(Capabilities capabilities, Properties properties);
 

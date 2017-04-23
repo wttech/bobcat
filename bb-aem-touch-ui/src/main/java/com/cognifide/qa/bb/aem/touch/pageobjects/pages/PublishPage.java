@@ -103,11 +103,11 @@ public class PublishPage {
       scope = webDriver.findElement(By.cssSelector(selector));
     } catch (IllegalAccessException e) {
       LOG.info(
-          "CSS not accessible, page object injected with default scope: {}", component.getName());
+          "CSS not accessible, page object injected with default scope: {} Exception: {}", component.getName(), e);
     } catch (NoSuchFieldException e) {
       LOG.info(
-          "CSS field not present in the page object, page object injected with default scope: {}",
-          component.getName());
+          "CSS field not present in the page object, page object injected with default scope: {} Exception: {}",
+          component.getName(), e);
     }
     return scope == null ?
         pageObjectInjector.inject(component) :

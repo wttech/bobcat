@@ -28,9 +28,9 @@ import java.util.List;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
-import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.google.inject.Inject;
 
 /**
@@ -40,7 +40,7 @@ import com.google.inject.Inject;
 public class InsertComponentDialog {
 
   @Inject
-  private Conditions conditions;
+  private BobcatWait bobcatWait;
 
   @Inject
   @CurrentScope
@@ -59,8 +59,8 @@ public class InsertComponentDialog {
    */
   public void insertComponent(String title) {
     WebElement component = getComponent(title);
-    conditions.elementReady(component).click();
-    conditions.verify(not(visibilityOf(window)));
+    bobcatWait.elementReady(component).click();
+    bobcatWait.verify(not(visibilityOf(window)));
   }
 
   /**
@@ -71,7 +71,7 @@ public class InsertComponentDialog {
    */
   public boolean isDisplayedExpectingComponents() {
     boolean result = false;
-    if (conditions.isConditionMet(visibilityOf(window))) {
+    if (bobcatWait.isConditionMet(visibilityOf(window))) {
       if (components.isEmpty()) {
         closeButton.click();
       } else {
@@ -83,9 +83,9 @@ public class InsertComponentDialog {
 
   private WebElement getComponent(String name) {
     return components.stream() //
-          .filter(element -> equalsIgnoreCase(element.getText(), name)) //
-          .findFirst() //
-          .orElseThrow(
-                  () -> new IllegalStateException("Specified component is not available: " + name));
+        .filter(element -> equalsIgnoreCase(element.getText(), name)) //
+        .findFirst() //
+        .orElseThrow(
+            () -> new IllegalStateException("Specified component is not available: " + name));
   }
 }

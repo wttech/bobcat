@@ -49,11 +49,10 @@ public class ComponentConfiguration {
    * Returns first {@link FieldConfig} with provided label
    *
    * @param tabName Tab name in the dialog window
-   * @param configurationKey key of yaml component configuration
    * @param label field label
    * @return
    */
-  public FieldConfig getFieldConfigByLabel(String tabName, String configurationKey, String label) {
+  public FieldConfig getFieldConfigByLabel(String tabName, String label) {
     return getConfigurationForTab(tabName).stream()
             .filter(t -> StringUtils.equals(t.getLabel(), label))
             .findFirst()
@@ -63,11 +62,10 @@ public class ComponentConfiguration {
   /**
    *
    * @param tabName Tab name in the dialog window
-   * @param configurationKey onfigurationKey key of yaml configuration
    * @param type field type provided in yaml component configuration
    * @return
    */
-  public List<FieldConfig> getFieldConfigsByType(String tabName, String configurationKey, String type) {
+  public List<FieldConfig> getFieldConfigsByType(String tabName, String type) {
     return getConfigurationForTab(tabName).stream()
             .filter(t -> StringUtils.equals(t.getType(), type))
             .collect(Collectors.toList());

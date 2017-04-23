@@ -31,10 +31,11 @@ import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfiguration;
 import com.cognifide.qa.bb.aem.touch.data.componentconfigs.FieldConfig;
-import com.cognifide.qa.bb.aem.touch.pageobjects.dialogfields.DialogField;
+import com.cognifide.qa.bb.aem.touch.pageobjects.AuthorLoader;
 import com.cognifide.qa.bb.aem.touch.pageobjects.DialogConfigurer;
-import com.cognifide.qa.bb.aem.touch.util.Conditions;
+import com.cognifide.qa.bb.aem.touch.pageobjects.dialogfields.DialogField;
 import com.cognifide.qa.bb.constants.HtmlTags;
+import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
@@ -50,10 +51,13 @@ public class ConfigDialog {
   private static final String CSS = "form.cq-dialog";
 
   @Inject
-  private Conditions conditions;
+  private BobcatWait bobcatWait;
 
   @Inject
   private DialogConfigurer dialogConfigurer;
+
+  @Inject
+  private AuthorLoader authorLoader;
 
   @Inject
   @CurrentScope
@@ -75,21 +79,23 @@ public class ConfigDialog {
    * Method used to verify if this element is visible.
    */
   public void verifyIsDisplayed() {
-    conditions.verifyPostAjax(visibilityOfElementLocated(By.cssSelector(CSS)));
+    authorLoader.verifyIsHidden();
+    bobcatWait.verify(visibilityOfElementLocated(By.cssSelector(CSS)));
   }
 
   /**
    * Method can be used to verify if this element is hidden.
    */
   public void verifyIsHidden() {
-    conditions.verifyPostAjax(invisibilityOfElementLocated(By.cssSelector(CSS)));
+    authorLoader.verifyIsHidden();
+    bobcatWait.verify(invisibilityOfElementLocated(By.cssSelector(CSS)));
   }
 
   /**
    * Method can be used to determine if dialog is open in fullscreen.
    */
   public void verifyFullscreen() {
-    conditions
+    bobcatWait
         .verify(webDriver -> containsIgnoreCase(dialog.getAttribute(HtmlTags.Attributes.CLASS),
             FULLSCREEN_CLASS));
   }
@@ -193,12 +199,6 @@ public class ConfigDialog {
   }
 
   private WebElement determineParentScope() {
-    WebElement parent;
-    if (tabs.isEmpty()) {
-      parent = dialog;
-    } else {
-      parent = activeTab;
-    }
-    return parent;
+    return tabs.isEmpty() ? dialog : activeTab;
   }
 }

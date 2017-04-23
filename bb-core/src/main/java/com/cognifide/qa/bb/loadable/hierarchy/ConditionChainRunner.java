@@ -25,6 +25,7 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
 
+import java.util.Deque;
 import java.util.Stack;
 
 /**
@@ -43,8 +44,8 @@ public class ConditionChainRunner {
    * @param conditionStack Stack of conditions to be evaluated
    * @throws LoadableConditionException when some condition fails
    */
-  public void chainCheck(ConditionStack conditionStack) throws LoadableConditionException {
-    Stack<LoadableComponentContext> stack = conditionStack.getLoadableContextStack();
+  public void chainCheck(ConditionStack conditionStack) {
+    Deque<LoadableComponentContext> stack = conditionStack.getLoadableContextStack();
     ConditionProgressTracker progressTracker = new ConditionProgressTracker(stack);
 
     while (!stack.isEmpty()) {
@@ -72,8 +73,7 @@ public class ConditionChainRunner {
   }
 
   private void evaluateCondition(LoadableComponentCondition componentCondition, Object subject,
-          LoadableComponentContext loadableContext, ConditionProgressTracker progressTracker) throws
-          LoadableConditionException {
+          LoadableComponentContext loadableContext, ConditionProgressTracker progressTracker) {
     boolean result = false;
     Exception exception = null;
     try {
@@ -86,8 +86,8 @@ public class ConditionChainRunner {
   }
 
   private void manageEvaluationResult(boolean result, Exception exception,
-          ConditionProgressTracker progressTracker) throws LoadableConditionException {
-    if (result == false || exception != null) {
+          ConditionProgressTracker progressTracker) {
+    if (!result || exception != null) {
       progressTracker.provideStepResult(ConditionStatus.FAIL);
       throw new LoadableConditionException(progressTracker.produceConditionTraceInfo(exception));
     } else {

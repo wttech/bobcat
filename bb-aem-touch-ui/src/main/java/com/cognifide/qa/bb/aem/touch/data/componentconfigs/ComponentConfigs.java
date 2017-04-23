@@ -22,7 +22,7 @@ package com.cognifide.qa.bb.aem.touch.data.componentconfigs;
 import java.util.Map;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.cognifide.qa.bb.aem.touch.util.YamlReader;
+import com.cognifide.qa.bb.utils.config.YamlReader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,12 +49,12 @@ public class ComponentConfigs {
 
     Map<String, ComponentConfiguration> result = new HashMap<>();
 
-    configsData.keySet().stream().forEach((configName) -> {
+    configsData.keySet().stream().forEach(configName -> {
               Map<String, List<FieldConfig>> data = configsData.get(configName);
               List<TabConfig> tabsConfig = new ArrayList<>();
-              data.entrySet().stream().forEach((entry) -> {
-                tabsConfig.add(new TabConfig(entry.getKey(), entry.getValue()));
-              });
+              data.entrySet().stream().forEach(entry ->
+                tabsConfig.add(new TabConfig(entry.getKey(), entry.getValue()))
+              );
               result.put(configName, new ComponentConfiguration(tabsConfig));
             });
 

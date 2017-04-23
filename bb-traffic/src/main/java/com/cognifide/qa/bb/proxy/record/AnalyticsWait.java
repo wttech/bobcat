@@ -64,15 +64,20 @@ public class AnalyticsWait {
    */
   public synchronized void waitForAnalyticsCall() {
     try {
-      this.wait(timeout);
+      long timeoutPoint = System.currentTimeMillis() + timeout;
+      while (System.currentTimeMillis() < timeoutPoint) {
+        this.wait();
+      }
     } catch (InterruptedException e) {
       LOG.error("Sleep was interrupted", e);
+      Thread.currentThread().interrupt();
     }
   }
 
   private class AnalyticsRequestFilter implements RequestFilter {
 
-    @Override public io.netty.handler.codec.http.HttpResponse filterRequest(HttpRequest request,
+    @Override
+    public io.netty.handler.codec.http.HttpResponse filterRequest(HttpRequest request,
         HttpMessageContents contents, HttpMessageInfo messageInfo) {
       String path = request.getUri();
       if (path.startsWith(analyticsUriPrefix)) {

@@ -19,6 +19,7 @@
  */
 package com.cognifide.qa.bb.aem.touch.pageobjects;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.attributeContains;
 import static org.openqa.selenium.support.ui.ExpectedConditions.not;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
@@ -31,16 +32,15 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import com.cognifide.qa.bb.aem.touch.pageobjects.GlobalBar;
 import com.cognifide.qa.bb.constants.HtmlTags;
+import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.dragdrop.DragAndDropFactory;
 import com.cognifide.qa.bb.dragdrop.Draggable;
+import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.scope.frame.FramePath;
 import com.cognifide.qa.bb.utils.PageObjectInjector;
-import com.cognifide.qa.bb.constants.Timeouts;
-import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.google.inject.Inject;
 
 /**
@@ -55,7 +55,7 @@ public class SidePanel {
   private DragAndDropFactory dragAndDropFactory;
 
   @Inject
-  private Conditions conditions;
+  private BobcatWait bobcatWait;
 
   @Inject
   private PageObjectInjector pageObjectInjector;
@@ -74,7 +74,7 @@ public class SidePanel {
   private List<WebElement> searchResults;
 
   /**
-   * Searches for assets for given asset name and return it as draggable.
+   * Searches for assets for given asset name and return it as draggable. Opens the Side panel if its closed.
    *
    * @param asset name.
    * @return {@link Draggable} instance of the asset.
@@ -94,13 +94,14 @@ public class SidePanel {
   }
 
   private boolean isClosed() {
-    return conditions.classContains(currentScope, IS_CLOSED);
+    return bobcatWait.verify(attributeContains(currentScope, HtmlTags.Attributes.CLASS, IS_CLOSED));
   }
 
   private void verifyResultsVisible() {
-    conditions.optionalWait(visibilityOf(resultsLoader));
-    conditions.verify(not(visibilityOf(resultsLoader)), Timeouts.MEDIUM);
-    searchResults.stream().forEach(result -> conditions.verify(ignored -> {
+    //loader appears and reappears few times, hence result below is ignored
+    bobcatWait.isConditionMet(visibilityOf(resultsLoader)); //todo test this
+    bobcatWait.verify(not(visibilityOf(resultsLoader)), Timeouts.MEDIUM);
+    searchResults.stream().forEach(result -> bobcatWait.verify(ignored -> {
       try {
         return result.isDisplayed();
       } catch (NoSuchElementException | StaleElementReferenceException e) {

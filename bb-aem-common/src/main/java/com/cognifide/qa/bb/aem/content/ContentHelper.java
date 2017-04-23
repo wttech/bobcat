@@ -17,14 +17,16 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.touch.util;
+package com.cognifide.qa.bb.aem.content;
 
 import static com.cognifide.qa.bb.jcr.JcrExpectedConditions.nodeExist;
+import static javax.jcr.Property.JCR_TITLE;
 import static org.apache.commons.lang3.StringUtils.substringAfterLast;
 import static org.apache.commons.lang3.StringUtils.substringBeforeLast;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
@@ -33,6 +35,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import com.cognifide.qa.bb.jcr.JcrHelper;
 import com.cognifide.qa.bb.provider.jcr.utils.JcrAuthorUtils;
+import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.google.inject.Inject;
 
 /**
@@ -48,14 +51,12 @@ public class ContentHelper {
 
   private static final String SEPARATOR = "/";
 
-  private static final String JCR_TITLE = "jcr:title";
-
   private final JcrHelper jcrHelper;
 
   private final Session session;
 
   @Inject
-  private Conditions conditions;
+  private BobcatWait bobcatWait;
 
   /**
    * Constructs ContentHelper and sets its {@link JcrHelper} jcrHelper and {@link Session} session fields.
@@ -69,11 +70,11 @@ public class ContentHelper {
   }
 
   /**
-   * Creates tag node under given path, verifies its existance and return its full jcr path.
+   * Creates tag node under given path, verifies its existence and return its full jcr path.
    *
    * @param tagPath tag path
-   * @return full jcr path to created tag.
-   * @throws RepositoryException when node creation fails.
+   * @return full jcr path to created tag
+   * @throws RepositoryException when node creation fails
    */
   public String createTag(String tagPath) throws RepositoryException {
     String parentPath = TAGS_ROOT + substringBeforeLast(tagPath, SEPARATOR);
@@ -85,26 +86,26 @@ public class ContentHelper {
 
     jcrHelper.createNode(parentPath, tagName, CQ_TAG, properties);
 
-    conditions.verify(nodeExist(session, fullTagPath));
+    bobcatWait.verify(nodeExist(session, fullTagPath));
     return fullTagPath;
   }
 
   /**
    * Checks if node exist under given path.
    *
-   * @param path path to node.
-   * @return true if node under given path exists.
+   * @param path path to node
+   * @return true if node under given path exists
    */
   public boolean isNodePresent(String path) {
-    return conditions.isConditionMet(nodeExist(session, path));
+    return bobcatWait.isConditionMet(nodeExist(session, path));
   }
 
   /**
    * Changes title of node under given jcr path.
    *
-   * @param path      jcr path to node.
-   * @param newTitle title that will replace old one.
-   * @throws RepositoryException if adding node property fails.
+   * @param path     jcr path to node.
+   * @param newTitle title that will replace old jcr:title
+   * @throws RepositoryException if adding node property fails
    */
   public void changeTitle(String path, String newTitle) throws RepositoryException {
     jcrHelper.addNodeProperty(path, JCR_TITLE, newTitle, 1);
@@ -113,10 +114,10 @@ public class ContentHelper {
   /**
    * Changes name of node under given path, then returns its modified path.
    *
-   * @param path    jcr path to the node.
-   * @param newName node name that will replace old one.
-   * @return jcr path with new node name.
-   * @throws RepositoryException when operation on session fails (moving session to new path or saving changes).
+   * @param path    jcr path to the node
+   * @param newName node name that will replace old one
+   * @return jcr path with new node name
+   * @throws RepositoryException when operation on session fails (moving session to new path or saving changes)
    */
   public String changeName(String path, String newName) throws RepositoryException {
     String newPath = substringBeforeLast(path, SEPARATOR) + SEPARATOR + newName;
@@ -126,9 +127,9 @@ public class ContentHelper {
   }
 
   /**
-   * @param path jcr path of node.
-   * @return title of page under given path.
-   * @throws RepositoryException if retrieving node property fails.
+   * @param path jcr path of node
+   * @return jcr:title of page under given path
+   * @throws RepositoryException if retrieving node property fails
    */
   public String getPageTitle(String path) throws RepositoryException {
     return jcrHelper.getNodeProperty(path + JCR_CONTENT, JCR_TITLE).getString();
@@ -137,14 +138,10 @@ public class ContentHelper {
   /**
    * Deletes tag node under given tag path.
    *
-   * @param tagPath path to tag.
-   * @throws RepositoryException when node removing fails.
+   * @param tagPath path to tag
+   * @throws RepositoryException when node removing fails
    */
   public void deleteTag(String tagPath) throws RepositoryException {
-    deleteNode(TAGS_ROOT + tagPath);
-  }
-
-  private void deleteNode(String path) throws RepositoryException {
-    jcrHelper.deleteNode(path, session);
+    jcrHelper.deleteNode(TAGS_ROOT + tagPath, session);
   }
 }

@@ -17,18 +17,20 @@ package com.cognifide.qa.bb.loadable.hierarchy;
 
 import com.cognifide.qa.bb.loadable.context.LoadableComponentContext;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Stack;
 
 public class ConditionStack {
 
-  private final Stack<LoadableComponentContext> stack;
+  private final Deque<LoadableComponentContext> stack;
 
   /**
    *
    * @param stack Stack with {@link LoadableComponentContext}. Hierarchy of conditions should be taken into account when
    * building this stack.
    */
-  public ConditionStack(Stack<LoadableComponentContext> stack) {
+  public ConditionStack(Deque<LoadableComponentContext> stack) {
     this.stack = stack;
   }
 
@@ -36,8 +38,7 @@ public class ConditionStack {
    *
    * @return Stack with {@link LoadableComponentContext}
    */
-  public Stack<LoadableComponentContext> getLoadableContextStack() {
-    // please note that this is not Object#clone
-    return (Stack<LoadableComponentContext>) stack.clone();
+  public Deque<LoadableComponentContext> getLoadableContextStack() {
+    return new ArrayDeque<>(stack);
   }
 }

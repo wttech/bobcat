@@ -56,11 +56,9 @@ public class TrafficLog {
     if (hars == null || hars.isEmpty()) {
       return 0;
     }
-    int itemCount = 0;
-    itemCount = hars.stream().
-            map((har) -> har.getLog().getEntries().size()).
-            reduce(itemCount, Integer::sum);
-    return itemCount;
+    return hars.stream().
+            map(har -> har.getLog().getEntries().size()).
+            reduce(0, Integer::sum);
   }
 
 }
