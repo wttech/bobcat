@@ -29,13 +29,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
-import com.cognifide.qa.bb.aem.touch.pageobjects.siteadmin.common.Loadable;
 import com.cognifide.qa.bb.aem.touch.pageobjects.siteadmin.SiteadminActions;
 import com.cognifide.qa.bb.aem.touch.pageobjects.siteadmin.common.ActivationStatus;
 import com.cognifide.qa.bb.aem.touch.pageobjects.siteadmin.common.IsLoadedCondition;
+import com.cognifide.qa.bb.aem.touch.pageobjects.siteadmin.common.Loadable;
 import com.cognifide.qa.bb.aem.touch.pageobjects.siteadmin.common.PageActivationStatus;
 import com.cognifide.qa.bb.aem.touch.pageobjects.siteadmin.common.SiteadminLayout;
-import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.cognifide.qa.bb.constants.AemConfigKeys;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
@@ -58,7 +57,7 @@ public class SiteadminPage implements SiteadminActions, Loadable {
   private String url;
 
   @Inject
-  private Conditions conditions;
+  private BobcatWait bobcatWait;
 
   @Inject
   private WebDriver driver;
@@ -226,16 +225,12 @@ public class SiteadminPage implements SiteadminActions, Loadable {
 
   @Override
   public SiteadminActions waitForPageCount(int pageCount) {
-    boolean conditionNotMet = !webElementUtils.isConditionMet(new ExpectedCondition<Object>() {
-      @Nullable
-      @Override
-      public Object apply(@Nullable WebDriver webDriver) {
-        try {
-          return (pageCount == getChildPageWindow().getPageCount());
-        } catch (StaleElementReferenceException e) {
-          webDriver.navigate().refresh();
-          return false;
-        }
+    boolean conditionNotMet = !webElementUtils.isConditionMet(webDriver -> {
+      try {
+        return (pageCount == getChildPageWindow().getPageCount());
+      } catch (StaleElementReferenceException e) {
+        webDriver.navigate().refresh();
+        return false;
       }
     }, Timeouts.SMALL);
     if (conditionNotMet) {
@@ -245,16 +240,12 @@ public class SiteadminPage implements SiteadminActions, Loadable {
   }
 
   private void waitForExpectedStatus(final String title, ActivationStatus status) {
-    wait.withTimeout(Timeouts.MEDIUM).until(new ExpectedCondition<Boolean>() {
-      @Nullable
-      @Override
-      public Boolean apply(@Nullable WebDriver webDriver) {
-        webDriver.navigate().refresh();
-        ChildPageRow childPageRow = getChildPageWindow().getChildPageRow(title);
-        PageActivationStatus pageActivationStatusCell = childPageRow.getPageActivationStatus();
-        ActivationStatus activationStatus = pageActivationStatusCell.getActivationStatus();
-        return activationStatus.equals(status);
-      }
+    wait.withTimeout(Timeouts.MEDIUM).until(webDriver -> {
+      webDriver.navigate().refresh();
+      ChildPageRow childPageRow = getChildPageWindow().getChildPageRow(title);
+      PageActivationStatus pageActivationStatusCell = childPageRow.getPageActivationStatus();
+      ActivationStatus activationStatus = pageActivationStatusCell.getActivationStatus();
+      return activationStatus.equals(status);
     }, Timeouts.MINIMAL);
   }
 
@@ -264,7 +255,7 @@ public class SiteadminPage implements SiteadminActions, Loadable {
   }
 
   private void retryLoad() {
-    conditions.verify(new ExpectedCondition<Object>() {
+    bobcatWait.verify(new ExpectedCondition<Object>() {
       @Nullable
       @Override
       public Object apply(WebDriver driver) {
@@ -275,7 +266,7 @@ public class SiteadminPage implements SiteadminActions, Loadable {
   }
 
   private boolean isLoadedCondition() {
-    return conditions.isConditionMet(ignored -> childPageWindow.isLoaded());
+    return bobcatWait.isConditionMet(ignored -> childPageWindow.isLoaded());
   }
 
   private void navigateInteractively(String destination) {
@@ -289,7 +280,7 @@ public class SiteadminPage implements SiteadminActions, Loadable {
       }
       wait.withTimeout(Timeouts.SMALL).until((ExpectedCondition<Object>) input ->
           ((JavascriptExecutor) driver).executeScript("return $.active").toString().equals("0")
-          );
+      );
       navigateInteractively(destination);
     }
   }
@@ -303,7 +294,7 @@ public class SiteadminPage implements SiteadminActions, Loadable {
                 getChildPageWindow().getChildPageRows().stream()
                     .collect(Collectors.toMap(Function.identity(),
                         childPageRow -> StringUtils.difference(currentUrl, childPageRow.getHref())
-                        ))
+                    ))
                     .entrySet()
                     .stream()
                     .min(Comparator.comparingInt(a -> a.getValue().length()))
@@ -318,7 +309,7 @@ public class SiteadminPage implements SiteadminActions, Loadable {
             .filter(path -> !currentUrl.equals(path))
             .collect(Collectors.toMap(
                 Function.identity(), path -> StringUtils.difference(path, destination)
-                ))
+            ))
             .entrySet()
             .stream()
             .min(Comparator.comparingInt(a -> a.getValue().length()))

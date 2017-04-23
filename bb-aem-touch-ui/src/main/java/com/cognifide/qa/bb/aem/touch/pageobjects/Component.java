@@ -31,11 +31,11 @@ import com.cognifide.qa.bb.aem.touch.data.componentconfigs.ComponentConfiguratio
 import com.cognifide.qa.bb.aem.touch.pageobjects.dialogs.ConfigDialog;
 import com.cognifide.qa.bb.aem.touch.pageobjects.dialogs.DeleteDialog;
 import com.cognifide.qa.bb.constants.HtmlTags;
+import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
-import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.google.inject.Inject;
 
 /**
@@ -45,7 +45,7 @@ import com.google.inject.Inject;
 public class Component {
 
   @Inject
-  private Conditions conditions;
+  private BobcatWait bobcatWait;
 
   @CurrentScope
   @Inject
@@ -63,12 +63,15 @@ public class Component {
   @FindPageObject
   private DeleteDialog deleteDialog;
 
+  @Inject
+  private AuthorLoader authorLoader;
+
   /**
    * @return data path of the component.
    */
   public String getDataPath() {
-    String rawValue = conditions.staleSafe(currentScope, checked -> checked.getAttribute(
-        HtmlTags.Attributes.DATA_PATH));
+    String rawValue =
+        bobcatWait.staleSafe(currentScope, checked -> checked.getAttribute(HtmlTags.Attributes.DATA_PATH));
     return StringUtils.substringAfter(rawValue, JCR_CONTENT);
   }
 
@@ -119,14 +122,16 @@ public class Component {
    * Method makes ajax post call to ensure if component is displayed.
    */
   public void verifyIsDisplayed() {
-    conditions.verifyPostAjax(visibilityOf(currentScope));
+    authorLoader.verifyIsHidden();
+    bobcatWait.verify(visibilityOf(currentScope));
   }
 
   /**
    * Method makes ajax post call to ensure if component is hidden.
    */
   public void verifyIsHidden() {
-    conditions.verifyPostAjax(webDriver -> {
+    authorLoader.verifyIsHidden();
+    bobcatWait.verify(webDriver -> {
       try {
         return !currentScope.isDisplayed();
       } catch (NoSuchElementException | StaleElementReferenceException e) {

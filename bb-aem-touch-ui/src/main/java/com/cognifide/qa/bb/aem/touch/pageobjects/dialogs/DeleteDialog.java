@@ -26,8 +26,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.cognifide.qa.bb.aem.touch.pageobjects.AuthorLoader;
+import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.PageObject;
-import com.cognifide.qa.bb.aem.touch.util.Conditions;
 import com.google.inject.Inject;
 
 /**
@@ -39,7 +40,10 @@ public class DeleteDialog {
   private static final String CSS = "[class='coral-Modal']";
 
   @Inject
-  private Conditions conditions;
+  private BobcatWait bobcatWait;
+
+  @Inject
+  private AuthorLoader authorLoader;
 
   @FindBy(css = "button.cq-deleteconfirm")
   private WebElement deleteButton;
@@ -49,9 +53,11 @@ public class DeleteDialog {
    * anymore.
    */
   public void confirmDelete() {
-    By dialogLocator = By.cssSelector(CSS);
-    conditions.verifyPostAjax(visibilityOfElementLocated(dialogLocator));
+    By dialogLocator = By.cssSelector(CSS); //todo remove this, use CurrentScope
+    authorLoader.verifyIsHidden();
+    bobcatWait.verify(visibilityOfElementLocated(dialogLocator));
     deleteButton.click();
-    conditions.verifyPostAjax(invisibilityOfElementLocated(dialogLocator));
+    authorLoader.verifyIsHidden();
+    bobcatWait.verify(invisibilityOfElementLocated(dialogLocator));
   }
 }

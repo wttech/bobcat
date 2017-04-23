@@ -25,6 +25,7 @@ import static org.apache.commons.lang3.StringUtils.substringBeforeLast;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
@@ -33,6 +34,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import com.cognifide.qa.bb.jcr.JcrHelper;
 import com.cognifide.qa.bb.provider.jcr.utils.JcrAuthorUtils;
+import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.google.inject.Inject;
 
 /**
@@ -55,7 +57,7 @@ public class ContentHelper {
   private final Session session;
 
   @Inject
-  private Conditions conditions;
+  private BobcatWait bobcatWait;
 
   /**
    * Constructs ContentHelper and sets its {@link JcrHelper} jcrHelper and {@link Session} session fields.
@@ -69,7 +71,7 @@ public class ContentHelper {
   }
 
   /**
-   * Creates tag node under given path, verifies its existance and return its full jcr path.
+   * Creates tag node under given path, verifies its existence and return its full jcr path.
    *
    * @param tagPath tag path
    * @return full jcr path to created tag.
@@ -85,7 +87,7 @@ public class ContentHelper {
 
     jcrHelper.createNode(parentPath, tagName, CQ_TAG, properties);
 
-    conditions.verify(nodeExist(session, fullTagPath));
+    bobcatWait.verify(nodeExist(session, fullTagPath));
     return fullTagPath;
   }
 
@@ -96,13 +98,13 @@ public class ContentHelper {
    * @return true if node under given path exists.
    */
   public boolean isNodePresent(String path) {
-    return conditions.isConditionMet(nodeExist(session, path));
+    return bobcatWait.isConditionMet(nodeExist(session, path));
   }
 
   /**
    * Changes title of node under given jcr path.
    *
-   * @param path      jcr path to node.
+   * @param path     jcr path to node.
    * @param newTitle title that will replace old one.
    * @throws RepositoryException if adding node property fails.
    */

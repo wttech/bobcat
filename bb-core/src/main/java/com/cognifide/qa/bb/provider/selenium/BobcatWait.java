@@ -170,4 +170,20 @@ public class BobcatWait {
       }
     }, Timeouts.MEDIUM);
   }
+
+  /**
+   * Checks if a WebElement is ready to be operated on, i.e. is visible and not stale and returns that element
+   *
+   * @param element WebElement to be checked
+   * @return checked element
+   */
+  public WebElement elementReady(WebElement element) {
+    return verify(ignored -> {
+      try {
+        return element.isDisplayed() ? element : null;
+      } catch (StaleElementReferenceException e) {
+        return null;
+      }
+    }, Timeouts.MEDIUM);
+  }
 }
