@@ -111,7 +111,7 @@ public class DraggableWebElement implements Draggable {
     int movementDirection = Integer.signum(movement);
     while (movementRemains > 0) {
       int movementStep = movementRemains >= MOVEMENT_STEP ? MOVEMENT_STEP : 1;
-      if (orientantion.equals(Orientantion.VERTICAL)) {
+      if (orientantion == Orientantion.VERTICAL) {
         builder.moveByOffset(0, movementDirection * movementStep);
       } else {
         builder.moveByOffset(movementDirection * movementStep, 0);

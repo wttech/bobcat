@@ -35,7 +35,7 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 /**
  * Helper class with methods for managing annotations.
  */
-public class AnnotationsHelper {
+public final class AnnotationsHelper {
 
   private static final Class<?>[] FIND_ANNOTATIONS =
       new Class<?>[] {FindAll.class, FindBy.class, FindBys.class};
@@ -46,7 +46,7 @@ public class AnnotationsHelper {
 
   /**
    * Checks if field contains {@link FindPageObject} annotation
-   * 
+   *
    * @param field field to check
    * @return if annotation is present
    */
@@ -56,7 +56,7 @@ public class AnnotationsHelper {
 
   /**
    * Checks if field contains one of {@link FindAll} {@link FindBy} {@link FindBys} annotation
-   * 
+   *
    * @param field field to check
    * @return if one pf annotations is present
    */
@@ -71,7 +71,7 @@ public class AnnotationsHelper {
 
   /**
    * Checks if field contains {@link Global} annotation
-   * 
+   *
    * @param field field to check
    * @return if annotation is present
    */

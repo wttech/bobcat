@@ -218,9 +218,9 @@ public class Parsys {
   private void tryToOpenInsertWindow() {
     bobcatWait.verify(ignored -> {
       try {
-        boolean isInsertButtonPresent = driver
+        boolean isInsertButtonPresent = !driver
             .findElements(By.cssSelector(INSERT_BUTTON_SELECTOR))
-            .size() > 0;
+            .isEmpty();
         if (!isInsertButtonPresent) {
           // AEM 6.1
           actions.doubleClick(dropArea).perform();

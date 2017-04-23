@@ -50,7 +50,7 @@ public class NamedFrame implements FrameDescriptor {
 
   @Override
   public void switchTo(WebDriver webDriver, BobcatWait bobcatWait) {
-    LOG.debug("Switching to " + name);
+    LOG.debug("Switching to {}", name);
     bobcatWait.withTimeout(Timeouts.SMALL)
         .until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(name));
   }

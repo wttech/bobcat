@@ -23,7 +23,6 @@ import java.util.List;
 
 import com.cognifide.qa.bb.qualifier.FindPageObject;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.qualifier.Frame;
 import com.cognifide.qa.bb.qualifier.PageObject;

@@ -55,7 +55,7 @@ public class PageActivationStatusImpl implements PageActivationStatus {
     if (displayed) {
       return ActivationStatus.SCHEDULED;
     }
-    if (currentScope.getAttribute("value").equals("0")) {
+    if ("0".equals(currentScope.getAttribute("value"))) {
       return ActivationStatus.NOT_PUBLISHED;
     }
     return ActivationStatus.PUBLISHED;

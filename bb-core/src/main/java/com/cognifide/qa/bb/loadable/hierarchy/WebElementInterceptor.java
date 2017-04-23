@@ -24,6 +24,7 @@ import com.cognifide.qa.bb.webelement.BobcatWebElement;
 import com.google.inject.Inject;
 
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.aopalliance.intercept.MethodInterceptor;
@@ -67,7 +68,7 @@ public class WebElementInterceptor implements MethodInterceptor {
       ClassFieldContext directContext = acquireDirectContext(caller);
       ConditionStack loadableContextHierarchy
         = loadableCondsExplorer.
-        discoverLoadableContextHierarchy(directContext, pageObjectInvocationTracker.
+        discoverLoadableContextHierarchy(directContext, (LinkedList<Object>) pageObjectInvocationTracker.
           getSubjectStack());
 
       loadConditionChainRunner.chainCheck(loadableContextHierarchy);

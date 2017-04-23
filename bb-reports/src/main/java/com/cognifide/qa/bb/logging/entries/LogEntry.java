@@ -25,7 +25,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Base class for all types of log entries.
  */
-public abstract class LogEntry {
+public class LogEntry {
 
   private static final AtomicInteger ENTRY_INDEX = new AtomicInteger();
 
@@ -38,7 +38,7 @@ public abstract class LogEntry {
   /**
    * Constructs the LogEntry and sets its timestamp to NOW.
    */
-  public LogEntry() {
+  protected LogEntry() {
     index = ENTRY_INDEX.getAndIncrement();
     time = System.currentTimeMillis();
   }

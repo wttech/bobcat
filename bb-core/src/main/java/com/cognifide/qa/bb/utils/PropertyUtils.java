@@ -34,18 +34,17 @@ import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.PropertyBinder;
 import com.cognifide.qa.bb.constants.ConfigKeys;
-import com.cognifide.qa.bb.constants.Timeouts;
 
 /**
  * This class contains utility methods for loading properties from classpath and system.
  */
-public class PropertyUtils {
+public final class PropertyUtils {
 
   private static final Logger LOG = LoggerFactory.getLogger(PropertyUtils.class);
 
   private static final String[] PREFIXES = new String[] {"webdriver.", "phantomjs."};
 
-  private static Properties properties = null;
+  private static volatile Properties properties = null;
 
   private PropertyUtils() {
     // util class...
@@ -69,20 +68,11 @@ public class PropertyUtils {
         }
         overrideFromSystemProperties(properties);
         setSystemProperties(properties);
-        overrideTimeouts(properties);
       } catch (IOException e) {
         LOG.error("Can't bind properties", e);
       }
     }
     return properties;
-  }
-
-  private static void overrideTimeouts(Properties properties) {
-    int big = Integer.parseInt(properties.getProperty(ConfigKeys.TIMEOUTS_BIG));
-    int medium = Integer.parseInt(properties.getProperty(ConfigKeys.TIMEOUTS_MEDIUM));
-    int small = Integer.parseInt(properties.getProperty(ConfigKeys.TIMEOUTS_SMALL));
-    int minimal = Integer.parseInt(properties.getProperty(ConfigKeys.TIMEOUTS_MINIMAL));
-    new Timeouts(big, medium, small, minimal);
   }
 
   private static Properties loadDefaultProperties() throws IOException {
@@ -119,7 +109,7 @@ public class PropertyUtils {
   }
 
   private static void overrideFromSystemProperties(Properties properties) {
-    properties.stringPropertyNames().stream().forEach((key) -> {
+    properties.stringPropertyNames().stream().forEach(key -> {
       String systemProperty = System.getProperty(key);
       if (StringUtils.isNotBlank(systemProperty)) {
         properties.setProperty(key, systemProperty);

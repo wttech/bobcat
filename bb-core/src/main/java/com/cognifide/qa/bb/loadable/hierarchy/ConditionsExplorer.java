@@ -1,17 +1,15 @@
 /*
  * Copyright 2016 Cognifide Ltd..
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  */
 package com.cognifide.qa.bb.loadable.hierarchy;
 
@@ -24,8 +22,10 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 import java.lang.reflect.Field;
+import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -42,10 +42,8 @@ import com.cognifide.qa.bb.utils.AopUtil;
 
 /**
  * This runs after a test class is initialized and explores the hierarchy of {@link PageObject}
- * elements which
- * is needed to control hierarchical evaluation of {@link PageObject} and {@link WebElement}
- * fields annotated
- * with {@link LoadableComponent} annotation.
+ * elements which is needed to control hierarchical evaluation of {@link PageObject} and
+ * {@link WebElement} fields annotated with {@link LoadableComponent} annotation.
  */
 @Singleton
 public class ConditionsExplorer {
@@ -55,29 +53,31 @@ public class ConditionsExplorer {
   private final ConditionHierarchyNode treeRootNode = new ConditionHierarchyNode(null);
 
   /**
-   * Discovers the hierarchy of Loadable Conditions form provided class up to the root class
-   * which is usually
-   * the test class which have run the test.
+   * Discovers the hierarchy of Loadable Conditions form provided class up to the root class which
+   * is usually the test class which have run the test.
    *
    * @param directClassFieldContext context of the class field that have called the
-   *                                {@link WebElement} method.
-   * @param subjectStack            stack of subjects which taken part in invocation of
-   *                                WebElement's method
-   * @return Stack of hierarchical conditions from {@link LoadableComponent} annotated fields
-   * from the test
-   * class down to the "clazz" parameter with "directClassFieldContext" from that class.
+   *        {@link WebElement} method.
+   * @param subjectStack stack of subjects which taken part in invocation of WebElement's method
+   * @return Stack of hierarchical conditions from {@link LoadableComponent} annotated fields from
+   *         the test class down to the "clazz" parameter with "directClassFieldContext" from that
+   *         class.
    */
   public ConditionStack discoverLoadableContextHierarchy(ClassFieldContext directClassFieldContext,
       LinkedList<Object> subjectStack) {
-    Stack<LoadableComponentContext> stack = new Stack<>();
+    Deque<LoadableComponentContext> stack = new ArrayDeque<>();
     if (directClassFieldContext != null) {
-      directClassFieldContext.toLoadableContextList().forEach(stack::add);
+      directClassFieldContext.toLoadableContextList().forEach(stack::addFirst);
     }
     while (!subjectStack.isEmpty()) {
 
       ConditionHierarchyNode node = findNode(treeRootNode, subjectStack.pollLast());
       if (node != null) {
-        stack.addAll(node.getLoadableFieldContext().toLoadableContextList());
+        for (LoadableComponentContext loadableComponentContext : node.getLoadableFieldContext()
+            .toLoadableContextList()) {
+          stack.addFirst(loadableComponentContext);
+        }
+
       }
     }
 
@@ -104,7 +104,7 @@ public class ConditionsExplorer {
         .filter(f -> f.getType().isAnnotationPresent(PageObject.class))
         .collect(Collectors.toList());
 
-    applicableFields.forEach((field) -> {
+    applicableFields.forEach(field -> {
       field.setAccessible(true);
       Object subjectInstance = null;
       try {
@@ -113,14 +113,15 @@ public class ConditionsExplorer {
         LOG.error(ex.getMessage(), ex);
       }
       ConditionHierarchyNode node = addChild(parent, new ClassFieldContext(subjectInstance,
-              LoadableComponentsUtil.getConditionsFormField(field)));
+          LoadableComponentsUtil.getConditionsFormField(field)));
 
       String className = node.getLoadableFieldContext().getSubjectClass().getCanonicalName();
-      if(node.equals(findFirstOccurrence(node))) {
-        LOG.debug("Building loadable components hierarchy tree for " + className);
+      if (node.equals(findFirstOccurrence(node))) {
+        LOG.debug("Building loadable components hierarchy tree for {}", className);
         processLoadableContextForClass(field.getType(), node, subjectInstance);
       } else {
-        LOG.debug("Loadable components hierarchy tree for " + className + " has already been built, skipping.");
+        LOG.debug("Loadable components hierarchy tree for {} has already been built, skipping.",
+            className);
       }
     });
   }
@@ -152,10 +153,10 @@ public class ConditionsExplorer {
       return treeRootNode;
     } else {
       return treeRootNode.getChildren().stream() //
-              .map(temp -> findNode(temp, node.getLoadableFieldContext().getSubject())) //
-              .filter(Objects::nonNull) //
-              .findFirst() //
-              .orElse(null);
+          .map(temp -> findNode(temp, node.getLoadableFieldContext().getSubject())) //
+          .filter(Objects::nonNull) //
+          .findFirst() //
+          .orElse(null);
     }
   }
 }

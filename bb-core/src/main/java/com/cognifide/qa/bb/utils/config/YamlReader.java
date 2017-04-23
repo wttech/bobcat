@@ -59,8 +59,8 @@ public final class YamlReader {
       File file = Paths.get(uri).toFile();
       return mapper.readValue(file, typeReference);
     } catch (IOException | URISyntaxException e) {
-      LOG.error("Could not read YAML file: {}", path);
-      throw new IllegalStateException("YAML file could not be read", e);
+      LOG.error("Could not read YAML file: {} {}", path, e);
+      throw new IllegalStateException("YAML file could not be read");
     }
   }
 }

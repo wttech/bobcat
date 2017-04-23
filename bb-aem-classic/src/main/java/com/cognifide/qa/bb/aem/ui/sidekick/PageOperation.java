@@ -54,7 +54,7 @@ public enum PageOperation {
 
   private final SidekickSection section;
 
-  private PageOperation(final SidekickTab tab, final SidekickSection section,
+  PageOperation(final SidekickTab tab, final SidekickSection section,
       final String operationName) {
     this.tab = tab;
     this.section = section;

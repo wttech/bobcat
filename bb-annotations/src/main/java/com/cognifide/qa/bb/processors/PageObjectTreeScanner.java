@@ -108,8 +108,8 @@ class PageObjectTreeScanner extends TreePathScanner<Object, CompilationUnitTree>
   private boolean containsField(JCTree.JCClassDecl classDef, Name name) {
     return classDef.defs.stream()
             .filter(t -> t instanceof JCVariableDecl)
-            .map((elem) -> (JCVariableDecl) elem)
-            .anyMatch((var) -> (var.getName().equals(name)));
+            .map(elem -> (JCVariableDecl) elem)
+            .anyMatch(var -> var.getName().equals(name));
   }
 
 }

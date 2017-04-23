@@ -15,7 +15,11 @@
  */
 package com.cognifide.qa.bb.utils;
 
-public class AopUtil {
+public final class AopUtil {
+
+  private AopUtil() {
+    //util class
+  }
 
   /**
    * @param object object
