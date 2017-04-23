@@ -73,7 +73,11 @@ public class ContentInstaller {
   public void activateAemPackage(String packageName) throws IOException {
     HttpPost upload = builder.createUploadRequest();
     MultipartEntityBuilder entityBuilder = MultipartEntityBuilder.create();
-    entityBuilder.addBinaryBody("package", new File(CONTENT_PATH, packageName),
+    File file = new File(CONTENT_PATH, packageName);
+    if(!file.exists()) {
+      throw new IllegalArgumentException("The provided package doesn't exist: " + file.getPath());
+    }
+    entityBuilder.addBinaryBody("package", file,
         ContentType.DEFAULT_BINARY, packageName);
     entityBuilder.addTextBody("force", "true");
     upload.setEntity(entityBuilder.build());

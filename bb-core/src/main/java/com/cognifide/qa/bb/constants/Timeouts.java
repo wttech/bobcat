@@ -21,29 +21,16 @@ package com.cognifide.qa.bb.constants;
 
 public final class Timeouts {
 
-  public static int BIG = 30;
+  public static final int BIG = 30;
 
-  public static int MEDIUM = 15;
+  public static final int MEDIUM = 15;
 
-  public static int SMALL = 5;
+  public static final int SMALL = 5;
 
-  public static int MINIMAL = 1;
-
-  private static Timeouts instance;
+  public static final int MINIMAL = 1;
 
   private Timeouts() {
-  }
-
-  public Timeouts(int big, int medium, int small, int minimal) {
-    synchronized (this) {
-      if (instance == null) {
-        BIG = big;
-        SMALL = small;
-        MEDIUM = medium;
-        MINIMAL = minimal;
-        instance = this;
-      }
-    }
+    //class with constants
   }
 
 }

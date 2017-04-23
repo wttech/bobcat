@@ -84,9 +84,9 @@ public class WcmCommandHandler {
    */
   public void activatePage(String assetPath) throws IOException {
     triggerAction(Maps.newHashMap(new ImmutableMap.Builder<String, String>()
-            .put(PATH_PROPERTY, assetPath)
-            .put(CMD_PROPERTY, ACTIVATE)
-            .put(CHARSET_PROPERTY, UTF_8).build()), REPLICATE_URL,
+        .put(PATH_PROPERTY, assetPath)
+        .put(CMD_PROPERTY, ACTIVATE)
+        .put(CHARSET_PROPERTY, UTF_8).build()), REPLICATE_URL,
         REPLICATION_STARTED_MESSAGE + assetPath);
   }
 
@@ -98,9 +98,9 @@ public class WcmCommandHandler {
    */
   public void deactivatePage(String assetPath) throws IOException {
     triggerAction(Maps.newHashMap(new ImmutableMap.Builder<String, String>()
-            .put(PATH_PROPERTY, assetPath)
-            .put(CMD_PROPERTY, DEACTIVATE)
-            .put(CHARSET_PROPERTY, UTF_8).build()), REPLICATE_URL,
+        .put(PATH_PROPERTY, assetPath)
+        .put(CMD_PROPERTY, DEACTIVATE)
+        .put(CHARSET_PROPERTY, UTF_8).build()), REPLICATE_URL,
         REPLICATION_STARTED_MESSAGE + assetPath);
   }
 
@@ -129,9 +129,9 @@ public class WcmCommandHandler {
    */
   public void deletePage(String path) throws IOException {
     triggerAction(Maps.newHashMap(new ImmutableMap.Builder<String, String>()
-            .put(CMD_PROPERTY, DELETE_PAGE_COMMAND)
-            .put(CHARSET_PROPERTY, UTF_8)
-            .put(PATH_PROPERTY, path.toLowerCase()).build()), WCM_COMMAND_URL,
+        .put(CMD_PROPERTY, DELETE_PAGE_COMMAND)
+        .put(CHARSET_PROPERTY, UTF_8)
+        .put(PATH_PROPERTY, path.toLowerCase()).build()), WCM_COMMAND_URL,
         String.format(PAGE_DELETED_SUCCESS_MESSAGE_FORMAT, path.toLowerCase()));
   }
 
@@ -140,7 +140,7 @@ public class WcmCommandHandler {
    *
    * @param postProperties properties map to send
    * @param successMessage expected success message
-   * @param  commandUrl command
+   * @param commandUrl command
    * @throws IOException if response doesn't contain desired message
    */
   public void triggerAction(Map<String, String> postProperties, String commandUrl,
@@ -149,9 +149,9 @@ public class WcmCommandHandler {
     HttpPost request = new HttpPost(String.format(commandUrl, authorIp));
     List<BasicNameValuePair> params = new ArrayList<>();
     postProperties.entrySet().stream().
-            forEach((property) -> {
-              params.add(new BasicNameValuePair(property.getKey(), property.getValue()));
-    });
+            forEach(property ->
+              params.add(new BasicNameValuePair(property.getKey(), property.getValue()))
+            );
     request.setEntity(new UrlEncodedFormEntity(params, Consts.UTF_8));
     sender.sendCrxRequest(request, successMessage);
   }

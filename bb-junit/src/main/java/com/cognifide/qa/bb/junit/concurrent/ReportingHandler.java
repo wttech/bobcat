@@ -111,6 +111,7 @@ public class ReportingHandler implements Runnable {
         TimeUnit.MILLISECONDS.sleep(DEFAULT_SLEEP_TIME);
       } catch (InterruptedException e) {
         LOG.error("Sleep was interrupted", e);
+        Thread.currentThread().interrupt();
       }
     }
   }
@@ -132,9 +133,9 @@ public class ReportingHandler implements Runnable {
 
   private void report() {
     injector.findBindingsByType(ACTIVE_REPORTERS).stream()
-        .map(binding -> binding.getProvider())
+        .map(Binding::getProvider)
         .flatMap(provider -> provider.get().stream())
-        .forEach(reporter -> reporter.generateReport());
+        .forEach(Reporter::generateReport);
 
     logReportProviders(injector);
   }

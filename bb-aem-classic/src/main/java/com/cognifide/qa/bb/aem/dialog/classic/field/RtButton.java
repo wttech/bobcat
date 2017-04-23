@@ -42,7 +42,7 @@ public enum RtButton {
 
   private final String css;
 
-  private RtButton(String css) {
+  RtButton(String css) {
     this.css = css;
   }
 

@@ -47,9 +47,9 @@ class FeatureMap {
   }
 
   void writeFeatures(PrintWriter out) {
-    for (String feature : addedFeatures.keySet()) {
+    for (Map.Entry<String, Set<String>> feature : addedFeatures.entrySet()) {
       out.print(feature);
-      Set<String> lines = addedFeatures.get(feature);
+      Set<String> lines = feature.getValue();
       for (String line : lines) {
         out.print(COLON + line);
       }

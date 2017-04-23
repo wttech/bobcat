@@ -68,14 +68,6 @@ public final class ConfigKeys {
 
   public static final String JUNIT_RERUNS = "junit.reruns";
 
-  public static final String TIMEOUTS_BIG = "timeouts.big";
-
-  public static final String TIMEOUTS_MEDIUM = "timeouts.medium";
-
-  public static final String TIMEOUTS_SMALL = "timeouts.small";
-
-  public static final String TIMEOUTS_MINIMAL = "timeouts.minimal";
-
   private ConfigKeys() {
   }
 

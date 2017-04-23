@@ -160,6 +160,6 @@ public interface SiteadminActions {
    * @param title
    * @return
    */
-  public SiteadminChildPage getPageFromList(String title);
+  SiteadminChildPage getPageFromList(String title);
 
 }

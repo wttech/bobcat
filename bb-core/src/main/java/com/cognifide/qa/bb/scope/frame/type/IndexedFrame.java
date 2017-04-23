@@ -48,7 +48,7 @@ public class IndexedFrame implements FrameDescriptor {
 
   @Override
   public void switchTo(WebDriver webDriver, BobcatWait bobcatWait) {
-    LOG.debug("Switching to " + index);
+    LOG.debug("Switching to {}", index);
     webDriver.switchTo().frame(index);
   }
 

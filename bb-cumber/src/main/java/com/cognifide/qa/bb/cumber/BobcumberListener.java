@@ -20,9 +20,11 @@
 package com.cognifide.qa.bb.cumber;
 
 import java.io.BufferedWriter;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.lang3.CharEncoding;
@@ -61,7 +63,8 @@ class BobcumberListener extends RunListener {
 
   @Override
   public void testRunFinished(Result result) throws Exception {
-    try (PrintWriter writer = new PrintWriter(bobcumber.getStatisticsFile(), CharEncoding.UTF_8)) {
+    try (PrintWriter writer =
+        new PrintWriter(bobcumber.getStatisticsFile(), StandardCharsets.UTF_8.name())) {
       writer.println(scenarioCounter.get());
       writer.println(testFailureCounter.get());
     }
@@ -89,12 +92,14 @@ class BobcumberListener extends RunListener {
   }
 
   private String normalizeTrace(String trace) {
-    return trace.substring(trace.lastIndexOf("(") + 1, trace.lastIndexOf(")"));
+    return trace.substring(trace.lastIndexOf('(') + 1, trace.lastIndexOf(')'));
   }
 
   private synchronized void addScenario(String failedScenario) throws IOException {
-    try (PrintWriter out = new PrintWriter(
-        new BufferedWriter(new FileWriter(bobcumber.getFeatureFile(), false)))) {
+    try (PrintWriter out =
+        new PrintWriter(
+            new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
+                bobcumber.getFeatureFile(), false), StandardCharsets.UTF_8)))) {
       featureMap.addFeature(failedScenario);
       featureMap.writeFeatures(out);
     }

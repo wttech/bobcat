@@ -22,7 +22,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoadableComponentsUtil {
+public final class LoadableComponentsUtil {
 
   private LoadableComponentsUtil() {
     // util class

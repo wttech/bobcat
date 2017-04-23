@@ -29,11 +29,15 @@ import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.aem.touch.pageobjects.touchui.AuthorLoader;
 import com.google.inject.Inject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class contains conditions for web components.
  */
 public class Conditions {
+
+  private static final Logger LOG = LoggerFactory.getLogger(Conditions.class);
 
   @Inject
   private BobcatWait bobcatWait;
@@ -121,6 +125,7 @@ public class Conditions {
     try {
       return bobcatWait.withTimeout(Timeouts.SMALL).until(condition);
     } catch (TimeoutException ignored) {
+      LOG.warn("Condition failed, returing null: {}", ignored);
       return null;
     }
   }
@@ -137,6 +142,7 @@ public class Conditions {
       try {
         return element.isDisplayed() ? element : null;
       } catch (StaleElementReferenceException e) {
+        LOG.warn("Condition failed, returning null: {}", e);
         return null;
       }
     });
@@ -155,6 +161,7 @@ public class Conditions {
       try {
         return elementCallable.call(element);
       } catch (StaleElementReferenceException e) {
+        LOG.warn("Condition failed, returing null: {}", e);
         return null;
       }
     }, Timeouts.MEDIUM);
