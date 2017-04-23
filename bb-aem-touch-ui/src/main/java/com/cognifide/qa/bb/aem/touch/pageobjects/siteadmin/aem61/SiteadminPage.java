@@ -114,8 +114,8 @@ public class SiteadminPage implements Loadable, SiteadminActions {
   }
 
   @Override
-  public SiteadminActions waitForPageCount(int pageCount) { //todo fefactor this to simply throw TimeoutException
-    boolean conditionNotMet = !webElementUtils.isConditionMet(wd -> {
+  public SiteadminActions waitForPageCount(int pageCount) {
+    bobcatWait.verify(wd -> {
       try {
         return (pageCount == getChildPageWindow().getPageCount());
       } catch (StaleElementReferenceException e) {
@@ -123,9 +123,6 @@ public class SiteadminPage implements Loadable, SiteadminActions {
         return false;
       }
     }, Timeouts.SMALL);
-    if (conditionNotMet) {
-      throw new IllegalStateException("Timeout when waiting for page count: " + pageCount);
-    }
     return this;
   }
 
