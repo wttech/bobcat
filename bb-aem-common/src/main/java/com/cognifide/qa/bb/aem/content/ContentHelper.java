@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.touch.util;
+package com.cognifide.qa.bb.aem.content;
 
 import static com.cognifide.qa.bb.jcr.JcrExpectedConditions.nodeExist;
 import static javax.jcr.Property.JCR_TITLE;
@@ -73,8 +73,8 @@ public class ContentHelper {
    * Creates tag node under given path, verifies its existence and return its full jcr path.
    *
    * @param tagPath tag path
-   * @return full jcr path to created tag.
-   * @throws RepositoryException when node creation fails.
+   * @return full jcr path to created tag
+   * @throws RepositoryException when node creation fails
    */
   public String createTag(String tagPath) throws RepositoryException {
     String parentPath = TAGS_ROOT + substringBeforeLast(tagPath, SEPARATOR);
@@ -93,8 +93,8 @@ public class ContentHelper {
   /**
    * Checks if node exist under given path.
    *
-   * @param path path to node.
-   * @return true if node under given path exists.
+   * @param path path to node
+   * @return true if node under given path exists
    */
   public boolean isNodePresent(String path) {
     return bobcatWait.isConditionMet(nodeExist(session, path));
@@ -104,8 +104,8 @@ public class ContentHelper {
    * Changes title of node under given jcr path.
    *
    * @param path     jcr path to node.
-   * @param newTitle title that will replace old one.
-   * @throws RepositoryException if adding node property fails.
+   * @param newTitle title that will replace old jcr:title
+   * @throws RepositoryException if adding node property fails
    */
   public void changeTitle(String path, String newTitle) throws RepositoryException {
     jcrHelper.addNodeProperty(path, JCR_TITLE, newTitle, 1);
@@ -114,10 +114,10 @@ public class ContentHelper {
   /**
    * Changes name of node under given path, then returns its modified path.
    *
-   * @param path    jcr path to the node.
-   * @param newName node name that will replace old one.
-   * @return jcr path with new node name.
-   * @throws RepositoryException when operation on session fails (moving session to new path or saving changes).
+   * @param path    jcr path to the node
+   * @param newName node name that will replace old one
+   * @return jcr path with new node name
+   * @throws RepositoryException when operation on session fails (moving session to new path or saving changes)
    */
   public String changeName(String path, String newName) throws RepositoryException {
     String newPath = substringBeforeLast(path, SEPARATOR) + SEPARATOR + newName;
@@ -127,9 +127,9 @@ public class ContentHelper {
   }
 
   /**
-   * @param path jcr path of node.
-   * @return title of page under given path.
-   * @throws RepositoryException if retrieving node property fails.
+   * @param path jcr path of node
+   * @return jcr:title of page under given path
+   * @throws RepositoryException if retrieving node property fails
    */
   public String getPageTitle(String path) throws RepositoryException {
     return jcrHelper.getNodeProperty(path + JCR_CONTENT, JCR_TITLE).getString();
@@ -138,14 +138,10 @@ public class ContentHelper {
   /**
    * Deletes tag node under given tag path.
    *
-   * @param tagPath path to tag.
-   * @throws RepositoryException when node removing fails.
+   * @param tagPath path to tag
+   * @throws RepositoryException when node removing fails
    */
   public void deleteTag(String tagPath) throws RepositoryException {
-    deleteNode(TAGS_ROOT + tagPath);
-  }
-
-  private void deleteNode(String path) throws RepositoryException {
-    jcrHelper.deleteNode(path, session);
+    jcrHelper.deleteNode(TAGS_ROOT + tagPath, session);
   }
 }

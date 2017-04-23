@@ -19,7 +19,6 @@
  */
 package com.cognifide.qa.bb.aem.touch.pageobjects;
 
-import static com.cognifide.qa.bb.aem.touch.util.ContentHelper.JCR_CONTENT;
 import static org.openqa.selenium.support.ui.ExpectedConditions.not;
 import static org.openqa.selenium.support.ui.ExpectedConditions.stalenessOf;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
@@ -94,7 +93,7 @@ public class Parsys {
    */
   public String getDataPath() {
     String rawValue = currentScope.getAttribute(HtmlTags.Attributes.DATA_PATH);
-    return StringUtils.substringAfter(rawValue, JCR_CONTENT);
+    return DataPathUtil.extract(rawValue);
   }
 
   /**
