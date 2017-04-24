@@ -19,36 +19,31 @@
  */
 package com.cognifide.qa.bb.email.connector;
 
+import com.cognifide.qa.bb.email.EmailConfig;
 import com.cognifide.qa.bb.email.constants.EmailConfigKeys;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-import com.google.inject.name.Named;
 
 /**
  * This class configures email connector using data from property file.
  */
-@Singleton
 public class ConnectorConfig {
 
-  @Inject
-  @Named(EmailConfigKeys.EMAIL_USERNAME)
   private String username;
 
-  @Inject
-  @Named(EmailConfigKeys.EMAIL_PASSWORD)
   private String password;
 
-  @Inject
-  @Named(EmailConfigKeys.EMAIL_SERVER_PORT)
   private int port;
 
-  @Inject
-  @Named(EmailConfigKeys.EMAIL_FOLDER_NAME)
   private String folderName;
 
-  @Inject
-  @Named(EmailConfigKeys.EMAIL_SERVER_ADDRESS)
   private String server;
+
+  public ConnectorConfig(EmailConfig emailConfig) {
+    this.username = emailConfig.getParameter(EmailConfigKeys.EMAIL_USERNAME);
+    this.password = emailConfig.getParameter(EmailConfigKeys.EMAIL_PASSWORD);
+    this.port = emailConfig.getParameter(Integer.class, EmailConfigKeys.EMAIL_SERVER_PORT);
+    this.folderName = emailConfig.getParameter(EmailConfigKeys.EMAIL_FOLDER_NAME);
+    this.server = emailConfig.getParameter(EmailConfigKeys.EMAIL_SERVER_ADDRESS);
+  }
 
   /**
    * @return Name of inbox folder.

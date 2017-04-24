@@ -33,46 +33,52 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import com.cognifide.qa.bb.email.helpers.EmailDataGenerator;
+import com.cognifide.qa.bb.email.helpers.EmailDataGeneratorFactory;
 import com.cognifide.qa.bb.module.PropertiesLoaderModule;
 import com.google.inject.Guice;
-import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.google.inject.assistedinject.FactoryModuleBuilder;
 
 @RunWith(Parameterized.class)
 public class EmailTest {
 
-  private final String propertiesFileName;
+  private final String mailId;
 
-  @Inject
   private EmailClient client;
 
-  @Inject
   private EmailSender sender;
 
-  @Inject
   private EmailDataGenerator dataGenerator;
 
-  @Inject
   private MailServer mailServer;
 
-  public EmailTest(String propertiesFileName) {
-    this.propertiesFileName = propertiesFileName;
+
+  public EmailTest(String mailId) {
+    this.mailId = mailId;
   }
 
   @Parameters
   public static Collection<Object[]> parameters() {
     return Arrays.asList(new Object[][]{
-        {"email.imap.properties"},
-        {"email.imaps.properties"},
-        {"email.pop3s.properties"},
+        {"imap"},
+        {"imaps"},
+        {"pop3"},
     });
   }
 
   @Before
   public void setUpClass() {
-    Injector injector = Guice.createInjector(new PropertiesLoaderModule(propertiesFileName),
-        new EmailModule());
+    Injector injector = Guice.createInjector(new PropertiesLoaderModule("mail.properties"),
+        new EmailModule(),
+        new FactoryModuleBuilder().build(MailServerFactory.class),
+        new FactoryModuleBuilder().build(EmailDataGeneratorFactory.class)
+    );
     injector.injectMembers(this);
+    String id = mailId;
+    sender = injector.getInstance(EmailSenderFactory.class).create(id);
+    client = injector.getInstance(EmailClientFactory.class).create(id);
+    mailServer = injector.getInstance(MailServerFactory.class).create(id);
+    dataGenerator = injector.getInstance(EmailDataGeneratorFactory.class).create(id);
     mailServer.start();
   }
 

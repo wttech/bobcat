@@ -21,22 +21,30 @@ package com.cognifide.qa.bb.email;
 
 import java.security.Security;
 
-import com.cognifide.qa.bb.email.connector.ConnectorConfig;
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
+import com.cognifide.qa.bb.email.constants.EmailConfigKeys;
+import com.google.inject.Injector;
+import com.google.inject.assistedinject.Assisted;
+import com.google.inject.assistedinject.AssistedInject;
 import com.icegreen.greenmail.util.DummySSLSocketFactory;
 import com.icegreen.greenmail.util.GreenMail;
 
 public class MailServer {
 
-  @Inject
-  private ConnectorConfig config;
+  private final String username;
 
-  @Inject
-  @Named("email.address")
+  private final String password;
+
   private String address;
 
   private GreenMail mailServer;
+
+  @AssistedInject
+  public MailServer(@Assisted String id, Injector injector) {
+    EmailConfig emailConfig = new EmailConfig(id, injector);
+    this.username = emailConfig.getParameter(EmailConfigKeys.EMAIL_USERNAME);
+    this.password = emailConfig.getParameter(EmailConfigKeys.EMAIL_PASSWORD);
+    this.address = emailConfig.getParameter(EmailConfigKeys.EMAIL_ADDRESS);
+  }
 
   public void start() {
     Security.setProperty("ssl.SocketFactory.provider", DummySSLSocketFactory.class.getName());
@@ -49,7 +57,7 @@ public class MailServer {
     // imaps 3993
     mailServer = new GreenMail();
     mailServer.start();
-    mailServer.setUser(address, config.getUsername(), config.getPassword());
+    mailServer.setUser(address, username, password);
   }
 
   public void stop() {

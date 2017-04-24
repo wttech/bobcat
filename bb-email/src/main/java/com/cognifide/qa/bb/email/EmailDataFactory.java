@@ -36,7 +36,6 @@ import org.slf4j.LoggerFactory;
 import com.cognifide.qa.bb.email.connector.EmailException;
 import com.cognifide.qa.bb.email.constants.EmailConfigKeys;
 import com.google.inject.Inject;
-import com.google.inject.name.Named;
 
 /**
  * This class creates EmailData.
@@ -45,11 +44,11 @@ public final class EmailDataFactory {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EmailDataFactory.class);
 
-  private final Pattern addressPattern;
+  private Pattern addressPattern;
 
   @Inject
-  public EmailDataFactory(
-      @Named(EmailConfigKeys.EMAIL_ADDRESS_PATTERN) String addressPatternString) {
+  public EmailDataFactory(EmailConfig emailConfig) {
+    String addressPatternString = emailConfig.getParameter(EmailConfigKeys.EMAIL_ADDRESS_PATTERN);
     this.addressPattern = Pattern.compile(addressPatternString);
   }
 

@@ -19,9 +19,9 @@
  */
 package com.cognifide.qa.bb.email;
 
-import com.cognifide.qa.bb.email.connector.Connector;
-import com.cognifide.qa.bb.email.connector.ConnectorProvider;
+import com.cognifide.qa.bb.email.connector.ConnectorFactory;
 import com.google.inject.AbstractModule;
+import com.google.inject.assistedinject.FactoryModuleBuilder;
 
 /**
  * Install this module to enable email service. After installation, following email protocols will
@@ -36,6 +36,9 @@ public class EmailModule extends AbstractModule {
 
   @Override
   protected void configure() {
-    bind(Connector.class).toProvider(ConnectorProvider.class);
+    install(new FactoryModuleBuilder().build(ConnectorFactory.class));
+    install(new FactoryModuleBuilder().build(EmailConfigFactory.class));
+    install(new FactoryModuleBuilder().build(EmailClientFactory.class));
+    install(new FactoryModuleBuilder().build(EmailSenderFactory.class));
   }
 }
