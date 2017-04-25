@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.scope.selector;
-
 /*-
  * #%L
  * Bobcat
@@ -19,6 +17,7 @@ package com.cognifide.qa.bb.scope.selector;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.scope.selector;
 
 import static java.util.stream.Collectors.toList;
 

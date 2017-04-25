@@ -32,7 +32,6 @@ import java.util.concurrent.TimeUnit;
 
 import com.cognifide.qa.bb.provider.selenium.webdriver.close.ClosingAwareWebDriverWrapper;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileDriver;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.HasCapabilities;
 import org.openqa.selenium.WebDriver;

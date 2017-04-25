@@ -20,6 +20,7 @@
 package com.cognifide.qa.bb.aem.touch.util;
 
 import static com.cognifide.qa.bb.jcr.JcrExpectedConditions.nodeExist;
+import static javax.jcr.Property.JCR_TITLE;
 import static org.apache.commons.lang3.StringUtils.substringAfterLast;
 import static org.apache.commons.lang3.StringUtils.substringBeforeLast;
 
@@ -47,8 +48,6 @@ public class ContentHelper {
   private static final String TAGS_ROOT = "/etc/tags";
 
   private static final String SEPARATOR = "/";
-
-  private static final String JCR_TITLE = "jcr:title";
 
   private final JcrHelper jcrHelper;
 

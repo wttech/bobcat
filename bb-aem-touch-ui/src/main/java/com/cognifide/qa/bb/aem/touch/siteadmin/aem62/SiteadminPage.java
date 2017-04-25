@@ -18,8 +18,6 @@ import java.util.Comparator;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import javax.annotation.Nullable;
-
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -226,16 +224,12 @@ public class SiteadminPage implements SiteadminActions, Loadable {
 
   @Override
   public SiteadminActions waitForPageCount(int pageCount) {
-    boolean conditionNotMet = !webElementUtils.isConditionMet(new ExpectedCondition<Object>() {
-      @Nullable
-      @Override
-      public Object apply(@Nullable WebDriver webDriver) {
+    boolean conditionNotMet = !webElementUtils.isConditionMet(webDriver -> {
         try {
-          return (pageCount == getChildPageWindow().getPageCount());
+          return pageCount == getChildPageWindow().getPageCount();
         } catch (StaleElementReferenceException e) {
           webDriver.navigate().refresh();
           return false;
-        }
       }
     }, Timeouts.SMALL);
     if (conditionNotMet) {
@@ -245,32 +239,24 @@ public class SiteadminPage implements SiteadminActions, Loadable {
   }
 
   private void waitForExpectedStatus(final String title, ActivationStatus status) {
-    wait.withTimeout(Timeouts.MEDIUM).until(new ExpectedCondition<Boolean>() {
-      @Nullable
-      @Override
-      public Boolean apply(@Nullable WebDriver webDriver) {
+    wait.withTimeout(Timeouts.MEDIUM).until(webDriver -> {
         webDriver.navigate().refresh();
         ChildPageRow childPageRow = getChildPageWindow().getChildPageRow(title);
         PageActivationStatus pageActivationStatusCell = childPageRow.getPageActivationStatus();
         ActivationStatus activationStatus = pageActivationStatusCell.getActivationStatus();
-        return activationStatus.equals(status);
-      }
+        return activationStatus == status;
     }, Timeouts.MINIMAL);
   }
 
   private ChildPageWindow getChildPageWindow() {
-    WebElement childPageWindow = driver.findElement(By.cssSelector(CHILD_PAGE_WINDOW_SELECTOR));
-    return pageObjectInjector.inject(ChildPageWindow.class, childPageWindow);
+    WebElement chldPageWindow = driver.findElement(By.cssSelector(CHILD_PAGE_WINDOW_SELECTOR));
+    return pageObjectInjector.inject(ChildPageWindow.class, chldPageWindow);
   }
 
   private void retryLoad() {
-    conditions.verify(new ExpectedCondition<Object>() {
-      @Nullable
-      @Override
-      public Object apply(WebDriver driver) {
-        driver.navigate().refresh();
+    conditions.verify(webDriver -> {
+        webDriver.navigate().refresh();
         return isLoadedCondition();
-      }
     }, Timeouts.MEDIUM);
   }
 
@@ -288,7 +274,7 @@ public class SiteadminPage implements SiteadminActions, Loadable {
         goForwardToDestination(currentUrl, destination);
       }
       wait.withTimeout(Timeouts.SMALL).until((ExpectedCondition<Object>) input ->
-          ((JavascriptExecutor) driver).executeScript("return $.active").toString().equals("0")
+          "0".equals(((JavascriptExecutor) driver).executeScript("return $.active").toString())
           );
       navigateInteractively(destination);
     }

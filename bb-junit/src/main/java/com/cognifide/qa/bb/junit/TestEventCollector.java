@@ -49,10 +49,10 @@ public interface TestEventCollector {
    *
    * @param message info message
    */
-  public void info(String message);
+  void info(String message);
 
   /**
    * Remove information about test which is now collected
    */
-  public void removeLastEntry();
+  void removeLastEntry();
 }

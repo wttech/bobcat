@@ -40,8 +40,8 @@ public class YearMonthPicker {
   private boolean isDesiredDateSelected(int year, Month month) {
     String[] headerParts = yearMonthHeader.getText().toUpperCase().split(" ");
     Month selectedMonth = Month.valueOf(headerParts[0]);
-    int selectedYear = Integer.valueOf(headerParts[1].toUpperCase());
-    return year == selectedYear && selectedMonth.equals(month);
+    int selectedYear = Integer.parseInt(headerParts[1].toUpperCase());
+    return year == selectedYear && selectedMonth == month;
   }
 
 }

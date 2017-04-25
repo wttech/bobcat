@@ -86,7 +86,7 @@ public class ComponentState {
     final Map<String, String> result = new HashMap<>();
 
     config.getTabs().stream()
-            .forEach((tab) -> {
+            .forEach(tab -> {
               List<FieldConfig> fieldConfigs = config.getConfigurationForTab(tab.getTabName());
               result.putAll(fieldConfigs.stream()
                 .filter(fieldConfig -> fieldConfig.getValue() instanceof String)

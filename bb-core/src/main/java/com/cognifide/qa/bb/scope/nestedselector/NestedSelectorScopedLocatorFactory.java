@@ -1,5 +1,3 @@
-package com.cognifide.qa.bb.scope.nestedselector;
-
 /*-
  * #%L
  * Bobcat Parent
@@ -19,6 +17,7 @@ package com.cognifide.qa.bb.scope.nestedselector;
  * limitations under the License.
  * #L%
  */
+package com.cognifide.qa.bb.scope.nestedselector;
 
 import java.lang.reflect.Field;
 

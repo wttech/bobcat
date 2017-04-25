@@ -19,13 +19,14 @@
  */
 package com.cognifide.qa.bb;
 
-public class ConfigKeys {
+public final class ConfigKeys {
+
+  public static final String BOBCAT_REPORT_STATISTICS_PATH = "bobcat.report.statistics.path";
+
+  public static final String BOBCAT_REPORT_STATISTICS_PERCENTAGE = "bobcat.report.statistics.retryPercentage";
 
   private ConfigKeys() {
     //Config class...
   }
 
-  public static final String BOBCAT_REPORT_STATISTICS_PATH = "bobcat.report.statistics.path";
-
-  public static final String BOBCAT_REPORT_STATISTICS_PERCENTAGE = "bobcat.report.statistics.retryPercentage";
 }

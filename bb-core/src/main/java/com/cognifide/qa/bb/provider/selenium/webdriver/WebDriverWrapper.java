@@ -73,12 +73,10 @@ import io.appium.java_client.ios.IOSDeviceActionShortcuts;
  * This class is a "simple" extension of Selenium's EventFiringWebDriver that additionally
  * implements several useful interfaces.
  */
-public class WebDriverWrapper extends EventFiringWebDriver implements FindsById, FindsByClassName,
-    FindsByLinkText, FindsByName, FindsByCssSelector, FindsByTagName, FindsByXPath,
-    HasCapabilities, MobileDriver, Rotatable, LocationContext, ContextAware,
-    TouchShortcuts, InteractsWithApps, AndroidDeviceActionShortcuts, HasAppStrings,
+public class WebDriverWrapper extends EventFiringWebDriver implements
+    HasCapabilities, MobileDriver, AndroidDeviceActionShortcuts,
     HasNetworkConnection, PushesFiles, StartsActivity, FindsByAndroidUIAutomator,
-    IOSDeviceActionShortcuts, FindsByIosUIAutomation, HasIdentity, PerformsTouchActions {
+    IOSDeviceActionShortcuts, FindsByIosUIAutomation, HasIdentity {
 
   private final FrameSwitcher frameSwitcher;
 
@@ -430,7 +428,7 @@ public class WebDriverWrapper extends EventFiringWebDriver implements FindsById,
 
   @Override
   public void startActivity(String appPackage, String appActivity, String appWaitPackage,
-      String appWaitActivity, boolean stopApp) throws IllegalArgumentException {
+      String appWaitActivity, boolean stopApp) {
     ((StartsActivity) super.getWrappedDriver()).startActivity(appPackage, appActivity,
         appWaitPackage, appWaitActivity, stopApp);
   }
@@ -450,7 +448,7 @@ public class WebDriverWrapper extends EventFiringWebDriver implements FindsById,
   @Override
   public void startActivity(String appPackage, String appActivity, String appWaitPackage,
       String appWaitActivity, String intentAction, String intentCategory, String intentFlags,
-      String intentOptionalArgs) throws IllegalArgumentException {
+      String intentOptionalArgs) {
     ((StartsActivity) super.getWrappedDriver()).startActivity(appPackage, appActivity,
         appWaitPackage, appWaitActivity, intentAction, intentCategory, intentFlags,
         intentOptionalArgs);
@@ -460,7 +458,7 @@ public class WebDriverWrapper extends EventFiringWebDriver implements FindsById,
   @Override
   public void startActivity(String appPackage, String appActivity, String appWaitPackage,
       String appWaitActivity, String intentAction, String intentCategory, String intentFlags,
-      String intentOptionalArgs, boolean stopApp) throws IllegalArgumentException {
+      String intentOptionalArgs, boolean stopApp) {
     ((StartsActivity) super.getWrappedDriver()).startActivity(appPackage, appActivity,
         appWaitPackage, appWaitActivity, intentAction, intentCategory, intentFlags,
         intentOptionalArgs, stopApp);

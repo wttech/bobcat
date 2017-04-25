@@ -28,7 +28,7 @@ public enum ModeIcon {
 
   private final String iconName;
 
-  private ModeIcon(final String iconName) {
+  ModeIcon(final String iconName) {
     this.iconName = iconName;
   }
 

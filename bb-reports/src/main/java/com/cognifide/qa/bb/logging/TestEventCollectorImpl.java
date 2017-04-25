@@ -130,6 +130,7 @@ public class TestEventCollectorImpl implements TestEventCollector {
    *
    * @param message info message
    */
+  @Override
   public void info(String message) {
     currentTest.get().info(message);
   }
@@ -278,7 +279,7 @@ public class TestEventCollectorImpl implements TestEventCollector {
   public Date getStartingDate() {
     return (Date) startingDate.clone();
   }
-  
+
   @Override
   public void removeLastEntry() {
     testInfoEntries.remove(currentTest.get());
