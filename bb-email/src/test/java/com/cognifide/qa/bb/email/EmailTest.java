@@ -22,6 +22,7 @@ package com.cognifide.qa.bb.email;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -60,7 +61,7 @@ public class EmailTest {
 
   @Parameters
   public static Collection<Object[]> parameters() {
-    return Arrays.asList(new Object[][] {
+    return Arrays.asList(new Object[][]{
         {"email.imap.properties"},
         {"email.imaps.properties"},
         {"email.pop3s.properties"},
@@ -84,9 +85,8 @@ public class EmailTest {
   public void canReceiveLatestEmails() {
     int emailsNumber = 5;
     List<EmailData> sentEmails = dataGenerator.generateEmailData(emailsNumber);
-    for (EmailData emailData : sentEmails) {
-      sender.sendEmail(emailData);
-    }
+
+    sentEmails.forEach(sender::sendEmail);
 
     client.connect();
 
@@ -95,5 +95,104 @@ public class EmailTest {
     client.close();
 
     Assert.assertTrue("email data objects should be equal", sentEmails.equals(receivedEmails));
+  }
+
+  @Test
+  public void canReceiveMailBySubject() {
+    String subject = "test";
+    EmailData sentEmail = dataGenerator.generateEmailData(subject);
+
+    sender.sendEmail(sentEmail);
+
+    int emailsNumber = 5;
+    List<EmailData> sentEmails = dataGenerator.generateEmailData(emailsNumber);
+    sentEmails.forEach(sender::sendEmail);
+
+    client.connect();
+
+    List<EmailData> receivedEmail = client.getLatest(subject);
+    client.close();
+
+    Assert.assertTrue(receivedEmail.contains(sentEmail));
+
+    boolean topicMatches = receivedEmail.stream()
+        .map(EmailData::getSubject)
+        .allMatch(subject::equals);
+
+    Assert.assertTrue(topicMatches);
+  }
+
+  @Test
+  public void canRemoveAllMailsWithSubject() {
+    String subject = "test";
+    EmailData subjectMail = dataGenerator.generateEmailData(subject);
+    sender.sendEmail(subjectMail);
+
+    int emailsNumber = 5;
+    List<EmailData> sentEmails = dataGenerator.generateEmailData(emailsNumber);
+    sentEmails.forEach(sender::sendEmail);
+
+    client.connect();
+
+    client.removeAllEmails(subject);
+
+    //reconnect to apply delete of messages
+    client.close();
+    client.connect();
+
+    List<EmailData> latest = client.getLatest(emailsNumber + 1);
+
+    client.close();
+
+    Assert.assertFalse(latest.contains(subjectMail));
+    Assert.assertTrue(latest.containsAll(sentEmails));
+  }
+
+  @Test
+  public void canRemoveLastEmails() {
+    int emailsNumber = 5;
+    int emailsToDelete = 2;
+    List<EmailData> sentEmails = dataGenerator.generateEmailData(emailsNumber);
+    sentEmails.forEach(sender::sendEmail);
+
+    client.connect();
+
+    client.removeLastEmails(emailsToDelete);
+
+    //reconnect to apply delete of messages
+    client.close();
+    client.connect();
+
+    List<EmailData> latest = client.getLatest(emailsNumber);
+
+    client.close();
+
+    List<EmailData> limitedList =
+        sentEmails.stream()
+            .limit(emailsNumber - emailsToDelete)
+            .collect(Collectors.toList());
+
+    Assert.assertEquals(latest, limitedList);
+  }
+
+  @Test
+  public void canRemoveAllEmails() {
+    int emailsNumber = 5;
+    List<EmailData> sentEmails = dataGenerator.generateEmailData(emailsNumber);
+    sentEmails.forEach(sender::sendEmail);
+
+    client.connect();
+
+    client.removeAllEmails();
+
+    //reconnect to apply delete of messages
+    client.close();
+    client.connect();
+
+    List<EmailData> latest = client.getLatest(emailsNumber);
+
+    client.close();
+
+    Assert.assertTrue(latest.isEmpty());
   }
 }

@@ -19,15 +19,15 @@
  */
 package com.cognifide.qa.bb.email;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.mail.Flags;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.search.SubjectTerm;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,36 +67,10 @@ public class EmailClient {
   }
 
   /**
-   * @param subject Email message subject.
-   * @return List of Messages with subject from parameter.
+   * Closes connection with mailbox.
    */
-  protected List<Message> getMessageList(String subject) {
-
-    Message[] messages = {};
-    try {
-      messages = folder.search(new SubjectTerm(subject), folder.getMessages());
-    } catch (MessagingException e) {
-      LOGGER.error("error when getting email messages", e);
-    }
-    return Arrays.asList(messages);
-  }
-
-  /**
-   * @param limit Messages amount.
-   * @return Last n Messages from inbox as list.
-   */
-  protected List<Message> getMessageList(int limit) {
-    Message[] messages = {};
-    try {
-      int messageCount = folder.getMessageCount();
-      if (messageCount < 1) {
-        return new ArrayList<>();
-      }
-      messages = folder.getMessages(messageCount - limit + 1, messageCount);
-    } catch (MessagingException e) {
-      LOGGER.error("error when getting email messages", e);
-    }
-    return Arrays.asList(messages);
+  public void close() {
+    connection.close();
   }
 
   /**
@@ -104,7 +78,7 @@ public class EmailClient {
    * @return List of EmailData with subject from parameter.
    */
   public List<EmailData> getLatest(String subject) {
-    List<Message> messageList = getMessageList(subject);
+    Collection<Message> messageList = getMessageList(subject);
     return createEmailDataList(messageList);
   }
 
@@ -113,15 +87,8 @@ public class EmailClient {
    * @return Last n EmailData from inbox.
    */
   public List<EmailData> getLatest(int limit) {
-    List<Message> messageList = getMessageList(limit);
+    Collection<Message> messageList = getMessageList(limit);
     return createEmailDataList(messageList);
-  }
-
-  /**
-   * Closes connection with mailbox.
-   */
-  public void close() {
-    connection.close();
   }
 
   /**
@@ -136,34 +103,81 @@ public class EmailClient {
   }
 
   /**
+   * Deletes all emails with subject.
+   *
+   * @param subject Subject of message.
+   */
+  public void removeAllEmails(String subject) {
+    getMessageList(subject)
+        .forEach(this::removeEmail);
+  }
+
+  /**
    * Deletes last n emails.
    *
    * @param limit emails amount.
    */
   public void removeLastEmails(int limit) {
-    List<Message> messages = getMessageList(limit);
-    for (Message message : messages) {
-      try {
-        message.setFlag(Flags.Flag.DELETED, true);
-      } catch (MessagingException e) {
-        LOGGER.error("error when removing  emails from server", e);
-      }
+    getMessageList(limit)
+        .forEach(this::removeEmail);
+  }
+
+  /**
+   * @param subject Email message subject.
+   * @return Array of Messages with subject from parameter.
+   */
+  protected List<Message> getMessageList(String subject) {
+
+    Message[] messages = {};
+    try {
+      messages = folder.search(new SubjectSearchTerm(subject));
+    } catch (MessagingException e) {
+      LOGGER.error("error when getting email messages", e);
     }
+    return Arrays.asList(messages);
+  }
+
+  /**
+   * @param limit Messages amount.
+   * @return Last n Messages from inbox as list.
+   */
+  protected List<Message> getMessageList(int limit) {
+    Message[] messages = {};
+    try {
+      int messageCount = folder.getMessageCount();
+      if (messageCount > 0) {
+        int startIndex = messageCount - Math.min(limit, messageCount) + 1;
+        messages = folder.getMessages(startIndex, messageCount);
+      }
+    } catch (MessagingException e) {
+      LOGGER.error("error when getting email messages", e);
+    }
+    return Arrays.asList(messages);
   }
 
   /**
    * This method converts list of Message objects to list of EmailData.
    *
-   * @param messageList List of Messages.
-   * @return List of EmailData objects.
+   * @param messages List of Messages.
+   * @return Collection of EmailData objects.
    */
-  private List<EmailData> createEmailDataList(List<Message> messageList) {
-    List<EmailData> emailDataList = new ArrayList<>();
-    for (Message message : messageList) {
-      EmailData emailData = emailDataFactory.create(message);
-      emailDataList.add(emailData);
+  private List<EmailData> createEmailDataList(Collection<Message> messages) {
+    return messages.stream()
+        .map(emailDataFactory::create)
+        .collect(Collectors.toList());
+  }
+
+  /**
+   * This method deletes mail
+   *
+   * @param message Mail reference
+   */
+  private void removeEmail(Message message) {
+    try {
+      message.setFlag(Flags.Flag.DELETED, true);
+    } catch (MessagingException e) {
+      LOGGER.error("error when removing  emails from server", e);
     }
-    return emailDataList;
   }
 
 }
