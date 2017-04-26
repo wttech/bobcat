@@ -19,18 +19,12 @@
  */
 package com.cognifide.qa.bb;
 
-import org.apache.http.impl.client.CloseableHttpClient;
-
 import com.cognifide.qa.bb.aem.dialog.configurer.ComponentConfigurerFactory;
 import com.cognifide.qa.bb.aem.ui.DialogFieldProvider;
-import com.cognifide.qa.bb.constants.AemConfigKeys;
 import com.cognifide.qa.bb.mapper.field.FieldProvider;
-import com.cognifide.qa.bb.provider.http.HttpClientProvider;
 import com.google.inject.AbstractModule;
-import com.google.inject.Provides;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 import com.google.inject.multibindings.Multibinder;
-import com.google.inject.name.Named;
 
 /**
  * This module contains:
@@ -40,22 +34,6 @@ import com.google.inject.name.Named;
  * </ul>
  */
 public class AemClassicModule extends AbstractModule {
-
-  /**
-   * Provider method that produces a CloseableHttpClient instances configured with URL, login and password
-   * taken from property files.
-   *
-   * @param url      IP address of Author instance, automatically set to author.ip property.
-   * @param login    Author login, automatically set to author.login property.
-   * @param password Author password, automatically set to author.password property.
-   * @return New instance of CloseableHttpClient.
-   */
-  @Provides
-  public CloseableHttpClient getAuthorHttpClient(@Named(AemConfigKeys.AUTHOR_IP) String url,
-      @Named(AemConfigKeys.AUTHOR_LOGIN) String login,
-      @Named(AemConfigKeys.AUTHOR_PASSWORD) String password) {
-    return new HttpClientProvider(login, password, url).get();
-  }
 
   @Override
   protected void configure() {
