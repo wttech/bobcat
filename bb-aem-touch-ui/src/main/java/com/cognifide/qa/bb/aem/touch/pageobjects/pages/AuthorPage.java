@@ -231,9 +231,9 @@ public class AuthorPage {
   }
 
   private void retryLoad() {
-    bobcatWait.verify(wd -> {
+    bobcatWait.verify(webDriver -> {
       LOG.debug("Retrying page open");
-      wd.navigate().refresh();
+      webDriver.navigate().refresh();
       return isLoadedCondition();
     }, Timeouts.MEDIUM);
   }
