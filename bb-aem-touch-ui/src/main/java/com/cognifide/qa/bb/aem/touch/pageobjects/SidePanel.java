@@ -74,7 +74,8 @@ public class SidePanel {
   private List<WebElement> searchResults;
 
   /**
-   * Searches for assets for given asset name and return it as draggable. Opens the Side panel if its closed.
+   * Searches for assets for given asset name and return it as draggable.
+   * Opens the Side panel if it is closed.
    *
    * @param asset name.
    * @return {@link Draggable} instance of the asset.
