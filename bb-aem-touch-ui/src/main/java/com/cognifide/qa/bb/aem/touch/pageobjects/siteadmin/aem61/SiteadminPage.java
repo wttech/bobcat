@@ -115,11 +115,11 @@ public class SiteadminPage implements Loadable, SiteadminActions {
 
   @Override
   public SiteadminActions waitForPageCount(int pageCount) {
-    bobcatWait.verify(wd -> {
+    bobcatWait.verify(webDriver -> {
       try {
         return (pageCount == getChildPageWindow().getPageCount());
       } catch (StaleElementReferenceException e) {
-        wd.navigate().refresh();
+        webDriver.navigate().refresh();
         return false;
       }
     }, Timeouts.SMALL);
@@ -221,8 +221,8 @@ public class SiteadminPage implements Loadable, SiteadminActions {
   }
 
   private void waitForExpectedStatus(final String title, ActivationStatus status) {
-    wait.withTimeout(Timeouts.MEDIUM).until(wd -> {
-      wd.navigate().refresh();
+    wait.withTimeout(Timeouts.MEDIUM).until(webDriver -> {
+      webDriver.navigate().refresh();
       ChildPageRow childPage = getChildPageWindow().getChildPageRow(title);
       PageActivationStatus pageActivationStatusCell = childPage.getPageActivationStatus();
       ActivationStatus activationStatus = pageActivationStatusCell.getActivationStatus();
@@ -235,15 +235,16 @@ public class SiteadminPage implements Loadable, SiteadminActions {
   }
 
   private ChildPageWindow getChildPageWindow() {
+    //todo replace this with @Global field
     WebElement childPagesElement =
-        driver.findElement(By.cssSelector(CHILD_PAGE_WINDOW_SELECTOR));//todo replace this with @Global field
+        driver.findElement(By.cssSelector(CHILD_PAGE_WINDOW_SELECTOR));
     return pageObjectInjector.inject(ChildPageWindow.class, childPagesElement);
   }
 
   private void retryLoad() {
-    bobcatWait.verify(wd -> {
+    bobcatWait.verify(webDriver -> {
       if (!isLoadedCondition()) {
-        wd.navigate().refresh();
+        webDriver.navigate().refresh();
       }
       return isLoadedCondition();
     }, Timeouts.MEDIUM);
