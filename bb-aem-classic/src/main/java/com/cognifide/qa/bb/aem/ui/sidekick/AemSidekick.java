@@ -165,10 +165,22 @@ public class AemSidekick {
     return this;
   }
 
+  /**
+   * Checks if the button associated with the selected page operation is enabled
+   *
+   * @param optionName page operation name
+   * @return if button is available
+   */
   public boolean isPageOperationEnabled(PageOperation optionName){
     return isOperationEnabled(getOperation(optionName));
   }
 
+  /**
+   * Checks if the button associated with the selected custom page operation is enabled
+   *
+   * @param optionName page operation name
+   * @return if button is available
+   */
   public boolean isCustomOperationEnabled(String optionName){
     return isOperationEnabled(getCustomOperation(optionName));
   }
@@ -376,11 +388,8 @@ public class AemSidekick {
   }
 
   private boolean isOperationEnabled(WebElement operation){
-    if(operation != null){
-      WebElement operationTable = operation.findElement(By.xpath(OPERATION_TABLE_PARENT_XPATH));
-      return !operationTable.getAttribute(HtmlTags.Attributes.CLASS).contains(ITEM_DISABLED);
-    }
-    return false;
+    WebElement operationTable = operation.findElement(By.xpath(OPERATION_TABLE_PARENT_XPATH));
+    return !operationTable.getAttribute(HtmlTags.Attributes.CLASS).contains(ITEM_DISABLED);
   }
 
   private List<String> getComponentNames(String groupName) {
