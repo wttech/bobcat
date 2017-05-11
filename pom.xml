@@ -87,7 +87,7 @@ limitations under the License.
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jacoco.version>0.7.7.201606060606</jacoco.version>
-        <selenium.version>3.2.0</selenium.version>
+        <selenium.version>3.4.0</selenium.version>
         <guice.version>3.0</guice.version>
         <cucumber.version>1.2.3</cucumber.version>
         <version.logback>1.1.7</version.logback>
@@ -268,7 +268,7 @@ limitations under the License.
             <dependency>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-server</artifactId>
-                <version>9.3.9.v20160517</version>
+                <version>9.4.1.v20170120</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
