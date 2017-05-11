@@ -81,6 +81,10 @@ public class AemSidekick {
 
   private static final String GRID_XPATH = "//span[text() = '%s']/../..//div[@class='x-grid3']";
 
+  private static final String ITEM_DISABLED = "x-item-disabled";
+
+  private static final String OPERATION_TABLE_PARENT_XPATH = "./../../../../..";
+
   @Inject
   private WebDriver driver;
 
@@ -159,6 +163,14 @@ public class AemSidekick {
   public AemSidekick clickCustomOperation(String optionName) {
     getCustomOperation(optionName).click();
     return this;
+  }
+
+  public boolean isPageOperationEnabled(PageOperation optionName){
+    return isOperationEnabled(getOperation(optionName));
+  }
+
+  public boolean isCustomOperationEnabled(String optionName){
+    return isOperationEnabled(getCustomOperation(optionName));
   }
 
   /**
@@ -361,6 +373,14 @@ public class AemSidekick {
       map.put(name, group);
     }
     return map;
+  }
+
+  private boolean isOperationEnabled(WebElement operation){
+    if(operation != null){
+      WebElement operationTable = operation.findElement(By.xpath(OPERATION_TABLE_PARENT_XPATH));
+      return !operationTable.getAttribute(HtmlTags.Attributes.CLASS).contains(ITEM_DISABLED);
+    }
+    return false;
   }
 
   private List<String> getComponentNames(String groupName) {
