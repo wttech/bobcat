@@ -25,6 +25,7 @@ import org.apache.commons.lang3.StringUtils;
  * Data path util class.
  */
 public final class DataPathUtil {
+  private static final String JCR_CONTENT = "/jcr:content";
 
   private DataPathUtil() {
     // utility class
@@ -42,5 +43,15 @@ public final class DataPathUtil {
     return Character.isDigit(dataPath.charAt(dataPath.length() - 1)) ?
         StringUtils.substringBeforeLast(dataPath, "_") :
         dataPath;
+  }
+
+  /**
+   * Extracts the usable part of raw datapath (skips the {@link #JCR_CONTENT}
+   *
+   * @param rawValue String containing raw value of datapath attribute
+   * @return datapah with skipped {@link #JCR_CONTENT}
+   */
+  public static String extract(String rawValue) {
+    return StringUtils.substringAfter(rawValue, JCR_CONTENT);
   }
 }
