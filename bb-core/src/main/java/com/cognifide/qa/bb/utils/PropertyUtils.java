@@ -109,7 +109,7 @@ public final class PropertyUtils {
   }
 
   private static void overrideFromSystemProperties(Properties properties) {
-    properties.stringPropertyNames().stream().forEach(key -> {
+    System.getProperties().stringPropertyNames().stream().forEach(key -> {
       String systemProperty = System.getProperty(key);
       if (StringUtils.isNotBlank(systemProperty)) {
         properties.setProperty(key, systemProperty);
