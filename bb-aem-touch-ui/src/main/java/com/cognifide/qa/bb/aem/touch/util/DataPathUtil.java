@@ -25,6 +25,7 @@ import org.apache.commons.lang3.StringUtils;
  * Data path util class.
  */
 public final class DataPathUtil {
+  private static final String JCR_CONTENT = "/jcr:content";
 
   private DataPathUtil() {
     // utility class
@@ -32,7 +33,9 @@ public final class DataPathUtil {
 
   /**
    * Method normalizes data path. Checks if last character of path is digit, if yes, then returns substring
-   * before last {@code _} occurrence.
+   * before last {@code _} occurrence - such datapaths are usually present where there is more than a single
+   * component in a given context. NOTE: Nested components will be handled the same way, it will only remove the last
+   * numerical identifier.
    * Example: for given in parameter string '/title_1234' method will return '/title'
    *
    * @param dataPath data path.
@@ -42,5 +45,15 @@ public final class DataPathUtil {
     return Character.isDigit(dataPath.charAt(dataPath.length() - 1)) ?
         StringUtils.substringBeforeLast(dataPath, "_") :
         dataPath;
+  }
+
+  /**
+   * Extracts the usable part of raw datapath (skips the {@link #JCR_CONTENT}
+   *
+   * @param rawValue String containing raw value of datapath attribute
+   * @return datapah with skipped {@link #JCR_CONTENT}
+   */
+  public static String extract(String rawValue) {
+    return StringUtils.substringAfter(rawValue, JCR_CONTENT);
   }
 }
