@@ -38,7 +38,7 @@ public class DesiredCapabilitiesProvider implements Provider<Capabilities> {
   private static final String CAPABILITIES_PREFIX = "webdriver.cap.";
 
   private static final String CAPABILITIES_MAP_PREFIX = "webdriver.map.cap.";
-  
+
   private static final String[] BOOLEAN_STRINGS = {"true", "false"};
 
   @Inject
@@ -67,11 +67,8 @@ public class DesiredCapabilitiesProvider implements Provider<Capabilities> {
   }
 
   private Object prepareType(String property) {
-    if(StringUtils.equalsAnyIgnoreCase(property, BOOLEAN_STRINGS)) {
-      return Boolean.valueOf(property);
-    } else {
-      return property;
-    }
+    return StringUtils.equalsAnyIgnoreCase(property, BOOLEAN_STRINGS) ? Boolean.valueOf(property)
+        : property;
   }
 
   private void processMapProperties(DesiredCapabilities capabilities,
