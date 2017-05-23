@@ -38,6 +38,8 @@ public class DesiredCapabilitiesProvider implements Provider<Capabilities> {
   private static final String CAPABILITIES_PREFIX = "webdriver.cap.";
 
   private static final String CAPABILITIES_MAP_PREFIX = "webdriver.map.cap.";
+  
+  private static final String[] BOOLEAN_STRINGS = {"true", "false"};
 
   @Inject
   private Properties properties;
@@ -51,16 +53,25 @@ public class DesiredCapabilitiesProvider implements Provider<Capabilities> {
     Map<String, String> mapProperties = new HashMap<>();
 
     for (String name : properties.stringPropertyNames()) {
+      String property = properties.getProperty(name);
       if (name.startsWith(CAPABILITIES_PREFIX)) {
         String capName = StringUtils.removeStart(name, CAPABILITIES_PREFIX);
-        capabilities.setCapability(capName, properties.getProperty(name));
+        capabilities.setCapability(capName, prepareType(property));
       } else if (name.startsWith(CAPABILITIES_MAP_PREFIX)) {
         mapProperties.put(StringUtils.removeStart(name, CAPABILITIES_MAP_PREFIX),
-            properties.getProperty(name));
+            property);
       }
     }
     processMapProperties(capabilities, mapProperties);
     return capabilities;
+  }
+
+  private Object prepareType(String property) {
+    if(StringUtils.equalsAnyIgnoreCase(property, BOOLEAN_STRINGS)) {
+      return Boolean.valueOf(property);
+    } else {
+      return property;
+    }
   }
 
   private void processMapProperties(DesiredCapabilities capabilities,
