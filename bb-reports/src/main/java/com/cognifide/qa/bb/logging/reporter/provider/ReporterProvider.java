@@ -28,6 +28,7 @@ import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.junit.concurrent.ReportingHandler;
 import com.cognifide.qa.bb.logging.constants.ReportsConfigKeys;
+import com.cognifide.qa.bb.logging.extent.ExtentReporter;
 import com.cognifide.qa.bb.logging.reporter.HtmlReporter;
 import com.cognifide.qa.bb.logging.reporter.JsonReporter;
 import com.cognifide.qa.bb.logging.reporter.SimpleReporter;
@@ -57,6 +58,7 @@ public class ReporterProvider implements Provider<Set<Reporter>> {
       .put("simple", SimpleReporter.class)
       .put("json", JsonReporter.class)
       .put("stdout", StdoutReporter.class)
+      .put("exhtml", ExtentReporter.class)
       .build();
 
   @Inject

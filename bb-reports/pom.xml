@@ -33,6 +33,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.cognifide.qa.bb</groupId>
             <artifactId>bb-core</artifactId>
             <version>${project.version}</version>

@@ -25,6 +25,12 @@ public final class ReportsConfigKeys {
 
   public static final String BOBCAT_REPORT_REPORTERS = "bobcat.report.reporters";
 
+  public static final String BOBCAT_REPORT_EXTENT_PATH = "bobcat.report.extent.path";
+
+  public static final String BOBCAT_REPORT_EXTENT_NAME = "bobcat.report.extent.name";
+
+  public static final String BOBCAT_REPORT_EXTENT_INCLUDE_PROPERTIES = "bobcat.report.extent.include.properties";
+
   private ReportsConfigKeys() {}
 
 }
