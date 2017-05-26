@@ -23,6 +23,8 @@ import org.openqa.selenium.support.events.WebDriverEventListener;
 
 import com.cognifide.qa.bb.junit.TestEventCollector;
 import com.cognifide.qa.bb.junit.concurrent.ReportingHandler;
+import com.cognifide.qa.bb.logging.extent.ExtentReporterFactory;
+import com.cognifide.qa.bb.logging.extent.ExtentReporterFactoryImpl;
 import com.cognifide.qa.bb.logging.reporter.provider.ReporterProvider;
 import com.cognifide.qa.bb.logging.subreport.Subreport;
 import com.cognifide.qa.bb.logging.subreport.SubreportInterceptor;
@@ -48,6 +50,7 @@ public class ReporterModule extends AbstractModule {
   protected void configure() {
     bind(ReportEntryLogger.class).to(ReportEntryLoggerImpl.class);
     bind(TestEventCollector.class).to(TestEventCollectorImpl.class);
+    bind(ExtentReporterFactory.class).to(ExtentReporterFactoryImpl.class);
     bind(ReportingHandler.ACTIVE_REPORTERS).toProvider(ReporterProvider.class).in(Singleton.class);
 
     SubreportInterceptor subreportInterceptor = new SubreportInterceptor();

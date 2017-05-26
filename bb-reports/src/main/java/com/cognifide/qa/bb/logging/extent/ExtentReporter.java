@@ -22,6 +22,7 @@ package com.cognifide.qa.bb.logging.extent;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -31,7 +32,6 @@ import org.slf4j.LoggerFactory;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.cognifide.qa.bb.logging.TestInfo;
 import com.cognifide.qa.bb.logging.constants.ReportsConfigKeys;
 import com.cognifide.qa.bb.logging.entries.AssertionFailedEntry;
@@ -62,14 +62,9 @@ public class ExtentReporter extends AbstractReporter {
   private String includeProperties;
 
   @Inject
-  @Named(ReportsConfigKeys.BOBCAT_REPORT_EXTENT_PATH)
-  private String parentPath;
+  private ExtentReporterFactory reporterFactory;
 
-  @Inject
-  @Named(ReportsConfigKeys.BOBCAT_REPORT_EXTENT_NAME)
-  private String reportName;
-
-  private ExtentHtmlReporter htmlReporter;
+  private List<com.aventstack.extentreports.reporter.AbstractReporter> reporters;
 
   private ExtentReports extent;
 
@@ -162,7 +157,7 @@ public class ExtentReporter extends AbstractReporter {
 
   @Override
   public void properties(Properties properties) {
-    if(Boolean.valueOf(includeProperties)) {
+    if (Boolean.valueOf(includeProperties)) {
       Iterator<Map.Entry<Object, Object>> entryIterator = properties.entrySet().iterator();
       while (entryIterator.hasNext()) {
         Map.Entry<Object, Object> entry = entryIterator.next();
@@ -177,13 +172,24 @@ public class ExtentReporter extends AbstractReporter {
   }
 
   private void createReport() throws IOException {
-    FileUtils.forceMkdir(new File(parentPath));
-    htmlReporter = new ExtentHtmlReporter(parentPath + "/" + reportName);
     extent = new ExtentReports();
-    extent.attachReporter(htmlReporter);
+    createReporters();
+  }
+
+  private void createReporters() {
+    reporters = reporterFactory.getExtentReporters();
+    extent.attachReporter(reporters
+        .toArray(new com.aventstack.extentreports.reporter.AbstractReporter[reporters.size()]));
   }
 
   private void closeReport() {
     extent.flush();
+    closeReporters();
+  }
+
+  private void closeReporters() {
+    for (com.aventstack.extentreports.reporter.AbstractReporter reporter : reporters) {
+      reporter.stop();
+    }
   }
 }

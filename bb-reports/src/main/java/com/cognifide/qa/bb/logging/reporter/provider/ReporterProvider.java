@@ -58,7 +58,7 @@ public class ReporterProvider implements Provider<Set<Reporter>> {
       .put("simple", SimpleReporter.class)
       .put("json", JsonReporter.class)
       .put("stdout", StdoutReporter.class)
-      .put("exhtml", ExtentReporter.class)
+      .put("exreports", ExtentReporter.class)
       .build();
 
   @Inject
