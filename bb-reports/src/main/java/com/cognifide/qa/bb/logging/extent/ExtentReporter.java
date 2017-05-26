@@ -66,7 +66,7 @@ public class ExtentReporter extends AbstractReporter {
 
   private ExtentReports extent;
 
-  private ExtentTest test;
+  private TestEntry test;
 
   private ExtentTest subReport;
 
@@ -94,7 +94,7 @@ public class ExtentReporter extends AbstractReporter {
 
   @Override
   public void testStart(TestInfo testInfo) {
-    test = extent.createTest(testInfo.getTestName());
+    test = new TestEntry(extent.createTest(testInfo.getTestName()),null);
   }
 
   @Override
@@ -104,15 +104,15 @@ public class ExtentReporter extends AbstractReporter {
 
   @Override
   public void errorEntry(ErrorEntry errorLogEntry) {
-    correctTestEntry().error(errorLogEntry.getMessage());
+    test.getCurrentTest().error(errorLogEntry.getMessage());
   }
 
   @Override
   public void exceptionEntry(ExceptionEntry exceptionLogEntry) {
     if(exceptionLogEntry.getException() instanceof AssertionError){
-      correctTestEntry().fail(exceptionLogEntry.getMessage());
+      test.getCurrentTest().fail(exceptionLogEntry.getMessage());
     } else {
-      correctTestEntry().fail(exceptionLogEntry.getException());
+      test.getCurrentTest().fail(exceptionLogEntry.getException());
     }
 
   }
@@ -120,32 +120,36 @@ public class ExtentReporter extends AbstractReporter {
   @Override
   public void screenshotEntry(ScreenshotEntry screenshotLogEntry) {
     try {
-      correctTestEntry().addScreenCaptureFromPath(screenshotLogEntry.getFilePath(),
+      test.getCurrentTest().addScreenCaptureFromPath(screenshotLogEntry.getFilePath(),
           screenshotLogEntry.getFileName());
     } catch (Exception e) {
       LOG.error("Exception when adding screenshot: ", e);
-      correctTestEntry().fatal(e);
+      test.getCurrentTest().fatal(e);
     }
   }
 
   @Override
   public void infoEntry(InfoEntry infoEntry) {
-    correctTestEntry().info(infoEntry.getMessage());
+    test.getCurrentTest().info(infoEntry.getMessage());
   }
 
   @Override
   public void eventEntry(EventEntry eventLogEntry) {
-    correctTestEntry().info(eventLogEntry.getEvent()+" "+eventLogEntry.getParameter());
+    test.getCurrentTest().info(eventLogEntry.getEvent()+" "+eventLogEntry.getParameter());
   }
 
   @Override
   public void subreportStart(SubreportStartEntry subreportStartLogEntry) {
-    subReport = test.createNode(subreportStartLogEntry.getName());
+    subReport = test.getCurrentTest().createNode(subreportStartLogEntry.getName());
+    test.setParentTest(new TestEntry(test.getCurrentTest(),test.getParentTest()));
+    test.setCurrentTest(subReport);
   }
 
   @Override
   public void subreportEnd(SubreportEndEntry subreportEndLogEntry) {
-    subReport = null;
+
+    test.setCurrentTest(test.getParentTest().getCurrentTest());
+    test.setParentTest(test.getParentTest().getParentTest());
   }
 
   @Override
@@ -155,12 +159,12 @@ public class ExtentReporter extends AbstractReporter {
 
   @Override
   public void assertion(AssertionFailedEntry assertionFailedEntry) {
-    correctTestEntry().fail(assertionFailedEntry.getError().getMessage());
+    test.getCurrentTest().fail(assertionFailedEntry.getError().getMessage());
   }
 
   @Override
   public void softAssertion(SoftAssertionFailedEntry softAssertionFailedEntry) {
-    correctTestEntry().fail(softAssertionFailedEntry.getMessage());
+    test.getCurrentTest().fail(softAssertionFailedEntry.getMessage());
   }
 
   @Override
@@ -177,11 +181,6 @@ public class ExtentReporter extends AbstractReporter {
   @Override
   public void browserLogEntry(BrowserLogEntry browserLogEntry) {
 
-  }
-
-
-  private ExtentTest correctTestEntry() {
-    return subReport == null ? test : subReport;
   }
 
   private void createReport() throws IOException {
