@@ -41,6 +41,8 @@ public final class ReportsConfigKeys {
 
   public static final String BOBCAT_REPORT_EXTENT_PORT = "bobcat.report.extent.port";
 
+  public static final String BOBCAT_REPORT_EXTENT_SERVER = "bobcat.report.extent.server";
+
   private ReportsConfigKeys() {
   }
 

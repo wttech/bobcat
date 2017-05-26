@@ -66,6 +66,10 @@ public class ExtentReporterFactoryImpl implements ExtentReporterFactory {
   private String projectName;
 
   @Inject
+  @Named(ReportsConfigKeys.BOBCAT_REPORT_EXTENT_SERVER)
+  private String server;
+
+  @Inject
   @Named(ReportsConfigKeys.BOBCAT_REPORT_EXTENT_HOST)
   private String host;
 
@@ -108,6 +112,7 @@ public class ExtentReporterFactoryImpl implements ExtentReporterFactory {
   private ExtentXReporter getExtentXReporter() {
     ExtentXReporter toReturn = new ExtentXReporter(host, port);
     toReturn.config().setProjectName(projectName);
+    toReturn.config().setServerUrl(server);
     return toReturn;
   }
 }

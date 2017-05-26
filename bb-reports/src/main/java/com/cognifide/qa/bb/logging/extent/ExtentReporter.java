@@ -68,6 +68,8 @@ public class ExtentReporter extends AbstractReporter {
 
   private ExtentTest test;
 
+  private ExtentTest subReport;
+
   @Override
   public void generateReport() {
     try {
@@ -82,60 +84,68 @@ public class ExtentReporter extends AbstractReporter {
 
   @Override
   public void suiteStart() {
-
+    // Nothing happens here
   }
 
   @Override
   public void suiteEnd() {
-
+    // Nothing happens here
   }
 
   @Override
   public void testStart(TestInfo testInfo) {
     test = extent.createTest(testInfo.getTestName());
-    test.info("start");
   }
 
   @Override
   public void testEnd(TestInfo testInfo) {
-    if (null != test) {
-      test.info("End of: " + testInfo.getTestName());
-    }
+    // Nothing to do
   }
 
   @Override
   public void errorEntry(ErrorEntry errorLogEntry) {
-
+    correctTestEntry().error(errorLogEntry.getMessage());
   }
 
   @Override
   public void exceptionEntry(ExceptionEntry exceptionLogEntry) {
+    if(exceptionLogEntry.getException() instanceof AssertionError){
+      correctTestEntry().fail(exceptionLogEntry.getMessage());
+    } else {
+      correctTestEntry().fail(exceptionLogEntry.getException());
+    }
 
   }
 
   @Override
   public void screenshotEntry(ScreenshotEntry screenshotLogEntry) {
-
+    try {
+      correctTestEntry().addScreenCaptureFromPath(screenshotLogEntry.getFilePath(),
+          screenshotLogEntry.getFileName());
+    } catch (Exception e) {
+      LOG.error("Exception when adding screenshot: ", e);
+      correctTestEntry().fatal(e);
+    }
   }
 
   @Override
   public void infoEntry(InfoEntry infoEntry) {
-
+    correctTestEntry().info(infoEntry.getMessage());
   }
 
   @Override
   public void eventEntry(EventEntry eventLogEntry) {
-
+    correctTestEntry().info(eventLogEntry.getEvent()+" "+eventLogEntry.getParameter());
   }
 
   @Override
   public void subreportStart(SubreportStartEntry subreportStartLogEntry) {
-
+    subReport = test.createNode(subreportStartLogEntry.getName());
   }
 
   @Override
   public void subreportEnd(SubreportEndEntry subreportEndLogEntry) {
-
+    subReport = null;
   }
 
   @Override
@@ -145,12 +155,12 @@ public class ExtentReporter extends AbstractReporter {
 
   @Override
   public void assertion(AssertionFailedEntry assertionFailedEntry) {
-
+    correctTestEntry().fail(assertionFailedEntry.getError().getMessage());
   }
 
   @Override
   public void softAssertion(SoftAssertionFailedEntry softAssertionFailedEntry) {
-
+    correctTestEntry().fail(softAssertionFailedEntry.getMessage());
   }
 
   @Override
@@ -167,6 +177,11 @@ public class ExtentReporter extends AbstractReporter {
   @Override
   public void browserLogEntry(BrowserLogEntry browserLogEntry) {
 
+  }
+
+
+  private ExtentTest correctTestEntry() {
+    return subReport == null ? test : subReport;
   }
 
   private void createReport() throws IOException {
