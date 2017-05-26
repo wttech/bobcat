@@ -37,6 +37,10 @@ public final class ReportsConfigKeys {
   public static final String BOBCAT_REPORT_EXTENT_PROJECT_NAME =
       "bobcat.report.extent.project.name";
 
+  public static final String BOBCAT_REPORT_EXTENT_HOST = "bobcat.report.extent.host";
+
+  public static final String BOBCAT_REPORT_EXTENT_PORT = "bobcat.report.extent.port";
+
   private ReportsConfigKeys() {
   }
 

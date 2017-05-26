@@ -24,9 +24,11 @@ import com.aventstack.extentreports.reporter.AbstractReporter;
 import java.util.List;
 
 /**
+ * Factory interface that produces Extent reporters
  * Created by daniel.madejek on 2017-05-26.
  */
 public interface ExtentReporterFactory {
+
 
   public List<AbstractReporter> getExtentReporters();
 

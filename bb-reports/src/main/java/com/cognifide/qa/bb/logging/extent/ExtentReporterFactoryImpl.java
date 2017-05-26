@@ -37,7 +37,7 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
 /**
- * Created by daniel.madejek on 2017-05-26.
+ * Default implementation of {@link ExtentReporterFactory} Created by daniel.madejek on 2017-05-26.
  */
 public class ExtentReporterFactoryImpl implements ExtentReporterFactory {
 
@@ -64,6 +64,14 @@ public class ExtentReporterFactoryImpl implements ExtentReporterFactory {
   @Inject
   @Named(ReportsConfigKeys.BOBCAT_REPORT_EXTENT_PROJECT_NAME)
   private String projectName;
+
+  @Inject
+  @Named(ReportsConfigKeys.BOBCAT_REPORT_EXTENT_HOST)
+  private String host;
+
+  @Inject
+  @Named(ReportsConfigKeys.BOBCAT_REPORT_EXTENT_PORT)
+  private Integer port;
 
   @Override
   public List<AbstractReporter> getExtentReporters() {
@@ -98,7 +106,7 @@ public class ExtentReporterFactoryImpl implements ExtentReporterFactory {
   }
 
   private ExtentXReporter getExtentXReporter() {
-    ExtentXReporter toReturn = new ExtentXReporter("localhost", 27017);
+    ExtentXReporter toReturn = new ExtentXReporter(host, port);
     toReturn.config().setProjectName(projectName);
     return toReturn;
   }
