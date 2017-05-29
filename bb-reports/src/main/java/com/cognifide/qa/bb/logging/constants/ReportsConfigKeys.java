@@ -43,6 +43,17 @@ public final class ReportsConfigKeys {
 
   public static final String BOBCAT_REPORT_EXTENT_SERVER = "bobcat.report.extent.server";
 
+  public static final String BOBCAT_REPORT_EXTENT_REPORT_NAME = "bobcat.report.extent.report.name";
+
+  public static final String BOBCAT_REPORT_EXTENT_LOGIN = "bobcat.report.extent.login";
+
+  public static final String BOBCAT_REPORT_EXTENT_PASSWORD = "bobcat.report.extent.password";
+
+  public static final String BOBCAT_REPORT_EXTENT_DB_NAME = "bobcat.report.extent.db.name";
+
+  public static final String BOBCAT_REPORT_EXTENT_USE_AUTHENTICATION =
+      "bobcat.report.extent.use.authentication";
+
   private ReportsConfigKeys() {
   }
 

@@ -36,6 +36,9 @@ import com.cognifide.qa.bb.logging.constants.ReportsConfigKeys;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
+import com.mongodb.MongoCredential;
+import com.mongodb.ServerAddress;
+
 /**
  * Default implementation of {@link ExtentReporterFactory} Created by daniel.madejek on 2017-05-26.
  */
@@ -55,7 +58,7 @@ public class ExtentReporterFactoryImpl implements ExtentReporterFactory {
 
   @Inject
   @Named(ReportsConfigKeys.BOBCAT_REPORT_EXTENT_NAME)
-  private String reportName;
+  private String reportFileName;
 
   @Inject
   @Named(ReportsConfigKeys.BOBCAT_REPORT_EXTENT_REPORTERS)
@@ -76,6 +79,26 @@ public class ExtentReporterFactoryImpl implements ExtentReporterFactory {
   @Inject
   @Named(ReportsConfigKeys.BOBCAT_REPORT_EXTENT_PORT)
   private Integer port;
+
+  @Inject
+  @Named(ReportsConfigKeys.BOBCAT_REPORT_EXTENT_REPORT_NAME)
+  private String reportName;
+
+  @Inject
+  @Named(ReportsConfigKeys.BOBCAT_REPORT_EXTENT_LOGIN)
+  private String login;
+
+  @Inject
+  @Named(ReportsConfigKeys.BOBCAT_REPORT_EXTENT_DB_NAME)
+  private String dbName;
+
+  @Inject
+  @Named(ReportsConfigKeys.BOBCAT_REPORT_EXTENT_PASSWORD)
+  private String password;
+
+  @Inject
+  @Named(ReportsConfigKeys.BOBCAT_REPORT_EXTENT_USE_AUTHENTICATION)
+  private Boolean useAuth;
 
   @Override
   public List<AbstractReporter> getExtentReporters() {
@@ -102,7 +125,9 @@ public class ExtentReporterFactoryImpl implements ExtentReporterFactory {
   private ExtentHtmlReporter getExtentHtmlReporter() {
     try {
       FileUtils.forceMkdir(new File(parentPath));
-      return new ExtentHtmlReporter(parentPath + "/" + reportName);
+      ExtentHtmlReporter toReturn = new ExtentHtmlReporter(parentPath + "/" + reportFileName);
+      toReturn.config().setReportName(reportName);
+      return toReturn;
     } catch (IOException e) {
       LOG.info("Error when creating reporter: ", e);
     }
@@ -110,9 +135,17 @@ public class ExtentReporterFactoryImpl implements ExtentReporterFactory {
   }
 
   private ExtentXReporter getExtentXReporter() {
-    ExtentXReporter toReturn = new ExtentXReporter(host, port);
+    ExtentXReporter toReturn = null;
+    if (useAuth) {
+      List<MongoCredential> mongoCredentials = new ArrayList<>();
+      mongoCredentials.add(MongoCredential.createCredential(login, dbName, password.toCharArray()));
+      toReturn = new ExtentXReporter(new ServerAddress(host, port), mongoCredentials);
+    } else {
+      toReturn = new ExtentXReporter(host, port);
+    }
     toReturn.config().setProjectName(projectName);
     toReturn.config().setServerUrl(server);
+    toReturn.config().setReportName(reportName);
     return toReturn;
   }
 }
