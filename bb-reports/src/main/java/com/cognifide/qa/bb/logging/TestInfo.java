@@ -368,7 +368,7 @@ public class TestInfo {
    * @param subreport Subreport name
    */
   public void startSubreport(String subreport) {
-    subreports.add(subreport);
+    subreports.push(subreport);
     addLogEntry(new SubreportStartEntry(subreport));
   }
 
