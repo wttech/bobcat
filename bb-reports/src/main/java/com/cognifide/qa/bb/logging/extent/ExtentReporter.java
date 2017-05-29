@@ -25,11 +25,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.openqa.selenium.Capabilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.markuputils.ExtentColor;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.cognifide.qa.bb.logging.TestInfo;
 import com.cognifide.qa.bb.logging.constants.ReportsConfigKeys;
 import com.cognifide.qa.bb.logging.entries.AssertionFailedEntry;
@@ -94,7 +97,7 @@ public class ExtentReporter extends AbstractReporter {
 
   @Override
   public void testStart(TestInfo testInfo) {
-    test = new TestEntry(extent.createTest(testInfo.getTestName()),null);
+    test = new TestEntry(extent.createTest(testInfo.getTestName()), null);
   }
 
   @Override
@@ -109,7 +112,7 @@ public class ExtentReporter extends AbstractReporter {
 
   @Override
   public void exceptionEntry(ExceptionEntry exceptionLogEntry) {
-    if(exceptionLogEntry.getException() instanceof AssertionError){
+    if (exceptionLogEntry.getException() instanceof AssertionError) {
       test.getCurrentTest().fail(exceptionLogEntry.getMessage());
     } else {
       test.getCurrentTest().fail(exceptionLogEntry.getException());
@@ -135,13 +138,13 @@ public class ExtentReporter extends AbstractReporter {
 
   @Override
   public void eventEntry(EventEntry eventLogEntry) {
-    test.getCurrentTest().info(eventLogEntry.getEvent()+" "+eventLogEntry.getParameter());
+    test.getCurrentTest().info(eventLogEntry.getEvent() + " " + eventLogEntry.getParameter());
   }
 
   @Override
   public void subreportStart(SubreportStartEntry subreportStartLogEntry) {
     subReport = test.getCurrentTest().createNode(subreportStartLogEntry.getName());
-    test.setParentTest(new TestEntry(test.getCurrentTest(),test.getParentTest()));
+    test.setParentTest(new TestEntry(test.getCurrentTest(), test.getParentTest()));
     test.setCurrentTest(subReport);
   }
 
@@ -154,7 +157,13 @@ public class ExtentReporter extends AbstractReporter {
 
   @Override
   public void browserInfoEntry(BrowserInfoEntry browserInfoEntry) {
-
+    Capabilities capabilities = browserInfoEntry.getCapabilities();
+    test.getCurrentTest()
+        .info(MarkupHelper
+            .createLabel("Browser Info: " + capabilities.getBrowserName()
+                + " " + capabilities.getCapability("browserVersion"), ExtentColor.BLUE));
+    test.getCurrentTest().info(MarkupHelper
+        .createLabel("Platform: " + capabilities.getCapability("platformName"), ExtentColor.AMBER));
   }
 
   @Override
@@ -180,7 +189,7 @@ public class ExtentReporter extends AbstractReporter {
 
   @Override
   public void browserLogEntry(BrowserLogEntry browserLogEntry) {
-
+    test.getCurrentTest().info(browserLogEntry.getMessage());
   }
 
   private void createReport() throws IOException {
