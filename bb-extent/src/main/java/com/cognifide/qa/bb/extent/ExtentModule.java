@@ -17,20 +17,24 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.test;
+package com.cognifide.qa.bb.extent;
 
-import com.cognifide.qa.bb.extent.ExtentModule;
-import com.cognifide.qa.bb.logging.ReporterModule;
-import com.cognifide.qa.bb.modules.CoreModule;
 import com.google.inject.AbstractModule;
 
-public class TestModule extends AbstractModule {
+/**
+ * Install this module to enable reporting capabilities. Following features are available:
+ * <ul>
+ * <li>ReportEntryLogger binding,
+ * <li>Reporter instances binding, constructed based on user-defined property,
+ * <li>Subreport aspect that looks for Subreport annotations on your test method and automatically
+ * creates opening and closing subreport log entries,
+ * <li>WebDriverEventListener binding.
+ * </ul>
+ */
+public class ExtentModule extends AbstractModule {
 
   @Override
   protected void configure() {
-    install(new CoreModule());
-    install(new ExtentModule());
-    install(new ReporterModule());
+    bind(ExtentReporterFactory.class).to(ExtentReporterFactoryImpl.class);
   }
-
 }

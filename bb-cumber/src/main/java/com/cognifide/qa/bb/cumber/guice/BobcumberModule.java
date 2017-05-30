@@ -20,6 +20,7 @@
 package com.cognifide.qa.bb.cumber.guice;
 
 import com.cognifide.qa.bb.assertions.soft.SoftAssertionsAspect;
+
 import com.google.inject.AbstractModule;
 import com.google.inject.matcher.Matchers;
 

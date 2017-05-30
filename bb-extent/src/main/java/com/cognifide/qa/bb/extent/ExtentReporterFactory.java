@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.logging.extent;
+package com.cognifide.qa.bb.extent;
 
 import com.aventstack.extentreports.reporter.AbstractReporter;
 

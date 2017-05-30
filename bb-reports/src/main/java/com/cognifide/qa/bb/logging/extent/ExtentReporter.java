@@ -33,8 +33,9 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
+import com.cognifide.qa.bb.extent.ExtentReporterFactory;
+import com.cognifide.qa.bb.extent.constants.ExtentConfigKeys;
 import com.cognifide.qa.bb.logging.TestInfo;
-import com.cognifide.qa.bb.logging.constants.ReportsConfigKeys;
 import com.cognifide.qa.bb.logging.entries.AssertionFailedEntry;
 import com.cognifide.qa.bb.logging.entries.BrowserInfoEntry;
 import com.cognifide.qa.bb.logging.entries.BrowserLogEntry;
@@ -59,7 +60,7 @@ public class ExtentReporter extends AbstractReporter {
   private static final Logger LOG = LoggerFactory.getLogger(ExtentReporter.class);
 
   @Inject
-  @Named(ReportsConfigKeys.BOBCAT_REPORT_EXTENT_INCLUDE_PROPERTIES)
+  @Named(ExtentConfigKeys.BOBCAT_REPORT_EXTENT_INCLUDE_PROPERTIES)
   private String includeProperties;
 
   @Inject
@@ -160,10 +161,10 @@ public class ExtentReporter extends AbstractReporter {
     Capabilities capabilities = browserInfoEntry.getCapabilities();
     test.getCurrentTest()
         .info(MarkupHelper
-            .createLabel("Browser Info: " + capabilities.getBrowserName()
-                + " " + capabilities.getCapability("browserVersion"), ExtentColor.BLUE));
+            .createLabel("Browser: " + capabilities.getBrowserName()
+                + " " + capabilities.getVersion(), ExtentColor.BLUE));
     test.getCurrentTest().info(MarkupHelper
-        .createLabel("Platform: " + capabilities.getCapability("platformName"), ExtentColor.AMBER));
+        .createLabel("Platform: " + capabilities.getPlatform(), ExtentColor.AMBER));
   }
 
   @Override

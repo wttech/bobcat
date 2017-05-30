@@ -25,35 +25,6 @@ public final class ReportsConfigKeys {
 
   public static final String BOBCAT_REPORT_REPORTERS = "bobcat.report.reporters";
 
-  public static final String BOBCAT_REPORT_EXTENT_REPORTERS = "bobcat.report.extent.reporters";
-
-  public static final String BOBCAT_REPORT_EXTENT_PATH = "bobcat.report.extent.path";
-
-  public static final String BOBCAT_REPORT_EXTENT_NAME = "bobcat.report.extent.name";
-
-  public static final String BOBCAT_REPORT_EXTENT_INCLUDE_PROPERTIES =
-      "bobcat.report.extent.include.properties";
-
-  public static final String BOBCAT_REPORT_EXTENT_PROJECT_NAME =
-      "bobcat.report.extent.project.name";
-
-  public static final String BOBCAT_REPORT_EXTENT_HOST = "bobcat.report.extent.host";
-
-  public static final String BOBCAT_REPORT_EXTENT_PORT = "bobcat.report.extent.port";
-
-  public static final String BOBCAT_REPORT_EXTENT_SERVER = "bobcat.report.extent.server";
-
-  public static final String BOBCAT_REPORT_EXTENT_REPORT_NAME = "bobcat.report.extent.report.name";
-
-  public static final String BOBCAT_REPORT_EXTENT_LOGIN = "bobcat.report.extent.login";
-
-  public static final String BOBCAT_REPORT_EXTENT_PASSWORD = "bobcat.report.extent.password";
-
-  public static final String BOBCAT_REPORT_EXTENT_DB_NAME = "bobcat.report.extent.db.name";
-
-  public static final String BOBCAT_REPORT_EXTENT_USE_AUTHENTICATION =
-      "bobcat.report.extent.use.authentication";
-
   private ReportsConfigKeys() {
   }
 

@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.logging.extent;
+package com.cognifide.qa.bb.extent;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,11 +31,11 @@ import org.slf4j.LoggerFactory;
 import com.aventstack.extentreports.reporter.AbstractReporter;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.ExtentXReporter;
-import com.cognifide.qa.bb.logging.constants.ReportsConfigKeys;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
+import com.cognifide.qa.bb.extent.constants.ExtentConfigKeys;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 
@@ -53,51 +53,51 @@ public class ExtentReporterFactoryImpl implements ExtentReporterFactory {
   private static final String SEPARATOR = ",";
 
   @Inject
-  @Named(ReportsConfigKeys.BOBCAT_REPORT_EXTENT_PATH)
+  @Named(ExtentConfigKeys.BOBCAT_REPORT_EXTENT_PATH)
   private String parentPath;
 
   @Inject
-  @Named(ReportsConfigKeys.BOBCAT_REPORT_EXTENT_NAME)
+  @Named(ExtentConfigKeys.BOBCAT_REPORT_EXTENT_NAME)
   private String reportFileName;
 
   @Inject
-  @Named(ReportsConfigKeys.BOBCAT_REPORT_EXTENT_REPORTERS)
+  @Named(ExtentConfigKeys.BOBCAT_REPORT_EXTENT_REPORTERS)
   private String reporters;
 
   @Inject
-  @Named(ReportsConfigKeys.BOBCAT_REPORT_EXTENT_PROJECT_NAME)
+  @Named(ExtentConfigKeys.BOBCAT_REPORT_EXTENT_PROJECT_NAME)
   private String projectName;
 
   @Inject
-  @Named(ReportsConfigKeys.BOBCAT_REPORT_EXTENT_SERVER)
+  @Named(ExtentConfigKeys.BOBCAT_REPORT_EXTENT_SERVER)
   private String server;
 
   @Inject
-  @Named(ReportsConfigKeys.BOBCAT_REPORT_EXTENT_HOST)
+  @Named(ExtentConfigKeys.BOBCAT_REPORT_EXTENT_HOST)
   private String host;
 
   @Inject
-  @Named(ReportsConfigKeys.BOBCAT_REPORT_EXTENT_PORT)
+  @Named(ExtentConfigKeys.BOBCAT_REPORT_EXTENT_PORT)
   private Integer port;
 
   @Inject
-  @Named(ReportsConfigKeys.BOBCAT_REPORT_EXTENT_REPORT_NAME)
+  @Named(ExtentConfigKeys.BOBCAT_REPORT_EXTENT_REPORT_NAME)
   private String reportName;
 
   @Inject
-  @Named(ReportsConfigKeys.BOBCAT_REPORT_EXTENT_LOGIN)
+  @Named(ExtentConfigKeys.BOBCAT_REPORT_EXTENT_LOGIN)
   private String login;
 
   @Inject
-  @Named(ReportsConfigKeys.BOBCAT_REPORT_EXTENT_DB_NAME)
+  @Named(ExtentConfigKeys.BOBCAT_REPORT_EXTENT_DB_NAME)
   private String dbName;
 
   @Inject
-  @Named(ReportsConfigKeys.BOBCAT_REPORT_EXTENT_PASSWORD)
+  @Named(ExtentConfigKeys.BOBCAT_REPORT_EXTENT_PASSWORD)
   private String password;
 
   @Inject
-  @Named(ReportsConfigKeys.BOBCAT_REPORT_EXTENT_USE_AUTHENTICATION)
+  @Named(ExtentConfigKeys.BOBCAT_REPORT_EXTENT_USE_AUTHENTICATION)
   private Boolean useAuth;
 
   @Override

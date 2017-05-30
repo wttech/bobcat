@@ -38,6 +38,16 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.cognifide.qa.bb</groupId>
+            <artifactId>bb-reports</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.cognifide.qa.bb</groupId>
+            <artifactId>bb-extent</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-core</artifactId>
         </dependency>
@@ -49,6 +59,8 @@
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-junit</artifactId>
         </dependency>
+
+
     </dependencies>
 
     <build>
