@@ -39,11 +39,6 @@
         </dependency>
         <dependency>
             <groupId>com.cognifide.qa.bb</groupId>
-            <artifactId>bb-reports</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.cognifide.qa.bb</groupId>
             <artifactId>bb-extent</artifactId>
             <version>${project.version}</version>
         </dependency>
