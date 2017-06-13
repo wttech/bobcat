@@ -31,6 +31,7 @@ import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
@@ -69,6 +70,16 @@ public enum WebDriverType {
     @Override
     public WebDriver create(Capabilities capabilities, Properties properties) {
       return getWebDriverWithProxyCookieSupport(properties, new ChromeDriver(capabilities));
+    }
+  },
+  CHROME_HEADLESS {
+    @Override
+    public WebDriver create(Capabilities capabilities, Properties properties) {
+      ChromeOptions options = new ChromeOptions();
+      options.addArguments("headless");
+      DesiredCapabilities caps = DesiredCapabilities.chrome();
+      caps.setCapability(ChromeOptions.CAPABILITY,options);
+      return getWebDriverWithProxyCookieSupport(properties, new ChromeDriver(capabilities.merge(caps)));
     }
   },
   IE {
