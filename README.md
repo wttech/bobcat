@@ -10,9 +10,35 @@
   <img src="assets/bobcat-384-384.png" alt="Bobcat Logo"/>
 </p>
 
+## About Bobcat
+
 Bobcat is an automated testing framework for functional testing of web applications. It wraps Selenium Browser Automation with a handy set of tools (accelerators). Since using Selenium (Webdriver), it aims to mimic the behaviour of a real user, and as such interacts with the HTML of the application. 
 
 Bobcat is implemented in Java and allows test development in pure JUnit and in Gherkin for BDD approaches. Bobcat also provides set of good practices that accelerates testing process.
+
+:smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat:
+## Bobcat 2.0 is coming!
+
+A high level roadmap, without any concrete deadlines of what we plan for 2.0 release:
+
+#### Milestone #1 (still in 1.x.x)
+1. Maven archetype cleanup
+2. Selenium version bump
+3. Simplify Bobcat configuration
+
+#### Milestone #2 (part of it may end up in 1.x.x)
+- Reporting revamp
+- General refactoring
+    - some parts of API might disappear in the future
+    - some modules may end up without further support
+- last 1.x.x release
+    - deprecation of APIs to be removed
+
+#### Milestone #3
+- remove the deprecated APIs
+- after the above is done, 2.0 release
+
+:smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat:
 
 ## What's philosophy behind Bobcat?
 
@@ -60,31 +86,6 @@ Bobcat accelerates test development, especially when it comes to AEM authoring. 
 ## License
 
 **Bobcat** is licensed under [Apache License, Version 2.0 (the "License")](https://www.apache.org/licenses/LICENSE-2.0.txt)
-
-## Dependencies
-
-- org.seleniumhq.selenium
-- io.appium
-- net.lightbody.bmp
-- com.google.inject
-- info.cukes.cucumber
-- org.asserj
-- org.apache.jackrabbit
-
-## Developer setup guide
-
-To work with **Bobcat** the following tools are required:
-
-- JDK 8 (from _065)
-- Maven 3
-- Chrome Driver - if tests will be executed on chrome
-
-## Roadmap
-
-- AEM Touch UI testing support,
-- Gradle,
-- Solr testing support,
-- Model based testing - http://graphwalker.github.io/
 
 ## Documentation
 * [Bobcat Wiki](https://github.com/Cognifide/bobcat/wiki)
