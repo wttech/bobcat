@@ -20,10 +20,10 @@ Bobcat is implemented in Java and allows test development in pure JUnit and in G
 :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat:
 ## Bobcat 2.0 is coming!
 
-A high level roadmap, without any concrete deadlines of what we plan for 2.0 release:
+A high level roadmap (milestones still can be changed), without any concrete deadlines of what we plan for 2.0 release:
 
 #### Milestone #1 (still in 1.x.x)
-1. Maven archetype cleanup
+1. Archetype cleanup and move to gradle from end-user side 
 2. Selenium version bump
 3. Simplify Bobcat configuration
 
@@ -38,6 +38,9 @@ A high level roadmap, without any concrete deadlines of what we plan for 2.0 rel
 #### Milestone #3
 - remove the deprecated APIs
 - after the above is done, 2.0 release
+
+#### Other Ideas 
+- move development from maven to gradle
 
 :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat:
 
