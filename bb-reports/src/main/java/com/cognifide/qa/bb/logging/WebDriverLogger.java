@@ -167,6 +167,16 @@ public class WebDriverLogger implements WebDriverEventListener {
   }
 
   @Override
+  public void beforeSwitchToWindow(String s, WebDriver webDriver) {
+    //TODO
+  }
+
+  @Override
+  public void afterSwitchToWindow(String s, WebDriver webDriver) {
+    //TODO
+  }
+
+  @Override
   public void onException(Throwable throwable, WebDriver driver) {
     // empty as we have a lot of selenium exceptions that are expected
     // we don't want to have them in report
