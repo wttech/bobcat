@@ -6,7 +6,7 @@ addons:
   apt:
     packages:
       - oracle-java8-installer
-  firefox: "56.0"
+  firefox: "55.0"
 
 install: true
 
