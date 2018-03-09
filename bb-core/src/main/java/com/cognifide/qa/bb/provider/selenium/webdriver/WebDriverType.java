@@ -60,15 +60,6 @@ public enum WebDriverType {
           new FirefoxDriver(new FirefoxOptions(capabilities)));
     }
   },
-  MARIONETTE {
-    @Override
-    public WebDriver create(Capabilities capabilities, Properties properties) {
-      DesiredCapabilities caps = DesiredCapabilities.firefox();
-      caps.setCapability("marionette", true);
-      return getWebDriverWithProxyCookieSupport(properties,
-          new FirefoxDriver(new FirefoxOptions(capabilities)));
-    }
-  },
   CHROME {
     @Override
     public WebDriver create(Capabilities capabilities, Properties properties) {

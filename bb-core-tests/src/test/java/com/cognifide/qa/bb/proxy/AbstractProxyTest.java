@@ -19,6 +19,7 @@
  */
 package com.cognifide.qa.bb.proxy;
 
+import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import java.net.UnknownHostException;
 import java.util.Properties;
 
@@ -71,7 +72,7 @@ abstract class AbstractProxyTest {
       WebDriver webDriver = webDriverType.create(capabilities, properties);
       webDriver.get(server.getPath());
       LOG.debug("visited page at: '{}'", server.getPath());
-      webDriver.close();
+      BobcatWait.sleep(1);
       webDriver.quit();
       LOG.debug("web driver closed and quited");
     }

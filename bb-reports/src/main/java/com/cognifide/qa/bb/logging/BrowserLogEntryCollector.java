@@ -22,6 +22,7 @@ package com.cognifide.qa.bb.logging;
 import java.util.List;
 import java.util.logging.Level;
 
+import org.openqa.selenium.UnsupportedCommandException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.logging.LogType;
 
@@ -43,14 +44,17 @@ public class BrowserLogEntryCollector {
    */
   public List<LogEntry> getBrowserLogEntries() {
     List<LogEntry> toReturn = Lists.newArrayList();
-    List<org.openqa.selenium.logging.LogEntry> browserEntries =
-        webDriver.manage().logs().get(LogType.BROWSER)
-            .filter(Level.SEVERE);
-    browserEntries.stream().
-            forEach(browserEntry ->
+    try {
+      List<org.openqa.selenium.logging.LogEntry> browserEntries =
+          webDriver.manage().logs().get(LogType.BROWSER)
+              .filter(Level.SEVERE);
+      browserEntries.stream().
+          forEach(browserEntry ->
               toReturn.add(new BrowserLogEntry(browserEntry.toString()))
-            );
-
+          );
+    } catch(UnsupportedCommandException e){
+      toReturn.add(new BrowserLogEntry("Used driver don't support retrieving console logs"));
+    }
     return toReturn;
   }
 
