@@ -21,6 +21,7 @@ package com.cognifide.qa.bb.logging.reporter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeTrue;
 import static org.mockito.Mockito.mock;
 
 import java.util.Arrays;
@@ -55,6 +56,7 @@ public class ReporterTest {
   @Test
   public void shouldCreateLogEntries()
       throws IllegalAccessException, InitializationError, InstantiationException {
+    assumeTrue(System.getProperties().getProperty("webdriver.type").equals("chrome"));
     TestRunner testRunner = new TestRunner(SampleTestClass.class);
 
     RunNotifier notifier = mock(RunNotifier.class);
@@ -141,6 +143,7 @@ public class ReporterTest {
 
     @Test
     public void sampleTest() {
+      assumeTrue(System.getProperties().getProperty("webdriver.type").equals("chrome"));
       reportEntryLogger.info("test info message");
       reportEntryLogger.screenshot("test screenshot");
       reportEntryLogger.error("test error message");

@@ -18,7 +18,6 @@ package com.cognifide.qa.bb.test.loadable;
 import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import com.cognifide.qa.bb.loadable.condition.impl.VisibilityCondition;
 import com.cognifide.qa.bb.qualifier.PageObject;
-import com.cognifide.qa.bb.test.actions.BobcatActionsTest;
 import com.cognifide.qa.test.util.PageUtils;
 import com.google.inject.Inject;
 import org.openqa.selenium.WebDriver;

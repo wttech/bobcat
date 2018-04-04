@@ -64,7 +64,7 @@ public class WebDriverLogger implements WebDriverEventListener {
 
   @Override
   public void beforeAlertAccept(WebDriver webDriver) {
-   beforeEvent("alertAccept");
+    beforeEvent("alertAccept");
   }
 
   @Override
@@ -163,6 +163,16 @@ public class WebDriverLogger implements WebDriverEventListener {
 
   @Override
   public void afterScript(String script, WebDriver driver) {
+    afterEvent();
+  }
+
+  @Override
+  public void beforeSwitchToWindow(String s, WebDriver webDriver) {
+    beforeEvent("switchToWindow");
+  }
+
+  @Override
+  public void afterSwitchToWindow(String s, WebDriver webDriver) {
     afterEvent();
   }
 

@@ -21,7 +21,7 @@ import com.cognifide.qa.bb.loadable.context.ConditionContext;
 import java.util.List;
 
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.internal.Locatable;
+import org.openqa.selenium.interactions.internal.Locatable;
 
 /**
  * Context of internal wrapper for Selenium's {@link WebElement}. For internal use only.

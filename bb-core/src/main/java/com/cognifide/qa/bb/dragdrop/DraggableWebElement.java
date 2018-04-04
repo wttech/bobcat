@@ -23,7 +23,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.internal.Locatable;
+import org.openqa.selenium.interactions.internal.Locatable;
 
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.frame.FrameSwitcher;

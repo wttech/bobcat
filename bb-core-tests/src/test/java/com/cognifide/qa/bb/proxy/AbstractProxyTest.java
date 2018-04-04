@@ -71,7 +71,6 @@ abstract class AbstractProxyTest {
       WebDriver webDriver = webDriverType.create(capabilities, properties);
       webDriver.get(server.getPath());
       LOG.debug("visited page at: '{}'", server.getPath());
-      webDriver.close();
       webDriver.quit();
       LOG.debug("web driver closed and quited");
     }
