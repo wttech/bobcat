@@ -23,11 +23,12 @@ Bobcat is implemented in Java and allows test development in pure JUnit and in G
 A high level roadmap (milestones still can be changed), without any concrete deadlines of what we plan for 2.0 release:
 
 #### Milestone #1 (still in 1.x.x)
-1. Archetype cleanup and move to gradle from end-user side 
-2. Selenium version bump
+1. Archetype cleanup and move to a Gradle-based template :white_check_mark:
+2. Selenium version bump :white_check_mark:
 3. Simplify Bobcat configuration
 
 #### Milestone #2 (part of it may end up in 1.x.x)
+- Switch to Gradle from end-user side
 - Reporting revamp
 - General refactoring
     - some parts of API might disappear in the future
