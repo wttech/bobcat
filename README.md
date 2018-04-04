@@ -5,22 +5,34 @@
 [![Apache License, Version 2.0, January 2004](https://img.shields.io/github/license/cognifide/bobcat.svg?label=License)](http://www.apache.org/licenses/)
 [![Gitter chat](https://badges.gitter.im/bobcat-framework/Lobby.png)](https://gitter.im/bobcat-framework/Lobby)
 
-# Bobcat
-
 <p align="center">
   <img src="assets/bobcat-384-384.png" alt="Bobcat Logo"/>
 </p>
 
-## About Bobcat
+Bobcat is an automated testing framework for functional testing of web applications. It wraps [Selenium](https://github.com/SeleniumHQ/selenium), so anything possible in raw Selenium can be done with Bobcat, including running it on all supported browsers, Selenium Grid, cloud providers like SauceLabs, Cross Browser Testing, BrwoserStack etc. You can also utilize [Appium](http://appium.io/) for mobile testing. Bobcat comes with a handy set of utilities and accelerators that will help you develop your tests faster.
 
-Bobcat is an automated testing framework for functional testing of web applications. It wraps Selenium Browser Automation with a handy set of tools (accelerators). Since using Selenium (Webdriver), it aims to mimic the behaviour of a real user, and as such interacts with the HTML of the application. 
+Bobcat is implemented in Java and allows the test development in pure JUnit or via Cucumber-JVM for BDD-oriented people.
 
-Bobcat is implemented in Java and allows test development in pure JUnit and in Gherkin for BDD approaches. Bobcat also provides set of good practices that accelerates testing process.
+## AEM Support
+
+Since Cognifide expertises in development on top of [Adobe Experience Manager (AEM)](https://www.adobe.com/marketing-cloud/experience-manager.html), Bobcat accelerates test development for this platform, especially when it comes to AEM authoring. The framework provides dedicated modules which allow you to automate almost every action on the AEM author side. This includes:
+- Site Admin,
+- dialogs,
+- parsyses,
+- components,
+- component fields,
+- CRX.
+
+#### Bobcat was used for automating AEM 6.3, though the latest versions of AEM-related modules were not developed for full compatibility of TouchUI interface - let us know if you run into any issue or want to submit a pull request.
+
+## Getting started
+
+To start your adventure with Bobcat, please refer to our wiki: [Getting started](https://github.com/Cognifide/bobcat/wiki/Getting-Started)
 
 :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat:
 ## Bobcat 2.0 is coming!
 
-A high level roadmap (milestones still can be changed), without any concrete deadlines of what we plan for 2.0 release:
+A high level roadmap (milestones still can change), without any concrete deadlines of what we plan for 2.0 release:
 
 #### Milestone #1 (still in 1.x.x)
 1. Archetype cleanup and move to a Gradle-based template :white_check_mark:
@@ -40,59 +52,27 @@ A high level roadmap (milestones still can be changed), without any concrete dea
 - remove the deprecated APIs
 - after the above is done, 2.0 release
 
-#### Other Ideas 
-- move development from maven to gradle
+#### Other Ideas
+- move development from Maven to Gradle
 
 :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat:
 
-## What's philosophy behind Bobcat?
+## What's so special about Bobcat?
 
-#### We have identified major properties that Bobcat should follow:
-  * Maintainable
-    * written in Java with Guice,
-    * provides set of libraries and helpers,
-    * enforces Page Object pattern,
-    * supports both JUnit and Cucumber.
-  * Stable
-    * provides set of Archetypes for project setup,
-    * unaffectedly supports Continous Integration environments,
-    * comes together with good practices.
-  * Scalable
-    * allows parallel execution both Junit and Cucumber tests,
-    * supports testing on different levels (Integration, Staging, SIT...),
-    * integrates with majority of test clouds (Sauce Labs, Cross Browser Testing, Browser Stack...).
-    
-## What tools does Bobcat consist of?
+We created this framework at Cognifide after years of experience with multiple simpler solutions. After reaching a certain point of maturity, we have decided it was time for a tool developed properly, by bringing the knowledge of both our QA engineers and developers. We wanted our framework to be maintainable, stable and scalable.
 
-#### In Bobcat we combine many tools:
-* Selenium to enable testing on web browsers,
-* Appium to enable testing on mobile devices,
-* Cucumber JVM to simplify test automation in BDD,
-* ChromeDriver to enable testing on Chrome browser,
-* IEDriver to enable testing on IE browser.
+Bobcat relies heavily on the Page Object pattern, which is an embedded concept in most of its internals. We can model our websites easily and create a neat Page Object tree structure, scoping Page Objects inside other Page Objects, reducing the effort of selector maintenance. You can read more about it [here](https://github.com/Cognifide/bobcat/wiki/PageObject). We make all the magic possible thanks to dependency injection with Google's Guice. Additionally, we wanted to make it as scalable as possible, so thread-safety was one of the key principles during the development.
 
-#### Bobcat uses set of libraries that supports development:
-* Google Guice to let dependency management be more effective,
-* JUnit as a test runner,
-* Maven as a project managing tool.
+## Contributing
 
-## AEM Support
-
-Bobcat accelerates test development, especially when it comes to AEM authoring. Bobcat provides set of libraries which allows you to test almost every action on the AEM author side. This includes:
-- Site Admin,
-- Dialogs,
-- Parsyses,
-- Components,
-- Component fields,
-- Crx.
-
-#### Bobcat supports AEM authoring in newest version - AEM 6.2 and compatible features in older versions. 
+You can help make Bobcat more awesome by raising any encountered issues or feature requests here on [Github](https://github.com/Cognifide/bobcat/issues). For any questions, please contact us on [Gitter](https://gitter.im/bobcat-framework/Lobby) or via [email](bobcat@cognifide.com).
 
 ## License
 
 **Bobcat** is licensed under [Apache License, Version 2.0 (the "License")](https://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ## Documentation
-* [Bobcat Wiki](https://github.com/Cognifide/bobcat/wiki)
-* [Bobcat 1.3.0 APIdocs](https://cognifide.github.io/bobcat/apidocs/1-3-0/)
+See our [Bobcat Wiki](https://github.com/Cognifide/bobcat/wiki) for examples and documentation of all features.
+
+You might alsa want to check latest [Bobcat API docs](https://cognifide.github.io/bobcat/apidocs/1-3-0/).
  
