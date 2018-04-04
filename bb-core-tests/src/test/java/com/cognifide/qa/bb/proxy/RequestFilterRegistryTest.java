@@ -76,10 +76,10 @@ public class RequestFilterRegistryTest extends AbstractProxyTest {
     // when
     DesiredCapabilities capabilities = proxyCapabilities(browserMobProxy);
     visitSamplePage(capabilities);
-    verify(requestFilter, atLeastOnce()).filterRequest(any(HttpRequest.class),
-        any(HttpMessageContents.class), any(HttpMessageInfo.class));
     browserMobProxy.stop();
     // then
+    verify(requestFilter, atLeastOnce()).filterRequest(any(HttpRequest.class),
+        any(HttpMessageContents.class), any(HttpMessageInfo.class));
 
   }
 }
