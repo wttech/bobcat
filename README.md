@@ -93,5 +93,5 @@ Bobcat accelerates test development, especially when it comes to AEM authoring. 
 
 ## Documentation
 * [Bobcat Wiki](https://github.com/Cognifide/bobcat/wiki)
-* [Bobcat 1.2.1 APIdocs](https://cognifide.github.io/bobcat/apidocs/1-2-1/)
+* [Bobcat 1.3.0 APIdocs](https://cognifide.github.io/bobcat/apidocs/1-3-0/)
  
