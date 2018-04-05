@@ -21,9 +21,38 @@ package com.cognifide.qa.bb.config;
 
 import java.util.Properties;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Classes implementing this interfaces determine how Bobcat configuration is being loaded.
  */
 public interface ConfigStrategy {
-  Properties gatherProperties();
+
+  default Properties gatherProperties() {
+    Properties properties = loadDefaultProperties();
+    loadProperties(properties);
+    overrideFromSystemProperties(properties);
+    setSystemProperties(properties);
+    return properties;
+  }
+
+  Properties loadDefaultProperties();
+
+  void loadProperties(Properties properties);
+
+  default void overrideFromSystemProperties(Properties properties) {
+    System.getProperties().stringPropertyNames().stream().forEach(key -> {
+      String systemProperty = System.getProperty(key);
+      if (StringUtils.isNotBlank(systemProperty)) {
+        properties.setProperty(key, systemProperty);
+      }
+    });
+  }
+
+  default void setSystemProperties(Properties properties) {
+    properties.stringPropertyNames().stream()
+        .filter(key -> StringUtils.isBlank(System.getProperty(key)))
+        .filter(key -> key.startsWith("webdriver."))
+        .forEach(key -> System.setProperty(key, properties.getProperty(key)));
+  }
 }

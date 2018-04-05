@@ -23,7 +23,12 @@ import java.util.Properties;
 
 public class YamlConfig implements ConfigStrategy {
   @Override
-  public Properties gatherProperties() {
+  public Properties loadDefaultProperties() {
     return null;
+  }
+
+  @Override
+  public void loadProperties(Properties properties) {
+
   }
 }
