@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.utils;
+package com.cognifide.qa.bb.config;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -32,34 +32,15 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cognifide.qa.bb.config.PropertyBinder;
 import com.cognifide.qa.bb.constants.ConfigKeys;
 
-/**
- * This class contains utility methods for loading properties from classpath and system.
- *
- * @deprecated will be removed in 2.0.0; replaced by new property loading strategy
- */
-@Deprecated
-public final class PropertyUtils {
-
-  private static final Logger LOG = LoggerFactory.getLogger(PropertyUtils.class);
-
+public class LegacyConfig implements ConfigStrategy {
+  private static final Logger LOG = LoggerFactory.getLogger(LegacyConfig.class);
+  private Properties properties = null;
   private static final String[] PREFIXES = new String[] {"webdriver.", "phantomjs."};
 
-  private static volatile Properties properties = null;
-
-  private PropertyUtils() {
-    // util class...
-  }
-
-  /**
-   * This util method gather system and class path properties, and returns them as <code>Properties</code>
-   * object.
-   *
-   * @return Properties - object with all properties.
-   */
-  public static Properties gatherProperties() {
+  @Override
+  public Properties gatherProperties() {
     if (properties == null) {
       try {
         String parents = System.getProperty(ConfigKeys.CONFIGURATION_PATHS, "src/main/config");
@@ -78,18 +59,18 @@ public final class PropertyUtils {
     return properties;
   }
 
-  private static Properties loadDefaultProperties() throws IOException {
-    Properties properties = new Properties();
+  private Properties loadDefaultProperties() throws IOException {
+    Properties defaultProperties = new Properties();
     try (InputStream is = PropertyBinder.class.getClassLoader()
         .getResourceAsStream(ConfigKeys.DEFAULT_PROPERTIES_NAME)) {
-      properties.load(is);
+      defaultProperties.load(is);
     } catch (IOException e) {
       LOG.error("Can't bind default properties", e);
     }
-    return properties;
+    return defaultProperties;
   }
 
-  private static void loadProperties(File file, Properties properties) throws IOException {
+  private void loadProperties(File file, Properties properties) throws IOException {
     if (!file.exists()) {
       LOG.warn("{} file doesn't exists.", file.getPath());
     } else {
@@ -111,7 +92,7 @@ public final class PropertyUtils {
     }
   }
 
-  private static void overrideFromSystemProperties(Properties properties) {
+  private void overrideFromSystemProperties(Properties properties) {
     System.getProperties().stringPropertyNames().stream().forEach(key -> {
       String systemProperty = System.getProperty(key);
       if (StringUtils.isNotBlank(systemProperty)) {
@@ -120,7 +101,7 @@ public final class PropertyUtils {
     });
   }
 
-  private static void setSystemProperties(Properties properties) {
+  private void setSystemProperties(Properties properties) {
     for (String key : properties.stringPropertyNames()) {
       String systemProperty = System.getProperty(key);
       if (StringUtils.isNotBlank(systemProperty)) {

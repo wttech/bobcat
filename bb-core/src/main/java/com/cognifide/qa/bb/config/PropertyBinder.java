@@ -17,11 +17,14 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb;
+package com.cognifide.qa.bb.config;
 
 import java.util.Properties;
 
-import com.cognifide.qa.bb.utils.PropertyUtils;
+import com.cognifide.qa.bb.config.ConfigStrategy;
+import com.cognifide.qa.bb.config.LegacyConfig;
+import com.cognifide.qa.bb.config.YamlConfig;
+import com.cognifide.qa.bb.constants.ConfigKeys;
 import com.google.inject.Binder;
 import com.google.inject.name.Names;
 
@@ -47,8 +50,15 @@ public final class PropertyBinder {
    * @param binder The Binder instance that will store the newly created property bindings.
    */
   public static void bindProperties(Binder binder) {
-    Properties properties = PropertyUtils.gatherProperties();
+    ConfigStrategy strategy = resolveStrategy();
+    Properties properties = strategy.gatherProperties();
     Names.bindProperties(binder, properties);
     binder.bind(Properties.class).toInstance(properties);
+  }
+
+  private static ConfigStrategy resolveStrategy() {
+    return "yaml".equals(System.getProperty(ConfigKeys.CONFIG_STRATEGY)) ?
+        new YamlConfig() :
+        new LegacyConfig();
   }
 }

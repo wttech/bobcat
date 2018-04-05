@@ -68,7 +68,8 @@ public final class ConfigKeys {
 
   public static final String JUNIT_RERUNS = "junit.reruns";
 
+  public static final String CONFIG_STRATEGY = "config.strategy";
+
   private ConfigKeys() {
   }
-
 }
