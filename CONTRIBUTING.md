@@ -22,7 +22,7 @@ There are few things you need to keep in mind though.
 
 ### Description
 
-Describe your changes in the pull request. Also, make your commit messages speak for themselves.
+Describe your changes in the pull request. Also, make your commit messages speak for themselves (you can read more about that [here](https://chris.beams.io/posts/git-commit/).
 
 ### Styleguide
 
