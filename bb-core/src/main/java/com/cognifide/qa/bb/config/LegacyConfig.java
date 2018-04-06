@@ -40,7 +40,7 @@ public class LegacyConfig implements ConfigStrategy {
   private static final Logger LOG = LoggerFactory.getLogger(LegacyConfig.class);
 
   @Override
-  public Properties loadDefaultProperties() {
+  public Properties loadDefaultConfig() {
     Properties defaultProperties = new Properties();
     try (InputStream is = PropertyBinder.class.getClassLoader()
         .getResourceAsStream(ConfigKeys.DEFAULT_PROPERTIES_NAME)) {
@@ -52,25 +52,27 @@ public class LegacyConfig implements ConfigStrategy {
   }
 
   @Override
-  public void loadProperties(Properties properties) {
+  public Properties loadConfig() {
+    Properties properties = new Properties();
     String parents = System.getProperty(ConfigKeys.CONFIGURATION_PATHS, "src/main/config");
     String[] split = StringUtils.split(parents, ";");
     Arrays.stream(split)
         .forEach(name -> {
               File configParent = new File(StringUtils.trim(name));
-              loadPropertyFromFile(configParent, properties);
+              loadPropertiesFromFile(configParent, properties);
             }
         );
+    return properties;
   }
 
-  private void loadPropertyFromFile(File file, Properties properties) {
+  private void loadPropertiesFromFile(File file, Properties properties) {
     if (!file.exists()) {
       LOG.warn("{} file doesn't exists.", file.getPath());
       return;
     }
     if (file.isDirectory()) {
       Arrays.stream(file.listFiles())
-          .forEach(child -> loadPropertyFromFile(child, properties));
+          .forEach(child -> loadPropertiesFromFile(child, properties));
     } else {
       LOG.debug("loading properties from: {} (ie. {})", file, file.getAbsolutePath());
       try (BufferedReader reader = new BufferedReader(

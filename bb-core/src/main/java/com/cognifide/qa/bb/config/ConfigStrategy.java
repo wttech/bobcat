@@ -29,24 +29,25 @@ import org.apache.commons.lang3.StringUtils;
 public interface ConfigStrategy {
 
   default Properties gatherProperties() {
-    Properties properties = loadDefaultProperties();
-    loadProperties(properties);
-    overrideFromSystemProperties(properties);
-    setSystemProperties(properties);
-    return properties;
+    Properties config = loadDefaultConfig();
+    config.putAll(loadConfig());
+    Properties overridenConfig = overrideFromSystemProperties(config);
+    setSystemProperties(overridenConfig);
+    return overridenConfig;
   }
 
-  Properties loadDefaultProperties();
+  Properties loadDefaultConfig();
 
-  void loadProperties(Properties properties);
+  Properties loadConfig();
 
-  default void overrideFromSystemProperties(Properties properties) {
+  default Properties overrideFromSystemProperties(Properties properties) {
     System.getProperties().stringPropertyNames().stream().forEach(key -> {
       String systemProperty = System.getProperty(key);
       if (StringUtils.isNotBlank(systemProperty)) {
         properties.setProperty(key, systemProperty);
       }
     });
+    return properties;
   }
 
   default void setSystemProperties(Properties properties) {

@@ -32,7 +32,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.internal.util.reflection.Whitebox;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -41,6 +40,7 @@ import org.openqa.selenium.WebElement;
 
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
+import com.cognifide.qa.bb.utils.Whitebox;
 
 public class CurrentScopeHelperTest {
 
@@ -170,6 +170,7 @@ public class CurrentScopeHelperTest {
       this.webElement = webElement;
     }
   }
+
 
   @PageObject(generateCurrentScope = false)
   private class PageObjectWithoutCurrentScope {

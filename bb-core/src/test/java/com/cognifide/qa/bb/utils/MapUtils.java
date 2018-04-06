@@ -17,18 +17,20 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.config;
+package com.cognifide.qa.bb.utils;
 
-import java.util.Properties;
+import java.util.AbstractMap;
+import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
-public class YamlConfig implements ConfigStrategy {
-  @Override
-  public Properties loadDefaultConfig() {
-    return null;
+public class MapUtils {
+
+  public static <K, U> Collector<Map.Entry<K, U>, ?, Map<K, U>> entriesToMap() {
+    return Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue);
   }
 
-  @Override
-  public Properties loadConfig() {
-    return null;
+  public static <K, V> Map.Entry<K, V> entry(K key, V value) {
+    return new AbstractMap.SimpleEntry<>(key, value);
   }
 }
