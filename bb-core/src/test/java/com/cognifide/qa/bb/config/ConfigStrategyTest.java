@@ -19,8 +19,8 @@
  */
 package com.cognifide.qa.bb.config;
 
-import static com.cognifide.qa.bb.utils.MapUtils.entriesToMap;
 import static com.cognifide.qa.bb.utils.MapUtils.entry;
+import static com.cognifide.qa.bb.utils.MapUtils.mapOf;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doCallRealMethod;
@@ -28,10 +28,8 @@ import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.util.Collections;
 import java.util.Map;
 import java.util.Properties;
-import java.util.stream.Stream;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -68,13 +66,12 @@ public class ConfigStrategyTest {
   @Test
   public void gatherProperties_resolvesConfigCorrectly() {
     Properties expected = new Properties();
-    expected.putAll(Collections.unmodifiableMap(Stream.of(
+    expected.putAll(mapOf(
         entry("webdriver.type", "chrome"),
         entry("webdriver.reusable", "true"),
         entry("webdriver.maximize", "true"),
         entry("parsys.locator.format", "%s"),
-        entry("proxy.enabled", "false"))
-        .collect(entriesToMap())));
+        entry("proxy.enabled", "false")));
 
     System.setProperty("webdriver.reusable", "true");
 
@@ -86,10 +83,9 @@ public class ConfigStrategyTest {
   @Test
   public void overrideFromSystemProperties_overridesConfigProperties_whenSysPropsAreNotBlank() {
     Properties configProperties = new Properties();
-    configProperties.putAll(Collections.unmodifiableMap(Stream.of(
+    configProperties.putAll(mapOf(
         entry("override.prop", "should-be-overriden"),
-        entry("do.not.override", "not-overriden"))
-        .collect(entriesToMap())));
+        entry("do.not.override", "not-overriden")));
 
     System.setProperty("override.prop", "overriden");
     System.setProperty("do.not.override", "");
@@ -103,20 +99,18 @@ public class ConfigStrategyTest {
 
   @Test
   public void setSystemProperties_setsSystemProperties_onlyForWebdriverPropertiesInConfig() {
-    Map<String, String> expected = Collections.unmodifiableMap(Stream.of(
+    Map<String, String> expected = mapOf(
         entry("webdriver.type", "firefox"),
         entry("webdriver.maximize", ""),
-        entry("webdriver.reusable", ""))
-        .collect(entriesToMap()));
+        entry("webdriver.reusable", ""));
 
     Properties configProperties = new Properties();
-    configProperties.putAll(Collections.unmodifiableMap(Stream.of(
+    configProperties.putAll(mapOf(
         entry("webdriver.type", "firefox"),
         entry("webdriver.maximize", ""),
         entry("webdriver.reusable", ""),
         entry("parsys.locator.format", "%s"),
-        entry("proxy.enabled", "false"))
-        .collect(entriesToMap())));
+        entry("proxy.enabled", "false")));
 
     strategy.setSystemProperties(configProperties);
     Properties actual = System.getProperties();
@@ -129,12 +123,11 @@ public class ConfigStrategyTest {
   @Test
   public void setSystemProperties_doesNotSetSystemProperties_whenNoWebdriverPropertiesArePresentInConfig() {
     Properties configProperties = new Properties();
-    configProperties.putAll(Collections.unmodifiableMap(Stream.of(
+    configProperties.putAll(mapOf(
         entry("custom.type", "firefox"),
         entry("additional.property", ""),
         entry("parsys.locator.format", "%s"),
-        entry("proxy.enabled", "false"))
-        .collect(entriesToMap())));
+        entry("proxy.enabled", "false")));
 
     strategy.setSystemProperties(configProperties);
 
@@ -148,23 +141,21 @@ public class ConfigStrategyTest {
     @Override
     public Properties loadDefaultConfig() {
       Properties properties = new Properties();
-      properties.putAll(Collections.unmodifiableMap(Stream.of(
+      properties.putAll(mapOf(
           entry("webdriver.type", "firefox"),
           entry("webdriver.reusable", "false"),
           entry("parsys.locator.format", "%s"),
-          entry("proxy.enabled", "false"))
-          .collect(entriesToMap())));
+          entry("proxy.enabled", "false")));
       return properties;
     }
 
     @Override
     public Properties loadConfig() {
       Properties properties = new Properties();
-      properties.putAll(Collections.unmodifiableMap(Stream.of(
+      properties.putAll(mapOf(
           entry("webdriver.type", "chrome"),
           entry("webdriver.maximize", "true"),
-          entry("proxy.enabled", "false"))
-          .collect(entriesToMap())));
+          entry("proxy.enabled", "false")));
       return properties;
     }
   }
