@@ -67,7 +67,6 @@ public class ConfigStrategyTest {
   public void gatherProperties_resolvesConfigCorrectly() {
     Properties expected = new Properties();
     expected.putAll(mapOf(
-        entry("webdriver.type", "chrome"),
         entry("webdriver.reusable", "true"),
         entry("webdriver.maximize", "true"),
         entry("parsys.locator.format", "%s"),
@@ -100,13 +99,11 @@ public class ConfigStrategyTest {
   @Test
   public void setSystemProperties_setsSystemProperties_onlyForWebdriverPropertiesInConfig() {
     Map<String, String> expected = mapOf(
-        entry("webdriver.type", "firefox"),
         entry("webdriver.maximize", ""),
         entry("webdriver.reusable", ""));
 
     Properties configProperties = new Properties();
     configProperties.putAll(mapOf(
-        entry("webdriver.type", "firefox"),
         entry("webdriver.maximize", ""),
         entry("webdriver.reusable", ""),
         entry("parsys.locator.format", "%s"),
@@ -142,7 +139,6 @@ public class ConfigStrategyTest {
     public Properties loadDefaultConfig() {
       Properties properties = new Properties();
       properties.putAll(mapOf(
-          entry("webdriver.type", "firefox"),
           entry("webdriver.reusable", "false"),
           entry("parsys.locator.format", "%s"),
           entry("proxy.enabled", "false")));
@@ -153,7 +149,6 @@ public class ConfigStrategyTest {
     public Properties loadConfig() {
       Properties properties = new Properties();
       properties.putAll(mapOf(
-          entry("webdriver.type", "chrome"),
           entry("webdriver.maximize", "true"),
           entry("proxy.enabled", "false")));
       return properties;
