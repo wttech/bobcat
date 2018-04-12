@@ -17,26 +17,32 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.utils;
+package com.cognifide.qa.bb.config.yaml;
 
-import java.util.AbstractMap;
 import java.util.Collections;
 import java.util.Map;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-public class MapUtils {
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-  public static <K, U> Collector<Map.Entry<K, U>, ?, Map<K, U>> entriesToMap() {
-    return Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue);
+public class Config {
+  @JsonProperty("default")
+  private DefaultConfig defaultConfig;
+
+  private Map<String, Map<String, String>> contexts = Collections.emptyMap();
+
+  public DefaultConfig getDefaultConfig() {
+    return defaultConfig;
   }
 
-  public static <K, V> Map.Entry<K, V> entry(K key, V value) {
-    return new AbstractMap.SimpleEntry<>(key, value);
+  public Map<String, Map<String, String>> getContexts() {
+    return contexts;
   }
 
-  public static <K, V> Map<K, V> mapOf(Map.Entry<K, V>... entries) {
-    return Collections.unmodifiableMap(Stream.of(entries).collect(entriesToMap()));
+  public void setDefaultConfig(DefaultConfig defaultConfig) {
+    this.defaultConfig = defaultConfig;
+  }
+
+  public void setContexts(Map<String, Map<String, String>> contexts) {
+    this.contexts = contexts;
   }
 }

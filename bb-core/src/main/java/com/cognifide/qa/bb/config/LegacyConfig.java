@@ -36,9 +36,19 @@ import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.constants.ConfigKeys;
 
+/**
+ * This is the old, legacy way of loading properties in Bobcat based on sets of .properties files.
+ * This strategy is loaded by default at the moment, in 2.0 release, Bobcat will switch over to {@link YamlConfig}.
+ */
 public class LegacyConfig implements ConfigStrategy {
   private static final Logger LOG = LoggerFactory.getLogger(LegacyConfig.class);
+  public static final String DEFAULT_CONFIGURATION_PATH = "src/main/config";
 
+  /**
+   * Loads default configuration provided by Bobcat from {@value ConfigKeys#DEFAULT_PROPERTIES_NAME} file.
+   *
+   * @return default set of properties
+   */
   @Override
   public Properties loadDefaultConfig() {
     Properties defaultProperties = new Properties();
@@ -51,10 +61,18 @@ public class LegacyConfig implements ConfigStrategy {
     return defaultProperties;
   }
 
+  /**
+   * Loads Bobcat user properties, defined in various {@code .properties files}.
+   * <p>
+   * The location of properties files can be controlled via {@link ConfigKeys#CONFIGURATION_PATHS} system property.
+   * By default reads the files from {@value #DEFAULT_CONFIGURATION_PATH}.
+   *
+   * @return set of properties defined by Bobcat user
+   */
   @Override
   public Properties loadConfig() {
     Properties properties = new Properties();
-    String parents = System.getProperty(ConfigKeys.CONFIGURATION_PATHS, "src/main/config");
+    String parents = System.getProperty(ConfigKeys.CONFIGURATION_PATHS, DEFAULT_CONFIGURATION_PATH);
     String[] split = StringUtils.split(parents, ";");
     Arrays.stream(split)
         .forEach(name -> {

@@ -1,0 +1,6 @@
+default:
+  contexts: [firefox]
+
+contexts:
+    firefox:
+      webdriver.type: firefox

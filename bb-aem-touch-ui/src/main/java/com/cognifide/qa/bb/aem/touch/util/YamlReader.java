@@ -35,7 +35,10 @@ import com.google.common.io.Resources;
 
 /**
  * This is utility class reading yaml configuration files.
+ *
+ * @deprecated since 1.4.0, use {@link com.cognifide.qa.bb.utils.YamlReader}; to be removed in 2.0.0
  */
+@Deprecated
 public final class YamlReader {
   private static final Logger LOG = LoggerFactory.getLogger(YamlReader.class);
 

@@ -33,26 +33,19 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.stream.Stream;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.InOrder;
 
+import com.cognifide.qa.bb.utils.SystemPropertiesCleanupRule;
 import com.google.common.collect.Maps;
 
 public class ConfigStrategyTest {
 
   private ConfigStrategy strategy = new DefaultConfigStrategy();
 
-  private Properties sysProperties;
-
-  @Before
-  public void setUp() {
-    sysProperties = System.getProperties();
-    Properties copy = new Properties();
-    copy.putAll(sysProperties);
-    System.setProperties(copy);
-  }
+  @Rule
+  public SystemPropertiesCleanupRule cleanupSysProps = new SystemPropertiesCleanupRule();
 
   @Test
   public void gatherProperties_loadsPropertiesInCorrectOrder() {
@@ -174,10 +167,5 @@ public class ConfigStrategyTest {
           .collect(entriesToMap())));
       return properties;
     }
-  }
-
-  @After
-  public void tearDown() {
-    System.setProperties(sysProperties);
   }
 }
