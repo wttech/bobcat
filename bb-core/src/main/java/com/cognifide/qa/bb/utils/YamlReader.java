@@ -19,19 +19,16 @@
  */
 package com.cognifide.qa.bb.utils;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.file.Paths;
+import java.io.InputStream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import com.google.common.io.Resources;
 
 /**
  * This is a utility class for reading yaml configuration files.
@@ -57,7 +54,7 @@ public final class YamlReader {
       return new ObjectMapper(new YAMLFactory()).readValue(readFile(path), typeReference);
     } catch (IOException e) {
       LOG.error("Could not parse YAML file: {}", path, e);
-      throw new IllegalStateException(YAML_FILE_COULD_NOT_BE_READ);
+      throw new IllegalStateException(YAML_FILE_COULD_NOT_BE_READ, e);
     }
   }
 
@@ -73,17 +70,11 @@ public final class YamlReader {
       return new ObjectMapper(new YAMLFactory()).readValue(readFile(path), type);
     } catch (IOException e) {
       LOG.error("Could not parse YAML file: {}", path, e);
-      throw new IllegalStateException(YAML_FILE_COULD_NOT_BE_READ);
+      throw new IllegalStateException(YAML_FILE_COULD_NOT_BE_READ, e);
     }
   }
 
-  private static File readFile(String path) {
-    try {
-      URI uri = Resources.getResource(path + YAML).toURI();
-      return Paths.get(uri).toFile();
-    } catch (URISyntaxException e) {
-      LOG.error("Could not read YAML file: {}", path, e);
-      throw new IllegalStateException(YAML_FILE_COULD_NOT_BE_READ);
-    }
+  private static InputStream readFile(String path) {
+    return YamlReader.class.getResourceAsStream(path + YAML);
   }
 }

@@ -61,8 +61,8 @@ import com.cognifide.qa.bb.utils.YamlReader;
  * @since 1.4.0
  */
 public class YamlConfig implements ConfigStrategy {
-  public static final String DEFAULT_CONFIG_NAME = "default";
-  public static final String USER_CONFIG_NAME = "config";
+  public static final String DEFAULT_CONFIG_NAME = "/default";
+  public static final String USER_CONFIG_NAME = "/config";
 
   public static final String SYS_PROP_CONFIG_CONTEXTS = "bobcat.config.contexts";
 
