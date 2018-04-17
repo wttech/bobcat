@@ -33,7 +33,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 
@@ -105,7 +105,6 @@ public class WebDriverModifiersTest {
     when(mod2.shouldModify()).thenReturn(true);
     when(mod2.modify(any())).thenReturn(webDriver);
     when(mod3.shouldModify()).thenReturn(false);
-    when(mod3.modify(any())).thenReturn(webDriver);
 
     Set<WebDriverModifier> webDriverModifiers = Sets.newHashSet(mod1, mod2, mod3);
 
@@ -116,7 +115,6 @@ public class WebDriverModifiersTest {
     when(capMod2.shouldModify()).thenReturn(true);
     when(capMod2.modify(any())).thenReturn(capabilities);
     when(capMod3.shouldModify()).thenReturn(false);
-    when(capMod3.modify(any())).thenReturn(capabilities);
 
     Set<CapabilitiesModifier> capabilitiesModifiers = Sets.newHashSet(capMod1, capMod2, capMod3);
 

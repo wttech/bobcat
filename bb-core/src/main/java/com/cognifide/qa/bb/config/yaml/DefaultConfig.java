@@ -17,19 +17,30 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.modules;
+package com.cognifide.qa.bb.config.yaml;
 
-import com.cognifide.qa.bb.config.PropertyBinder;
-import com.cognifide.qa.bb.SystemType;
-import com.google.inject.AbstractModule;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
-/**
- * This module is responsible for loading Bobcat configuration.
- */
-public class PropertyModule extends AbstractModule {
-  @Override
-  protected void configure() {
-    PropertyBinder.bindProperties(binder());
-    bind(SystemType.class).toInstance(SystemType.current());
+public class DefaultConfig {
+  private List<String> contexts = Collections.emptyList();
+
+  private Map<String, String> properties = Collections.emptyMap();
+
+  public List<String> getContexts() {
+    return contexts;
+  }
+
+  public Map<String, String> getProperties() {
+    return properties;
+  }
+
+  public void setContexts(List<String> contexts) {
+    this.contexts = contexts;
+  }
+
+  public void setProperties(Map<String, String> properties) {
+    this.properties = properties;
   }
 }

@@ -1,0 +1,28 @@
+default:
+  properties:
+    parsys.locator.format: div.parsys.%s
+    component.locator.format: div.%s
+    parsys.finder.offset: 6
+
+    proxy.enabled: false
+    proxy.ip: 127.0.0.1
+    proxy.port: 9000
+
+    bobcat.report.path: ./target/report
+    bobcat.report.reporters: html,json,simple,stdout
+
+    timeouts.big: 30
+    timeouts.medium: 15
+    timeouts.small: 5
+    timeouts.minimal: 1
+
+    analytics.uri.prefix:  /b/ss
+    analytics.call.timeout.ms:  30000
+
+    page.title.timeout: 30
+
+    webdriver.mobile: false
+    webdriver.maximize: true
+    webdriver.reusable: false
+    webdriver.defaultTimeout: 10
+

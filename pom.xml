@@ -18,7 +18,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 #L%
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.cognifide.qa.bb</groupId>
@@ -250,13 +251,13 @@ limitations under the License.
             <dependency>
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
-                <version>3.2.0</version>
+                <version>3.9.0</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
-                <version>1.10.19</version>
+                <version>2.10.0</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -276,6 +277,12 @@ limitations under the License.
                 <artifactId>greenmail</artifactId>
                 <version>1.5.0</version>
                 <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-yaml</artifactId>
+                <version>2.9.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

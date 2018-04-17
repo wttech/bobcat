@@ -17,19 +17,26 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.modules;
+package com.cognifide.qa.bb.utils;
 
-import com.cognifide.qa.bb.config.PropertyBinder;
-import com.cognifide.qa.bb.SystemType;
-import com.google.inject.AbstractModule;
+import java.util.Properties;
 
-/**
- * This module is responsible for loading Bobcat configuration.
- */
-public class PropertyModule extends AbstractModule {
+import org.junit.rules.ExternalResource;
+
+public class SystemPropertiesCleanupRule extends ExternalResource {
+
+  private Properties properties;
+
   @Override
-  protected void configure() {
-    PropertyBinder.bindProperties(binder());
-    bind(SystemType.class).toInstance(SystemType.current());
+  public void before() {
+    properties = System.getProperties();
+    Properties copy = new Properties();
+    copy.putAll(properties);
+    System.setProperties(copy);
+  }
+
+  @Override
+  public void after() {
+    System.setProperties(properties);
   }
 }

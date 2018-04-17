@@ -32,7 +32,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.internal.util.reflection.Whitebox;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.openqa.selenium.WebDriver;
@@ -40,6 +39,7 @@ import org.openqa.selenium.WebDriver;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.provider.selenium.BobcatWebDriverWait;
 import com.cognifide.qa.bb.scope.frame.FramePath;
+import com.cognifide.qa.bb.utils.Whitebox;
 import com.google.inject.Provider;
 
 public class FrameSwitcherTest {
@@ -161,5 +161,4 @@ public class FrameSwitcherTest {
   private Deque<FramePath> extractLocalDeque() {
     return (Deque<FramePath>) Whitebox.getInternalState(testedObject, "localDeque");
   }
-
 }

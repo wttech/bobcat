@@ -32,12 +32,15 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cognifide.qa.bb.PropertyBinder;
+import com.cognifide.qa.bb.config.PropertyBinder;
 import com.cognifide.qa.bb.constants.ConfigKeys;
 
 /**
  * This class contains utility methods for loading properties from classpath and system.
+ *
+ * @deprecated will be removed in 2.0.0; replaced by new property loading strategy
  */
+@Deprecated
 public final class PropertyUtils {
 
   private static final Logger LOG = LoggerFactory.getLogger(PropertyUtils.class);
