@@ -35,25 +35,28 @@ To start your adventure with Bobcat, please refer to our wiki: [Getting started]
 A high level roadmap (milestones still can change), without any concrete deadlines of what we plan for 2.0 release:
 
 #### Milestone #1 (still in 1.x.x)
-1. Archetype cleanup and move to a Gradle-based template :white_check_mark:
-2. Selenium version bump :white_check_mark:
-3. Simplify Bobcat configuration
+1. Archetype cleanup and move to a Gradle-based template :heavy_check_mark:
+2. Selenium version bump :heavy_check_mark:
+3. Simplify Bobcat configuration :heavy_check_mark:
 
 #### Milestone #2 (part of it may end up in 1.x.x)
 - Switch to Gradle from end-user side
 - Reporting revamp
-- General refactoring
+- Provide a simpler API for Bobcat users
+- General refactoring, part 1
     - some parts of API might disappear in the future
     - some modules may end up without further support
+    - hence the above, we will identify and deprecate the API to be removed in 2.0 release
 - last 1.x.x release
-    - deprecation of APIs to be removed
 
 #### Milestone #3
-- remove the deprecated APIs
+- General refactoring, part 2
+    - remove the deprecated APIs
 - after the above is done, 2.0 release
 
-#### Other Ideas
+#### Other ideas / nice-to-haves
 - move development from Maven to Gradle
+- JUnit 5 support - depends on the effort required (to be investigated)
 
 :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat:
 
