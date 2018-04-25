@@ -1,5 +1,5 @@
 default:
-  contexts: [firefox]
+  contexts: [firefox, additional-context1, additional-context4]
 
 contexts:
     firefox:
