@@ -46,11 +46,11 @@ import com.fasterxml.jackson.core.type.TypeReference;
 /**
  * Provides configuration strategy that loads Bobcat properties from a YAML file.
  * The 'new' Bobcat configuration strategy, it replaces the {@link LegacyConfig}.
- * <p>
- * At the moment, to enable this config, Bobcat users needs to run tests with {@value com.cognifide.qa.bb.constants
- * .ConfigKeys#CONFIG_STRATEGY} system property set to {@code yaml}.
- * <p>
- * <p>
+ * <br>
+ * At the moment, to enable this config, Bobcat users needs to run tests with
+ * {@value com.cognifide.qa.bb.constants.ConfigKeys#CONFIG_STRATEGY} system property set to {@code yaml}.
+ * <br>
+ * <br>
  * YAML configuration files should follow this format:
  * <pre>
  * {@code

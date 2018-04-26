@@ -61,8 +61,8 @@ public final class YamlReader {
   /**
    * Reads yaml configuration file under given path and returns structure defined in {@link TypeReference}.
    *
-   * @param path          path to yaml configuration file.
-   * @param typeReference type reference which will be used to construct result.
+   * @param path path to yaml configuration file.
+   * @param type type which will be used to construct result.
    * @return YAML file mapped to an object defined by provided TypeReference
    */
   public static <T> T read(String path, Class<T> type) {
