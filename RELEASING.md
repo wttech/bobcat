@@ -68,21 +68,20 @@ We are ready for release!
 
 # Release
 
-## Performing the Maven release
+## 1. Performing the Maven release
 >On Windows ssh and git must be available from console (git bash is a perfect choice). Also, if there is any Mavne profile default by active, which has different properties than `sonatype-oss-release`, it must be disabled in both commands for release (!profile or \!profile if escape is required).
 
-To release Bobcat, simply run: `mvn release:prepare -Psonatype-oss-release`.
+1. To release Bobcat, simply run: `mvn release:prepare -Psonatype-oss-release`.
 You will be prompted for the version number for each module of the project, a tag name, and the next SNAPSHOT versions. You will also need to type the passphrase for the key, which you generated during Generating a PGP Signatures step and optional for the ssh key used to access GitHub. When this command finishes successfully, the version section of each module's pom.xml file will be updated.
+2. If everything is correct, run `mvn release:perform -Psonatype-oss-release` to finalize the release procedure. Again, you will be prompted to provide passwords.
 
-If everything is correct, run `mvn release:perform -Psonatype-oss-release` to finalize the release procedure. Again, you will be prompted to provide passwords.
-
-## Releasing in Nexus
+## 2. Releasing in Nexus
 If staging release with Maven ended successfully, then:
 
 1. Go to Nexus UI: https://oss.sonatype.org/ and log in using your [Sonatype JIRA](https://issues.sonatype.org/) credentials.
 2. Go to [Staging Repositories](https://oss.sonatype.org/index.html#stagingRepositories) page and select the Bobcat staging repository (it should be at the end of the list, it can take a while to appear on the list. If it does not appear in the end, that means the Maven release process failed).
-3. Click the Close button, type closing description. If the staging repository is closed successfully, you will get a notification email and confirmation via the UI.
-4. Select the Bobcat staging repository again, click the Release button, providing some description.
+3. Click the **Close** button, type closing description. If the staging repository is closed successfully, you will get a notification email and confirmation via the UI.
+4. Select the Bobcat staging repository again, click the **Release** button, providing some description.
 
 # Post-release steps
 
