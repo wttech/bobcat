@@ -156,4 +156,29 @@ public class YamlConfigTest {
 
     assertThat(actual).containsOnly(context3Entires);
   }
+
+  @Test
+  public void loadConfig_shouldLoadAdditionalContexts_whenTheyAreAvailableInSeparateFilesAndActivated() {
+    Config userYaml = new Config();
+    DefaultConfig defConfig = new DefaultConfig();
+    defConfig.setContexts(Arrays.asList("additional-context1", "additional-context2"));
+    userYaml.setDefaultConfig(defConfig);
+    Map<String, Map<String, String>> contexts = new HashMap<>();
+    Map.Entry[] context1Entries = {entry("property1", "value1"), entry("property2", "value2")};
+    Map.Entry[] context2Entries = {entry("property3", "value3"), entry("property4", "value4")};
+    Map.Entry[] context3Entires = {entry("property5", "value5"), entry("property6", "value6")};
+    contexts.put("context1", mapOf(context1Entries));
+    contexts.put("context2", mapOf(context2Entries));
+    contexts.put("context3", mapOf(context3Entires));
+    userYaml.setContexts(contexts);
+
+    YamlConfig tested = mock(YamlConfig.class);
+    when(tested.readUserYaml()).thenReturn(userYaml);
+    doCallRealMethod().when(tested).loadConfig();
+
+    System.setProperty(YamlConfig.SYS_PROP_CONFIG_CONTEXTS, "context3");
+    Properties actual = tested.loadConfig();
+
+    assertThat(actual).containsOnly(context3Entires);
+  }
 }
