@@ -29,12 +29,13 @@ Since Cognifide expertises in development on top of [Adobe Experience Manager (A
 
 To start your adventure with Bobcat, please refer to our wiki: [Getting started](https://github.com/Cognifide/bobcat/wiki/Getting-Started)
 
+---
 :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat:
 ## Bobcat 2.0 is coming!
 
 A high level roadmap (milestones still can change), without any concrete deadlines of what we plan for 2.0 release:
 
-#### Milestone #1 (still in 1.x.x)
+#### Milestone #1 (1.4.0) :heavy_check_mark:
 1. Archetype cleanup and move to a Gradle-based template :heavy_check_mark:
 2. Selenium version bump :heavy_check_mark:
 3. Simplify Bobcat configuration :heavy_check_mark:
@@ -59,6 +60,7 @@ A high level roadmap (milestones still can change), without any concrete deadlin
 - JUnit 5 support - depends on the effort required (to be investigated)
 
 :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat:
+---
 
 ## What's so special about Bobcat?
 
