@@ -25,7 +25,7 @@ And that's it! You have a working Bobcat project :).
 
 If you want to go the more hardcore way or simply want to understand how we have assembled each template, you may find the [manual setup guide]({{site.baseurl}}/docs/manual-setup/) helpful.
 
-## Picking up Bobcat modules
+## Choosing Bobcat modules
 
 Even though you already have the most important modules installed thanks to the template, you might want to customize the loadout according to your needs.
 
