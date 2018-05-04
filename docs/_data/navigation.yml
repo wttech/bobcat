@@ -11,10 +11,30 @@ docs:
       - title: "Getting started"
         url: /docs/getting-started/
       - title: "Bobcat modules"
-        url: /docs/bobcat-modules/
+        url: /docs/modules/
       - title: "Configuring Bobcat"
         url: /docs/configuring-bobcat/
       - title: "Writing the first test"
         url: /docs/first-test/
   - title: "Core features"
-  - title: "AEM Touch UI"
+    children:
+      - title: "Overview"
+        url: /docs/modules/core/overview/
+  - title: "Other modules"
+    children:
+      - title: "JUnit"
+        url: /docs/modules/junit/overview/
+      - title: "Reports"
+        url: /docs/modules/reports/overview/
+      - title: "Cucumber"
+        url: /docs/modules/cucumber/overview/
+      - title: "Traffic"
+        url: /docs/modules/traffic/overview/
+      - title: "Email"
+        url: /docs/modules/email/overview/
+      - title: "AEM Common"
+        url: /docs/modules/aem-common/overview/
+      - title: "AEM Touch UI"
+        url: /docs/modules/aem-touch-ui/overview/
+      - title: "AEM Classic"
+        url: /docs/modules/aem-classic/overview/

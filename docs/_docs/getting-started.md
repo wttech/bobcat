@@ -29,7 +29,7 @@ If you want to go the more hardcore way or simply want to understand how we have
 
 Even though you already have the most important modules installed thanks to the template, you might want to customize the loadout according to your needs.
 
-Read more about available [Bobcat modules]({{site.baseurl}}/docs/bobcat-modules/).
+Read more about available [Bobcat modules]({{site.baseurl}}/docs/modules/).
 
 ### Configuring Bobcat
 
