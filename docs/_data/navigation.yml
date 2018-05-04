@@ -19,22 +19,24 @@ docs:
   - title: "Core features"
     children:
       - title: "Overview"
-        url: /docs/modules/core/overview/
+        url: /docs/modules/core/
   - title: "Other modules"
     children:
       - title: "JUnit"
-        url: /docs/modules/junit/overview/
+        url: /docs/modules/junit/
       - title: "Reports"
-        url: /docs/modules/reports/overview/
+        url: /docs/modules/reports/
       - title: "Cucumber"
-        url: /docs/modules/cucumber/overview/
+        url: /docs/modules/cucumber/
       - title: "Traffic"
-        url: /docs/modules/traffic/overview/
+        url: /docs/modules/traffic/
       - title: "Email"
-        url: /docs/modules/email/overview/
+        url: /docs/modules/email/
+  - title: "AEM modules"
+    children:
       - title: "AEM Common"
-        url: /docs/modules/aem-common/overview/
+        url: /docs/modules/aem-common/
       - title: "AEM Touch UI"
-        url: /docs/modules/aem-touch-ui/overview/
+        url: /docs/modules/aem-touch-ui/
       - title: "AEM Classic"
-        url: /docs/modules/aem-classic/overview/
+        url: /docs/modules/aem-classic/

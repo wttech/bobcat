@@ -44,49 +44,49 @@ Below is the list of all available modules.
 
 This module is the heart of Bobcat. No matter which runner or technology you are working with, to use Bobcat, you need to grab the Core module.
 
-More about its features: [here]({{site.baseurl}}/docs/modules/core/overview/)
+More about its features: [here]({{site.baseurl}}/docs/modules/core/)
 {: .notice--info}
 
 ### Module: JUnit
 
 This module is responsible for executing tests in JUnit.
 
-More about its features: [here]({{site.baseurl}}/docs/modules/junit/overview/)
+More about its features: [here]({{site.baseurl}}/docs/modules/junit/)
 {: .notice--info}
 
 ### Module: Reports
 
 This module provides Bobcat's reporting engine which is dedicated for running tests with JUnit.
 
-More about its features: [here]({{site.baseurl}}/docs/modules/reports/overview/)
+More about its features: [here]({{site.baseurl}}/docs/modules/reports/)
 {: .notice--info}
 
 ### Module: Cucumber
 
 This module enables you to run your tests with Cucumber JVM.
 
-More about its features: [here]({{site.baseurl}}/docs/modules/cucumber/overview/)
+More about its features: [here]({{site.baseurl}}/docs/modules/cucumber/)
 {: .notice--info}
 
 ### Module: Traffic
 
 This module enables grabbing and analyzing the HTTP traffic in your tests. It uses the BrowserMob proxy.
 
-More about its features: [here]({{site.baseurl}}/docs/modules/traffic/overview/)
+More about its features: [here]({{site.baseurl}}/docs/modules/traffic/)
 {: .notice--info}
 
 ### Module: Email
 
 This module contains useful utilities for working with emails.
 
-More about its features: [here]({{site.baseurl}}/docs/modules/email/overview/)
+More about its features: [here]({{site.baseurl}}/docs/modules/email/)
 {: .notice--info}
 
 ### Module: AEM Common
 
 This module contains a bunch of handy helpers when working in AEM in general.
 
-More about its features: [here]({{site.baseurl}}/docs/modules/aem-common/overview/)
+More about its features: [here]({{site.baseurl}}/docs/modules/aem-common/)
 {: .notice--info}
 
 
@@ -94,12 +94,12 @@ More about its features: [here]({{site.baseurl}}/docs/modules/aem-common/overvie
 
 This module comes with ready page objects that may be utilized to automate AEM's Touch UI authoring interface.
 
-More about its features: [here]({{site.baseurl}}/docs/modules/aem-touch-ui/overview/)
+More about its features: [here]({{site.baseurl}}/docs/modules/aem-touch-ui/)
 {: .notice--info}
 
 ### Module: AEM Classic
 
 This module is dedicated for working with AEM's Classic UI.
 
-More about its features: [here]({{site.baseurl}}/docs/modules/aem-classic/overview/)
+More about its features: [here]({{site.baseurl}}/docs/modules/aem-classic/)
 {: .notice--info}
