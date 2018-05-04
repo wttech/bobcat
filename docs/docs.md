@@ -6,5 +6,3 @@ collection: docs
 ---
 
 Below, you can find the whole Bobcat documentation.
-
-TBD
