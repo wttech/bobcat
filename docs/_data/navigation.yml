@@ -1,0 +1,20 @@
+main:
+  - title: "Quick-Start Guide"
+    url: /docs/getting-started/
+  - title: "Documentation"
+    url: /docs/
+  - title: "Contact us"
+    url: /contact/
+docs:
+  - title: "Essentials"
+    children:
+      - title: "Getting started"
+        url: /docs/getting-started/
+      - title: "Bobcat modules"
+        url: /docs/bobcat-modules/
+      - title: "Configuring Bobcat"
+        url: /docs/configuring-bobcat/
+      - title: "Writing the first test"
+        url: /docs/first-test/
+  - title: "Core features"
+  - title: "AEM Touch UI"

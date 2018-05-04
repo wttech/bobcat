@@ -1,0 +1,55 @@
+---
+layout: splash
+author_profile: true
+header:
+    overlay_color: "#000000"
+    overlay_filter: "0.5"
+    overlay_image: "/assets/img/splash-bobcat.jpg"
+    cta_label: "Get started"
+    cta_url: "getting-started"
+excerpt: "Java-based Selenium test automation framework"
+about:
+    - title: "About"
+      image_path: "http://via.placeholder.com/390x265"
+      excerpt: |
+            Bobcat is an automated testing framework for functional testing of web applications.
+            <br>It wraps Selenium, so anything possible in raw Selenium can be done with Bobcat, including running it on all supported browsers, Selenium Grid, cloud providers like SauceLabs, Cross Browser Testing, BrowserStack etc. You can also utilize Appium for mobile testing.
+features:
+    - title: "Features"
+      image_path: "http://via.placeholder.com/390x265"
+      excerpt: |
+            Bobcat is implemented in Java and allows the test development in pure JUnit or via Cucumber-JVM for BDD-oriented people.
+            <br>
+            Bobcat comes with a handy set of utilities and accelerators that will help you develop your tests faster.
+aem:
+    - title: "AEM support"
+      image_path: "http://via.placeholder.com/390x265"
+      excerpt: |
+            Since Cognifide expertises in development on top of Adobe Experience Manager (AEM), Bobcat accelerates test development for this platform, especially when it comes to AEM authoring. The framework provides dedicated modules which allow you to automate almost every action on the AEM author side.
+under-the-hood:
+    - title: "Under the hood"
+      image_path: "http://via.placeholder.com/390x265"
+      excerpt: |
+            Bobcat relies heavily on the Page Object pattern, which is an embedded concept in most of its internals.
+            <br>We can model our websites easily and create a neat Page Object tree structure, scoping Page Objects inside other Page Objects, reducing the effort of selector maintenance. We make all the magic possible thanks to dependency injection with Google's Guice.
+            <br>Additionally, we wanted to make it as scalable as possible, so thread-safety was one of the key principles during the development.
+contact:
+    - title: "Contact"
+      excerpt: |
+            Do you have any questions? Have you encountered an issue?
+            <br>Maybe there's an idea you would like to see implemented in Bobcat?
+            <br>Let us know!
+      url: "/contact/"
+      btn_label: "Contact us!"
+      btn_class: "btn--info"
+---
+
+{% include feature_row id="about" type="left" %}
+
+{% include feature_row id="features" type="right" %}
+
+{% include feature_row id="aem" type="left" %}
+
+{% include feature_row id="under-the-hood" type="right" %}
+
+{% include feature_row id="contact" type="center" %}
