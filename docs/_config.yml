@@ -110,7 +110,7 @@ exclude:
   - node_modules
   - package.json
   - Rakefile
-  - README
+  - README.md
   - tmp
   - /testdocs # ignore Minimal Mistakes /docs
 keep_files:

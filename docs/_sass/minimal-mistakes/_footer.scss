@@ -48,16 +48,20 @@
   .fab,
   .far,
   .fal {
-    color: $muted-text-color;
+    color: $light-gray;
   }
 }
 
 .page__footer-copyright {
   font-family: $global-font-family;
   font-size: $type-size-7;
+  display: inline-block;
+  width: 50%;
+  box-sizing: border-box;
 }
 
 .page__footer-follow {
+
   ul {
     margin: 0;
     padding: 0;
@@ -82,4 +86,17 @@
     padding-right: 10px;
     font-weight: bold;
   }
+
+  [class*=" fa-"] {
+    color: #ffffff !important;
+  }
+}
+
+.page__footer-cognifide {
+  display: inline-block;
+  width: 50%;
+  box-sizing: border-box;
+  font-family: $global-font-family;
+  font-size: $type-size-7;
+  text-align: right;
 }

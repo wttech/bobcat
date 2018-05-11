@@ -1,5 +1,5 @@
 ---
-title: Manual setup guide
+title: "Module: Traffic"
 ---
 
 Under construction
