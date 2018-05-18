@@ -70,7 +70,7 @@ Bobcat relies heavily on the Page Object pattern, which is an embedded concept i
 
 ## Contributing
 
-You can help make Bobcat more awesome by raising any encountered issues or feature requests here on [Github](https://github.com/Cognifide/bobcat/issues). For any questions, please contact us on [Gitter](https://gitter.im/bobcat-framework/Lobby) or via [email](bobcat@cognifide.com). See our [contribution guidelines](https://github.com/Cognifide/bobcat/blob/master/CONTRIBUTING.md) for more details.
+You can help make Bobcat more awesome by raising any encountered issues or feature requests here on [Github](https://github.com/Cognifide/bobcat/issues). For any questions, please contact us on [Gitter](https://gitter.im/bobcat-framework/Lobby) or via [email](mailto:bobcat@cognifide.com). See our [contribution guidelines](https://github.com/Cognifide/bobcat/blob/master/CONTRIBUTING.md) for more details.
 
 ## License
 
