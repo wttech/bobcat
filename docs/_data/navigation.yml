@@ -43,4 +43,4 @@ docs:
       - title: "AEM Classic UI"
         url: /docs/modules/aem-classic-ui/
   - title: "API docs"
-    url: "/apidocs/"
+    url: "http://www.javadoc.io/doc/com.cognifide.qa.bb/bb-core/"
