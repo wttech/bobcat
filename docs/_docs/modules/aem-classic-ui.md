@@ -2,4 +2,4 @@
 title: "Module: AEM Classic UI"
 ---
 
-Under construction
+{% include under-construction.html %}

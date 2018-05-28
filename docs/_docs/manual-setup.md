@@ -2,4 +2,4 @@
 title: Manual setup guide
 ---
 
-Under construction
+{% include under-construction.html %}

@@ -2,4 +2,4 @@
 title: "Module: Core"
 ---
 
-Under construction
+{% include under-construction.html %}

@@ -68,7 +68,7 @@ analytics:
     tracking_id          :
 
 
-# Site Author
+# Site Authors
 author:
   name             : "Bobcat"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
@@ -78,9 +78,8 @@ author:
   uri              :
   home             : # null (default), "absolute or relative url to link to author home"
   github           : "Cognifide/bobcat"
-  stackoverflow    : # "123456/username" (the last part of your profile url, e.g. https://stackoverflow.com/users/123456/username)
-  tumblr           :
   twitter          :
+  gitter           : "bobcat-framework/Lobby"
 
 
 
@@ -112,10 +111,11 @@ exclude:
   - Rakefile
   - README.md
   - tmp
-  - /testdocs # ignore Minimal Mistakes /docs
+  - apidocs
 keep_files:
   - .git
   - .svn
+  - apidocs
 encoding: "utf-8"
 markdown_ext: "markdown,mkdown,mkdn,mkd,md"
 

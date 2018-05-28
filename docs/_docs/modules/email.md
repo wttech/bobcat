@@ -2,4 +2,4 @@
 title: "Module: Email"
 ---
 
-Under construction
+{% include under-construction.html %} construction
