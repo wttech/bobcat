@@ -55,9 +55,14 @@
 .page__footer-copyright {
   font-family: $global-font-family;
   font-size: $type-size-7;
-  display: inline-block;
-  width: 50%;
   box-sizing: border-box;
+  float: none;
+  width: 100%;
+  
+  @include breakpoint($medium-wide) {
+    width: 50%;
+    float: left;
+  }
 }
 
 .page__footer-follow {
@@ -93,10 +98,15 @@
 }
 
 .page__footer-cognifide {
-  display: inline-block;
-  width: 50%;
+  width: 100%;
   box-sizing: border-box;
   font-family: $global-font-family;
   font-size: $type-size-7;
-  text-align: right;
+  float: none;
+  
+  @include breakpoint($medium-wide) {
+    width: 50%;
+    float: left;
+    text-align: right;
+  }
 }

@@ -2,4 +2,4 @@
 title: "Module: AEM Touch UI"
 ---
 
-Under construction
+{% include under-construction.html %}

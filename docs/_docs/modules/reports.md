@@ -2,4 +2,4 @@
 title: "Module: Reports"
 ---
 
-Under construction
+{% include under-construction.html %}

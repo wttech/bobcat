@@ -2,4 +2,4 @@
 title: "Module: Traffic"
 ---
 
-Under construction
+{% include under-construction.html %}
