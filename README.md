@@ -4,6 +4,7 @@
 [![Maven Central](https://img.shields.io/maven-central/v/com.cognifide.qa.bb/bobcat.svg?label=Maven%20Central)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.cognifide.qa.bb%22%20AND%20a%3A%22bobcat%22)
 [![Apache License, Version 2.0, January 2004](https://img.shields.io/github/license/cognifide/bobcat.svg?label=License)](http://www.apache.org/licenses/)
 [![Gitter chat](https://badges.gitter.im/bobcat-framework/Lobby.png)](https://gitter.im/bobcat-framework/Lobby)
+[![Javadocs](http://www.javadoc.io/badge/com.cognifide.qa.bb/bb-core.svg)](http://www.javadoc.io/doc/com.cognifide.qa.bb/bb-core)
 
 <p align="center">
   <img src="assets/bobcat-logo-caption-180x180.png" alt="Bobcat Logo"/>
