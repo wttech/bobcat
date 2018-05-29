@@ -78,7 +78,7 @@ You can help make Bobcat more awesome by raising any encountered issues or featu
 **Bobcat** is licensed under [Apache License, Version 2.0 (the "License")](https://www.apache.org/licenses/LICENSE-2.0.txt)
 
 ## Documentation
-See our [Bobcat Wiki](https://github.com/Cognifide/bobcat/wiki) for examples and documentation of all features.
+See our [Quick-start guide](https://cognifide.github.io/bobcat/docs/getting-started/) and [Bobcat Wiki](https://github.com/Cognifide/bobcat/wiki) for examples and documentation of all features.
 
-You might alsa want to check latest [Bobcat API docs](https://cognifide.github.io/bobcat/apidocs/1-3-0/).
+You might also want to check latest [Bobcat API docs](http://www.javadoc.io/doc/com.cognifide.qa.bb/bb-core).
  
