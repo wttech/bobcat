@@ -14,6 +14,8 @@ docs:
         url: /docs/getting-started/
       - title: "Bobcat modules"
         url: /docs/modules/
+      - title: "Bobcat templates"
+        url: /docs/templates/
       - title: "Configuring Bobcat"
         url: /docs/configuring-bobcat/
       - title: "Writing the first test"
