@@ -7,6 +7,9 @@ addons:
     packages:
       - oracle-java8-installer
   firefox: "58.0"
+  sonarcloud:
+    token:
+      secure: $SONAR_TOKEN  # encrypted value of your token
 
 install: true
 
@@ -20,4 +23,5 @@ before_script:
   - export PATH=$PATH:$PWD/geckodriver
 
 sudo: false
-script: mvn clean install -Dwebdriver.type=firefox -Dwebdriver.firefox.bin="$(which firefox)" 
+script: mvn clean install -Dwebdriver.type=firefox -Dwebdriver.firefox.bin="$(which firefox)"
+        - sonar-scanner
