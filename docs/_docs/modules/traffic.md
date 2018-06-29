@@ -4,7 +4,7 @@ title: "Module: Traffic"
 
 {% include under-construction.html %}
 
-To get traffic module to be ready to use follow these two steps:
+To get Traffic module to be ready to use follow these two steps:
 
 1. Add dependency into your `pom.xml` file:
 
@@ -17,6 +17,5 @@ To get traffic module to be ready to use follow these two steps:
     ```
 2. Add module installation to your `GuiceModule.java` file:
     ```java
-    install(new TrafficModule());
-  
+        install(new TrafficModule());
     ```
