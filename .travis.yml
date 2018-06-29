@@ -8,6 +8,7 @@ addons:
       - oracle-java8-installer
   firefox: "58.0"
   sonarcloud:
+    organization: "Bobcat"
     token:
       secure: $SONAR_TOKEN  # encrypted value of your token
 
