@@ -4,7 +4,7 @@ title: "Module: Reports"
 
 {% include under-construction.html %}
 
-To get reports module to be ready to use follow these two steps:
+To get Reports module to be ready to use follow these two steps:
 
 1. Add dependency into your `pom.xml` file:
 
@@ -17,7 +17,5 @@ To get reports module to be ready to use follow these two steps:
     ```
 2. Add module installation to your `GuiceModule.java` file:
     ```java
-    install(new ReporterModule());
-  
+        install(new ReporterModule());
     ```
-
