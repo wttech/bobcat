@@ -14,4 +14,4 @@ All you have to do to have it in your project is adding the dependency.
         <version>1.4.0</version>
     </dependency>
     ```
-2. Installation: No additional installation for this module in GuiceModule.java is needed
+2. Installation: No additional installation for this module in `GuiceModule.java` is needed

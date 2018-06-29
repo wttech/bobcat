@@ -15,7 +15,7 @@ To get cucumber module to be ready to use follow these two steps:
         <version>1.4.0</version>
     </dependency>
     ```
-2. Add module installation to your GuiceModules.java file:
+2. Add module installation to your `GuiceModule.java` file:
     ```java
     install(new BobcumberModule());
   
