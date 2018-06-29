@@ -4,7 +4,7 @@ title: "Module: Cucumber"
 
 Under {% include under-construction.html %}
 
-To get cucumber module to be ready to use follow these two steps:
+To get Cucumber module to be ready to use follow these two steps:
 
 1. Add dependency into your `pom.xml` file:
 
@@ -17,6 +17,5 @@ To get cucumber module to be ready to use follow these two steps:
     ```
 2. Add module installation to your `GuiceModule.java` file:
     ```java
-    install(new BobcumberModule());
-  
+        install(new BobcumberModule());
     ```
