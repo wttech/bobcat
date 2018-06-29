@@ -101,5 +101,5 @@ More about its features: [here]({{site.baseurl}}/docs/modules/aem-touch-ui/)
 
 This module is dedicated for working with AEM's Classic UI.
 
-More about its features: [here]({{site.baseurl}}/docs/modules/aem-classic/)
+More about its features: [here]({{site.baseurl}}/docs/modules/aem-classic-ui/)
 {: .notice--info}
