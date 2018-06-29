@@ -26,4 +26,4 @@ before_script:
 sudo: false
 script:
   - sonar-scanner
-  - mvn clean install -Dwebdriver.type=firefox -Dwebdriver.firefox.bin="$(which firefox)"
+#  - mvn clean install -Dwebdriver.type=firefox -Dwebdriver.firefox.bin="$(which firefox)"
