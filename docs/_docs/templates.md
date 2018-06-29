@@ -34,10 +34,14 @@ More details: [here]({{site.baseurl}}/docs/templates/bobcat-aem-junit/)
 
 ### Appium Template 
 
+This template represents simple sample implementation of automated tests for mobile device in [Appium](http://appium.io/)
+
 More details: [here]({{site.baseurl}}/docs/templates/bobcat-appium/)
 {: .notice--info}
 
 ### BDD Template 
+
+This template includes test implementation presented in more human friendly way - it use [Cucumber](https://docs.cucumber.io/).
 
 More details: [here]({{site.baseurl}}/docs/templates/bobcat-bdd/)
 {: .notice--info}
