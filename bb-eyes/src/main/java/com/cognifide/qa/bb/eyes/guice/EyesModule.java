@@ -2,7 +2,7 @@
  * #%L
  * Bobcat
  * %%
- * Copyright (C) 2016 Cognifide Ltd.
+ * Copyright (C) 2018 Cognifide Ltd.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,9 +17,10 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.eyes;
+package com.cognifide.qa.bb.eyes.guice;
 
 import com.applitools.eyes.selenium.Eyes;
+import com.cognifide.qa.bb.eyes.EyesProvider;
 import com.google.inject.AbstractModule;
 
 public class EyesModule extends AbstractModule {
