@@ -20,12 +20,14 @@ Below is the list of available Bobcat Templates.
 
 ### AEM BDD Template 
 
+Bobcat is a test framework which supports AEM. That's why this template represents sample AEM Author tests. Test implementation is present in more human friendly way - it use [Cucumber](https://docs.cucumber.io/).
+
 More details: [here]({{site.baseurl}}/docs/templates/bobcat-aem-bdd/)
 {: .notice--info}
 
 ### AEM JUnit Template 
 
-This template represents simple and popular [JUnit](https://junit.org) implementation of automated test. Bobcat is a test framework which supports AEM. In this template can be also found examples of how to implement simple tests for AEM Author mode.
+This template represents simple and popular [JUnit](https://junit.org) implementation of automated test. In this template can be also found examples of how to implement simple tests for AEM Author mode.
 
 More details: [here]({{site.baseurl}}/docs/templates/bobcat-aem-junit/)
 {: .notice--info}
