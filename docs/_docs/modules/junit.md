@@ -2,6 +2,8 @@
 title: "Module: JUnit"
 ---
 
+Under {% include under-construction.html %}
+
 JUnit module is the only one that haven't got installation needed.
 All you have to do to have it in your project is adding the dependency.
 
