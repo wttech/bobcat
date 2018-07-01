@@ -19,13 +19,6 @@
  */
 package com.cognifide.qa.bb.logging.reporter.provider;
 
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-
-import org.slf4j.LoggerFactory;
-
 import com.cognifide.qa.bb.junit.concurrent.ReportingHandler;
 import com.cognifide.qa.bb.logging.constants.ReportsConfigKeys;
 import com.cognifide.qa.bb.logging.reporter.HtmlReporter;
@@ -37,10 +30,15 @@ import com.google.common.collect.ImmutableMap;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Provider;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+import org.slf4j.LoggerFactory;
 
 /**
- * This is a provider of Reporter instances.
- * It creates and configures the instances as indicated in the property files.
+ * This is a provider of Reporter instances. It creates and configures the instances as indicated in
+ * the property files.
  */
 public class ReporterProvider implements Provider<Set<Reporter>> {
 
@@ -63,12 +61,14 @@ public class ReporterProvider implements Provider<Set<Reporter>> {
   private Properties properties;
 
   @Inject
+  private Set<CustomReportBinder> customReportBinders;
+
+  @Inject
   private Injector injector;
 
   /**
-   * Provider method.
-   * Creates and returns instances of Reporters that are indicated in
-   * {@link ReportsConfigKeys#BOBCAT_REPORT_REPORTERS} property.
+   * Provider method. Creates and returns instances of Reporters that are indicated in {@link
+   * ReportsConfigKeys#BOBCAT_REPORT_REPORTERS} property.
    */
   @SuppressWarnings("unchecked")
   @Override
@@ -80,17 +80,29 @@ public class ReporterProvider implements Provider<Set<Reporter>> {
     }
 
     for (String r : prop.split(REPORTERS_SEPARATOR)) {
-      Class<? extends Reporter> clazz = REPORTER_MAP.get(r);
+      Class<? extends Reporter> clazz =
+          REPORTER_MAP.get(r) == null ? findCustomReporter(r) : REPORTER_MAP.get(r);
       if (clazz == null) {
-        try {
-          clazz = (Class<? extends Reporter>) Class.forName(r);
-        } catch (ClassNotFoundException e) {
-          LOG.error("Can't find reporter class", e);
-          continue;
-        }
+        continue;
       }
       reporters.add(injector.getInstance(clazz));
     }
     return reporters;
+  }
+
+  private Class<? extends Reporter> findCustomReporter(String reporterName) {
+    Class<? extends Reporter> reporterClass = null;
+    CustomReportBinder customReportBinder = customReportBinders.stream()
+        .filter(entry -> entry.getName().equals(reporterName)).findFirst().orElse(null);
+    if (customReportBinder != null) {
+      reporterClass = customReportBinder.getClassName();
+    } else {
+      try {
+        reporterClass = (Class<? extends Reporter>) Class.forName(reporterName);
+      } catch (ClassNotFoundException e) {
+        LOG.error("Can't find reporter class", e);
+      }
+    }
+    return reporterClass;
   }
 }
