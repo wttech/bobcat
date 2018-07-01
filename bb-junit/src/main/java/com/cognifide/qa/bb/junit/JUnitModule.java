@@ -30,6 +30,5 @@ public class JUnitModule extends AbstractModule {
 
     Multibinder.newSetBinder(binder(),
         RunListener.class);
-
   }
 }

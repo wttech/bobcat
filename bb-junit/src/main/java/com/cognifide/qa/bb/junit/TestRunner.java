@@ -19,14 +19,19 @@
  */
 package com.cognifide.qa.bb.junit;
 
+import com.google.inject.Key;
+import com.google.inject.TypeLiteral;
+import com.google.inject.util.Types;
 import java.util.List;
 import java.util.Properties;
 
+import java.util.Set;
 import org.junit.Ignore;
 import org.junit.internal.AssumptionViolatedException;
 import org.junit.internal.runners.model.EachTestNotifier;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
+import org.junit.runner.notification.RunListener;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.FrameworkMethod;
@@ -72,6 +77,8 @@ public class TestRunner extends BlockJUnit4ClassRunner {
 
   private final TestEventCollector testEventCollector;
 
+  private final Set<RunListener> customRunListeners;
+
   /**
    * Creates a Runner with Guice modules.
    *
@@ -86,6 +93,8 @@ public class TestRunner extends BlockJUnit4ClassRunner {
     injector = InjectorsMap.INSTANCE.forClass(classToRun);
     properties = injector.getInstance(Properties.class);
     testEventCollector = injector.getBinding(TestEventCollector.class).getProvider().get();
+    customRunListeners = injector.getInstance(Key.get((TypeLiteral<Set<RunListener>>)TypeLiteral.get(Types
+        .setOf(RunListener.class))));
     reportingListener.addInjector(injector);
   }
 
@@ -137,6 +146,7 @@ public class TestRunner extends BlockJUnit4ClassRunner {
   @Override
   public void run(RunNotifier notifier) {
     checkAndRegisterReportingListener(notifier);
+    customRunListeners.stream().forEach(notifier::addListener);
     super.run(notifier);
   }
 
