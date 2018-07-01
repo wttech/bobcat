@@ -27,7 +27,6 @@ public class JUnitModule extends AbstractModule {
 
   @Override
   protected void configure() {
-
     Multibinder.newSetBinder(binder(),
         RunListener.class);
   }

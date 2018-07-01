@@ -19,6 +19,7 @@
  */
 package com.cognifide.qa.bb.logging.reporter;
 
+import com.cognifide.qa.bb.junit.JUnitModule;
 import com.cognifide.qa.bb.logging.ReporterModule;
 import com.cognifide.qa.bb.modules.CoreModule;
 import com.google.inject.AbstractModule;
@@ -30,5 +31,6 @@ public class GuiceModulesInstaller extends AbstractModule {
     System.setProperty("configuration.paths", "src/test/resources/config");
     install(new CoreModule());
     install(new ReporterModule());
+    install(new JUnitModule());
   }
 }
