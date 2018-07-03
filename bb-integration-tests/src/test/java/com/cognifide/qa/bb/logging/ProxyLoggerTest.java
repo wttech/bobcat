@@ -17,13 +17,12 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.core.logging;
+package com.cognifide.qa.bb.logging;
 
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
-import com.cognifide.qa.bb.logging.ProxyLogger;
-import com.cognifide.qa.bb.core.logging.reporter.GuiceModulesInstaller;
+import com.cognifide.qa.bb.logging.reporter.GuiceModulesInstaller;
 import java.util.List;
 
 import org.junit.Before;

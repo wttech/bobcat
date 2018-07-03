@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.core.logging.reporter;
+package com.cognifide.qa.bb.logging.reporter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
