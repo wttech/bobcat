@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.logging.reporter;
+package com.cognifide.qa.bb.core.logging.reporter;
 
 import com.cognifide.qa.bb.junit.JUnitModule;
 import com.cognifide.qa.bb.logging.ReporterModule;

@@ -17,21 +17,18 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.logging;
+package com.cognifide.qa.bb.core.logging;
 
-import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
 
+import com.cognifide.qa.bb.logging.ProxyLogger;
+import com.cognifide.qa.bb.core.logging.reporter.GuiceModulesInstaller;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import com.cognifide.qa.bb.logging.reporter.GuiceModulesInstaller;
 import com.cognifide.qa.bb.proxy.analyzer.predicate.ClosestHarEntryElector;
 import com.cognifide.qa.bb.proxy.analyzer.predicate.RequestPredicate;
 import com.google.inject.Guice;
@@ -41,17 +38,17 @@ import net.lightbody.bmp.core.har.HarEntry;
 
 public class ProxyLoggerTest {
 
-  private final ClosestHarEntryElector elector = mock(ClosestHarEntryElector.class);
+  private final ClosestHarEntryElector elector = Mockito.mock(ClosestHarEntryElector.class);
 
-  private final RequestPredicate matchingPredicate = mock(RequestPredicate.class);
+  private final RequestPredicate matchingPredicate = Mockito.mock(RequestPredicate.class);
 
-  private final Har har = mock(Har.class, RETURNS_DEEP_STUBS);
+  private final Har har = Mockito.mock(Har.class, Mockito.RETURNS_DEEP_STUBS);
 
-  private final HarEntry closestHarEntry = mock(HarEntry.class, RETURNS_DEEP_STUBS);
+  private final HarEntry closestHarEntry = Mockito.mock(HarEntry.class, Mockito.RETURNS_DEEP_STUBS);
 
   @Before
   public void setUp() throws Exception {
-    when(elector.findSimilarEntry(any(List.class)))
+    Mockito.when(elector.findSimilarEntry(ArgumentMatchers.any(List.class)))
             .thenReturn(closestHarEntry);
   }
 
@@ -69,7 +66,7 @@ public class ProxyLoggerTest {
     proxyLogger.listeningStopped(har);
 
     // then
-    verifyNoMoreInteractions(matchingPredicate);
+    Mockito.verifyNoMoreInteractions(matchingPredicate);
   }
 
   @Test
@@ -86,6 +83,6 @@ public class ProxyLoggerTest {
     proxyLogger.listeningStopped(har);
 
     // then
-    verify(elector).findSimilarEntry(any(List.class));
+    Mockito.verify(elector).findSimilarEntry(ArgumentMatchers.any(List.class));
   }
 }

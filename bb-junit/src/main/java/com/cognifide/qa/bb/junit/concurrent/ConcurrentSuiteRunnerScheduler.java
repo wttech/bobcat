@@ -19,6 +19,7 @@
  */
 package com.cognifide.qa.bb.junit.concurrent;
 
+import com.cognifide.qa.bb.reports.core.concurrent.ReportingHandler;
 import java.util.LinkedList;
 import java.util.Properties;
 import java.util.Queue;

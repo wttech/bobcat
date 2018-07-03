@@ -19,13 +19,13 @@
  */
 package com.cognifide.qa.bb.logging.reporter.provider;
 
-import com.cognifide.qa.bb.junit.concurrent.ReportingHandler;
 import com.cognifide.qa.bb.logging.constants.ReportsConfigKeys;
 import com.cognifide.qa.bb.logging.reporter.HtmlReporter;
 import com.cognifide.qa.bb.logging.reporter.JsonReporter;
 import com.cognifide.qa.bb.logging.reporter.SimpleReporter;
 import com.cognifide.qa.bb.logging.reporter.StdoutReporter;
 import com.cognifide.qa.bb.reporter.Reporter;
+import com.cognifide.qa.bb.reports.core.concurrent.ReportingHandler;
 import com.google.common.collect.ImmutableMap;
 import com.google.inject.Inject;
 import com.google.inject.Injector;

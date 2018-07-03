@@ -63,6 +63,7 @@ limitations under the License.
         <module>bb-aem-touch-ui</module>
         <module>bb-annotations</module>
         <module>bb-reports-allure</module>
+        <module>bb-reports-core</module>
     </modules>
 
     <scm>

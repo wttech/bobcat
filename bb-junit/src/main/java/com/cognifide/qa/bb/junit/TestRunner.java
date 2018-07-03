@@ -19,6 +19,7 @@
  */
 package com.cognifide.qa.bb.junit;
 
+import com.cognifide.qa.bb.reports.core.TestEventCollector;
 import com.google.inject.Key;
 import com.google.inject.TypeLiteral;
 import com.google.inject.util.Types;

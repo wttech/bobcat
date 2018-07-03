@@ -39,7 +39,7 @@
         </dependency>
         <dependency>
             <groupId>com.cognifide.qa.bb</groupId>
-            <artifactId>bb-junit</artifactId>
+            <artifactId>bb-reports-core</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

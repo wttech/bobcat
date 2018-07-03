@@ -19,6 +19,7 @@
  */
 package com.cognifide.qa.bb.junit;
 
+import com.cognifide.qa.bb.reports.core.TestEventCollector;
 import java.util.List;
 import java.util.function.Consumer;
 

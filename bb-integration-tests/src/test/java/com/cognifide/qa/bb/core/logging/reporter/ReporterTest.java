@@ -17,23 +17,12 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.logging.reporter;
+package com.cognifide.qa.bb.core.logging.reporter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
 import static org.mockito.Mockito.mock;
-
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runner.notification.RunNotifier;
-import org.junit.runners.model.InitializationError;
 
 import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
@@ -45,6 +34,15 @@ import com.cognifide.qa.bb.logging.entries.InfoEntry;
 import com.cognifide.qa.bb.logging.entries.LogEntry;
 import com.cognifide.qa.bb.logging.entries.ScreenshotEntry;
 import com.google.inject.Inject;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runner.notification.RunNotifier;
+import org.junit.runners.model.InitializationError;
 
 @RunWith(TestRunner.class)
 @Modules(GuiceModulesInstaller.class)

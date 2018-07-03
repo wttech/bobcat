@@ -24,7 +24,7 @@ import java.util.Set;
 import org.junit.runner.Result;
 import org.junit.runner.notification.RunListener;
 
-import com.cognifide.qa.bb.junit.concurrent.ReportingHandler;
+import com.cognifide.qa.bb.reports.core.concurrent.ReportingHandler;
 import com.google.common.collect.Sets;
 import com.google.inject.Injector;
 

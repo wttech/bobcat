@@ -17,14 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.junit.concurrent;
-
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+package com.cognifide.qa.bb.reports.core.concurrent;
 
 import com.cognifide.qa.bb.guice.ThreadScoped;
 import com.cognifide.qa.bb.reporter.Reporter;
@@ -34,10 +27,15 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Provider;
 import com.google.inject.TypeLiteral;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * ReportingHandler receives asynchronous reporting requests from test threads and redirects them
- * to all Reporter instances.
+ * ReportingHandler receives asynchronous reporting requests from test threads and redirects them to
+ * all Reporter instances.
  * <p>
  * ConcurrentSuite runs this class in a separate thread.
  */
@@ -45,7 +43,8 @@ import com.google.inject.TypeLiteral;
 public class ReportingHandler implements Runnable {
 
   public static final TypeLiteral<Set<Reporter>> ACTIVE_REPORTERS =
-      new TypeLiteral<Set<Reporter>>() {};
+      new TypeLiteral<Set<Reporter>>() {
+      };
 
   private static final String THREAD_NAME = "Reporting thread";
 
@@ -74,8 +73,8 @@ public class ReportingHandler implements Runnable {
   }
 
   /**
-   * Sets the flag to indicate that there will be no more tests.
-   * Waits for reporting thread to finish its job.
+   * Sets the flag to indicate that there will be no more tests. Waits for reporting thread to
+   * finish its job.
    *
    * @throws InterruptedException in case of reporting thread is not running yet.
    */

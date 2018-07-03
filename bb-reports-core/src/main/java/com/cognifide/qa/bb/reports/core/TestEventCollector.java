@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.junit;
+package com.cognifide.qa.bb.reports.core;
 
 /**
  * Interface for test events that needs to be collected for further use (i.e. reporting)

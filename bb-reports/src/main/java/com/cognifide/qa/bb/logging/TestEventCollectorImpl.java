@@ -19,6 +19,7 @@
  */
 package com.cognifide.qa.bb.logging;
 
+import com.cognifide.qa.bb.reports.core.TestEventCollector;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -31,7 +32,6 @@ import java.util.Map.Entry;
 import org.openqa.selenium.HasCapabilities;
 import org.openqa.selenium.WebDriver;
 
-import com.cognifide.qa.bb.junit.TestEventCollector;
 import com.cognifide.qa.bb.logging.reporter.AbstractReporter;
 import com.google.inject.Inject;
 import com.google.inject.Injector;

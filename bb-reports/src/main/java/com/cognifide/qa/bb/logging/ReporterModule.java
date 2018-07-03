@@ -19,17 +19,19 @@
  */
 package com.cognifide.qa.bb.logging;
 
-import com.cognifide.qa.bb.junit.TestEventCollector;
-import com.cognifide.qa.bb.junit.concurrent.ReportingHandler;
+import com.cognifide.qa.bb.logging.listeners.ReportCollectorListener;
 import com.cognifide.qa.bb.logging.reporter.provider.CustomReportBinder;
 import com.cognifide.qa.bb.logging.reporter.provider.ReporterProvider;
 import com.cognifide.qa.bb.logging.subreport.Subreport;
 import com.cognifide.qa.bb.logging.subreport.SubreportInterceptor;
 import com.cognifide.qa.bb.proxy.ProxyEventListener;
+import com.cognifide.qa.bb.reports.core.TestEventCollector;
+import com.cognifide.qa.bb.reports.core.concurrent.ReportingHandler;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.google.inject.matcher.Matchers;
 import com.google.inject.multibindings.Multibinder;
+import org.junit.runner.notification.RunListener;
 import org.openqa.selenium.support.events.WebDriverEventListener;
 
 /**
@@ -65,5 +67,8 @@ public class ReporterModule extends AbstractModule {
         ProxyEventListener.class);
     proxyListenerBinder.addBinding().to(ProxyLogger.class);
 
+    Multibinder<RunListener> runListenerMultibinder = Multibinder.newSetBinder(binder(),
+        RunListener.class);
+    runListenerMultibinder.addBinding().to(ReportCollectorListener.class);
   }
 }
