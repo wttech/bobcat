@@ -19,13 +19,14 @@
  */
 package com.cognifide.qa.bb.junit;
 
+import com.cognifide.qa.bb.junit.listener.ReportingListener;
 import com.cognifide.qa.bb.reports.core.TestEventCollector;
+import com.google.inject.Injector;
 import com.google.inject.Key;
 import com.google.inject.TypeLiteral;
 import com.google.inject.util.Types;
 import java.util.List;
 import java.util.Properties;
-
 import java.util.Set;
 import org.junit.Ignore;
 import org.junit.internal.AssumptionViolatedException;
@@ -40,17 +41,12 @@ import org.junit.runners.model.InitializationError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cognifide.qa.bb.constants.ConfigKeys;
-import com.cognifide.qa.bb.junit.listener.ReportingListener;
-import com.cognifide.qa.bb.qualifier.Retry;
-import com.google.inject.Injector;
-
 /**
  * <p>
  * This JUnit test runner allows to run the test in a Guice context. The modules defining the
  * context are defined with the {@link Modules} annotation.
  * </p>
- * 
+ *
  * <pre>
  * {@literal @}RunWith(TestRunner.class) {@literal @}Modules(MyModule.class)
  * public class MyTest {
@@ -94,8 +90,9 @@ public class TestRunner extends BlockJUnit4ClassRunner {
     injector = InjectorsMap.INSTANCE.forClass(classToRun);
     properties = injector.getInstance(Properties.class);
     testEventCollector = injector.getBinding(TestEventCollector.class).getProvider().get();
-    customRunListeners = injector.getInstance(Key.get((TypeLiteral<Set<RunListener>>)TypeLiteral.get(Types
-        .setOf(RunListener.class))));
+    customRunListeners = injector
+        .getInstance(Key.get((TypeLiteral<Set<RunListener>>) TypeLiteral.get(Types
+            .setOf(RunListener.class))));
     reportingListener.addInjector(injector);
   }
 
@@ -134,7 +131,7 @@ public class TestRunner extends BlockJUnit4ClassRunner {
 
     eachNotifier.fireTestStarted();
     try {
-      runMethod(method);
+      methodBlock(method).evaluate();
     } catch (AssumptionViolatedException e) {
       eachNotifier.addFailedAssumption(e);
     } catch (Throwable e) {
@@ -167,39 +164,6 @@ public class TestRunner extends BlockJUnit4ClassRunner {
   @Override
   protected final void validateZeroArgConstructor(List<Throwable> errors) {
     // empty
-  }
-
-  private void runMethod(FrameworkMethod method) throws Throwable {
-    int runs = 0;
-    int retryCount = retrieveRetry(method);
-    boolean testFailed = true;
-    while (testFailed) {
-      try {
-        methodBlock(method).evaluate();
-        testFailed = false;
-      } catch (AssumptionViolatedException e) {
-        throw e;
-      } catch (Throwable e) {
-        if (runs >= retryCount) {
-          throw e;
-        }
-        testEventCollector.removeLastEntry();
-      }
-      runs++;
-    }
-    if (runs > 1) {
-      testEventCollector.info("Test passed in: " + runs + " attempt");
-    }
-  }
-
-  private int retrieveRetry(FrameworkMethod method) {
-    Retry retry = method.getAnnotation(Retry.class);
-    return retry != null ? calculateRetryCount(retry.reruns()) : 0;
-  }
-
-  private int calculateRetryCount(int reruns) {
-    return reruns > 0 ? reruns
-        : Integer.parseInt(properties.getProperty(ConfigKeys.JUNIT_RERUNS, "0"));
   }
 
   private EachTestNotifier makeNotifier(FrameworkMethod method, RunNotifier notifier) {
