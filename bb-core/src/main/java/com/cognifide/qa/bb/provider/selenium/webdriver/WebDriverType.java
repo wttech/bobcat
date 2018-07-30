@@ -79,7 +79,8 @@ public enum WebDriverType {
   SAFARI {
     @Override
     public WebDriver create(Capabilities capabilities, Properties properties) {
-      return getWebDriverWithProxyCookieSupport(properties, new SafariDriver(new SafariOptions(capabilities)));
+      return getWebDriverWithProxyCookieSupport(properties,
+          new SafariDriver(new SafariOptions(capabilities)));
     }
   },
   HTML {
@@ -110,17 +111,21 @@ public enum WebDriverType {
       }
 
       final String platform = properties.getProperty(ConfigKeys.WEBDRIVER_CAP_PLATFORM_NAME);
-      switch (platform) {
-        case MobilePlatform.ANDROID:
-          return new AndroidDriver(url, capabilities);
+      if (platform != null) {
+        switch (platform) {
+          case MobilePlatform.ANDROID:
+            return new AndroidDriver(url, capabilities);
 
-        case MobilePlatform.IOS:
-          return new IOSDriver(url, capabilities);
+          case MobilePlatform.IOS:
+            return new IOSDriver(url, capabilities);
 
-        default:
-          throw new IllegalArgumentException(String.format(
-              "webdriver.cap.platformName not configured correctly. Set it either to %s or %s",
-              MobilePlatform.ANDROID, MobilePlatform.IOS));
+          default:
+            throw new IllegalArgumentException(String.format(
+                "webdriver.cap.platformName not configured correctly. Set it either to %s or %s",
+                MobilePlatform.ANDROID, MobilePlatform.IOS));
+        }
+      } else {
+        throw new IllegalStateException("webdriver.cap.platformName is missing.");
       }
     }
   },
