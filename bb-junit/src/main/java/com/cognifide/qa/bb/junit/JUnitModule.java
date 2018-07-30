@@ -21,6 +21,7 @@ package com.cognifide.qa.bb.junit;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
+import org.junit.rules.TestRule;
 import org.junit.runner.notification.RunListener;
 
 public class JUnitModule extends AbstractModule {
@@ -29,5 +30,9 @@ public class JUnitModule extends AbstractModule {
   protected void configure() {
     Multibinder.newSetBinder(binder(),
         RunListener.class);
+
+    Multibinder<TestRule> testRuleMultibinder = Multibinder.newSetBinder(binder(),
+        TestRule.class);
+    testRuleMultibinder.addBinding().to(WebDriverClosingRule.class);
   }
 }

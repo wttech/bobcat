@@ -2,7 +2,7 @@
  * #%L
  * Bobcat
  * %%
- * Copyright (C) 2016 Cognifide Ltd.
+ * Copyright (C) 2018 Cognifide Ltd.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,26 +17,30 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.junit;
+package com.cognifide.qa.bb.guice;
 
-import com.google.inject.Inject;
-import org.junit.rules.ExternalResource;
-import org.openqa.selenium.WebDriver;
-
+import com.google.common.collect.Sets;
+import com.google.inject.ConfigurationException;
 import com.google.inject.Injector;
 import com.google.inject.Key;
+import com.google.inject.TypeLiteral;
+import com.google.inject.util.Types;
+import java.util.Set;
 
-/**
- * When the test is finished, this test rule will fetch the webDrive instance and kill it by calling quit.
- */
-public class WebDriverClosingRule extends ExternalResource {
+public final class ConditionalInjectHelper {
 
-  @Inject
-  private WebDriver webDriver;
-
-  @Override
-  protected void after() {
-   webDriver.quit();
+  public static <T> Set<T> retrieveSetBindings(Injector injector, Class<T> type) {
+    try {
+      return injector.getInstance(Key.get((TypeLiteral<Set<T>>) TypeLiteral.get(Types
+          .setOf(type))));
+    } catch (ConfigurationException e) {
+      return Sets.newHashSet();
+    }
   }
+
+  private ConditionalInjectHelper(){
+    //empty in utility class
+  }
+
 
 }

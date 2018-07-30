@@ -19,6 +19,7 @@
  */
 package com.cognifide.qa.bb.junit;
 
+import com.cognifide.qa.bb.guice.ConditionalInjectHelper;
 import com.cognifide.qa.bb.junit.listener.ReportingListener;
 import com.cognifide.qa.bb.reports.core.TestEventCollector;
 import com.google.inject.Injector;
@@ -76,6 +77,8 @@ public class TestRunner extends BlockJUnit4ClassRunner {
 
   private final Set<RunListener> customRunListeners;
 
+  private final Set<TestRule> testRules;
+
   /**
    * Creates a Runner with Guice modules.
    *
@@ -90,9 +93,10 @@ public class TestRunner extends BlockJUnit4ClassRunner {
     injector = InjectorsMap.INSTANCE.forClass(classToRun);
     properties = injector.getInstance(Properties.class);
     testEventCollector = injector.getBinding(TestEventCollector.class).getProvider().get();
-    customRunListeners = injector
-        .getInstance(Key.get((TypeLiteral<Set<RunListener>>) TypeLiteral.get(Types
-            .setOf(RunListener.class))));
+    customRunListeners = ConditionalInjectHelper.retrieveSetBindings(injector,RunListener.class);
+    testRules = injector
+        .getInstance(Key.get((TypeLiteral<Set<TestRule>>) TypeLiteral.get(Types
+            .setOf(TestRule.class))));
     reportingListener.addInjector(injector);
   }
 
@@ -144,7 +148,8 @@ public class TestRunner extends BlockJUnit4ClassRunner {
   @Override
   public void run(RunNotifier notifier) {
     checkAndRegisterReportingListener(notifier);
-    customRunListeners.stream().forEach(notifier::addListener);
+    customRunListeners.stream().
+        forEach(notifier::addListener);
     super.run(notifier);
   }
 
@@ -153,7 +158,7 @@ public class TestRunner extends BlockJUnit4ClassRunner {
     LOG.debug("adding additional rules for test: '{}'", target);
     List<TestRule> result = super.getTestRules(target);
     result.add(new ReportingRule(injector));
-    result.add(new WebDriverClosingRule(injector));
+    testRules.stream().forEach(result::add);
     return result;
   }
 
