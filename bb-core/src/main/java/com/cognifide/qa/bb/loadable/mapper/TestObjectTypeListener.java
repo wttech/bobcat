@@ -13,6 +13,7 @@
  */
 package com.cognifide.qa.bb.loadable.mapper;
 
+import com.cognifide.qa.bb.RunWithJunit5;
 import com.google.inject.TypeLiteral;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
@@ -40,7 +41,7 @@ public class TestObjectTypeListener implements TypeListener {
 
   private <I> boolean isApplicable(Class<? super I> rawType) {
     boolean result;
-    if (rawType.isAnnotationPresent(RunWith.class)
+    if ( (rawType.isAnnotationPresent(RunWith.class) || rawType.isAnnotationPresent(RunWithJunit5.class))
         && !rawType.isAnnotationPresent(CucumberOptions.class)) {
       result = true;
     } else {
