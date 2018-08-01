@@ -2,55 +2,67 @@
 title: Bobcat templates
 ---
 
-Aim of Bobcat Templates is to easily and fast introduce Bobcat structure and way of writing automated test. That's why we provide below list of ready to use templates.
+Aim of the templates is to easily and fast provide a way to create a Bobcat project structure.
 
-## Using Bobcat Templates
+## Using Bobcat templates
 
-To use any Bobcat Template listed below you need:
+To use any Bobcat template listed below you need to:
 
-1. Clone [bobcat-gradle-template repository](https://github.com/Cognifide/bobcat-gradle-template) to your local machine
-2. Choose one of template from below list
+1. Clone [bobcat-gradle-template repository](https://github.com/Cognifide/bobcat-gradle-template)
+2. Choose one of the templates from the list below
 3. Generate your local template as it is described in [README](https://github.com/Cognifide/bobcat-gradle-template/blob/master/README.md)
 
 That's it! You're ready to start writing your own tests. Enjoy!
 
 ## Templates
 
-Below is the list of available Bobcat Templates.
+All available Bobcat templates are listed below:
 
-### AEM BDD Template 
+### JUnit Template
 
-Bobcat is a test framework which supports AEM. That's why this template represents sample AEM Author tests. Test implementation is present in more human friendly way - it use [Cucumber](https://docs.cucumber.io/).
+This template provides a basic Bobcat project with [JUnit](https://junit.org) as the test runner.
 
-More details: [here]({{site.baseurl}}/docs/templates/bobcat-aem-bdd/)
-{: .notice--info}
+Modules included in this template:
+  - `bb-core`
+  - `bb-reports`
+  - `bb-junit`
 
-### AEM JUnit Template 
+### BDD Template
 
-This template represents simple and popular [JUnit](https://junit.org) implementation of automated test. In this template can be also found examples of how to implement simple tests for AEM Author mode.
+This template provides a basic Bobcat project with [Cucumber](https://docs.cucumber.io/) as the test runner.
+ 
+Modules included in this template:
+  - `bb-core`
+  - `bb-reports`
+  - `bb-cumber`
 
-More details: [here]({{site.baseurl}}/docs/templates/bobcat-aem-junit/)
-{: .notice--info}
+### AEM BDD Template
 
-### Appium Template 
+This template is suitable for AEM (Adobe Experience Manager) test automation, with [Cucumber](https://docs.cucumber.io/) as the test runner. It provides sample AEM Author tests.
 
-This template represents simple sample implementation of automated tests for mobile device in [Appium](http://appium.io/)
+Modules included in this template:
+  - `bb-core`
+  - `bb-reports`
+  - `bb-cumber`
+  - `bb-aem-classic`
+  - `bb-aem-touch-ui`
 
-More details: [here]({{site.baseurl}}/docs/templates/bobcat-appium/)
-{: .notice--info}
+### AEM JUnit Template
 
-### BDD Template 
+This template is suitable for AEM (Adobe Experience Manager) test automation, with JUnit as the test runner. It provides sample AEM Author tests.
 
-This template includes test implementation presented in more human friendly way - it use [Cucumber](https://docs.cucumber.io/).
+Modules included in this template:
+  - `bb-core`
+  - `bb-reports`
+  - `bb-junit`
+  - `bb-aem-classic`
+  - `bb-aem-touch-ui`
 
-More details: [here]({{site.baseurl}}/docs/templates/bobcat-bdd/)
-{: .notice--info}
+### Appium Template
 
-### JUnit Template 
+If you would like to write automated tests for mobile devies, this template will provide you [Appium](http://appium.io/) framework.
 
-This template represents simple and popular [JUnit](https://junit.org) implementation of automated test.
-
-More details: [here]({{site.baseurl}}/docs/templates/bobcat-junit/)
-{: .notice--info}
-
-[//]: # (TO DO: Add link to this page to readme.md on bobcat-gradle-template repository)
+Modules included in this template:
+  - `bb-core`
+  - `bb-reports`
+  - `bb-junit`
