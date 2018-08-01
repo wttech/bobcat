@@ -1,3 +1,5 @@
+if: branch !~ /^docs/
+
 language: java
 jdk:
   - oraclejdk8
@@ -7,6 +9,11 @@ addons:
     packages:
       - oracle-java8-installer
   firefox: "58.0"
+
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.sonar/cache'
 
 install: true
 
