@@ -62,6 +62,7 @@ limitations under the License.
         <module>bb-aem-classic</module>
         <module>bb-aem-touch-ui</module>
         <module>bb-annotations</module>
+        <module>bb-junit5</module>
     </modules>
 
     <scm>
@@ -95,6 +96,19 @@ limitations under the License.
 
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>5.2.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.junit.platform</groupId>
+                <artifactId>junit-platform-commons</artifactId>
+                <version>1.2.0</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-java</artifactId>
@@ -307,6 +321,7 @@ limitations under the License.
                             <include>src/test/java/**</include>
                             <include>src/main/resources/**</include>
                             <include>pom.xml</include>
+                            &gt;
                         </includes>
                         <excludes>
                             <exclude>**/*.json</exclude>
@@ -314,6 +329,8 @@ limitations under the License.
                             <exclude>**/*.yaml</exclude>
                             <exclude>**/*.properties</exclude>
                             <exclude>**/*.Processor</exclude>
+                            <exclude>src/main/resources/META-INF/services/**</exclude>
+                            &gt;
                         </excludes>
                     </configuration>
                 </plugin>
