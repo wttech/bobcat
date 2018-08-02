@@ -19,7 +19,6 @@
  */
 package com.cognifide.qa.bb.proxy.analyzer.predicate;
 
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -28,10 +27,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+
+import com.google.common.collect.ImmutableMap;
 
 import io.netty.handler.codec.http.HttpRequest;
 
@@ -44,14 +46,14 @@ public class RequestPredicateImplTest {
 
   private static final String INVALID_LONG_URL = "http://non-example.com/";
 
-  private static final Map<String, String> EXPECTED_PARAMETERS = new HashMap<String, String>() {{
-    put("some-param", "some-value");
-  }};
+  private static final Map<String, String> EXPECTED_PARAMETERS = ImmutableMap.<String, String>builder()
+      .put("some-param", "some-value")
+      .build();
   private static final Map<String, String> EMPTY_PARAMETERS = new HashMap<>();
 
   @Parameters(name = "{index}: {0} | {1} | {2} | {3} = {4} ")
   public static Iterable<Object[]> data() {
-    return Arrays.asList(new Object[][] {
+    return Arrays.asList(new Object[][]{
         //@formatter:off
         {VALID_LONG_URL,    EMPTY_PARAMETERS,     VALID_URL, EMPTY_PARAMETERS,    true},
         {INVALID_LONG_URL,  EMPTY_PARAMETERS,     VALID_URL, EMPTY_PARAMETERS,    false},
@@ -82,7 +84,7 @@ public class RequestPredicateImplTest {
   }
 
   @Test
-  public void shouldReturnRightResponseWhenTestingRequestAgainst() throws Exception {
+  public void shouldReturnRightResponseWhenTestingRequestAgainst() {
     // given
     RequestPredicateImpl tested = new RequestPredicateImpl(predicateUrlPrefix,
         predicateExpectedParameters);
@@ -92,7 +94,7 @@ public class RequestPredicateImplTest {
     boolean acceptationResult = tested.accepts(request);
 
     // then
-    assertTrue(acceptationResult == this.expectedResult);
+    Assert.assertEquals(acceptationResult, this.expectedResult);
   }
 
   private HttpRequest createMockedHttpRequest(String path, String queryString) {
@@ -106,8 +108,8 @@ public class RequestPredicateImplTest {
       return "";
     }
     StringBuilder sb = new StringBuilder();
-    params.entrySet().stream().forEach(entry ->
-        sb.append(entry.getKey()).append("=").append(entry.getValue())
+    params.forEach((key, value) ->
+        sb.append(key).append("=").append(value)
     );
     return sb.toString();
   }
