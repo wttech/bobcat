@@ -20,6 +20,7 @@
 package com.cognifide.qa.bb.aem.touch.siteadmin.aem62;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -81,7 +82,7 @@ public class CreatePageWizard {
 
     elements.stream()
         .findFirst()
-        .get()
+        .orElseThrow(() -> new NoSuchElementException("\"Done\" button not found"))
         .click();
   }
 
@@ -99,7 +100,9 @@ public class CreatePageWizard {
             n -> n.findElement(By.cssSelector("coral-button-label")).getText()
                 .equals(label)
         )
-        .findFirst().get();
+        .findFirst()
+        .orElseThrow(() -> new NoSuchElementException(
+            String.format("Button with label \"%s\" not found", label)));
   }
 
 }
