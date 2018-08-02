@@ -21,31 +21,26 @@ package com.cognifide.qa.bb.junit5.guice;
 
 import com.google.inject.Injector;
 import com.google.inject.Key;
-import java.lang.reflect.AnnotatedElement;
-import org.junit.jupiter.api.extension.AfterEachCallback;
+import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
-import org.junit.jupiter.api.extension.ExtensionContext.Store;
 import org.openqa.selenium.WebDriver;
 
-public class WebdriverCloseExtension implements AfterEachCallback {
+/**
+ * Estension that will close webdriver after the test is executed
+ */
+public class WebdriverCloseExtension implements AfterTestExecutionCallback {
 
 
   private static final Namespace NAMESPACE =
       Namespace.create("com", "cognifide", "qa", "bb", "junit", "guice");
 
   @Override
-  public void afterEach(ExtensionContext context) throws Exception {
-    if (!context.getElement().isPresent()) {
-      return;
-    }
-
-    AnnotatedElement element = context.getElement().get();
-    Store store = context.getStore(NAMESPACE);
-
-    Injector injector = store.get(element, Injector.class);
+  public void afterTestExecution(ExtensionContext context) throws Exception {
+    Injector injector = InjectorUtils.retrieveInjectorFromStore(context, NAMESPACE);
     if (injector != null) {
       injector.getInstance(Key.get(WebDriver.class)).quit();
     }
   }
+
 }

@@ -43,6 +43,10 @@ import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
 import org.junit.jupiter.api.extension.ExtensionContext.Store;
 import org.junit.jupiter.api.extension.TestInstancePostProcessor;
 
+/**
+ * Extension that will start guice and is responsible for the injections to test instance
+ *
+ */
 public class GuiceExtension implements TestInstancePostProcessor {
 
   private static final Namespace NAMESPACE =
