@@ -321,7 +321,6 @@ limitations under the License.
                             <include>src/test/java/**</include>
                             <include>src/main/resources/**</include>
                             <include>pom.xml</include>
-                            &gt;
                         </includes>
                         <excludes>
                             <exclude>**/*.json</exclude>
@@ -330,7 +329,6 @@ limitations under the License.
                             <exclude>**/*.properties</exclude>
                             <exclude>**/*.Processor</exclude>
                             <exclude>src/main/resources/META-INF/services/**</exclude>
-                            &gt;
                         </excludes>
                     </configuration>
                 </plugin>
