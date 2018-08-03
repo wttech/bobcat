@@ -25,7 +25,6 @@ import java.lang.reflect.AnnotatedElement;
 import java.util.NoSuchElementException;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
-import org.junit.jupiter.api.extension.ExtensionContext.Store;
 
 /**
  * Extensions helper class for retriving injector created in {@link GuiceExtension}
@@ -45,18 +44,12 @@ public final class InjectorUtils {
    * @return Injector or null if no injector is found
    */
   public static Injector retrieveInjectorFromStore(ExtensionContext context, Namespace namespace) {
-    Injector injector = null;
     AnnotatedElement element = context.getElement()
         .orElseThrow(() -> new NoSuchElementException("No element present"));
-    Store store = context.getStore(namespace);
 
-    injector = store.get(element, Injector.class);
-    if (injector == null) {
-      injector = retrieveInjectorFromStore(
-          context.getParent().orElseThrow(() -> new NoSuchElementException("No injector found")),
-          namespace);
-    }
-
-    return injector;
+    return context.getStore(namespace).getOrComputeIfAbsent(element,
+        absent -> retrieveInjectorFromStore(
+            context.getParent().orElseThrow(() -> new NoSuchElementException("No injector found")),
+            namespace), Injector.class);
   }
 }
