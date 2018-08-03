@@ -1,0 +1,2 @@
+com.cognifide.qa.bb.junit5.guice.GuiceExtension
+com.cognifide.qa.bb.junit5.guice.WebdriverCloseExtension
