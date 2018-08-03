@@ -94,7 +94,7 @@ public class EmailTest {
     client.removeLastEmails(emailsNumber);
     client.close();
 
-    Assert.assertTrue("email data objects should be equal", sentEmails.equals(receivedEmails));
+    Assert.assertEquals("email data objects should be equal", sentEmails, receivedEmails);
   }
 
   @Test
@@ -169,7 +169,7 @@ public class EmailTest {
 
     List<EmailData> limitedList =
         sentEmails.stream()
-            .limit(emailsNumber - emailsToDelete)
+            .limit(emailsNumber - (long) emailsToDelete)
             .collect(Collectors.toList());
 
     Assert.assertEquals(latest, limitedList);
