@@ -300,7 +300,7 @@ limitations under the License.
 
             <dependency>
                 <groupId>io.qameta.allure</groupId>
-                <artifactId>allure-junit5</artifactId>
+                <artifactId>allure-java-commons</artifactId>
                 <version>2.7.0</version>
             </dependency>
         </dependencies>
