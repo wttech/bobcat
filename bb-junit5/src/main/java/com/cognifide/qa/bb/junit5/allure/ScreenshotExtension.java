@@ -27,6 +27,7 @@ import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Allure;
 import java.io.File;
 import java.io.IOException;
+import java.util.Properties;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
@@ -43,13 +44,15 @@ public class ScreenshotExtension implements TestExecutionExceptionHandler {
 
   private static final String NATIVE_APP_CONTEXT = "NATIVE_APP";
 
+  private static final String ALLURE_TAKE_SCREENSHOT = "allure.take.screenshot";
+
   private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(ScreenshotExtension.class);
 
   @Override
   public void handleTestExecutionException(ExtensionContext context, Throwable throwable)
       throws Throwable {
     Injector injector = InjectorUtils.retrieveInjectorFromStore(context, NAMESPACE);
-    if (injector != null) {
+    if (injector != null && injector.getInstance(Properties.class).getProperty(ALLURE_TAKE_SCREENSHOT,"false").equals("true")) {
       prepareScreenshot(injector.getInstance(Key.get(WebDriver.class)));
     }
 
