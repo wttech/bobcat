@@ -16,23 +16,26 @@
 package com.cognifide.qa.bb.aem.touch.siteadmin.aem61;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.aem.touch.siteadmin.aem61.calendar.GraniteCalendar;
-import com.cognifide.qa.bb.aem.touch.siteadmin.aem61.conditions.NotDisabledCondition;
-import com.cognifide.qa.bb.aem.touch.siteadmin.common.IsLoadedCondition;
-import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
+import com.cognifide.qa.bb.constants.Timeouts;
+import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
+import com.google.inject.Inject;
 
 @PageObject
 public class ReplicateLaterWindow {
 
+  @Inject
+  private BobcatWait bobcatWait;
+
   @Global
   @FindBy(css = "button.coral-Wizard-nextButton[type='submit']")
-  @LoadableComponent(condClass = NotDisabledCondition.class)
   private WebElement submitButton;
 
   @FindBy(css = "button.coral-Button.coral-Button--square")
@@ -40,7 +43,6 @@ public class ReplicateLaterWindow {
 
   @Global
   @FindBy(css = ".coral-Popover--datepicker")
-  @LoadableComponent(condClass = IsLoadedCondition.class)
   private GraniteCalendar calendar;
 
   public void selectDateAndTime(LocalDateTime dateTime) {
@@ -49,12 +51,21 @@ public class ReplicateLaterWindow {
     }
 
     calendarButton.click();
-    calendar.selectDateAndTime(dateTime);
-    calendar.closeCalendar();
+    getCalendar().selectDateAndTime(dateTime);
+    getCalendar().closeCalendar();
   }
 
   public void submit() {
-    submitButton.click();
+    getSubmitButton().click();
   }
 
+  public WebElement getSubmitButton() {
+    bobcatWait.withTimeout(Timeouts.SMALL).until(input -> Objects.isNull(submitButton.getAttribute("disabled")));
+    return submitButton;
+  }
+
+  public GraniteCalendar getCalendar() {
+    bobcatWait.withTimeout(Timeouts.SMALL).until(ignored -> calendar.isLoaded());
+    return calendar;
+  }
 }
