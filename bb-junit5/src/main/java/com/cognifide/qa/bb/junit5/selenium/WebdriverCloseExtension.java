@@ -19,21 +19,19 @@
  */
 package com.cognifide.qa.bb.junit5.selenium;
 
+import static com.cognifide.qa.bb.junit5.JUnit5Constants.NAMESPACE;
+
 import com.cognifide.qa.bb.junit5.guice.InjectorUtils;
 import com.google.inject.Injector;
 import com.google.inject.Key;
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
-import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
 import org.openqa.selenium.WebDriver;
 
 /**
  * Estension that will close webdriver after the test is executed
  */
 public class WebdriverCloseExtension implements AfterTestExecutionCallback {
-
-  private static final Namespace NAMESPACE =
-      Namespace.create("com", "cognifide", "qa", "bb", "junit", "guice");
 
   @Override
   public void afterTestExecution(ExtensionContext context) throws Exception {

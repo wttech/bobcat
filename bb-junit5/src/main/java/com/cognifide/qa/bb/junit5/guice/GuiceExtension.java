@@ -19,6 +19,7 @@
  */
 package com.cognifide.qa.bb.junit5.guice;
 
+import static com.cognifide.qa.bb.junit5.JUnit5Constants.NAMESPACE;
 import static java.util.stream.Collectors.toSet;
 import static org.junit.platform.commons.support.AnnotationSupport.findAnnotation;
 
@@ -38,7 +39,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import org.junit.jupiter.api.extension.ExtensionContext;
-import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
 import org.junit.jupiter.api.extension.ExtensionContext.Store;
 import org.junit.jupiter.api.extension.TestInstancePostProcessor;
 
@@ -48,9 +48,6 @@ import org.junit.jupiter.api.extension.TestInstancePostProcessor;
  * Extension</a>
  */
 public class GuiceExtension implements TestInstancePostProcessor {
-
-  private static final Namespace NAMESPACE =
-      Namespace.create("com", "cognifide", "qa", "bb", "junit", "guice");
 
   @Override
   public void postProcessTestInstance(Object testInstance, ExtensionContext context)
