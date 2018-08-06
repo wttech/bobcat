@@ -17,13 +17,15 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.junit5.guice;
+package com.cognifide.qa.bb.junit5.selenium;
 
+import static com.cognifide.qa.bb.junit5.JUnit5Constants.NAMESPACE;
+
+import com.cognifide.qa.bb.junit5.guice.InjectorUtils;
 import com.google.inject.Injector;
 import com.google.inject.Key;
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
-import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
 import org.openqa.selenium.WebDriver;
 
 /**
@@ -31,16 +33,13 @@ import org.openqa.selenium.WebDriver;
  */
 public class WebdriverCloseExtension implements AfterTestExecutionCallback {
 
-
-  private static final Namespace NAMESPACE =
-      Namespace.create("com", "cognifide", "qa", "bb", "junit", "guice");
-
   @Override
   public void afterTestExecution(ExtensionContext context) throws Exception {
     Injector injector = InjectorUtils.retrieveInjectorFromStore(context, NAMESPACE);
     if (injector != null) {
       injector.getInstance(Key.get(WebDriver.class)).quit();
     }
+
   }
 
 }
