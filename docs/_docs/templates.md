@@ -27,6 +27,14 @@ Modules included in this template:
   - `bb-reports`
   - `bb-junit`
 
+### JUnit 5 Template
+
+This template provides a basic Bobcat project with [JUnit 5](https://junit.org/junit5/) as the test runner.
+
+Modules included in this template:
+  - `bb-core`
+  - `bb-junit5`
+
 ### BDD Template
 
 This template provides a basic Bobcat project with [Cucumber](https://docs.cucumber.io/) as the test runner.
