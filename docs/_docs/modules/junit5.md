@@ -2,7 +2,8 @@
 title: "Module: JUnit 5"
 ---
 
-Under {% include under-construction.html %}
+Available since 1.5.0
+{: .notice--info}
 
 JUnit 5 module allows to run test using JUnit 5 platform
 It also allow to generate allure reports which is included in this module
