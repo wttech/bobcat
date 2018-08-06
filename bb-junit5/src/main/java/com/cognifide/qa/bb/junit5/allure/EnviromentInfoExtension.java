@@ -61,7 +61,7 @@ public class EnviromentInfoExtension implements AfterAllCallback {
     try (FileOutputStream propertiesOutputStream = new FileOutputStream(enviromentFile)) {
       properties.store(propertiesOutputStream, null);
     } catch (IOException e) {
-      LOG.error("Can't take screenshot", e);
+      LOG.error("Can't save properties file", e);
     }
   }
 }
