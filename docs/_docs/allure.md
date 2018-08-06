@@ -4,7 +4,7 @@ title: "Allure Reports"
 
 [Allure](http://allure.qatools.ru/) is a third party report engine we are using in JUnit 5 module.
 
-##Description 
+## Description 
 
 It is by default enabled in our JUnit 5 template and all Allure annotations are available. Template also prepares report after test task.
 There are two properties to control allure integration:
@@ -54,6 +54,9 @@ This property turns on automated environment properties file to be prepared by B
           }
       }
     ```
+    
+    Read more about Allure Gradle plugin configuration on their official [documentation](https://github.com/allure-framework/allure-gradle).
+    
 2. Set properties. Both are optional but we recommend turning at least allure.report to allow taking screenshots on test failure
 ```
   allure.report: true
