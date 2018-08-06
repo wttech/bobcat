@@ -26,9 +26,9 @@ import static com.cognifide.qa.bb.junit5.allure.AllureConstants.ALLURE_REPORT;
 import com.cognifide.qa.bb.junit5.guice.InjectorUtils;
 import com.google.inject.Injector;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
-import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.slf4j.LoggerFactory;
@@ -55,19 +55,11 @@ public class EnviromentInfoExtension implements AfterAllCallback {
   }
 
   private void prepareEnviromentFile(Properties properties) {
-    StringBuilder enviromentProperties = new StringBuilder();
-    properties.stringPropertyNames().stream().forEach(propertyName -> {
-      enviromentProperties.append(propertyName);
-      enviromentProperties.append("=");
-      enviromentProperties.append(properties.getProperty(propertyName));
-      enviromentProperties.append("\n");
-    });
 
-    System.getProperty("allure.results.directory");
     File enviromentFile = new File(
         System.getProperty("allure.results.directory"), ENVIROMENT_FILE);
-    try {
-      FileUtils.writeStringToFile(enviromentFile, enviromentProperties.toString());
+    try (FileOutputStream propertiesOutputStream = new FileOutputStream(enviromentFile)) {
+      properties.store(propertiesOutputStream, null);
     } catch (IOException e) {
       LOG.error("Can't take screenshot", e);
     }
