@@ -90,7 +90,7 @@ limitations under the License.
         <jacoco.version>0.7.7.201606060606</jacoco.version>
         <selenium.version>3.11.0</selenium.version>
         <guice.version>3.0</guice.version>
-        <cucumber.version>3.0.2</cucumber.version>
+        <cucumber.version>1.2.3</cucumber.version>
         <version.logback>1.1.7</version.logback>
     </properties>
 
@@ -208,12 +208,12 @@ limitations under the License.
                 <version>3.2.3</version>
             </dependency>
             <dependency>
-                <groupId>io.cucumber</groupId>
+                <groupId>info.cukes</groupId>
                 <artifactId>cucumber-guice</artifactId>
                 <version>${cucumber.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.cucumber</groupId>
+                <groupId>info.cukes</groupId>
                 <artifactId>cucumber-junit</artifactId>
                 <version>${cucumber.version}</version>
             </dependency>

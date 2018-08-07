@@ -45,7 +45,7 @@ limitations under the License.
             <artifactId>selenium-htmlunit-driver</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.cucumber</groupId>
+            <groupId>info.cukes</groupId>
             <artifactId>cucumber-guice</artifactId>
         </dependency>
         <dependency>
