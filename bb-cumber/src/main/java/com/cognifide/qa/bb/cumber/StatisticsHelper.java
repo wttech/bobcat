@@ -34,12 +34,10 @@ class StatisticsHelper {
 
   private static final Logger LOG = LoggerFactory.getLogger(StatisticsHelper.class);
 
-  private int getNumberOfTests(File file) {
-    return getNumberOfTests(file, 0);
-  }
+  private static final int DEFAULT_NUMBER_OF_TESTS = 0;
 
-  private int getNumberOfTests(File file, int defaultValue) {
-    int returnValue = defaultValue;
+  private int getNumberOfTests(File file) {
+    int returnValue = DEFAULT_NUMBER_OF_TESTS;
     try {
       Scanner scanner = new Scanner(file, StandardCharsets.UTF_8.name());
       returnValue = nextInt(scanner);
@@ -50,13 +48,8 @@ class StatisticsHelper {
   }
 
   int getNumberOfFailedTests(File file) {
-    return getNumberOfFailedTests(file, 0);
-  }
-
-  int getNumberOfFailedTests(File file, int defaultValue) {
-    int returnValue = defaultValue;
-    try {
-      Scanner scanner = new Scanner(file, StandardCharsets.UTF_8.name());
+    int returnValue = DEFAULT_NUMBER_OF_TESTS;
+    try (Scanner scanner = new Scanner(file, StandardCharsets.UTF_8.name())) {
       if (scanner.hasNext()) {
         scanner.nextLine();
         returnValue = nextInt(scanner);
@@ -73,7 +66,7 @@ class StatisticsHelper {
     if (numberOfTests == 0) {
       result = 0.0;
     } else {
-      result = ((double)getNumberOfFailedTests(file) / numberOfTests) * 100;
+      result = ((double) getNumberOfFailedTests(file) / numberOfTests) * 100;
     }
     return result;
   }

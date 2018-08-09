@@ -31,7 +31,7 @@ To use any module on the list below you need to do two things:
 
             install(new CoreModule()); //you can find the name in respective module's documentation
 
-            // other modules
+            // `other modules
         }
     }
     ```
@@ -49,9 +49,16 @@ More about its features: [here]({{site.baseurl}}/docs/modules/core/)
 
 ### Module: JUnit
 
-This module is responsible for executing tests in JUnit.
+This module is responsible for executing tests in JUnit 4.
 
 More about its features: [here]({{site.baseurl}}/docs/modules/junit/)
+{: .notice--info}
+
+### Module: JUnit5
+
+This module is responsible for executing tests in JUnit5.
+
+More about its features: [here]({{site.baseurl}}/docs/modules/junit5/)
 {: .notice--info}
 
 ### Module: Reports
@@ -101,5 +108,5 @@ More about its features: [here]({{site.baseurl}}/docs/modules/aem-touch-ui/)
 
 This module is dedicated for working with AEM's Classic UI.
 
-More about its features: [here]({{site.baseurl}}/docs/modules/aem-classic/)
+More about its features: [here]({{site.baseurl}}/docs/modules/aem-classic-ui/)
 {: .notice--info}

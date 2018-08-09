@@ -24,7 +24,9 @@ import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -51,12 +53,13 @@ public class NavigatorDropdown {
 
   public void selectByPath(String path) {
     wait.withTimeout(Timeouts.SMALL).until(
-            ExpectedConditions.presenceOfElementLocated(By.cssSelector(DROPDOWN_ITEMS_SELECTOR)));
+        ExpectedConditions.presenceOfElementLocated(By.cssSelector(DROPDOWN_ITEMS_SELECTOR)));
     revealNavigatorDropdownBtn.click();
     getDropdownOptions().stream()
         .filter(webElement -> webElement.getAttribute(PATH_ATTR).equals(path))
         .findFirst()
-        .get()
+        .orElseThrow(() -> new NoSuchElementException(
+            String.format("Dropdown option not found using path \"%s\"", path)))
         .click();
   }
 
@@ -66,18 +69,19 @@ public class NavigatorDropdown {
 
   public void selectByTitle(String title) {
     wait.withTimeout(Timeouts.SMALL).until(
-            ExpectedConditions.presenceOfElementLocated(By.cssSelector(DROPDOWN_ITEMS_SELECTOR)));
+        ExpectedConditions.presenceOfElementLocated(By.cssSelector(DROPDOWN_ITEMS_SELECTOR)));
     revealNavigatorDropdownBtn.click();
     getDropdownOptions().stream()
         .filter(webElement -> webElement.getText().equals(title))
         .findFirst()
-        .get()
+        .orElseThrow(() -> new NoSuchElementException(
+            String.format("Dropdown option not found using title \"%s\"", title)))
         .click();
   }
 
   public List<String> getAvailablePaths() {
     wait.withTimeout(Timeouts.SMALL).until(
-            ExpectedConditions.presenceOfElementLocated(By.cssSelector(DROPDOWN_ITEMS_SELECTOR)));
+        ExpectedConditions.presenceOfElementLocated(By.cssSelector(DROPDOWN_ITEMS_SELECTOR)));
     return getDropdownOptions().stream()
         .map(webElement -> webElement.getAttribute(PATH_ATTR))
         .collect(Collectors.toList());
@@ -85,7 +89,7 @@ public class NavigatorDropdown {
 
   public List<String> getAvailableTitles() {
     wait.withTimeout(Timeouts.SMALL).until(
-            ExpectedConditions.presenceOfElementLocated(By.cssSelector(DROPDOWN_ITEMS_SELECTOR)));
+        ExpectedConditions.presenceOfElementLocated(By.cssSelector(DROPDOWN_ITEMS_SELECTOR)));
     return getDropdownOptions().stream()
         .map(webElement -> webElement.getAttribute(HtmlTags.Properties.INNER_HTML))
         .collect(Collectors.toList());

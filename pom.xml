@@ -23,7 +23,7 @@ limitations under the License.
 
     <groupId>com.cognifide.qa.bb</groupId>
     <artifactId>bobcat</artifactId>
-    <version>1.4.1-SNAPSHOT</version>
+    <version>1.5.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Bobcat</name>
@@ -52,7 +52,7 @@ limitations under the License.
 
     <modules>
         <module>bb-core</module>
-        <module>bb-core-tests</module>
+        <module>bb-integration-tests</module>
         <module>bb-junit</module>
         <module>bb-reports</module>
         <module>bb-cumber</module>
@@ -62,6 +62,7 @@ limitations under the License.
         <module>bb-aem-classic</module>
         <module>bb-aem-touch-ui</module>
         <module>bb-annotations</module>
+        <module>bb-junit5</module>
     </modules>
 
     <scm>
@@ -95,6 +96,19 @@ limitations under the License.
 
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>5.2.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.junit.platform</groupId>
+                <artifactId>junit-platform-commons</artifactId>
+                <version>1.2.0</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-java</artifactId>
@@ -283,6 +297,12 @@ limitations under the License.
                 <artifactId>jackson-dataformat-yaml</artifactId>
                 <version>2.9.0</version>
             </dependency>
+
+            <dependency>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-java-commons</artifactId>
+                <version>2.7.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -314,6 +334,7 @@ limitations under the License.
                             <exclude>**/*.yaml</exclude>
                             <exclude>**/*.properties</exclude>
                             <exclude>**/*.Processor</exclude>
+                            <exclude>src/main/resources/META-INF/services/**</exclude>
                         </excludes>
                     </configuration>
                 </plugin>

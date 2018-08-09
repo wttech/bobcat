@@ -22,6 +22,7 @@ package com.cognifide.qa.bb.aem.touch.pageobjects.touchui.dialogfields;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -48,7 +49,10 @@ public class Select implements DialogField {
   public void setValue(Object value) {
     selectField.click();
     List<WebElement> options = selectField.findElements(By.xpath(SELECT_OPTIONS_XPATH));
-    options.stream().filter(o -> value.toString().equals(o.getText())).findFirst().get().click();
+    options.stream().filter(o -> value.toString().equals(o.getText()))
+        .findFirst()
+        .orElseThrow(() -> new NoSuchElementException(
+            String.format("Option with text %s not found", value.toString()))).click();
   }
 
   /**

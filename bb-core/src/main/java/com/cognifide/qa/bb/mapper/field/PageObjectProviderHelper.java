@@ -23,6 +23,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.WildcardType;
+import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
@@ -39,7 +40,7 @@ public final class PageObjectProviderHelper {
   }
 
   /**
-   * Gets selector from {@link PageObject} if class annoted by this annotation is used in list
+   * Gets selector from {@link PageObject} if class annotated by this annotation is used in list
    *
    * @param field class field
    * @return selector
@@ -77,13 +78,13 @@ public final class PageObjectProviderHelper {
 
   private static By retrieveSelectorFromPageObject(Field field, boolean useGeneric) {
     String cssValue = useGeneric
-        ? PageObjectProviderHelper.getGenericType(field).getAnnotation(PageObject.class).css()
+        ? Objects.requireNonNull(PageObjectProviderHelper.getGenericType(field)).getAnnotation(PageObject.class).css()
         : field.getType().getAnnotation(PageObject.class).css();
     if (StringUtils.isNotEmpty(cssValue)) {
       return By.cssSelector(cssValue);
     }
     String xpathValue = useGeneric
-        ? PageObjectProviderHelper.getGenericType(field).getAnnotation(PageObject.class).xpath()
+        ? Objects.requireNonNull(PageObjectProviderHelper.getGenericType(field)).getAnnotation(PageObject.class).xpath()
         : field.getType().getAnnotation(PageObject.class).xpath();
     if (StringUtils.isNotEmpty(xpathValue)) {
       return By.xpath(xpathValue);

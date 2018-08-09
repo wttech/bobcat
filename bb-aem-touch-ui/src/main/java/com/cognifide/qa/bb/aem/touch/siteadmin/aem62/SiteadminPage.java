@@ -15,12 +15,14 @@ package com.cognifide.qa.bb.aem.touch.siteadmin.aem62;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -225,11 +227,11 @@ public class SiteadminPage implements SiteadminActions, Loadable {
   @Override
   public SiteadminActions waitForPageCount(int pageCount) {
     boolean conditionNotMet = !webElementUtils.isConditionMet(webDriver -> {
-        try {
-          return pageCount == getChildPageWindow().getPageCount();
-        } catch (StaleElementReferenceException e) {
-          webDriver.navigate().refresh();
-          return false;
+      try {
+        return pageCount == getChildPageWindow().getPageCount();
+      } catch (StaleElementReferenceException e) {
+        Objects.requireNonNull(webDriver).navigate().refresh();
+        return false;
       }
     }, Timeouts.SMALL);
     if (conditionNotMet) {
@@ -240,11 +242,11 @@ public class SiteadminPage implements SiteadminActions, Loadable {
 
   private void waitForExpectedStatus(final String title, ActivationStatus status) {
     wait.withTimeout(Timeouts.MEDIUM).until(webDriver -> {
-        webDriver.navigate().refresh();
-        ChildPageRow childPageRow = getChildPageWindow().getChildPageRow(title);
-        PageActivationStatus pageActivationStatusCell = childPageRow.getPageActivationStatus();
-        ActivationStatus activationStatus = pageActivationStatusCell.getActivationStatus();
-        return activationStatus == status;
+      Objects.requireNonNull(webDriver).navigate().refresh();
+      ChildPageRow childPageRow = getChildPageWindow().getChildPageRow(title);
+      PageActivationStatus pageActivationStatusCell = childPageRow.getPageActivationStatus();
+      ActivationStatus activationStatus = pageActivationStatusCell.getActivationStatus();
+      return activationStatus == status;
     }, Timeouts.MINIMAL);
   }
 
@@ -255,8 +257,8 @@ public class SiteadminPage implements SiteadminActions, Loadable {
 
   private void retryLoad() {
     conditions.verify(webDriver -> {
-        webDriver.navigate().refresh();
-        return isLoadedCondition();
+      Objects.requireNonNull(webDriver).navigate().refresh();
+      return isLoadedCondition();
     }, Timeouts.MEDIUM);
   }
 
@@ -275,7 +277,7 @@ public class SiteadminPage implements SiteadminActions, Loadable {
       }
       wait.withTimeout(Timeouts.SMALL).until((ExpectedCondition<Object>) input ->
           "0".equals(((JavascriptExecutor) driver).executeScript("return $.active").toString())
-          );
+      );
       navigateInteractively(destination);
     }
   }
@@ -289,11 +291,13 @@ public class SiteadminPage implements SiteadminActions, Loadable {
                 getChildPageWindow().getChildPageRows().stream()
                     .collect(Collectors.toMap(Function.identity(),
                         childPageRow -> StringUtils.difference(currentUrl, childPageRow.getHref())
-                        ))
+                    ))
                     .entrySet()
                     .stream()
                     .min(Comparator.comparingInt(a -> a.getValue().length()))
-                    .get()
+                    .orElseThrow(() -> new NoSuchElementException(
+                        String.format(
+                            "Failed to find a child page while trying to reach %s", destination)))
                     .getKey());
     closestPage.click();
   }
@@ -304,11 +308,12 @@ public class SiteadminPage implements SiteadminActions, Loadable {
             .filter(path -> !currentUrl.equals(path))
             .collect(Collectors.toMap(
                 Function.identity(), path -> StringUtils.difference(path, destination)
-                ))
+            ))
             .entrySet()
             .stream()
             .min(Comparator.comparingInt(a -> a.getValue().length()))
-            .get()
+            .orElseThrow(() -> new IllegalArgumentException(
+                String.format("Unable to find a path to destination \"%s\"", destination)))
             .getKey();
     navigatorDropdown.selectByPath(closestPath);
   }

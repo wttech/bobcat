@@ -42,7 +42,7 @@ A high level roadmap (milestones still can change), without any concrete deadlin
 3. Simplify Bobcat configuration :heavy_check_mark:
 
 #### Milestone #2 (part of it may end up in 1.x.x)
-- Switch to Gradle from end-user side
+- Switch to Gradle from end-user side :heavy_check_mark:
 - Reporting revamp
 - Provide a simpler API for Bobcat users
 - General refactoring, part 1

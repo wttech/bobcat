@@ -46,7 +46,10 @@ We provide [XML file for JAVA format][formatter-xml] that may be imported into E
 
 ### Testing
 
-It would be really great if your changes would include tests checking them. They can be either unit tests or integration tests (see `bb-core-tests` for examples)).
+It would be really great if your changes would include tests checking them. They can be either unit tests or integration tests - where to put them?
+
+- unit tests: in the `test` folder in the module they are testing
+- integration tests: in the `bb-integration-tests` module, in the module-specific package, e.g. `com.cognifide.qa.bb.core` for Core module tests, `com.cognifide.qa.bb.proxy` for Traffic module tests, etc.
 
 To build and test your code against existing suites, simply run `mvn clean test` from the project root.
 

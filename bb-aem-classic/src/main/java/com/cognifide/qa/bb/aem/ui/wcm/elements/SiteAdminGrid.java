@@ -140,7 +140,8 @@ public class SiteAdminGrid {
 
   private boolean pageStatusMatches(PageStatus status, SiteAdminPage page,
       String pageTitle) {
-    bobcatWait.withTimeout(Timeouts.SMALL).until(ignored -> page.getGrid().isPageOnTheList(pageTitle));
+    bobcatWait.withTimeout(Timeouts.SMALL)
+        .until(ignored -> page.getGrid().isPageOnTheList(pageTitle));
     SiteAdminGridRow row = page.getGrid().selectPageByTitle(pageTitle);
     return row.getPageStatusToolTip().contains(status.getStatusCss());
   }
@@ -167,7 +168,7 @@ public class SiteAdminGrid {
   }
 
   /**
-   * Opens the page with provided title by doubleclicking on its row.
+   * Opens the page with provided title by double-clicking on its row.
    *
    * @param title title of the page
    */
@@ -205,7 +206,7 @@ public class SiteAdminGrid {
   public boolean isTemplateOnList(String title, String template) {
     boolean isOnList;
     SiteAdminGridRow row = getRowByTitle(title);
-    isOnList = template.equals(row.getTemplateName());
+    isOnList = row != null && template.equals(row.getTemplateName());
     if (!isOnList) {
       LOG.debug("there is no template {} with title {} on the list", template, title);
     }
@@ -247,7 +248,8 @@ public class SiteAdminGrid {
   public SiteAdminGrid waitForLoaderNotPresent() {
     bobcatWait.withTimeout(Timeouts.BIG).until(
         CommonExpectedConditions.elementNotPresentOrVisible(LOADER_LOCATOR));
-    bobcatWait.withTimeout(Timeouts.SMALL).until(ExpectedConditions.elementToBeClickable(scrollPane));
+    bobcatWait.withTimeout(Timeouts.SMALL)
+        .until(ExpectedConditions.elementToBeClickable(scrollPane));
     return this;
   }
 

@@ -14,6 +14,8 @@ docs:
         url: /docs/getting-started/
       - title: "Bobcat modules"
         url: /docs/modules/
+      - title: "Bobcat templates"
+        url: /docs/templates/
       - title: "Configuring Bobcat"
         url: /docs/configuring-bobcat/
       - title: "Writing the first test"
@@ -24,8 +26,10 @@ docs:
         url: /docs/modules/core/
   - title: "Other modules"
     children:
-      - title: "JUnit"
+      - title: "JUnit 4"
         url: /docs/modules/junit/
+      - title: "JUnit 5"
+        url: /docs/modules/junit5/
       - title: "Reports"
         url: /docs/modules/reports/
       - title: "Cucumber"
@@ -42,5 +46,7 @@ docs:
         url: /docs/modules/aem-touch-ui/
       - title: "AEM Classic UI"
         url: /docs/modules/aem-classic-ui/
+  - title: "Allure"
+    url: "/docs/allure/"
   - title: "API docs"
     url: "http://www.javadoc.io/doc/com.cognifide.qa.bb/bb-core/"
