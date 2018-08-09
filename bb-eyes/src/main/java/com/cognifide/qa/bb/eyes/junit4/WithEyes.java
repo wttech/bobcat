@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.eyes;
+package com.cognifide.qa.bb.eyes.junit4;
 
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
