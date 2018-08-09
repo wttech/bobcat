@@ -63,6 +63,7 @@ limitations under the License.
         <module>bb-aem-touch-ui</module>
         <module>bb-annotations</module>
         <module>bb-junit5</module>
+        <module>bb-aem-core</module>
     </modules>
 
     <scm>
