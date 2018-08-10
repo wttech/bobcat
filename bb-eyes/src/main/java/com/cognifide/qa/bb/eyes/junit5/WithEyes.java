@@ -17,15 +17,17 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.eyes.guice;
+package com.cognifide.qa.bb.eyes.junit5;
 
-import com.applitools.eyes.selenium.Eyes;
-import com.google.inject.AbstractModule;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-public class EyesModule extends AbstractModule {
+import org.junit.jupiter.api.extension.ExtendWith;
 
-  @Override
-  protected void configure() {
-    bind(Eyes.class).toProvider(EyesProvider.class);
-  }
+@Target({ElementType.ANNOTATION_TYPE, ElementType.METHOD, ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@ExtendWith(WithEyesExtension.class)
+public @interface WithEyes {
 }

@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.eyes;
+package com.cognifide.qa.bb.eyes.guice;
 
 import com.applitools.eyes.selenium.Eyes;
 import com.cognifide.qa.bb.guice.ThreadScoped;
