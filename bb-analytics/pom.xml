@@ -3,7 +3,7 @@
   #%L
   Bobcat
   %%
-  Copyright (C) 2016 Cognifide Ltd.
+  Copyright (C) 2018 Cognifide Ltd.
   %%
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -27,13 +27,9 @@
         <version>1.4.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>bb-core-tests</artifactId>
+    <artifactId>bb-analytics</artifactId>
 
-    <name>Bobcat Core Tests</name>
-
-    <properties>
-        <configuration.paths>src/main/config</configuration.paths>
-    </properties>
+    <name>Bobcat Analytics</name>
 
     <dependencies>
         <dependency>
@@ -43,7 +39,12 @@
         </dependency>
         <dependency>
             <groupId>com.cognifide.qa.bb</groupId>
-            <artifactId>bb-junit</artifactId>
+            <artifactId>bb-aem-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.cognifide.qa.bb</groupId>
+            <artifactId>bb-cumber</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -52,14 +53,25 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.cognifide.qa.bb</groupId>
-            <artifactId>bb-reports</artifactId>
-            <version>${project.version}</version>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-yaml</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-guice</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.jcr</groupId>
+            <artifactId>jcr</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-server</artifactId>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -68,29 +80,33 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <scope>test</scope>
+            <groupId>org.skyscreamer</groupId>
+            <artifactId>jsonassert</artifactId>
+            <version>1.5.0</version>
         </dependency>
         <dependency>
             <groupId>com.cognifide.qa.bb</groupId>
-            <artifactId>bb-analytics</artifactId>
+            <artifactId>bb-junit</artifactId>
             <version>1.4.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>net.javacrumbs.json-unit</groupId>
-            <artifactId>json-unit-fluent</artifactId>
-            <version>1.28.2</version>
+            <groupId>com.cognifide.qa.bb</groupId>
+            <artifactId>bb-reports</artifactId>
+            <version>1.4.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
         </dependency>
         <dependency>
             <groupId>net.javacrumbs.json-unit</groupId>
-            <artifactId>json-unit</artifactId>
-            <version>1.28.2</version>
+            <artifactId>json-unit-core</artifactId>
+            <version>RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-text</artifactId>
-            <version>1.4</version>
+            <version>RELEASE</version>
         </dependency>
     </dependencies>
 
@@ -100,14 +116,6 @@
                 <groupId>org.apache.rat</groupId>
                 <artifactId>apache-rat-plugin</artifactId>
             </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
-
 </project>
