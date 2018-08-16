@@ -1,3 +1,5 @@
+if: branch !~ /^docs/
+
 language: java
 jdk:
   - oraclejdk8
@@ -7,6 +9,15 @@ addons:
     packages:
       - oracle-java8-installer
   firefox: "58.0"
+  sonarcloud:
+    organization: "bobcat-github"
+    token:
+      secure: $SONAR_TOKEN
+
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.sonar/cache'
 
 install: true
 
@@ -20,4 +31,6 @@ before_script:
   - export PATH=$PATH:$PWD/geckodriver
 
 sudo: false
-script: mvn clean install -Dwebdriver.type=firefox -Dwebdriver.firefox.bin="$(which firefox)" 
+script:
+  - mvn clean install -Dwebdriver.type=firefox -Dwebdriver.firefox.bin="$(which firefox)"
+  - sonar-scanner

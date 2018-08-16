@@ -42,23 +42,23 @@ A high level roadmap (milestones still can change), without any concrete deadlin
 3. Simplify Bobcat configuration :heavy_check_mark:
 
 #### Milestone #2 (part of it may end up in 1.x.x)
-- Switch to Gradle from end-user side
-- Reporting revamp
-- Provide a simpler API for Bobcat users
-- General refactoring, part 1
+- Switch to Gradle from end-user side :heavy_check_mark:
+- Reporting revamp :heavy_check_mark:
+- JUnit 5 support :heavy_check_mark:
+- General refactoring, part 1 :construction: in progress
     - some parts of API might disappear in the future
     - some modules may end up without further support
     - hence the above, we will identify and deprecate the API to be removed in 2.0 release
 - last 1.x.x release
 
 #### Milestone #3
+- Provide a simpler API for Bobcat users
 - General refactoring, part 2
     - remove the deprecated APIs
 - after the above is done, 2.0 release
 
 #### Other ideas / nice-to-haves
 - move development from Maven to Gradle
-- JUnit 5 support - depends on the effort required (to be investigated)
 
 :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat:
 ---

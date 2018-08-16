@@ -20,6 +20,7 @@
 package com.cognifide.qa.bb.logging;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.events.WebDriverEventListener;
@@ -189,6 +190,26 @@ public class WebDriverLogger implements WebDriverEventListener {
 
   @Override
   public void afterNavigateRefresh(WebDriver driver) {
+    afterEvent();
+  }
+
+  @Override
+  public <X> void beforeGetScreenshotAs(OutputType<X> outputType) {
+    beforeEvent("getScreenshot");
+  }
+
+  @Override
+  public <X> void afterGetScreenshotAs(OutputType<X> outputType, X x) {
+    afterEvent();
+  }
+
+  @Override
+  public void beforeGetText(WebElement webElement, WebDriver webDriver) {
+    beforeEvent("getText", webElement.toString());
+  }
+
+  @Override
+  public void afterGetText(WebElement webElement, WebDriver webDriver, String s) {
     afterEvent();
   }
 }

@@ -1,0 +1,4 @@
+com.cognifide.qa.bb.junit5.guice.GuiceExtension
+com.cognifide.qa.bb.junit5.allure.ScreenshotExtension
+com.cognifide.qa.bb.junit5.selenium.WebdriverCloseExtension
+com.cognifide.qa.bb.junit5.allure.EnviromentInfoExtension

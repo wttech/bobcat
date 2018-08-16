@@ -472,7 +472,9 @@ public class AemParsys {
   private WebElement getClickableParsys() {
     wait.withTimeout(Timeouts.SMALL)
         .until(webDriver -> getParsysStream().count() >= 1, Timeouts.MINIMAL);
-    return getParsysStream().findFirst().get();
+    return getParsysStream()
+        .findFirst()
+        .orElseThrow(() -> new NoSuchElementException("Clickable parsys element not found."));
   }
 
   private Stream<WebElement> getParsysStream() {

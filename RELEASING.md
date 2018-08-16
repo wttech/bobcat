@@ -84,18 +84,6 @@ If staging release with Maven ended successfully, then:
 4. Select the Bobcat staging repository again, click the **Release** button, providing some description.
 
 # Post-release steps
-
-## Release JavaDocs:
-
-1. In Bobcat repo:
-    1. Checkout the tag you just released.
-    2. In root directory, run: `mvn clean javadoc:aggregate` to generate the actual API docs.
-2. In Cognifide Labs repo (clone from https://github.com/Cognifide/cognifide.github.io):
-    1. Create a directory for a new Bobcat version (e.g. bobcat\apidocs\1-4-0)
-    2. Copy the content from `\target\site\apidocs\` in Bobcat repository to this folder.
-    3. Commit and push the new docs.
-    4. Docs should be available after a while at: https://cognifide.github.io/bobcat/apidocs/1-4-0/
-    5. Update the Javadoc version in README.md file: https://github.com/Cognifide/bobcat/blob/master/README.md
   
 ## Gradle template
 
