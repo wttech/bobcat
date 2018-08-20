@@ -25,6 +25,16 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.name.Named;
 
+/**
+ * Provides a thread-scoped {@link Eyes} instance. Bound in {@link EyesModule}.
+ * <br>
+ * Requires {@code eyes.apiKey} property.
+ * <br>
+ * Additional configurable options:
+ * <ul>
+ * <li>{@code eyes.fullPageScreenshots} - defines if full-page screenshots should be captured</li>
+ * </ul>
+ */
 @ThreadScoped
 public class EyesProvider implements Provider<Eyes> {
 

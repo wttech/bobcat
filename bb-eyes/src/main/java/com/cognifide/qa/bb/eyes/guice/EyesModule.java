@@ -22,6 +22,9 @@ package com.cognifide.qa.bb.eyes.guice;
 import com.applitools.eyes.selenium.Eyes;
 import com.google.inject.AbstractModule;
 
+/**
+ * Eyes Guice module. Provides an {@link Eyes} instance.
+ */
 public class EyesModule extends AbstractModule {
 
   @Override

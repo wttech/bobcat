@@ -34,8 +34,16 @@ import com.cognifide.qa.bb.junit5.guice.InjectorUtils;
 import com.google.inject.Injector;
 import com.google.inject.Key;
 
+/**
+ * JUnit 5 extension that provides {@link Eyes} capabilities.
+ */
 public class WithEyesExtension implements BeforeEachCallback, AfterEachCallback {
 
+  /**
+   * Opens an {@link Eyes} session before the test.
+   * <br>
+   * {@inheritDoc}
+   */
   @Override
   public void beforeEach(ExtensionContext context) throws Exception {
     Injector injector = InjectorUtils.retrieveInjectorFromStore(context, NAMESPACE);
@@ -44,6 +52,11 @@ public class WithEyesExtension implements BeforeEachCallback, AfterEachCallback 
     getEyes(context).open(wrappedDriver, String.valueOf(properties.get("eyes.appName")), context.getDisplayName());
   }
 
+  /**
+   * Closes or aborts the opened {@link Eyes} session.
+   * <br>
+   * {@inheritDoc}
+   */
   @Override
   public void afterEach(ExtensionContext context) throws Exception {
     Eyes eyes = getEyes(context);

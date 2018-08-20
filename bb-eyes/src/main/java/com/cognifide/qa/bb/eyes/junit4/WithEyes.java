@@ -29,6 +29,23 @@ import com.applitools.eyes.selenium.Eyes;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
+/**
+ * JUnit 4 {@link TestRule} that enables Eyes integration.
+ * <p>
+ * Example usage:
+ * <pre>
+ * public class ExampleTest {
+ *    &#64;Rule
+ *    &#64;Inject
+ *    public WithEyes withEyes;
+ *
+ *    public void test() {
+ *      // test actions
+ *      withEyes.getEyes().checkWindow("Example checkpoint");
+ *    }
+ * }
+ * </pre>
+ */
 public class WithEyes implements TestRule {
 
   private final WebDriver webDriver;
@@ -42,14 +59,23 @@ public class WithEyes implements TestRule {
     this.appName = appName;
   }
 
+  /**
+   * @return the avaialable WebDriver instance
+   */
   public WebDriver getWebDriver() {
     return webDriver;
   }
 
+  /**
+   * @return the configured and initialized {@link Eyes} instance.
+   */
   public Eyes getEyes() {
     return eyes;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public Statement apply(Statement base, Description description) {
     return new Statement() {
