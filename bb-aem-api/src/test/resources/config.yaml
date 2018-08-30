@@ -1,0 +1,24 @@
+default:
+  contexts: [chrome]
+
+contexts:
+    firefox:
+      webdriver.type: firefox
+    chrome:
+      webdriver.type: chrome
+    grid:
+      webdriver.type: remote
+      webdriver.url: http://localhost:4444/wd/hub
+    grid-chrome:
+      webdriver.cap.browserName: chrome
+    local:
+      author.url: http://localhost:4502
+      author.ip: http://127.0.0.1:4502
+      author.login: admin
+      author.password: admin
+      login.token.name: login-token
+
+      publish.url: http://localhost:4503
+      publish.ip: http://127.0.0.1:4503
+      publish.login: admin
+      publish.password: admin
