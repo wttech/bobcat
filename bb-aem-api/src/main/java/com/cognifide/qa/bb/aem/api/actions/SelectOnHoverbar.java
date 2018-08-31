@@ -33,8 +33,8 @@ public class SelectOnHoverbar implements Action {
 
   @Override
   public <T extends Actor> void performAs(T actor) {
-    //locate theComponent hoverbar
-    //click theComponent option
+    //locate the hoverbar
+    //click the option
     System.out
         .println("Selecting option: " + option + " on " + component + " component's hoverbar");
   }

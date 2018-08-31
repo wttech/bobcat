@@ -32,7 +32,7 @@ public class SelectComponent implements Action {
   @Override
   public <T extends Actor> void performAs(T actor) {
     //locate Component
-    //click on theComponent Component
+    //click on the Component
     System.out.println("Selecting component: " + component);
   }
 }
