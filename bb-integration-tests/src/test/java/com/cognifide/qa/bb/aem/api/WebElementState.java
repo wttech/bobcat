@@ -17,31 +17,36 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.api.states.basic;
+package com.cognifide.qa.bb.aem.api;
 
 import java.util.function.Function;
+
+import org.openqa.selenium.WebElement;
 
 import com.cognifide.qa.bb.api.actors.Actor;
 import com.cognifide.qa.bb.api.actors.abilities.PerformBasicOperations;
 import com.cognifide.qa.bb.api.states.State;
 
-public class StateInObject<T, R> implements State<R> {
+public class WebElementState<T, R> implements State<R> {
+  private Function<T, WebElement> elementGetter;
+  private Class<T> objectType;
+  private Function<WebElement, R> webElementProp;
 
-  private final Function<T, R> element;
-  private Class<T> type;
-
-  private StateInObject(Class<T> type, Function<T, R> element) {
-    this.type = type;
-    this.element = element;
+  private WebElementState(Class<T> objectType, Function<T, WebElement> elementGetter,
+      Function<WebElement, R> webElementProp) {
+    this.objectType = objectType;
+    this.elementGetter = elementGetter;
+    this.webElementProp = webElementProp;
   }
 
   @Override
   public R observedBy(Actor actor) {
-    T object = actor.thatCan(PerformBasicOperations.class).instantiate(type);
-    return element.apply(object);
+    return elementGetter.andThen(webElementProp)
+        .apply(actor.thatCan(PerformBasicOperations.class).instantiate(objectType));
   }
 
-  public static <T, R> StateInObject<T, R> of(Class<T> type, Function<T, R> elementGetter) {
-    return new StateInObject<>(type, elementGetter);
+  public static <T, R> State<R> of(Class<T> objectType, Function<T, WebElement> elementGetter,
+      Function<WebElement, R> webElementProp) {
+    return new WebElementState<>(objectType, elementGetter, webElementProp);
   }
 }

@@ -28,18 +28,18 @@ limitations under the License.
 
     <name>Bobcat</name>
     <description>Bobcat is an automated testing framework for functional testing of web applications.</description>
-    <path>https://github.com/cognifide/bobcat</path>
+    <url>https://github.com/cognifide/bobcat</url>
     <inceptionYear>2016</inceptionYear>
 
     <organization>
         <name>Cognifide Ltd.</name>
-        <path>http://www.cognifide.com</path>
+        <url>http://www.cognifide.com</url>
     </organization>
 
     <licenses>
         <license>
             <name>The Apache License, Version 2.0</name>
-            <path>http://www.apache.org/licenses/LICENSE-2.0.txt</path>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
         </license>
     </licenses>
 
@@ -63,27 +63,27 @@ limitations under the License.
         <module>bb-aem-touch-ui</module>
         <module>bb-annotations</module>
         <module>bb-junit5</module>
-        <module>bb-aem-api</module>
         <module>bb-api</module>
+        <module>bb-aem-api</module>
     </modules>
 
     <scm>
         <connection>scm:git:git@github.com:Cognifide/bobcat.git</connection>
         <developerConnection>scm:git:git@github.com:Cognifide/bobcat.git</developerConnection>
         <tag>HEAD</tag>
-        <path>https://github.com/Cognifide/bobcat</path>
+        <url>https://github.com/Cognifide/bobcat</url>
     </scm>
 
     <distributionManagement>
         <repository>
             <id>sonatype-nexus-staging</id>
             <name>Nexus Release Repository</name>
-            <path>https://oss.sonatype.org/service/local/staging/deploy/maven2/</path>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
         <snapshotRepository>
             <id>sonatype-nexus-snapshots</id>
             <name>Sonatype Nexus Snapshots</name>
-            <path>https://oss.sonatype.org/content/repositories/snapshots/</path>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 

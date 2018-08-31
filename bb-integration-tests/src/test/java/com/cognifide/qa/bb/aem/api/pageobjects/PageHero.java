@@ -17,26 +17,26 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.api.states.assertions;
+package com.cognifide.qa.bb.aem.api.pageobjects;
 
-import org.hamcrest.Matcher;
-import org.junit.Assert;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
-import com.cognifide.qa.bb.api.actors.Actor;
-import com.cognifide.qa.bb.api.states.Assertion;
-import com.cognifide.qa.bb.api.states.State;
+import com.cognifide.qa.bb.qualifier.PageObject;
 
-public class StateAssertion<T> implements Assertion {
-  private final State<T> state;
-  private final Matcher<T> matcher;
+@PageObject(css = ".page__hero--overlay")
+public class PageHero {
 
-  public StateAssertion(State<T> state, Matcher<T> matcher) {
-    this.state = state;
-    this.matcher = matcher;
+  @FindBy(css = ".btn.btn--light-outline.btn--large")
+  private WebElement button;
+
+  //todo think about returning a wrapper here (QuestionTarget?) that will wrap WebElement
+  // and allow easier assertions of attributes, condition validation and general state probing
+  public WebElement button() {
+    return button;
   }
 
-  @Override
-  public void assertedBy(Actor actor) {
-    Assert.assertThat(state.observedBy(actor), matcher);
+  public String buttonText() {
+    return button.getText();
   }
 }
