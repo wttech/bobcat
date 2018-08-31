@@ -20,7 +20,7 @@
 import static com.cognifide.qa.bb.api.syntax.Assertions.seeThat;
 import static org.hamcrest.CoreMatchers.is;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import com.cognifide.qa.bb.aem.api.actions.Edit;
 import com.cognifide.qa.bb.api.actors.Actor;
