@@ -19,29 +19,29 @@
  */
 package com.cognifide.qa.bb.email;
 
+import java.time.LocalDateTime;
 import java.util.function.Predicate;
-
-import org.joda.time.DateTime;
 
 /**
  * This class offers several EmailData predicates.
  */
 public final class CommonEmailDataPredicates {
 
-  private CommonEmailDataPredicates() {}
+  private CommonEmailDataPredicates() {
+  }
 
   /**
    * A predicate that matches an email message with a given reception time.
    *
-   * @param dateTime preceding the email received attribute
+   * @param localDateTime preceding the email received attribute
    * @return Predicate for emails with received attribute after specific point in time
    */
-  public static Predicate<EmailData> isReceivedAfter(final DateTime dateTime) {
+  public static Predicate<EmailData> isReceivedAfter(final LocalDateTime localDateTime) {
     return emailData -> {
       if (emailData == null) {
         return false;
       } else {
-        return emailData.getReceivedDateTime().isAfter(dateTime);
+        return emailData.getReceivedDateTime().isAfter(localDateTime);
       }
     };
   }

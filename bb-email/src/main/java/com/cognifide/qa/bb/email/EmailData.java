@@ -19,17 +19,17 @@
  */
 package com.cognifide.qa.bb.email;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.joda.time.DateTime;
 
 /**
  * This class represents email message.
  */
 public class EmailData {
 
-  private DateTime receivedDateTime;
+  private LocalDateTime receivedDateTime;
 
   private String messageContent;
 
@@ -58,7 +58,7 @@ public class EmailData {
   /**
    * @return Email message receive DateTime.
    */
-  public DateTime getReceivedDateTime() {
+  public LocalDateTime getReceivedDateTime() {
     return receivedDateTime;
   }
 
@@ -67,7 +67,7 @@ public class EmailData {
    *
    * @param receivedDateTime received date of email
    */
-  public void setReceivedDateTime(DateTime receivedDateTime) {
+  public void setReceivedDateTime(LocalDateTime receivedDateTime) {
     this.receivedDateTime = receivedDateTime;
   }
 
