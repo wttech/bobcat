@@ -106,7 +106,8 @@ public final class EmailDataFactory {
   }
 
   private LocalDateTime getReceivedDate(Message message) throws MessagingException {
-    return message.getReceivedDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+    return message.getReceivedDate() != null ? message.getReceivedDate().toInstant()
+        .atZone(ZoneId.systemDefault()).toLocalDateTime() : LocalDateTime.now();
   }
 
   private String getSubjectString(Message message) throws MessagingException {

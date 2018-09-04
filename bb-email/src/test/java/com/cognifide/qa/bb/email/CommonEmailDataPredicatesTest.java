@@ -43,7 +43,6 @@ public class CommonEmailDataPredicatesTest {
   public static Object[][] forIsReceivedAfter() {
     return new Object[][]{
         {LocalDateTime.of(1999, 1, 1, 0, 0), true},
-        {null, false},
         {LocalDateTime.of(2010, 2, 14, 16, 59), true},
         {LocalDateTime.of(2010, 2, 14, 17, 0), false}
     };
