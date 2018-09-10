@@ -26,9 +26,14 @@ import com.cognifide.qa.bb.aem.core.login.AemAuthenticationController;
 import com.cognifide.qa.bb.aem.core.login.AuthorAuthenticationController;
 import com.cognifide.qa.bb.aem.core.pages.AemTestPageControler;
 import com.cognifide.qa.bb.aem.core.pages.sling.SlingTestPageControler;
+import com.cognifide.qa.bb.aem.core.siteadmin.SiteAdminAction;
+import com.cognifide.qa.bb.aem.core.siteadmin.SiteAdminController;
+import com.cognifide.qa.bb.aem.core.siteadmin.aem64.AemSiteAdminController;
+import com.cognifide.qa.bb.aem.core.siteadmin.aem64.CreatePageAction;
 import com.cognifide.qa.bb.provider.http.HttpClientProvider;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
+import com.google.inject.multibindings.Multibinder;
 import com.google.inject.name.Named;
 import org.apache.http.impl.client.CloseableHttpClient;
 
@@ -45,6 +50,15 @@ public class AemCoreModule extends AbstractModule {
         AuthorAuthenticationController.class);
     bind(AemAuthCookieFactory.class).annotatedWith(AuthorInstance.class).to(
         AemAuthCookieFactoryImpl.class);
+    bind(SiteAdminController.class).annotatedWith(Aem64.class).to(AemSiteAdminController.class);
+
+    bindActions64();
+  }
+
+  private void bindActions64() {
+    Multibinder<SiteAdminAction> siteAdminActions64 =
+        Multibinder.newSetBinder(binder(), SiteAdminAction.class, Aem64.class);
+    siteAdminActions64.addBinding().to(CreatePageAction.class);
   }
 
   @Provides
