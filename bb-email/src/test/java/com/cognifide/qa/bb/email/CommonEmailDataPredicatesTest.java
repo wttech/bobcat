@@ -21,9 +21,9 @@ package com.cognifide.qa.bb.email;
 
 import static org.junit.Assert.assertEquals;
 
+import java.time.LocalDateTime;
 import java.util.function.Predicate;
 
-import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.experimental.theories.DataPoints;
 import org.junit.experimental.theories.FromDataPoints;
@@ -34,23 +34,23 @@ import org.junit.runner.RunWith;
 @RunWith(Theories.class)
 public class CommonEmailDataPredicatesTest {
 
-  private static final DateTime RECEIVED_DATE = new DateTime(2010, 2, 14, 17, 00);
+  private static final LocalDateTime RECEIVED_DATE = LocalDateTime.of(
+      2010, 2, 14, 17, 0);
 
   private EmailData sampleEmailData;
 
   @DataPoints(value = "isReceivedAfter")
   public static Object[][] forIsReceivedAfter() {
-    return new Object[][] {
-        {new DateTime(1999, 1, 1, 0, 0), true},
-        {null, false},
-        {new DateTime(2010, 2, 14, 16, 59), true},
-        {new DateTime(2010, 2, 14, 17, 00), false}
+    return new Object[][]{
+        {LocalDateTime.of(1999, 1, 1, 0, 0), true},
+        {LocalDateTime.of(2010, 2, 14, 16, 59), true},
+        {LocalDateTime.of(2010, 2, 14, 17, 0), false}
     };
   }
 
   @DataPoints(value = "containsText")
   public static Object[][] forContainsText() {
-    return new Object[][] {
+    return new Object[][]{
         {"sample", true},
         {"sample message content", true},
         {"", true},
@@ -61,7 +61,7 @@ public class CommonEmailDataPredicatesTest {
 
   @DataPoints(value = "emails")
   public static Object[][] forEmailTests() {
-    return new Object[][] {
+    return new Object[][]{
         // email, isSender, isRecipient
         {"alice@example.com", true, false},
         {"bob@example.com", false, true},
@@ -83,7 +83,7 @@ public class CommonEmailDataPredicatesTest {
   @Theory
   public void isReceivedAfter(@FromDataPoints("isReceivedAfter") Object[] dataPoint) {
     // given
-    DateTime dateTime = (DateTime) dataPoint[0];
+    LocalDateTime dateTime = (LocalDateTime) dataPoint[0];
     boolean expected = (boolean) dataPoint[1];
     // when
     Predicate<EmailData> predicate = CommonEmailDataPredicates.isReceivedAfter(dateTime);

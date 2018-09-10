@@ -19,12 +19,13 @@
  */
 package com.cognifide.qa.bb.module;
 
+import static com.google.common.base.Throwables.throwIfUnchecked;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
 import com.google.common.base.Preconditions;
-import com.google.common.base.Throwables;
 import com.google.common.io.Resources;
 import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;
@@ -43,7 +44,8 @@ public class PropertiesLoaderModule extends AbstractModule {
     try {
       Names.bindProperties(binder(), getProperties());
     } catch (IOException e) {
-      Throwables.propagate(e);
+      throwIfUnchecked(e);
+      throw new RuntimeException(e);
     }
   }
 
