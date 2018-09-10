@@ -20,6 +20,10 @@
 package com.cognifide.qa.bb.aem.core.guice;
 
 import com.cognifide.qa.bb.aem.core.constants.AemConfigKeys;
+import com.cognifide.qa.bb.aem.core.login.AemAuthCookieFactory;
+import com.cognifide.qa.bb.aem.core.login.AemAuthCookieFactoryImpl;
+import com.cognifide.qa.bb.aem.core.login.AemAuthenticationController;
+import com.cognifide.qa.bb.aem.core.login.AuthorAuthenticationController;
 import com.cognifide.qa.bb.aem.core.pages.AemTestPageControler;
 import com.cognifide.qa.bb.aem.core.pages.sling.SlingTestPageControler;
 import com.cognifide.qa.bb.provider.http.HttpClientProvider;
@@ -37,6 +41,10 @@ public class AemCoreModule extends AbstractModule {
   protected void configure() {
     bind(AemTestPageControler.class).annotatedWith(ControlWithSling.class).to(
         SlingTestPageControler.class);
+    bind(AemAuthenticationController.class).annotatedWith(AuthorInstance.class).to(
+        AuthorAuthenticationController.class);
+    bind(AemAuthCookieFactory.class).annotatedWith(AuthorInstance.class).to(
+        AemAuthCookieFactoryImpl.class);
   }
 
   @Provides

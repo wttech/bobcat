@@ -17,15 +17,18 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem;
+package com.cognifide.qa.bb.aem.core.login;
 
+import com.cognifide.qa.bb.aem.core.guice.AuthorInstance;
+import com.cognifide.qa.bb.constants.ConfigKeys;
+import com.cognifide.qa.bb.guice.ThreadScoped;
+import com.google.inject.Inject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -40,18 +43,13 @@ import org.openqa.selenium.Cookie;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cognifide.qa.bb.constants.ConfigKeys;
-import com.cognifide.qa.bb.guice.ThreadScoped;
-import com.google.inject.Inject;
-
 /**
  * This class provide authentication cookie for aem instance (default cookie name: login-token)
  */
-@Deprecated
 @ThreadScoped
-public class AemAuthCookieFactory {
+public class AemAuthCookieFactoryImpl implements AemAuthCookieFactory {
 
-  private static final Logger LOG = LoggerFactory.getLogger(AemAuthCookieFactory.class);
+  private static final Logger LOG = LoggerFactory.getLogger(AemAuthCookieFactoryImpl.class);
 
   private static final String DEFAULT_LOGIN_TOKEN = "login-token";
 
@@ -61,6 +59,7 @@ public class AemAuthCookieFactory {
   private Properties properties;
 
   @Inject
+  @AuthorInstance
   private CloseableHttpClient httpClient;
 
   /**
@@ -71,6 +70,7 @@ public class AemAuthCookieFactory {
    * @param password Password to use
    * @return Cookie for selenium WebDriver.
    */
+  @Override
   public Cookie getCookie(String url, String login, String password) {
     if (!cookieJar.containsKey(url)) {
       HttpPost loginPost = new HttpPost(url
@@ -113,6 +113,7 @@ public class AemAuthCookieFactory {
    *
    * @param url URL to AEM instance, like http://localhost:4502
    */
+  @Override
   public void removeCookie(String url) {
     cookieJar.remove(url);
   }

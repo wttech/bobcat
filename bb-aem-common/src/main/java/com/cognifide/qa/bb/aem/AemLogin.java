@@ -28,6 +28,7 @@ import com.google.inject.name.Named;
 /**
  * Provides fast AEM login method.
  */
+@Deprecated
 public class AemLogin {
 
   @Inject
