@@ -19,6 +19,9 @@
  */
 package com.cognifide.qa.bb.aem.core.pages;
 
+/**
+ * interface for data used for page manipulation
+ */
 public interface TestPageData {
 
 }

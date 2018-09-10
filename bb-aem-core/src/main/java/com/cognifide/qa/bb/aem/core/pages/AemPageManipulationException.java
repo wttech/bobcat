@@ -19,6 +19,9 @@
  */
 package com.cognifide.qa.bb.aem.core.pages;
 
+/**
+ * Exception thrown if there is problem with page manipulation
+ */
 public class AemPageManipulationException extends Exception {
 
   public AemPageManipulationException() {

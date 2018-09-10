@@ -24,22 +24,35 @@ import java.util.ArrayList;
 import java.util.List;
 import org.apache.http.message.BasicNameValuePair;
 
+/**
+ * Page data that can be used by {@link SlingTestPageControler}
+ */
 public class SlingTestPageData implements TestPageData {
 
   private String contentPath;
 
   private List<BasicNameValuePair> content = new ArrayList<>();
 
+  /**
+   * @param contentPath path where page (list of nodes) should be created
+   * @param content list of nodes to be created
+   */
   public SlingTestPageData(String contentPath,
       List<BasicNameValuePair> content) {
     this.contentPath = contentPath;
     this.content = content;
   }
 
+  /**
+   * @return path where page (list of nodes) should be created
+   */
   public String getContentPath() {
     return contentPath;
   }
 
+  /**
+   * @return  list of nodes to be created
+   */
   public List<BasicNameValuePair> getContent() {
     return content;
   }

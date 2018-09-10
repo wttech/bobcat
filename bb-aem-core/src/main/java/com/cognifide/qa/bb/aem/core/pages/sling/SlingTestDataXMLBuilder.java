@@ -30,11 +30,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
+/**
+ * Loads xml with test data and uses {@link TestPageXMLParserHandler} to parse this xml
+ */
 public final class SlingTestDataXMLBuilder {
 
   private static final Logger LOG = LoggerFactory
       .getLogger(SlingTestDataXMLBuilder.class);
 
+  /**
+   * Prepares list of nodes information
+   * @param fileName xml filename (should be in test resources)
+   * @return List of nodes to be created
+   */
   public static List<BasicNameValuePair> buildSlingTestData(String fileName) {
     List<BasicNameValuePair> toReturn = new ArrayList<>();
     try (InputStream fileInputStream = SlingTestDataXMLBuilder.class.getClassLoader()

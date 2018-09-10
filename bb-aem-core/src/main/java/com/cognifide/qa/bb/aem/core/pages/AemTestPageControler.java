@@ -19,10 +19,24 @@
  */
 package com.cognifide.qa.bb.aem.core.pages;
 
+/**
+ * Api for adding and removing test pages to AEM instance
+ * @param <T> implementation of {@link TestPageData} for page create/remove
+ */
 public interface AemTestPageControler<T extends TestPageData> {
 
+  /**
+   * Create new test page using passed data
+   * @param testPageData data for page creation
+   * @throws AemPageManipulationException
+   */
   void createTestPage(T testPageData) throws AemPageManipulationException;
 
+  /**
+   * Delete existing page using passed data to select page to remove
+   * @param testPageData information about page to remove
+   * @throws AemPageManipulationException
+   */
   void deleteTestPage(T testPageData) throws AemPageManipulationException;
 
 }

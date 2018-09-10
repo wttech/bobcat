@@ -27,6 +27,10 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+/**
+ * Sax parser of xml with page data.
+ * It creates List<BasicNameValuePair> that contains information that can be used by page controller
+ */
 public class TestPageXMLParserHandler extends DefaultHandler {
 
   private static final String ROOT = ".";
@@ -72,6 +76,9 @@ public class TestPageXMLParserHandler extends DefaultHandler {
   }
 
 
+  /**
+   * @return list of information about page to create.
+   */
   public List<BasicNameValuePair> getParserResults() {
     return parserResults;
   }

@@ -28,6 +28,9 @@ import com.google.inject.Provides;
 import com.google.inject.name.Named;
 import org.apache.http.impl.client.CloseableHttpClient;
 
+/**
+ * Main module that need to be installed to use AEM functions
+ */
 public class AemCoreModule extends AbstractModule {
 
   @Override

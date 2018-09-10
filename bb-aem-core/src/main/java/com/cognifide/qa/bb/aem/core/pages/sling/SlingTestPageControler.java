@@ -33,16 +33,22 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
+/**
+ * Implementation of {@link AemTestPageControler} that uses Sling
+ */
 public class SlingTestPageControler implements AemTestPageControler<SlingTestPageData> {
 
   @Inject
   @AuthorInstance
-  CloseableHttpClient httpClient;
+  private CloseableHttpClient httpClient;
 
   @Inject
   @Named(AemConfigKeys.AUTHOR_IP)
   private String authorIP;
 
+  /**
+   * @param testPageData data for page creation
+   */
   @Override
   public void createTestPage(SlingTestPageData testPageData) throws AemPageManipulationException {
     HttpPost request = new HttpPost(authorIP + testPageData.getContentPath());
@@ -55,6 +61,9 @@ public class SlingTestPageControler implements AemTestPageControler<SlingTestPag
 
   }
 
+  /**
+   * @param testPageData information about page to remove
+   */
   @Override
   public void deleteTestPage(SlingTestPageData testPageData) throws AemPageManipulationException {
     HttpPost request = new HttpPost(authorIP + testPageData.getContentPath());
