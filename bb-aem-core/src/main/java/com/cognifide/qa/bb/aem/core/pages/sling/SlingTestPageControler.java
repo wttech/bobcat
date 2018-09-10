@@ -20,7 +20,6 @@
 package com.cognifide.qa.bb.aem.core.pages.sling;
 
 import com.cognifide.qa.bb.aem.core.constants.AemConfigKeys;
-import com.cognifide.qa.bb.aem.core.guice.AuthorInstance;
 import com.cognifide.qa.bb.aem.core.pages.AemPageManipulationException;
 import com.cognifide.qa.bb.aem.core.pages.AemTestPageControler;
 import com.google.inject.Inject;
@@ -39,7 +38,6 @@ import org.apache.http.message.BasicNameValuePair;
 public class SlingTestPageControler implements AemTestPageControler<SlingTestPageData> {
 
   @Inject
-  @AuthorInstance
   private CloseableHttpClient httpClient;
 
   @Inject

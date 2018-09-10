@@ -19,21 +19,23 @@
  */
 package com.cognifide.qa.bb.aem.core.guice;
 
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
-import com.google.inject.BindingAnnotation;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
+import com.cognifide.qa.bb.aem.core.constants.AemConfigKeys;
+import com.cognifide.qa.bb.aem.core.pages.AemTestPageControler;
+import com.cognifide.qa.bb.aem.core.pages.sling.SlingTestPageControler;
+import com.cognifide.qa.bb.provider.http.HttpClientProvider;
+import com.google.inject.AbstractModule;
+import com.google.inject.Provides;
+import com.google.inject.name.Named;
+import org.apache.http.impl.client.CloseableHttpClient;
 
 /**
- * Annotation that tells that implementation of interface should be using sling
+ * Module that need to be installed to use page creation in AEM
  */
-@BindingAnnotation
-@Target({ FIELD, PARAMETER, METHOD })
-@Retention(RUNTIME)
-public @interface ControlWithSling {
+public class AemPageModule extends AbstractModule {
 
+  @Override
+  protected void configure() {
+    bind(AemTestPageControler.class).to(
+        SlingTestPageControler.class);
+  }
 }

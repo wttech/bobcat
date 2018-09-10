@@ -19,7 +19,6 @@
  */
 package com.cognifide.qa.bb.aem.core.siteadmin.aem64;
 
-import com.cognifide.qa.bb.aem.core.guice.Aem64;
 import com.cognifide.qa.bb.aem.core.siteadmin.SiteAdminAction;
 import com.cognifide.qa.bb.aem.core.siteadmin.SiteAdminController;
 import com.google.inject.Inject;
@@ -35,7 +34,7 @@ public class AemSiteAdminController implements SiteAdminController {
   private Map<String, SiteAdminAction> siteAdminActions;
 
   @Inject
-  public AemSiteAdminController(@Aem64 Set<SiteAdminAction> siteAdminActions) {
+  public AemSiteAdminController(Set<SiteAdminAction> siteAdminActions) {
     this.siteAdminActions = prepareMap(siteAdminActions);
   }
 

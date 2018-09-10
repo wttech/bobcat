@@ -20,7 +20,6 @@
 package com.cognifide.qa.bb.aem.core.login;
 
 import com.cognifide.qa.bb.aem.core.constants.AemConfigKeys;
-import com.cognifide.qa.bb.aem.core.guice.AuthorInstance;
 import com.cognifide.qa.bb.aem.core.pages.AemPage;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -35,7 +34,6 @@ public class AuthorAuthenticationController implements AemAuthenticationControll
   private WebDriver webDriver;
 
   @Inject
-  @AuthorInstance
   private AemAuthCookieFactory aemAuthCookieFactory;
 
   @Inject

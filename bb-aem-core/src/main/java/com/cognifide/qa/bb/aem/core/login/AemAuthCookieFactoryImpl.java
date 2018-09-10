@@ -19,7 +19,6 @@
  */
 package com.cognifide.qa.bb.aem.core.login;
 
-import com.cognifide.qa.bb.aem.core.guice.AuthorInstance;
 import com.cognifide.qa.bb.constants.ConfigKeys;
 import com.cognifide.qa.bb.guice.ThreadScoped;
 import com.google.inject.Inject;
@@ -59,7 +58,6 @@ public class AemAuthCookieFactoryImpl implements AemAuthCookieFactory {
   private Properties properties;
 
   @Inject
-  @AuthorInstance
   private CloseableHttpClient httpClient;
 
   /**
