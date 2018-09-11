@@ -226,7 +226,7 @@ limitations under the License.
             </dependency>
             <dependency>
                 <groupId>junit</groupId>
-                <artifactId>junit</artifactId>g
+                <artifactId>junit</artifactId>
                 <version>4.12</version>
                 <exclusions>
                     <exclusion>
