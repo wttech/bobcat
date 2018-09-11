@@ -113,23 +113,11 @@ limitations under the License.
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-java</artifactId>
                 <version>${selenium.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>gson</artifactId>
-                        <groupId>com.google.code.gson</groupId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-remote-driver</artifactId>
                 <version>${selenium.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>gson</artifactId>
-                        <groupId>com.google.code.gson</groupId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.seleniumhq.selenium</groupId>
