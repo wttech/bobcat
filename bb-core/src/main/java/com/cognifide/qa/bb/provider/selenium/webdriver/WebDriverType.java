@@ -25,7 +25,6 @@ import java.net.URL;
 import java.util.Date;
 import java.util.Properties;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Cookie;
@@ -42,8 +41,6 @@ import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.constants.ConfigKeys;
 
@@ -83,12 +80,20 @@ public enum WebDriverType {
           new SafariDriver(new SafariOptions(capabilities)));
     }
   },
+  /**
+   * @deprecated Please use an actual browser implementation
+   */
+  @Deprecated
   HTML {
     @Override
     public WebDriver create(Capabilities capabilities, Properties properties) {
       return getWebDriverWithProxyCookieSupport(properties, new HtmlUnitDriver(capabilities));
     }
   },
+  /**
+   * @deprecated PhantomJS is no longer maintained, please use headless mode in actual browsers
+   */
+  @Deprecated
   GHOST {
     @Override
     public WebDriver create(Capabilities capabilities, Properties properties) {
@@ -156,8 +161,6 @@ public enum WebDriverType {
     }
   };
 
-  private static final Logger LOG = LoggerFactory.getLogger(WebDriverType.class);
-
   private static WebDriver getWebDriverWithProxyCookieSupport(Properties properties,
       WebDriver driver) {
     if (Boolean.valueOf(properties.getProperty(ConfigKeys.WEBDRIVER_PROXY_COOKIE))) {
@@ -179,15 +182,7 @@ public enum WebDriverType {
    * @return WebDriverType
    */
   public static WebDriverType get(String typeName) {
-    WebDriverType webDriverType = WebDriverType.HTML;
-    if (StringUtils.isNotBlank(typeName)) {
-      try {
-        webDriverType = WebDriverType.valueOf(typeName.toUpperCase());
-      } catch (IllegalArgumentException e) {
-        LOG.error("Illegal type: " + typeName, e);
-      }
-    }
-    return webDriverType;
+    return WebDriverType.valueOf(typeName.toUpperCase());
   }
 
   public abstract WebDriver create(Capabilities capabilities, Properties properties);
