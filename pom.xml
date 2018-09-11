@@ -91,7 +91,7 @@ limitations under the License.
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jacoco.version>0.7.7.201606060606</jacoco.version>
+        <jacoco.version>0.8.2</jacoco.version>
         <selenium.version>3.14.0</selenium.version>
         <guice.version>4.2.0</guice.version>
         <cucumber.version>1.2.3</cucumber.version>
