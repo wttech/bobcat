@@ -33,6 +33,7 @@ import com.cognifide.qa.bb.aem.core.siteadmin.aem64.CreatePageAction;
 import com.cognifide.qa.bb.provider.http.HttpClientProvider;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
+import com.google.inject.multibindings.MapBinder;
 import com.google.inject.multibindings.Multibinder;
 import com.google.inject.name.Named;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -40,12 +41,12 @@ import org.apache.http.impl.client.CloseableHttpClient;
 /**
  * Module that need to be installed to use site admin actions in AEM 6.4
  */
-public class Aem64SiteActionsModule extends AbstractModule {
+public class AemSiteActionsModule extends AbstractModule {
 
   @Override
   protected void configure() {
-    Multibinder<SiteAdminAction> siteAdminActions =
-        Multibinder.newSetBinder(binder(), SiteAdminAction.class);
-    siteAdminActions.addBinding().to(CreatePageAction.class);
+    MapBinder<String,SiteAdminAction> siteAdminActions =
+        MapBinder.newMapBinder(binder(),String.class, SiteAdminAction.class);
+    siteAdminActions.addBinding(CreatePageAction.PAGE_CREATE).to(CreatePageAction.class);
   }
 }

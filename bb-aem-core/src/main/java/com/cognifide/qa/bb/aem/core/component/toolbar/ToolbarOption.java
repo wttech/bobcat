@@ -17,23 +17,23 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.guice;
+package com.cognifide.qa.bb.aem.core.component.toolbar;
 
-import com.google.inject.AbstractModule;
+import org.openqa.selenium.By;
 
 /**
- * Main module that need to be installed to use AEM  functions
- * It has full functionalities for AEM 6.4
+ * Interface for component toolbar option
  */
-public class Aem64FullModule extends AbstractModule {
+public interface ToolbarOption {
 
-  @Override
-  protected void configure() {
-    install(new AemCoreModule());
-    install(new AemLoginModule());
-    install(new AemSiteActionsModule());
-    install(new AemPageModule());
-    install(new AemComponentModule());
-  }
+  /**
+   * @return locator of option based on component toolbar
+   */
+  public By getLocator();
+
+  /**
+   * @return option title
+   */
+  public String getTitle();
 
 }

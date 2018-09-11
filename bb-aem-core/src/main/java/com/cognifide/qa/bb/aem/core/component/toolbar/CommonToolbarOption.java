@@ -17,31 +17,30 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.siteadmin.aem64;
+package com.cognifide.qa.bb.aem.core.component.toolbar;
 
-import com.cognifide.qa.bb.aem.core.siteadmin.SiteAdminAction;
-import com.cognifide.qa.bb.aem.core.siteadmin.SiteAdminController;
-import com.google.inject.Inject;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import org.openqa.selenium.By;
 
 /**
- * SiteAdminController for AEM 6.4
+ * Toolbar option for standard available in AEM options
  */
-public class AemSiteAdminController implements SiteAdminController {
+public class CommonToolbarOption implements ToolbarOption {
 
-  @Inject
-  private Map<String, SiteAdminAction> siteAdminActions;
+  private static final String BUTTON_XPATH_TEMPLATE = ".//button[contains(@title, '%s')]";
 
-  @Override
-  public Set<String> getAvailableActions() {
-    return siteAdminActions.keySet();
+  private String title;
+
+  public CommonToolbarOption(String title) {
+    this.title = title;
   }
 
   @Override
-  public SiteAdminAction getSiteAdminAction(String action) {
-    return siteAdminActions.get(action);
+  public By getLocator() {
+    return By.xpath(String.format(BUTTON_XPATH_TEMPLATE, getTitle()));
   }
 
+  @Override
+  public String getTitle() {
+    return title;
+  }
 }

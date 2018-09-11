@@ -17,23 +17,27 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.guice;
-
-import com.google.inject.AbstractModule;
+package com.cognifide.qa.bb.aem.core.component.toolbar;
 
 /**
- * Main module that need to be installed to use AEM  functions
- * It has full functionalities for AEM 6.4
+ * Enum represents available standard component toolbar options.
  */
-public class Aem64FullModule extends AbstractModule {
+public enum CommonToolbarOptions {
+  EDIT("Edit"), //
+  CONFIGURE("Configure"), //
+  COPY("Copy"), //
+  CUT("Cut"), //
+  DELETE("Delete"), //
+  PASTE("Paste"), //
+  GROUP("Group");
 
-  @Override
-  protected void configure() {
-    install(new AemCoreModule());
-    install(new AemLoginModule());
-    install(new AemSiteActionsModule());
-    install(new AemPageModule());
-    install(new AemComponentModule());
+  private final String title;
+
+  CommonToolbarOptions(String title) {
+    this.title = title;
   }
 
+  public String getTitle() {
+    return title;
+  }
 }
