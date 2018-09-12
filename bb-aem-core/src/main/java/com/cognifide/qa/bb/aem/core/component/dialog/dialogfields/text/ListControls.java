@@ -15,7 +15,7 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text;
 
-import static com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.ControlToolbar.TOOLBAR_ITEM_SELECTOR;
+import static com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.ControlToolbarImpl.TOOLBAR_ITEM_SELECTOR;
 
 import com.cognifide.qa.bb.qualifier.PageObject;
 import org.openqa.selenium.WebElement;

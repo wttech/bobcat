@@ -30,6 +30,8 @@ import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.RichText;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Select;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Textfield;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Variant;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.ControlToolbar;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.ControlToolbarImpl;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.FontFormat;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.JustifyDialogPanel;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.ListDialogPanel;
@@ -43,6 +45,8 @@ public class AemFieldsModule extends AbstractModule {
 
   @Override
   protected void configure() {
+    bind(ControlToolbar.class).to(ControlToolbarImpl.class);
+
     MapBinder<String, DialogField> fieldsBinder = MapBinder
         .newMapBinder(binder(), String.class, DialogField.class);
     fieldsBinder.addBinding(FieldType.CHECKBOX.name()).to(Checkbox.class);

@@ -19,6 +19,7 @@ import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DialogField;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.FieldType;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
+import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
 import org.openqa.selenium.support.FindBy;
@@ -30,7 +31,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 @PageObject
 public class JustifyDialogPanel implements DialogField {
 
-  @FindBy(css = ".coral-RichText-toolbar")
+  @FindPageObject
   private ControlToolbar controlToolbar;
 
   @FindBy(css = ".coral-RichText-popover[data-id='justify']")

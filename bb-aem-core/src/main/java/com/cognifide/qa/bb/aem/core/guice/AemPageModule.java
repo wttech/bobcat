@@ -23,6 +23,8 @@ import com.cognifide.qa.bb.aem.core.component.AuthorLoader;
 import com.cognifide.qa.bb.aem.core.component.AuthorLoaderImpl;
 import com.cognifide.qa.bb.aem.core.component.GlobalBar;
 import com.cognifide.qa.bb.aem.core.component.GlobalBarImpl;
+import com.cognifide.qa.bb.aem.core.component.SidePanel;
+import com.cognifide.qa.bb.aem.core.component.SidePanelImpl;
 import com.cognifide.qa.bb.aem.core.component.toolbar.CommonToolbarOption;
 import com.cognifide.qa.bb.aem.core.component.toolbar.CommonToolbarOptions;
 import com.cognifide.qa.bb.aem.core.component.toolbar.ComponentToolbar;
@@ -41,5 +43,6 @@ public class AemPageModule extends AbstractModule {
   protected void configure() {
     bind(AuthorLoader.class).to(AuthorLoaderImpl.class);
     bind(GlobalBar.class).to(GlobalBarImpl.class);
+    bind(SidePanel.class).to(SidePanelImpl.class);
   }
 }
