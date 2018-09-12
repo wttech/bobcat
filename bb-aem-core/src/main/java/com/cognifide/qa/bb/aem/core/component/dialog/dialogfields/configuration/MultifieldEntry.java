@@ -2,7 +2,7 @@
  * #%L
  * Bobcat
  * %%
- * Copyright (C) 2018 Cognifide Ltd.
+ * Copyright (C) 2016 Cognifide Ltd.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,25 +17,24 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.guice;
+package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.configuration;
 
-import com.google.inject.AbstractModule;
+import java.util.List;
 
 /**
- * Main module that need to be installed to use AEM  functions
- * It has full functionalities for AEM 6.4
+ * This class represents multifield entry with multiple fields configurations.
  */
-public class Aem64FullModule extends AbstractModule {
+public class MultifieldEntry {
+  private List<FieldConfig> item;
 
-  @Override
-  protected void configure() {
-    install(new AemCoreModule());
-    install(new AemLoginModule());
-    install(new AemSiteActionsModule());
-    install(new AemPageCreateModule());
-    install(new AemComponentModule());
-    install(new AemPageModule());
-    install(new AemFieldsModule());
+  /**
+   * @return list of FieldConfigs
+   */
+  public List<FieldConfig> getItem() {
+    return item;
   }
 
+  public void setItem(List<FieldConfig> item) {
+    this.item = item;
+  }
 }

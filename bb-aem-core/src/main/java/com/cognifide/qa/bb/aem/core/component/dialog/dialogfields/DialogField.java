@@ -2,7 +2,7 @@
  * #%L
  * Bobcat
  * %%
- * Copyright (C) 2018 Cognifide Ltd.
+ * Copyright (C) 2016 Cognifide Ltd.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,25 +17,21 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.guice;
-
-import com.google.inject.AbstractModule;
+package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
 /**
- * Main module that need to be installed to use AEM  functions
- * It has full functionalities for AEM 6.4
+ * This interface represents a TouchUI components that are dialog fields.
  */
-public class Aem64FullModule extends AbstractModule {
+public interface DialogField {
+  /**
+   * Sets component value.
+   *
+   * @param value object representing desired component value.
+   */
+  void setValue(Object value);
 
-  @Override
-  protected void configure() {
-    install(new AemCoreModule());
-    install(new AemLoginModule());
-    install(new AemSiteActionsModule());
-    install(new AemPageCreateModule());
-    install(new AemComponentModule());
-    install(new AemPageModule());
-    install(new AemFieldsModule());
-  }
-
+  /**
+   * @return string representation of component type.
+   */
+  String getType();
 }

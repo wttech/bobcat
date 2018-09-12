@@ -19,23 +19,23 @@
  */
 package com.cognifide.qa.bb.aem.core.guice;
 
+import com.cognifide.qa.bb.aem.core.constants.AemConfigKeys;
+import com.cognifide.qa.bb.aem.core.pages.AemTestPageControler;
+import com.cognifide.qa.bb.aem.core.pages.sling.SlingTestPageControler;
+import com.cognifide.qa.bb.provider.http.HttpClientProvider;
 import com.google.inject.AbstractModule;
+import com.google.inject.Provides;
+import com.google.inject.name.Named;
+import org.apache.http.impl.client.CloseableHttpClient;
 
 /**
- * Main module that need to be installed to use AEM  functions
- * It has full functionalities for AEM 6.4
+ * Module that need to be installed to use page creation in AEM
  */
-public class Aem64FullModule extends AbstractModule {
+public class AemPageCreateModule extends AbstractModule {
 
   @Override
   protected void configure() {
-    install(new AemCoreModule());
-    install(new AemLoginModule());
-    install(new AemSiteActionsModule());
-    install(new AemPageCreateModule());
-    install(new AemComponentModule());
-    install(new AemPageModule());
-    install(new AemFieldsModule());
+    bind(AemTestPageControler.class).to(
+        SlingTestPageControler.class);
   }
-
 }

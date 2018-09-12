@@ -2,7 +2,7 @@
  * #%L
  * Bobcat
  * %%
- * Copyright (C) 2018 Cognifide Ltd.
+ * Copyright (C) 2016 Cognifide Ltd.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,25 +17,39 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.guice;
-
-import com.google.inject.AbstractModule;
+package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.configuration;
 
 /**
- * Main module that need to be installed to use AEM  functions
- * It has full functionalities for AEM 6.4
+ * This class represents single field configuration.
  */
-public class Aem64FullModule extends AbstractModule {
+public class FieldConfig {
 
-  @Override
-  protected void configure() {
-    install(new AemCoreModule());
-    install(new AemLoginModule());
-    install(new AemSiteActionsModule());
-    install(new AemPageCreateModule());
-    install(new AemComponentModule());
-    install(new AemPageModule());
-    install(new AemFieldsModule());
+  private String label;
+
+  private String type;
+
+  private Object value;
+
+  /**
+   * @return Label of the field.
+   */
+  public String getLabel() {
+    return label;
   }
 
+  /**
+   *
+   * @return Type of the field.
+   */
+  public String getType() {
+    return type;
+  }
+
+   /**
+    *
+    * @return Value of the field.
+    */
+  public Object getValue() {
+    return value;
+  }
 }

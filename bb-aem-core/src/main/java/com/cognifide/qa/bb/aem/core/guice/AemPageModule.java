@@ -19,23 +19,27 @@
  */
 package com.cognifide.qa.bb.aem.core.guice;
 
-import com.cognifide.qa.bb.aem.core.constants.AemConfigKeys;
-import com.cognifide.qa.bb.aem.core.pages.AemTestPageControler;
-import com.cognifide.qa.bb.aem.core.pages.sling.SlingTestPageControler;
-import com.cognifide.qa.bb.provider.http.HttpClientProvider;
+import com.cognifide.qa.bb.aem.core.component.AuthorLoader;
+import com.cognifide.qa.bb.aem.core.component.AuthorLoaderImpl;
+import com.cognifide.qa.bb.aem.core.component.GlobalBar;
+import com.cognifide.qa.bb.aem.core.component.GlobalBarImpl;
+import com.cognifide.qa.bb.aem.core.component.toolbar.CommonToolbarOption;
+import com.cognifide.qa.bb.aem.core.component.toolbar.CommonToolbarOptions;
+import com.cognifide.qa.bb.aem.core.component.toolbar.ComponentToolbar;
+import com.cognifide.qa.bb.aem.core.component.toolbar.ComponentToolbarImpl;
+import com.cognifide.qa.bb.aem.core.component.toolbar.ToolbarOption;
 import com.google.inject.AbstractModule;
-import com.google.inject.Provides;
-import com.google.inject.name.Named;
-import org.apache.http.impl.client.CloseableHttpClient;
+import com.google.inject.multibindings.MapBinder;
+import java.util.Arrays;
 
 /**
- * Module that need to be installed to use page creation in AEM
+ * Module that contains bindings for AEM 6.4 page bars
  */
 public class AemPageModule extends AbstractModule {
 
   @Override
   protected void configure() {
-    bind(AemTestPageControler.class).to(
-        SlingTestPageControler.class);
+    bind(AuthorLoader.class).to(AuthorLoaderImpl.class);
+    bind(GlobalBar.class).to(GlobalBarImpl.class);
   }
 }

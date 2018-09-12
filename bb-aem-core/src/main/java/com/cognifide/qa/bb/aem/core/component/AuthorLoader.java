@@ -17,25 +17,15 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.guice;
-
-import com.google.inject.AbstractModule;
+package com.cognifide.qa.bb.aem.core.component;
 
 /**
- * Main module that need to be installed to use AEM  functions
- * It has full functionalities for AEM 6.4
+ * Interface for representing author loading page visual effects.
  */
-public class Aem64FullModule extends AbstractModule {
+public interface AuthorLoader {
 
-  @Override
-  protected void configure() {
-    install(new AemCoreModule());
-    install(new AemLoginModule());
-    install(new AemSiteActionsModule());
-    install(new AemPageCreateModule());
-    install(new AemComponentModule());
-    install(new AemPageModule());
-    install(new AemFieldsModule());
-  }
-
+  /**
+   * Method verifies if loading visual effect is hidden.
+   */
+  void verifyIsHidden();
 }

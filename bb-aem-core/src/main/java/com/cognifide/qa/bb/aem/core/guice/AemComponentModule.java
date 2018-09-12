@@ -19,6 +19,10 @@
  */
 package com.cognifide.qa.bb.aem.core.guice;
 
+import com.cognifide.qa.bb.aem.core.component.AuthorLoader;
+import com.cognifide.qa.bb.aem.core.component.AuthorLoaderImpl;
+import com.cognifide.qa.bb.aem.core.component.GlobalBar;
+import com.cognifide.qa.bb.aem.core.component.GlobalBarImpl;
 import com.cognifide.qa.bb.aem.core.component.toolbar.CommonToolbarOption;
 import com.cognifide.qa.bb.aem.core.component.toolbar.CommonToolbarOptions;
 import com.cognifide.qa.bb.aem.core.component.toolbar.ComponentToolbar;
@@ -36,6 +40,8 @@ public class AemComponentModule extends AbstractModule {
   @Override
   protected void configure() {
     bind(ComponentToolbar.class).to(ComponentToolbarImpl.class);
+    bind(AuthorLoader.class).to(AuthorLoaderImpl.class);
+    bind(GlobalBar.class).to(GlobalBarImpl.class);
     bindCommonToolbarOptions();
   }
 
