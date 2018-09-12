@@ -33,7 +33,11 @@ import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Variant;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.ControlToolbar;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.ControlToolbarImpl;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.FontFormat;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.JustifyControls;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.JustifyControlsImpl;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.JustifyDialogPanel;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.ListControls;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.ListControlsImpl;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.ListDialogPanel;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.MapBinder;
@@ -46,6 +50,8 @@ public class AemFieldsModule extends AbstractModule {
   @Override
   protected void configure() {
     bind(ControlToolbar.class).to(ControlToolbarImpl.class);
+    bind(JustifyControls.class).to(JustifyControlsImpl.class);
+    bind(ListControls.class).to(ListControlsImpl.class);
 
     MapBinder<String, DialogField> fieldsBinder = MapBinder
         .newMapBinder(binder(), String.class, DialogField.class);

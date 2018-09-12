@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Cognifide Ltd..
+ * Copyright 2018 Cognifide Ltd..
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,44 +15,18 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text;
 
-import static com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.ControlToolbarImpl.TOOLBAR_ITEM_SELECTOR;
-
-import com.cognifide.qa.bb.qualifier.PageObject;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 /**
- * Represents list formatting options.
+ * Interface that represents list formatting options.
  */
-@PageObject
-public class ListControls {
+public interface ListControls {
 
-  @FindBy(css = TOOLBAR_ITEM_SELECTOR + "[data-action='lists#unordered']")
-  private WebElement bulletListBtn;
+  WebElement getBulletListBtn();
 
-  @FindBy(css = TOOLBAR_ITEM_SELECTOR + "[data-action='lists#ordered']")
-  private WebElement numberListBtn;
+  WebElement getNumberListBtn();
 
-  @FindBy(css = TOOLBAR_ITEM_SELECTOR + "[data-action='lists#outdent']")
-  private WebElement outdentListBtn;
+  WebElement getOutdentListBtn();
 
-  @FindBy(css = TOOLBAR_ITEM_SELECTOR + "[data-action='lists#indent']")
-  private WebElement indentListBtn;
-
-  public WebElement getBulletListBtn() {
-    return bulletListBtn;
-  }
-
-  public WebElement getNumberListBtn() {
-    return numberListBtn;
-  }
-
-  public WebElement getOutdentListBtn() {
-    return outdentListBtn;
-  }
-
-  public WebElement getIndentListBtn() {
-    return indentListBtn;
-  }
-
+  WebElement getIndentListBtn();
 }
