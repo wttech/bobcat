@@ -45,9 +45,8 @@ public final class PropertyBinder {
    *
    * @param binder The Binder instance that will store the newly created property bindings.
    */
-  public static void bindProperties(Binder binder) {
-    ConfigStrategy strategy = ConfigStrategyProvider.get();
-    Properties properties = strategy.gatherProperties();
+  public static void bindProperties(Binder binder, ConfigStrategy configStrategy) {
+    Properties properties = configStrategy.gatherProperties();
     Names.bindProperties(binder, properties);
     binder.bind(Properties.class).toInstance(properties);
   }
