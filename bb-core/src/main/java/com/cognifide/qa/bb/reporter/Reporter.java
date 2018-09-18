@@ -19,6 +19,10 @@
  */
 package com.cognifide.qa.bb.reporter;
 
+/**
+ * @deprecated since 1.6.0, we are moving towards using external reporting engine, Allure with JUnit5
+ */
+@Deprecated
 public interface Reporter {
 
   void generateReport();
