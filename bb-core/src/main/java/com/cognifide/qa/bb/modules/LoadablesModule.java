@@ -15,32 +15,29 @@
  */
 package com.cognifide.qa.bb.modules;
 
+import static com.google.inject.matcher.Matchers.annotatedWith;
+import static com.google.inject.matcher.Matchers.any;
 import static com.google.inject.matcher.Matchers.not;
 import static com.google.inject.matcher.Matchers.only;
 import static com.google.inject.matcher.Matchers.returns;
 import static com.google.inject.matcher.Matchers.subclassesOf;
-import static com.google.inject.matcher.Matchers.annotatedWith;
-import static com.google.inject.matcher.Matchers.any;
-
-import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
-import com.cognifide.qa.bb.loadable.hierarchy.WebElementInterceptor;
-import com.cognifide.qa.bb.loadable.context.ConditionContext;
-import com.google.inject.AbstractModule;
-import com.google.inject.matcher.Matcher;
-import com.cognifide.qa.bb.loadable.hierarchy.PageObjectInterceptor;
-import com.cognifide.qa.bb.qualifier.PageObject;
 
 import java.lang.reflect.Method;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.openqa.selenium.WebElement;
 
-
-
+import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
+import com.cognifide.qa.bb.loadable.context.ConditionContext;
+import com.cognifide.qa.bb.loadable.hierarchy.PageObjectInterceptor;
+import com.cognifide.qa.bb.loadable.hierarchy.WebElementInterceptor;
+import com.cognifide.qa.bb.loadable.mapper.TestObjectTypeListener;
+import com.cognifide.qa.bb.qualifier.PageObject;
+import com.google.inject.AbstractModule;
+import com.google.inject.matcher.Matcher;
 
 /**
  * Module that provides bindings for Loadable components. See {@link LoadableComponent} annotation.
- *
  */
 public class LoadablesModule extends AbstractModule {
 
@@ -53,13 +50,13 @@ public class LoadablesModule extends AbstractModule {
     bindInterceptor(subclassesOf(WebElement.class), not(returns(only(ConditionContext.class))), webElementInterceptor);
     bindInterceptor(annotatedWith(PageObject.class), any(), pageObjectInterceptor);
 
+    bindListener(any(), new TestObjectTypeListener());
   }
 
   @Override
   protected void bindInterceptor(Matcher<? super Class<?>> classMatcher,
-    Matcher<? super Method> methodMatcher, MethodInterceptor... interceptors) {
+      Matcher<? super Method> methodMatcher, MethodInterceptor... interceptors) {
     super.bindInterceptor(classMatcher, NoSyntheticMethodMatcher.INSTANCE.and(methodMatcher),
-      interceptors);
+        interceptors);
   }
-
 }
