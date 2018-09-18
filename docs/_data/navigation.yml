@@ -34,12 +34,11 @@ docs:
         url: /docs/modules/traffic/
       - title: "Email"
         url: /docs/modules/email/
-  - title: "AEM modules"
+  - title: "AEM modules (new API incoming!)"
+  - title: "EOL Modules"
     children:
       - title: "AEM Common"
         url: /docs/modules/aem-common/
-  - title: "EOL Modules"
-    children:
       - title: "AEM Touch UI"
         url: /docs/modules/aem-touch-ui/
       - title: "AEM Classic UI"
