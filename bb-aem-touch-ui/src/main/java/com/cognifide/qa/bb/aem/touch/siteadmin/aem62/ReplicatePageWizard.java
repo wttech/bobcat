@@ -17,17 +17,23 @@ package com.cognifide.qa.bb.aem.touch.siteadmin.aem62;
 
 import java.time.LocalDateTime;
 
-import com.cognifide.qa.bb.aem.touch.siteadmin.aem62.calendar.CoralCalendar;
-import com.cognifide.qa.bb.aem.touch.siteadmin.common.IsLoadedCondition;
-import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
-import com.cognifide.qa.bb.qualifier.Global;
-import com.cognifide.qa.bb.qualifier.PageObject;
-
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.cognifide.qa.bb.aem.touch.siteadmin.aem62.calendar.CoralCalendar;
+import com.cognifide.qa.bb.aem.touch.siteadmin.common.IsLoadedCondition;
+import com.cognifide.qa.bb.constants.Timeouts;
+import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
+import com.cognifide.qa.bb.provider.selenium.BobcatWait;
+import com.cognifide.qa.bb.qualifier.Global;
+import com.cognifide.qa.bb.qualifier.PageObject;
+import com.google.inject.Inject;
+
 @PageObject
 public class ReplicatePageWizard {
+
+  @Inject
+  private BobcatWait wait;
 
   @Global
   @FindBy(css = "button.foundation-wizard-control[type='submit']")
@@ -38,7 +44,6 @@ public class ReplicatePageWizard {
 
   @Global
   @FindBy(css = "coral-popover.coral3-Popover")
-  @LoadableComponent(condClass = IsLoadedCondition.class)
   private CoralCalendar calendar;
 
   public void selectDateAndTime(LocalDateTime dateTime) {
@@ -47,11 +52,11 @@ public class ReplicatePageWizard {
     }
 
     calendarButton.click();
+    wait.withTimeout(Timeouts.MINIMAL).until(ignored -> calendar.isLoaded());
     calendar.selectDateAndTime(dateTime);
   }
 
   public void submit() {
     submitBtn.click();
   }
-
 }
