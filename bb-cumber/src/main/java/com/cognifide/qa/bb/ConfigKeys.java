@@ -19,11 +19,16 @@
  */
 package com.cognifide.qa.bb;
 
+/**
+ * @deprecated since 1.6.0, removing re-run feature
+ */
+@Deprecated
 public final class ConfigKeys {
 
   public static final String BOBCAT_REPORT_STATISTICS_PATH = "bobcat.report.statistics.path";
 
-  public static final String BOBCAT_REPORT_STATISTICS_PERCENTAGE = "bobcat.report.statistics.retryPercentage";
+  public static final String BOBCAT_REPORT_STATISTICS_PERCENTAGE =
+      "bobcat.report.statistics.retryPercentage";
 
   private ConfigKeys() {
     //Config class...
