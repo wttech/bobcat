@@ -39,7 +39,10 @@ import com.cognifide.qa.bb.constants.ConfigKeys;
 /**
  * This is the old, legacy way of loading properties in Bobcat based on sets of .properties files.
  * This strategy is loaded by default at the moment, in 2.0 release, Bobcat will switch over to {@link YamlConfig}.
+ *
+ * @deprecated please use the new {@link YamlConfig}.
  */
+@Deprecated
 public class LegacyConfig implements ConfigStrategy {
   private static final Logger LOG = LoggerFactory.getLogger(LegacyConfig.class);
   public static final String DEFAULT_CONFIGURATION_PATH = "src/main/config";

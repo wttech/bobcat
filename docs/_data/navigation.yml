@@ -26,19 +26,16 @@ docs:
         url: /docs/modules/core/
   - title: "Other modules"
     children:
-      - title: "JUnit 4"
-        url: /docs/modules/junit/
       - title: "JUnit 5"
         url: /docs/modules/junit5/
-      - title: "Reports"
-        url: /docs/modules/reports/
       - title: "Cucumber"
         url: /docs/modules/cucumber/
       - title: "Traffic"
         url: /docs/modules/traffic/
       - title: "Email"
         url: /docs/modules/email/
-  - title: "AEM modules"
+  - title: "AEM modules (new API incoming!)"
+  - title: "EOL Modules"
     children:
       - title: "AEM Common"
         url: /docs/modules/aem-common/
@@ -46,6 +43,10 @@ docs:
         url: /docs/modules/aem-touch-ui/
       - title: "AEM Classic UI"
         url: /docs/modules/aem-classic-ui/
+      - title: "JUnit 4"
+        url: /docs/modules/junit/
+      - title: "Reports"
+        url: /docs/modules/reports/
   - title: "Allure"
     url: "/docs/allure/"
   - title: "API docs"

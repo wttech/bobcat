@@ -2,7 +2,7 @@
  * #%L
  * Bobcat
  * %%
- * Copyright (C) 2016 Cognifide Ltd.
+ * Copyright (C) 2018 Cognifide Ltd.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +17,9 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.reporter;
-
 /**
- * @deprecated since 1.6.0, we are moving towards using external reporting engine, Allure with JUnit5
+ * Deprecated - we recommend using SoftAssertions from AssertJ
  */
 @Deprecated
-public interface Reporter {
+package com.cognifide.qa.bb.assertions.soft;
 
-  void generateReport();
-}

@@ -27,6 +27,7 @@ import java.lang.annotation.Target;
 /**
  * Add this annotation to any test method which you want to rerun after failure
  */
+@Deprecated
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD})
 public @interface Retry {
