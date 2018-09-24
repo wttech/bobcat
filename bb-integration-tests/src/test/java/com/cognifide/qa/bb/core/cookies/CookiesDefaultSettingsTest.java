@@ -26,13 +26,12 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 
-import com.cognifide.qa.bb.core.TestModule;
 import com.cognifide.qa.bb.junit.Modules;
 import com.cognifide.qa.bb.junit.TestRunner;
 import com.google.inject.Inject;
 
 @RunWith(TestRunner.class)
-@Modules(TestModule.class)
+@Modules(TestModuleWithEnabledAutoLoad.class)
 public class CookiesDefaultSettingsTest {
 
   @Inject

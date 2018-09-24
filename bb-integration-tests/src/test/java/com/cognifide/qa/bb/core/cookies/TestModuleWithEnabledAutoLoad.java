@@ -24,11 +24,11 @@ import com.cognifide.qa.bb.logging.ReporterModule;
 import com.cognifide.qa.bb.modules.CoreModule;
 import com.google.inject.AbstractModule;
 
-public class TestModuleWithDisabledAutoLoad extends AbstractModule {
+public class TestModuleWithEnabledAutoLoad extends AbstractModule {
 
   @Override
   protected void configure() {
-    System.setProperty(ConfigKeys.COOKIE_LOAD_AUTOMATICALLY, "false");
+    System.setProperty(ConfigKeys.COOKIE_LOAD_AUTOMATICALLY, "true");
     install(new CoreModule());
     install(new ReporterModule());
   }
