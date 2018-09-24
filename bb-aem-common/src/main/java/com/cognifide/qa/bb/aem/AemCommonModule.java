@@ -49,6 +49,7 @@ public class AemCommonModule extends AbstractModule {
         .to(AuthorProperties.class);
 
     // copy "publish.url" value to "base.url" fields used in bb-core
+    //todo remove this
     requestInjection(new Object() {
       @Inject
       public void init(Properties properties) {

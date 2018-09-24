@@ -26,3 +26,4 @@ default:
     webdriver.reusable: false
     webdriver.defaultTimeout: 10
 
+    cookies.loadAutomatically: true

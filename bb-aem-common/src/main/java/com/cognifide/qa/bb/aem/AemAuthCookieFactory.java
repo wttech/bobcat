@@ -127,6 +127,7 @@ public class AemAuthCookieFactory {
     return null;
   }
 
+  //todo remove this
   private void addProxyCookie(CookieStore cookieStore) {
     BasicClientCookie proxyCookie = new BasicClientCookie(
         properties.getProperty(ConfigKeys.WEBDRIVER_PROXY_COOKIE_NAME),
