@@ -47,16 +47,6 @@ public class AemCommonModule extends AbstractModule {
         .to(PublishProperties.class);
     bind(InstanceProperties.class).annotatedWith(Names.named(AemConfigFilenames.AUTHOR_PROPERTIES))
         .to(AuthorProperties.class);
-
-    // copy "publish.url" value to "base.url" fields used in bb-core
-    //todo remove this
-    requestInjection(new Object() {
-      @Inject
-      public void init(Properties properties) {
-        String publishUrl = properties.getProperty(AemConfigKeys.PUBLISH_URL);
-        properties.put(ConfigKeys.BASE_URL, publishUrl);
-      }
-    });
   }
 
   /**

@@ -34,7 +34,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.cookie.BasicClientCookie;
 import org.apache.http.message.BasicNameValuePair;
 import org.openqa.selenium.Cookie;
 import org.slf4j.Logger;
@@ -65,8 +64,8 @@ public class AemAuthCookieFactory {
   /**
    * This method provides browser cookie for authenticating user to AEM instance
    *
-   * @param url URL to AEM instance, like http://localhost:4502
-   * @param login Username to use
+   * @param url      URL to AEM instance, like http://localhost:4502
+   * @param login    Username to use
    * @param password Password to use
    * @return Cookie for selenium WebDriver.
    */
@@ -83,10 +82,6 @@ public class AemAuthCookieFactory {
 
       CookieStore cookieStore = new BasicCookieStore();
       HttpClientContext context = HttpClientContext.create();
-
-      if ("true".equals(properties.getProperty(ConfigKeys.WEBDRIVER_PROXY_COOKIE))) {
-        addProxyCookie(cookieStore);
-      }
 
       context.setCookieStore(cookieStore);
 
@@ -125,15 +120,5 @@ public class AemAuthCookieFactory {
       }
     }
     return null;
-  }
-
-  //todo remove this
-  private void addProxyCookie(CookieStore cookieStore) {
-    BasicClientCookie proxyCookie = new BasicClientCookie(
-        properties.getProperty(ConfigKeys.WEBDRIVER_PROXY_COOKIE_NAME),
-        properties.getProperty(ConfigKeys.WEBDRIVER_PROXY_COOKIE_VALUE));
-    proxyCookie.setDomain(properties.getProperty(ConfigKeys.WEBDRIVER_PROXY_COOKIE_DOMAIN));
-    proxyCookie.setPath("/");
-    cookieStore.addCookie(proxyCookie);
   }
 }
