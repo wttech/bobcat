@@ -2,7 +2,7 @@
  * #%L
  * Bobcat
  * %%
- * Copyright (C) 2016 Cognifide Ltd.
+ * Copyright (C) 2018 Cognifide Ltd.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,17 +17,17 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.logging.reporter;
+package com.cognifide.qa.bb.cookies.domain;
 
-import com.cognifide.qa.bb.logging.ReporterModule;
-import com.cognifide.qa.bb.modules.CoreModule;
-import com.google.inject.AbstractModule;
+import java.util.List;
 
-public class GuiceModulesInstaller extends AbstractModule {
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-  @Override
-  protected void configure() {
-    install(new CoreModule());
-    install(new ReporterModule());
+public class CookiesData {
+  @JsonProperty
+  List<CookieData> cookies;
+
+  public List<CookieData> getCookies() {
+    return cookies;
   }
 }

@@ -22,12 +22,9 @@ package com.cognifide.qa.bb.provider.selenium.webdriver;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Date;
 import java.util.Properties;
 
-import org.apache.commons.lang3.time.DateUtils;
 import org.openqa.selenium.Capabilities;
-import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -55,29 +52,25 @@ public enum WebDriverType {
   FIREFOX {
     @Override
     public WebDriver create(Capabilities capabilities, Properties properties) {
-      return getWebDriverWithProxyCookieSupport(properties,
-          new FirefoxDriver(new FirefoxOptions(capabilities)));
+      return new FirefoxDriver(new FirefoxOptions(capabilities));
     }
   },
   CHROME {
     @Override
     public WebDriver create(Capabilities capabilities, Properties properties) {
-      return getWebDriverWithProxyCookieSupport(properties,
-          new ChromeDriver(new ChromeOptions().merge(capabilities)));
+      return new ChromeDriver(new ChromeOptions().merge(capabilities));
     }
   },
   IE {
     @Override
     public WebDriver create(Capabilities capabilities, Properties properties) {
-      return getWebDriverWithProxyCookieSupport(properties, new InternetExplorerDriver(
-          new InternetExplorerOptions(capabilities)));
+      return new InternetExplorerDriver(new InternetExplorerOptions(capabilities));
     }
   },
   SAFARI {
     @Override
     public WebDriver create(Capabilities capabilities, Properties properties) {
-      return getWebDriverWithProxyCookieSupport(properties,
-          new SafariDriver(new SafariOptions(capabilities)));
+      return new SafariDriver(new SafariOptions(capabilities));
     }
   },
   /**
@@ -87,7 +80,7 @@ public enum WebDriverType {
   HTML {
     @Override
     public WebDriver create(Capabilities capabilities, Properties properties) {
-      return getWebDriverWithProxyCookieSupport(properties, new HtmlUnitDriver(capabilities));
+      return new HtmlUnitDriver(capabilities);
     }
   },
   /**
@@ -97,14 +90,13 @@ public enum WebDriverType {
   GHOST {
     @Override
     public WebDriver create(Capabilities capabilities, Properties properties) {
-      return getWebDriverWithProxyCookieSupport(properties, new PhantomJSDriver());
+      return new PhantomJSDriver();
     }
   },
   APPIUM {
     @Override
     public WebDriver create(Capabilities capabilities, Properties properties) {
-      return getWebDriverWithProxyCookieSupport(properties,
-          createMobileDriver(capabilities, properties));
+      return createMobileDriver(capabilities, properties);
     }
 
     private WebDriver createMobileDriver(Capabilities capabilities, Properties properties) {
@@ -143,8 +135,7 @@ public enum WebDriverType {
       } catch (MalformedURLException e) {
         throw new IllegalArgumentException(e);
       }
-      WebDriver driver = new RemoteWebDriver(url, capabilities);
-      return getWebDriverWithProxyCookieSupport(properties, driver);
+      return new RemoteWebDriver(url, capabilities);
     }
   },
   XVFB {
@@ -156,24 +147,9 @@ public enum WebDriverType {
           properties.getProperty(ConfigKeys.WEBDRIVER_XVFB_ID));
       FirefoxOptions firefoxOptions = new FirefoxOptions(capabilities).setBinary(firefoxBinary);
 
-      return getWebDriverWithProxyCookieSupport(properties,
-          new FirefoxDriver(firefoxOptions));
+      return new FirefoxDriver(firefoxOptions);
     }
   };
-
-  private static WebDriver getWebDriverWithProxyCookieSupport(Properties properties,
-      WebDriver driver) {
-    if (Boolean.valueOf(properties.getProperty(ConfigKeys.WEBDRIVER_PROXY_COOKIE))) {
-      driver.get(properties.getProperty(ConfigKeys.BASE_URL));
-      Cookie cookie = new Cookie(
-          properties.getProperty(ConfigKeys.WEBDRIVER_PROXY_COOKIE_NAME),
-          properties.getProperty(ConfigKeys.WEBDRIVER_PROXY_COOKIE_VALUE),
-          "." + properties.getProperty(ConfigKeys.WEBDRIVER_PROXY_COOKIE_DOMAIN), "/",
-          DateUtils.addMonths(new Date(), 1));
-      driver.manage().addCookie(cookie);
-    }
-    return driver;
-  }
 
   /**
    * Returns WebDriverType for name

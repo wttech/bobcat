@@ -17,17 +17,20 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.logging.reporter;
+package com.cognifide.qa.bb.core.cookies;
 
+import com.cognifide.qa.bb.constants.ConfigKeys;
 import com.cognifide.qa.bb.logging.ReporterModule;
 import com.cognifide.qa.bb.modules.CoreModule;
 import com.google.inject.AbstractModule;
 
-public class GuiceModulesInstaller extends AbstractModule {
+public class TestModuleWithEnabledAutoLoad extends AbstractModule {
 
   @Override
   protected void configure() {
+    System.setProperty(ConfigKeys.COOKIE_LOAD_AUTOMATICALLY, "true");
     install(new CoreModule());
     install(new ReporterModule());
   }
+
 }

@@ -19,6 +19,7 @@
  */
 package com.cognifide.qa.bb.modules;
 
+import com.cognifide.qa.bb.cookies.CookiesModule;
 import com.cognifide.qa.bb.guice.ThreadLocalScope;
 import com.cognifide.qa.bb.guice.ThreadScoped;
 import com.google.inject.AbstractModule;
@@ -64,6 +65,8 @@ public class CoreModule extends AbstractModule {
     install(new LoadablesModule());
 
     install(new DragAndDropModule());
+
+    install(new CookiesModule());
 
   }
 }

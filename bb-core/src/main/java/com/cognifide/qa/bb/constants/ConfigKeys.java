@@ -30,8 +30,6 @@ public final class ConfigKeys {
    */
   public static final String PROXY_PORT = "proxy.port";
 
-  public static final String BASE_URL = "base.url";
-
   public static final String LOGIN_TOKEN = "login.token.name";
 
   public static final String WEBDRIVER_APPIUM_URL = "webdriver.appium.url";
@@ -45,14 +43,6 @@ public final class ConfigKeys {
   public static final String WEBDRIVER_MAXIMIZE = "webdriver.maximize";
 
   public static final String WEBDRIVER_MOBILE = "webdriver.mobile";
-
-  public static final String WEBDRIVER_PROXY_COOKIE = "webdriver.secure.proxy.cookie";
-
-  public static final String WEBDRIVER_PROXY_COOKIE_NAME = "webdriver.secure.proxy.cookie_name";
-
-  public static final String WEBDRIVER_PROXY_COOKIE_VALUE = "webdriver.secure.proxy.cookie_value";
-
-  public static final String WEBDRIVER_PROXY_COOKIE_DOMAIN = "webdriver.secure.proxy.cookie_domain";
 
   public static final String WEBDRIVER_REUSABLE = "webdriver.reusable";
 
@@ -70,6 +60,8 @@ public final class ConfigKeys {
 
   public static final String CONFIG_STRATEGY = "bobcat.config";
   public static final String WEBDRIVER_PROP_PREFIX = "webdriver.";
+
+  public static final String COOKIE_LOAD_AUTOMATICALLY = "cookies.loadAutomatically";
 
   private ConfigKeys() {
   }
