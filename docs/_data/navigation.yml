@@ -24,6 +24,8 @@ docs:
     children:
       - title: "Overview"
         url: /docs/modules/core/
+      - title: "Setting cookies"
+        url: /docs/modules/core/cookies
   - title: "Other modules"
     children:
       - title: "JUnit 5"
