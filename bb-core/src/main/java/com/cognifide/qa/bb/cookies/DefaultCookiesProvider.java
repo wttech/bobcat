@@ -28,6 +28,11 @@ import com.cognifide.qa.bb.guice.ThreadScoped;
 import com.cognifide.qa.bb.utils.YamlReader;
 import com.google.inject.Provider;
 
+/**
+ * This is the default provider of a {@link CookieData} list bundled with Bobcat Core. It reads the selected file from under the {@code cookies} resources folder.
+ * <p>
+ * By default reads the {@code /cookies/cookies.yaml} file. The filename can be provided in {@code cookies.file} System property.
+ */
 @ThreadScoped
 public class DefaultCookiesProvider implements Provider<List<CookieData>> {
 
@@ -36,6 +41,9 @@ public class DefaultCookiesProvider implements Provider<List<CookieData>> {
 
   private List<CookieData> cookiesData;
 
+  /**
+   * Provides an instance of {@code List<CookieData>} from the cache, or creates a new one.
+   */
   @Override
   public List<CookieData> get() {
     if (cookiesData == null) {
@@ -44,6 +52,9 @@ public class DefaultCookiesProvider implements Provider<List<CookieData>> {
     return cookiesData;
   }
 
+  /**
+   * @return the current path to the file containing cookies definition.
+   */
   public static String getPath() {
     return COOKIES_FOLDER + System.getProperty(ConfigKeys.COOKIES_FILE, DEFAULT_FILE_NAME);
   }

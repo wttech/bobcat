@@ -28,6 +28,9 @@ import com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.webdriver.WebDr
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
+/**
+ * The modifier that sets all defined cookies when they are provided.
+ */
 public class CookiesModifier implements WebDriverModifier {
 
   @Inject
@@ -37,12 +40,18 @@ public class CookiesModifier implements WebDriverModifier {
   @Named(ConfigKeys.COOKIES_LOAD_AUTOMATICALLY)
   private boolean loadAutomaticallyProperty;
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public boolean shouldModify() {
     return loadAutomaticallyProperty && (getClass().getResource(DefaultCookiesProvider.getPath())
         != null);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public WebDriver modify(WebDriver webDriver) {
     cookies.setCookies(webDriver);

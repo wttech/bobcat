@@ -23,6 +23,9 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * POJO representing a cookie definition file
+ */
 public class CookiesData {
   @JsonProperty
   List<CookieData> cookies;
