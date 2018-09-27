@@ -8,13 +8,17 @@ Available in `bb-core` since version `1.6.0`
 ## Overview
 You might run into situation where you need to provide a cookie(s) for particular domain(s) before your tests start, e.g. when setting up a cookie to bypass a firewall.
 
-Bobcat provides a mechanism that allows to do that.
+Bobcat provides a mechanism that allows that.
 
 ## Defining your cookies
 
-The cookies should be kept in the `cookies.yaml` file under `src/test/resources/`.
+The cookies definitions should be kept under `/cookies` folder under `src/test/resources/`.
+By default, Bobcat will look for `cookies.yaml` file.
 
-The file should have following structure:
+You can create and manage multiple files (e.g. for different domains) and switch between them by setting the `cookies.file` System property.
+{: .notice--info}
+
+The file should have the following structure:
 
 ```yaml
 cookies:
@@ -37,7 +41,7 @@ cookies:
 
 ## How it works
 
-Bobcat will check if the file is present and then load all the cookies and set them after WebDriver is created.
+Bobcat will check if the file is present and then load all the cookies and set them after `WebDriver` is created.
 
 Then, it will iterate over the whole list, open each domain (it takes the domain in the cookie and applies `http://` to it) and set the cookie for given domain.  
 

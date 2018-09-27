@@ -19,10 +19,9 @@
  */
 package com.cognifide.qa.bb.cookies;
 
-import static com.cognifide.qa.bb.cookies.Cookies.FILE_NAME;
-
 import java.util.List;
 
+import com.cognifide.qa.bb.constants.ConfigKeys;
 import com.cognifide.qa.bb.cookies.domain.CookieData;
 import com.cognifide.qa.bb.cookies.domain.CookiesData;
 import com.cognifide.qa.bb.guice.ThreadScoped;
@@ -31,6 +30,9 @@ import com.google.inject.Provider;
 
 @ThreadScoped
 public class DefaultCookiesProvider implements Provider<List<CookieData>> {
+
+  static final String DEFAULT_FILE_NAME = "/cookies.yaml";
+  static final String COOKIES_FOLDER = "/cookies/";
 
   private List<CookieData> cookiesData;
 
@@ -42,7 +44,13 @@ public class DefaultCookiesProvider implements Provider<List<CookieData>> {
     return cookiesData;
   }
 
+  public static String getPath() {
+    return COOKIES_FOLDER + System.getProperty(ConfigKeys.COOKIES_FILE, DEFAULT_FILE_NAME);
+  }
+
   private List<CookieData> create() {
-    return YamlReader.read(FILE_NAME, CookiesData.class).getCookies();
+    return YamlReader
+        .read(getPath(),
+            CookiesData.class).getCookies();
   }
 }

@@ -43,7 +43,6 @@ public class CookiesWithDisabledAutoLoadTest {
 
   @Test
   public void shouldNotSetCookiesFromCookiesYamlAutomaticallyWhenDisabledViaProperty() {
-    System.setProperty(ConfigKeys.COOKIE_LOAD_AUTOMATICALLY, "true");
     assertThat(webDriver.manage().getCookies()).doesNotContain(expectedCookie);
   }
 }

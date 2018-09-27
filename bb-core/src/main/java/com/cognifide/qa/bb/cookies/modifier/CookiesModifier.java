@@ -23,6 +23,7 @@ import org.openqa.selenium.WebDriver;
 
 import com.cognifide.qa.bb.constants.ConfigKeys;
 import com.cognifide.qa.bb.cookies.Cookies;
+import com.cognifide.qa.bb.cookies.DefaultCookiesProvider;
 import com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.webdriver.WebDriverModifier;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -33,12 +34,13 @@ public class CookiesModifier implements WebDriverModifier {
   private Cookies cookies;
 
   @Inject
-  @Named(ConfigKeys.COOKIE_LOAD_AUTOMATICALLY)
+  @Named(ConfigKeys.COOKIES_LOAD_AUTOMATICALLY)
   private boolean loadAutomaticallyProperty;
 
   @Override
   public boolean shouldModify() {
-    return loadAutomaticallyProperty && (getClass().getResource(Cookies.FILE_NAME) != null);
+    return loadAutomaticallyProperty && (getClass().getResource(DefaultCookiesProvider.getPath())
+        != null);
   }
 
   @Override
