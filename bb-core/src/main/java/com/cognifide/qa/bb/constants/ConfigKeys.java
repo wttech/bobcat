@@ -61,7 +61,8 @@ public final class ConfigKeys {
   public static final String CONFIG_STRATEGY = "bobcat.config";
   public static final String WEBDRIVER_PROP_PREFIX = "webdriver.";
 
-  public static final String COOKIE_LOAD_AUTOMATICALLY = "cookies.loadAutomatically";
+  public static final String COOKIES_LOAD_AUTOMATICALLY = "cookies.loadAutomatically";
+  public static final String COOKIES_FILE = "cookies.file";
 
   private ConfigKeys() {
   }

@@ -17,32 +17,33 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.core.cookies;
+package com.cognifide.qa.bb.cookies;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.openqa.selenium.Cookie;
-import org.openqa.selenium.WebDriver;
 
 import com.cognifide.qa.bb.constants.ConfigKeys;
-import com.cognifide.qa.bb.core.TestModule;
-import com.cognifide.qa.bb.junit.Modules;
-import com.cognifide.qa.bb.junit.TestRunner;
-import com.google.inject.Inject;
 
-@RunWith(TestRunner.class)
-@Modules(TestModule.class)
-public class CookiesWithDisabledAutoLoadTest {
-
-  @Inject
-  private WebDriver webDriver;
-
-  private Cookie expectedCookie = new Cookie("test-cookie", "value", "/");
+public class DefaultCookiesProviderTest {
 
   @Test
-  public void shouldNotSetCookiesFromCookiesYamlAutomaticallyWhenDisabledViaProperty() {
-    assertThat(webDriver.manage().getCookies()).doesNotContain(expectedCookie);
+  public void shouldReturnDefaultFileByDefault() {
+    String tested = DefaultCookiesProvider.getPath();
+
+    assertThat(tested)
+        .isEqualTo(
+            DefaultCookiesProvider.COOKIES_FOLDER + DefaultCookiesProvider.DEFAULT_FILE_NAME);
   }
+
+  @Test
+  public void shouldReturnPathToCorrectFileWhenSysPropIsSet() {
+    String expectedFile = "expected.yaml";
+    System.setProperty(ConfigKeys.COOKIES_FILE, expectedFile);
+
+    String tested = DefaultCookiesProvider.getPath();
+
+    assertThat(tested).isEqualTo(DefaultCookiesProvider.COOKIES_FOLDER + expectedFile);
+  }
+
 }
