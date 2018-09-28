@@ -47,13 +47,6 @@ limitations under the License.
         </license>
     </licenses>
 
-    <developers>
-        <developer>
-            <name>Karol Kujawiak</name>
-            <email>karol.kujawiak@cognifide.com</email>
-        </developer>
-    </developers>
-
     <modules>
         <module>bb-core</module>
         <module>bb-integration-tests</module>

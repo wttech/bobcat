@@ -25,5 +25,7 @@ default:
     webdriver.maximize: true
     webdriver.reusable: false
     webdriver.defaultTimeout: 10
+    webdriver.chrome.headless: false
+    webdriver.chrome.headless.disableGpu: false
 
     cookies.loadAutomatically: true

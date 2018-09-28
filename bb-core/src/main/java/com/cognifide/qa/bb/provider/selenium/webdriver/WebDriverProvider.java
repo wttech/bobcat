@@ -34,16 +34,15 @@ import com.cognifide.qa.bb.provider.selenium.webdriver.close.ClosingAwareWebDriv
 import com.cognifide.qa.bb.provider.selenium.webdriver.close.ClosingAwareWebDriverWrapper;
 import com.cognifide.qa.bb.provider.selenium.webdriver.close.WebDriverClosedListener;
 import com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.WebDriverModifiers;
+import com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.capabilities.ChromeCapabilitiesModifier;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.name.Named;
 
 /**
  * This is a provider that will produce WebDriver instances for all your PageObjects. It is
- * ThreadScoped, so
- * each thread will receive its own instance of WebDriver. WebDriverProvider caches the
- * WebDriver, so all
- * PageObjects in one thread will be using one instance of WebDriver.
+ * ThreadScoped, so each thread will receive its own instance of WebDriver. WebDriverProvider caches
+ * the WebDriver, so all PageObjects in one thread will be using one instance of WebDriver.
  */
 @ThreadScoped
 public class WebDriverProvider implements Provider<WebDriver> {
@@ -87,10 +86,12 @@ public class WebDriverProvider implements Provider<WebDriver> {
   @Inject
   private Set<WebDriverEventListener> listeners;
 
+  @Inject
+  private ChromeCapabilitiesModifier chromeCapabilitiesModifier;
+
   /**
    * This is the provider method that produces WebDriver instance. It returns either a cached
-   * webdriver or
-   * creates a new one.
+   * webdriver or creates a new one.
    */
   @Override
   public WebDriver get() {
@@ -101,7 +102,8 @@ public class WebDriverProvider implements Provider<WebDriver> {
   }
 
   private ClosingAwareWebDriver create() {
-    final Capabilities modifiedCapabilities = webDriverModifiers.modifyCapabilities(capabilities);
+    final Capabilities modifiedCapabilities = chromeCapabilitiesModifier
+        .modify(webDriverModifiers.modifyCapabilities(capabilities));
 
     final WebDriverType webDriverType = WebDriverType.get(type);
     final WebDriver raw = webDriverType.create(modifiedCapabilities, properties);

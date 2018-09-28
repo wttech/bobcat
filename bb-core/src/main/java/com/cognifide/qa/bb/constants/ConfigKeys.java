@@ -36,6 +36,10 @@ public final class ConfigKeys {
 
   public static final String WEBDRIVER_CAP_PLATFORM_NAME = "webdriver.cap.platformName";
 
+  public static final String WEBDRIVER_CHROME_HEADLESS = "webdriver.chrome.headless";
+
+  public static final String WEBDRIVER_CHROME_HEADLESS_DISABLE_GPU = "webdriver.chrome.headless.disableGpu";
+
   public static final String WEBDRIVER_DEFAULT_TIMEOUT = "webdriver.defaultTimeout";
 
   public static final String WEBDRIVER_FIREFOX_BIN = "webdriver.firefox.bin";
