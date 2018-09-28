@@ -28,7 +28,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 /**
  * This class performs actual wait. It should always be used with BobcatWait class which acts as a factory for
  * BobcatWebDriverWait.
+ *
+ * @deprecated will be removed in 2.0
  */
+@Deprecated
 public class BobcatWebDriverWait {
 
   private static final int IMPLICITLY_WAIT_TIME = 1;
@@ -88,7 +91,8 @@ public class BobcatWebDriverWait {
    */
   public <T> T until(ExpectedCondition<T> condition, long delay) {
     webDriver.manage().timeouts().implicitlyWait(IMPLICITLY_WAIT_TIME, TimeUnit.SECONDS);
-    final T result = new WebDriverWait(webDriver, timeOutInSeconds, delay * 1000L).until(condition::apply);
+    final T result =
+        new WebDriverWait(webDriver, timeOutInSeconds, delay * 1000L).until(condition::apply);
     webDriver.manage().timeouts().implicitlyWait(defaultTimeout, TimeUnit.SECONDS);
     return result;
   }
