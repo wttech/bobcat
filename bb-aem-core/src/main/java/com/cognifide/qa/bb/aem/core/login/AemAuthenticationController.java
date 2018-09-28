@@ -19,7 +19,7 @@
  */
 package com.cognifide.qa.bb.aem.core.login;
 
-import com.cognifide.qa.bb.aem.core.pages.AemPage;
+import com.cognifide.qa.bb.aem.core.pages.AemAuthorPage;
 
 /**
  * Provides fast AEM login and logout method.
@@ -33,9 +33,9 @@ public interface AemAuthenticationController {
 
   /**
    * Login and go to page on instance
-   * @param aemPage page that implements {@link AemPage}
+   * @param aemAuthorPage page that implements {@link AemAuthorPage}
    */
-  public void login(AemPage aemPage);
+  public void login(AemAuthorPage aemAuthorPage);
 
   /**
    * logout from instance

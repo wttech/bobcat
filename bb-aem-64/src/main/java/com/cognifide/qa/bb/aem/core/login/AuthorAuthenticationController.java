@@ -20,9 +20,10 @@
 package com.cognifide.qa.bb.aem.core.login;
 
 import com.cognifide.qa.bb.aem.core.constants.AemConfigKeys;
-import com.cognifide.qa.bb.aem.core.pages.AemPage;
+import com.cognifide.qa.bb.aem.core.pages.AemAuthorPage;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 
 /**
@@ -49,6 +50,7 @@ public class AuthorAuthenticationController implements AemAuthenticationControll
   private String authorPassword;
 
   @Override
+  @Step("Login to AEM")
   public void login() {
     webDriver.get(authorUrl + "/libs/granite/core/content/login.html");
     webDriver.manage()
@@ -56,9 +58,10 @@ public class AuthorAuthenticationController implements AemAuthenticationControll
   }
 
   @Override
-  public void login(AemPage aemPage) {
+  @Step("Login to AEM and open page {aemAuthorPage.FULL_URL}")
+  public void login(AemAuthorPage aemAuthorPage) {
     this.login();
-    aemPage.open();
+    aemAuthorPage.open();
   }
 
   @Override
