@@ -39,32 +39,6 @@ public final class WebElementConditions {
   private static final Logger LOG = LoggerFactory.getLogger(WebElementConditions.class);
 
   /**
-   * Condition that checks if specified WebElement has the provided attribute.
-   *
-   * @param element   WebElement to be checked.
-   * @param attribute name of the attribute which presence is to be checked.
-   * @return ExpectedCondtion representing the above check
-   */
-  public static ExpectedCondition<WebElement> elementHasAttribute(WebElement element,
-      String attribute) {
-    return webDriver -> (element.getAttribute(attribute) != null) ? element : null;
-  }
-
-  /**
-   * Condition that checks if given attribute has the provided value in the specified WebElement.
-   *
-   * @param element   WebElement to be checked.
-   * @param attribute name of the attribute which presence is to be checked.
-   * @param value     value which presence in attribute is to be checked.
-   * @return ExpectedCondition representing the above check
-   */
-  public static ExpectedCondition<WebElement> elementHasAttributeWithValue(final WebElement element,
-      final String attribute,
-      final String value) {
-    return webDriver -> element.getAttribute(attribute).contains(value) ? element : null;
-  }
-
-  /**
    * Condition that checks if animation of provided WebElement finished.
    *
    * @param element WebElement to be checked
@@ -99,5 +73,17 @@ public final class WebElementConditions {
         return null;
       }
     };
+  }
+
+  /**
+   * Check if provided element height is greater than expected height
+   *
+   * @param element        - WebElement to check
+   * @param expectedHeight - expected height of an element
+   * @return true if element height is greater than expected
+   */
+  public static ExpectedCondition<Boolean> heightOfElementGreaterThan(final WebElement element,
+      final int expectedHeight) {
+    return driver -> element.getSize().getHeight() > expectedHeight;
   }
 }
