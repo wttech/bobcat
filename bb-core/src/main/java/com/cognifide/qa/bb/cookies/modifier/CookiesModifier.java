@@ -26,6 +26,7 @@ import com.cognifide.qa.bb.cookies.Cookies;
 import com.cognifide.qa.bb.cookies.DefaultCookiesProvider;
 import com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.webdriver.WebDriverModifier;
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 import com.google.inject.name.Named;
 
 /**
@@ -34,7 +35,7 @@ import com.google.inject.name.Named;
 public class CookiesModifier implements WebDriverModifier {
 
   @Inject
-  private Cookies cookies;
+  private Injector injector;
 
   @Inject
   @Named(ConfigKeys.COOKIES_LOAD_AUTOMATICALLY)
@@ -54,7 +55,7 @@ public class CookiesModifier implements WebDriverModifier {
    */
   @Override
   public WebDriver modify(WebDriver webDriver) {
-    cookies.setCookies(webDriver);
+    injector.getInstance(Cookies.class).setCookies(webDriver);
     return webDriver;
   }
 }

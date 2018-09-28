@@ -26,7 +26,7 @@ import com.cognifide.qa.bb.constants.ConfigKeys;
  */
 public final class ConfigStrategyProvider {
 
-  public static final String LEGACY_SYS_PROP_VALUE = "yaml";
+  public static final String LEGACY_SYS_PROP_VALUE = "properties";
 
   private ConfigStrategyProvider() {
     //empty
