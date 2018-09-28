@@ -27,6 +27,6 @@ public interface AemPage {
   /**
    * open the page in browser
    */
-  void open();
+  AemPage open();
 
 }
