@@ -90,12 +90,14 @@ public class BobcatWait {
    * @see WebDriverWait#until(Function)
    */
   public <T> T until(ExpectedCondition<T> condition) {
-    webDriver.manage().timeouts().implicitlyWait(Timings.NEAR_ZERO, TimeUnit.SECONDS);
-    final T result = getWebDriverWait()
-        .ignoreAll(ignoredExceptions)
-        .until(condition);
-    webDriver.manage().timeouts().implicitlyWait(timings.getImplicitTimeout(), TimeUnit.SECONDS);
-    return result;
+    try {
+      webDriver.manage().timeouts().implicitlyWait(Timings.NEAR_ZERO, TimeUnit.SECONDS);
+      return getWebDriverWait()
+          .ignoreAll(ignoredExceptions)
+          .until(condition);
+    } finally {
+      webDriver.manage().timeouts().implicitlyWait(timings.getImplicitTimeout(), TimeUnit.SECONDS);
+    }
   }
 
   /**
