@@ -25,9 +25,9 @@ package com.cognifide.qa.bb.wait;
  * <p>
  * Contains info about:
  * <ul>
- * <li>explicit timeout</li>
- * <li>implicit timeout</li>
- * <li>polling time</li>
+ * <li>explicit timeout (in seconds)</li>
+ * <li>implicit timeout (in milliseconds)</li>
+ * <li>polling time (in milliseconds)</li>
  * </ul>
  */
 public class Timings {

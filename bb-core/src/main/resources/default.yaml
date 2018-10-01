@@ -11,11 +11,6 @@ default:
     bobcat.report.path: ./target/report
     bobcat.report.reporters: html,json,simple,stdout
 
-    timeouts.big: 30
-    timeouts.medium: 15
-    timeouts.small: 5
-    timeouts.minimal: 1
-
     analytics.uri.prefix:  /b/ss
     analytics.call.timeout.ms:  30000
 
@@ -24,6 +19,10 @@ default:
     webdriver.mobile: false
     webdriver.maximize: true
     webdriver.reusable: false
-    webdriver.defaultTimeout: 10
+    webdriver.defaultTimeout: 10 #deprecated, see ConfigKeys
 
     cookies.loadAutomatically: true
+
+    timings.explicitTimeout: 10
+    timings.implicitTimeout: 10
+    timings.pollingTime: 500

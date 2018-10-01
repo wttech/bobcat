@@ -59,12 +59,12 @@ public final class WebElementConditions {
   }
 
   /**
-   * Condition that checks if provided WebElement is ready to be operated on, ie. is visible and not stale.
+   * Condition that checks if provided WebElement is 'ready' to be operated on, ie. is visible and not stale.
    *
    * @param element list of WebElements within which the specified WebElement is searched
    * @return ExpectedCondition representing the above check
    */
-  public static ExpectedCondition<WebElement> isReady(final WebElement element) {
+  public static ExpectedCondition<WebElement> elementIsReady(final WebElement element) {
     return webDriver -> {
       try {
         return element.isDisplayed() ? element : null;
@@ -80,10 +80,10 @@ public final class WebElementConditions {
    *
    * @param element        - WebElement to check
    * @param expectedHeight - expected height of an element
-   * @return true if element height is greater than expected
+   * @return ExpectedCondition representing the above check
    */
-  public static ExpectedCondition<Boolean> heightOfElementGreaterThan(final WebElement element,
+  public static ExpectedCondition<WebElement> heightOfElementGreaterThan(final WebElement element,
       final int expectedHeight) {
-    return driver -> element.getSize().getHeight() > expectedHeight;
+    return driver -> element.getSize().getHeight() > expectedHeight ? element : null;
   }
 }

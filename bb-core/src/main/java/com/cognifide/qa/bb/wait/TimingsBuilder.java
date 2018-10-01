@@ -19,23 +19,28 @@
  */
 package com.cognifide.qa.bb.wait;
 
+import com.cognifide.qa.bb.constants.ConfigKeys;
+
 /**
  * Builder for {@link Timings} instances.
  * <p>
  * Default values are taken from System properties:
  * <ul>
- * <li>for explicit timeout - {@code wait.explicitTimeout}</li>
- * <li>for implicit timeout - {@code wait.implicitTimeout}</li>
- * <li>for polling time - {@code wait.pollingTime}</li>
+ * <li>for explicit timeout - {@value ConfigKeys#TIMINGS_EXPLICIT_TIMEOUT}</li>
+ * <li>for implicit timeout - {@value ConfigKeys#TIMINGS_IMPLICIT_TIMEOUT}</li>
+ * <li>for polling time - {@value ConfigKeys#TIMINGS_POLLING_TIME}</li>
  * </ul>
  */
 public class TimingsBuilder {
 
-  private long pollingTime = Long.valueOf(System.getProperty("wait.pollingTime", "500"));
+  private long pollingTime =
+      Long.valueOf(System.getProperty(ConfigKeys.TIMINGS_POLLING_TIME, "500"));
 
-  private long explicitTimeout = Long.valueOf(System.getProperty("wait.explicitTimeout", "10"));
+  private long explicitTimeout =
+      Long.valueOf(System.getProperty(ConfigKeys.TIMINGS_EXPLICIT_TIMEOUT, "10"));
 
-  private long implicitTimeout = Long.valueOf(System.getProperty("wait.implicitTimeout", "10"));
+  private long implicitTimeout =
+      Long.valueOf(System.getProperty(ConfigKeys.TIMINGS_IMPLICIT_TIMEOUT, "10"));
 
   /**
    * Set the explicit timeout

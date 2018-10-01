@@ -81,7 +81,7 @@ public class BobcatWait {
    * First it reduces implicit timeout to a near-zero value.
    * Then a timer is started and the condition is checked cyclically until it is fulfilled
    * or the timer times out. Finally, implicit timeout is set back to the value
-   * defined in the property file (under "wait.implicitTimeout").
+   * defined in the property file (under {@value com.cognifide.qa.bb.constants.ConfigKeys#TIMINGS_IMPLICIT_TIMEOUT}
    *
    * @param condition Selenium's condition object that is queried cyclically inside the wait loop.
    * @param <T>       The function's expected return type.
