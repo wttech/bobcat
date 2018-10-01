@@ -70,6 +70,8 @@ public final class ConfigKeys {
 
   public static final String COOKIE_LOAD_AUTOMATICALLY = "cookies.loadAutomatically";
 
+  public static final String MODIFIERS_IMPLICIT_TIMEOUT = "modifiers.implicitTimeout";
+
   public static final String TIMINGS_EXPLICIT_TIMEOUT = "timings.explicitTimeout";
   public static final String TIMINGS_IMPLICIT_TIMEOUT = "timings.implicitTimeout";
   public static final String TIMINGS_POLLING_TIME = "timings.pollingTime";
