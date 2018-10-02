@@ -27,6 +27,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Describes data of a single cookie.
+ */
 public class CookieData {
   private String name;
 
@@ -61,10 +64,16 @@ public class CookieData {
     this.httpOnly = httpOnly;
   }
 
+  /**
+   * @return the URL to the domain related to the cookie (appends {@code http://} to the domain)
+   */
   public String getUrl() {
     return "http://" + domain;
   }
 
+  /**
+   * @return adapter to {@link org.openqa.selenium.Cookie}
+   */
   public Cookie convertToSeleniumCookie() {
     return new Cookie(name, value, domain, path, expiry, secure, httpOnly);
   }

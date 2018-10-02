@@ -27,7 +27,6 @@ import com.cognifide.qa.bb.cookies.domain.CookieData;
 import com.google.inject.Inject;
 
 public class Cookies {
-  public static final String FILE_NAME = "/cookies.yaml";
 
   private List<CookieData> cookies;
 

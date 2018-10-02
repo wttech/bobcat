@@ -28,7 +28,7 @@ public class TestModuleWithEnabledAutoLoad extends AbstractModule {
 
   @Override
   protected void configure() {
-    System.setProperty(ConfigKeys.COOKIE_LOAD_AUTOMATICALLY, "true");
+    System.setProperty(ConfigKeys.COOKIES_LOAD_AUTOMATICALLY, "true");
     install(new CoreModule());
     install(new ReporterModule());
   }
