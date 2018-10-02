@@ -89,8 +89,7 @@ public class BobcatWait {
    *
    * @param condition Selenium's condition object that is queried cyclically inside the wait loop.
    * @param <T>       The function's expected return type.
-   * @return The ExpectedCondition's return value if the function returned something different.
-   * from null or false before the timeout expired.
+   * @return The ExpectedCondition's return value if the function returned something different from null or false before the timeout expired.
    * @see WebDriverWait#until(Function)
    */
   public <T> T until(ExpectedCondition<T> condition) {
@@ -101,6 +100,7 @@ public class BobcatWait {
           .until(condition);
     } finally {
       ignoredExceptions = new ArrayList<>();
+      timings = new TimingsBuilder().build();
       restoreImplicitTimeout();
     }
   }

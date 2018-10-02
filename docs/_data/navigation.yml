@@ -24,6 +24,8 @@ docs:
     children:
       - title: "Overview"
         url: /docs/modules/core/
+      - title: "Explicit and implicit waiting"
+        url: /docs/modules/core/waiting
       - title: "Setting cookies"
         url: /docs/modules/core/cookies
   - title: "Other modules"
@@ -36,7 +38,9 @@ docs:
         url: /docs/modules/traffic/
       - title: "Email"
         url: /docs/modules/email/
-  - title: "AEM modules (new API incoming!)"
+  - title: "AEM modules"
+    children:
+      - title: "New API incoming in 2.0!"
   - title: "EOL Modules"
     children:
       - title: "AEM Common"
