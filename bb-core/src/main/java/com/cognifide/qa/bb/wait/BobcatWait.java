@@ -45,12 +45,16 @@ public class BobcatWait {
 
   private static final Logger LOG = LoggerFactory.getLogger(BobcatWait.class);
 
-  @Inject
-  private WebDriver webDriver;
-
   private Timings timings = new TimingsBuilder().build();
 
   private List<Class<? extends Throwable>> ignoredExceptions = new ArrayList<>();
+
+  private WebDriver webDriver;
+
+  @Inject
+  public BobcatWait(WebDriver webDriver) {
+    this.webDriver = webDriver;
+  }
 
   /**
    * Allows to customize the timings (explicit & implicit timeout + polling time).
@@ -91,12 +95,13 @@ public class BobcatWait {
    */
   public <T> T until(ExpectedCondition<T> condition) {
     try {
-      webDriver.manage().timeouts().implicitlyWait(Timings.NEAR_ZERO, TimeUnit.SECONDS);
+      setImplicitTimeoutToNearZero();
       return getWebDriverWait()
           .ignoreAll(ignoredExceptions)
           .until(condition);
     } finally {
-      webDriver.manage().timeouts().implicitlyWait(timings.getImplicitTimeout(), TimeUnit.SECONDS);
+      ignoredExceptions = new ArrayList<>();
+      restoreImplicitTimeout();
     }
   }
 
@@ -116,7 +121,24 @@ public class BobcatWait {
     return true;
   }
 
-  private WebDriverWait getWebDriverWait() {
-    return new WebDriverWait(webDriver, timings.getExplicitTimeout(), timings.getPollingTime());
+  /**
+   * Sets implicit timeout to {@value Timings#NEAR_ZERO} milliseconds.
+   */
+  protected void setImplicitTimeoutToNearZero() {
+    webDriver.manage().timeouts().implicitlyWait(Timings.NEAR_ZERO, TimeUnit.SECONDS);
+  }
+
+  /**
+   * Restores implicit timeout to the value defined in the {@link Timings} instance.
+   */
+  protected void restoreImplicitTimeout() {
+    webDriver.manage().timeouts().implicitlyWait(timings.getImplicitTimeout(), TimeUnit.SECONDS);
+  }
+
+  /**
+   * @return an instance of {@link WebDriverWait} based on the provided {@link Timings}
+   */
+  protected WebDriverWait getWebDriverWait() {
+    return new WebDriverWait(webDriver, timings.getExplicitTimeout(), timings.getPollingInterval());
   }
 }

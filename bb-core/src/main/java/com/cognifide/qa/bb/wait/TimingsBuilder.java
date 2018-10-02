@@ -28,13 +28,13 @@ import com.cognifide.qa.bb.constants.ConfigKeys;
  * <ul>
  * <li>for explicit timeout - {@value ConfigKeys#TIMINGS_EXPLICIT_TIMEOUT}</li>
  * <li>for implicit timeout - {@value ConfigKeys#TIMINGS_IMPLICIT_TIMEOUT}</li>
- * <li>for polling time - {@value ConfigKeys#TIMINGS_POLLING_TIME}</li>
+ * <li>for polling interval - {@value ConfigKeys#TIMINGS_POLLING_INTERVAL}</li>
  * </ul>
  */
 public class TimingsBuilder {
 
-  private long pollingTime =
-      Long.valueOf(System.getProperty(ConfigKeys.TIMINGS_POLLING_TIME, "500"));
+  private long pollingInterval =
+      Long.valueOf(System.getProperty(ConfigKeys.TIMINGS_POLLING_INTERVAL, "500"));
 
   private long explicitTimeout =
       Long.valueOf(System.getProperty(ConfigKeys.TIMINGS_EXPLICIT_TIMEOUT, "10"));
@@ -59,8 +59,8 @@ public class TimingsBuilder {
    * @param time in milliseconds
    * @return a self reference
    */
-  public TimingsBuilder pollingTime(long time) {
-    pollingTime = time;
+  public TimingsBuilder pollingInterval(long time) {
+    pollingInterval = time;
     return this;
   }
 
@@ -81,6 +81,6 @@ public class TimingsBuilder {
    * @return new {@link Timings} instance
    */
   public Timings build() {
-    return new Timings(explicitTimeout, pollingTime, implicitTimeout);
+    return new Timings(explicitTimeout, pollingInterval, implicitTimeout);
   }
 }

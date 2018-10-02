@@ -26,19 +26,19 @@ package com.cognifide.qa.bb.wait;
  * Contains info about:
  * <ul>
  * <li>explicit timeout (in seconds)</li>
- * <li>implicit timeout (in milliseconds)</li>
- * <li>polling time (in milliseconds)</li>
+ * <li>implicit timeout (in seconds)</li>
+ * <li>polling interval (in milliseconds)</li>
  * </ul>
  */
 public class Timings {
   public static final int NEAR_ZERO = 1;
   private long explicitTimeout;
-  private long pollingTime;
+  private long pollingInterval;
   private long implicitTimeout;
 
-  public Timings(long explicitTimeout, long pollingTime, long implicitTimeout) {
+  public Timings(long explicitTimeout, long pollingInterval, long implicitTimeout) {
     this.explicitTimeout = explicitTimeout;
-    this.pollingTime = pollingTime;
+    this.pollingInterval = pollingInterval;
     this.implicitTimeout = implicitTimeout;
   }
 
@@ -46,8 +46,8 @@ public class Timings {
     return explicitTimeout;
   }
 
-  public long getPollingTime() {
-    return pollingTime;
+  public long getPollingInterval() {
+    return pollingInterval;
   }
 
   public long getImplicitTimeout() {

@@ -74,7 +74,7 @@ public final class ConfigKeys {
 
   public static final String TIMINGS_EXPLICIT_TIMEOUT = "timings.explicitTimeout";
   public static final String TIMINGS_IMPLICIT_TIMEOUT = "timings.implicitTimeout";
-  public static final String TIMINGS_POLLING_TIME = "timings.pollingTime";
+  public static final String TIMINGS_POLLING_INTERVAL = "timings.pollingInterval";
 
   private ConfigKeys() {
   }

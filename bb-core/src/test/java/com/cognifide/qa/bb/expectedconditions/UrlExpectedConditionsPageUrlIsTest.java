@@ -35,6 +35,7 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.openqa.selenium.WebDriver;
 
+@Deprecated
 @RunWith(Parameterized.class)
 public class UrlExpectedConditionsPageUrlIsTest {
 

@@ -26,4 +26,4 @@ default:
     modifiers.implicitTimeout: true
     timings.explicitTimeout: 10
     timings.implicitTimeout: 10
-    timings.pollingTime: 500
+    timings.pollingInterval: 500
