@@ -50,7 +50,7 @@ public class BobcatWaitTest {
 
   @Before
   public void setup() {
-    when(webDriver.manage()).thenRetgiurn(options);
+    when(webDriver.manage()).thenReturn(options);
     when(options.timeouts()).thenReturn(timeouts);
     when(timeouts.implicitlyWait(anyLong(), any())).thenReturn(timeouts);
     tested = new BobcatWait(webDriver);
