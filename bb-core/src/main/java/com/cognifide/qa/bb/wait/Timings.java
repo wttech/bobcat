@@ -32,6 +32,9 @@ package com.cognifide.qa.bb.wait;
  */
 public class Timings {
   public static final int NEAR_ZERO = 1;
+  public static final int DEFAULT_POLLING_INTERVAL = 500;
+  public static final int DEFAULT_EXPLICIT_TIMEOUT = 10;
+  public static final int DEFAULT_IMPLICIT_TIMEOUT = 1;
   private long explicitTimeout;
   private long pollingInterval;
   private long implicitTimeout;
