@@ -36,6 +36,10 @@ public final class ConfigKeys {
 
   public static final String WEBDRIVER_CAP_PLATFORM_NAME = "webdriver.cap.platformName";
 
+  /**
+   * @deprecated since 1.6.0; use {@code timings.*} properties
+   */
+  @Deprecated
   public static final String WEBDRIVER_DEFAULT_TIMEOUT = "webdriver.defaultTimeout";
 
   public static final String WEBDRIVER_FIREFOX_BIN = "webdriver.firefox.bin";
@@ -52,10 +56,13 @@ public final class ConfigKeys {
 
   public static final String WEBDRIVER_URL = "webdriver.url";
 
+  @Deprecated
   public static final String CONFIGURATION_PATHS = "configuration.paths";
 
+  @Deprecated
   public static final String DEFAULT_PROPERTIES_NAME = "default.properties";
 
+  @Deprecated
   public static final String JUNIT_RERUNS = "junit.reruns";
 
   public static final String CONFIG_STRATEGY = "bobcat.config";
@@ -63,6 +70,12 @@ public final class ConfigKeys {
 
   public static final String COOKIES_LOAD_AUTOMATICALLY = "cookies.loadAutomatically";
   public static final String COOKIES_FILE = "cookies.file";
+
+  public static final String MODIFIERS_IMPLICIT_TIMEOUT = "modifiers.implicitTimeout";
+
+  public static final String TIMINGS_EXPLICIT_TIMEOUT = "timings.explicitTimeout";
+  public static final String TIMINGS_IMPLICIT_TIMEOUT = "timings.implicitTimeout";
+  public static final String TIMINGS_POLLING_INTERVAL = "timings.pollingInterval";
 
   private ConfigKeys() {
   }

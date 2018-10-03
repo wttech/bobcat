@@ -30,12 +30,16 @@ import com.google.inject.name.Named;
 public class ImplicitTimeoutModifier implements WebDriverModifier {
 
   @Inject
-  @Named(ConfigKeys.WEBDRIVER_DEFAULT_TIMEOUT)
+  @Named(ConfigKeys.TIMINGS_IMPLICIT_TIMEOUT)
   private int defaultTimeout;
+
+  @Inject
+  @Named(ConfigKeys.MODIFIERS_IMPLICIT_TIMEOUT)
+  private boolean enabled;
 
   @Override
   public boolean shouldModify() {
-    return true;
+    return enabled;
   }
 
   @Override
