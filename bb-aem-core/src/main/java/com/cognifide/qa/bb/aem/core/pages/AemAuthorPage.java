@@ -19,7 +19,6 @@
  */
 package com.cognifide.qa.bb.aem.core.pages;
 
-import com.cognifide.qa.bb.utils.WebElementUtils;
 import com.google.inject.Inject;
 import io.qameta.allure.Step;
 import javax.inject.Named;
@@ -28,10 +27,7 @@ import org.openqa.selenium.WebDriver;
 /**
  * Interface that marks page as being from AEM
  */
-public abstract class AemAuthorPage {
-
-  @Inject
-  protected WebElementUtils webElementUtils;
+public class AemAuthorPage {
 
   @Inject
   protected WebDriver webDriver;
@@ -43,11 +39,6 @@ public abstract class AemAuthorPage {
   @Inject
   @Named("bobcat.author.path")
   protected String fullUrl;
-
-
-  @Inject
-  @Named("page.title.timeout")
-  protected int pageTitleTimeout;
 
   /**
    * open the page in browser
