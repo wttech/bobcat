@@ -20,10 +20,12 @@
 package com.cognifide.qa.bb.aem.core.component;
 
 import com.cognifide.qa.bb.dragdrop.Draggable;
+import com.cognifide.qa.bb.qualifier.PageObject;
 
 /**
  * Interface that represent authoring mode side panel.
  */
+@PageObject
 public interface SidePanel {
 
   /**

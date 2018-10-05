@@ -20,25 +20,26 @@
 
 package com.cognifide.qa.bb.mapper.field;
 
-import java.lang.reflect.Field;
-import java.util.List;
-import java.util.Optional;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
-
 import com.cognifide.qa.bb.exceptions.BobcatRuntimeException;
 import com.cognifide.qa.bb.qualifier.PageObject;
+import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 import com.cognifide.qa.bb.scope.ContextStack;
 import com.cognifide.qa.bb.scope.PageObjectContext;
 import com.cognifide.qa.bb.scope.frame.FrameMap;
 import com.cognifide.qa.bb.scope.frame.FramePath;
 import com.cognifide.qa.bb.scope.nestedselector.NestedSelectorScopedLocatorFactory;
 import com.cognifide.qa.bb.utils.AnnotationsHelper;
+import com.google.inject.Binding;
 import com.google.inject.ConfigurationException;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.google.inject.internal.LinkedBindingImpl;
+import java.lang.reflect.Field;
+import java.util.List;
+import java.util.Optional;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 
 /**
  * This provider produces values for PageObject's fields that are annotated with FindPageObject
@@ -61,7 +62,9 @@ public class SelectorPageObjectProvider implements FieldProvider {
 
   @Override
   public boolean accepts(Field field) {
-    return field.getType().isAnnotationPresent(PageObject.class)
+    return (field.getType().isAnnotationPresent(PageObject.class)
+        || field.getType().isAnnotationPresent(
+        PageObjectInterface.class))
         && AnnotationsHelper.isFindPageObjectAnnotationPresent(field) && isNotList(field);
 
   }
@@ -72,7 +75,18 @@ public class SelectorPageObjectProvider implements FieldProvider {
    */
   @Override
   public Optional<Object> provideValue(Object pageObject, Field field, PageObjectContext context) {
-    By selector = PageObjectProviderHelper.getSelectorFromPageObject(field);
+    By selector = null;
+    if (field.getType().isAnnotationPresent(
+        PageObjectInterface.class)) {
+      Binding<?> binding = injector.getBinding(field.getType());
+      if(binding instanceof LinkedBindingImpl){
+        selector = PageObjectProviderHelper.retrieveSelectorFromPageObjectInterface(((LinkedBindingImpl) binding).getLinkedKey().getTypeLiteral().getRawType());
+      }
+    } else {
+      selector = PageObjectProviderHelper.getSelectorFromPageObject(field);
+    }
+    //ask for guice binding - get page object
+
     ElementLocatorFactory elementLocatorFactory =
         new NestedSelectorScopedLocatorFactory(webDriver, selector,
             context.getElementLocatorFactory(), AnnotationsHelper.isGlobal(field));
@@ -81,12 +95,10 @@ public class SelectorPageObjectProvider implements FieldProvider {
     Object scopedPageObject = null;
     try {
       scopedPageObject = injector.getInstance(field.getType());
-    } catch (Exception e) {
-      if (e instanceof ConfigurationException) {
-        ConfigurationException ce = (ConfigurationException) e;
-        throw new BobcatRuntimeException(
-            "Configuration exception: " + ce.getErrorMessages().toString(), e);
-      }
+    } catch(ConfigurationException e){
+      throw new BobcatRuntimeException(
+          "Configuration exception: " + e.getErrorMessages().toString(), e);
+    }catch (Exception e) {
       throw new BobcatRuntimeException(e.getMessage(), e);
     } finally {
       contextStack.pop();

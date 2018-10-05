@@ -20,17 +20,16 @@
 
 package com.cognifide.qa.bb.utils;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-
-import org.openqa.selenium.support.FindAll;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.FindBys;
-
 import com.cognifide.qa.bb.mapper.field.PageObjectProviderHelper;
 import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
+import com.cognifide.qa.bb.qualifier.PageObjectInterface;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+import org.openqa.selenium.support.FindAll;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindBys;
 
 /**
  * Helper class with methods for managing annotations.
@@ -38,7 +37,7 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 public final class AnnotationsHelper {
 
   private static final Class<?>[] FIND_ANNOTATIONS =
-      new Class<?>[] {FindAll.class, FindBy.class, FindBys.class};
+      new Class<?>[]{FindAll.class, FindBy.class, FindBys.class};
 
   private AnnotationsHelper() {
     // class with only static methods
@@ -81,11 +80,14 @@ public final class AnnotationsHelper {
 
   /**
    * Checks if Generic Type of field is annoted with PageObject Annotation
+   *
    * @param field field to check
    * @return if annotation is present
    */
-  public static boolean isGenericTypeAnnotedWithPageObject(Field field) {
+  public static boolean isGenericTypeAnnotedWithPageObjectOrInterface(Field field) {
     Class<?> genericType = PageObjectProviderHelper.getGenericType(field);
-    return genericType != null && genericType.isAnnotationPresent(PageObject.class);
+    return genericType != null && (genericType.isAnnotationPresent(PageObject.class) || genericType
+        .isAnnotationPresent(
+            PageObjectInterface.class));
   }
 }

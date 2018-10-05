@@ -24,7 +24,6 @@ import com.google.inject.Inject;
 import io.qameta.allure.Step;
 import javax.inject.Named;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * Interface that marks page as being from AEM
@@ -42,6 +41,11 @@ public abstract class AemAuthorPage {
   protected String authorUrl;
 
   @Inject
+  @Named("bobcat.author.path")
+  protected String fullUrl;
+
+
+  @Inject
   @Named("page.title.timeout")
   protected int pageTitleTimeout;
 
@@ -57,15 +61,8 @@ public abstract class AemAuthorPage {
   /**
    * return full url
    */
-  public abstract String getFullUrl();
-
-  /**
-   * return title
-   */
-  public abstract String getTitle();
-
-  public boolean isDisplayed() {
-    return webElementUtils
-        .isConditionMet(ExpectedConditions.titleIs(getTitle()), pageTitleTimeout);
+  public String getFullUrl() {
+    return fullUrl;
   }
+
 }

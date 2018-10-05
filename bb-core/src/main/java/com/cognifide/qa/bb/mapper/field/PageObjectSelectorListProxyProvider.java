@@ -69,7 +69,7 @@ public class PageObjectSelectorListProxyProvider extends PageObjectListProxyProv
   @Override
   public boolean accepts(Field field) {
     return isList(field) && AnnotationsHelper.isFindPageObjectAnnotationPresent(field)
-      && AnnotationsHelper.isGenericTypeAnnotedWithPageObject(field);
+      && AnnotationsHelper.isGenericTypeAnnotedWithPageObjectOrInterface(field);
   }
 
   /**
@@ -79,7 +79,7 @@ public class PageObjectSelectorListProxyProvider extends PageObjectListProxyProv
   @Override
   public Optional<Object> provideValue(Object pageObject, Field field, PageObjectContext context) {
     FramePath framePath = frameMap.get(pageObject);
-    By selector = PageObjectProviderHelper.getSelectorFromGenericPageObject(field);
+    By selector = PageObjectProviderHelper.getSelectorFromGenericPageObject(field,injector.getOriginalInjector());
     SearchContext searchContext = getSearchContext(context, field);
     NestedSelectorScopedElementLocator locator = new NestedSelectorScopedElementLocator(searchContext,
       context.getElementLocatorFactory(), selector, field.isAnnotationPresent(Global.class));

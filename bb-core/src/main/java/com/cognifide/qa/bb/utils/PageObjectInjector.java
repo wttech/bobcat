@@ -166,4 +166,8 @@ public class PageObjectInjector {
       stack.pop();
     }
   }
+
+  public Injector getOriginalInjector() {
+    return injector;
+  }
 }

@@ -58,7 +58,7 @@ public class AuthorAuthenticationController implements AemAuthenticationControll
   }
 
   @Override
-  @Step("Login to AEM and open page {aemAuthorPage.FULL_URL}")
+  @Step("Login to AEM and open page {aemAuthorPage.fullUrl}")
   public void login(AemAuthorPage aemAuthorPage) {
     this.login();
     aemAuthorPage.open();

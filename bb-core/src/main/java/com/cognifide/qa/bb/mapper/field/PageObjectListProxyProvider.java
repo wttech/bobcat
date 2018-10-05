@@ -57,7 +57,7 @@ public class PageObjectListProxyProvider implements FieldProvider {
   @Override
   public boolean accepts(Field field) {
     return isList(field) && AnnotationsHelper.isFindByAnnotationPresent(field)
-        && AnnotationsHelper.isGenericTypeAnnotedWithPageObject(field);
+        && AnnotationsHelper.isGenericTypeAnnotedWithPageObjectOrInterface(field);
   }
 
   /**

@@ -19,6 +19,10 @@
  */
 package com.cognifide.qa.bb.core;
 
+import com.cognifide.qa.bb.core.pageobjects.qualifier.findpageobject.Food;
+import com.cognifide.qa.bb.core.pageobjects.qualifier.findpageobject.Item;
+import com.cognifide.qa.bb.core.pageobjects.qualifier.findpageobject.ListItem;
+import com.cognifide.qa.bb.core.pageobjects.qualifier.findpageobject.ListItemImpl;
 import com.cognifide.qa.bb.logging.ReporterModule;
 import com.cognifide.qa.bb.modules.CoreModule;
 import com.google.inject.AbstractModule;
@@ -29,6 +33,8 @@ public class TestModule extends AbstractModule {
   protected void configure() {
     install(new CoreModule());
     install(new ReporterModule());
+    bind(Item.class).to(Food.class);
+    bind(ListItem.class).to(ListItemImpl.class);
   }
 
 }

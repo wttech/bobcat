@@ -19,23 +19,19 @@
  */
 package com.cognifide.qa.bb.core.pageobjects.qualifier.findpageobject;
 
-import com.cognifide.qa.bb.qualifier.FindPageObject;
+import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
+import com.google.inject.Inject;
+import org.openqa.selenium.WebElement;
 
-@PageObject
-public class MasterPage {
+@PageObject(css = "li")
+public class ListItemImpl implements ListItem{
 
-  @FindPageObject
-  private Drinks drinks;
+  @Inject
+  @CurrentScope
+  private WebElement scope;
 
-  @FindPageObject
-  private Item food;
-
-  public Drinks getDrinks() {
-    return drinks;
-  }
-
-  public Item getFood() {
-    return food;
+  public String getText() {
+    return scope.getText();
   }
 }
