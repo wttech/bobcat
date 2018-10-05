@@ -24,6 +24,7 @@ import com.cognifide.qa.bb.aem.core.pages.AemPageManipulationException;
 import com.cognifide.qa.bb.aem.core.pages.AemTestPageControler;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import io.qameta.allure.Step;
 import java.io.IOException;
 import java.util.Collections;
 import org.apache.http.Consts;
@@ -48,6 +49,7 @@ public class SlingTestPageControler implements AemTestPageControler<SlingTestPag
    * @param testPageData data for page creation
    */
   @Override
+  @Step("Create test page {testPageData.contentPath}")
   public void createTestPage(SlingTestPageData testPageData) throws AemPageManipulationException {
     HttpPost request = new HttpPost(authorIP + testPageData.getContentPath());
     request.setEntity(new UrlEncodedFormEntity(testPageData.getContent(), Consts.UTF_8));
@@ -63,6 +65,7 @@ public class SlingTestPageControler implements AemTestPageControler<SlingTestPag
    * @param testPageData information about page to remove
    */
   @Override
+  @Step("Delete test page {testPageData.contentPath}")
   public void deleteTestPage(SlingTestPageData testPageData) throws AemPageManipulationException {
     HttpPost request = new HttpPost(authorIP + testPageData.getContentPath());
     request.setEntity(new UrlEncodedFormEntity(
