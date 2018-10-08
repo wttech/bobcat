@@ -44,6 +44,7 @@ public final class PropertyBinder {
    * contain any number of paths. Paths in configuration.paths should be separated with semicolons.
    *
    * @param binder The Binder instance that will store the newly created property bindings.
+   * @param configStrategy the selected configuration strategy
    */
   public static void bindProperties(Binder binder, ConfigStrategy configStrategy) {
     Properties properties = configStrategy.gatherProperties();

@@ -55,6 +55,7 @@ public class BobcatWait {
 
   /**
    * @deprecated it's 2018, don't use sleeps in your tests :)
+   * @param durationInSec duration in seconds
    */
   @Deprecated
   public static void sleep(double durationInSec) {

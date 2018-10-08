@@ -57,7 +57,7 @@ public class BobcatWait {
   }
 
   /**
-   * Allows to customize the timings (explicit & implicit timeout + polling time).
+   * Allows to customize the timings (explicit &amp; implicit timeout + polling time).
    *
    * @param timings a {@link Timings} instance - use the {@link TimingsBuilder} to create one
    * @return a self reference

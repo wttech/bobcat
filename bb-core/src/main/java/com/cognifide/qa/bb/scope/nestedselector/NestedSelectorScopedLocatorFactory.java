@@ -46,16 +46,17 @@ public class NestedSelectorScopedLocatorFactory
   /**
    * Creates a selector-scoped locator factory with scope within parent scope.
    *
-   * @param searchContext Initial search context
-   * @param selector Scope of the created locator
-   * @param parentFactory Factory that represents scope for elements
+   * @param searchContext      Initial search context
+   * @param selector           Scope of the created locator
+   * @param parentFactory      Factory that represents scope for elements
+   * @param globalCurrentScope indicates if field is in global scope
    */
   public NestedSelectorScopedLocatorFactory(SearchContext searchContext, By selector,
-      ElementLocatorFactory parentFactory, boolean globalCurrenScope) {
+      ElementLocatorFactory parentFactory, boolean globalCurrentScope) {
     this.searchContext = searchContext;
     this.selector = selector;
     this.parentFactory = parentFactory;
-    this.globalCurrenScope = globalCurrenScope;
+    this.globalCurrenScope = globalCurrentScope;
   }
 
   /**

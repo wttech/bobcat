@@ -52,6 +52,7 @@ public @interface LoadableComponent {
   /**
    * Condition implementation to be evaluated. Class have to implement {@link LoadableComponentCondition}
    * interface.
+   * @return the condition
    */
   Class<? extends LoadableComponentCondition> condClass();
 }
