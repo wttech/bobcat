@@ -30,14 +30,16 @@ public final class ConfigKeys {
    */
   public static final String PROXY_PORT = "proxy.port";
 
-  public static final String BASE_URL = "base.url";
-
   public static final String LOGIN_TOKEN = "login.token.name";
 
   public static final String WEBDRIVER_APPIUM_URL = "webdriver.appium.url";
 
   public static final String WEBDRIVER_CAP_PLATFORM_NAME = "webdriver.cap.platformName";
 
+  /**
+   * @deprecated since 1.6.0; use {@code timings.*} properties
+   */
+  @Deprecated
   public static final String WEBDRIVER_DEFAULT_TIMEOUT = "webdriver.defaultTimeout";
 
   public static final String WEBDRIVER_FIREFOX_BIN = "webdriver.firefox.bin";
@@ -45,14 +47,6 @@ public final class ConfigKeys {
   public static final String WEBDRIVER_MAXIMIZE = "webdriver.maximize";
 
   public static final String WEBDRIVER_MOBILE = "webdriver.mobile";
-
-  public static final String WEBDRIVER_PROXY_COOKIE = "webdriver.secure.proxy.cookie";
-
-  public static final String WEBDRIVER_PROXY_COOKIE_NAME = "webdriver.secure.proxy.cookie_name";
-
-  public static final String WEBDRIVER_PROXY_COOKIE_VALUE = "webdriver.secure.proxy.cookie_value";
-
-  public static final String WEBDRIVER_PROXY_COOKIE_DOMAIN = "webdriver.secure.proxy.cookie_domain";
 
   public static final String WEBDRIVER_REUSABLE = "webdriver.reusable";
 
@@ -62,14 +56,26 @@ public final class ConfigKeys {
 
   public static final String WEBDRIVER_URL = "webdriver.url";
 
+  @Deprecated
   public static final String CONFIGURATION_PATHS = "configuration.paths";
 
+  @Deprecated
   public static final String DEFAULT_PROPERTIES_NAME = "default.properties";
 
+  @Deprecated
   public static final String JUNIT_RERUNS = "junit.reruns";
 
   public static final String CONFIG_STRATEGY = "bobcat.config";
   public static final String WEBDRIVER_PROP_PREFIX = "webdriver.";
+
+  public static final String COOKIES_LOAD_AUTOMATICALLY = "cookies.loadAutomatically";
+  public static final String COOKIES_FILE = "cookies.file";
+
+  public static final String MODIFIERS_IMPLICIT_TIMEOUT = "modifiers.implicitTimeout";
+
+  public static final String TIMINGS_EXPLICIT_TIMEOUT = "timings.explicitTimeout";
+  public static final String TIMINGS_IMPLICIT_TIMEOUT = "timings.implicitTimeout";
+  public static final String TIMINGS_POLLING_INTERVAL = "timings.pollingInterval";
 
   private ConfigKeys() {
   }

@@ -1,0 +1,8 @@
+cookies:
+  - name: 'test-cookie'
+    value: 'value'
+    path: '/'
+    domain: 'cognifide.github.io'
+    expiry: ''
+    secure: false
+    httpOnly: false

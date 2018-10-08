@@ -27,13 +27,16 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.apache.commons.lang3.CharEncoding;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.runner.Description;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
 
+/**
+ * @deprecated since 1.6.0, removing re-run feature
+ */
+@Deprecated
 class BobcumberListener extends RunListener {
 
   private static final String FEATURE_STATEMENT = "feature";

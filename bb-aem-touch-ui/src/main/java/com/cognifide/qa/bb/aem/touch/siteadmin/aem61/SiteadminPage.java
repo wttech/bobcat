@@ -68,7 +68,6 @@ public class SiteadminPage implements Loadable, SiteadminActions {
 
   @Global
   @FindBy(css = ".cq-siteadmin-admin-childpages")
-  @LoadableComponent(condClass = IsLoadedCondition.class)
   private ChildPageWindow childPageWindow;
 
   @FindBy(
@@ -168,7 +167,7 @@ public class SiteadminPage implements Loadable, SiteadminActions {
 
   @Override
   public SiteadminActions deleteSubPages() {
-    if (childPageWindow.hasSubPages()) {
+    if (isLoadedCondition() && childPageWindow.hasSubPages()) {
       childPageWindow.pressSelectAllPages();
       toolbar.deletePage();
     }
@@ -177,6 +176,7 @@ public class SiteadminPage implements Loadable, SiteadminActions {
 
   @Override
   public boolean isPagePresent(String title) {
+    wait.withTimeout(Timeouts.SMALL).until(ignored -> childPageWindow.isLoaded());
     return childPageWindow.containsPage(title);
   }
 
@@ -208,15 +208,18 @@ public class SiteadminPage implements Loadable, SiteadminActions {
 
   @Override
   public boolean hasChildPages() {
+    wait.withTimeout(Timeouts.SMALL).until(ignored -> childPageWindow.isLoaded());
     return childPageWindow.hasSubPages();
   }
 
   @Override
   public ChildPageRow getPageFromList(String title) {
+    wait.withTimeout(Timeouts.SMALL).until(ignored -> childPageWindow.isLoaded());
     return childPageWindow.getChildPageRow(title);
   }
 
   private void selectPage(String title) {
+    wait.withTimeout(Timeouts.SMALL).until(ignored -> childPageWindow.isLoaded());
     childPageWindow.selectPage(title);
   }
 
@@ -257,5 +260,4 @@ public class SiteadminPage implements Loadable, SiteadminActions {
   private boolean isLoadedCondition() {
     return conditions.isConditionMet(ignored -> childPageWindow.isLoaded());
   }
-
 }

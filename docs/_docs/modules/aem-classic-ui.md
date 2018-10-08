@@ -2,7 +2,10 @@
 title: "Module: AEM Classic UI"
 ---
 
-{% include under-construction.html %}
+As of version `1.6.0` this module is marked as EOL - it is no longer maintained by Bobcat team. In case of any questions, let us know!
+{: .notice--warning}
+
+## Installation
 
 To get AEM Classic UI module to be ready to use follow these two steps:
 

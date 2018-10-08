@@ -33,11 +33,13 @@ import com.google.inject.name.Named;
 
 /**
  * This is an utility class that extends Selenium's wait functionality. If you need wait/until replacement,
- * inject instance of this class into your PageObject. If you only need "sleep" function, call it directly
- * from BobcatWait statically, because "sleep" is static.
+ * inject instance of this class into your PageObject.
  * <p>
  * This class serves as a factory for BobcatWebDriverWait instances.
+ *
+ * @deprecated moved under {@link com.cognifide.qa.bb.wait.BobcatWait}
  */
+@Deprecated
 public class BobcatWait {
 
   private static final Logger LOG = LoggerFactory.getLogger(BobcatWait.class);
@@ -52,18 +54,9 @@ public class BobcatWait {
   private WebDriverProvider webDriverProvider;
 
   /**
-   * This is a wrapper method for Thread's sleep method.
-   * <p>
-   * It catches and logs InterruptedException thrown from original sleep method,
-   * so the user doesn't need to bother with writing a try-catch block.
-   * <p>
-   * Use this method only if you can't use "withTimeout" (which is more flexible).
-   * <p>
-   * If you don't use "withTimeout", call "sleep" directly from BobcatWait,
-   * without creating an instance.
-   *
-   * @param durationInSec Thread will sleep for durationInSec seconds.
+   * @deprecated it's 2018, don't use sleeps in your tests :)
    */
+  @Deprecated
   public static void sleep(double durationInSec) {
     try {
       TimeUnit.MILLISECONDS.sleep((long) (durationInSec * 1000));

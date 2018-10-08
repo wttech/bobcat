@@ -65,7 +65,6 @@ public class YamlConfigTest {
   }
 
   private Injector getInjector() {
-    System.setProperty("bobcat.config", "yaml");
     return Guice.createInjector(new AbstractModule() {
       @Override
       protected void configure() {

@@ -15,18 +15,26 @@
  */
 package com.cognifide.qa.bb.aem.touch.siteadmin.aem61;
 
+import java.util.Objects;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import com.cognifide.qa.bb.aem.touch.siteadmin.aem61.conditions.NotDisabledCondition;
+import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
-import com.cognifide.qa.bb.loadable.condition.impl.VisibilityCondition;
+import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
-import com.cognifide.qa.bb.aem.touch.siteadmin.aem61.conditions.NotDisabledCondition;
+import com.google.inject.Inject;
 
 @PageObject
 public class CreatePageWizard {
+
+  @Inject
+  private BobcatWait bobcatWait;
 
   @FindPageObject
   private TemplateList templateList;
@@ -41,12 +49,10 @@ public class CreatePageWizard {
 
   @Global
   @FindBy(css = "button.coral-Wizard-nextButton[type='submit']")
-  @LoadableComponent(condClass = NotDisabledCondition.class)
   private WebElement createButton;
 
   @Global
   @FindBy(xpath = "//button[contains(text(), 'Done')]")
-  @LoadableComponent(condClass = VisibilityCondition.class)
   private WebElement doneButtonOnModal;
 
   public CreatePageWizard selectTemplate(String templateName) {
@@ -66,8 +72,16 @@ public class CreatePageWizard {
   }
 
   public void submit() {
-    createButton.click();
-    doneButtonOnModal.click();
+    getCreateButton().click();
+    getDoneButtonOnModal().click();
   }
 
+  public WebElement getCreateButton() {
+    bobcatWait.withTimeout(Timeouts.SMALL).until(input -> Objects.isNull(createButton.getAttribute("disabled")));
+    return createButton;
+  }
+
+  public WebElement getDoneButtonOnModal() {
+    return bobcatWait.withTimeout(Timeouts.SMALL).until(ExpectedConditions.visibilityOf(doneButtonOnModal));
+  }
 }

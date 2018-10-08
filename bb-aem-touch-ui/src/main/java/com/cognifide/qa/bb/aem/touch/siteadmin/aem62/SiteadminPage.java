@@ -68,7 +68,6 @@ public class SiteadminPage implements SiteadminActions, Loadable {
 
   @Global
   @FindBy(css = ".cq-siteadmin-admin-childpages")
-  @LoadableComponent(condClass = IsLoadedCondition.class)
   private ChildPageWindow childPageWindow;
 
   @Inject
@@ -128,6 +127,7 @@ public class SiteadminPage implements SiteadminActions, Loadable {
 
   @Override
   public SiteadminActions publishPage(String title) {
+    waitUntilChildPageWindowIsLoaded();
     childPageWindow.selectPage(title);
     siteadminToolbar.publishPageNow();
     waitForExpectedStatus(title, ActivationStatus.PUBLISHED);
@@ -136,6 +136,7 @@ public class SiteadminPage implements SiteadminActions, Loadable {
 
   @Override
   public SiteadminActions unpublishPage(String title) {
+    waitUntilChildPageWindowIsLoaded();
     childPageWindow.selectPage(title);
     siteadminToolbar.unpublishPageNow();
     waitForExpectedStatus(title, ActivationStatus.NOT_PUBLISHED);
@@ -144,6 +145,7 @@ public class SiteadminPage implements SiteadminActions, Loadable {
 
   @Override
   public SiteadminActions publishPageLater(String title, LocalDateTime scheduledDateTime) {
+    waitUntilChildPageWindowIsLoaded();
     childPageWindow.selectPage(title);
     siteadminToolbar.publishPageLater(scheduledDateTime);
     wait.withTimeout(Timeouts.SMALL).until(input -> isPagePresent(title));
@@ -153,6 +155,7 @@ public class SiteadminPage implements SiteadminActions, Loadable {
 
   @Override
   public SiteadminActions unpublishPageLater(String title, LocalDateTime scheduledDateTime) {
+    waitUntilChildPageWindowIsLoaded();
     childPageWindow.selectPage(title);
     siteadminToolbar.unpublishPageLater(scheduledDateTime);
     wait.withTimeout(Timeouts.SMALL).until(input -> isPagePresent(title));
@@ -162,6 +165,7 @@ public class SiteadminPage implements SiteadminActions, Loadable {
 
   @Override
   public SiteadminActions deletePage(String title) {
+    waitUntilChildPageWindowIsLoaded();
     childPageWindow.selectPage(title);
     int pageCount = childPageWindow.getPageCount();
     siteadminToolbar.deleteSelectedPages();
@@ -171,6 +175,7 @@ public class SiteadminPage implements SiteadminActions, Loadable {
 
   @Override
   public SiteadminActions deleteSubPages() {
+    waitUntilChildPageWindowIsLoaded();
     if (childPageWindow.hasSubPages()) {
       childPageWindow.pressSelectAllPages();
       siteadminToolbar.deleteSelectedPages();
@@ -180,6 +185,7 @@ public class SiteadminPage implements SiteadminActions, Loadable {
 
   @Override
   public SiteadminActions copyPage(String title, String destination) {
+    waitUntilChildPageWindowIsLoaded();
     childPageWindow.selectPage(title);
     siteadminToolbar.copyPage();
     navigateInteractively(destination);
@@ -191,6 +197,7 @@ public class SiteadminPage implements SiteadminActions, Loadable {
 
   @Override
   public SiteadminActions movePage(String title, String destinationPath) {
+    waitUntilChildPageWindowIsLoaded();
     childPageWindow.selectPage(title);
     siteadminToolbar.movePage(destinationPath);
     return this;
@@ -198,16 +205,19 @@ public class SiteadminPage implements SiteadminActions, Loadable {
 
   @Override
   public boolean isPagePresent(String title) {
+    waitUntilChildPageWindowIsLoaded();
     return childPageWindow.containsPage(title);
   }
 
   @Override
   public boolean hasChildPages() {
+    waitUntilChildPageWindowIsLoaded();
     return childPageWindow.hasSubPages();
   }
 
   @Override
   public ChildPageRow getPageFromList(String title) {
+    waitUntilChildPageWindowIsLoaded();
     return childPageWindow.getChildPageRow(title);
   }
 
@@ -316,5 +326,9 @@ public class SiteadminPage implements SiteadminActions, Loadable {
                 String.format("Unable to find a path to destination \"%s\"", destination)))
             .getKey();
     navigatorDropdown.selectByPath(closestPath);
+  }
+
+  private void waitUntilChildPageWindowIsLoaded() {
+    wait.withTimeout(Timeouts.MINIMAL).until(ignored -> childPageWindow.isLoaded());
   }
 }

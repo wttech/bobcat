@@ -25,10 +25,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * @deprecated since 1.6.0, will be removed together with Loadable functionality: JUnit5 tests won't require any additional annotations going forward
+ */
+@Deprecated
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Inherited
 public @interface RunWithJunit5 {
-
 
 }

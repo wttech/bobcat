@@ -19,8 +19,10 @@
  */
 package com.cognifide.qa.bb.modules;
 
-import com.cognifide.qa.bb.config.PropertyBinder;
 import com.cognifide.qa.bb.SystemType;
+import com.cognifide.qa.bb.config.ConfigStrategy;
+import com.cognifide.qa.bb.config.ConfigStrategyProvider;
+import com.cognifide.qa.bb.config.PropertyBinder;
 import com.google.inject.AbstractModule;
 
 /**
@@ -29,7 +31,8 @@ import com.google.inject.AbstractModule;
 public class PropertyModule extends AbstractModule {
   @Override
   protected void configure() {
-    PropertyBinder.bindProperties(binder());
+    ConfigStrategy strategy = ConfigStrategyProvider.get();
+    PropertyBinder.bindProperties(binder(), strategy);
     bind(SystemType.class).toInstance(SystemType.current());
   }
 }

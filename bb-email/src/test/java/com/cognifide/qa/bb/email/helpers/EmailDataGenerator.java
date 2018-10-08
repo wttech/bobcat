@@ -68,6 +68,7 @@ public class EmailDataGenerator {
     emailData.setAddressTo(addressTo);
     emailData.setMessageContent(message);
     emailData.setSubject(subject);
+    emailData.setReceivedDateTime(emailData.getReceivedDateTime());
     return emailData;
   }
 
