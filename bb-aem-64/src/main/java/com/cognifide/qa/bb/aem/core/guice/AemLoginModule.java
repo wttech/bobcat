@@ -19,23 +19,13 @@
  */
 package com.cognifide.qa.bb.aem.core.guice;
 
-import com.cognifide.qa.bb.aem.core.constants.AemConfigKeys;
 import com.cognifide.qa.bb.aem.core.login.AemAuthCookieFactory;
 import com.cognifide.qa.bb.aem.core.login.AemAuthCookieFactoryImpl;
 import com.cognifide.qa.bb.aem.core.login.AemAuthenticationController;
 import com.cognifide.qa.bb.aem.core.login.AuthorAuthenticationController;
-import com.cognifide.qa.bb.aem.core.pages.AemTestPageControler;
-import com.cognifide.qa.bb.aem.core.pages.sling.SlingTestPageControler;
-import com.cognifide.qa.bb.aem.core.siteadmin.SiteAdminAction;
 import com.cognifide.qa.bb.aem.core.siteadmin.SiteAdminController;
-import com.cognifide.qa.bb.aem.core.siteadmin.aem64.AemSiteAdminController;
-import com.cognifide.qa.bb.aem.core.siteadmin.aem64.CreatePageAction;
-import com.cognifide.qa.bb.provider.http.HttpClientProvider;
+import com.cognifide.qa.bb.aem.core.siteadmin.AemSiteAdminController;
 import com.google.inject.AbstractModule;
-import com.google.inject.Provides;
-import com.google.inject.multibindings.Multibinder;
-import com.google.inject.name.Named;
-import org.apache.http.impl.client.CloseableHttpClient;
 
 /**
  * Module that need to be installed to use login to AEM functions

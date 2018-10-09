@@ -17,33 +17,22 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.pages;
+package com.cognifide.qa.bb.aem.core.siteadmin;
 
-import com.cognifide.qa.bb.page.Page;
-import com.google.inject.Inject;
-import io.qameta.allure.Step;
-import javax.inject.Named;
-import org.openqa.selenium.WebDriver;
+import com.cognifide.qa.bb.aem.core.siteadmin.SiteAdminActionData;
 
 /**
- * Abstract class that marks page as being from AEM
+ * Site Action Data for Create Page Action
  */
-public class AemAuthorPage<T extends AemAuthorPage> extends Page {
+public class CreatePageActionData implements SiteAdminActionData {
 
-  @Inject
-  protected WebDriver webDriver;
+  private String pageName;
 
-  @Inject
-  @Named("author.url")
-  protected String authorUrl;
-
-  /**
-   * open the page in browser
-   */
-  @Step("Open page")
-  public T open() {
-    webDriver.get(authorUrl + getFullUrl());
-    return (T) this;
+  public CreatePageActionData(String pageName) {
+    this.pageName = pageName;
   }
 
+  public String getPageName() {
+    return pageName;
+  }
 }

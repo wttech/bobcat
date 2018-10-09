@@ -17,23 +17,19 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.siteadmin.aem64;
+package com.cognifide.qa.bb.aem.core.siteadmin;
 
-import com.cognifide.qa.bb.aem.core.siteadmin.SiteAdminAction;
 import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 
 @PageObject
 public class CreatePageAction implements SiteAdminAction<CreatePageActionData> {
 
   public static final String PAGE_CREATE = "pageCreateAction";
-
-  @Inject
-  @Named("author.url")
-  private String authorUrl;
 
   @Inject
   private WebDriver webDriver;
@@ -47,8 +43,8 @@ public class CreatePageAction implements SiteAdminAction<CreatePageActionData> {
   }
 
   @Override
+  @Step("Create page {actionData.pageName}")
   public void action(CreatePageActionData actionData) {
-    webDriver.get(authorUrl+"/sites.html");
     toolbar.create();
   }
 }

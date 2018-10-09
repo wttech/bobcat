@@ -17,22 +17,41 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.siteadmin.aem64;
+package com.cognifide.qa.bb.page;
 
-import com.cognifide.qa.bb.aem.core.siteadmin.SiteAdminActionData;
+import static com.cognifide.qa.bb.page.BobcatPageFactory.BOBCAT_PAGE_PATH;
+
+import com.google.inject.Inject;
+import io.qameta.allure.Step;
+import javax.inject.Named;
+import org.openqa.selenium.WebDriver;
 
 /**
- * Site Action Data for Create Page Action
+ * Abstract class that marks page
  */
-public class CreatePageActionData implements SiteAdminActionData {
+public class Page<T extends Page> {
 
-  private String pageName;
+  @Inject
+  protected WebDriver webDriver;
 
-  public CreatePageActionData(String pageName) {
-    this.pageName = pageName;
+  @Inject
+  @Named(BOBCAT_PAGE_PATH)
+  protected String fullUrl;
+
+  /**
+   * open the page in browser
+   */
+  @Step("Open page")
+  public T open() {
+    webDriver.get(getFullUrl());
+    return (T) this;
   }
 
-  public String getPageName() {
-    return pageName;
+  /**
+   * return full url
+   */
+  public String getFullUrl() {
+    return fullUrl;
   }
+
 }

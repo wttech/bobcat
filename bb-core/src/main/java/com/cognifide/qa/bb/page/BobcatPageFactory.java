@@ -17,29 +17,38 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.pages;
+package com.cognifide.qa.bb.page;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.name.Names;
 
-public class AuthorPageFactory {
+/**
+ * Factory to create pages
+ */
+public class BobcatPageFactory {
+
+  public static final String BOBCAT_PAGE_PATH = "bobcat.page.path";
 
   @Inject
-  Injector injector;
+  private Injector injector;
 
-  public <T extends AemAuthorPage> T create(String path, Class<T> tClass) {
+  /**
+   * Create pages from selected path and selected type
+   * @param path
+   * @param tClass
+   * @param <T>
+   * @return
+   */
+  public <T extends Page> T create(String path, Class<T> tClass) {
     AbstractModule module = new AbstractModule() {
       @Override
       protected void configure() {
-        bind(String.class).annotatedWith(Names.named("bobcat.author.path")).toInstance(path);
+        bind(String.class).annotatedWith(Names.named(BOBCAT_PAGE_PATH)).toInstance(path);
       }
     };
     Injector childInjector = injector.createChildInjector(module);
     return childInjector.getInstance(tClass);
-
   }
-
-
 }

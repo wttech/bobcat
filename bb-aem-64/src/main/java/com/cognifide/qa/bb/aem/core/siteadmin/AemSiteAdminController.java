@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.siteadmin.aem64;
+package com.cognifide.qa.bb.aem.core.siteadmin;
 
 import com.cognifide.qa.bb.aem.core.siteadmin.SiteAdminAction;
 import com.cognifide.qa.bb.aem.core.siteadmin.SiteAdminController;
