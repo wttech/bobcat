@@ -19,10 +19,10 @@
  */
 package com.cognifide.qa.bb.aem.core.siteadmin;
 
+import com.cognifide.qa.bb.aem.core.siteadmin.internal.SiteToolbar;
 import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
-import com.google.inject.name.Named;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 
@@ -45,6 +45,6 @@ public class CreatePageAction implements SiteAdminAction<CreatePageActionData> {
   @Override
   @Step("Create page {actionData.pageName}")
   public void action(CreatePageActionData actionData) {
-    toolbar.create();
+    toolbar.create("Page");
   }
 }

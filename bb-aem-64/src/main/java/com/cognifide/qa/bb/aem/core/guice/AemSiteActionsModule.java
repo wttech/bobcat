@@ -21,6 +21,8 @@ package com.cognifide.qa.bb.aem.core.guice;
 
 import com.cognifide.qa.bb.aem.core.siteadmin.SiteAdminAction;
 import com.cognifide.qa.bb.aem.core.siteadmin.CreatePageAction;
+import com.cognifide.qa.bb.aem.core.siteadmin.internal.SiteToolbar;
+import com.cognifide.qa.bb.aem.core.siteadmin.internal.SiteToolbarImpl;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.MapBinder;
 
@@ -31,6 +33,7 @@ public class AemSiteActionsModule extends AbstractModule {
 
   @Override
   protected void configure() {
+    bind(SiteToolbar.class).to(SiteToolbarImpl.class);
     MapBinder<String,SiteAdminAction> siteAdminActions =
         MapBinder.newMapBinder(binder(),String.class, SiteAdminAction.class);
     siteAdminActions.addBinding(CreatePageAction.PAGE_CREATE).to(CreatePageAction.class);
