@@ -24,7 +24,7 @@ limitations under the License.
     <parent>
         <artifactId>bobcat</artifactId>
         <groupId>com.cognifide.qa.bb</groupId>
-        <version>1.6.0</version>
+        <version>1.6.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>bb-aem-classic</artifactId>
