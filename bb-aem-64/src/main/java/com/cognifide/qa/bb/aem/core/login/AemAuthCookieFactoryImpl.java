@@ -48,6 +48,14 @@ import org.slf4j.LoggerFactory;
 @ThreadScoped
 public class AemAuthCookieFactoryImpl implements AemAuthCookieFactory {
 
+  private static final String WEBDRIVER_PROXY_COOKIE = "webdriver.secure.proxy.cookie";
+
+  private static final String WEBDRIVER_PROXY_COOKIE_NAME = "webdriver.secure.proxy.cookie_name";
+
+  private static final String WEBDRIVER_PROXY_COOKIE_VALUE = "webdriver.secure.proxy.cookie_value";
+
+  private static final String WEBDRIVER_PROXY_COOKIE_DOMAIN = "webdriver.secure.proxy.cookie_domain";
+
   private static final Logger LOG = LoggerFactory.getLogger(AemAuthCookieFactoryImpl.class);
 
   private static final String DEFAULT_LOGIN_TOKEN = "login-token";
@@ -83,7 +91,7 @@ public class AemAuthCookieFactoryImpl implements AemAuthCookieFactory {
       CookieStore cookieStore = new BasicCookieStore();
       HttpClientContext context = HttpClientContext.create();
 
-      if ("true".equals(properties.getProperty(ConfigKeys.WEBDRIVER_PROXY_COOKIE))) {
+      if ("true".equals(properties.getProperty(WEBDRIVER_PROXY_COOKIE))) {
         addProxyCookie(cookieStore);
       }
 
@@ -129,9 +137,9 @@ public class AemAuthCookieFactoryImpl implements AemAuthCookieFactory {
 
   private void addProxyCookie(CookieStore cookieStore) {
     BasicClientCookie proxyCookie = new BasicClientCookie(
-        properties.getProperty(ConfigKeys.WEBDRIVER_PROXY_COOKIE_NAME),
-        properties.getProperty(ConfigKeys.WEBDRIVER_PROXY_COOKIE_VALUE));
-    proxyCookie.setDomain(properties.getProperty(ConfigKeys.WEBDRIVER_PROXY_COOKIE_DOMAIN));
+        properties.getProperty(WEBDRIVER_PROXY_COOKIE_NAME),
+        properties.getProperty(WEBDRIVER_PROXY_COOKIE_VALUE));
+    proxyCookie.setDomain(properties.getProperty(WEBDRIVER_PROXY_COOKIE_DOMAIN));
     proxyCookie.setPath("/");
     cookieStore.addCookie(proxyCookie);
   }

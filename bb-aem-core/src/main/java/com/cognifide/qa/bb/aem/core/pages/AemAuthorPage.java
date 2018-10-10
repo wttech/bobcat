@@ -23,15 +23,11 @@ import com.cognifide.qa.bb.page.Page;
 import com.google.inject.Inject;
 import io.qameta.allure.Step;
 import javax.inject.Named;
-import org.openqa.selenium.WebDriver;
 
 /**
  * Abstract class that marks page as being from AEM
  */
 public class AemAuthorPage<T extends AemAuthorPage> extends Page {
-
-  @Inject
-  protected WebDriver webDriver;
 
   @Inject
   @Named("author.url")
