@@ -21,8 +21,14 @@ package com.cognifide.qa.bb.aem.core.guice;
 
 import com.cognifide.qa.bb.aem.core.siteadmin.SiteAdminAction;
 import com.cognifide.qa.bb.aem.core.siteadmin.CreatePageAction;
+import com.cognifide.qa.bb.aem.core.siteadmin.internal.CreatePageProperties;
+import com.cognifide.qa.bb.aem.core.siteadmin.internal.CreatePagePropertiesImpl;
+import com.cognifide.qa.bb.aem.core.siteadmin.internal.CreatePageWizard;
+import com.cognifide.qa.bb.aem.core.siteadmin.internal.CreatePageWizardImpl;
 import com.cognifide.qa.bb.aem.core.siteadmin.internal.SiteToolbar;
 import com.cognifide.qa.bb.aem.core.siteadmin.internal.SiteToolbarImpl;
+import com.cognifide.qa.bb.aem.core.siteadmin.internal.TemplateList;
+import com.cognifide.qa.bb.aem.core.siteadmin.internal.TemplateListImpl;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.MapBinder;
 
@@ -34,6 +40,9 @@ public class AemSiteActionsModule extends AbstractModule {
   @Override
   protected void configure() {
     bind(SiteToolbar.class).to(SiteToolbarImpl.class);
+    bind(TemplateList.class).to(TemplateListImpl.class);
+    bind(CreatePageWizard.class).to(CreatePageWizardImpl.class);
+    bind(CreatePageProperties.class).to(CreatePagePropertiesImpl.class);
     MapBinder<String,SiteAdminAction> siteAdminActions =
         MapBinder.newMapBinder(binder(),String.class, SiteAdminAction.class);
     siteAdminActions.addBinding(CreatePageAction.PAGE_CREATE).to(CreatePageAction.class);
