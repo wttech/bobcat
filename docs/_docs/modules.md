@@ -47,25 +47,11 @@ This module is the heart of Bobcat. No matter which runner or technology you are
 More about its features: [here]({{site.baseurl}}/docs/modules/core/)
 {: .notice--info}
 
-### Module: JUnit
-
-This module is responsible for executing tests in JUnit 4.
-
-More about its features: [here]({{site.baseurl}}/docs/modules/junit/)
-{: .notice--info}
-
 ### Module: JUnit5
 
 This module is responsible for executing tests in JUnit5.
 
 More about its features: [here]({{site.baseurl}}/docs/modules/junit5/)
-{: .notice--info}
-
-### Module: Reports
-
-This module provides Bobcat's reporting engine which is dedicated for running tests with JUnit.
-
-More about its features: [here]({{site.baseurl}}/docs/modules/reports/)
 {: .notice--info}
 
 ### Module: Cucumber
@@ -96,8 +82,33 @@ This module contains a bunch of handy helpers when working in AEM in general.
 More about its features: [here]({{site.baseurl}}/docs/modules/aem-common/)
 {: .notice--info}
 
+----
+
+## Deprecated modules
+
+These modules are not supported anymore - you might still grab and use the latest version available.
+
+### Module: JUnit
+
+>Latest available version: `1.6.0`
+
+This module is responsible for executing tests in JUnit 4.
+
+More about its features: [here]({{site.baseurl}}/docs/modules/junit/)
+{: .notice--info}
+
+### Module: Reports
+
+>Latest available version: `1.6.0`
+
+This module provides Bobcat's reporting engine which is dedicated for running tests with JUnit.
+
+More about its features: [here]({{site.baseurl}}/docs/modules/reports/)
+{: .notice--info}
 
 ### Module: AEM Touch UI
+
+>Latest available version: `1.6.0`
 
 This module comes with ready page objects that may be utilized to automate AEM's Touch UI authoring interface.
 
@@ -105,6 +116,8 @@ More about its features: [here]({{site.baseurl}}/docs/modules/aem-touch-ui/)
 {: .notice--info}
 
 ### Module: AEM Classic
+
+>Latest available version: `1.6.0`
 
 This module is dedicated for working with AEM's Classic UI.
 

@@ -19,17 +19,19 @@
  */
 package com.cognifide.qa.bb.aem.touch.siteadmin.aem62;
 
+import java.util.Objects;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
-import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.aem.touch.siteadmin.aem61.conditions.NotDisabledCondition;
 import com.cognifide.qa.bb.constants.Timeouts;
+import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
+import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
 
 @PageObject
@@ -45,7 +47,6 @@ public class MovePageWizard {
   private WebElement nextButton;
 
   @FindBy(css = "coral-panel.is-selected button.coral-Button--primary[data-foundation-wizard-control-action='next']")
-  @LoadableComponent(condClass = NotDisabledCondition.class)
   private WebElement moveButton;
 
   @FindBy(css = "coral-columnview-item-thumbnail")
@@ -59,6 +60,7 @@ public class MovePageWizard {
   public MovePageWizard overrideDestinationPage(String destination) {
     anyPage.click();
     JavascriptExecutor jse = (JavascriptExecutor) driver;
+    wait.withTimeout(Timeouts.SMALL).until(input -> Objects.isNull(moveButton.getAttribute("disabled")));
     wait.withTimeout(Timeouts.SMALL).until(input -> moveButton.isEnabled(), Timeouts.MINIMAL);
     jse.executeScript(
         "document.getElementsByClassName('foundation-advancedselect-values')[0].removeAttribute('hidden');");
@@ -69,8 +71,8 @@ public class MovePageWizard {
   }
 
   public MovePageWizard move() {
+    wait.withTimeout(Timeouts.SMALL).until(input -> Objects.isNull(moveButton.getAttribute("disabled")));
     moveButton.click();
     return this;
   }
-
 }

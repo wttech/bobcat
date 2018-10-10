@@ -26,13 +26,12 @@ import java.util.List;
 import org.openqa.selenium.WebElement;
 
 import com.cognifide.qa.bb.mapper.PageObjectTypeListener;
-import com.cognifide.qa.bb.mapper.field.PageObjectSelectorListProxyProvider;
-import com.cognifide.qa.bb.loadable.mapper.TestObjectTypeListener;
-import com.cognifide.qa.bb.mapper.field.SelectorPageObjectProvider;
 import com.cognifide.qa.bb.mapper.field.CurrentFrameProvider;
 import com.cognifide.qa.bb.mapper.field.FieldProvider;
 import com.cognifide.qa.bb.mapper.field.PageObjectListProxyProvider;
+import com.cognifide.qa.bb.mapper.field.PageObjectSelectorListProxyProvider;
 import com.cognifide.qa.bb.mapper.field.ScopedPageObjectProvider;
+import com.cognifide.qa.bb.mapper.field.SelectorPageObjectProvider;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.scope.current.CurrentScopeListProvider;
 import com.cognifide.qa.bb.scope.current.CurrentWebElementProvider;
@@ -50,7 +49,6 @@ public class PageObjectsModule extends AbstractModule {
   protected void configure() {
 
     bindListener(any(), new PageObjectTypeListener());
-    bindListener(any(), new TestObjectTypeListener());
 
     Multibinder<FieldProvider> fieldProviders =
         Multibinder.newSetBinder(binder(), FieldProvider.class);

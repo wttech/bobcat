@@ -20,6 +20,8 @@
 package com.cognifide.qa.bb.email;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,7 +31,6 @@ import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Part;
 
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,7 +71,7 @@ public final class EmailDataFactory {
       String subject = getSubjectString(message);
       emailData.setSubject(subject);
 
-      DateTime receivedDateTime = getReceivedDate(message);
+      LocalDateTime receivedDateTime = getReceivedDate(message);
       emailData.setReceivedDateTime(receivedDateTime);
       emailData.setAddressFrom(getAddressFrom(message));
       emailData.setAddressTo(getAddressTo(message));
@@ -104,8 +105,9 @@ public final class EmailDataFactory {
     }
   }
 
-  private DateTime getReceivedDate(Message message) throws MessagingException {
-    return new DateTime(message.getReceivedDate());
+  private LocalDateTime getReceivedDate(Message message) throws MessagingException {
+    return message.getReceivedDate() != null ? message.getReceivedDate().toInstant()
+        .atZone(ZoneId.systemDefault()).toLocalDateTime() : LocalDateTime.now();
   }
 
   private String getSubjectString(Message message) throws MessagingException {

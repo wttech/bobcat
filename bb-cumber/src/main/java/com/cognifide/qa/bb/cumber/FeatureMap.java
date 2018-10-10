@@ -26,6 +26,10 @@ import java.util.Set;
 
 import com.google.common.collect.Sets;
 
+/**
+ * @deprecated since 1.6.0, removing re-run feature
+ */
+@Deprecated
 class FeatureMap {
 
   private static final String COLON = ":";

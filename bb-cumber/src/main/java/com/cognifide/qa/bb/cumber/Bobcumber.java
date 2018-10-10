@@ -42,6 +42,7 @@ import com.cognifide.qa.bb.cumber.rerun.TooManyTestsToRerunException;
 import com.cognifide.qa.bb.provider.selenium.webdriver.WebDriverRegistry;
 import com.cognifide.qa.bb.utils.PropertyUtils;
 
+import cucumber.api.java.hu.De;
 import cucumber.api.junit.Cucumber;
 import cucumber.runtime.Backend;
 import cucumber.runtime.Runtime;
@@ -150,10 +151,12 @@ public class Bobcumber extends Cucumber {
     return !haveNoTests && !haveTooManyTests;
   }
 
+  @Deprecated
   File getFeatureFile() {
     return featureFile;
   }
 
+  @Deprecated
   File getStatisticsFile() {
     return statisticsFile;
   }

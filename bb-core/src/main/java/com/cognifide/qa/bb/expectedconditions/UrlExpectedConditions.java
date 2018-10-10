@@ -21,10 +21,14 @@ package com.cognifide.qa.bb.expectedconditions;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * Class contains custom ExpectedConditions for testing current URL
+ *
+ * @deprecated use methods from {@link ExpectedConditions}
  */
+@Deprecated
 public final class UrlExpectedConditions {
 
   private UrlExpectedConditions() {

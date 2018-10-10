@@ -35,16 +35,16 @@ public class ConfigStrategyProviderTest {
   public SystemPropertiesCleanupRule sysPropCleanup = new SystemPropertiesCleanupRule();
 
   @Test
-  public void get_returnsLegacyConfig_byDefault() {
+  public void get_returnsYamlConfig_byDefault() {
     assumeTrue(StringUtils.isBlank(System.getProperty(ConfigKeys.CONFIG_STRATEGY)));
     ConfigStrategy configStrategy = ConfigStrategyProvider.get();
-    assertThat(configStrategy).isInstanceOf(LegacyConfig.class);
+    assertThat(configStrategy).isInstanceOf(YamlConfig.class);
   }
 
   @Test
-  public void get_returnsYamlConfig_whenBobcatConfigSysPropIsSetToYaml() {
-    System.setProperty(ConfigKeys.CONFIG_STRATEGY, ConfigStrategyProvider.YAML_SYS_PROP_VALUE);
+  public void get_returnsLegacyConfig_whenBobcatConfigSysPropIsSetToYaml() {
+    System.setProperty(ConfigKeys.CONFIG_STRATEGY, ConfigStrategyProvider.LEGACY_SYS_PROP_VALUE);
     ConfigStrategy configStrategy = ConfigStrategyProvider.get();
-    assertThat(configStrategy).isInstanceOf(YamlConfig.class);
+    assertThat(configStrategy).isInstanceOf(LegacyConfig.class);
   }
 }

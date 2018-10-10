@@ -26,7 +26,9 @@ import java.lang.annotation.Target;
 
 /**
  * Add this annotation to Cucumber's test. Bobcat will store information about failed tests to file.
+ * @deprecated since 1.6.0, removing re-run feature
  */
+@Deprecated
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface StoreFailedResults {

@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,6 +25,7 @@ import java.util.List;
 import org.openqa.selenium.WebDriver;
 
 import com.cognifide.qa.bb.guice.ThreadScoped;
+import com.cognifide.qa.bb.wait.BobcatWait;
 import com.google.inject.Inject;
 
 /**
@@ -38,7 +39,7 @@ public final class BrowserTabsHelper {
   private WebDriver webDriver;
 
   @Inject
-  private WebElementUtils webElementUtils;
+  private BobcatWait bobcatWait;
 
   /**
    * Checks if expected tabs count is opened with timeout defined in
@@ -48,7 +49,7 @@ public final class BrowserTabsHelper {
    * @return value indicating if expected tabs count is opened.
    */
   public boolean isExpectedTabsCountOpened(int tabsCount) {
-    return webElementUtils.isConditionMet(driver -> getOpenedTabsCount() == tabsCount);
+    return bobcatWait.isConditionMet(driver -> getOpenedTabsCount() == tabsCount);
   }
 
   /**
@@ -77,8 +78,8 @@ public final class BrowserTabsHelper {
   }
 
   /**
-   *  Switches to the browser tab with specified index offset from active tab. If resulting index
-   *  exceeds the index of first or last tab counting continues from another end.
+   * Switches to the browser tab with specified index offset from active tab. If resulting index
+   * exceeds the index of first or last tab counting continues from another end.
    *
    * @param tabOffset tab index offset from active tab.
    */

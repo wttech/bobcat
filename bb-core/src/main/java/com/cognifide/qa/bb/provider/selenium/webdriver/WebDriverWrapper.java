@@ -26,8 +26,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.Connection;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.ContextAware;
 import org.openqa.selenium.DeviceRotation;
@@ -51,39 +49,44 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 import com.cognifide.qa.bb.frame.FrameSwitcher;
 
-import io.appium.java_client.DeviceActionShortcuts;
+import io.appium.java_client.ExecutesMethod;
 import io.appium.java_client.FindsByAccessibilityId;
 import io.appium.java_client.FindsByAndroidUIAutomator;
+import io.appium.java_client.FindsByFluentSelector;
 import io.appium.java_client.FindsByIosUIAutomation;
 import io.appium.java_client.HasAppStrings;
+import io.appium.java_client.HasDeviceTime;
+import io.appium.java_client.HasSessionDetails;
+import io.appium.java_client.HidesKeyboard;
+import io.appium.java_client.HidesKeyboardWithKeyName;
 import io.appium.java_client.InteractsWithApps;
 import io.appium.java_client.InteractsWithFiles;
 import io.appium.java_client.MobileDriver;
 import io.appium.java_client.MultiTouchAction;
 import io.appium.java_client.PerformsTouchActions;
 import io.appium.java_client.TouchAction;
-import io.appium.java_client.TouchShortcuts;
-import io.appium.java_client.android.AndroidDeviceActionShortcuts;
-import io.appium.java_client.android.HasNetworkConnection;
+import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.PushesFiles;
 import io.appium.java_client.android.StartsActivity;
-import io.appium.java_client.ios.IOSDeviceActionShortcuts;
+import io.appium.java_client.android.connection.HasNetworkConnection;
+import io.appium.java_client.ios.ShakesDevice;
+import io.appium.java_client.windows.PressesKeyCode;
 
 /**
  * This class is a "simple" extension of Selenium's EventFiringWebDriver that additionally
  * implements several useful interfaces.
  */
 public class WebDriverWrapper extends EventFiringWebDriver implements
-    HasCapabilities, MobileDriver, AndroidDeviceActionShortcuts,
-    HasNetworkConnection, PushesFiles, StartsActivity, FindsByAndroidUIAutomator,
-    IOSDeviceActionShortcuts, FindsByIosUIAutomation, HasIdentity {
+    HasCapabilities, MobileDriver, HasNetworkConnection, PushesFiles, StartsActivity,
+    FindsByAndroidUIAutomator, FindsByIosUIAutomation, HasIdentity, HasDeviceTime, HidesKeyboard,
+    HidesKeyboardWithKeyName, PressesKeyCode, ShakesDevice, HasSessionDetails {
 
   private final FrameSwitcher frameSwitcher;
 
   /**
    * Constructs WebDriverWrapper.
    *
-   * @param driver instance of WebDriver.
+   * @param driver        instance of WebDriver.
    * @param frameSwitcher instance of FrameSwitcher.
    */
   public WebDriverWrapper(WebDriver driver, FrameSwitcher frameSwitcher) {
@@ -260,13 +263,8 @@ public class WebDriverWrapper extends EventFiringWebDriver implements
   }
 
   @Override
-  public void runAppInBackground(int seconds) {
-    ((InteractsWithApps) super.getWrappedDriver()).runAppInBackground(seconds);
-  }
-
-  @Override
-  public void removeApp(String bundleId) {
-    ((InteractsWithApps) super.getWrappedDriver()).removeApp(bundleId);
+  public boolean removeApp(String bundleId) {
+    return ((InteractsWithApps) super.getWrappedDriver()).removeApp(bundleId);
   }
 
   @Override
@@ -285,48 +283,13 @@ public class WebDriverWrapper extends EventFiringWebDriver implements
   }
 
   @Override
-  public void zoom(int x, int y) {
-    ((TouchShortcuts) super.getWrappedDriver()).zoom(x, y);
-  }
-
-  @Override
-  public void zoom(WebElement el) {
-    ((TouchShortcuts) super.getWrappedDriver()).zoom(el);
-  }
-
-  @Override
-  public void tap(int fingers, int x, int y, int duration) {
-    ((TouchShortcuts) super.getWrappedDriver()).tap(fingers, x, y, duration);
-  }
-
-  @Override
-  public void tap(int fingers, WebElement element, int duration) {
-    ((TouchShortcuts) super.getWrappedDriver()).tap(fingers, element, duration);
-  }
-
-  @Override
-  public void swipe(int startx, int starty, int endx, int endy, int duration) {
-    ((TouchShortcuts) super.getWrappedDriver()).swipe(startx, starty, endx, endy, duration);
-  }
-
-  @Override
-  public void pinch(int x, int y) {
-    ((TouchShortcuts) super.getWrappedDriver()).pinch(x, y);
-  }
-
-  @Override
-  public void pinch(WebElement el) {
-    ((TouchShortcuts) super.getWrappedDriver()).pinch(el);
-  }
-
-  @Override
   public void hideKeyboard() {
-    ((DeviceActionShortcuts) super.getWrappedDriver()).hideKeyboard();
+    ((HidesKeyboard) super.getWrappedDriver()).hideKeyboard();
   }
 
   @Override
   public String getDeviceTime() {
-    return ((DeviceActionShortcuts) super.getWrappedDriver()).getDeviceTime();
+    return ((HasDeviceTime) super.getWrappedDriver()).getDeviceTime();
   }
 
   @Override
@@ -401,17 +364,17 @@ public class WebDriverWrapper extends EventFiringWebDriver implements
 
   @Override
   public void hideKeyboard(String keyName) {
-    ((IOSDeviceActionShortcuts) super.getWrappedDriver()).hideKeyboard(keyName);
+    ((HidesKeyboardWithKeyName) super.getWrappedDriver()).hideKeyboard(keyName);
   }
 
   @Override
   public void hideKeyboard(String strategy, String keyName) {
-    ((IOSDeviceActionShortcuts) super.getWrappedDriver()).hideKeyboard(strategy, keyName);
+    ((HidesKeyboardWithKeyName) super.getWrappedDriver()).hideKeyboard(strategy, keyName);
   }
 
   @Override
   public void shake() {
-    ((IOSDeviceActionShortcuts) super.getWrappedDriver()).shake();
+    ((ShakesDevice) super.getWrappedDriver()).shake();
   }
 
   @Override
@@ -424,44 +387,6 @@ public class WebDriverWrapper extends EventFiringWebDriver implements
   public List<WebElement> findElementsByAndroidUIAutomator(String using) {
     return ((FindsByAndroidUIAutomator) super.getWrappedDriver())
         .findElementsByAndroidUIAutomator(using);
-  }
-
-  @Override
-  public void startActivity(String appPackage, String appActivity, String appWaitPackage,
-      String appWaitActivity, boolean stopApp) {
-    ((StartsActivity) super.getWrappedDriver()).startActivity(appPackage, appActivity,
-        appWaitPackage, appWaitActivity, stopApp);
-  }
-
-  @Override
-  public void startActivity(String appPackage, String appActivity, String appWaitPackage,
-      String appWaitActivity) {
-    ((StartsActivity) super.getWrappedDriver())
-        .startActivity(appPackage, appActivity, appWaitPackage, appWaitActivity);
-  }
-
-  @Override
-  public void startActivity(String appPackage, String appActivity) {
-    ((StartsActivity) super.getWrappedDriver()).startActivity(appPackage, appActivity);
-  }
-
-  @Override
-  public void startActivity(String appPackage, String appActivity, String appWaitPackage,
-      String appWaitActivity, String intentAction, String intentCategory, String intentFlags,
-      String intentOptionalArgs) {
-    ((StartsActivity) super.getWrappedDriver()).startActivity(appPackage, appActivity,
-        appWaitPackage, appWaitActivity, intentAction, intentCategory, intentFlags,
-        intentOptionalArgs);
-
-  }
-
-  @Override
-  public void startActivity(String appPackage, String appActivity, String appWaitPackage,
-      String appWaitActivity, String intentAction, String intentCategory, String intentFlags,
-      String intentOptionalArgs, boolean stopApp) {
-    ((StartsActivity) super.getWrappedDriver()).startActivity(appPackage, appActivity,
-        appWaitPackage, appWaitActivity, intentAction, intentCategory, intentFlags,
-        intentOptionalArgs, stopApp);
   }
 
   @Override
@@ -515,18 +440,22 @@ public class WebDriverWrapper extends EventFiringWebDriver implements
   }
 
   @Override
-  public void setConnection(Connection connection) {
-    ((HasNetworkConnection) super.getWrappedDriver()).setConnection(connection);
-  }
-
-  @Override
-  public Connection getConnection() {
-    return ((HasNetworkConnection) super.getWrappedDriver()).getConnection();
-  }
-
-  @Override
   public String getId() {
     return UUID.randomUUID().toString();
   }
 
+  @Override
+  public Response execute(String driverCommand) {
+    return ((ExecutesMethod) super.getWrappedDriver()).execute(driverCommand);
+  }
+
+  @Override
+  public WebElement findElement(String by, String using) {
+    return ((FindsByFluentSelector) super.getWrappedDriver()).findElement(by, using);
+  }
+
+  @Override
+  public List findElements(String by, String using) {
+    return ((FindsByFluentSelector) super.getWrappedDriver()).findElements(by, using);
+  }
 }

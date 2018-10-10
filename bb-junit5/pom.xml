@@ -23,10 +23,12 @@
     <parent>
         <artifactId>bobcat</artifactId>
         <groupId>com.cognifide.qa.bb</groupId>
-        <version>1.5.1-SNAPSHOT</version>
+        <version>1.6.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>bb-junit5</artifactId>
+
+    <name>Bobcat JUnit 5</name>
 
     <dependencies>
 

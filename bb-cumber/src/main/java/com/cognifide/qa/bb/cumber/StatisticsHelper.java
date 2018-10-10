@@ -27,6 +27,10 @@ import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @deprecated since 1.6.0, removing re-run feature
+ */
+@Deprecated
 class StatisticsHelper {
 
   private static final String NO_STATISTICS_FILE_FOUND_MESSAGE =

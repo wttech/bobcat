@@ -15,19 +15,27 @@
  */
 package com.cognifide.qa.bb.aem.touch.siteadmin.aem61.calendar;
 
-import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import java.time.Month;
 
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 
+import com.cognifide.qa.bb.constants.Timeouts;
+import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
+import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.PageObject;
+import com.google.inject.Inject;
 
 @PageObject
 public class YearMonthPicker {
 
+  @Inject
+  private BobcatWait wait;
+
   @FindBy(css = ".coral-Heading")
-  @LoadableComponent(condClass = WaitForDynamicRedraw.class)
   private WebElement yearMonthHeader;
 
   @FindBy(css = ".coral-DatePicker-nextMonth")
@@ -40,9 +48,35 @@ public class YearMonthPicker {
   }
 
   private boolean isDesiredDateSelected(int year, Month month) {
-    String[] headerParts = yearMonthHeader.getText().toUpperCase().split(" ");
+    String[] headerParts = getYearMonthHeader().getText().toUpperCase().split(" ");
     Month selectedMonth = Month.valueOf(headerParts[0]);
     int selectedYear = Integer.parseInt(headerParts[1].toUpperCase());
     return year == selectedYear && selectedMonth == month;
+  }
+
+  public WebElement getYearMonthHeader() {
+    wait.withTimeout(Timeouts.SMALL).until(dynamicRedrawFinishes(yearMonthHeader));
+    return yearMonthHeader;
+  }
+
+  private ExpectedCondition<Boolean> dynamicRedrawFinishes(final WebElement element) {
+    return new ExpectedCondition<Boolean>() {
+      int retries = 3;
+
+      @Override
+      public Boolean apply(WebDriver ignored) {
+        try {
+          element.isEnabled();
+        } catch (StaleElementReferenceException expected) {
+          if (retries > 0) {
+            retries--;
+            dynamicRedrawFinishes(element);
+          } else {
+            throw expected;
+          }
+        }
+        return true;
+      }
+    };
   }
 }

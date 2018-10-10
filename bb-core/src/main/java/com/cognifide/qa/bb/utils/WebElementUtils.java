@@ -19,11 +19,7 @@
  */
 package com.cognifide.qa.bb.utils;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.not;
-import static org.openqa.selenium.support.ui.ExpectedConditions.textToBePresentInElement;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfAllElements;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -41,13 +37,17 @@ import org.slf4j.LoggerFactory;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.guice.ThreadScoped;
 import com.cognifide.qa.bb.provider.selenium.BobcatWait;
+import com.cognifide.qa.bb.webelement.WebElementConditions;
 import com.google.inject.Inject;
 
 /**
  * This class contains utility methods for checking with waits if WebElements are meeting different
  * conditions.
+ *
+ * @deprecated use {@link WebElementConditions} together with {@link com.cognifide.qa.bb.wait.BobcatWait}
  */
 @ThreadScoped
+@Deprecated
 public final class WebElementUtils {
 
   private static final Logger LOG = LoggerFactory.getLogger(WebElementUtils.class);

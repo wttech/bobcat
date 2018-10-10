@@ -86,6 +86,7 @@ public class ConditionsExplorer {
 
   /**
    * Builds entire {@link PageObject} field hierarchy starting from the @param injectee parameter.
+   * @param injectee the injectee
    */
   public void registerLoadableContextHierarchyTree(Object injectee) {
     Class clazz = injectee.getClass();
