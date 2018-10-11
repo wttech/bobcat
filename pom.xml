@@ -55,7 +55,6 @@ limitations under the License.
         <module>bb-core</module>
         <module>bb-integration-tests</module>
         <module>bb-junit</module>
-        <module>bb-reports</module>
         <module>bb-cumber</module>
         <module>bb-email</module>
         <module>bb-traffic</module>
