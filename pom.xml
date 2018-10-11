@@ -58,7 +58,6 @@ limitations under the License.
         <module>bb-cumber</module>
         <module>bb-email</module>
         <module>bb-traffic</module>
-        <module>bb-aem-touch-ui</module>
         <module>bb-annotations</module>
         <module>bb-junit5</module>
         <module>bb-aem-core</module>
