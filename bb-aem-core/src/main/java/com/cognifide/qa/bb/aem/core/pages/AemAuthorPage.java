@@ -37,9 +37,15 @@ public class AemAuthorPage<T extends AemAuthorPage> extends Page {
    * open the page in browser
    */
   @Step("Open page")
+  @Override
   public T open() {
     webDriver.get(authorUrl + getFullUrl());
     return (T) this;
   }
 
+  @Step("Open page in editor")
+  public T openInEditor() {
+    webDriver.get(authorUrl + "/editor.html" + getFullUrl());
+    return (T) this;
+  }
 }
