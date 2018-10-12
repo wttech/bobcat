@@ -24,7 +24,7 @@ import static org.assertj.core.data.MapEntry.entry;
 
 import java.util.Properties;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.cognifide.qa.bb.modules.CoreModule;
 import com.google.inject.AbstractModule;

@@ -21,22 +21,21 @@ package com.cognifide.qa.bb.core.qualifier.findpageobject;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.cognifide.qa.bb.junit.Modules;
-import com.cognifide.qa.bb.junit.TestRunner;
-import com.cognifide.qa.bb.core.TestModule;
-import com.cognifide.qa.bb.core.pageobjects.qualifier.findpageobject.MasterPage;
-
 import org.assertj.core.api.JUnitSoftAssertions;
 import org.junit.Before;
 import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.WebDriver;
 
+import com.cognifide.qa.bb.core.TestModule;
+import com.cognifide.qa.bb.core.pageobjects.qualifier.findpageobject.MasterPage;
 import com.cognifide.qa.bb.core.util.PageUtils;
+import com.cognifide.qa.bb.junit5.guice.GuiceExtension;
+import com.cognifide.qa.bb.junit5.guice.Modules;
 import com.google.inject.Inject;
 
-@RunWith(TestRunner.class)
+@ExtendWith(GuiceExtension.class)
 @Modules({TestModule.class})
 public class FindPageObjectTest {
 

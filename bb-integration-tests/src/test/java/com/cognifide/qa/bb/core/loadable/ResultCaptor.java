@@ -15,10 +15,10 @@
  */
 package com.cognifide.qa.bb.core.loadable;
 
+import java.util.LinkedList;
+
 import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
 import com.google.inject.Singleton;
-
-import java.util.LinkedList;
 
 @Singleton
 public class ResultCaptor {

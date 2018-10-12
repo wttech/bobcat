@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,9 +23,9 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import org.junit.Before;
 import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.rules.ExpectedException;
-import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -33,15 +33,15 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
 import com.cognifide.qa.bb.constants.HtmlTags;
-import com.cognifide.qa.bb.expectedconditions.CommonExpectedConditions;
-import com.cognifide.qa.bb.junit.Modules;
-import com.cognifide.qa.bb.junit.TestRunner;
-import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.core.TestModule;
 import com.cognifide.qa.bb.core.util.PageUtils;
+import com.cognifide.qa.bb.expectedconditions.CommonExpectedConditions;
+import com.cognifide.qa.bb.junit5.guice.GuiceExtension;
+import com.cognifide.qa.bb.junit5.guice.Modules;
+import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.google.inject.Inject;
 
-@RunWith(TestRunner.class)
+@ExtendWith(GuiceExtension.class)
 @Modules({TestModule.class})
 public class CommonExpectedConditionsTest {
 

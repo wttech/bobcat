@@ -15,14 +15,15 @@
  */
 package com.cognifide.qa.bb.core.loadable;
 
-import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
-import com.cognifide.qa.bb.loadable.condition.impl.VisibilityCondition;
-import com.cognifide.qa.bb.qualifier.PageObject;
-import com.cognifide.qa.bb.core.util.PageUtils;
-import com.google.inject.Inject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import com.cognifide.qa.bb.core.util.PageUtils;
+import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
+import com.cognifide.qa.bb.loadable.condition.impl.VisibilityCondition;
+import com.cognifide.qa.bb.qualifier.PageObject;
+import com.google.inject.Inject;
 
 @PageObject
 public class TestPageObject {

@@ -43,17 +43,12 @@
         </dependency>
         <dependency>
             <groupId>com.cognifide.qa.bb</groupId>
-            <artifactId>bb-junit</artifactId>
+            <artifactId>bb-junit5</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.cognifide.qa.bb</groupId>
             <artifactId>bb-annotations</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.cognifide.qa.bb</groupId>
-            <artifactId>bb-reports</artifactId>
             <version>${project.version}</version>
         </dependency>
 

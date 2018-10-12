@@ -13,26 +13,23 @@
  */
 package com.cognifide.qa.bb.core.loadable;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
-import com.cognifide.qa.bb.junit.Modules;
-import com.cognifide.qa.bb.junit.TestRunner;
-import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
-import com.cognifide.qa.bb.loadable.exception.LoadableConditionException;
-import com.cognifide.qa.bb.core.TestModule;
-import com.google.inject.Inject;
-
 import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.WebElement;
 
-@RunWith(TestRunner.class)
+import com.cognifide.qa.bb.core.TestModule;
+import com.cognifide.qa.bb.junit5.guice.GuiceExtension;
+import com.cognifide.qa.bb.junit5.guice.Modules;
+import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
+import com.cognifide.qa.bb.loadable.exception.LoadableConditionException;
+import com.google.inject.Inject;
+
+@ExtendWith(GuiceExtension.class)
 @Modules(TestModule.class)
 public class LoadableComponentsTest {
 
@@ -85,9 +82,9 @@ public class LoadableComponentsTest {
     assertThat(exception, instanceOf(LoadableConditionException.class));
 
     assertThat(exception.getMessage(), containsString(
-            "com.cognifide.qa.bb.core.loadable.LoadableComponentsTest -> testPage ~ com.cognifide.qa.bb.core.loadable.TestCondition (Success)"));
+        "com.cognifide.qa.bb.core.loadable.LoadableComponentsTest -> testPage ~ com.cognifide.qa.bb.core.loadable.TestCondition (Success)"));
     assertThat(exception.getMessage(), containsString(
-            "com.cognifide.qa.bb.core.loadable.TestPageObject -> invalidElement ~ com.cognifide.qa.bb.loadable.condition.impl.VisibilityCondition (Fail)"));
+        "com.cognifide.qa.bb.core.loadable.TestPageObject -> invalidElement ~ com.cognifide.qa.bb.loadable.condition.impl.VisibilityCondition (Fail)"));
   }
 
   private void assertProperContext(int delayForMiddleObj, int timeoutForMiddleObj) {
