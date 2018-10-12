@@ -19,6 +19,9 @@
  */
 package com.cognifide.qa.bb.aem.core.siteadmin.internal;
 
+import com.cognifide.qa.bb.qualifier.PageObjectInterface;
+
+@PageObjectInterface
 public interface CreatePageWizard {
 
   CreatePageWizard selectTemplate(String templateName);

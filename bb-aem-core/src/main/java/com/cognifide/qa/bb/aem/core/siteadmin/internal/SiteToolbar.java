@@ -19,10 +19,17 @@
  */
 package com.cognifide.qa.bb.aem.core.siteadmin.internal;
 
+import com.cognifide.qa.bb.aem.core.siteadmin.SiteAdminActionData;
 import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 
 @PageObjectInterface
-public interface SiteToolbar {
+public interface SiteToolbar{
 
-  void create(String option);
+  /**
+   * Create page using Siteadmin (without selecting root page)
+   * @param template
+   * @param title
+   * @param name
+   */
+  void createPage(String template, String title, String name);
 }

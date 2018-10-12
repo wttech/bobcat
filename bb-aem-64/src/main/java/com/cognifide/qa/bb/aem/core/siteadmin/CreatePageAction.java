@@ -43,8 +43,8 @@ public class CreatePageAction implements SiteAdminAction<CreatePageActionData> {
   }
 
   @Override
-  @Step("Create page {actionData.pageName}")
+  @Step("Create page {actionData.title} with name {actionData.pageName} using {actionData.template} template")
   public void action(CreatePageActionData actionData) {
-    toolbar.create("Page");
+    toolbar.createPage(actionData.getTemplate(), actionData.getTitle(), actionData.getPageName());
   }
 }

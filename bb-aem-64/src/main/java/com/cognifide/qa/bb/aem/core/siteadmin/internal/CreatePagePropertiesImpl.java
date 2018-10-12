@@ -19,13 +19,13 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-@PageObject
+@PageObject(css = "div.cq-dialog-content-page")
 public class CreatePagePropertiesImpl implements CreatePageProperties {
 
-  @FindBy(css = "input.coral-Form-field.coral-Textfield[name='pageName']")
+  @FindBy(css = "input.coral-Form-field.coral3-Textfield[name='pageName']")
   private WebElement nameTextField;
 
-  @FindBy(css = "input.coral-Form-field.coral-Textfield[name='./jcr:title']")
+  @FindBy(css = "input.coral-Form-field.coral3-Textfield[name='./jcr:title']")
   private WebElement titleTextField;
 
   @Override

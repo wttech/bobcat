@@ -31,7 +31,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-@PageObject
+@PageObject(css = "form.cq-siteadmin-admin-createpage")
 public class CreatePageWizardImpl implements CreatePageWizard {
 
   private static final String NEXT_BUTTON_LABEL = "Next";
@@ -41,15 +41,15 @@ public class CreatePageWizardImpl implements CreatePageWizard {
   private TemplateList templateList;
 
   @Global
-  @FindBy(css = "div.cq-siteadmin-admin-properties-tabs > div.coral-TabPanel-content")
+  @FindPageObject
   private CreatePageProperties createPageProperties;
 
   @Global
-  @FindBy(css = "button.coral-Button")
+  @FindBy(css = "button.coral3-Button")
   private List<WebElement> buttons;
 
   @Global
-  @FindBy(css = ".coral-Modal")
+  @FindBy(css = ".coral3-Dialog-wrapper")
   private WebElement pageCreatedModal;
 
   @Inject
