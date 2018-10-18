@@ -17,18 +17,19 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.siteadmin.internal;
+package com.cognifide.qa.bb.aem.core.sitepanel.internal;
 
-import com.cognifide.qa.bb.qualifier.PageObjectInterface;
+public enum SidePanelTabs {
 
-@PageObjectInterface
-public interface SiteToolbar{
+  ASSETS(""), COMPONENTS(""), CONTENT_TREE("coral3-Icon--layers");
 
-  /**
-   * Create page using Siteadmin (without selecting root page)
-   * @param template
-   * @param title
-   * @param name
-   */
-  void createPage(String template, String title, String name);
+  private String cssClass;
+
+  SidePanelTabs(String cssClass) {
+    this.cssClass = cssClass;
+  }
+
+  public String getCssClass() {
+    return cssClass;
+  }
 }

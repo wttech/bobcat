@@ -19,8 +19,10 @@
  */
 package com.cognifide.qa.bb.aem.core.guice;
 
+import com.cognifide.qa.bb.aem.core.siteadmin.AemSiteAdminController;
 import com.cognifide.qa.bb.aem.core.siteadmin.SiteAdminAction;
 import com.cognifide.qa.bb.aem.core.siteadmin.CreatePageAction;
+import com.cognifide.qa.bb.aem.core.siteadmin.SiteAdminController;
 import com.cognifide.qa.bb.aem.core.siteadmin.internal.CreatePageProperties;
 import com.cognifide.qa.bb.aem.core.siteadmin.internal.CreatePagePropertiesImpl;
 import com.cognifide.qa.bb.aem.core.siteadmin.internal.CreatePageWizard;
@@ -39,6 +41,7 @@ public class AemSiteActionsModule extends AbstractModule {
 
   @Override
   protected void configure() {
+    bind(SiteAdminController.class).to(AemSiteAdminController.class);
     bind(SiteToolbar.class).to(SiteToolbarImpl.class);
     bind(TemplateList.class).to(TemplateListImpl.class);
     bind(CreatePageWizard.class).to(CreatePageWizardImpl.class);

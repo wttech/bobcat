@@ -17,26 +17,31 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.guice;
+package com.cognifide.qa.bb.aem.core.sitepanel;
 
-import com.google.inject.AbstractModule;
+public class EditComponentActonData implements SidePanelActionData{
 
-/**
- * Main module that need to be installed to use AEM  functions
- * It has full functionalities for AEM 6.4
- */
-public class Aem64FullModule extends AbstractModule {
+  private String componentPath;
 
-  @Override
-  protected void configure() {
-    install(new AemCoreModule());
-    install(new AemLoginModule());
-    install(new AemSiteActionsModule());
-    install(new AemPageCreateModule());
-    install(new AemComponentModule());
-    install(new AemSidePanelModule());
-    install(new AemPageModule());
-    install(new AemFieldsModule());
+  private String componentName;
+
+  private int componentOrder;
+
+  public EditComponentActonData(String componentPath, String componentName, int componentOrder) {
+    this.componentPath = componentPath;
+    this.componentName = componentName;
+    this.componentOrder = componentOrder;
   }
 
+  public String getComponentPath() {
+    return componentPath;
+  }
+
+  public String getComponentName() {
+    return componentName;
+  }
+
+  public int getComponentOrder() {
+    return componentOrder;
+  }
 }

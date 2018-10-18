@@ -17,18 +17,24 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.siteadmin.internal;
+package com.cognifide.qa.bb.aem.core.sitepanel;
 
-import com.cognifide.qa.bb.qualifier.PageObjectInterface;
+import com.google.inject.Inject;
+import java.util.Map;
+import java.util.Set;
 
-@PageObjectInterface
-public interface SiteToolbar{
+public class SidePanelControllerImpl implements SidePanelController {
 
-  /**
-   * Create page using Siteadmin (without selecting root page)
-   * @param template
-   * @param title
-   * @param name
-   */
-  void createPage(String template, String title, String name);
+  @Inject
+  private Map<String, SidePanelAction> sidePanelActions;
+
+  @Override
+  public Set<String> getAvailableActions() {
+    return sidePanelActions.keySet();
+  }
+
+  @Override
+  public SidePanelAction getSidePanelAction(String action) {
+    return sidePanelActions.get(action);
+  }
 }

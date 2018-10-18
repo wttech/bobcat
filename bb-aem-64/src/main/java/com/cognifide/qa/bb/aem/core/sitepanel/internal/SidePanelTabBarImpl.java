@@ -17,18 +17,23 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.siteadmin.internal;
+package com.cognifide.qa.bb.aem.core.sitepanel.internal;
 
-import com.cognifide.qa.bb.qualifier.PageObjectInterface;
+import com.cognifide.qa.bb.qualifier.CurrentScope;
+import com.cognifide.qa.bb.qualifier.PageObject;
+import com.google.inject.Inject;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-@PageObjectInterface
-public interface SiteToolbar{
+@PageObject(css = ".coral3-TabList")
+public class SidePanelTabBarImpl implements SidePanelTabBar {
 
-  /**
-   * Create page using Siteadmin (without selecting root page)
-   * @param template
-   * @param title
-   * @param name
-   */
-  void createPage(String template, String title, String name);
+  @Inject
+  @CurrentScope
+  private WebElement currentScope;
+
+  @Override
+  public void switchTab(String tab) {
+    currentScope.findElement(By.className(tab)).click();
+  }
 }

@@ -17,18 +17,13 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.siteadmin.internal;
+package com.cognifide.qa.bb.aem.core.sitepanel.internal;
 
 import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 
 @PageObjectInterface
-public interface SiteToolbar{
+public interface SidePanelTabBar {
 
-  /**
-   * Create page using Siteadmin (without selecting root page)
-   * @param template
-   * @param title
-   * @param name
-   */
-  void createPage(String template, String title, String name);
+  void switchTab(String tab);
+
 }

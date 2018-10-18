@@ -40,8 +40,6 @@ public class AemComponentModule extends AbstractModule {
   @Override
   protected void configure() {
     bind(ComponentToolbar.class).to(ComponentToolbarImpl.class);
-    bind(AuthorLoader.class).to(AuthorLoaderImpl.class);
-    bind(GlobalBar.class).to(GlobalBarImpl.class);
     bindCommonToolbarOptions();
   }
 

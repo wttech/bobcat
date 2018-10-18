@@ -17,18 +17,29 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.siteadmin.internal;
+package com.cognifide.qa.bb.aem.core.sitepanel.internal;
 
+import com.cognifide.qa.bb.aem.core.component.Component;
+import com.cognifide.qa.bb.dragdrop.Draggable;
+import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 
+/**
+ * Interface that represent authoring mode side panel.
+ */
 @PageObjectInterface
-public interface SiteToolbar{
+public interface SidePanel {
+
+  void selectTab(String tab);
 
   /**
-   * Create page using Siteadmin (without selecting root page)
-   * @param template
-   * @param title
-   * @param name
+   * Searches for assets for given asset name and return it as draggable.
+   *
+   * @param asset name.
+   * @return {@link Draggable} instance of the asset.
    */
-  void createPage(String template, String title, String name);
+  Draggable searchForAsset(String asset);
+
+  Component selectComponentToEdit(String component);
+
 }

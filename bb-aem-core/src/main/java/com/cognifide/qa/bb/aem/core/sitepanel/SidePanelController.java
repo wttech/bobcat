@@ -17,22 +17,22 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.component;
+package com.cognifide.qa.bb.aem.core.sitepanel;
 
-import com.cognifide.qa.bb.dragdrop.Draggable;
-import com.cognifide.qa.bb.qualifier.PageObject;
+import com.cognifide.qa.bb.qualifier.PageObjectInterface;
+import java.util.Set;
 
-/**
- * Interface that represent authoring mode side panel.
- */
-@PageObject
-public interface SidePanel {
+@PageObjectInterface
+public interface SidePanelController {
 
   /**
-   * Searches for assets for given asset name and return it as draggable.
-   *
-   * @param asset name.
-   * @return {@link Draggable} instance of the asset.
+   * @return set of available actions
    */
-  Draggable searchForAsset(String asset);
+  Set<String> getAvailableActions();
+
+  /**
+   * returns selected action
+   */
+  SidePanelAction getSidePanelAction(String action);
+
 }

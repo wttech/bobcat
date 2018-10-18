@@ -19,7 +19,7 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
-import com.cognifide.qa.bb.aem.core.component.SidePanel;
+import com.cognifide.qa.bb.aem.core.sitepanel.internal.SidePanel;
 import com.cognifide.qa.bb.dragdrop.DragAndDropFactory;
 import com.cognifide.qa.bb.dragdrop.Draggable;
 import com.cognifide.qa.bb.dragdrop.Droppable;

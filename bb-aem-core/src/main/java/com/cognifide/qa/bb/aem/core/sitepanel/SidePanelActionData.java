@@ -17,18 +17,11 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.siteadmin.internal;
+package com.cognifide.qa.bb.aem.core.sitepanel;
 
-import com.cognifide.qa.bb.qualifier.PageObjectInterface;
+/**
+ * Interface for class containing parameters for SidePanel Actions
+ */
+public interface SidePanelActionData {
 
-@PageObjectInterface
-public interface SiteToolbar{
-
-  /**
-   * Create page using Siteadmin (without selecting root page)
-   * @param template
-   * @param title
-   * @param name
-   */
-  void createPage(String template, String title, String name);
 }
