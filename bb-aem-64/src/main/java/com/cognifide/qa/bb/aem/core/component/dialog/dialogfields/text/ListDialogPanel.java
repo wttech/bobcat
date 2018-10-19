@@ -15,15 +15,15 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text;
 
-import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DialogField;
-import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.FieldType;
-import com.cognifide.qa.bb.constants.Timeouts;
-import com.cognifide.qa.bb.provider.selenium.BobcatWait;
-import com.cognifide.qa.bb.qualifier.FindPageObject;
-import com.cognifide.qa.bb.qualifier.PageObject;
-import com.google.inject.Inject;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DialogField;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.FieldType;
+import com.cognifide.qa.bb.qualifier.FindPageObject;
+import com.cognifide.qa.bb.qualifier.PageObject;
+import com.cognifide.qa.bb.wait.BobcatWait;
+import com.google.inject.Inject;
 
 /**
  * Represents list formatting dialog panel.
@@ -80,9 +80,8 @@ public class ListDialogPanel implements DialogField {
 
   private void openListPopover() {
     controlToolbar.selectText();
-    bobcatWait.withTimeout(Timeouts.SMALL)
-        .until((ExpectedCondition<Object>) input -> controlToolbar.
-            getToggleListButton().isEnabled());
+    bobcatWait.until((ExpectedCondition<Object>) input -> controlToolbar.
+        getToggleListButton().isEnabled());
     controlToolbar.getToggleListButton().click();
   }
 

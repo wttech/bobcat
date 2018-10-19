@@ -21,10 +21,13 @@ package com.cognifide.qa.bb.page;
 
 import static com.cognifide.qa.bb.page.BobcatPageFactory.BOBCAT_PAGE_PATH;
 
-import com.google.inject.Inject;
-import io.qameta.allure.Step;
 import javax.inject.Named;
+
 import org.openqa.selenium.WebDriver;
+
+import com.google.inject.Inject;
+
+import io.qameta.allure.Step;
 
 /**
  * Abstract class that marks page

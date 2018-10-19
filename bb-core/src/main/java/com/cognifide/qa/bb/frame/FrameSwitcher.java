@@ -26,12 +26,12 @@ import java.util.List;
 import org.openqa.selenium.WebDriver;
 
 import com.cognifide.qa.bb.guice.ThreadScoped;
-import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.provider.selenium.webdriver.close.WebDriverClosedListener;
 import com.cognifide.qa.bb.scope.frame.FrameDescriptor;
 import com.cognifide.qa.bb.scope.frame.FramePath;
 import com.cognifide.qa.bb.scope.frame.type.IndexedFrame;
 import com.cognifide.qa.bb.scope.frame.type.NamedFrame;
+import com.cognifide.qa.bb.wait.BobcatWait;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
@@ -176,7 +176,6 @@ public class FrameSwitcher implements WebDriverClosedListener {
   }
 
   /**
-   *
    * @return path of the current frame
    */
   public String getCurrentFramePath() {

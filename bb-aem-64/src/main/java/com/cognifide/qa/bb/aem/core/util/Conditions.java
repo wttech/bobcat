@@ -19,17 +19,18 @@
  */
 package com.cognifide.qa.bb.aem.core.util;
 
-import com.cognifide.qa.bb.aem.core.component.AuthorLoader;
-import com.cognifide.qa.bb.constants.HtmlTags;
-import com.cognifide.qa.bb.constants.Timeouts;
-import com.cognifide.qa.bb.provider.selenium.BobcatWait;
-import com.google.inject.Inject;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.cognifide.qa.bb.aem.core.component.AuthorLoader;
+import com.cognifide.qa.bb.constants.HtmlTags;
+import com.cognifide.qa.bb.constants.Timeouts;
+import com.cognifide.qa.bb.wait.BobcatWait;
+import com.google.inject.Inject;
 
 /**
  * Class contains conditions for web components.
@@ -48,7 +49,7 @@ public class Conditions {
    * Checks if given web element css class contains given value.
    *
    * @param element {@link WebElement} which css class will be examined.
-   * @param value string value which method will look for.
+   * @param value   string value which method will look for.
    * @return true if css class contains given value.
    */
   public boolean classContains(WebElement element, String value) {
@@ -70,7 +71,7 @@ public class Conditions {
    * Checks if {@link ExpectedCondition} given in method parameter is met in given timeout.
    *
    * @param condition {@link ExpectedCondition} instance that will be examined.
-   * @param timeout timeout limit for the condition examination.
+   * @param timeout   timeout limit for the condition examination.
    * @return true if condition is met in given timeout.
    */
   public boolean isConditionMet(ExpectedCondition condition, int timeout) {
@@ -91,18 +92,18 @@ public class Conditions {
    * @return true if the condition is met without violating the timeout.
    */
   public <T> T verify(ExpectedCondition<T> condition) {
-    return bobcatWait.withTimeout(Timeouts.SMALL).until(condition);
+    return bobcatWait.until(condition);
   }
 
   /**
    * Checks if {@link ExpectedCondition} given in method parameter is met in given timeout.
    *
    * @param condition {@link ExpectedCondition} instance that will be examined.
-   * @param timeout timeout limit for the condition examination.
+   * @param timeout   timeout limit for the condition examination.
    * @return true if condition is met in given timeout.
    */
   public <T> T verify(ExpectedCondition<T> condition, int timeout) {
-    return bobcatWait.withTimeout(timeout).until(condition);
+    return bobcatWait.until(condition);
   }
 
   /**
@@ -124,7 +125,7 @@ public class Conditions {
    */
   public Object optionalWait(ExpectedCondition<WebElement> condition) {
     try {
-      return bobcatWait.withTimeout(Timeouts.SMALL).until(condition);
+      return bobcatWait.until(condition);
     } catch (TimeoutException ignored) {
       LOG.warn("Condition failed, returing null: {}", ignored);
       return null;
@@ -139,7 +140,7 @@ public class Conditions {
    * @return checked element
    */
   public WebElement elementReady(WebElement element) {
-    return bobcatWait.withTimeout(Timeouts.MEDIUM).until(ignored -> {
+    return bobcatWait.until(ignored -> {
       try {
         return element.isDisplayed() ? element : null;
       } catch (StaleElementReferenceException e) {
@@ -152,17 +153,16 @@ public class Conditions {
   /**
    * Examines if element has attribute value like one passed in parameter.
    *
-   * @param element {@link WebElement} instance that is going to be examined.
+   * @param element   {@link WebElement} instance that is going to be examined.
    * @param attribute attribute which value will be tested.
-   * @param value expected value of the element attribute
+   * @param value     expected value of the element attribute
    * @return true if the element has attribute value like one passed in parameter.
    */
   public boolean hasAttributeWithValue(final WebElement element, final String attribute,
       final String value) {
     boolean result = true;
     try {
-      bobcatWait.withTimeout(Timeouts.SMALL)
-          .until(input -> element.getAttribute(attribute).contains(value));
+      bobcatWait.until(input -> element.getAttribute(attribute).contains(value));
     } catch (TimeoutException e) {
       result = false;
     }

@@ -19,11 +19,6 @@
  */
 package com.cognifide.qa.bb.webelement;
 
-import com.cognifide.qa.bb.loadable.annotation.LoadableComponent;
-import com.cognifide.qa.bb.loadable.context.ConditionContext;
-import com.google.inject.Inject;
-import com.google.inject.assistedinject.Assisted;
-
 import java.util.List;
 import java.util.UUID;
 
@@ -35,10 +30,13 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Locatable;
 import org.openqa.selenium.interactions.internal.Coordinates;
 import org.openqa.selenium.internal.HasIdentity;
-import org.openqa.selenium.interactions.internal.Locatable;
 import org.openqa.selenium.internal.WrapsElement;
+
+import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
 
 /**
  * Improves WebElement implementation with custom {@link #sendKeys(CharSequence...)} method
@@ -51,13 +49,10 @@ public class BobcatWebElement implements WebElement, Locatable, WrapsElement, Ha
 
   private final Locatable locatable;
 
-  private final List<ConditionContext> conditionContext;
-
   @Inject
   public BobcatWebElement(@Assisted BobcatWebElementContext context) {
     this.element = context.getWebElement();
     this.locatable = context.getLocatable();
-    this.conditionContext = context.getLoadableConditionContext();
   }
 
   @Override
@@ -179,14 +174,6 @@ public class BobcatWebElement implements WebElement, Locatable, WrapsElement, Ha
   @Override
   public String toString() {
     return String.format("%s(%s)", this.getClass().getSimpleName(), getWrappedElement());
-  }
-
-  /**
-   *
-   * @return Conditions defined by {@link LoadableComponent} annotations.
-   */
-  public List<ConditionContext> getLoadableConditionContext() {
-    return conditionContext;
   }
 
   private boolean isUploadField(WebElement webElement) {

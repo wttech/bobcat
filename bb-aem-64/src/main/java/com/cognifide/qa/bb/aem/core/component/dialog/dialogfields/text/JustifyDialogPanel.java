@@ -15,15 +15,14 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text;
 
+import org.openqa.selenium.support.FindBy;
+
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DialogField;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.FieldType;
-import com.cognifide.qa.bb.constants.Timeouts;
-import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.PageObject;
+import com.cognifide.qa.bb.wait.BobcatWait;
 import com.google.inject.Inject;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 
 /**
  * Represents text justification dialog field.
@@ -75,8 +74,7 @@ public class JustifyDialogPanel implements DialogField {
 
   private void openJustifyPopover() {
     controlToolbar.selectText();
-    bobcatWait.withTimeout(Timeouts.SMALL).until((ExpectedCondition<Object>) input -> controlToolbar.
-            getToggleJustifyButton().isEnabled());
+    bobcatWait.until(input -> controlToolbar.getToggleJustifyButton().isEnabled());
     controlToolbar.getToggleJustifyButton().click();
   }
 

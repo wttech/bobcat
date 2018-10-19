@@ -21,7 +21,7 @@ package com.cognifide.qa.bb.scope.frame;
 
 import org.openqa.selenium.WebDriver;
 
-import com.cognifide.qa.bb.provider.selenium.BobcatWait;
+import com.cognifide.qa.bb.wait.BobcatWait;
 
 /**
  * Any class that represents a frame must implement this interface.

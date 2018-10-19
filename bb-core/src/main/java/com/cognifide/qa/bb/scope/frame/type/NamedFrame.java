@@ -26,9 +26,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cognifide.qa.bb.constants.Timeouts;
-import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.scope.frame.FrameDescriptor;
+import com.cognifide.qa.bb.wait.BobcatWait;
 
 /**
  * This FrameDescriptor represent a named frame.
@@ -51,8 +50,7 @@ public class NamedFrame implements FrameDescriptor {
   @Override
   public void switchTo(WebDriver webDriver, BobcatWait bobcatWait) {
     LOG.debug("Switching to {}", name);
-    bobcatWait.withTimeout(Timeouts.SMALL)
-        .until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(name));
+    bobcatWait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(name));
   }
 
   @Override

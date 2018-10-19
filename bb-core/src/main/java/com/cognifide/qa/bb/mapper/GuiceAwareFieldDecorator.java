@@ -19,25 +19,20 @@
  */
 package com.cognifide.qa.bb.mapper;
 
-import com.cognifide.qa.bb.loadable.context.ConditionContext;
-import com.cognifide.qa.bb.loadable.hierarchy.util.LoadableComponentsUtil;
-import com.cognifide.qa.bb.webelement.BobcatWebElementContext;
-import com.cognifide.qa.bb.webelement.BobcatWebElementFactory;
-
 import java.lang.reflect.Field;
-import java.util.List;
 
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.internal.Locatable;
+import org.openqa.selenium.interactions.Locatable;
 import org.openqa.selenium.support.pagefactory.DefaultFieldDecorator;
 import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 
+import com.cognifide.qa.bb.webelement.BobcatWebElementContext;
+import com.cognifide.qa.bb.webelement.BobcatWebElementFactory;
 import com.google.inject.Inject;
 
 /**
- * This class extends Selenium's default field decorator so that Selenium will initalize all
- * fields except the
- * ones annotated with Inject. This class should not be used by Bobcat's users.
+ * This class extends Selenium's default field decorator so that Selenium will initialize all
+ * fields except the ones annotated with Inject. This class should not be used by Bobcat's users.
  */
 public class GuiceAwareFieldDecorator extends DefaultFieldDecorator {
 
@@ -77,10 +72,8 @@ public class GuiceAwareFieldDecorator extends DefaultFieldDecorator {
       if (decoratedField instanceof WebElement) {
         WebElement element = (WebElement) decoratedField;
         Locatable locatable = (Locatable) decoratedField;
-        List<ConditionContext> fieldConditionContext =
-            LoadableComponentsUtil.getConditionsFormField(field);
         BobcatWebElementContext context =
-            new BobcatWebElementContext(element, locatable, fieldConditionContext);
+            new BobcatWebElementContext(element, locatable);
         return bobcatWebElementFactory.create(context);
       }
       return decoratedField;

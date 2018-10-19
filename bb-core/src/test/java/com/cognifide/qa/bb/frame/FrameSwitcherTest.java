@@ -22,7 +22,6 @@ package com.cognifide.qa.bb.frame;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assume.assumeThat;
-import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.when;
 
 import java.util.Deque;
@@ -36,10 +35,9 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.openqa.selenium.WebDriver;
 
-import com.cognifide.qa.bb.provider.selenium.BobcatWait;
-import com.cognifide.qa.bb.provider.selenium.BobcatWebDriverWait;
 import com.cognifide.qa.bb.scope.frame.FramePath;
 import com.cognifide.qa.bb.utils.Whitebox;
+import com.cognifide.qa.bb.wait.BobcatWait;
 import com.google.inject.Provider;
 
 public class FrameSwitcherTest {
@@ -64,15 +62,11 @@ public class FrameSwitcherTest {
   private BobcatWait bobcatWait;
 
   @Mock
-  private BobcatWebDriverWait bobcatWebDriverWait;
-
-  @Mock
   private FramePath framePath;
 
   @Before
   public void setUp() {
     when(provider.get()).thenReturn(webDriver);
-    when(bobcatWait.withTimeout(anyInt())).thenReturn(bobcatWebDriverWait);
   }
 
   @Test

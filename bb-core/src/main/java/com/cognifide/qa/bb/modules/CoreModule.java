@@ -62,8 +62,6 @@ public class CoreModule extends AbstractModule {
 
     install(new DefaultModifiersModule());
 
-    install(new LoadablesModule());
-
     install(new DragAndDropModule());
 
     install(new CookiesModule());

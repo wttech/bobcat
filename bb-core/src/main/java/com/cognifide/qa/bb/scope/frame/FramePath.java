@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bb.scope.frame;
 
-
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;

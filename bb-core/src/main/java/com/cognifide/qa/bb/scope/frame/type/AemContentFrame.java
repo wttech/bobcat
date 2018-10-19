@@ -25,8 +25,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.constants.Timeouts;
-import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.scope.frame.FrameDescriptor;
+import com.cognifide.qa.bb.wait.BobcatWait;
+import com.cognifide.qa.bb.wait.TimingsBuilder;
 
 /**
  * This is a FrameDescriptor that represents the AEM's content frame ($cq).
@@ -46,7 +47,7 @@ public enum AemContentFrame implements FrameDescriptor {
   public void switchTo(WebDriver webDriver, BobcatWait bobcatWait) {
     if (webDriver.getCurrentUrl().contains(CF_URL_PART)) {
       LOG.debug("switching to AEM content frame..");
-      bobcatWait.withTimeout(Timeouts.MEDIUM).until(
+      bobcatWait.tweak(new TimingsBuilder().explicitTimeout(Timeouts.MEDIUM).build()).until(
           ExpectedConditions.frameToBeAvailableAndSwitchToIt(AEM_CF_FRAME));
       LOG.debug("..switched");
     } else {
