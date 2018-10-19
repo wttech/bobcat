@@ -17,28 +17,13 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.sitepanel.internal;
+package com.cognifide.qa.bb.aem.core.sidepanel.internal;
 
-import com.cognifide.qa.bb.dragdrop.Draggable;
 import com.cognifide.qa.bb.qualifier.PageObjectInterface;
-import org.openqa.selenium.WebElement;
 
-/**
- * Interface that represent authoring mode side panel.
- */
 @PageObjectInterface
-public interface SidePanel {
+public interface SidePanelTabBar {
 
-  void selectTab(String tab);
-
-  /**
-   * Searches for assets for given asset name and return it as draggable.
-   *
-   * @param asset name.
-   * @return {@link Draggable} instance of the asset.
-   */
-  Draggable searchForAsset(String asset);
-
-  WebElement selectComponentToEdit(String path, String component, int elementNumber);
+  void switchTab(String tab);
 
 }

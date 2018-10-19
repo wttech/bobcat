@@ -17,18 +17,23 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.sitepanel;
+package com.cognifide.qa.bb.aem.core.component.actions;
 
-import com.cognifide.qa.bb.aem.core.sitepanel.internal.SidePanel;
-import com.cognifide.qa.bb.aem.core.sitepanel.internal.SidePanelTabs;
+import com.cognifide.qa.bb.aem.core.component.toolbar.CommonToolbarOptions;
+import com.cognifide.qa.bb.aem.core.component.toolbar.ComponentToolbar;
+import com.cognifide.qa.bb.aem.core.component.action.ComponentAction;
+import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanel;
+import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanelTabs;
 import com.cognifide.qa.bb.qualifier.FindPageObject;
+import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
+import com.cognifide.qa.bb.utils.PageObjectInjector;
 import com.google.inject.Inject;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 
 @PageObject
-public class EditComponentAction implements SidePanelAction<EditComponentActonData> {
+public class EditComponentAction implements ComponentAction<EditComponentActonData> {
 
   public static final String EDIT_COMPONENT = "editComponentAction";
 
@@ -37,6 +42,13 @@ public class EditComponentAction implements SidePanelAction<EditComponentActonDa
 
   @FindPageObject
   private SidePanel sidePanel;
+
+  @Global
+  @FindPageObject
+  private ComponentToolbar componentToolbar;
+
+  @Inject
+  private PageObjectInjector pageObjectInjector;
 
   @Override
   public String getActionName() {
@@ -47,7 +59,8 @@ public class EditComponentAction implements SidePanelAction<EditComponentActonDa
   @Step("Edit component")
   public void action(EditComponentActonData actionData) {
     sidePanel.selectTab(SidePanelTabs.CONTENT_TREE.getCssClass());
-    sidePanel.selectComponentToEdit(actionData.getComponentPath(),actionData.getComponentName(),actionData.getComponentOrder()).click();
-
+    sidePanel.selectComponentToEdit(actionData.getComponentPath(), actionData.getComponentName(),
+        actionData.getComponentOrder()).click();
+    componentToolbar.clickOption(CommonToolbarOptions.EDIT.getTitle());
   }
 }

@@ -17,25 +17,28 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.sitepanel;
+package com.cognifide.qa.bb.aem.core.sidepanel.internal;
+
+import com.cognifide.qa.bb.dragdrop.Draggable;
+import com.cognifide.qa.bb.qualifier.PageObjectInterface;
+import org.openqa.selenium.WebElement;
 
 /**
- * Interface for Side Panel Action that can be taken
- *
- * @param <T> implementation of {@link SidePanelActionData} for action parameters
+ * Interface that represent authoring mode side panel.
  */
-public interface SidePanelAction<T extends SidePanelActionData> {
+@PageObjectInterface
+public interface SidePanel {
+
+  void selectTab(String tab);
 
   /**
-   * @return action name that is used for retrieve action
-   */
-  public String getActionName();
-
-  /**
-   * runs action with selected parameters
+   * Searches for assets for given asset name and return it as draggable.
    *
-   * @param actionData parameters for action
+   * @param asset name.
+   * @return {@link Draggable} instance of the asset.
    */
-  public void action(T actionData);
+  Draggable searchForAsset(String asset);
+
+  WebElement selectComponentToEdit(String path, String component, int elementNumber);
 
 }

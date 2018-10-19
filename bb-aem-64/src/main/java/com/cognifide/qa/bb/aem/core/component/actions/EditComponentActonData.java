@@ -17,22 +17,13 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.guice;
+package com.cognifide.qa.bb.aem.core.component.actions;
 
-import com.cognifide.qa.bb.aem.core.component.AuthorLoader;
-import com.cognifide.qa.bb.aem.core.component.AuthorLoaderImpl;
-import com.cognifide.qa.bb.aem.core.component.GlobalBar;
-import com.cognifide.qa.bb.aem.core.component.GlobalBarImpl;
-import com.google.inject.AbstractModule;
+public class EditComponentActonData extends AbstractComponentActionData {
 
-/**
- * Module that contains bindings for AEM 6.4 page bars
- */
-public class AemPageModule extends AbstractModule {
 
-  @Override
-  protected void configure() {
-    bind(AuthorLoader.class).to(AuthorLoaderImpl.class);
-    bind(GlobalBar.class).to(GlobalBarImpl.class);
+  public EditComponentActonData(String componentPath, String componentName, int componentOrder) {
+    super(componentPath, componentName, componentOrder);
   }
+
 }

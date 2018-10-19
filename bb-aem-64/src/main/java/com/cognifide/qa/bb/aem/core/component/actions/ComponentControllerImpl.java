@@ -17,11 +17,26 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.sitepanel;
+package com.cognifide.qa.bb.aem.core.component.actions;
 
-/**
- * Interface for class containing parameters for SidePanel Actions
- */
-public interface SidePanelActionData {
+import com.cognifide.qa.bb.aem.core.component.action.ComponentAction;
+import com.cognifide.qa.bb.aem.core.component.action.ComponentController;
+import com.google.inject.Inject;
+import java.util.Map;
+import java.util.Set;
 
+public class ComponentControllerImpl implements ComponentController {
+
+  @Inject
+  private Map<String, ComponentAction> sidePanelActions;
+
+  @Override
+  public Set<String> getAvailableActions() {
+    return sidePanelActions.keySet();
+  }
+
+  @Override
+  public ComponentAction getSidePanelAction(String action) {
+    return sidePanelActions.get(action);
+  }
 }

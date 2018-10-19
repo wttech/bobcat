@@ -17,34 +17,22 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.component.toolbar;
+package com.cognifide.qa.bb.aem.core.component.action;
 
 import com.cognifide.qa.bb.qualifier.PageObjectInterface;
+import java.util.Set;
 
-/**
- * Interface for implementations of ocmponent toolbar
- */
 @PageObjectInterface
-public interface ComponentToolbar {
+public interface ComponentController {
 
   /**
-   * Method finds given toolbar option and performs click action on it.
-   *
-   * @param option option which will be clicked.
+   * @return set of available actions
    */
-  public void clickOption(String option);
+  Set<String> getAvailableActions();
 
   /**
-   * Method finds given toolbar option (which was not bind to toolbar options)
-   * and performs click action on it.
-   *
-   * @param option option which will be clicked.
+   * returns selected action
    */
-  public void clickOption(ToolbarOption option);
-
-  /**
-   * Method verifies if the component toolbar is visible.
-   */
-  public void verifyIsDisplayed();
+  ComponentAction getSidePanelAction(String action);
 
 }

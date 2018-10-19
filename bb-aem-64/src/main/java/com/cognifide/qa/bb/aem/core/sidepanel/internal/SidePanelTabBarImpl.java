@@ -17,19 +17,23 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.sitepanel.internal;
+package com.cognifide.qa.bb.aem.core.sidepanel.internal;
 
-public enum SidePanelTabs {
+import com.cognifide.qa.bb.qualifier.CurrentScope;
+import com.cognifide.qa.bb.qualifier.PageObject;
+import com.google.inject.Inject;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-  ASSETS(""), COMPONENTS(""), CONTENT_TREE("coral3-Icon--layers");
+@PageObject(css = ".coral3-TabList")
+public class SidePanelTabBarImpl implements SidePanelTabBar {
 
-  private String cssClass;
+  @Inject
+  @CurrentScope
+  private WebElement currentScope;
 
-  SidePanelTabs(String cssClass) {
-    this.cssClass = cssClass;
-  }
-
-  public String getCssClass() {
-    return cssClass;
+  @Override
+  public void switchTab(String tab) {
+    currentScope.findElement(By.className(tab)).click();
   }
 }

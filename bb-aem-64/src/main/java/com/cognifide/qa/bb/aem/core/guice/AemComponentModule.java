@@ -23,6 +23,11 @@ import com.cognifide.qa.bb.aem.core.component.AuthorLoader;
 import com.cognifide.qa.bb.aem.core.component.AuthorLoaderImpl;
 import com.cognifide.qa.bb.aem.core.component.GlobalBar;
 import com.cognifide.qa.bb.aem.core.component.GlobalBarImpl;
+import com.cognifide.qa.bb.aem.core.component.action.ComponentAction;
+import com.cognifide.qa.bb.aem.core.component.action.ComponentController;
+import com.cognifide.qa.bb.aem.core.component.actions.ComponentControllerImpl;
+import com.cognifide.qa.bb.aem.core.component.actions.ConfigureComponentAction;
+import com.cognifide.qa.bb.aem.core.component.actions.EditComponentAction;
 import com.cognifide.qa.bb.aem.core.component.toolbar.CommonToolbarOption;
 import com.cognifide.qa.bb.aem.core.component.toolbar.CommonToolbarOptions;
 import com.cognifide.qa.bb.aem.core.component.toolbar.ComponentToolbar;
@@ -39,8 +44,17 @@ public class AemComponentModule extends AbstractModule {
 
   @Override
   protected void configure() {
+    bind(ComponentController.class).to(ComponentControllerImpl.class);
+    bindComponentActions();
     bind(ComponentToolbar.class).to(ComponentToolbarImpl.class);
     bindCommonToolbarOptions();
+  }
+
+  private void bindComponentActions() {
+    MapBinder<String, ComponentAction> componentActions =
+        MapBinder.newMapBinder(binder(), String.class, ComponentAction.class);
+    componentActions.addBinding(EditComponentAction.EDIT_COMPONENT).to(EditComponentAction.class);
+    componentActions.addBinding(ConfigureComponentAction.CONFIGURE_COMPONENT_ACTION).to(ConfigureComponentAction.class);
   }
 
   private void bindCommonToolbarOptions() {

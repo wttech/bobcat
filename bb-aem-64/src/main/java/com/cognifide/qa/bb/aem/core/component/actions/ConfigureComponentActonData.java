@@ -17,13 +17,13 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.sitepanel.internal;
+package com.cognifide.qa.bb.aem.core.component.actions;
 
-import com.cognifide.qa.bb.qualifier.PageObjectInterface;
+public class ConfigureComponentActonData extends AbstractComponentActionData {
 
-@PageObjectInterface
-public interface SidePanelTabBar {
-
-  void switchTab(String tab);
+  public ConfigureComponentActonData(String componentPath, String componentName,
+      int componentOrder) {
+    super(componentPath, componentName, componentOrder);
+  }
 
 }

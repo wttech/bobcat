@@ -19,14 +19,15 @@
  */
 package com.cognifide.qa.bb.aem.core.guice;
 
-import com.cognifide.qa.bb.aem.core.sitepanel.EditComponentAction;
-import com.cognifide.qa.bb.aem.core.sitepanel.SidePanelAction;
-import com.cognifide.qa.bb.aem.core.sitepanel.SidePanelController;
-import com.cognifide.qa.bb.aem.core.sitepanel.SidePanelControllerImpl;
-import com.cognifide.qa.bb.aem.core.sitepanel.internal.SidePanel;
-import com.cognifide.qa.bb.aem.core.sitepanel.internal.SidePanelImpl;
-import com.cognifide.qa.bb.aem.core.sitepanel.internal.SidePanelTabBar;
-import com.cognifide.qa.bb.aem.core.sitepanel.internal.SidePanelTabBarImpl;
+import com.cognifide.qa.bb.aem.core.component.actions.ConfigureComponentAction;
+import com.cognifide.qa.bb.aem.core.component.actions.EditComponentAction;
+import com.cognifide.qa.bb.aem.core.component.action.ComponentAction;
+import com.cognifide.qa.bb.aem.core.component.action.ComponentController;
+import com.cognifide.qa.bb.aem.core.component.actions.ComponentControllerImpl;
+import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanel;
+import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanelImpl;
+import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanelTabBar;
+import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanelTabBarImpl;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.MapBinder;
 
@@ -34,11 +35,7 @@ public class AemSidePanelModule extends AbstractModule {
 
   @Override
   protected void configure() {
-    bind(SidePanelController.class).to(SidePanelControllerImpl.class);
     bind(SidePanel.class).to(SidePanelImpl.class);
     bind(SidePanelTabBar.class).to(SidePanelTabBarImpl.class);
-    MapBinder<String, SidePanelAction> sidePanelActions =
-        MapBinder.newMapBinder(binder(), String.class, SidePanelAction.class);
-    sidePanelActions.addBinding(EditComponentAction.EDIT_COMPONENT).to(EditComponentAction.class);
   }
 }

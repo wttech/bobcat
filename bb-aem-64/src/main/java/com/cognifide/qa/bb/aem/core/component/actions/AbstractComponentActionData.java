@@ -17,9 +17,11 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.sitepanel;
+package com.cognifide.qa.bb.aem.core.component.actions;
 
-public class EditComponentActonData implements SidePanelActionData{
+import com.cognifide.qa.bb.aem.core.component.action.ComponentActionData;
+
+public class AbstractComponentActionData implements ComponentActionData {
 
   private String componentPath;
 
@@ -27,7 +29,7 @@ public class EditComponentActonData implements SidePanelActionData{
 
   private int componentOrder;
 
-  public EditComponentActonData(String componentPath, String componentName, int componentOrder) {
+  public AbstractComponentActionData(String componentPath, String componentName, int componentOrder) {
     this.componentPath = componentPath;
     this.componentName = componentName;
     this.componentOrder = componentOrder;
@@ -44,4 +46,5 @@ public class EditComponentActonData implements SidePanelActionData{
   public int getComponentOrder() {
     return componentOrder;
   }
+
 }

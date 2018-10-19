@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.sitepanel.internal;
+package com.cognifide.qa.bb.aem.core.sidepanel.internal;
 
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;

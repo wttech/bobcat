@@ -17,22 +17,25 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.sitepanel;
+package com.cognifide.qa.bb.aem.core.component.action;
 
-import com.cognifide.qa.bb.qualifier.PageObjectInterface;
-import java.util.Set;
-
-@PageObjectInterface
-public interface SidePanelController {
-
-  /**
-   * @return set of available actions
-   */
-  Set<String> getAvailableActions();
+/**
+ * Interface for Side Panel Action that can be taken
+ *
+ * @param <T> implementation of {@link ComponentActionData} for action parameters
+ */
+public interface ComponentAction<T extends ComponentActionData> {
 
   /**
-   * returns selected action
+   * @return action name that is used for retrieve action
    */
-  SidePanelAction getSidePanelAction(String action);
+  public String getActionName();
+
+  /**
+   * runs action with selected parameters
+   *
+   * @param actionData parameters for action
+   */
+  public void action(T actionData);
 
 }
