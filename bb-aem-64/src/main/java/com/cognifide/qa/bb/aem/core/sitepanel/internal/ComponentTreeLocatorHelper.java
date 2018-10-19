@@ -35,7 +35,7 @@ public class ComponentTreeLocatorHelper {
    * @param path how many containers is between
    * @param componentName component name
    * @param elementNumber which component (default 0) it there is more then one
-   * @param currentScope 
+   * @param currentScope
    * @return
    */
   public static WebElement getComponentWebElement(String path, String componentName,
