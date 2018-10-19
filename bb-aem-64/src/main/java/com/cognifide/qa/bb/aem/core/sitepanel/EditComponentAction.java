@@ -47,5 +47,7 @@ public class EditComponentAction implements SidePanelAction<EditComponentActonDa
   @Step("Edit component")
   public void action(EditComponentActonData actionData) {
     sidePanel.selectTab(SidePanelTabs.CONTENT_TREE.getCssClass());
+    sidePanel.selectComponentToEdit(actionData.getComponentPath(),actionData.getComponentName(),actionData.getComponentOrder()).click();
+
   }
 }

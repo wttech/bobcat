@@ -19,10 +19,9 @@
  */
 package com.cognifide.qa.bb.aem.core.sitepanel.internal;
 
-import com.cognifide.qa.bb.aem.core.component.Component;
 import com.cognifide.qa.bb.dragdrop.Draggable;
-import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.qualifier.PageObjectInterface;
+import org.openqa.selenium.WebElement;
 
 /**
  * Interface that represent authoring mode side panel.
@@ -40,6 +39,6 @@ public interface SidePanel {
    */
   Draggable searchForAsset(String asset);
 
-  Component selectComponentToEdit(String component);
+  WebElement selectComponentToEdit(String path, String component, int elementNumber);
 
 }

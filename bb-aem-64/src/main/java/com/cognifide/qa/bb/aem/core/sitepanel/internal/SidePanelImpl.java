@@ -22,9 +22,7 @@ package com.cognifide.qa.bb.aem.core.sitepanel.internal;
 import static org.openqa.selenium.support.ui.ExpectedConditions.not;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
-import com.cognifide.qa.bb.aem.core.component.Component;
 import com.cognifide.qa.bb.aem.core.component.GlobalBarImpl;
-import com.cognifide.qa.bb.aem.core.sitepanel.internal.SidePanel;
 import com.cognifide.qa.bb.aem.core.util.Conditions;
 import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.constants.Timeouts;
@@ -78,8 +76,8 @@ public class SidePanelImpl implements SidePanel {
   private SidePanelTabBar sidePanelTabBar;
 
   @Override
-  public Component selectComponentToEdit(String component) {
-    return null;
+  public WebElement selectComponentToEdit(String path, String component, int elementNumber) {
+    return ComponentTreeLocatorHelper.getComponentWebElement(path,component,elementNumber,currentScope);
   }
 
   @Override
