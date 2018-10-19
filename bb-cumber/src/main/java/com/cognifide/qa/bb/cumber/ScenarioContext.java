@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.scenario;
+package com.cognifide.qa.bb.cumber;
 
 import java.util.HashMap;
 import java.util.List;
