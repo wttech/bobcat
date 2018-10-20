@@ -37,6 +37,7 @@ public final class YamlReader {
   public static final String YAML = ".yaml";
   private static final Logger LOG = LoggerFactory.getLogger(YamlReader.class);
   public static final String YAML_FILE_COULD_NOT_BE_READ = "YAML file could not be read";
+  public static final String COULD_NOT_PARSE_YAML_FILE = "Could not parse YAML file: {}";
 
   private YamlReader() {
     // utility class
@@ -54,7 +55,7 @@ public final class YamlReader {
     try {
       return new ObjectMapper(new YAMLFactory()).readValue(readFile(path), typeReference);
     } catch (IOException e) {
-      LOG.error("Could not parse YAML file: {}", path, e);
+      LOG.error(COULD_NOT_PARSE_YAML_FILE, path, e);
       throw new IllegalStateException(YAML_FILE_COULD_NOT_BE_READ, e);
     }
   }
@@ -71,7 +72,41 @@ public final class YamlReader {
     try {
       return new ObjectMapper(new YAMLFactory()).readValue(readFile(path), type);
     } catch (IOException e) {
-      LOG.error("Could not parse YAML file: {}", path, e);
+      LOG.error(COULD_NOT_PARSE_YAML_FILE, path, e);
+      throw new IllegalStateException(YAML_FILE_COULD_NOT_BE_READ, e);
+    }
+  }
+
+  /**
+   * Reads yaml configuration file under given path in test resources and returns structure defined in {@link TypeReference}.
+   *
+   * @param path          path to yaml configuration file.
+   * @param typeReference type reference which will be used to construct result.
+   * @param <T>           type of the mapped object
+   * @return YAML file mapped to an object defined by provided TypeReference
+   */
+  public static <T> T readFromTestResources(String path, TypeReference typeReference) {
+    try {
+      return new ObjectMapper(new YAMLFactory()).readValue(readFileFromTestResource(path), typeReference);
+    } catch (IOException e) {
+      LOG.error(COULD_NOT_PARSE_YAML_FILE, path, e);
+      throw new IllegalStateException(YAML_FILE_COULD_NOT_BE_READ, e);
+    }
+  }
+
+  /**
+   * Reads yaml configuration file under given path in test resources and returns structure defined in {@link TypeReference}.
+   *
+   * @param path path to yaml configuration file.
+   * @param type type which will be used to construct result.
+   * @param <T>  type of the mapped object
+   * @return YAML file mapped to an object defined by provided TypeReference
+   */
+  public static <T> T readFromTestResources(String path, Class<T> type) {
+    try {
+      return new ObjectMapper(new YAMLFactory()).readValue(readFileFromTestResource(path), type);
+    } catch (IOException e) {
+      LOG.error(COULD_NOT_PARSE_YAML_FILE, path, e);
       throw new IllegalStateException(YAML_FILE_COULD_NOT_BE_READ, e);
     }
   }
@@ -79,5 +114,10 @@ public final class YamlReader {
   private static InputStream readFile(String path) {
     String fullPath = StringUtils.endsWith(path, YAML) ? path : path + YAML;
     return YamlReader.class.getResourceAsStream(fullPath);
+  }
+
+  private static InputStream readFileFromTestResource(String path) {
+    String fullPath = StringUtils.endsWith(path, YAML) ? path : path + YAML;
+    return YamlReader.class.getClassLoader().getResourceAsStream(fullPath);
   }
 }

@@ -1,0 +1,23 @@
+TEST TAB:
+  - label: Build list using
+    type: SELECT
+    value: Fixed list
+  - label: Pages
+    type: MULTIFIELD
+    value:
+      - item:
+        - label:
+          type: PATHBROWSER
+          value: /content/geometrixx-outdoors
+      - item:
+        - label:
+          type: PATHBROWSER
+          value: /content/geometrixx-outdoors-mobile
+
+Title and Text:
+  - label: Element Name *
+    type: TEXTFIELD
+    value: test
+  - label: Only show non-editable summary
+    type: CHECKBOX
+    value: false
