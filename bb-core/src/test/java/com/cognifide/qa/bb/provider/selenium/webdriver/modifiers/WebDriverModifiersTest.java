@@ -19,7 +19,7 @@
  */
 package com.cognifide.qa.bb.provider.selenium.webdriver.modifiers;
 
-import static org.mockito.Matchers.any;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;

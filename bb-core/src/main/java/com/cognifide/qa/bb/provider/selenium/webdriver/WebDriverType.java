@@ -31,10 +31,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.ie.InternetExplorerOptions;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
@@ -71,26 +69,6 @@ public enum WebDriverType {
     @Override
     public WebDriver create(Capabilities capabilities, Properties properties) {
       return new SafariDriver(new SafariOptions(capabilities));
-    }
-  },
-  /**
-   * @deprecated Please use an actual browser implementation
-   */
-  @Deprecated
-  HTML {
-    @Override
-    public WebDriver create(Capabilities capabilities, Properties properties) {
-      return new HtmlUnitDriver(capabilities);
-    }
-  },
-  /**
-   * @deprecated PhantomJS is no longer maintained, please use headless mode in actual browsers
-   */
-  @Deprecated
-  GHOST {
-    @Override
-    public WebDriver create(Capabilities capabilities, Properties properties) {
-      return new PhantomJSDriver();
     }
   },
   APPIUM {

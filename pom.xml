@@ -271,19 +271,6 @@ limitations under the License.
                 <artifactId>allure-java-commons</artifactId>
                 <version>2.7.0</version>
             </dependency>
-
-            <dependency>
-                <!-- usage deprecated, remove with next version -->
-                <groupId>com.github.detro.ghostdriver</groupId>
-                <artifactId>phantomjsdriver</artifactId>
-                <version>1.1.0</version>
-            </dependency>
-            <dependency>
-                <!-- usage deprecated, remove with next version -->
-                <groupId>org.seleniumhq.selenium</groupId>
-                <artifactId>selenium-htmlunit-driver</artifactId>
-                <version>2.52.0</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
