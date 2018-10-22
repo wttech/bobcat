@@ -78,7 +78,7 @@ import io.appium.java_client.windows.PressesKeyCode;
  */
 public class WebDriverWrapper extends EventFiringWebDriver implements
     HasCapabilities, MobileDriver, HasNetworkConnection, PushesFiles, StartsActivity,
-    FindsByAndroidUIAutomator, FindsByIosUIAutomation, HasIdentity, HasDeviceTime, HidesKeyboard,
+    FindsByAndroidUIAutomator, FindsByIosUIAutomation, HasDeviceTime, HidesKeyboard,
     HidesKeyboardWithKeyName, PressesKeyCode, ShakesDevice, HasSessionDetails {
 
   private final FrameSwitcher frameSwitcher;
@@ -437,11 +437,6 @@ public class WebDriverWrapper extends EventFiringWebDriver implements
   @Override
   public void longPressKeyCode(int key, Integer metastate) {
     ((AndroidDriver) super.getWrappedDriver()).longPressKeyCode(key, metastate);
-  }
-
-  @Override
-  public String getId() {
-    return UUID.randomUUID().toString();
   }
 
   @Override

@@ -20,7 +20,6 @@
 package com.cognifide.qa.bb.webelement;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
@@ -32,7 +31,6 @@ import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Locatable;
 import org.openqa.selenium.interactions.internal.Coordinates;
-import org.openqa.selenium.internal.HasIdentity;
 import org.openqa.selenium.internal.WrapsElement;
 
 import com.google.inject.Inject;
@@ -41,7 +39,7 @@ import com.google.inject.assistedinject.Assisted;
 /**
  * Improves WebElement implementation with custom {@link #sendKeys(CharSequence...)} method
  */
-public class BobcatWebElement implements WebElement, Locatable, WrapsElement, HasIdentity {
+public class BobcatWebElement implements WebElement, Locatable, WrapsElement {
 
   private static final int SEND_KEYS_RETRIES = 10;
 
@@ -189,10 +187,5 @@ public class BobcatWebElement implements WebElement, Locatable, WrapsElement, Ha
 
   private String getValue() {
     return element.getAttribute("value");
-  }
-
-  @Override
-  public String getId() {
-    return UUID.randomUUID().toString();
   }
 }
