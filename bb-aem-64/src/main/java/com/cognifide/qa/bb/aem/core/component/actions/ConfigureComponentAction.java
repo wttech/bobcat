@@ -19,25 +19,39 @@
  */
 package com.cognifide.qa.bb.aem.core.component.actions;
 
+import com.cognifide.qa.bb.aem.core.component.action.ComponentAction;
+import com.cognifide.qa.bb.aem.core.component.configuration.ComponentConfigReader;
+import com.cognifide.qa.bb.aem.core.component.configuration.ComponentConfiguration;
+import com.cognifide.qa.bb.aem.core.component.dialog.ConfigDialog;
 import com.cognifide.qa.bb.aem.core.component.toolbar.CommonToolbarOptions;
 import com.cognifide.qa.bb.aem.core.component.toolbar.ComponentToolbar;
-import com.cognifide.qa.bb.aem.core.component.action.ComponentAction;
 import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanel;
 import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanelTabs;
 import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
-import com.cognifide.qa.bb.utils.PageObjectInjector;
-import com.google.inject.Inject;
 import io.qameta.allure.Step;
-import org.openqa.selenium.WebDriver;
+import javax.inject.Inject;
 
 @PageObject
-public class ConfigureComponentAction extends AbstractComponentAction<ConfigureComponentActonData> {
+public class ConfigureComponentAction implements ComponentAction<ConfigureComponentActonData> {
 
   public static final String CONFIGURE_COMPONENT_ACTION = "configureComponentAction";
 
 
+  @Inject
+  private ComponentConfigReader componentConfigReader;
+
+  @Global
+  @FindPageObject
+  private ConfigDialog configDialog;
+
+  @FindPageObject
+  private SidePanel sidePanel;
+
+  @Global
+  @FindPageObject
+  private ComponentToolbar componentToolbar;
 
   @Override
   public String getActionName() {
@@ -47,7 +61,16 @@ public class ConfigureComponentAction extends AbstractComponentAction<ConfigureC
   @Override
   @Step("Configure component")
   public void action(ConfigureComponentActonData actionData) {
-
+    selectComponent(actionData);
     componentToolbar.clickOption(CommonToolbarOptions.CONFIGURE.getTitle());
+    ComponentConfiguration componentConfiguration = componentConfigReader
+        .readConfiguration(actionData.getResourceFileLocation());
+    configDialog.configureWith(componentConfiguration);
+  }
+
+  private void selectComponent(ConfigureComponentActonData actionData) {
+    sidePanel.selectTab(SidePanelTabs.CONTENT_TREE.getCssClass());
+    sidePanel.selectComponentToEdit(actionData.getComponentPath(), actionData.getComponentName(),
+        actionData.getComponentOrder()).click();
   }
 }

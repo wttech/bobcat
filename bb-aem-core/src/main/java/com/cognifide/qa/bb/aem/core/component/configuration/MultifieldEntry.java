@@ -17,39 +17,24 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.configuration;
+package com.cognifide.qa.bb.aem.core.component.configuration;
+
+import java.util.List;
 
 /**
- * This class represents single field configuration.
+ * This class represents multifield entry with multiple fields configurations.
  */
-public class FieldConfig {
-
-  private String label;
-
-  private String type;
-
-  private Object value;
+public class MultifieldEntry {
+  private List<FieldConfig> item;
 
   /**
-   * @return Label of the field.
+   * @return list of FieldConfigs
    */
-  public String getLabel() {
-    return label;
+  public List<FieldConfig> getItem() {
+    return item;
   }
 
-  /**
-   *
-   * @return Type of the field.
-   */
-  public String getType() {
-    return type;
-  }
-
-   /**
-    *
-    * @return Value of the field.
-    */
-  public Object getValue() {
-    return value;
+  public void setItem(List<FieldConfig> item) {
+    this.item = item;
   }
 }

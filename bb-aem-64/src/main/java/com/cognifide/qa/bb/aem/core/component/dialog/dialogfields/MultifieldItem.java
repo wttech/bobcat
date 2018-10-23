@@ -19,14 +19,15 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
-import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.configuration.FieldConfig;
-import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.configuration.MultifieldEntry;
+import com.cognifide.qa.bb.aem.core.component.configuration.FieldConfig;
+import com.cognifide.qa.bb.aem.core.component.configuration.MultifieldEntry;
+
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-//TODO
+
 @PageObject
 public class MultifieldItem implements DialogField {
 

@@ -19,7 +19,7 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
-import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.configuration.MultifieldEntry;
+import com.cognifide.qa.bb.aem.core.component.configuration.MultifieldEntry;
 import com.cognifide.qa.bb.exceptions.BobcatRuntimeException;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.fasterxml.jackson.core.type.TypeReference;

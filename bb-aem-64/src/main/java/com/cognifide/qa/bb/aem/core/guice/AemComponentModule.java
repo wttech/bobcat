@@ -28,6 +28,10 @@ import com.cognifide.qa.bb.aem.core.component.action.ComponentController;
 import com.cognifide.qa.bb.aem.core.component.actions.ComponentControllerImpl;
 import com.cognifide.qa.bb.aem.core.component.actions.ConfigureComponentAction;
 import com.cognifide.qa.bb.aem.core.component.actions.EditComponentAction;
+import com.cognifide.qa.bb.aem.core.component.dialog.ConfigDialog;
+import com.cognifide.qa.bb.aem.core.component.dialog.ConfigDialogImpl;
+import com.cognifide.qa.bb.aem.core.component.dialog.DialogConfigurer;
+import com.cognifide.qa.bb.aem.core.component.dialog.DialogConfigurerImpl;
 import com.cognifide.qa.bb.aem.core.component.toolbar.CommonToolbarOption;
 import com.cognifide.qa.bb.aem.core.component.toolbar.CommonToolbarOptions;
 import com.cognifide.qa.bb.aem.core.component.toolbar.ComponentToolbar;
@@ -47,6 +51,8 @@ public class AemComponentModule extends AbstractModule {
     bind(ComponentController.class).to(ComponentControllerImpl.class);
     bindComponentActions();
     bind(ComponentToolbar.class).to(ComponentToolbarImpl.class);
+    bind(ConfigDialog.class).to(ConfigDialogImpl.class);
+    bind(DialogConfigurer.class).to(DialogConfigurerImpl.class);
     bindCommonToolbarOptions();
   }
 
