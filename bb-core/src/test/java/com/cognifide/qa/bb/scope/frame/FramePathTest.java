@@ -19,20 +19,15 @@
  */
 package com.cognifide.qa.bb.scope.frame;
 
-import static org.hamcrest.CoreMatchers.hasItem;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.spy;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.cognifide.qa.bb.scope.frame.type.AemContentFrame;
 import com.cognifide.qa.bb.scope.frame.type.DefaultFrame;
@@ -81,8 +76,8 @@ public class FramePathTest {
     FramePath cut = FramePath.parsePath(frameName);
 
     // then
-    assertThat(cut.getFrames().size(), is(1));
-    assertThat(cut.getFrames(), hasItem(new NamedFrame(frameName)));
+    assertThat(cut.getFrames().size()).isEqualTo(1);
+    assertThat(cut.getFrames()).contains(new NamedFrame(frameName));
   }
 
   @Test
@@ -94,8 +89,8 @@ public class FramePathTest {
     FramePath cut = FramePath.parsePath("/$" + frameIndex);
 
     // then
-    assertThat(cut.getFrames().size(), is(1));
-    assertThat(cut.getFrames(), hasItem(new IndexedFrame(frameIndex)));
+    assertThat(cut.getFrames().size()).isEqualTo(1);
+    assertThat(cut.getFrames()).contains(new IndexedFrame(frameIndex));
   }
 
   @Test
@@ -104,8 +99,8 @@ public class FramePathTest {
     FramePath cut = FramePath.parsePath("$cq");
 
     // then
-    assertThat(cut.getFrames().size(), is(1));
-    assertThat(cut.getFrames(), hasItem(AemContentFrame.INSTANCE));
+    assertThat(cut.getFrames().size()).isEqualTo(1);
+    assertThat(cut.getFrames()).contains(AemContentFrame.INSTANCE);
   }
 
   @Test
@@ -120,10 +115,10 @@ public class FramePathTest {
         FramePath.parsePath(firstFrameName + "/" + secondFrameName + "/../" + thirdFrameName);
 
     // then
-    assertThat(cut.getFrames().size(), is(2));
-    assertThat(cut.getFrames(), hasItem(new NamedFrame(firstFrameName)));
-    assertThat(cut.getFrames(), hasItem(new NamedFrame(thirdFrameName)));
-    assertThat(cut.getFrames(), not(hasItem(new NamedFrame(secondFrameName))));
+    assertThat(cut.getFrames().size()).isEqualTo(2);
+    assertThat(cut.getFrames()).contains(new NamedFrame(firstFrameName));
+    assertThat(cut.getFrames()).contains(new NamedFrame(thirdFrameName));
+    assertThat(cut.getFrames()).doesNotContain(new NamedFrame(secondFrameName));
   }
 
   @Test
@@ -138,9 +133,9 @@ public class FramePathTest {
     List<FrameDescriptor> result = emptyFramePath.diff(cut);
 
     // then
-    assertThat(result.size(), is(2));
-    assertThat(result, hasItem(new NamedFrame(firstFrameName)));
-    assertThat(result, hasItem(new NamedFrame(secondFrameName)));
+    assertThat(result.size()).isEqualTo(2);
+    assertThat(result).contains(new NamedFrame(firstFrameName));
+    assertThat(result).contains(new NamedFrame(secondFrameName));
   }
 
   @Test
@@ -155,8 +150,8 @@ public class FramePathTest {
     List<FrameDescriptor> result = emptyFramePath.diff(cut);
 
     // then
-    assertThat(result.size(), is(1));
-    assertThat(result, hasItem(new NamedFrame(secondFrameName)));
+    assertThat(result.size()).isEqualTo(1);
+    assertThat(result).contains(new NamedFrame(secondFrameName));
   }
 
   @Test
@@ -171,9 +166,9 @@ public class FramePathTest {
     List<FrameDescriptor> result = emptyFramePath.diff(cut);
 
     // then
-    assertThat(result.size(), is(3));
-    assertThat(result, hasItem(DefaultFrame.INSTANCE));
-    assertThat(result, hasItem(new NamedFrame(secondFrameName)));
-    assertThat(result, hasItem(new NamedFrame(firstFrameName)));
+    assertThat(result.size()).isEqualTo(3);
+    assertThat(result).contains(DefaultFrame.INSTANCE);
+    assertThat(result).contains(new NamedFrame(secondFrameName));
+    assertThat(result).contains(new NamedFrame(firstFrameName));
   }
 }

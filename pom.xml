@@ -18,7 +18,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 #L%
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.cognifide.qa.bb</groupId>
@@ -28,7 +30,8 @@ limitations under the License.
 
     <name>Bobcat</name>
     <description>Bobcat is an automated testing framework for functional testing of web
-        applications.</description>
+        applications.
+    </description>
     <url>https://github.com/cognifide/bobcat</url>
     <inceptionYear>2016</inceptionYear>
 
@@ -211,7 +214,17 @@ limitations under the License.
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter-api</artifactId>
-                <version>5.2.0</version>
+                <version>5.3.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-params</artifactId>
+                <version>5.3.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>5.3.1</version>
             </dependency>
             <dependency>
                 <groupId>org.junit.platform</groupId>
@@ -219,15 +232,9 @@ limitations under the License.
                 <version>1.2.0</version>
             </dependency>
             <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.12</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>hamcrest-core</artifactId>
-                        <groupId>org.hamcrest</groupId>
-                    </exclusion>
-                </exclusions>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-junit-jupiter</artifactId>
+                <version>2.23.0</version>
             </dependency>
 
             <dependency>
@@ -258,6 +265,12 @@ limitations under the License.
                 <artifactId>greenmail</artifactId>
                 <version>1.5.8</version>
                 <scope>test</scope>
+                <!--<exclusions>-->
+                <!--<exclusion>-->
+                <!--<groupId>junit</groupId>-->
+                <!--<artifactId>junit</artifactId>-->
+                <!--</exclusion>-->
+                <!--</exclusions>-->
             </dependency>
 
             <dependency>
@@ -386,6 +399,11 @@ limitations under the License.
                             </goals>
                         </execution>
                     </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.22.1</version>
                 </plugin>
             </plugins>
         </pluginManagement>

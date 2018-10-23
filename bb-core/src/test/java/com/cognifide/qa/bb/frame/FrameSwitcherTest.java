@@ -20,34 +20,27 @@
 package com.cognifide.qa.bb.frame;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assume.assumeThat;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.mockito.Mockito.when;
 
-import java.util.Deque;
-
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.openqa.selenium.WebDriver;
 
 import com.cognifide.qa.bb.scope.frame.FramePath;
-import com.cognifide.qa.bb.utils.Whitebox;
 import com.cognifide.qa.bb.wait.BobcatWait;
 import com.google.inject.Provider;
 
+@ExtendWith(MockitoExtension.class)
 public class FrameSwitcherTest {
 
   private static final String FRAME_PATH = "/frame/path";
 
   private static final String NAME = "name";
-
-  @Rule
-  public final MockitoRule mockitoRule = MockitoJUnit.rule();
 
   @InjectMocks
   public FrameSwitcher testedObject = new FrameSwitcher();
@@ -56,18 +49,10 @@ public class FrameSwitcherTest {
   private Provider<WebDriver> provider;
 
   @Mock
-  private WebDriver webDriver;
-
-  @Mock
   private BobcatWait bobcatWait;
 
   @Mock
   private FramePath framePath;
-
-  @Before
-  public void setUp() {
-    when(provider.get()).thenReturn(webDriver);
-  }
 
   @Test
   public void shouldHaveAtLeastOneElementInDequeOnConstruction() {
@@ -82,7 +67,7 @@ public class FrameSwitcherTest {
 
     //then
     assertThatDequeSizeIs(2);
-    assertThat(extractLocalDeque().peek()).isEqualTo(framePath);
+    assertThat(testedObject.getLocalDeque().peek()).isEqualTo(framePath);
   }
 
   @Test
@@ -144,15 +129,10 @@ public class FrameSwitcherTest {
   }
 
   private void assumeThatDequeSizeIs(int size) {
-    assumeThat(extractLocalDeque().size(), is(size));
+    assumeTrue(testedObject.getLocalDeque().size() == size);
   }
 
   private void assertThatDequeSizeIs(int size) {
-    assertThat(extractLocalDeque().size()).isEqualTo(size);
-  }
-
-  @SuppressWarnings("unchecked")
-  private Deque<FramePath> extractLocalDeque() {
-    return (Deque<FramePath>) Whitebox.getInternalState(testedObject, "localDeque");
+    assertThat(testedObject.getLocalDeque().size()).isEqualTo(size);
   }
 }

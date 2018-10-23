@@ -25,11 +25,11 @@ import static org.mockito.Mockito.when;
 
 import java.lang.reflect.Field;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -40,7 +40,7 @@ import com.cognifide.qa.bb.scope.ContextStack;
 import com.cognifide.qa.bb.scope.PageObjectContext;
 import com.cognifide.qa.bb.scope.ParentElementLocatorProvider;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class CurrentWebElementProviderTest {
 
   @Mock
@@ -114,6 +114,7 @@ public class CurrentWebElementProviderTest {
       return null;
     }
   }
+
 
   private class TestParentElementLocatorFactory
       implements ElementLocatorFactory, ParentElementLocatorProvider {

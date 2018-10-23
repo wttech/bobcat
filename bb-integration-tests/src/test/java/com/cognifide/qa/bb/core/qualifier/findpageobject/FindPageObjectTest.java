@@ -21,9 +21,8 @@ package com.cognifide.qa.bb.core.qualifier.findpageobject;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.assertj.core.api.JUnitSoftAssertions;
-import org.junit.Before;
-import org.junit.Rule;
+import org.assertj.core.api.SoftAssertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.WebDriver;
@@ -45,16 +44,13 @@ public class FindPageObjectTest {
   private static final String MILK_TEXT = "Milk";
   private static final String TEA_TEXT = "Tea";
 
-  @Rule
-  public final JUnitSoftAssertions softly = new JUnitSoftAssertions();
-
   @Inject
   private WebDriver webDriver;
 
   @Inject
   private MasterPage masterPage;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     webDriver.get(PageUtils.buildTestPageUrl(this.getClass()));
   }
@@ -72,9 +68,11 @@ public class FindPageObjectTest {
 
   @Test
   public void shouldFindWebElementListInPageObject() {
+    SoftAssertions softly = new SoftAssertions();
     softly.assertThat(masterPage.getDrinks().getLiWebElementList().size()).isEqualTo(3);
     softly.assertThat(masterPage.getDrinks().getLiWebElementList().get(2).getText())
         .isEqualTo(MILK_TEXT);
+    softly.assertAll();
   }
 
   @Test
@@ -84,6 +82,7 @@ public class FindPageObjectTest {
 
   @Test
   public void shoudFindListOfPageObjectsInPageObject() {
+    SoftAssertions softly = new SoftAssertions();
     softly.assertThat(masterPage.getDrinks().getLiPageObjectList().size()).isEqualTo(3);
     softly.assertThat(masterPage.getDrinks().getLiPageObjectList().get(0).getText())
         .isEqualTo(COFFEE_TEXT);
@@ -91,5 +90,6 @@ public class FindPageObjectTest {
         .isEqualTo(TEA_TEXT);
     softly.assertThat(masterPage.getDrinks().getLiPageObjectList().get(2).getText())
         .isEqualTo(MILK_TEXT);
+    softly.assertAll();
   }
 }

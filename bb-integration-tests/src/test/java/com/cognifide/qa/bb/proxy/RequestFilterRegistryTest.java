@@ -19,15 +19,15 @@
  */
 package com.cognifide.qa.bb.proxy;
 
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.any;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 
 import java.io.IOException;
 
-import org.junit.Before;
-import org.junit.Ignore;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -53,7 +53,7 @@ public class RequestFilterRegistryTest extends AbstractProxyTest {
   @Mock
   private RequestFilter requestFilter;
 
-  @Before
+  @BeforeEach
   public void startProxyServer() throws Exception {
     MockitoAnnotations.initMocks(this);
     guiceInject(this);
@@ -61,11 +61,11 @@ public class RequestFilterRegistryTest extends AbstractProxyTest {
 
   @Test
   public void requestFilterRegistryShouldBeSingleton() {
-    assertTrue("RequestFilterRegistry should be thread-scoped",
-        requestFilterRegistry == requestFilterRegistryAlias);
+    assertSame(requestFilterRegistry, requestFilterRegistryAlias,
+        "RequestFilterRegistry should be thread-scoped");
   }
 
-  @Ignore("TODO - some problems with timing (works in debug mode)")
+  @Disabled("TODO - some problems with timing (works in debug mode)")
   @Test
   public void shouldCallFilterByRegistry() throws IOException {
     // given

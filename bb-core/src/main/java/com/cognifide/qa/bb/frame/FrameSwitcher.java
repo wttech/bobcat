@@ -182,6 +182,10 @@ public class FrameSwitcher implements WebDriverClosedListener {
     return localDeque.getFirst().toString();
   }
 
+  public Deque<FramePath> getLocalDeque() {
+    return localDeque;
+  }
+
   private void doSwitch(FramePath current, FramePath destination) {
     final List<FrameDescriptor> diff = current.diff(destination);
     final WebDriver driver = provider.get();

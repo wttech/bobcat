@@ -21,7 +21,7 @@ package com.cognifide.qa.bb.core.scope.current;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.WebDriver;
@@ -43,7 +43,7 @@ public class ScopeCurrentTest {
   @Inject
   private ScopedElements scopedElements;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     webDriver.get(PageUtils.buildTestPageUrl(this.getClass()));
   }

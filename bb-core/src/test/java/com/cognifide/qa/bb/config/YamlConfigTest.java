@@ -22,9 +22,7 @@ package com.cognifide.qa.bb.config;
 import static com.cognifide.qa.bb.utils.MapUtils.entry;
 import static com.cognifide.qa.bb.utils.MapUtils.mapOf;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.doCallRealMethod;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -33,17 +31,15 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.cognifide.qa.bb.config.yaml.Config;
 import com.cognifide.qa.bb.config.yaml.DefaultConfig;
-import com.cognifide.qa.bb.utils.SystemPropertiesCleanupRule;
+import com.cognifide.qa.bb.utils.SystemPropertiesCleanupExtension;
 
+@ExtendWith(SystemPropertiesCleanupExtension.class)
 public class YamlConfigTest {
-
-  @Rule
-  public SystemPropertiesCleanupRule sysPropCleanup = new SystemPropertiesCleanupRule();
 
   @Test
   public void loadDefaultConfig_shouldLoadAllDefaultProperties() {
@@ -119,7 +115,8 @@ public class YamlConfigTest {
     defConfig.setContexts(Collections.singletonList("context1"));
     userYaml.setDefaultConfig(defConfig);
     Map<String, Map<String, String>> contexts = new HashMap<>();
-    Map.Entry[] context1Entries = {entry("property1", "overriden"), entry("property2", "overriden")};
+    Map.Entry[] context1Entries =
+        {entry("property1", "overriden"), entry("property2", "overriden")};
     contexts.put("context1", mapOf(context1Entries));
     userYaml.setContexts(contexts);
 
@@ -129,7 +126,8 @@ public class YamlConfigTest {
 
     Properties actual = tested.loadConfig();
 
-    assertThat(actual).containsOnly(entry("property1", "overriden"), entry("property2", "overriden"));
+    assertThat(actual)
+        .containsOnly(entry("property1", "overriden"), entry("property2", "overriden"));
   }
 
   @Test

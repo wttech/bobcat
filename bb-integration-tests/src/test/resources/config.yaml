@@ -1,8 +1,6 @@
 default:
   contexts: [firefox, additional-context1, additional-context4]
   properties:
-    bobcat.report.path: ./target/report
-    bobcat.report.reporters: html,json,simple,stdout
     webdriver.type: firefox
     webdriver.defaultTimeout: 10
     webdriver.mobile: false
@@ -23,6 +21,8 @@ contexts:
     webdriver.url: http://localhost:4444/wd/hub
   grid-chrome:
     webdriver.cap.browserName: chrome
+  grid-firefox:
+    webdriver.cap.browserName: firefox
   local:
     author.url: http://localhost:4502
     author.ip: http://127.0.0.1:4502

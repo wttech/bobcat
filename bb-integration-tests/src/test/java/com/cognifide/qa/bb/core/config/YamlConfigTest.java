@@ -24,6 +24,7 @@ import static org.assertj.core.data.MapEntry.entry;
 
 import java.util.Properties;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.cognifide.qa.bb.modules.CoreModule;
@@ -32,6 +33,11 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 public class YamlConfigTest {
+
+  @BeforeEach
+  public void cleanProperties() {
+    System.setProperties(new Properties());
+  }
 
   @Test
   public void additionalContextsShouldBeLoadedWhenSelectedInConfig() {

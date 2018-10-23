@@ -21,32 +21,25 @@ package com.cognifide.qa.bb.frame;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.lang.reflect.Method;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.cognifide.qa.bb.qualifier.Frame;
 import com.cognifide.qa.bb.scope.frame.FrameMap;
 import com.cognifide.qa.bb.scope.frame.FramePath;
 import com.google.inject.Provider;
 
+@ExtendWith(MockitoExtension.class)
 public class FrameAspectTest {
-
-  @Rule
-  public final MockitoRule mockitoRule = MockitoJUnit.rule();
 
   @InjectMocks
   public MethodInterceptor testedObject = new FrameAspect();
@@ -65,12 +58,6 @@ public class FrameAspectTest {
 
   @Mock
   private FramePath framePath;
-
-  @Before
-  public void setUp() {
-    when(provider.get()).thenReturn(frameSwitcher);
-
-  }
 
   @Test
   public void shouldInvokeMethodWithoutChangingFrameWhenMethodComesFromObject() throws Throwable {
@@ -92,6 +79,7 @@ public class FrameAspectTest {
     //given
     Element element = new Element();
     setUpMethodInvocationWith(Element.class, element);
+    when(provider.get()).thenReturn(frameSwitcher);
 
     //when
     Object actual = testedObject.invoke(methodInvocation);
@@ -114,6 +102,7 @@ public class FrameAspectTest {
     //given
     AnnotatedElement element = new AnnotatedElement();
     setUpMethodInvocationWith(AnnotatedElement.class, element);
+    when(provider.get()).thenReturn(frameSwitcher);
     when(framePath.addFrame(any(Frame.class))).thenReturn(framePath);
 
     //when
@@ -143,12 +132,15 @@ public class FrameAspectTest {
   }
 
   private class Element {
-    void execute() {}
+    void execute() {
+    }
   }
+
 
   private class AnnotatedElement {
     @Frame(value = "")
-    void execute() {}
+    void execute() {
+    }
   }
 
 }
