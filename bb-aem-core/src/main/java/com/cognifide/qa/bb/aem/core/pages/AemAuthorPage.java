@@ -19,19 +19,59 @@
  */
 package com.cognifide.qa.bb.aem.core.pages;
 
+import com.cognifide.qa.bb.aem.core.component.GlobalBar;
+import com.cognifide.qa.bb.frame.FrameSwitcher;
+import com.cognifide.qa.bb.mapper.field.PageObjectProviderHelper;
 import com.cognifide.qa.bb.page.Page;
+import com.cognifide.qa.bb.qualifier.PageObjectInterface;
+import com.cognifide.qa.bb.utils.PageObjectInjector;
+import com.google.inject.Binding;
 import com.google.inject.Inject;
+import com.google.inject.internal.LinkedBindingImpl;
 import io.qameta.allure.Step;
+import java.util.List;
 import javax.inject.Named;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Abstract class that marks page as being from AEM
  */
 public class AemAuthorPage<T extends AemAuthorPage> extends Page {
 
+  private static final Logger LOG = LoggerFactory.getLogger(AemAuthorPage.class);
+
+  private static final String CONTENT_FRAME = "ContentFrame";
+
+  @Inject
+  private GlobalBar globalBar;
+
+  @Inject
+  private FrameSwitcher frameSwitcher;
+
+  @Inject
+  private PageObjectInjector pageObjectInjector;
+
+  @Inject
+  private WebDriver driver;
+
   @Inject
   @Named("author.url")
   protected String authorUrl;
+
+  public <T> T getContent(Class<T> component, int order) {
+    globalBar.switchToPreviewMode();
+    frameSwitcher.switchTo(CONTENT_FRAME);
+    By selector = getSelectorFromComponent(component);
+    List<WebElement> scope = driver.findElements(selector);
+    frameSwitcher.switchBack();
+    return scope == null
+        ? pageObjectInjector.inject(component, CONTENT_FRAME)
+        : pageObjectInjector.inject(component, scope.get(order), CONTENT_FRAME);
+  }
 
   /**
    * open the page in browser
@@ -47,5 +87,21 @@ public class AemAuthorPage<T extends AemAuthorPage> extends Page {
   public T openInEditor() {
     webDriver.get(authorUrl + "/editor.html" + getFullUrl());
     return (T) this;
+  }
+
+  private By getSelectorFromComponent(Class component) {
+    By selector = null;
+    if (component.isAnnotationPresent(
+        PageObjectInterface.class)) {
+      Binding<?> binding = pageObjectInjector.getOriginalInjector().getBinding(component);
+      if (binding instanceof LinkedBindingImpl) {
+        selector = PageObjectProviderHelper
+            .retrieveSelectorFromPageObjectInterface(
+                ((LinkedBindingImpl) binding).getLinkedKey().getTypeLiteral().getRawType());
+      }
+    } else {
+      selector = PageObjectProviderHelper.retrieveSelectorFromPageObjectInterface(component);
+    }
+    return selector;
   }
 }

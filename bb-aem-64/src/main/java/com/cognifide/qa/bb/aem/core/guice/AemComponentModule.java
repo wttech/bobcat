@@ -19,10 +19,6 @@
  */
 package com.cognifide.qa.bb.aem.core.guice;
 
-import com.cognifide.qa.bb.aem.core.component.AuthorLoader;
-import com.cognifide.qa.bb.aem.core.component.AuthorLoaderImpl;
-import com.cognifide.qa.bb.aem.core.component.GlobalBar;
-import com.cognifide.qa.bb.aem.core.component.GlobalBarImpl;
 import com.cognifide.qa.bb.aem.core.component.action.ComponentAction;
 import com.cognifide.qa.bb.aem.core.component.action.ComponentController;
 import com.cognifide.qa.bb.aem.core.component.actions.ComponentControllerImpl;
