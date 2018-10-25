@@ -29,7 +29,7 @@ import org.openqa.selenium.support.FindBy;
 @PageObject
 public class Textfield implements DialogField {
 
-  @FindBy(css = ".coral-Textfield:not([type='hidden']")
+  @FindBy(css = ".coral3-Textfield:not([type='hidden']")
   private WebElement input;
 
   /**

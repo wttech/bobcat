@@ -62,10 +62,10 @@ public class ConfigDialogImpl implements ConfigDialog {
   @FindBy(css = "button.cq-dialog-layouttoggle")
   private WebElement toggleFullscreenButton;
 
-  @FindBy(css = ".coral-TabPanel-tab")
+  @FindBy(css = ".coral3-Tab")
   private List<WebElement> tabs;
 
-  @FindBy(css = ".coral-TabPanel-pane.is-active")
+  @FindBy(css = ".coral3-Panel.is-selected")
   private WebElement activeTab;
 
   /**
