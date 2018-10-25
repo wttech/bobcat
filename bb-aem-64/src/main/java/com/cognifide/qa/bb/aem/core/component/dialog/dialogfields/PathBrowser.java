@@ -32,7 +32,7 @@ import org.openqa.selenium.support.FindBy;
 @PageObject
 public class PathBrowser implements DialogField {
 
-  private static final String TEXT_FIELD_CLASS = "coral-Textfield";
+  private static final String TEXT_FIELD_CLASS = "coral3-Textfield";
 
   @FindBy(className = TEXT_FIELD_CLASS)
   private WebElement input;

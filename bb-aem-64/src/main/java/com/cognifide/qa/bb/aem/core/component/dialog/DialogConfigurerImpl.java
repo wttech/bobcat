@@ -22,6 +22,8 @@ package com.cognifide.qa.bb.aem.core.component.dialog;
 import static org.apache.commons.lang3.StringUtils.containsIgnoreCase;
 
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DialogField;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.FieldType;
+import com.cognifide.qa.bb.utils.AopUtil;
 import com.cognifide.qa.bb.utils.PageObjectInjector;
 import com.google.inject.Inject;
 import java.util.List;
@@ -40,8 +42,14 @@ public class DialogConfigurerImpl implements DialogConfigurer {
   private static final By LABEL_SELECTOR = By
       .cssSelector("label.coral-Form-fieldlabel, label.coral-Form-field");
 
+  private static final By CHECKBOX_LABEL_SELECTOR = By
+      .cssSelector("label.coral3-Checkbox-description");
+
   @Inject
   private Map<String, DialogField> fieldTypeRegistry;
+
+  @Inject
+  private PageObjectInjector pageObjectInjector;
 
   /**
    * Finds the dialog field of given type within a WebElement based on the provided label. If label is not
@@ -61,7 +69,7 @@ public class DialogConfigurerImpl implements DialogConfigurer {
     }
 
     WebElement scope = StringUtils.isEmpty(label) ? fields.get(0) : fields.stream() //
-        .filter(field -> containsIgnoreCase(getFieldLabel(field), label)) //
+        .filter(field -> containsIgnoreCase(getFieldLabel(field,type), label)) //
         .findFirst() //
         .orElseThrow(() -> new IllegalStateException("Dialog field not found"));
 
@@ -86,14 +94,16 @@ public class DialogConfigurerImpl implements DialogConfigurer {
    * Label may not be present in the field, thus a workaround using list is introduced here.
    *
    * @param field WebElement corresponding to the given field
+   * @param type
    * @return label of the field or {@code StringUtils.Empty} when there is none
    */
-  private String getFieldLabel(WebElement field) {
-    List<WebElement> labelField = field.findElements(LABEL_SELECTOR);
+  private String getFieldLabel(WebElement field, String type) {
+    List<WebElement> labelField = type.equals(FieldType.CHECKBOX.name()) ? field.findElements(CHECKBOX_LABEL_SELECTOR) : field.findElements(LABEL_SELECTOR);
     return labelField.isEmpty() ? StringUtils.EMPTY : labelField.get(0).getText();
   }
 
   private DialogField getFieldObject(WebElement scope, String type) {
-    return fieldTypeRegistry.get(type);
+    DialogField dialogField = fieldTypeRegistry.get(type);
+    return (DialogField) pageObjectInjector.inject(AopUtil.getBaseClassForAopObject(dialogField.getClass()), scope);
   }
 }
