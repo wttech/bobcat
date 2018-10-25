@@ -28,14 +28,20 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
+import com.cognifide.qa.bb.provider.selenium.webdriver.WebDriverProvider;
+
 @ExtendWith(MockitoExtension.class)
 public class BobcatWaitTest {
+
+  @Mock
+  private WebDriverProvider webDriverProvider;
 
   @Mock
   private WebDriver webDriver;
@@ -49,6 +55,7 @@ public class BobcatWaitTest {
   @Mock
   private ExpectedCondition<Boolean> condition;
 
+  @InjectMocks
   private BobcatWait tested;
 
   @BeforeEach
@@ -56,7 +63,7 @@ public class BobcatWaitTest {
     when(webDriver.manage()).thenReturn(options);
     when(options.timeouts()).thenReturn(timeouts);
     when(timeouts.implicitlyWait(anyLong(), any())).thenReturn(timeouts);
-    tested = new BobcatWait(webDriver);
+    when(webDriverProvider.get()).thenReturn(webDriver);
   }
 
   @Test

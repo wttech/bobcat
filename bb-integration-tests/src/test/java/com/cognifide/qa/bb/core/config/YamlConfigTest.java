@@ -34,11 +34,6 @@ import com.google.inject.Injector;
 
 public class YamlConfigTest {
 
-  @BeforeEach
-  public void cleanProperties() {
-    System.setProperties(new Properties());
-  }
-
   @Test
   public void additionalContextsShouldBeLoadedWhenSelectedInConfig() {
     Properties properties = getInjector().getInstance(Properties.class);
