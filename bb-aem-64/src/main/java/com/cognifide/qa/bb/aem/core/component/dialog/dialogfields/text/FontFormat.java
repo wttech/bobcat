@@ -59,6 +59,9 @@ public class FontFormat implements DialogField {
       case ITALIC:
         clickFormatButton(controlToolbar.getToggleItalicButton());
         break;
+      case UNDERLINE:
+        clickFormatButton(controlToolbar.getToggleUnderlineButton());
+        break;
       default:
         throw new IllegalArgumentException("There is no action defined for " + rtAction);
     }
@@ -80,6 +83,7 @@ public class FontFormat implements DialogField {
 
   private enum TouchUIRtButton {
     BOLD,
+    UNDERLINE,
     ITALIC
   }
 
