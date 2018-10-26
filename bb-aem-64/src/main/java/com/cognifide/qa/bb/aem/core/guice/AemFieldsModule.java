@@ -29,7 +29,6 @@ import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.PathBrowser;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.RichText;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Select;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Textfield;
-import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Variant;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.ControlToolbar;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.ControlToolbarImpl;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.FontFormat;
@@ -61,7 +60,6 @@ public class AemFieldsModule extends AbstractModule {
     fieldsBinder.addBinding(FieldType.PATHBROWSER.name()).to(PathBrowser.class);
     fieldsBinder.addBinding(FieldType.SELECT.name()).to(Select.class);
     fieldsBinder.addBinding(FieldType.RICHTEXT.name()).to(RichText.class);
-    fieldsBinder.addBinding(FieldType.VARIANT.name()).to(Variant.class);
     fieldsBinder.addBinding(FieldType.MULTIFIELD.name()).to(Multifield.class);
     fieldsBinder.addBinding(FieldType.MULTIFIELD_ITEM.name()).to(MultifieldItem.class);
     fieldsBinder.addBinding(FieldType.RICHTEXT_FONT_FORMAT.name()).to(FontFormat.class);

@@ -26,10 +26,10 @@ import org.openqa.selenium.support.FindBy;
 /**
  * Implementation of {@link ControlToolbar} for AEM 6.4
  */
-@PageObject(css = ".coral-RichText-toolbar")
+@PageObject(css = ".coral3-ButtonGroup.rte-toolbar.is-active")
 public class ControlToolbarImpl implements ControlToolbar {
 
-  static final String TOOLBAR_ITEM_SELECTOR = ".coral-RichText-toolbar-item";
+  static final String TOOLBAR_ITEM_SELECTOR = ".rte-toolbar-item";
 
   @Inject
   private Actions actions;
