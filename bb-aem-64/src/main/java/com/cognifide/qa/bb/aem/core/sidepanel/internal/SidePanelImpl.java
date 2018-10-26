@@ -69,7 +69,7 @@ public class SidePanelImpl implements SidePanel {
   @FindBy(css = ".content-panel .resultspinner")
   private WebElement resultsLoader;
 
-  @FindBy(css = ".content-panel article.card-asset")
+  @FindBy(css = ".content-panel .card-asset")
   private List<WebElement> searchResults;
 
   @FindPageObject

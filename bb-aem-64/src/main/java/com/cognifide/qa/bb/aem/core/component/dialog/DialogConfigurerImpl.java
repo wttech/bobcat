@@ -44,6 +44,7 @@ public class DialogConfigurerImpl implements DialogConfigurer {
 
   private static final By CHECKBOX_LABEL_SELECTOR = By
       .cssSelector("label.coral3-Checkbox-description");
+  private static final By IMAGE_LOCATOR = By.cssSelector(".coral-Form-field.cq-FileUpload");
 
   @Inject
   private Map<String, DialogField> fieldTypeRegistry;
@@ -62,7 +63,7 @@ public class DialogConfigurerImpl implements DialogConfigurer {
    */
   @Override
   public DialogField getDialogField(WebElement parentElement, String label, String type) {
-    List<WebElement> fields = parentElement.findElements(FIELD_LOCATOR);
+    List<WebElement> fields = !type.equals(FieldType.IMAGE.name()) ? parentElement.findElements(FIELD_LOCATOR) : parentElement.findElements(IMAGE_LOCATOR);
 
     if (fields.isEmpty()) {
       throw new IllegalStateException("There are no fields in the tab");

@@ -20,6 +20,7 @@
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
 import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanel;
+import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanelTabs;
 import com.cognifide.qa.bb.dragdrop.DragAndDropFactory;
 import com.cognifide.qa.bb.dragdrop.Draggable;
 import com.cognifide.qa.bb.dragdrop.Droppable;
@@ -44,7 +45,7 @@ public class Image implements DialogField {
   @FindPageObject
   private SidePanel sidePanel;
 
-  @FindBy(css = "span.coral-FileUpload")
+  @FindBy(css = ".cq-FileUpload-thumbnail")
   private WebElement dropArea;
 
   /**
@@ -54,6 +55,7 @@ public class Image implements DialogField {
    */
   @Override
   public void setValue(Object value) {
+    sidePanel.selectTab(SidePanelTabs.ASSETS.getCssClass());
     Draggable draggable = sidePanel.searchForAsset(String.valueOf(value));
     Droppable droppable = dragAndDropFactory.createDroppable(dropArea, FramePath.parsePath("/"));
     draggable.dropTo(droppable);
