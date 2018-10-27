@@ -22,15 +22,12 @@ package com.cognifide.qa.bb.core.cookies;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 
-import com.cognifide.qa.bb.junit5.guice.GuiceExtension;
 import com.cognifide.qa.bb.junit5.guice.Modules;
 import com.google.inject.Inject;
 
-@ExtendWith(GuiceExtension.class)
 @Modules(TestModuleWithEnabledAutoLoad.class)
 public class CookiesDefaultSettingsTest {
 

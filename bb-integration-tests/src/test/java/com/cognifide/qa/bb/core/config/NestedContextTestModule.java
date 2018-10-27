@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.core;
+package com.cognifide.qa.bb.core.config;
 
 import com.cognifide.qa.bb.constants.ConfigKeys;
 import com.cognifide.qa.bb.core.pageobjects.qualifier.findpageobject.Food;
@@ -27,12 +27,12 @@ import com.cognifide.qa.bb.core.pageobjects.qualifier.findpageobject.ListItemImp
 import com.cognifide.qa.bb.modules.CoreModule;
 import com.google.inject.AbstractModule;
 
-public class TestModule extends AbstractModule {
+public class NestedContextTestModule extends AbstractModule {
 
   @Override
   protected void configure() {
     System.setProperty(ConfigKeys.COOKIES_LOAD_AUTOMATICALLY, "false");
-    System.setProperty("bobcat.config.contexts", "additional-context1, additional-context4");
+    System.setProperty("bobcat.config.contexts", "additional-context2,nested-context");
     install(new CoreModule());
     bind(Item.class).to(Food.class);
     bind(ListItem.class).to(ListItemImpl.class);

@@ -54,11 +54,6 @@ abstract class AbstractProxyTest {
   @Inject
   private Properties properties;
 
-  void guiceInject(Object instance) {
-    Injector injector = Guice.createInjector(new CoreModule());
-    injector.injectMembers(instance);
-  }
-
   void startProxyServer(BrowserMobProxy browserMobProxy) throws UnknownHostException {
     int port = browserMobProxy.getPort();
     browserMobProxy.start(port);

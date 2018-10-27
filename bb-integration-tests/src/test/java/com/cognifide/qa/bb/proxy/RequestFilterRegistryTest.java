@@ -29,10 +29,14 @@ import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import com.cognifide.qa.bb.junit5.guice.Modules;
+import com.cognifide.qa.bb.modules.CoreModule;
 import com.google.inject.Inject;
 
 import io.netty.handler.codec.http.HttpRequest;
@@ -42,6 +46,8 @@ import net.lightbody.bmp.filters.RequestFilter;
 import net.lightbody.bmp.util.HttpMessageContents;
 import net.lightbody.bmp.util.HttpMessageInfo;
 
+@ExtendWith(MockitoExtension.class)
+@Modules({CoreModule.class})
 public class RequestFilterRegistryTest extends AbstractProxyTest {
 
   @Inject
@@ -52,12 +58,6 @@ public class RequestFilterRegistryTest extends AbstractProxyTest {
 
   @Mock
   private RequestFilter requestFilter;
-
-  @BeforeEach
-  public void startProxyServer() throws Exception {
-    MockitoAnnotations.initMocks(this);
-    guiceInject(this);
-  }
 
   @Test
   public void requestFilterRegistryShouldBeSingleton() {

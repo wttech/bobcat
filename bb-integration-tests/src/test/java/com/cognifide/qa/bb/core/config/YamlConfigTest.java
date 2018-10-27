@@ -24,20 +24,20 @@ import static org.assertj.core.data.MapEntry.entry;
 
 import java.util.Properties;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.cognifide.qa.bb.modules.CoreModule;
-import com.google.inject.AbstractModule;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
+import com.cognifide.qa.bb.core.TestModule;
+import com.cognifide.qa.bb.junit5.guice.Modules;
+import com.google.inject.Inject;
 
+@Modules(TestModule.class)
 public class YamlConfigTest {
+
+  @Inject
+  private Properties properties;
 
   @Test
   public void additionalContextsShouldBeLoadedWhenSelectedInConfig() {
-    Properties properties = getInjector().getInstance(Properties.class);
-
     assertThat(properties)
         .contains(
             entry("property1", "value1"),
@@ -50,27 +50,5 @@ public class YamlConfigTest {
             entry("property3", "value3"),
             entry("property4", "value4")
         );
-  }
-
-  @Test
-  public void additionalNestedContextsShouldBeLoadedWhenSelectedInConfig() {
-    System.setProperty("bobcat.config.contexts", "additional-context2,nested-context");
-    Properties properties = getInjector().getInstance(Properties.class);
-
-    assertThat(properties)
-        .contains(
-            entry("property1", "value1"),
-            entry("property2", "value2"),
-            entry("property3", "value3"),
-            entry("property4", "value4"));
-  }
-
-  private Injector getInjector() {
-    return Guice.createInjector(new AbstractModule() {
-      @Override
-      protected void configure() {
-        install(new CoreModule());
-      }
-    });
   }
 }

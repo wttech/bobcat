@@ -1,0 +1,36 @@
+default:
+  contexts: [firefox, additional-context1, additional-context4]
+  properties:
+    webdriver.type: firefox
+    webdriver.defaultTimeout: 10
+    webdriver.mobile: false
+    webdriver.maximize: false
+    webdriver.reusable: false
+
+    proxy.enabled: false
+    proxy.ip: 127.0.0.1
+    proxy.port: 9000
+
+    cookies.loadAutomatically: false
+
+contexts:
+  firefox:
+    webdriver.type: firefox
+  grid:
+    webdriver.type: remote
+    webdriver.url: http://localhost:4444/wd/hub
+  grid-chrome:
+    webdriver.cap.browserName: chrome
+  grid-firefox:
+    webdriver.cap.browserName: firefox
+  local:
+    author.url: http://localhost:4502
+    author.ip: http://127.0.0.1:4502
+    author.login: admin
+    author.password: admin
+    login.token.name: login-token
+
+    publish.url: http://localhost:4503
+    publish.ip: http://127.0.0.1:4503
+    publish.login: admin
+    publish.password: admin

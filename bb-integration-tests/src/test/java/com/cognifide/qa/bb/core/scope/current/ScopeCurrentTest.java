@@ -23,17 +23,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.WebDriver;
 
 import com.cognifide.qa.bb.core.TestModule;
 import com.cognifide.qa.bb.core.pageobjects.current.scope.ScopedElements;
 import com.cognifide.qa.bb.core.util.PageUtils;
-import com.cognifide.qa.bb.junit5.guice.GuiceExtension;
 import com.cognifide.qa.bb.junit5.guice.Modules;
 import com.google.inject.Inject;
 
-@ExtendWith(GuiceExtension.class)
 @Modules({TestModule.class})
 public class ScopeCurrentTest {
 

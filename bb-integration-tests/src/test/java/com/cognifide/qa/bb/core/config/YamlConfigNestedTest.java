@@ -2,7 +2,7 @@
  * #%L
  * Bobcat
  * %%
- * Copyright (C) 2018 Cognifide Ltd.
+ * Copyright (C) 2016 Cognifide Ltd.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,29 +17,31 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.core.cookies;
+package com.cognifide.qa.bb.core.config;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.data.MapEntry.entry;
+
+import java.util.Properties;
 
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.Cookie;
-import org.openqa.selenium.WebDriver;
 
-import com.cognifide.qa.bb.config.yaml.Config;
-import com.cognifide.qa.bb.core.TestModule;
 import com.cognifide.qa.bb.junit5.guice.Modules;
 import com.google.inject.Inject;
 
-@Modules(TestModule.class)
-public class CookiesWithDisabledAutoLoadTest {
+@Modules(NestedContextTestModule.class)
+public class YamlConfigNestedTest {
 
   @Inject
-  private WebDriver webDriver;
-
-  private Cookie expectedCookie = new Cookie("test-cookie", "value", "/");
+  private Properties properties;
 
   @Test
-  public void shouldNotSetCookiesFromCookiesYamlAutomaticallyWhenDisabledViaProperty() {
-    assertThat(webDriver.manage().getCookies()).doesNotContain(expectedCookie);
+  public void additionalNestedContextsShouldBeLoadedWhenSelectedInConfig() {
+    assertThat(properties)
+        .contains(
+            entry("property1", "value1"),
+            entry("property2", "value2"),
+            entry("property3", "value3"),
+            entry("property4", "value4"));
   }
 }
