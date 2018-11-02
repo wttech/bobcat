@@ -26,6 +26,7 @@ import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Image;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Multifield;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.MultifieldItem;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.PathBrowser;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.RadioGroup;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.RichText;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Select;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Textfield;
@@ -65,5 +66,6 @@ public class AemFieldsModule extends AbstractModule {
     fieldsBinder.addBinding(FieldType.RICHTEXT_FONT_FORMAT.name()).to(FontFormat.class);
     fieldsBinder.addBinding(FieldType.RICHTEXT_JUSTIFY.name()).to(JustifyDialogPanel.class);
     fieldsBinder.addBinding(FieldType.RICHTEXT_LIST.name()).to(ListDialogPanel.class);
+    fieldsBinder.addBinding(FieldType.RADIO_GROUP.name()).to(RadioGroup.class);
   }
 }

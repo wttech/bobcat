@@ -63,7 +63,7 @@ public class PathBrowser implements DialogField {
       input.sendKeys(String.valueOf(value));
     }
     bobcatWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".foundation-picker-buttonlist.coral3-Overlay.is-open")));
-    currentScope.findElement(By.xpath("./..")).click();
+    currentScope.findElement(By.className("coral-Form-fieldlabel")).click();
   }
 
   /**
