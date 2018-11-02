@@ -46,7 +46,7 @@ public class DialogConfigurerImpl implements DialogConfigurer {
       .cssSelector("label.coral3-Checkbox-description");
   private static final By IMAGE_LOCATOR = By.cssSelector(".coral-Form-field.cq-FileUpload");
   private static final By CHECKBOX_LOCATOR = By.cssSelector(".coral-Form-field.coral3-Checkbox");
-  private static final By RADIO_GROUP_LOCATOR = By.cssSelector(".coral-Form-field.coral3-RadioGroup");
+  private static final By RADIO_GROUP_LOCATOR = By.cssSelector(".coral-Form-field.coral-RadioGroup");
 
   @Inject
   private Map<String, DialogField> fieldTypeRegistry;
@@ -99,7 +99,7 @@ public class DialogConfigurerImpl implements DialogConfigurer {
       toReturn = parentElement.findElements(IMAGE_LOCATOR);
     } else if (type.equals(FieldType.CHECKBOX.name())) {
       toReturn = parentElement.findElements(CHECKBOX_LOCATOR);
-    } else if (type.equals(FieldType.RADIO_GROUP.name())) {
+    } else if (type.equals(FieldType.RADIO_GROUP_MULTI.name())) {
       toReturn = parentElement.findElements(RADIO_GROUP_LOCATOR);
     } else {
       toReturn = parentElement.findElements(FIELD_LOCATOR);
