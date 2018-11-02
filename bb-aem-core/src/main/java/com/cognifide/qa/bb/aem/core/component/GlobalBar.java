@@ -19,11 +19,13 @@
  */
 package com.cognifide.qa.bb.aem.core.component;
 
+import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 import org.openqa.selenium.WebElement;
 
 /**
  * Interface represents authors mode global bar.
  */
+@PageObjectInterface
 public interface GlobalBar {
 
   /**

@@ -40,7 +40,6 @@ import com.google.inject.Inject;
  * This is the go-to solution for handling dynamic elements with Bobcat.
  * It is based on the {@link org.openqa.selenium.support.ui.WebDriverWait} mechanism.
  */
-@ThreadScoped
 public class BobcatWait {
 
   private static final Logger LOG = LoggerFactory.getLogger(BobcatWait.class);

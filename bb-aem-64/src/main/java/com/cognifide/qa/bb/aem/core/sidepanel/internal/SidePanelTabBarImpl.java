@@ -17,22 +17,23 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.component;
+package com.cognifide.qa.bb.aem.core.sidepanel.internal;
 
-import com.cognifide.qa.bb.dragdrop.Draggable;
+import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
+import com.google.inject.Inject;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-/**
- * Interface that represent authoring mode side panel.
- */
-@PageObject
-public interface SidePanel {
+@PageObject(css = ".coral3-TabList")
+public class SidePanelTabBarImpl implements SidePanelTabBar {
 
-  /**
-   * Searches for assets for given asset name and return it as draggable.
-   *
-   * @param asset name.
-   * @return {@link Draggable} instance of the asset.
-   */
-  Draggable searchForAsset(String asset);
+  @Inject
+  @CurrentScope
+  private WebElement currentScope;
+
+  @Override
+  public void switchTab(String tab) {
+    currentScope.findElement(By.className(tab)).click();
+  }
 }

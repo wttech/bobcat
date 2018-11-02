@@ -17,17 +17,19 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.component;
+package com.cognifide.qa.bb.aem.core.sidepanel.internal;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.not;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
+import com.cognifide.qa.bb.aem.core.component.GlobalBarImpl;
 import com.cognifide.qa.bb.aem.core.util.Conditions;
 import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.dragdrop.DragAndDropFactory;
 import com.cognifide.qa.bb.dragdrop.Draggable;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
+import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.scope.frame.FramePath;
 import com.cognifide.qa.bb.utils.PageObjectInjector;
@@ -43,7 +45,7 @@ import org.openqa.selenium.support.FindBy;
 /**
  * Implementation of {@link SidePanel} for AEM 6.4
  */
-@PageObject(css = "#SidePanel")
+@PageObject(css = ".sidepanel")
 public class SidePanelImpl implements SidePanel {
 
   private static final String IS_CLOSED = "sidepanel-closed";
@@ -67,8 +69,24 @@ public class SidePanelImpl implements SidePanel {
   @FindBy(css = ".content-panel .resultspinner")
   private WebElement resultsLoader;
 
-  @FindBy(css = ".content-panel article.card-asset")
+  @FindBy(css = ".content-panel .card-asset")
   private List<WebElement> searchResults;
+
+  @FindPageObject
+  private SidePanelTabBar sidePanelTabBar;
+
+  @Override
+  public WebElement selectComponentToEdit(String path, String component, int elementNumber) {
+    return ComponentTreeLocatorHelper.getComponentWebElement(path,component,elementNumber,currentScope);
+  }
+
+  @Override
+  public void selectTab(String tab) {
+    if (isClosed()) {
+      pageObjectInjector.inject(GlobalBarImpl.class).toggleSidePanel();
+    }
+    sidePanelTabBar.switchTab(tab);
+  }
 
   @Override
   public Draggable searchForAsset(String asset) {

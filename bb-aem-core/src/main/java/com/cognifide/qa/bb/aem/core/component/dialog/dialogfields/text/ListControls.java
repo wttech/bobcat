@@ -15,11 +15,13 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text;
 
+import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 import org.openqa.selenium.WebElement;
 
 /**
  * Interface that represents list formatting options.
  */
+@PageObjectInterface
 public interface ListControls {
 
   WebElement getBulletListBtn();

@@ -19,7 +19,7 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
-import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.configuration.MultifieldEntry;
+import com.cognifide.qa.bb.aem.core.component.configuration.MultifieldEntry;
 import com.cognifide.qa.bb.exceptions.BobcatRuntimeException;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -36,10 +36,10 @@ import org.openqa.selenium.support.FindBy;
 @PageObject
 public class Multifield implements DialogField {
 
-  @FindBy(css = "button.js-coral-Multifield-add")
+  @FindBy(css = "button.coral3-Button.coral3-Button--secondary")
   private WebElement addButton;
 
-  @FindBy(css = "li.coral-Multifield-input")
+  @FindBy(css = ".coral3-Multifield-item")
   private List<MultifieldItem> items;
 
   /**

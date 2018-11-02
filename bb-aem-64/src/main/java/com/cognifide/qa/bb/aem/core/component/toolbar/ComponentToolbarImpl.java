@@ -19,10 +19,9 @@
  */
 package com.cognifide.qa.bb.aem.core.component.toolbar;
 
-import com.cognifide.qa.bb.constants.Timeouts;
-import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
+import com.cognifide.qa.bb.wait.BobcatWait;
 import com.google.inject.Inject;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -39,7 +38,7 @@ public class ComponentToolbarImpl implements ComponentToolbar {
   private BobcatWait bobcatWait;
 
   @Inject
-  private Map<String,ToolbarOption> toolbarOptions;
+  private Map<String, ToolbarOption> toolbarOptions;
 
   @Inject
   @CurrentScope
@@ -47,10 +46,10 @@ public class ComponentToolbarImpl implements ComponentToolbar {
 
   @Override
   public void clickOption(String option) {
-    if(toolbarOptions.keySet().contains(option)) {
+    if (toolbarOptions.keySet().contains(option)) {
       toolbar.findElement(toolbarOptions.get(option).getLocator()).click();
     } else {
-        throw new NoSuchElementException("Option: " + option + " was not found");
+      throw new NoSuchElementException("Option: " + option + " was not found");
     }
   }
 
@@ -61,6 +60,6 @@ public class ComponentToolbarImpl implements ComponentToolbar {
 
   @Override
   public void verifyIsDisplayed() {
-    bobcatWait.withTimeout(Timeouts.SMALL).until(ExpectedConditions.visibilityOf(toolbar));
+    bobcatWait.until(ExpectedConditions.visibilityOf(toolbar));
   }
 }

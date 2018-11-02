@@ -19,9 +19,12 @@
  */
 package com.cognifide.qa.bb.aem.core.component.toolbar;
 
+import com.cognifide.qa.bb.qualifier.PageObjectInterface;
+
 /**
  * Interface for implementations of ocmponent toolbar
  */
+@PageObjectInterface
 public interface ComponentToolbar {
 
   /**

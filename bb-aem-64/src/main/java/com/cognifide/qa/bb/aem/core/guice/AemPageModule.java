@@ -23,16 +23,7 @@ import com.cognifide.qa.bb.aem.core.component.AuthorLoader;
 import com.cognifide.qa.bb.aem.core.component.AuthorLoaderImpl;
 import com.cognifide.qa.bb.aem.core.component.GlobalBar;
 import com.cognifide.qa.bb.aem.core.component.GlobalBarImpl;
-import com.cognifide.qa.bb.aem.core.component.SidePanel;
-import com.cognifide.qa.bb.aem.core.component.SidePanelImpl;
-import com.cognifide.qa.bb.aem.core.component.toolbar.CommonToolbarOption;
-import com.cognifide.qa.bb.aem.core.component.toolbar.CommonToolbarOptions;
-import com.cognifide.qa.bb.aem.core.component.toolbar.ComponentToolbar;
-import com.cognifide.qa.bb.aem.core.component.toolbar.ComponentToolbarImpl;
-import com.cognifide.qa.bb.aem.core.component.toolbar.ToolbarOption;
 import com.google.inject.AbstractModule;
-import com.google.inject.multibindings.MapBinder;
-import java.util.Arrays;
 
 /**
  * Module that contains bindings for AEM 6.4 page bars
@@ -43,6 +34,5 @@ public class AemPageModule extends AbstractModule {
   protected void configure() {
     bind(AuthorLoader.class).to(AuthorLoaderImpl.class);
     bind(GlobalBar.class).to(GlobalBarImpl.class);
-    bind(SidePanel.class).to(SidePanelImpl.class);
   }
 }

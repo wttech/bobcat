@@ -28,11 +28,25 @@ public class CreatePageActionData implements SiteAdminActionData {
 
   private String pageName;
 
-  public CreatePageActionData(String pageName) {
+  private String template;
+
+  private String title;
+
+  public CreatePageActionData(String template, String title, String pageName) {
     this.pageName = pageName;
+    this.template = template;
+    this.title = title;
   }
 
   public String getPageName() {
     return pageName;
+  }
+
+  public String getTemplate() {
+    return template;
+  }
+
+  public String getTitle() {
+    return title;
   }
 }

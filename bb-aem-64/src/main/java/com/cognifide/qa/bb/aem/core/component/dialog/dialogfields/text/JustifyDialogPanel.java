@@ -34,7 +34,7 @@ public class JustifyDialogPanel implements DialogField {
   @FindPageObject
   private ControlToolbar controlToolbar;
 
-  @FindBy(css = ".coral-RichText-popover[data-id='justify']")
+  @FindBy(css = ".coral3-Popover[data-id='justify'] .coral3-Popover-content")
   private JustifyControls justifyControls;
 
   @Inject

@@ -34,7 +34,7 @@ public class ListDialogPanel implements DialogField {
   @FindPageObject
   private ControlToolbar controlToolbar;
 
-  @FindBy(css = "div.coral-Popover[data-id='lists'] .coral-Popover-content")
+  @FindBy(css = ".coral3-Popover[data-id='lists'] .coral3-Popover-content")
   private ListControls listControl;
 
   @Inject
