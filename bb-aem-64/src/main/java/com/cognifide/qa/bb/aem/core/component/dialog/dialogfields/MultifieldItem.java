@@ -21,7 +21,7 @@ package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
 import com.cognifide.qa.bb.aem.core.component.configuration.FieldConfig;
 import com.cognifide.qa.bb.aem.core.component.configuration.MultifieldEntry;
-
+import com.cognifide.qa.bb.aem.core.component.dialog.DialogConfigurer;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
@@ -31,14 +31,14 @@ import org.openqa.selenium.support.FindBy;
 @PageObject
 public class MultifieldItem implements DialogField {
 
-  //@Inject
-  //private DialogConfigurer dialogConfigurer;
+  @Inject
+  private DialogConfigurer dialogConfigurer;
 
   @Inject
   @CurrentScope
   private WebElement item;
 
-  @FindBy(css = "button.coral-Multifield-remove")
+  @FindBy(css = "button.coral3-Multifield-remove")
   private WebElement deleteButton;
 
   /**
@@ -59,22 +59,10 @@ public class MultifieldItem implements DialogField {
     deleteButton.click();
   }
 
-  /**
-   * Sets field of MultifieldItem
-   *
-   * @param fieldType class of field to be filled
-   * @param value     value to be inserted
-   * @return this instance for chaining operations
-   */
-  public MultifieldItem setFieldInMultifield(String fieldType, Object value) {
-    //TODO
-    //dialogConfigurer.getDialogField(item, fieldType).setValue(value);
-    return this;
-  }
 
   private void setFieldInMultifield(FieldConfig fieldConfig) {
-    //TODO
-    //dialogConfigurer.getDialogField(item, fieldConfig.getType())
-    //    .setValue(fieldConfig.getValue());
+
+    dialogConfigurer.getDialogField(item, fieldConfig.getLabel(), fieldConfig.getType())
+        .setValue(fieldConfig.getValue());
   }
 }

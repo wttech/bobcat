@@ -36,10 +36,10 @@ import org.openqa.selenium.support.FindBy;
 @PageObject
 public class Multifield implements DialogField {
 
-  @FindBy(css = "button.js-coral-Multifield-add")
+  @FindBy(css = "button.coral3-Button.coral3-Button--secondary")
   private WebElement addButton;
 
-  @FindBy(css = "li.coral-Multifield-input")
+  @FindBy(css = ".coral3-Multifield-item")
   private List<MultifieldItem> items;
 
   /**
