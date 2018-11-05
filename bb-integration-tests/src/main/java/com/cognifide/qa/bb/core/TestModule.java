@@ -32,7 +32,7 @@ public class TestModule extends AbstractModule {
   @Override
   protected void configure() {
     System.setProperty(ConfigKeys.COOKIES_LOAD_AUTOMATICALLY, "false");
-    System.setProperty("bobcat.config.contexts", "additional-context1, additional-context4");
+    System.setProperty("bobcat.config.contexts", "additional-context1,additional-context4");
     install(new CoreModule());
     bind(Item.class).to(Food.class);
     bind(ListItem.class).to(ListItemImpl.class);
