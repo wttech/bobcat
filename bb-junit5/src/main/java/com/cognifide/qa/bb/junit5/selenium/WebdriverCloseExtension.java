@@ -21,17 +21,19 @@ package com.cognifide.qa.bb.junit5.selenium;
 
 import static com.cognifide.qa.bb.junit5.JUnit5Constants.NAMESPACE;
 
-import com.cognifide.qa.bb.junit5.guice.InjectorUtils;
-import com.google.inject.Injector;
-import com.google.inject.Key;
+import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.openqa.selenium.WebDriver;
 
+import com.cognifide.qa.bb.junit5.guice.InjectorUtils;
+import com.google.inject.Injector;
+import com.google.inject.Key;
+
 /**
  * Estension that will close webdriver after the test is executed
  */
-public class WebdriverCloseExtension implements AfterTestExecutionCallback {
+public class WebdriverCloseExtension implements AfterTestExecutionCallback, AfterAllCallback {
 
   @Override
   public void afterTestExecution(ExtensionContext context) throws Exception {
@@ -39,7 +41,11 @@ public class WebdriverCloseExtension implements AfterTestExecutionCallback {
     if (injector != null) {
       injector.getInstance(Key.get(WebDriver.class)).quit();
     }
-
   }
 
+  @Override
+  // we need this for potential failures in BeforeEach methods
+  public void afterAll(ExtensionContext context) throws Exception {
+    afterTestExecution(context);
+  }
 }
