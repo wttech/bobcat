@@ -19,9 +19,12 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
+import com.cognifide.qa.bb.qualifier.PageObjectInterface;
+
 /**
  * This interface represents a TouchUI components that are dialog fields.
  */
+@PageObjectInterface
 public interface DialogField {
   /**
    * Sets component value.

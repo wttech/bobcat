@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.configuration;
+package com.cognifide.qa.bb.aem.core.component.configuration;
 
 import java.util.List;
 

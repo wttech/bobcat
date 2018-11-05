@@ -2,7 +2,7 @@
  * #%L
  * Bobcat
  * %%
- * Copyright (C) 2016 Cognifide Ltd.
+ * Copyright (C) 2018 Cognifide Ltd.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,39 +17,25 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.configuration;
+package com.cognifide.qa.bb.aem.core.component.action;
 
 /**
- * This class represents single field configuration.
+ * Interface for Side Panel Action that can be taken
+ *
+ * @param <T> implementation of {@link ComponentActionData} for action parameters
  */
-public class FieldConfig {
-
-  private String label;
-
-  private String type;
-
-  private Object value;
+public interface ComponentAction<T extends ComponentActionData> {
 
   /**
-   * @return Label of the field.
+   * @return action name that is used for retrieve action
    */
-  public String getLabel() {
-    return label;
-  }
+  public String getActionName();
 
   /**
+   * runs action with selected parameters
    *
-   * @return Type of the field.
+   * @param actionData parameters for action
    */
-  public String getType() {
-    return type;
-  }
+  public void action(T actionData);
 
-   /**
-    *
-    * @return Value of the field.
-    */
-  public Object getValue() {
-    return value;
-  }
 }

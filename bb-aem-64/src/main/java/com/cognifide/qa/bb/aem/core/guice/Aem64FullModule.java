@@ -34,8 +34,10 @@ public class Aem64FullModule extends AbstractModule {
     install(new AemSiteActionsModule());
     install(new AemPageCreateModule());
     install(new AemComponentModule());
+    install(new AemSidePanelModule());
     install(new AemPageModule());
     install(new AemFieldsModule());
+    install(new AemConfigModule());
   }
 
 }

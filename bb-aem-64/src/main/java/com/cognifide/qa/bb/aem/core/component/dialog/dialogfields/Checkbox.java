@@ -29,7 +29,7 @@ import org.openqa.selenium.support.FindBy;
 @PageObject
 public class Checkbox implements DialogField {
 
-  @FindBy(css = ".coral-Checkbox-input")
+  @FindBy(css = ".coral3-Checkbox-input")
   private WebElement checkboxElement;
 
   /**

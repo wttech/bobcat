@@ -20,9 +20,10 @@
 package com.cognifide.qa.bb.aem.core.siteadmin.internal;
 
 import com.cognifide.qa.bb.qualifier.CurrentScope;
+import com.cognifide.qa.bb.qualifier.FindPageObject;
+import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
-import cucumber.api.java.ca.I;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -40,13 +41,21 @@ public class SiteToolbarImpl implements SiteToolbar {
   @CurrentScope
   private WebElement currentScope;
 
+  @FindPageObject
+  @Global
+  private CreatePageWizard createPageWizard;
+
   @FindBy(css = "button.granite-collection-create.foundation-toggleable-control.coral3-Button.coral3-Button--primary>coral-button-label")
   private WebElement createButton;
 
-  @Override public void create(String option) {
+  @Override
+  public void createPage(String template, String title, String name) {
     Actions actions = new Actions(webDriver);
     actions.pause(2000).perform();
     createButton.click();
-    currentScope.findElement(By.className("cq-siteadmin-admin-create" + StringUtils.lowerCase(option))).click();
+    currentScope
+        .findElement(By.className("cq-siteadmin-admin-create" + StringUtils.lowerCase("page")))
+        .click();
+    createPageWizard.selectTemplate(template).provideTitle(title).provideName(name).submit();
   }
 }

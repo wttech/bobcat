@@ -19,11 +19,13 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text;
 
+import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 import org.openqa.selenium.WebElement;
 
 /**
  * Interface that represents RichTexts controls toolbar.
  */
+@PageObjectInterface
 public interface ControlToolbar {
 
   /**

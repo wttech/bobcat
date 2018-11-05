@@ -38,6 +38,5 @@ public class AemLoginModule extends AbstractModule {
         AuthorAuthenticationController.class);
     bind(AemAuthCookieFactory.class).to(
         AemAuthCookieFactoryImpl.class);
-    bind(SiteAdminController.class).to(AemSiteAdminController.class);
   }
 }

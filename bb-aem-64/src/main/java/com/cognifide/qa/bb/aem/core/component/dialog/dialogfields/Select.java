@@ -32,9 +32,9 @@ import org.openqa.selenium.support.FindBy;
 @PageObject
 public class Select implements DialogField {
 
-  private static final String SELECT_OPTIONS_XPATH = "./../ul/li";
+  private static final String SELECT_OPTIONS_CSS = ".coral3-SelectList-item";
 
-  @FindBy(css = ".coral-Select-select")
+  @FindBy(css = ".coral3-Select")
   private WebElement selectField;
 
   /**
@@ -45,7 +45,7 @@ public class Select implements DialogField {
   @Override
   public void setValue(Object value) {
     selectField.click();
-    List<WebElement> options = selectField.findElements(By.xpath(SELECT_OPTIONS_XPATH));
+    List<WebElement> options = selectField.findElements(By.cssSelector(SELECT_OPTIONS_CSS));
     options.stream().filter(o -> value.toString().equals(o.getText()))
         .findFirst()
         .orElseThrow(() -> new NoSuchElementException(
