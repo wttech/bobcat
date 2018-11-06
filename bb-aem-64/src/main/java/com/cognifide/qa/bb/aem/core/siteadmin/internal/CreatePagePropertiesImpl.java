@@ -15,9 +15,14 @@
  */
 package com.cognifide.qa.bb.aem.core.siteadmin.internal;
 
-import com.cognifide.qa.bb.qualifier.PageObject;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import com.cognifide.qa.bb.qualifier.PageObject;
+import com.cognifide.qa.bb.wait.BobcatWait;
+import com.google.inject.Inject;
 
 @PageObject(css = "div.cq-dialog-content-page")
 public class CreatePagePropertiesImpl implements CreatePageProperties {
@@ -28,6 +33,9 @@ public class CreatePagePropertiesImpl implements CreatePageProperties {
   @FindBy(css = "input.coral-Form-field.coral3-Textfield[name='./jcr:title']")
   private WebElement titleTextField;
 
+  @Inject
+  private BobcatWait bobcatWait;
+
   @Override
   public WebElement getNameTextField() {
     return nameTextField;
@@ -35,7 +43,7 @@ public class CreatePagePropertiesImpl implements CreatePageProperties {
 
   @Override
   public WebElement getTitleTextField() {
-    return titleTextField;
+    return bobcatWait.until(visibilityOf(titleTextField));
   }
 
 }

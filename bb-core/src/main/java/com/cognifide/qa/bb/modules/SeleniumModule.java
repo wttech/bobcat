@@ -20,10 +20,12 @@
 package com.cognifide.qa.bb.modules;
 
 import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 
 import com.cognifide.qa.bb.actions.ActionsProvider;
+import com.cognifide.qa.bb.javascriptexecutor.JavascriptExecutorProvider;
 import com.cognifide.qa.bb.provider.selenium.DesiredCapabilitiesProvider;
 import com.cognifide.qa.bb.provider.selenium.webdriver.WebDriverProvider;
 import com.google.inject.AbstractModule;
@@ -34,5 +36,6 @@ public class SeleniumModule extends AbstractModule {
     bind(WebDriver.class).toProvider(WebDriverProvider.class);
     bind(Actions.class).toProvider(ActionsProvider.class);
     bind(Capabilities.class).toProvider(DesiredCapabilitiesProvider.class);
+    bind(JavascriptExecutor.class).toProvider(JavascriptExecutorProvider.class);
   }
 }

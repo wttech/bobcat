@@ -15,13 +15,15 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text;
 
-import com.cognifide.qa.bb.qualifier.CurrentScope;
-import com.cognifide.qa.bb.qualifier.PageObject;
-import com.google.inject.Inject;
-import org.openqa.selenium.Keys;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+
+import com.cognifide.qa.bb.javascriptexecutor.JsScripts;
+import com.cognifide.qa.bb.qualifier.CurrentScope;
+import com.cognifide.qa.bb.qualifier.PageObject;
+import com.google.inject.Inject;
 
 /**
  * Implementation of {@link ControlToolbar} for AEM 6.4
@@ -53,11 +55,12 @@ public class ControlToolbarImpl implements ControlToolbar {
   @FindBy(css = TOOLBAR_ITEM_SELECTOR + "[data-action='#lists']")
   private WebElement toggleListButton;
 
+  @Inject
+  private JavascriptExecutor javascriptExecutor;
+
   @Override
   public void selectText() {
-    actions.keyDown(Keys.CONTROL)
-            .sendKeys("a")
-            .perform();
+    javascriptExecutor.executeScript(JsScripts.SELECT_ALL);
   }
 
   @Override
