@@ -54,7 +54,7 @@ public @interface PageObject {
    * <code>
    *{@literal @}{@link com.cognifide.qa.bb.qualifier.CurrentScope}
    *{@literal @}{@link com.google.inject.Inject}
-   * private {@link org.openqa.selenium.WebElement} currentScope;
+   * private WebElement currentScope;
    * </code>
    *
    * When this is true, but field of name currentScope has been already defined this switch has no effect and

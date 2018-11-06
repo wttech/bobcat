@@ -30,11 +30,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.constants.ConfigKeys;
-import com.cognifide.qa.bb.modules.CoreModule;
 import com.cognifide.qa.bb.provider.selenium.webdriver.WebDriverType;
-import com.google.inject.Guice;
 import com.google.inject.Inject;
-import com.google.inject.Injector;
 import com.google.inject.name.Named;
 
 import net.lightbody.bmp.BrowserMobProxy;

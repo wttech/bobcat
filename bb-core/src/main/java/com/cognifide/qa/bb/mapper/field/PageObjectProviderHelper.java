@@ -19,23 +19,28 @@
  */
 package com.cognifide.qa.bb.mapper.field;
 
-import com.cognifide.qa.bb.qualifier.PageObject;
-import com.cognifide.qa.bb.qualifier.PageObjectInterface;
-import com.google.inject.Binding;
-import com.google.inject.Injector;
-import com.google.inject.internal.LinkedBindingImpl;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.WildcardType;
 import java.util.Objects;
+
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
+
+import com.cognifide.qa.bb.qualifier.PageObject;
+import com.cognifide.qa.bb.qualifier.PageObjectInterface;
+import com.google.inject.Binding;
+import com.google.inject.Injector;
+import com.google.inject.internal.LinkedBindingImpl;
 
 /**
  * Helper class for Page Objects
  */
 public final class PageObjectProviderHelper {
+
+  public static final String ERROR_MSG =
+      "PageObject has to have defined selector when used with FindPageObject annotation";
 
   private PageObjectProviderHelper() {
     // Empty for helper class
@@ -44,24 +49,24 @@ public final class PageObjectProviderHelper {
   /**
    * Gets selector from {@link PageObject} if class annotated by this annotation is used in list
    *
-   * @param field class field
+   * @param field            class field
    * @param originalInjector
    * @return selector
    */
   public static By getSelectorFromGenericPageObject(Field field,
       Injector originalInjector) {
     Class<?> genericType = getGenericType(field);
-    if(genericType.isAnnotationPresent(
-        PageObjectInterface.class)){
+    if (genericType != null && genericType.isAnnotationPresent(
+        PageObjectInterface.class)) {
       Binding<?> binding = originalInjector.getBinding(genericType);
-      if(binding instanceof LinkedBindingImpl){
-        return  PageObjectProviderHelper.retrieveSelectorFromPageObjectInterface(((LinkedBindingImpl) binding).getLinkedKey().getTypeLiteral().getRawType());
-      };
+      if (binding instanceof LinkedBindingImpl) {
+        return PageObjectProviderHelper.retrieveSelectorFromPageObjectInterface(
+            ((LinkedBindingImpl) binding).getLinkedKey().getTypeLiteral().getRawType());
+      }
     } else {
       return retrieveSelectorFromPageObject(field, true);
     }
-    throw new IllegalArgumentException(
-        "PageObject has to have defined selector when used with FindPageObject annotation");
+    throw new IllegalArgumentException(ERROR_MSG);
   }
 
   /**
@@ -100,8 +105,7 @@ public final class PageObjectProviderHelper {
     if (StringUtils.isNotEmpty(xpathValue)) {
       return By.xpath(xpathValue);
     }
-    throw new IllegalArgumentException(
-        "PageObject has to have defined selector when used with FindPageObject annotation");
+    throw new IllegalArgumentException(ERROR_MSG);
   }
 
   private static By retrieveSelectorFromPageObject(Field field, boolean useGeneric) {
@@ -119,8 +123,7 @@ public final class PageObjectProviderHelper {
     if (StringUtils.isNotEmpty(xpathValue)) {
       return By.xpath(xpathValue);
     }
-    throw new IllegalArgumentException(
-        "PageObject has to have defined selector when used with FindPageObject annotation");
+    throw new IllegalArgumentException(ERROR_MSG);
   }
 
 }

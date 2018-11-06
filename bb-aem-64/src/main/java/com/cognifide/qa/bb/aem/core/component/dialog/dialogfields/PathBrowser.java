@@ -19,16 +19,16 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
-import com.cognifide.qa.bb.aem.core.util.Conditions;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
 import com.cognifide.qa.bb.constants.HtmlTags;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.wait.BobcatWait;
 import com.google.inject.Inject;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * This class represents path browser dialog field.
@@ -62,7 +62,8 @@ public class PathBrowser implements DialogField {
       input.clear();
       input.sendKeys(String.valueOf(value));
     }
-    bobcatWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".foundation-picker-buttonlist.coral3-Overlay.is-open")));
+    bobcatWait.until(ExpectedConditions.visibilityOfElementLocated(
+        By.cssSelector(".foundation-picker-buttonlist.coral3-Overlay.is-open")));
     currentScope.findElement(By.className("coral-Form-fieldlabel")).click();
   }
 

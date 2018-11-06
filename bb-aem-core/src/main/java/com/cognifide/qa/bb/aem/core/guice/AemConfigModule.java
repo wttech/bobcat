@@ -21,12 +21,7 @@ package com.cognifide.qa.bb.aem.core.guice;
 
 import com.cognifide.qa.bb.aem.core.component.configuration.ComponentConfigReader;
 import com.cognifide.qa.bb.aem.core.component.configuration.ComponentConfigResourceFileReader;
-import com.cognifide.qa.bb.aem.core.constants.AemConfigKeys;
-import com.cognifide.qa.bb.provider.http.HttpClientProvider;
 import com.google.inject.AbstractModule;
-import com.google.inject.Provides;
-import com.google.inject.name.Named;
-import org.apache.http.impl.client.CloseableHttpClient;
 
 /**
  * Main module that need to be installed to use AEM functions

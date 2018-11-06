@@ -22,7 +22,7 @@ package com.cognifide.qa.bb.cookies.modifier;
 import org.openqa.selenium.WebDriver;
 
 import com.cognifide.qa.bb.constants.ConfigKeys;
-import com.cognifide.qa.bb.cookies.Cookies;
+import com.cognifide.qa.bb.cookies.CookiesSetter;
 import com.cognifide.qa.bb.cookies.DefaultCookiesProvider;
 import com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.webdriver.WebDriverModifier;
 import com.google.inject.Inject;
@@ -55,7 +55,7 @@ public class CookiesModifier implements WebDriverModifier {
    */
   @Override
   public WebDriver modify(WebDriver webDriver) {
-    injector.getInstance(Cookies.class).setCookies(webDriver);
+    injector.getInstance(CookiesSetter.class).setCookies(webDriver);
     return webDriver;
   }
 }

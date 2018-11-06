@@ -48,7 +48,7 @@ public class CookiesTest {
       new CookieData("", "", "", "", null, false, false)
   );
 
-  private Cookies tested = new Cookies(testData);
+  private CookiesSetter tested = new CookiesSetter(testData);
 
   @Test
   public void shouldSetAllCookiesInWebDriver() {

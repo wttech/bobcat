@@ -76,7 +76,7 @@ class TextResponseEmbedHttpServer implements Closeable {
 
     @Override
     public void handle(String s, Request request, HttpServletRequest httpServletRequest,
-        HttpServletResponse httpServletResponse) throws IOException, ServletException {
+        HttpServletResponse httpServletResponse) throws IOException {
       httpServletResponse.setContentType("text/html; charset=utf-8");
       httpServletResponse.setStatus(HttpServletResponse.SC_OK);
       httpServletResponse.getWriter().println(text);

@@ -45,7 +45,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 /**
  * Provides configuration strategy that loads Bobcat properties from a YAML file.
- * The 'new' Bobcat configuration strategy, it replaces the {@link LegacyConfig}.
  * <br>
  * At the moment, to enable this config, Bobcat users needs to run tests with
  * {@value com.cognifide.qa.bb.constants.ConfigKeys#CONFIG_STRATEGY} system property set to {@code yaml}.
@@ -141,10 +140,12 @@ public class YamlConfig implements ConfigStrategy {
   }
 
   private Map<? extends String, ? extends Map<String, String>> getContextsFromYaml(Path path) {
-    TypeReference<Map<String, Map<String, String>>> typeRef = new TypeReference<Map<String, Map<String, String>>>() {
-    };
+    TypeReference<Map<String, Map<String, String>>> typeRef =
+        new TypeReference<Map<String, Map<String, String>>>() {
+        };
     return YamlReader
-        .read(ADDITIONAL_CONTEXTS_FOLDER + StringUtils.substringAfter(path.toString(), ADDITIONAL_CONTEXTS_FOLDER_NAME),
+        .read(ADDITIONAL_CONTEXTS_FOLDER + StringUtils
+                .substringAfter(path.toString(), ADDITIONAL_CONTEXTS_FOLDER_NAME),
             typeRef);
   }
 

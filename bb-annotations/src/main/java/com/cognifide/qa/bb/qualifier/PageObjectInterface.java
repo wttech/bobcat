@@ -52,7 +52,7 @@ public @interface PageObjectInterface {
    * <code>
    *{@literal @}{@link CurrentScope}
    *{@literal @}{@link com.google.inject.Inject}
-   * private {@link org.openqa.selenium.WebElement} currentScope;
+   * private WebElement currentScope;
    * </code>
    *
    * When this is true, but field of name currentScope has been already defined this switch has no effect and

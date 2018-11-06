@@ -126,8 +126,8 @@ public class Conditions {
   public Object optionalWait(ExpectedCondition<WebElement> condition) {
     try {
       return bobcatWait.until(condition);
-    } catch (TimeoutException ignored) {
-      LOG.warn("Condition failed, returing null: {}", ignored);
+    } catch (TimeoutException e) {
+      LOG.warn("Condition failed, returing null: {}", e);
       return null;
     }
   }

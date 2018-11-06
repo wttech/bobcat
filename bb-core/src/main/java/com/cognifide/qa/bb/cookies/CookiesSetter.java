@@ -26,12 +26,12 @@ import org.openqa.selenium.WebDriver;
 import com.cognifide.qa.bb.cookies.domain.CookieData;
 import com.google.inject.Inject;
 
-public class Cookies {
+public class CookiesSetter {
 
   private List<CookieData> cookies;
 
   @Inject
-  public Cookies(List<CookieData> cookies) {
+  public CookiesSetter(List<CookieData> cookies) {
     this.cookies = cookies;
   }
 

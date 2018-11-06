@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.UUID;
 
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.ContextAware;
@@ -43,7 +42,6 @@ import org.openqa.selenium.internal.FindsByLinkText;
 import org.openqa.selenium.internal.FindsByName;
 import org.openqa.selenium.internal.FindsByTagName;
 import org.openqa.selenium.internal.FindsByXPath;
-import org.openqa.selenium.internal.HasIdentity;
 import org.openqa.selenium.remote.Response;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 

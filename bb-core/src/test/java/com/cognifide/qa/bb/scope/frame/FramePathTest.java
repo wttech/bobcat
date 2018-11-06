@@ -25,6 +25,7 @@ import static org.mockito.Mockito.spy;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -51,7 +52,7 @@ public class FramePathTest {
   public void shouldNonEqualTwoDifferentInstances() throws Exception {
     // given
     FramePath cut = new FramePath();
-    FramePath reference = new FramePath(Arrays.asList(spy(FrameDescriptor.class)));
+    FramePath reference = new FramePath(Collections.singletonList(spy(FrameDescriptor.class)));
 
     // then
     assertNotEquals(cut, reference);

@@ -19,12 +19,10 @@
  */
 package com.cognifide.qa.bb.aem.core.siteadmin;
 
-import com.cognifide.qa.bb.aem.core.siteadmin.SiteAdminAction;
-import com.cognifide.qa.bb.aem.core.siteadmin.SiteAdminController;
-import com.google.inject.Inject;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+
+import com.google.inject.Inject;
 
 /**
  * SiteAdminController for AEM 6.4

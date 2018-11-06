@@ -33,7 +33,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cognifide.qa.bb.guice.ThreadScoped;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 

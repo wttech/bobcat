@@ -19,6 +19,12 @@
  */
 package com.cognifide.qa.bb.mapper.field;
 
+import java.lang.reflect.Field;
+import java.util.Optional;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
+
 import com.cognifide.qa.bb.exceptions.BobcatRuntimeException;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.qualifier.PageObjectInterface;
@@ -31,10 +37,6 @@ import com.cognifide.qa.bb.utils.AnnotationsHelper;
 import com.google.inject.ConfigurationException;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import java.lang.reflect.Field;
-import java.util.Optional;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 
 /**
  * This provider produces values for PageObject's fields that are annotated with one of the Find
@@ -86,12 +88,10 @@ public class ScopedPageObjectProvider implements FieldProvider {
     Object scopedPageObject = null;
     try {
       scopedPageObject = injector.getInstance(field.getType());
+    } catch (ConfigurationException e) {
+      throw new BobcatRuntimeException(
+          "Configuration exception: " + e.getErrorMessages().toString(), e);
     } catch (Exception e) {
-      if (e instanceof ConfigurationException) {
-        ConfigurationException ce = (ConfigurationException) e;
-        throw new BobcatRuntimeException(
-            "Configuration exception: " + ce.getErrorMessages().toString(), e);
-      }
       throw new BobcatRuntimeException(e.getMessage(), e);
     } finally {
       contextStack.pop();
