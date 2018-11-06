@@ -40,8 +40,7 @@ public class TrafficLogPredicate {
 
   private final List<Predicate<HarEntry>> predicates = Lists.newArrayList();
 
-  // TODO: should it be removed or should the visibility be changed?
-  public TrafficLogPredicate() {
+  private TrafficLogPredicate() {
     // empty
   }
 
