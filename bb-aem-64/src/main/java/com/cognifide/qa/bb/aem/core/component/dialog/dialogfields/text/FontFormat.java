@@ -15,14 +15,14 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text;
 
+import org.openqa.selenium.WebElement;
+
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DialogField;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.FieldType;
 import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.wait.BobcatWait;
 import com.google.inject.Inject;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 
 /**
  * Represents font format dialog
@@ -75,7 +75,7 @@ public class FontFormat implements DialogField {
 
   private void clickFormatButton(WebElement button) {
     controlToolbar.selectText();
-    bobcatWait.until((ExpectedCondition<Object>) input -> button.isEnabled());
+    bobcatWait.until(input -> button.isEnabled());
     button.click();
   }
 

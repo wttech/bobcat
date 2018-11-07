@@ -1,9 +1,0 @@
-default:
-  properties:
-    bobcat.report.path: ./target/report-html
-    bobcat.report.reporters: html,json,simple,stdout
-  contexts: [firefox]
-
-contexts:
-    firefox:
-      webdriver.type: firefox

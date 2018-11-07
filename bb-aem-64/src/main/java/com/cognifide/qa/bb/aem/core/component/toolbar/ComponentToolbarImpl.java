@@ -19,14 +19,16 @@
  */
 package com.cognifide.qa.bb.aem.core.component.toolbar;
 
+import java.util.Map;
+import java.util.NoSuchElementException;
+
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.wait.BobcatWait;
 import com.google.inject.Inject;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * Implementation of {@link ComponentToolbar} working with AEM 6.4

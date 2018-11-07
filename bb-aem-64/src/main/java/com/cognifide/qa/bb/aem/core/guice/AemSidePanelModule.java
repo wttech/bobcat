@@ -19,17 +19,11 @@
  */
 package com.cognifide.qa.bb.aem.core.guice;
 
-import com.cognifide.qa.bb.aem.core.component.actions.ConfigureComponentAction;
-import com.cognifide.qa.bb.aem.core.component.actions.EditComponentAction;
-import com.cognifide.qa.bb.aem.core.component.action.ComponentAction;
-import com.cognifide.qa.bb.aem.core.component.action.ComponentController;
-import com.cognifide.qa.bb.aem.core.component.actions.ComponentControllerImpl;
 import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanel;
 import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanelImpl;
 import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanelTabBar;
 import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanelTabBarImpl;
 import com.google.inject.AbstractModule;
-import com.google.inject.multibindings.MapBinder;
 
 public class AemSidePanelModule extends AbstractModule {
 

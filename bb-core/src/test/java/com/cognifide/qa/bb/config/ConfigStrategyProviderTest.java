@@ -20,31 +20,19 @@
 package com.cognifide.qa.bb.config;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assume.assumeTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.cognifide.qa.bb.constants.ConfigKeys;
-import com.cognifide.qa.bb.utils.SystemPropertiesCleanupRule;
 
 public class ConfigStrategyProviderTest {
-
-  @Rule
-  public SystemPropertiesCleanupRule sysPropCleanup = new SystemPropertiesCleanupRule();
 
   @Test
   public void get_returnsYamlConfig_byDefault() {
     assumeTrue(StringUtils.isBlank(System.getProperty(ConfigKeys.CONFIG_STRATEGY)));
     ConfigStrategy configStrategy = ConfigStrategyProvider.get();
     assertThat(configStrategy).isInstanceOf(YamlConfig.class);
-  }
-
-  @Test
-  public void get_returnsLegacyConfig_whenBobcatConfigSysPropIsSetToYaml() {
-    System.setProperty(ConfigKeys.CONFIG_STRATEGY, ConfigStrategyProvider.LEGACY_SYS_PROP_VALUE);
-    ConfigStrategy configStrategy = ConfigStrategyProvider.get();
-    assertThat(configStrategy).isInstanceOf(LegacyConfig.class);
   }
 }

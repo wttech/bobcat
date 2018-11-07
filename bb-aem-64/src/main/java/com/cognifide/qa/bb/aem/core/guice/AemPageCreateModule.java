@@ -19,14 +19,9 @@
  */
 package com.cognifide.qa.bb.aem.core.guice;
 
-import com.cognifide.qa.bb.aem.core.constants.AemConfigKeys;
 import com.cognifide.qa.bb.aem.core.pages.AemTestPageControler;
 import com.cognifide.qa.bb.aem.core.pages.sling.SlingTestPageControler;
-import com.cognifide.qa.bb.provider.http.HttpClientProvider;
 import com.google.inject.AbstractModule;
-import com.google.inject.Provides;
-import com.google.inject.name.Named;
-import org.apache.http.impl.client.CloseableHttpClient;
 
 /**
  * Module that need to be installed to use page creation in AEM

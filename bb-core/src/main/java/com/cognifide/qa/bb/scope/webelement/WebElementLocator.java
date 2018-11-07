@@ -19,7 +19,7 @@
  */
 package com.cognifide.qa.bb.scope.webelement;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.openqa.selenium.WebElement;
@@ -48,7 +48,7 @@ public class WebElementLocator implements ElementLocator {
 
   @Override
   public List<WebElement> findElements() {
-    return Arrays.asList(webElement);
+    return Collections.singletonList(webElement);
   }
 
 }

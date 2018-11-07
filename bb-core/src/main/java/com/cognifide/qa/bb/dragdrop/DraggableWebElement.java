@@ -23,11 +23,10 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.interactions.internal.Locatable;
+import org.openqa.selenium.interactions.Locatable;
 
 import com.cognifide.qa.bb.constants.Timeouts;
 import com.cognifide.qa.bb.frame.FrameSwitcher;
-import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.scope.frame.FramePath;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
@@ -38,8 +37,10 @@ import com.google.inject.assistedinject.Assisted;
 public class DraggableWebElement implements Draggable {
 
   private enum Orientantion {
-    HORIZONTAL, VERTICAL
+    HORIZONTAL,
+    VERTICAL
   }
+
 
   private static final int MOVEMENT_STEP = 10;
 
@@ -56,8 +57,8 @@ public class DraggableWebElement implements Draggable {
    * Constructs DraggableWebElement. Initializes its fields.
    *
    * @param dragElement represents WebElement
-   * @param framePath FramePath to the WebElement
-   * @param switcher FrameSwitcher object
+   * @param framePath   FramePath to the WebElement
+   * @param switcher    FrameSwitcher object
    */
   @Inject
   public DraggableWebElement(@Assisted WebElement dragElement, @Assisted FramePath framePath,
@@ -83,16 +84,10 @@ public class DraggableWebElement implements Draggable {
       actions.clickAndHold(webElement).perform();
       performMovement(x, Orientantion.HORIZONTAL, actions);
       performMovement(y, Orientantion.VERTICAL, actions);
-      waitForElementsToBeReady();
-      actions.release().perform();
+      actions.pause(Timeouts.MINIMAL).release().perform();
     } finally {
       switcher.switchBack();
     }
-  }
-
-  private void waitForElementsToBeReady() {
-    // waiting for JS
-    BobcatWait.sleep(Timeouts.MINIMAL);
   }
 
   /**

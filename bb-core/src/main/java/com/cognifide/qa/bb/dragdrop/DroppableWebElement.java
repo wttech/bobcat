@@ -22,7 +22,7 @@ package com.cognifide.qa.bb.dragdrop;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.internal.Locatable;
+import org.openqa.selenium.interactions.Locatable;
 
 import com.cognifide.qa.bb.frame.FrameSwitcher;
 import com.cognifide.qa.bb.scope.frame.FramePath;

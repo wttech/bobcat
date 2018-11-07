@@ -23,8 +23,6 @@ import com.cognifide.qa.bb.aem.core.login.AemAuthCookieFactory;
 import com.cognifide.qa.bb.aem.core.login.AemAuthCookieFactoryImpl;
 import com.cognifide.qa.bb.aem.core.login.AemAuthenticationController;
 import com.cognifide.qa.bb.aem.core.login.AuthorAuthenticationController;
-import com.cognifide.qa.bb.aem.core.siteadmin.SiteAdminController;
-import com.cognifide.qa.bb.aem.core.siteadmin.AemSiteAdminController;
 import com.google.inject.AbstractModule;
 
 /**

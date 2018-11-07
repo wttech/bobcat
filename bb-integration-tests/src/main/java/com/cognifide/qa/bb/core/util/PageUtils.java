@@ -27,7 +27,8 @@ public final class PageUtils {
 
   private static final String PAGE_NAME = "/page.html";
 
-  private PageUtils() {}
+  private PageUtils() {
+  }
 
   /**
    * Builds a path to core page based on given type package name

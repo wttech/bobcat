@@ -21,20 +21,17 @@ package com.cognifide.qa.bb.core.qualifier.findpageobject;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.assertj.core.api.SoftAssertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.WebDriver;
+
 import com.cognifide.qa.bb.core.TestModule;
 import com.cognifide.qa.bb.core.pageobjects.qualifier.findpageobject.MasterPage;
 import com.cognifide.qa.bb.core.util.PageUtils;
-import com.cognifide.qa.bb.junit.Modules;
-import com.cognifide.qa.bb.junit.TestRunner;
+import com.cognifide.qa.bb.junit5.guice.Modules;
 import com.google.inject.Inject;
-import org.assertj.core.api.JUnitSoftAssertions;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.openqa.selenium.WebDriver;
 
-@RunWith(TestRunner.class)
 @Modules({TestModule.class})
 public class FindPageObjectInterfaceTest {
 
@@ -44,16 +41,13 @@ public class FindPageObjectInterfaceTest {
   private static final String CHICKEN_TEXT = "Chicken";
   private static final String BUTTER_TEXT = "Butter";
 
-  @Rule
-  public final JUnitSoftAssertions softly = new JUnitSoftAssertions();
-
   @Inject
   private WebDriver webDriver;
 
   @Inject
   private MasterPage masterPage;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     webDriver.get(PageUtils.buildTestPageUrl(this.getClass()));
   }
@@ -71,9 +65,11 @@ public class FindPageObjectInterfaceTest {
 
   @Test
   public void shouldFindWebElementListInPageObject() {
+    SoftAssertions softly = new SoftAssertions();
     softly.assertThat(masterPage.getFood().getLiWebElementList().size()).isEqualTo(3);
     softly.assertThat(masterPage.getFood().getLiWebElementList().get(2).getText())
         .isEqualTo(BUTTER_TEXT);
+    softly.assertAll();
   }
 
   @Test
@@ -83,6 +79,7 @@ public class FindPageObjectInterfaceTest {
 
   @Test
   public void shoudFindListOfPageObjectsInPageObject() {
+    SoftAssertions softly = new SoftAssertions();
     softly.assertThat(masterPage.getFood().getLiPageObjectList().size()).isEqualTo(3);
     softly.assertThat(masterPage.getFood().getLiPageObjectList().get(0).getText())
         .isEqualTo(SALAD_TEXT);
@@ -90,5 +87,6 @@ public class FindPageObjectInterfaceTest {
         .isEqualTo(CHICKEN_TEXT);
     softly.assertThat(masterPage.getFood().getLiPageObjectList().get(2).getText())
         .isEqualTo(BUTTER_TEXT);
+    softly.assertAll();
   }
 }

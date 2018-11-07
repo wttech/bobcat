@@ -25,16 +25,15 @@ import static org.mockito.Mockito.*;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.openqa.selenium.WebDriver;
 
 import com.cognifide.qa.bb.cookies.domain.CookieData;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class CookiesTest {
 
   @Mock
@@ -49,15 +48,12 @@ public class CookiesTest {
       new CookieData("", "", "", "", null, false, false)
   );
 
-  private Cookies tested = new Cookies(testData);
-
-  @Before
-  public void setUp() {
-    when(webDriver.manage()).thenReturn(options);
-  }
+  private CookiesSetter tested = new CookiesSetter(testData);
 
   @Test
   public void shouldSetAllCookiesInWebDriver() {
+    when(webDriver.manage()).thenReturn(options);
+
     tested.setCookies(webDriver);
 
     verify(webDriver, times(testData.size())).get(any());

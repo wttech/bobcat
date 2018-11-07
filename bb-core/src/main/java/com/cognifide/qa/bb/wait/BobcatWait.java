@@ -33,8 +33,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cognifide.qa.bb.guice.ThreadScoped;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 /**
  * This is the go-to solution for handling dynamic elements with Bobcat.
@@ -48,12 +48,8 @@ public class BobcatWait {
 
   private List<Class<? extends Throwable>> ignoredExceptions = new ArrayList<>();
 
-  private WebDriver webDriver;
-
   @Inject
-  public BobcatWait(WebDriver webDriver) {
-    this.webDriver = webDriver;
-  }
+  private Provider<WebDriver> webDriverProvider;
 
   /**
    * Allows to customize the timings (explicit &amp; implicit timeout + polling time).
@@ -124,20 +120,22 @@ public class BobcatWait {
    * Sets implicit timeout to {@value Timings#NEAR_ZERO} milliseconds.
    */
   protected void setImplicitTimeoutToNearZero() {
-    webDriver.manage().timeouts().implicitlyWait(Timings.NEAR_ZERO, TimeUnit.SECONDS);
+    webDriverProvider.get().manage().timeouts().implicitlyWait(Timings.NEAR_ZERO, TimeUnit.SECONDS);
   }
 
   /**
    * Restores implicit timeout to the value defined in the {@link Timings} instance.
    */
   protected void restoreImplicitTimeout() {
-    webDriver.manage().timeouts().implicitlyWait(timings.getImplicitTimeout(), TimeUnit.SECONDS);
+    webDriverProvider.get().manage().timeouts()
+        .implicitlyWait(timings.getImplicitTimeout(), TimeUnit.SECONDS);
   }
 
   /**
    * @return an instance of {@link WebDriverWait} based on the provided {@link Timings}
    */
   protected WebDriverWait getWebDriverWait() {
-    return new WebDriverWait(webDriver, timings.getExplicitTimeout(), timings.getPollingInterval());
+    return new WebDriverWait(webDriverProvider.get(), timings.getExplicitTimeout(),
+        timings.getPollingInterval());
   }
 }

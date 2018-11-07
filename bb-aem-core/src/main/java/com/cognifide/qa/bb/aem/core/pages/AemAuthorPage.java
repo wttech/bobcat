@@ -19,6 +19,14 @@
  */
 package com.cognifide.qa.bb.aem.core.pages;
 
+import java.util.List;
+
+import javax.inject.Named;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
 import com.cognifide.qa.bb.aem.core.component.GlobalBar;
 import com.cognifide.qa.bb.frame.FrameSwitcher;
 import com.cognifide.qa.bb.mapper.field.PageObjectProviderHelper;
@@ -28,21 +36,13 @@ import com.cognifide.qa.bb.utils.PageObjectInjector;
 import com.google.inject.Binding;
 import com.google.inject.Inject;
 import com.google.inject.internal.LinkedBindingImpl;
+
 import io.qameta.allure.Step;
-import java.util.List;
-import javax.inject.Named;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Abstract class that marks page as being from AEM
  */
 public class AemAuthorPage<T extends AemAuthorPage> extends Page {
-
-  private static final Logger LOG = LoggerFactory.getLogger(AemAuthorPage.class);
 
   private static final String CONTENT_FRAME = "ContentFrame";
 

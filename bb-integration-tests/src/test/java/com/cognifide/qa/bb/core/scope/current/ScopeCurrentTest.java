@@ -21,19 +21,16 @@ package com.cognifide.qa.bb.core.scope.current;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 
-import com.cognifide.qa.bb.junit.Modules;
-import com.cognifide.qa.bb.junit.TestRunner;
 import com.cognifide.qa.bb.core.TestModule;
 import com.cognifide.qa.bb.core.pageobjects.current.scope.ScopedElements;
 import com.cognifide.qa.bb.core.util.PageUtils;
+import com.cognifide.qa.bb.junit5.guice.Modules;
 import com.google.inject.Inject;
 
-@RunWith(TestRunner.class)
 @Modules({TestModule.class})
 public class ScopeCurrentTest {
 
@@ -43,7 +40,7 @@ public class ScopeCurrentTest {
   @Inject
   private ScopedElements scopedElements;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     webDriver.get(PageUtils.buildTestPageUrl(this.getClass()));
   }

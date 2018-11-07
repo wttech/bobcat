@@ -16,16 +16,14 @@
 package com.cognifide.qa.bb.modules;
 
 import com.cognifide.qa.bb.webelement.BobcatWebElementFactory;
-import com.cognifide.qa.bb.webelement.BobcatWebElement;
 import com.google.inject.AbstractModule;
-import com.google.inject.assistedinject.FactoryProvider;
+import com.google.inject.assistedinject.FactoryModuleBuilder;
 
 public class BobcatWebElementModule extends AbstractModule {
 
   @Override
   protected void configure() {
-   bind(BobcatWebElementFactory.class).toProvider(
-    FactoryProvider.newFactory(BobcatWebElementFactory.class, BobcatWebElement.class));
+    install(new FactoryModuleBuilder().build(BobcatWebElementFactory.class));
   }
 
 }

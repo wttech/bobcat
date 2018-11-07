@@ -21,7 +21,7 @@ package com.cognifide.qa.bb.cookies;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.cognifide.qa.bb.constants.ConfigKeys;
 

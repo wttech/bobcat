@@ -19,21 +19,19 @@
  */
 package com.cognifide.qa.bb.provider.selenium;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Map;
 import java.util.Properties;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Spy;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.openqa.selenium.Capabilities;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class DesiredCapabilitiesProviderTest {
 
   @InjectMocks
@@ -50,8 +48,8 @@ public class DesiredCapabilitiesProviderTest {
 
     Capabilities capabilities = tested.get();
 
-    assertThat(capabilities.getCapability("simple1"), is((Object) "value1"));
-    assertThat(capabilities.getCapability("simple2"), is((Object) "value2"));
+    assertThat(capabilities.getCapability("simple1")).isEqualTo("value1");
+    assertThat(capabilities.getCapability("simple2")).isEqualTo("value2");
   }
 
   @Test
@@ -62,11 +60,9 @@ public class DesiredCapabilitiesProviderTest {
 
     Capabilities capabilities = tested.get();
 
-    assertThat(capabilities.getCapability("themap"), instanceOf(Map.class));
-    assertThat(((Map<?, ?>) capabilities.getCapability("themap")).get("key1"),
-        is((Object) "mvalue1"));
-    assertThat(((Map<?, ?>) capabilities.getCapability("themap")).get("key2"),
-        is((Object) "mvalue2"));
+    assertThat(capabilities.getCapability("themap")).isInstanceOf(Map.class);
+    assertThat(((Map<?, ?>) capabilities.getCapability("themap")).get("key1")).isEqualTo("mvalue1");
+    assertThat(((Map<?, ?>) capabilities.getCapability("themap")).get("key2")).isEqualTo("mvalue2");
   }
 
   @Test
@@ -78,16 +74,15 @@ public class DesiredCapabilitiesProviderTest {
 
     Capabilities capabilities = tested.get();
 
-    assertThat(capabilities.getCapability("outermap"), instanceOf(Map.class));
-    assertThat(((Map<?, ?>) capabilities.getCapability("outermap")).get("top"),
-        is((Object) "topvalue"));
-    assertThat(((Map<?, ?>) capabilities.getCapability("outermap")).get("innermap"),
-        instanceOf(Map.class));
+    assertThat(capabilities.getCapability("outermap")).isInstanceOf(Map.class);
+    assertThat(((Map<?, ?>) capabilities.getCapability("outermap")).get("top"))
+        .isEqualTo("topvalue");
+    assertThat(((Map<?, ?>) capabilities.getCapability("outermap")).get("innermap"))
+        .isInstanceOf(Map.class);
     Map<?, ?> innerMap =
         (Map<?, ?>) ((Map<?, ?>) capabilities.getCapability("outermap")).get("innermap");
-    assertThat(innerMap.get("ikey1"), is((Object) "ivalue1"));
-    assertThat(innerMap.get("ikey2"), is((Object) "ivalue2"));
+    assertThat(innerMap.get("ikey1")).isEqualTo("ivalue1");
+    assertThat(innerMap.get("ikey2")).isEqualTo("ivalue2");
   }
-
 }
 

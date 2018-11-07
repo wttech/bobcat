@@ -25,8 +25,8 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cognifide.qa.bb.provider.selenium.BobcatWait;
 import com.cognifide.qa.bb.scope.frame.FrameDescriptor;
+import com.cognifide.qa.bb.wait.BobcatWait;
 
 /**
  * This is a FrameDescriptor that represents an n-th frame within current frame context.

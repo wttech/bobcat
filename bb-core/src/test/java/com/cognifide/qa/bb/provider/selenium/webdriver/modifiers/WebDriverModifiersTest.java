@@ -19,21 +19,16 @@
  */
 package com.cognifide.qa.bb.provider.selenium.webdriver.modifiers;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
-import java.util.Set;
+import java.util.Collections;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 
@@ -41,7 +36,7 @@ import com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.capabilities.Ca
 import com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.webdriver.WebDriverModifier;
 import com.google.common.collect.Sets;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class WebDriverModifiersTest {
 
   private WebDriverModifiers testedObject;
@@ -73,6 +68,7 @@ public class WebDriverModifiersTest {
   @Test
   public void shouldSortAndFilterWebDriverModifiers() {
     //when
+    setupWebDriverModifiers();
     testedObject.modifyWebDriver(webDriver);
 
     //then
@@ -86,6 +82,7 @@ public class WebDriverModifiersTest {
   @Test
   public void shouldSortAndFilterCapabilitiesModifiers() {
     //when
+    setupCapabilitiesModifiers();
     testedObject.modifyCapabilities(capabilities);
 
     //then
@@ -96,8 +93,7 @@ public class WebDriverModifiersTest {
     verify(capMod3, never()).modify(capabilities);
   }
 
-  @Before
-  public void setUp() {
+  public void setupWebDriverModifiers() {
     when(mod1.getOrder()).thenReturn(1);
     when(mod1.shouldModify()).thenReturn(true);
     when(mod1.modify(any())).thenReturn(webDriver);
@@ -106,8 +102,11 @@ public class WebDriverModifiersTest {
     when(mod2.modify(any())).thenReturn(webDriver);
     when(mod3.shouldModify()).thenReturn(false);
 
-    Set<WebDriverModifier> webDriverModifiers = Sets.newHashSet(mod1, mod2, mod3);
+    testedObject =
+        spy(new WebDriverModifiers(Collections.emptySet(), Sets.newHashSet(mod1, mod2, mod3)));
+  }
 
+  public void setupCapabilitiesModifiers() {
     when(capMod1.getOrder()).thenReturn(1);
     when(capMod1.shouldModify()).thenReturn(true);
     when(capMod1.modify(any())).thenReturn(capabilities);
@@ -116,8 +115,7 @@ public class WebDriverModifiersTest {
     when(capMod2.modify(any())).thenReturn(capabilities);
     when(capMod3.shouldModify()).thenReturn(false);
 
-    Set<CapabilitiesModifier> capabilitiesModifiers = Sets.newHashSet(capMod1, capMod2, capMod3);
-
-    testedObject = spy(new WebDriverModifiers(capabilitiesModifiers, webDriverModifiers));
+    testedObject = spy(new WebDriverModifiers(Sets.newHashSet(capMod1, capMod2, capMod3),
+        Collections.emptySet()));
   }
 }

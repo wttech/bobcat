@@ -34,15 +34,15 @@ import com.cognifide.qa.bb.constants.ConfigKeys;
 public class TimingsBuilder {
 
   private long pollingInterval =
-      Long.valueOf(System.getProperty(ConfigKeys.TIMINGS_POLLING_INTERVAL,
+      Long.parseLong(System.getProperty(ConfigKeys.TIMINGS_POLLING_INTERVAL,
           String.valueOf(Timings.DEFAULT_POLLING_INTERVAL)));
 
   private long explicitTimeout =
-      Long.valueOf(System.getProperty(ConfigKeys.TIMINGS_EXPLICIT_TIMEOUT,
+      Long.parseLong(System.getProperty(ConfigKeys.TIMINGS_EXPLICIT_TIMEOUT,
           String.valueOf(Timings.DEFAULT_EXPLICIT_TIMEOUT)));
 
   private long implicitTimeout =
-      Long.valueOf(System.getProperty(ConfigKeys.TIMINGS_IMPLICIT_TIMEOUT,
+      Long.parseLong(System.getProperty(ConfigKeys.TIMINGS_IMPLICIT_TIMEOUT,
           String.valueOf(Timings.DEFAULT_IMPLICIT_TIMEOUT)));
 
   /**

@@ -19,10 +19,9 @@
  */
 package com.cognifide.qa.bb.aem.core.component.configuration;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ComponentConfigResourceFileReaderTest {
 
@@ -32,6 +31,6 @@ public class ComponentConfigResourceFileReaderTest {
   public void readConfigurationTest() {
     ComponentConfiguration componentConfiguration = testObject
         .readConfiguration(new ResourceFileLocation("componentConfig.yaml"));
-    assertThat(componentConfiguration.getTabs().size(), is(2));
+    assertThat(componentConfiguration.getTabs().size()).isEqualTo(2);
   }
 }

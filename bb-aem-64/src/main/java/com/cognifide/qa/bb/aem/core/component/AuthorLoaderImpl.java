@@ -21,11 +21,11 @@ package com.cognifide.qa.bb.aem.core.component;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
 
-import com.cognifide.qa.bb.constants.Timeouts;
-import com.cognifide.qa.bb.provider.selenium.BobcatWait;
-import com.cognifide.qa.bb.qualifier.PageObject;
-import com.google.inject.Inject;
 import org.openqa.selenium.By;
+
+import com.cognifide.qa.bb.qualifier.PageObject;
+import com.cognifide.qa.bb.wait.BobcatWait;
+import com.google.inject.Inject;
 
 /**
  * Implementation of {@link AuthorLoader} for AEM 6.4
@@ -41,6 +41,6 @@ public class AuthorLoaderImpl implements AuthorLoader {
 
   @Override
   public void verifyIsHidden() {
-    bobcatWait.withTimeout(Timeouts.MEDIUM).until(invisibilityOfElementLocated(LOADER_LOCATOR));
+    bobcatWait.until(invisibilityOfElementLocated(LOADER_LOCATOR));
   }
 }

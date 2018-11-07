@@ -19,10 +19,11 @@
  */
 package com.cognifide.qa.bb.core.pageobjects.qualifier.findpageobject;
 
-import com.cognifide.qa.bb.qualifier.PageObject;
-import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 import java.util.List;
+
 import org.openqa.selenium.WebElement;
+
+import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 
 @PageObjectInterface
 public interface Item {

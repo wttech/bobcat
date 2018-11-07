@@ -19,19 +19,15 @@
  */
 package com.cognifide.qa.bb.provider.selenium.webdriver.close;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
@@ -39,20 +35,20 @@ import org.openqa.selenium.WebDriver;
 import com.cognifide.qa.bb.frame.FrameSwitcher;
 import com.cognifide.qa.bb.provider.selenium.webdriver.BobcatTargetLocator;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ClosingAwareWebDriverWrapperTest {
 
-  public static final boolean IS_REUSABLE = true;
+  private static final boolean IS_REUSABLE = true;
 
-  public static final boolean NOT_REUSABLE = false;
+  private static final boolean NOT_REUSABLE = false;
 
-  public static final boolean IS_MAXIMIZED = true;
+  private static final boolean IS_MAXIMIZED = true;
 
-  public static final boolean NOT_MAXIMIZED = false;
+  private static final boolean NOT_MAXIMIZED = false;
 
-  public static final boolean IS_MOBILE = true;
+  private static final boolean IS_MOBILE = true;
 
-  public static final boolean NOT_MOBILE = false;
+  private static final boolean NOT_MOBILE = false;
 
   private WebDriverListener listener;
 
@@ -85,6 +81,8 @@ public class ClosingAwareWebDriverWrapperTest {
   public void shouldCleanDriverOnCloseWhenReusable() {
     //given
     setUp(IS_MAXIMIZED, IS_REUSABLE, IS_MOBILE);
+    when(webDriver.manage()).thenReturn(options);
+    when(webDriver.manage().window()).thenReturn(window);
     registerListener();
 
     //when
@@ -93,7 +91,7 @@ public class ClosingAwareWebDriverWrapperTest {
     //then
     verify(testedObject).close();
     verify(options).deleteAllCookies();
-    assertThat(testedObject.isAlive(), is(true));
+    assertThat(testedObject.isAlive()).isTrue();
     assertListenerReceivedEventWithValue(false);
   }
 
@@ -108,7 +106,7 @@ public class ClosingAwareWebDriverWrapperTest {
 
     //then
     verify(testedObject).close();
-    assertThat(testedObject.isAlive(), is(false));
+    assertThat(testedObject.isAlive()).isFalse();
     assertListenerReceivedEventWithValue(true);
   }
 
@@ -116,6 +114,7 @@ public class ClosingAwareWebDriverWrapperTest {
   public void shouldCleanDriverOnQuitWhenReusable() {
     //given
     setUp(NOT_MAXIMIZED, IS_REUSABLE, IS_MOBILE);
+    when(webDriver.manage()).thenReturn(options);
     registerListener();
 
     //when
@@ -124,7 +123,7 @@ public class ClosingAwareWebDriverWrapperTest {
     //then
     verify(testedObject).quit();
     verify(options).deleteAllCookies();
-    assertThat(testedObject.isAlive(), is(true));
+    assertThat(testedObject.isAlive()).isTrue();
     assertListenerReceivedEventWithValue(false);
   }
 
@@ -139,7 +138,7 @@ public class ClosingAwareWebDriverWrapperTest {
 
     //then
     verify(testedObject).quit();
-    assertThat(testedObject.isAlive(), is(false));
+    assertThat(testedObject.isAlive()).isFalse();
     assertListenerReceivedEventWithValue(true);
   }
 
@@ -147,6 +146,11 @@ public class ClosingAwareWebDriverWrapperTest {
   public void shouldTryToCloseAlertWhenNotMobileDuringCleanup() {
     //given
     setUp(IS_MAXIMIZED, IS_REUSABLE, NOT_MOBILE);
+    when(webDriver.manage()).thenReturn(options);
+    when(webDriver.manage().window()).thenReturn(window);
+    when(webDriver.switchTo()).thenReturn(bobcatTargetLocator);
+    when(webDriver.switchTo().alert()).thenReturn(alert);
+    doThrow(new NoAlertPresentException()).when(alert).accept();
 
     //when
     testedObject.quit();
@@ -159,6 +163,8 @@ public class ClosingAwareWebDriverWrapperTest {
   public void shouldMaximizeDuringCleanupWhenPropertyIsSet() {
     //given
     setUp(IS_MAXIMIZED, IS_REUSABLE, IS_MOBILE);
+    when(webDriver.manage()).thenReturn(options);
+    when(webDriver.manage().window()).thenReturn(window);
 
     //when
     testedObject.quit();
@@ -190,18 +196,12 @@ public class ClosingAwareWebDriverWrapperTest {
 
     //then
     verify(testedObject).forceShutdown();
-    assertThat(testedObject.isAlive(), is(false));
+    assertThat(testedObject.isAlive()).isFalse();
   }
 
   private void setUp(boolean maximize, boolean reusable, boolean mobile) {
     testedObject = spy(
         new ClosingAwareWebDriverWrapper(webDriver, frameSwitcher, maximize, reusable, mobile));
-
-    when(webDriver.manage()).thenReturn(options);
-    when(webDriver.manage().window()).thenReturn(window);
-    when(webDriver.switchTo()).thenReturn(bobcatTargetLocator);
-    when(webDriver.switchTo().alert()).thenReturn(alert);
-    doThrow(new NoAlertPresentException()).when(alert).accept();
   }
 
   private void registerListener() {
@@ -211,7 +211,7 @@ public class ClosingAwareWebDriverWrapperTest {
   }
 
   private void assertListenerReceivedEventWithValue(boolean expected) {
-    assertThat(listener.wasTerminated, is(expected));
+    assertThat(listener.wasTerminated).isEqualTo(expected);
   }
 
   private class WebDriverListener implements WebDriverClosedListener {

@@ -19,20 +19,22 @@
  */
 package com.cognifide.qa.bb.proxy;
 
-import static org.mockito.Matchers.any;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 
 import java.io.IOException;
 import java.net.InetAddress;
 
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import com.cognifide.qa.bb.junit5.guice.Modules;
+import com.cognifide.qa.bb.modules.CoreModule;
 import com.google.inject.Inject;
 
 import io.netty.handler.codec.http.HttpRequest;
@@ -41,6 +43,8 @@ import net.lightbody.bmp.filters.RequestFilter;
 import net.lightbody.bmp.util.HttpMessageContents;
 import net.lightbody.bmp.util.HttpMessageInfo;
 
+@ExtendWith(MockitoExtension.class)
+@Modules({CoreModule.class})
 public class ProxyControllerTest extends AbstractProxyTest {
 
   @Inject
@@ -52,13 +56,7 @@ public class ProxyControllerTest extends AbstractProxyTest {
   @Mock
   private RequestFilter requestFilter;
 
-  @Before
-  public void setUp() throws Exception {
-    MockitoAnnotations.initMocks(this);
-    guiceInject(this);
-  }
-
-  @Ignore("TODO - some problems with timing (works in debug mode)")
+  @Disabled("TODO - some problems with timing (works in debug mode)")
   @Test
   public void shouldCallFilterByRegistry() throws IOException {
     // given

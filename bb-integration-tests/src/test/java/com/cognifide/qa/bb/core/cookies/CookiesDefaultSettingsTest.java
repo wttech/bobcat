@@ -21,16 +21,13 @@ package com.cognifide.qa.bb.core.cookies;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 
-import com.cognifide.qa.bb.junit.Modules;
-import com.cognifide.qa.bb.junit.TestRunner;
+import com.cognifide.qa.bb.junit5.guice.Modules;
 import com.google.inject.Inject;
 
-@RunWith(TestRunner.class)
 @Modules(TestModuleWithEnabledAutoLoad.class)
 public class CookiesDefaultSettingsTest {
 

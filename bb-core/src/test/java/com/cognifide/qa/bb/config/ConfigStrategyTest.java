@@ -22,28 +22,20 @@ package com.cognifide.qa.bb.config;
 import static com.cognifide.qa.bb.utils.MapUtils.entry;
 import static com.cognifide.qa.bb.utils.MapUtils.mapOf;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.doCallRealMethod;
-import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 import java.util.Map;
 import java.util.Properties;
 
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
 
-import com.cognifide.qa.bb.utils.SystemPropertiesCleanupRule;
 import com.google.common.collect.Maps;
 
 public class ConfigStrategyTest {
 
   private ConfigStrategy strategy = new DefaultConfigStrategy();
-
-  @Rule
-  public SystemPropertiesCleanupRule cleanupSysProps = new SystemPropertiesCleanupRule();
 
   @Test
   public void gatherProperties_loadsPropertiesInCorrectOrder() {

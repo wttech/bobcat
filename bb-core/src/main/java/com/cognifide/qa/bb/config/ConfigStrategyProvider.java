@@ -26,25 +26,20 @@ import com.cognifide.qa.bb.constants.ConfigKeys;
  */
 public final class ConfigStrategyProvider {
 
-  public static final String LEGACY_SYS_PROP_VALUE = "properties";
-
   private ConfigStrategyProvider() {
     //empty
   }
 
   /**
    * Returns a correct implementation of {@link ConfigStrategy}, based on {@value ConfigKeys#CONFIG_STRATEGY} System property.
-   * At the moment two types can be provided:
+   * At the moment only single type is implemented in Bobcat:
    * <ul>
    * <li>{@link YamlConfig} is served by default</li>
-   * <li>{@link LegacyConfig} is served when {@code bobcat.config} system property is set to {@code legacy}</li>
    * </ul>
    *
    * @return proper implementation of {@link ConfigStrategy}
    */
   public static ConfigStrategy get() {
-    return LEGACY_SYS_PROP_VALUE.equals(System.getProperty(ConfigKeys.CONFIG_STRATEGY)) ?
-        new LegacyConfig() :
-        new YamlConfig();
+    return new YamlConfig();
   }
 }

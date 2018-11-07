@@ -19,15 +19,13 @@
  */
 package com.cognifide.qa.bb.aem.core.login;
 
-import com.cognifide.qa.bb.constants.ConfigKeys;
-import com.cognifide.qa.bb.guice.ThreadScoped;
-import com.google.inject.Inject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -36,25 +34,20 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.cookie.BasicClientCookie;
 import org.apache.http.message.BasicNameValuePair;
 import org.openqa.selenium.Cookie;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.cognifide.qa.bb.constants.ConfigKeys;
+import com.cognifide.qa.bb.guice.ThreadScoped;
+import com.google.inject.Inject;
 
 /**
  * This class provide authentication cookie for aem instance (default cookie name: login-token)
  */
 @ThreadScoped
 public class AemAuthCookieFactoryImpl implements AemAuthCookieFactory {
-
-  private static final String WEBDRIVER_PROXY_COOKIE = "webdriver.secure.proxy.cookie";
-
-  private static final String WEBDRIVER_PROXY_COOKIE_NAME = "webdriver.secure.proxy.cookie_name";
-
-  private static final String WEBDRIVER_PROXY_COOKIE_VALUE = "webdriver.secure.proxy.cookie_value";
-
-  private static final String WEBDRIVER_PROXY_COOKIE_DOMAIN = "webdriver.secure.proxy.cookie_domain";
 
   private static final Logger LOG = LoggerFactory.getLogger(AemAuthCookieFactoryImpl.class);
 
@@ -71,8 +64,8 @@ public class AemAuthCookieFactoryImpl implements AemAuthCookieFactory {
   /**
    * This method provides browser cookie for authenticating user to AEM instance
    *
-   * @param url URL to AEM instance, like http://localhost:4502
-   * @param login Username to use
+   * @param url      URL to AEM instance, like http://localhost:4502
+   * @param login    Username to use
    * @param password Password to use
    * @return Cookie for selenium WebDriver.
    */
@@ -90,11 +83,6 @@ public class AemAuthCookieFactoryImpl implements AemAuthCookieFactory {
 
       CookieStore cookieStore = new BasicCookieStore();
       HttpClientContext context = HttpClientContext.create();
-
-      if ("true".equals(properties.getProperty(WEBDRIVER_PROXY_COOKIE))) {
-        addProxyCookie(cookieStore);
-      }
-
       context.setCookieStore(cookieStore);
 
       try {
@@ -133,14 +121,5 @@ public class AemAuthCookieFactoryImpl implements AemAuthCookieFactory {
       }
     }
     return null;
-  }
-
-  private void addProxyCookie(CookieStore cookieStore) {
-    BasicClientCookie proxyCookie = new BasicClientCookie(
-        properties.getProperty(WEBDRIVER_PROXY_COOKIE_NAME),
-        properties.getProperty(WEBDRIVER_PROXY_COOKIE_VALUE));
-    proxyCookie.setDomain(properties.getProperty(WEBDRIVER_PROXY_COOKIE_DOMAIN));
-    proxyCookie.setPath("/");
-    cookieStore.addCookie(proxyCookie);
   }
 }

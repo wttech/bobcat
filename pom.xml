@@ -54,14 +54,9 @@ limitations under the License.
     <modules>
         <module>bb-core</module>
         <module>bb-integration-tests</module>
-        <module>bb-junit</module>
-        <module>bb-reports</module>
         <module>bb-cumber</module>
         <module>bb-email</module>
         <module>bb-traffic</module>
-        <module>bb-aem-common</module>
-        <module>bb-aem-classic</module>
-        <module>bb-aem-touch-ui</module>
         <module>bb-annotations</module>
         <module>bb-junit5</module>
         <module>bb-aem-core</module>
@@ -90,11 +85,15 @@ limitations under the License.
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
+
         <jacoco.version>0.8.2</jacoco.version>
-        <selenium.version>3.14.0</selenium.version>
+        <selenium.version>3.141.0</selenium.version>
         <guice.version>4.2.0</guice.version>
         <cucumber.version>3.0.2</cucumber.version>
         <version.logback>1.2.3</version.logback>
+        <junit.jupiter.version>5.3.1</junit.jupiter.version>
     </properties>
 
     <dependencyManagement>
@@ -216,23 +215,22 @@ limitations under the License.
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter-api</artifactId>
-                <version>5.2.0</version>
+                <version>${junit.jupiter.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.junit.platform</groupId>
-                <artifactId>junit-platform-commons</artifactId>
-                <version>1.2.0</version>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-params</artifactId>
+                <version>${junit.jupiter.version}</version>
             </dependency>
             <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.12</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>hamcrest-core</artifactId>
-                        <groupId>org.hamcrest</groupId>
-                    </exclusion>
-                </exclusions>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${junit.jupiter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-junit-jupiter</artifactId>
+                <version>2.23.0</version>
             </dependency>
 
             <dependency>
@@ -244,7 +242,6 @@ limitations under the License.
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
                 <version>3.11.1</version>
-                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.mockito</groupId>
@@ -275,19 +272,6 @@ limitations under the License.
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-java-commons</artifactId>
                 <version>2.7.0</version>
-            </dependency>
-
-            <dependency>
-                <!-- usage deprecated, remove with next version -->
-                <groupId>com.github.detro.ghostdriver</groupId>
-                <artifactId>phantomjsdriver</artifactId>
-                <version>1.1.0</version>
-            </dependency>
-            <dependency>
-                <!-- usage deprecated, remove with next version -->
-                <groupId>org.seleniumhq.selenium</groupId>
-                <artifactId>selenium-htmlunit-driver</artifactId>
-                <version>2.52.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -322,17 +306,6 @@ limitations under the License.
                             <exclude>**/*.Processor</exclude>
                             <exclude>src/main/resources/META-INF/services/**</exclude>
                         </excludes>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.3</version>
-                    <configuration>
-                        <fork>true</fork>
-                        <source>1.8</source>
-                        <target>1.8</target>
-                        <compilerVersion>1.8</compilerVersion>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -405,6 +378,11 @@ limitations under the License.
                         </execution>
                     </executions>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.22.1</version>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -476,6 +454,10 @@ limitations under the License.
                                 </configuration>
                             </execution>
                         </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
                     </plugin>
                 </plugins>
             </build>

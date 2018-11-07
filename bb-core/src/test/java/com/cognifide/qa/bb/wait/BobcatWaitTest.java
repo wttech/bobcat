@@ -20,22 +20,28 @@
 package com.cognifide.qa.bb.wait;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
-@RunWith(MockitoJUnitRunner.class)
+import com.cognifide.qa.bb.provider.selenium.webdriver.WebDriverProvider;
+
+@ExtendWith(MockitoExtension.class)
 public class BobcatWaitTest {
+
+  @Mock
+  private WebDriverProvider webDriverProvider;
 
   @Mock
   private WebDriver webDriver;
@@ -46,14 +52,18 @@ public class BobcatWaitTest {
   @Mock
   private WebDriver.Timeouts timeouts;
 
+  @Mock
+  private ExpectedCondition<Boolean> condition;
+
+  @InjectMocks
   private BobcatWait tested;
 
-  @Before
+  @BeforeEach
   public void setup() {
     when(webDriver.manage()).thenReturn(options);
     when(options.timeouts()).thenReturn(timeouts);
     when(timeouts.implicitlyWait(anyLong(), any())).thenReturn(timeouts);
-    tested = new BobcatWait(webDriver);
+    when(webDriverProvider.get()).thenReturn(webDriver);
   }
 
   @Test
@@ -68,9 +78,6 @@ public class BobcatWaitTest {
     inOrder.verify(spied).getWebDriverWait();
     inOrder.verify(spied).restoreImplicitTimeout();
   }
-
-  @Mock
-  private ExpectedCondition<Boolean> condition;
 
   @Test
   public void isConditionMetShouldCatchTimeoutExceptionAndReturnBoolean() {

@@ -19,13 +19,13 @@
  */
 package com.cognifide.qa.bb.aem.core.pages.sling;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.http.message.BasicNameValuePair;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class SlingTestDataXMLBuilderTest {
 
@@ -33,13 +33,13 @@ public class SlingTestDataXMLBuilderTest {
   public void buildSlingTestData() {
     List<BasicNameValuePair> testResults = SlingTestDataXMLBuilder
         .buildSlingTestData("pageTest.xml");
-    assertThat(testResults.size(), is(11));
+    assertThat(testResults.size()).isEqualTo(11);
     List<BasicNameValuePair> expectedTestData = getExpectedTestData();
     int index = 0;
     for (BasicNameValuePair testResult : testResults) {
       BasicNameValuePair expectedData = expectedTestData.get(index++);
-      assertThat(testResult.getName(), is(expectedData.getName()));
-      assertThat(testResult.getValue(), is(expectedData.getValue()));
+      assertThat(testResult.getName()).isEqualTo(expectedData.getName());
+      assertThat(testResult.getValue()).isEqualTo(expectedData.getValue());
     }
   }
 

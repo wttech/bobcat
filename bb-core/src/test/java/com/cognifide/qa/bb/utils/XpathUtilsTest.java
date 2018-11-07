@@ -19,59 +19,46 @@
  */
 package com.cognifide.qa.bb.utils;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.stream.Stream;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
-@RunWith(Parameterized.class)
 public class XpathUtilsTest {
 
-  private final String sentence;
-
-  private final String expected;
-
-  private final Class<? extends Throwable> expectedExc;
-
-
-  public XpathUtilsTest(String sentence, String expected, Class<? extends Throwable> expectedExc) {
-    this.sentence = sentence;
-    this.expected = expected;
-    this.expectedExc = expectedExc;
-  }
-
-  @Parameters
-  public static Collection<Object[]> parameters() {
-    return Arrays.asList(new Object[][] {
+  private static Stream<Arguments> parameters() {
+    return Stream.of(
         //@formatter:off
-        // input                      expected output                                           expected exception
-        {null,                        null,                                                     NullPointerException.class},
-        {"",                          "''",                                                     null},
-        {"a",                         "'a'",                                                    null},
-        {"1",                         "'1'",                                                    null},
-        {"'",                         "\"'\"",                                                  null},
-        {"'''",                       "\"'''\"",                                                null},
-        {"\"",                        "'\"'",                                                   null},
-        {"!@#$%^&*()",                "'!@#$%^&*()'",                                           null},
-        {"'Please login' sentence",   "\"'Please login' sentence\"",                            null},
-        {"My \" sentence",            "'My \" sentence'",                                       null},
-        {"My \" sen'ten'ce ex\"tra",  "concat('My \" sen', \"'\", 'ten', \"'\", 'ce ex\"tra')", null}
+        //        input                        expected output
+        arguments("",                          "''"),
+        arguments("a",                         "'a'"),
+        arguments("1",                         "'1'"),
+        arguments("'",                         "\"'\""),
+        arguments("'''",                       "\"'''\""),
+        arguments("\"",                        "'\"'"),
+        arguments("!@#$%^&*()",                "'!@#$%^&*()'"),
+        arguments("'Please login' sentence",   "\"'Please login' sentence\""),
+        arguments("My \" sentence",            "'My \" sentence'"),
+        arguments("My \" sen'ten'ce ex\"tra",  "concat('My \" sen', \"'\", 'ten', \"'\", 'ce ex\"tra')")
         //@formatter:on
-    });
+    );
   }
 
   @Test
-  public void testQuoteForXPath() {
-    try {
-      String actual = XpathUtils.quote(sentence);
-      assertEquals(expected, actual);
-    } catch (Throwable e) {
-      assertEquals(expectedExc, e.getClass());
-    }
+  public void quoteShouldThrowNpeWhenNoArgumentsAreProvided() {
+    assertThrows(NullPointerException.class, () -> XpathUtils.quote(null));
+  }
+
+  @ParameterizedTest
+  @MethodSource("parameters")
+  public void testQuoteForXPath(String sentence, String expected) {
+    String actual = XpathUtils.quote(sentence);
+    assertEquals(expected, actual);
   }
 }

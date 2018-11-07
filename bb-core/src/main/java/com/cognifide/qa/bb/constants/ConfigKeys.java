@@ -36,12 +36,6 @@ public final class ConfigKeys {
 
   public static final String WEBDRIVER_CAP_PLATFORM_NAME = "webdriver.cap.platformName";
 
-  /**
-   * @deprecated since 1.6.0; use {@code timings.*} properties
-   */
-  @Deprecated
-  public static final String WEBDRIVER_DEFAULT_TIMEOUT = "webdriver.defaultTimeout";
-
   public static final String WEBDRIVER_FIREFOX_BIN = "webdriver.firefox.bin";
 
   public static final String WEBDRIVER_MAXIMIZE = "webdriver.maximize";
@@ -55,15 +49,6 @@ public final class ConfigKeys {
   public static final String WEBDRIVER_XVFB_ID = "webdriver.xvfb.id";
 
   public static final String WEBDRIVER_URL = "webdriver.url";
-
-  @Deprecated
-  public static final String CONFIGURATION_PATHS = "configuration.paths";
-
-  @Deprecated
-  public static final String DEFAULT_PROPERTIES_NAME = "default.properties";
-
-  @Deprecated
-  public static final String JUNIT_RERUNS = "junit.reruns";
 
   public static final String CONFIG_STRATEGY = "bobcat.config";
   public static final String WEBDRIVER_PROP_PREFIX = "webdriver.";

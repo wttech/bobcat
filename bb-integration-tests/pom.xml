@@ -43,17 +43,12 @@
         </dependency>
         <dependency>
             <groupId>com.cognifide.qa.bb</groupId>
-            <artifactId>bb-junit</artifactId>
+            <artifactId>bb-junit5</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.cognifide.qa.bb</groupId>
             <artifactId>bb-annotations</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.cognifide.qa.bb</groupId>
-            <artifactId>bb-reports</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -72,6 +67,22 @@
             <artifactId>assertj-core</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -87,7 +98,34 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <properties>
+                        <configurationParameters>junit.jupiter.extensions.autodetection.enabled = true</configurationParameters>
+                    </properties>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>local-grid</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <bobcat.config.contexts>grid,grid-chrome</bobcat.config.contexts>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>

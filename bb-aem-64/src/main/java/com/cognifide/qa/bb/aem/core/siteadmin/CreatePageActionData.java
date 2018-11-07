@@ -19,8 +19,6 @@
  */
 package com.cognifide.qa.bb.aem.core.siteadmin;
 
-import com.cognifide.qa.bb.aem.core.siteadmin.SiteAdminActionData;
-
 /**
  * Site Action Data for Create Page Action
  */
