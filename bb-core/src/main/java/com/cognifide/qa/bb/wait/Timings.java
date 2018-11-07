@@ -19,6 +19,8 @@
  */
 package com.cognifide.qa.bb.wait;
 
+import com.cognifide.qa.bb.constants.Timeouts;
+
 /**
  * A value object defining the set of timings used in {@link BobcatWait}.
  * Use {@link TimingsBuilder} to create instances of this class.
@@ -56,4 +58,22 @@ public class Timings {
   public long getImplicitTimeout() {
     return implicitTimeout;
   }
+
+  /**
+   * A {@link Timings} instance with explicit timeout set to {@value Timeouts#SMALL}
+   */
+  public static final Timings SHORT_EXPLICIT =
+      new TimingsBuilder().explicitTimeout(Timeouts.SMALL).build();
+
+  /**
+   * A {@link Timings} instance with explicit timeout set to {@value Timeouts#MEDIUM}
+   */
+  public static final Timings MEDIUM_EXPLICIT =
+      new TimingsBuilder().explicitTimeout(Timeouts.MEDIUM).build();
+
+  /**
+   * A {@link Timings} instance with explicit timeout set to {@value Timeouts#BIG}
+   */
+  public static final Timings LONG_EXPLICIT =
+      new TimingsBuilder().explicitTimeout(Timeouts.BIG).build();
 }

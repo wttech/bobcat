@@ -53,7 +53,7 @@ public class CurrentScopeHelperTest {
 
   @Test
   public void isCurrentScopeVisibleShouldIgnoreStaleElementReferenceException() {
-    when(bobcatWait.ignoring(any())).thenReturn(bobcatWait);
+    when(bobcatWait.ignoring(anyList())).thenReturn(bobcatWait);
     when(bobcatWait.isConditionMet(any())).thenReturn(true);
     testedObject.isCurrentScopeVisible(new PageObjectWithCurrentScope(webElement));
 

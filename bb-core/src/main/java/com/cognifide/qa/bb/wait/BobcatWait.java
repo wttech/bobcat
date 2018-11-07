@@ -21,6 +21,7 @@ package com.cognifide.qa.bb.wait;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
@@ -72,6 +73,18 @@ public class BobcatWait {
    */
   public BobcatWait ignoring(List<Class<? extends Throwable>> exceptions) {
     ignoredExceptions.addAll(exceptions);
+    return this;
+  }
+
+  /**
+   * Adds an exception to be ignored during condition evaluation
+   *
+   * @param exception exception to be ignored
+   * @return a self reference
+   * @see org.openqa.selenium.support.ui.FluentWait#ignoreAll(Collection)
+   */
+  public BobcatWait ignoring(Class<? extends Throwable> exception) {
+    ignoring(Collections.singletonList(exception));
     return this;
   }
 

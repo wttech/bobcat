@@ -36,6 +36,7 @@ public class MapUtils {
     return new AbstractMap.SimpleEntry<>(key, value);
   }
 
+  @SafeVarargs
   public static <K, V> Map<K, V> mapOf(Map.Entry<K, V>... entries) {
     return Collections.unmodifiableMap(Stream.of(entries).collect(entriesToMap()));
   }

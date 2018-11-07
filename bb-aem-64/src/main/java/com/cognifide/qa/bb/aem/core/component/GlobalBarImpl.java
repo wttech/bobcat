@@ -19,12 +19,16 @@
  */
 package com.cognifide.qa.bb.aem.core.component;
 
-import com.cognifide.qa.bb.aem.core.util.Conditions;
-import com.cognifide.qa.bb.qualifier.PageObject;
-import com.google.inject.Inject;
+import static com.cognifide.qa.bb.constants.HtmlTags.Attributes.CLASS;
+import static org.openqa.selenium.support.ui.ExpectedConditions.attributeContains;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import com.cognifide.qa.bb.qualifier.PageObject;
+import com.cognifide.qa.bb.wait.BobcatWait;
+import com.google.inject.Inject;
 
 /**
  * Implementation of {@link GlobalBar} for AEM 6.4
@@ -35,7 +39,7 @@ public class GlobalBarImpl implements GlobalBar {
   public static final String IS_SELECTED = "is-selected";
 
   @Inject
-  private Conditions conditions;
+  private BobcatWait bobcatWait;
 
   @Inject
   private WebDriver webDriver;
@@ -72,11 +76,11 @@ public class GlobalBarImpl implements GlobalBar {
 
   @Override
   public boolean isInPreviewMode() {
-    return conditions.classContains(previewModeButton, IS_SELECTED);
+    return bobcatWait.isConditionMet(attributeContains(previewModeButton, CLASS, IS_SELECTED));
   }
 
   @Override
   public boolean isInEditMode() {
-    return conditions.classContains(editModeButton, IS_SELECTED);
+    return bobcatWait.isConditionMet(attributeContains(editModeButton, CLASS, IS_SELECTED));
   }
 }
