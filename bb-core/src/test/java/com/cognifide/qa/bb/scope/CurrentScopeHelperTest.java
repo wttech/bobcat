@@ -49,8 +49,6 @@ public class CurrentScopeHelperTest {
   @InjectMocks
   public CurrentScopeHelper testedObject = new CurrentScopeHelper();
 
-  private PageObjectWithCurrentScope pageObjectWithCurrentScope;
-
   private PageObjectWithoutCurrentScope pageObjectWithoutCurrentScope;
 
   @Test
@@ -80,11 +78,6 @@ public class CurrentScopeHelperTest {
     //then
     assertThrows(IllegalArgumentException.class,
         () -> testedObject.isCurrentScopeVisible(StringUtils.EMPTY));
-  }
-
-  private void verifyIsDisplayedCalledOnce() {
-    verify(webElement).isDisplayed();
-    verifyNoMoreInteractions(webElement);
   }
 
   @PageObject(generateCurrentScope = false)

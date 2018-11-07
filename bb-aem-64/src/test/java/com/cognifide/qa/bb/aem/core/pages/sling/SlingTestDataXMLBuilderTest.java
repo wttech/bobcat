@@ -29,6 +29,8 @@ import org.junit.jupiter.api.Test;
 
 public class SlingTestDataXMLBuilderTest {
 
+  private static final String TEST_PAGE = "Test page";
+
   @Test
   public void buildSlingTestData() {
     List<BasicNameValuePair> testResults = SlingTestDataXMLBuilder
@@ -48,7 +50,7 @@ public class SlingTestDataXMLBuilderTest {
     toReturn.add(new BasicNameValuePair("./jcr:primaryType", "cq:Page"));
     toReturn.add(new BasicNameValuePair("./jcr:content/cq:template",
         "/conf/we-retail/settings/wcm/templates/content-page"));
-    toReturn.add(new BasicNameValuePair("./jcr:content/jcr:description", "Test page"));
+    toReturn.add(new BasicNameValuePair("./jcr:content/jcr:description", TEST_PAGE));
     toReturn.add(new BasicNameValuePair("./jcr:content/jcr:primaryType", "cq:PageContent"));
     toReturn.add(new BasicNameValuePair("./jcr:content/jcr:title", "Test page"));
     toReturn.add(new BasicNameValuePair("./jcr:content/sling:resourceType",

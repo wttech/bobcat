@@ -133,6 +133,7 @@ public class FrameAspectTest {
 
   private class Element {
     void execute() {
+      //empty on purpose
     }
   }
 
@@ -140,6 +141,7 @@ public class FrameAspectTest {
   private class AnnotatedElement {
     @Frame(value = "")
     void execute() {
+      //empty on purpose
     }
   }
 

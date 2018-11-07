@@ -22,7 +22,6 @@ package com.cognifide.qa.bb.proxy;
 import java.io.Closeable;
 import java.io.IOException;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 

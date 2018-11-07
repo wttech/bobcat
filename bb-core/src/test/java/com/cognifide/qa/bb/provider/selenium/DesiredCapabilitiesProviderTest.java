@@ -34,6 +34,9 @@ import org.openqa.selenium.Capabilities;
 @ExtendWith(MockitoExtension.class)
 public class DesiredCapabilitiesProviderTest {
 
+  private static final String OUTERMAP = "outermap";
+  private static final String THEMAP = "themap";
+
   @InjectMocks
   private DesiredCapabilitiesProvider tested;
 
@@ -60,9 +63,9 @@ public class DesiredCapabilitiesProviderTest {
 
     Capabilities capabilities = tested.get();
 
-    assertThat(capabilities.getCapability("themap")).isInstanceOf(Map.class);
-    assertThat(((Map<?, ?>) capabilities.getCapability("themap")).get("key1")).isEqualTo("mvalue1");
-    assertThat(((Map<?, ?>) capabilities.getCapability("themap")).get("key2")).isEqualTo("mvalue2");
+    assertThat(capabilities.getCapability(THEMAP)).isInstanceOf(Map.class);
+    assertThat(((Map<?, ?>) capabilities.getCapability(THEMAP)).get("key1")).isEqualTo("mvalue1");
+    assertThat(((Map<?, ?>) capabilities.getCapability(THEMAP)).get("key2")).isEqualTo("mvalue2");
   }
 
   @Test
@@ -74,13 +77,13 @@ public class DesiredCapabilitiesProviderTest {
 
     Capabilities capabilities = tested.get();
 
-    assertThat(capabilities.getCapability("outermap")).isInstanceOf(Map.class);
-    assertThat(((Map<?, ?>) capabilities.getCapability("outermap")).get("top"))
+    assertThat(capabilities.getCapability(OUTERMAP)).isInstanceOf(Map.class);
+    assertThat(((Map<?, ?>) capabilities.getCapability(OUTERMAP)).get("top"))
         .isEqualTo("topvalue");
-    assertThat(((Map<?, ?>) capabilities.getCapability("outermap")).get("innermap"))
+    assertThat(((Map<?, ?>) capabilities.getCapability(OUTERMAP)).get("innermap"))
         .isInstanceOf(Map.class);
     Map<?, ?> innerMap =
-        (Map<?, ?>) ((Map<?, ?>) capabilities.getCapability("outermap")).get("innermap");
+        (Map<?, ?>) ((Map<?, ?>) capabilities.getCapability(OUTERMAP)).get("innermap");
     assertThat(innerMap.get("ikey1")).isEqualTo("ivalue1");
     assertThat(innerMap.get("ikey2")).isEqualTo("ivalue2");
   }

@@ -41,6 +41,8 @@ import com.cognifide.qa.bb.utils.SystemPropertiesCleanupExtension;
 @ExtendWith(SystemPropertiesCleanupExtension.class)
 public class YamlConfigTest {
 
+  private static final String OVERRIDEN = "overriden";
+
   @Test
   public void loadDefaultConfig_shouldLoadAllDefaultProperties() {
     Config defaultYaml = new Config();
@@ -116,7 +118,7 @@ public class YamlConfigTest {
     userYaml.setDefaultConfig(defConfig);
     Map<String, Map<String, String>> contexts = new HashMap<>();
     Map.Entry[] context1Entries =
-        {entry("property1", "overriden"), entry("property2", "overriden")};
+        {entry("property1", OVERRIDEN), entry("property2", OVERRIDEN)};
     contexts.put("context1", mapOf(context1Entries));
     userYaml.setContexts(contexts);
 
@@ -127,7 +129,7 @@ public class YamlConfigTest {
     Properties actual = tested.loadConfig();
 
     assertThat(actual)
-        .containsOnly(entry("property1", "overriden"), entry("property2", "overriden"));
+        .containsOnly(entry("property1", OVERRIDEN), entry("property2", OVERRIDEN));
   }
 
   @Test
