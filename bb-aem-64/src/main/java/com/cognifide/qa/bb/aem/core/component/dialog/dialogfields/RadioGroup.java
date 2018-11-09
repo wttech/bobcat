@@ -38,8 +38,4 @@ public class RadioGroup implements DialogField {
     radioLabel.findElement(By.xpath(".//..")).click();
   }
 
-  @Override
-  public String getType() {
-    return FieldType.RADIO_GROUP.name();
-  }
 }

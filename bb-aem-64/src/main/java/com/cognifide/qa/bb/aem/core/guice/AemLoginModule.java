@@ -26,7 +26,7 @@ import com.cognifide.qa.bb.aem.core.login.AuthorAuthenticationController;
 import com.google.inject.AbstractModule;
 
 /**
- * Module that need to be installed to use login to AEM functions
+ * Module that needs to be installed to use login to AEM instance functionality
  */
 public class AemLoginModule extends AbstractModule {
 

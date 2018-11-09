@@ -77,14 +77,6 @@ public class Multifield implements DialogField {
         .format("Tried to get item at index %s but there are only %s elements", index, itemsSize));
   }
 
-  /**
-   * @return dialog field type.
-   */
-  @Override
-  public String getType() {
-    return FieldType.MULTIFIELD.name();
-  }
-
   public void addField() {
     addButton.click();
   }

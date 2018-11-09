@@ -19,7 +19,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DialogField;
-import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.FieldType;
 import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.wait.BobcatWait;
@@ -83,14 +82,6 @@ public class ListDialogPanel implements DialogField {
     bobcatWait.until((ExpectedCondition<Object>) input -> controlToolbar.
         getToggleListButton().isEnabled());
     controlToolbar.getToggleListButton().click();
-  }
-
-  /**
-   * @return dialog field type.
-   */
-  @Override
-  public String getType() {
-    return FieldType.RICHTEXT_LIST.name();
   }
 
   private enum ListPanelActions {

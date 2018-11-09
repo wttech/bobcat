@@ -61,11 +61,4 @@ public class Image implements DialogField {
     draggable.dropTo(droppable);
   }
 
-  /**
-   * @return dialog field type.
-   */
-  @Override
-  public String getType() {
-    return FieldType.IMAGE.name();
-  }
 }

@@ -52,12 +52,4 @@ public class Select implements DialogField {
             String.format("Option with text %s not found", value.toString()))).click();
   }
 
-  /**
-   * @return dialog field type.
-   */
-  @Override
-  public String getType() {
-    return FieldType.SELECT.name();
-  }
-
 }

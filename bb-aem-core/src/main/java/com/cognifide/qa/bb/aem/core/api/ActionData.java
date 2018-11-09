@@ -17,24 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
+package com.cognifide.qa.bb.aem.core.api;
 
-/**
- * This enum represents available field types.
- */
-public enum FieldType {
-
-  CHECKBOX,
-  IMAGE,
-  PATHBROWSER,
-  SELECT,
-  RICHTEXT,
-  RICHTEXT_FONT_FORMAT,
-  RICHTEXT_LIST,
-  RICHTEXT_JUSTIFY,
-  TEXTFIELD,
-  MULTIFIELD,
-  MULTIFIELD_ITEM,
-  RADIO_GROUP,
-  RADIO_GROUP_MULTI;
+public interface ActionData {
 }

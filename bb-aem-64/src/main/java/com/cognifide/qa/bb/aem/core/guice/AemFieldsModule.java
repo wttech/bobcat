@@ -21,7 +21,7 @@ package com.cognifide.qa.bb.aem.core.guice;
 
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Checkbox;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DialogField;
-import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.FieldType;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Fields;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Image;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Multifield;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.MultifieldItem;
@@ -55,18 +55,18 @@ public class AemFieldsModule extends AbstractModule {
 
     MapBinder<String, DialogField> fieldsBinder = MapBinder
         .newMapBinder(binder(), String.class, DialogField.class);
-    fieldsBinder.addBinding(FieldType.CHECKBOX.name()).to(Checkbox.class);
-    fieldsBinder.addBinding(FieldType.TEXTFIELD.name()).to(Textfield.class);
-    fieldsBinder.addBinding(FieldType.IMAGE.name()).to(Image.class);
-    fieldsBinder.addBinding(FieldType.PATHBROWSER.name()).to(PathBrowser.class);
-    fieldsBinder.addBinding(FieldType.SELECT.name()).to(Select.class);
-    fieldsBinder.addBinding(FieldType.RICHTEXT.name()).to(RichText.class);
-    fieldsBinder.addBinding(FieldType.MULTIFIELD.name()).to(Multifield.class);
-    fieldsBinder.addBinding(FieldType.MULTIFIELD_ITEM.name()).to(MultifieldItem.class);
-    fieldsBinder.addBinding(FieldType.RICHTEXT_FONT_FORMAT.name()).to(FontFormat.class);
-    fieldsBinder.addBinding(FieldType.RICHTEXT_JUSTIFY.name()).to(JustifyDialogPanel.class);
-    fieldsBinder.addBinding(FieldType.RICHTEXT_LIST.name()).to(ListDialogPanel.class);
-    fieldsBinder.addBinding(FieldType.RADIO_GROUP.name()).to(RadioGroup.class);
-    fieldsBinder.addBinding(FieldType.RADIO_GROUP_MULTI.name()).to(RadioGroup.class);
+    fieldsBinder.addBinding(Fields.CHECKBOX).to(Checkbox.class);
+    fieldsBinder.addBinding(Fields.TEXTFIELD).to(Textfield.class);
+    fieldsBinder.addBinding(Fields.IMAGE).to(Image.class);
+    fieldsBinder.addBinding(Fields.PATHBROWSER).to(PathBrowser.class);
+    fieldsBinder.addBinding(Fields.SELECT).to(Select.class);
+    fieldsBinder.addBinding(Fields.RICHTEXT).to(RichText.class);
+    fieldsBinder.addBinding(Fields.MULTIFIELD).to(Multifield.class);
+    fieldsBinder.addBinding(Fields.MULTIFIELD_ITEM).to(MultifieldItem.class);
+    fieldsBinder.addBinding(Fields.RICHTEXT_FONT_FORMAT).to(FontFormat.class);
+    fieldsBinder.addBinding(Fields.RICHTEXT_JUSTIFY).to(JustifyDialogPanel.class);
+    fieldsBinder.addBinding(Fields.RICHTEXT_LIST).to(ListDialogPanel.class);
+    fieldsBinder.addBinding(Fields.RADIO_GROUP).to(RadioGroup.class);
+    fieldsBinder.addBinding(Fields.RADIO_GROUP_MULTI).to(RadioGroup.class);
   }
 }

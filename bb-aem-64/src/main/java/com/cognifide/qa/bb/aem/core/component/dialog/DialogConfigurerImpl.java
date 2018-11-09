@@ -22,7 +22,7 @@ package com.cognifide.qa.bb.aem.core.component.dialog;
 import static org.apache.commons.lang3.StringUtils.containsIgnoreCase;
 
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DialogField;
-import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.FieldType;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Fields;
 import com.cognifide.qa.bb.utils.AopUtil;
 import com.cognifide.qa.bb.utils.PageObjectInjector;
 import com.google.inject.Inject;
@@ -94,15 +94,20 @@ public class DialogConfigurerImpl implements DialogConfigurer {
   }
 
   private List<WebElement> getFields(WebElement parentElement, String type) {
-    List<WebElement> toReturn = null;
-    if (type.equals(FieldType.IMAGE.name())) {
-      toReturn = parentElement.findElements(IMAGE_LOCATOR);
-    } else if (type.equals(FieldType.CHECKBOX.name())) {
-      toReturn = parentElement.findElements(CHECKBOX_LOCATOR);
-    } else if (type.equals(FieldType.RADIO_GROUP_MULTI.name())) {
-      toReturn = parentElement.findElements(RADIO_GROUP_LOCATOR);
-    } else {
-      toReturn = parentElement.findElements(FIELD_LOCATOR);
+    List<WebElement> toReturn;
+    switch (type) {
+      case Fields.IMAGE:
+        toReturn = parentElement.findElements(IMAGE_LOCATOR);
+        break;
+      case Fields.CHECKBOX:
+        toReturn = parentElement.findElements(CHECKBOX_LOCATOR);
+        break;
+      case Fields.RADIO_GROUP_MULTI:
+        toReturn = parentElement.findElements(RADIO_GROUP_LOCATOR);
+        break;
+      default:
+        toReturn = parentElement.findElements(FIELD_LOCATOR);
+        break;
     }
 
     return toReturn;
@@ -117,7 +122,7 @@ public class DialogConfigurerImpl implements DialogConfigurer {
    */
   private String getFieldLabel(WebElement field, String type) {
     List<WebElement> labelField =
-        type.equals(FieldType.CHECKBOX.name()) ? field.findElements(CHECKBOX_LABEL_SELECTOR)
+        type.equals(Fields.CHECKBOX) ? field.findElements(CHECKBOX_LABEL_SELECTOR)
             : field.findElements(LABEL_SELECTOR);
     return labelField.isEmpty() ? StringUtils.EMPTY : labelField.get(0).getText();
   }

@@ -32,9 +32,4 @@ public interface DialogField {
    * @param value object representing desired component value.
    */
   void setValue(Object value);
-
-  /**
-   * @return string representation of component type.
-   */
-  String getType();
 }

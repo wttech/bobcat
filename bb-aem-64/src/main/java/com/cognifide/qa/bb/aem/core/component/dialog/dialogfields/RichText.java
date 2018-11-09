@@ -66,11 +66,4 @@ public class RichText implements DialogField {
     actions.perform();
   }
 
-  /**
-   * @return dialog field type.
-   */
-  @Override
-  public String getType() {
-    return FieldType.RICHTEXT.name();
-  }
 }

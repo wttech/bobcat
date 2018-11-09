@@ -22,17 +22,13 @@ package com.cognifide.qa.bb.aem.core.siteadmin;
 import com.cognifide.qa.bb.aem.core.siteadmin.internal.SiteToolbar;
 import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.PageObject;
-import com.google.inject.Inject;
+
 import io.qameta.allure.Step;
-import org.openqa.selenium.WebDriver;
 
 @PageObject
 public class CreatePageAction implements SiteAdminAction<CreatePageActionData> {
 
   public static final String PAGE_CREATE = "pageCreateAction";
-
-  @Inject
-  private WebDriver webDriver;
 
   @FindPageObject
   private SiteToolbar toolbar;
