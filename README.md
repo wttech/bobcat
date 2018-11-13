@@ -14,6 +14,10 @@ Bobcat is an automated testing framework for functional testing of web applicati
 
 Bobcat is implemented in Java and allows the test development in pure JUnit or via Cucumber-JVM for BDD-oriented people.
 
+## Getting started
+
+To start your adventure with Bobcat, please refer to our documentation: [Getting started](https://cognifide.github.io/bobcat/docs/getting-started/)
+
 ## AEM Support
 
 Since Cognifide expertises in development on top of [Adobe Experience Manager (AEM)](https://www.adobe.com/marketing-cloud/experience-manager.html), Bobcat accelerates test development for this platform, especially when it comes to AEM authoring. The framework provides dedicated modules which allow you to automate almost every action on the AEM author side. This includes:
@@ -26,10 +30,6 @@ Since Cognifide expertises in development on top of [Adobe Experience Manager (A
 
 #### Bobcat was used for automating AEM 6.3, though the latest versions of AEM-related modules were not developed for full compatibility of TouchUI interface - let us know if you run into any issue or want to submit a pull request.
 
-## Getting started
-
-To start your adventure with Bobcat, please refer to our wiki: [Getting started](https://github.com/Cognifide/bobcat/wiki/Getting-Started)
-
 ---
 :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat: :smirk_cat:
 ## Bobcat 2.0 is coming!
@@ -41,19 +41,20 @@ A high level roadmap (milestones still can change), without any concrete deadlin
 2. Selenium version bump :heavy_check_mark:
 3. Simplify Bobcat configuration :heavy_check_mark:
 
-#### Milestone #2 (part of it may end up in 1.x.x)
+#### Milestone #2 (part of it may end up in 1.x.x) :heavy_check_mark:
 - Switch to Gradle from end-user side :heavy_check_mark:
 - Reporting revamp :heavy_check_mark:
 - JUnit 5 support :heavy_check_mark:
-- General refactoring, part 1 :construction: in progress
+- General refactoring, part 1 :heavy_check_mark:
     - some parts of API might disappear in the future
     - some modules may end up without further support
     - hence the above, we will identify and deprecate the API to be removed in 2.0 release
-- last 1.x.x release
+- last 1.x.x release :heavy_check_mark: (though, there might be additional bugfix releases in the meantime)
 
-#### Milestone #3
+#### Milestone #3 - in progress!
 - Provide a simpler API for Bobcat users
-- General refactoring, part 2
+- Brand new API for AEM support
+- General refactoring, part 2 :heavy_check_mark:
     - remove the deprecated APIs
 - after the above is done, 2.0 release
 
