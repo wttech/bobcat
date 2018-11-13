@@ -17,29 +17,30 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.login;
-
-import com.cognifide.qa.bb.aem.core.pages.AemAuthorPage;
+package com.cognifide.qa.bb.aem.core.api;
 
 /**
- * Provides fast AEM login and logout method.
+ * Exception thrown if there is problem with page manipulation
  */
-public interface AemAuthenticationController {
+public class ActionException extends Exception {
 
-  /**
-   * Login do instance and stay on login page
-   */
-  public void login();
+  public ActionException() {
+  }
 
-  /**
-   * Login and go to page on instance
-   * @param aemAuthorPage page that implements {@link AemAuthorPage}
-   */
-  public void login(AemAuthorPage aemAuthorPage);
+  public ActionException(String message) {
+    super(message);
+  }
 
-  /**
-   * logout from instance
-   */
-  public void logout();
+  public ActionException(String message, Throwable cause) {
+    super(message, cause);
+  }
 
+  public ActionException(Throwable cause) {
+    super(cause);
+  }
+
+  public ActionException(String message, Throwable cause, boolean enableSuppression,
+      boolean writableStackTrace) {
+    super(message, cause, enableSuppression, writableStackTrace);
+  }
 }

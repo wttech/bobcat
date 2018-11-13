@@ -17,11 +17,19 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.siteadmin;
+package com.cognifide.qa.bb.aem.core.modules;
 
-/**
- * Interface for class containing parameters for Site Admin Actions
- */
-public interface SiteAdminActionData {
+import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanel;
+import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanelImpl;
+import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanelTabBar;
+import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanelTabBarImpl;
+import com.google.inject.AbstractModule;
 
+public class AemSidePanelModule extends AbstractModule {
+
+  @Override
+  protected void configure() {
+    bind(SidePanel.class).to(SidePanelImpl.class);
+    bind(SidePanelTabBar.class).to(SidePanelTabBarImpl.class);
+  }
 }

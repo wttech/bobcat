@@ -17,12 +17,13 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.guice;
+package com.cognifide.qa.bb.aem.core.modules;
 
-import com.cognifide.qa.bb.aem.core.siteadmin.AemSiteAdminController;
-import com.cognifide.qa.bb.aem.core.siteadmin.SiteAdminAction;
-import com.cognifide.qa.bb.aem.core.siteadmin.CreatePageAction;
-import com.cognifide.qa.bb.aem.core.siteadmin.SiteAdminController;
+import com.cognifide.qa.bb.aem.core.api.ActionWithData;
+import com.cognifide.qa.bb.aem.core.api.Actions;
+import com.cognifide.qa.bb.aem.core.api.BobcatController;
+import com.cognifide.qa.bb.aem.core.api.Controller;
+import com.cognifide.qa.bb.aem.core.siteadmin.actions.CreatePageAction;
 import com.cognifide.qa.bb.aem.core.siteadmin.internal.CreatePageProperties;
 import com.cognifide.qa.bb.aem.core.siteadmin.internal.CreatePagePropertiesImpl;
 import com.cognifide.qa.bb.aem.core.siteadmin.internal.CreatePageWizard;
@@ -41,13 +42,14 @@ public class AemSiteActionsModule extends AbstractModule {
 
   @Override
   protected void configure() {
-    bind(SiteAdminController.class).to(AemSiteAdminController.class);
+    bind(Controller.class).to(BobcatController.class);
     bind(SiteToolbar.class).to(SiteToolbarImpl.class);
     bind(TemplateList.class).to(TemplateListImpl.class);
     bind(CreatePageWizard.class).to(CreatePageWizardImpl.class);
     bind(CreatePageProperties.class).to(CreatePagePropertiesImpl.class);
-    MapBinder<String,SiteAdminAction> siteAdminActions =
-        MapBinder.newMapBinder(binder(),String.class, SiteAdminAction.class);
-    siteAdminActions.addBinding(CreatePageAction.PAGE_CREATE).to(CreatePageAction.class);
+
+    MapBinder<String, ActionWithData> siteAdminActions =
+        MapBinder.newMapBinder(binder(), String.class, ActionWithData.class);
+    siteAdminActions.addBinding(Actions.Siteadmin.CREATE_PAGE).to(CreatePageAction.class);
   }
 }

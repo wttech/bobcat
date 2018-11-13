@@ -17,24 +17,29 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.guice;
+package com.cognifide.qa.bb.aem.core.modules;
 
-import com.cognifide.qa.bb.aem.core.login.AemAuthCookieFactory;
-import com.cognifide.qa.bb.aem.core.login.AemAuthCookieFactoryImpl;
-import com.cognifide.qa.bb.aem.core.login.AemAuthenticationController;
-import com.cognifide.qa.bb.aem.core.login.AuthorAuthenticationController;
+import com.cognifide.qa.bb.aem.core.constants.AemConfigKeys;
+import com.cognifide.qa.bb.provider.http.HttpClientProvider;
 import com.google.inject.AbstractModule;
+import com.google.inject.Provides;
+import com.google.inject.name.Named;
+import org.apache.http.impl.client.CloseableHttpClient;
 
 /**
- * Module that needs to be installed to use login to AEM instance functionality
+ * Main module that need to be installed to use AEM functions
  */
-public class AemLoginModule extends AbstractModule {
+public class AemCoreModule extends AbstractModule {
+
+  @Provides
+  public CloseableHttpClient getAuthorHttpClient(@Named(AemConfigKeys.AUTHOR_IP) String url,
+      @Named(AemConfigKeys.AUTHOR_LOGIN) String login,
+      @Named(AemConfigKeys.AUTHOR_PASSWORD) String password) {
+    return new HttpClientProvider(login, password, url).get();
+  }
 
   @Override
   protected void configure() {
-    bind(AemAuthenticationController.class).to(
-        AuthorAuthenticationController.class);
-    bind(AemAuthCookieFactory.class).to(
-        AemAuthCookieFactoryImpl.class);
+    //nothing here
   }
 }

@@ -19,23 +19,24 @@
  */
 package com.cognifide.qa.bb.aem.core.pages.sling;
 
-import com.cognifide.qa.bb.aem.core.pages.TestPageData;
-import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.http.message.BasicNameValuePair;
 
+import com.cognifide.qa.bb.aem.core.api.ActionData;
+
 /**
- * Page data that can be used by {@link SlingTestPageControler}
+ * Page data that can be used by page actions executed via Sling API
  */
-public class SlingTestPageData implements TestPageData {
+public class SlingTestPageData implements ActionData {
 
   private String contentPath;
 
-  private List<BasicNameValuePair> content = new ArrayList<>();
+  private List<BasicNameValuePair> content;
 
   /**
    * @param contentPath path where page (list of nodes) should be created
-   * @param content list of nodes to be created
+   * @param content     list of nodes to be created
    */
   public SlingTestPageData(String contentPath,
       List<BasicNameValuePair> content) {
@@ -51,11 +52,10 @@ public class SlingTestPageData implements TestPageData {
   }
 
   /**
-   * @return  list of nodes to be created
+   * @return list of nodes to be created
    */
   public List<BasicNameValuePair> getContent() {
     return content;
   }
-
 
 }

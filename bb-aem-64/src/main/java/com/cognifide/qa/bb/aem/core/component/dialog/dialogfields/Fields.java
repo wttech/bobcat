@@ -23,19 +23,19 @@ package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
  * This class contains names of all available field types.
  */
 public class Fields {
-  public static final String CHECKBOX = "Checkbox";
-  public static final String IMAGE = "Image";
-  public static final String PATHBROWSER = "Pathbrowser";
-  public static final String SELECT = "Select";
-  public static final String RICHTEXT = "Rich Text";
-  public static final String RICHTEXT_FONT_FORMAT = "Rich Text Font Format";
-  public static final String RICHTEXT_LIST = "Rich Text List";
-  public static final String RICHTEXT_JUSTIFY = "Rich Text Justify";
-  public static final String TEXTFIELD = "Textfield";
-  public static final String MULTIFIELD = "Multifield";
-  public static final String MULTIFIELD_ITEM = "Mutlifield Item";
-  public static final String RADIO_GROUP = "Radio Group";
-  public static final String RADIO_GROUP_MULTI = "Radio Group Multi";
+  public static final String CHECKBOX = "CHECKBOX";
+  public static final String IMAGE = "IMAGE";
+  public static final String PATHBROWSER = "PATHBROWSER";
+  public static final String SELECT = "SELECT";
+  public static final String RICHTEXT = "RICHTEXT";
+  public static final String RICHTEXT_FONT_FORMAT = "RICHTEXT_FONT_FORMAT";
+  public static final String RICHTEXT_LIST = "RICHTEXT_LIST";
+  public static final String RICHTEXT_JUSTIFY = "RICHTEXT_JUSTIFY";
+  public static final String TEXTFIELD = "TEXTFIELD";
+  public static final String MULTIFIELD = "MULTIFIELD";
+  public static final String MULTIFIELD_ITEM = "MULTIFIELD_ITEM";
+  public static final String RADIO_GROUP = "RADIO_GROUP";
+  public static final String RADIO_GROUP_MULTI = "RADIO_GROUP_MULTI";
 
   private Fields() {
     //empty

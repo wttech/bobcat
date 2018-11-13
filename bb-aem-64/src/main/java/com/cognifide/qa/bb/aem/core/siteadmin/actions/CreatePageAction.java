@@ -17,8 +17,9 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.siteadmin;
+package com.cognifide.qa.bb.aem.core.siteadmin.actions;
 
+import com.cognifide.qa.bb.aem.core.api.ActionWithData;
 import com.cognifide.qa.bb.aem.core.siteadmin.internal.SiteToolbar;
 import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.PageObject;
@@ -26,21 +27,14 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 import io.qameta.allure.Step;
 
 @PageObject
-public class CreatePageAction implements SiteAdminAction<CreatePageActionData> {
-
-  public static final String PAGE_CREATE = "pageCreateAction";
+public class CreatePageAction implements ActionWithData<CreatePageActionData> {
 
   @FindPageObject
   private SiteToolbar toolbar;
 
   @Override
-  public String getActionName() {
-    return PAGE_CREATE;
-  }
-
-  @Override
   @Step("Create page {actionData.title} with name {actionData.pageName} using {actionData.template} template")
-  public void action(CreatePageActionData actionData) {
-    toolbar.createPage(actionData.getTemplate(), actionData.getTitle(), actionData.getPageName());
+  public void execute(CreatePageActionData data) {
+    toolbar.createPage(data.getTemplate(), data.getTitle(), data.getPageName());
   }
 }

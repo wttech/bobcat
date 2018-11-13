@@ -17,34 +17,27 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.siteadmin;
+package com.cognifide.qa.bb.aem.core.modules;
+
+import com.google.inject.AbstractModule;
 
 /**
- * Site Action Data for Create Page Action
+ * Main module that need to be installed to use AEM  functions
+ * It has full functionalities for AEM 6.4
  */
-public class CreatePageActionData implements SiteAdminActionData {
+public class Aem64FullModule extends AbstractModule {
 
-  private String pageName;
-
-  private String template;
-
-  private String title;
-
-  public CreatePageActionData(String template, String title, String pageName) {
-    this.pageName = pageName;
-    this.template = template;
-    this.title = title;
+  @Override
+  protected void configure() {
+    install(new AemCoreModule());
+    install(new AemLoginModule());
+    install(new AemSiteActionsModule());
+    install(new SlingPageActionsModule());
+    install(new AemComponentModule());
+    install(new AemSidePanelModule());
+    install(new AemPageModule());
+    install(new AemFieldsModule());
+    install(new AemConfigModule());
   }
 
-  public String getPageName() {
-    return pageName;
-  }
-
-  public String getTemplate() {
-    return template;
-  }
-
-  public String getTitle() {
-    return title;
-  }
 }

@@ -17,26 +17,19 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.component.actions;
+package com.cognifide.qa.bb.aem.core.modules;
 
-import com.cognifide.qa.bb.aem.core.component.action.ComponentAction;
-import com.cognifide.qa.bb.aem.core.component.action.ComponentController;
-import com.google.inject.Inject;
-import java.util.Map;
-import java.util.Set;
+import com.cognifide.qa.bb.aem.core.component.configuration.ComponentConfigReader;
+import com.cognifide.qa.bb.aem.core.component.configuration.ComponentConfigResourceFileReader;
+import com.google.inject.AbstractModule;
 
-public class ComponentControllerImpl implements ComponentController {
-
-  @Inject
-  private Map<String, ComponentAction> sidePanelActions;
+/**
+ * Main module that need to be installed to use AEM functions
+ */
+public class AemConfigModule extends AbstractModule {
 
   @Override
-  public Set<String> getAvailableActions() {
-    return sidePanelActions.keySet();
-  }
-
-  @Override
-  public ComponentAction getSidePanelAction(String action) {
-    return sidePanelActions.get(action);
+  protected void configure() {
+    bind(ComponentConfigReader.class).to(ComponentConfigResourceFileReader.class);
   }
 }

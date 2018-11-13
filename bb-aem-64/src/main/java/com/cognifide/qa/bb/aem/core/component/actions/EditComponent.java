@@ -19,10 +19,7 @@
  */
 package com.cognifide.qa.bb.aem.core.component.actions;
 
-import com.cognifide.qa.bb.aem.core.component.action.ComponentAction;
-import com.cognifide.qa.bb.aem.core.component.configuration.ComponentConfigReader;
-import com.cognifide.qa.bb.aem.core.component.configuration.ComponentConfiguration;
-import com.cognifide.qa.bb.aem.core.component.dialog.ConfigDialog;
+import com.cognifide.qa.bb.aem.core.api.ActionWithData;
 import com.cognifide.qa.bb.aem.core.component.toolbar.CommonToolbarOptions;
 import com.cognifide.qa.bb.aem.core.component.toolbar.ComponentToolbar;
 import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanel;
@@ -30,21 +27,11 @@ import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanelTabs;
 import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
+
 import io.qameta.allure.Step;
-import javax.inject.Inject;
 
 @PageObject
-public class ConfigureComponentAction implements ComponentAction<ConfigureComponentActonData> {
-
-  public static final String CONFIGURE_COMPONENT_ACTION = "configureComponentAction";
-
-
-  @Inject
-  private ComponentConfigReader componentConfigReader;
-
-  @Global
-  @FindPageObject
-  private ConfigDialog configDialog;
+public class EditComponent implements ActionWithData<EditComponentData> {
 
   @FindPageObject
   private SidePanel sidePanel;
@@ -54,23 +41,11 @@ public class ConfigureComponentAction implements ComponentAction<ConfigureCompon
   private ComponentToolbar componentToolbar;
 
   @Override
-  public String getActionName() {
-    return CONFIGURE_COMPONENT_ACTION;
-  }
-
-  @Override
-  @Step("Configure component")
-  public void action(ConfigureComponentActonData actionData) {
-    selectComponent(actionData);
-    componentToolbar.clickOption(CommonToolbarOptions.CONFIGURE.getTitle());
-    ComponentConfiguration componentConfiguration = componentConfigReader
-        .readConfiguration(actionData.getResourceFileLocation());
-    configDialog.configureWith(componentConfiguration);
-  }
-
-  private void selectComponent(ConfigureComponentActonData actionData) {
+  @Step("Edit component")
+  public void execute(EditComponentData data) {
     sidePanel.selectTab(SidePanelTabs.CONTENT_TREE.getCssClass());
-    sidePanel.selectComponentToEdit(actionData.getComponentPath(), actionData.getComponentName(),
-        actionData.getComponentOrder()).click();
+    sidePanel.selectComponentToEdit(data.getComponentPath(), data.getComponentName(),
+        data.getComponentOrder()).click();
+    componentToolbar.clickOption(CommonToolbarOptions.EDIT.getTitle());
   }
 }

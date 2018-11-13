@@ -19,19 +19,10 @@
  */
 package com.cognifide.qa.bb.aem.core.component.actions;
 
-import com.cognifide.qa.bb.aem.core.component.configuration.ResourceFileLocation;
+public class EditComponentData extends AbstractComponentActionData {
 
-public class ConfigureComponentActonData extends AbstractComponentActionData {
-
-  private ResourceFileLocation resourceFileLocation;
-
-  public ConfigureComponentActonData(String componentPath, String componentName,
-      int componentOrder, ResourceFileLocation resourceFileLocation) {
+  public EditComponentData(String componentPath, String componentName, int componentOrder) {
     super(componentPath, componentName, componentOrder);
-    this.resourceFileLocation = resourceFileLocation;
   }
 
-  public ResourceFileLocation getResourceFileLocation() {
-    return resourceFileLocation;
-  }
 }

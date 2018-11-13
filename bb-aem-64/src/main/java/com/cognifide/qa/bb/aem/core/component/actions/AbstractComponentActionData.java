@@ -19,9 +19,9 @@
  */
 package com.cognifide.qa.bb.aem.core.component.actions;
 
-import com.cognifide.qa.bb.aem.core.component.action.ComponentActionData;
+import com.cognifide.qa.bb.aem.core.api.ActionData;
 
-public class AbstractComponentActionData implements ComponentActionData {
+public class AbstractComponentActionData implements ActionData {
 
   private String componentPath;
 
@@ -29,7 +29,8 @@ public class AbstractComponentActionData implements ComponentActionData {
 
   private int componentOrder;
 
-  public AbstractComponentActionData(String componentPath, String componentName, int componentOrder) {
+  public AbstractComponentActionData(String componentPath, String componentName,
+      int componentOrder) {
     this.componentPath = componentPath;
     this.componentName = componentName;
     this.componentOrder = componentOrder;

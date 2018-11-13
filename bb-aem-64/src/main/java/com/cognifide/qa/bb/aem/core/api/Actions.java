@@ -19,7 +19,27 @@
  */
 package com.cognifide.qa.bb.aem.core.api;
 
-public interface Action {
+public class Actions {
+  public class Siteadmin {
+    public static final String CREATE_PAGE = "pageCreateAction";
+  }
 
-  void execute() throws ActionException;
+
+  public class Component {
+    public static final String EDIT = "editComponentAction";
+    public static final String CONFIGURE = "configureComponentAction";
+  }
+
+
+  public class Page {
+    public static final String CREATE = "createAction";
+    public static final String DELETE = "deleteAction";
+  }
+
+
+  public class Login {
+
+    public static final String LOG_IN = "logInAction";
+    public static final String LOG_OUT = "logOutAction";
+  }
 }

@@ -19,10 +19,12 @@
  */
 package com.cognifide.qa.bb.aem.core.pages;
 
+import com.cognifide.qa.bb.aem.core.api.ActionException;
+
 /**
  * Exception thrown if there is problem with page manipulation
  */
-public class AemPageManipulationException extends Exception {
+public class AemPageManipulationException extends ActionException {
 
   public AemPageManipulationException() {
   }

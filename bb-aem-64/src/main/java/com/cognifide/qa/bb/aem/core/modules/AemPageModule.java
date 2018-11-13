@@ -17,23 +17,22 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.siteadmin;
+package com.cognifide.qa.bb.aem.core.modules;
+
+import com.cognifide.qa.bb.aem.core.component.AuthorLoader;
+import com.cognifide.qa.bb.aem.core.component.AuthorLoaderImpl;
+import com.cognifide.qa.bb.aem.core.component.GlobalBar;
+import com.cognifide.qa.bb.aem.core.component.GlobalBarImpl;
+import com.google.inject.AbstractModule;
 
 /**
- * Interface for Site Admin Action that can be taken
- * @param <T> implementation of {@link SiteAdminActionData} for action parameters
+ * Module that contains bindings for AEM 6.4 page bars
  */
-public interface SiteAdminAction<T extends SiteAdminActionData>  {
+public class AemPageModule extends AbstractModule {
 
-  /**
-   * @return action name that is used for retrieve action
-   */
-  public String getActionName();
-
-  /**
-   * runs action with selected parameters
-   * @param actionData parameters for action
-   */
-  public void action(T actionData);
-
+  @Override
+  protected void configure() {
+    bind(AuthorLoader.class).to(AuthorLoaderImpl.class);
+    bind(GlobalBar.class).to(GlobalBarImpl.class);
+  }
 }

@@ -17,20 +17,25 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.guice;
+package com.cognifide.qa.bb.aem.core.modules;
 
-import com.cognifide.qa.bb.aem.core.pages.AemTestPageControler;
-import com.cognifide.qa.bb.aem.core.pages.sling.SlingTestPageControler;
+import com.cognifide.qa.bb.aem.core.api.ActionWithData;
+import com.cognifide.qa.bb.aem.core.api.Actions;
+import com.cognifide.qa.bb.aem.core.pages.sling.CreatePage;
+import com.cognifide.qa.bb.aem.core.pages.sling.DeletePage;
 import com.google.inject.AbstractModule;
+import com.google.inject.multibindings.MapBinder;
 
 /**
  * Module that need to be installed to use page creation in AEM
  */
-public class AemPageCreateModule extends AbstractModule {
+public class SlingPageActionsModule extends AbstractModule {
 
   @Override
   protected void configure() {
-    bind(AemTestPageControler.class).to(
-        SlingTestPageControler.class);
+    MapBinder<String, ActionWithData> siteAdminActions =
+        MapBinder.newMapBinder(binder(), String.class, ActionWithData.class);
+    siteAdminActions.addBinding(Actions.Page.CREATE).to(CreatePage.class);
+    siteAdminActions.addBinding(Actions.Page.DELETE).to(DeletePage.class);
   }
 }

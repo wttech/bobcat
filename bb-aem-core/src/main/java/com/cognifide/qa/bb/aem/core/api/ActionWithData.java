@@ -2,7 +2,7 @@
  * #%L
  * Bobcat
  * %%
- * Copyright (C) 2018 Cognifide Ltd.
+ * Copyright (C) 2016 Cognifide Ltd.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,19 +17,8 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.guice;
+package com.cognifide.qa.bb.aem.core.api;
 
-import com.cognifide.qa.bb.aem.core.component.configuration.ComponentConfigReader;
-import com.cognifide.qa.bb.aem.core.component.configuration.ComponentConfigResourceFileReader;
-import com.google.inject.AbstractModule;
-
-/**
- * Main module that need to be installed to use AEM functions
- */
-public class AemConfigModule extends AbstractModule {
-
-  @Override
-  protected void configure() {
-    bind(ComponentConfigReader.class).to(ComponentConfigResourceFileReader.class);
-  }
+public interface ActionWithData<T extends ActionData> {
+  void execute(T data) throws ActionException;
 }

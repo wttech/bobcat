@@ -23,8 +23,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
+
 import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,11 +37,11 @@ import org.xml.sax.SAXException;
  */
 public final class SlingTestDataXMLBuilder {
 
-  private static final Logger LOG = LoggerFactory
-      .getLogger(SlingTestDataXMLBuilder.class);
+  private static final Logger LOG = LoggerFactory.getLogger(SlingTestDataXMLBuilder.class);
 
   /**
    * Prepares list of nodes information
+   *
    * @param fileName xml filename (should be in test resources)
    * @return List of nodes to be created
    */

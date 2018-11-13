@@ -29,11 +29,11 @@ public interface ToolbarOption {
   /**
    * @return locator of option based on component toolbar
    */
-  public By getLocator();
+  By getLocator();
 
   /**
    * @return option title
    */
-  public String getTitle();
+  String getTitle();
 
 }

@@ -2,7 +2,7 @@
  * #%L
  * Bobcat
  * %%
- * Copyright (C) 2018 Cognifide Ltd.
+ * Copyright (C) 2016 Cognifide Ltd.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,24 +17,27 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.siteadmin;
+package com.cognifide.qa.bb.aem.core.api;
 
-import java.util.Set;
+import java.util.Map;
 
-/**
- * Interface for using SiteAdmin Actions
- */
-public interface SiteAdminController {
+import com.google.inject.Inject;
 
-  /**
-   * @return set of available actions
-   */
-  Set<String> getAvailableActions();
+public class BobcatController implements Controller {
 
-  /**
-   * returns selected action
-   * @param action
-   */
-  SiteAdminAction getSiteAdminAction(String action);
+  @Inject
+  private Map<String, Action> actions;
 
+  @Inject
+  private Map<String, ActionWithData> actionWithData;
+
+  @Override
+  public void execute(String action) throws ActionException {
+    actions.get(action).execute();
+  }
+
+  @Override
+  public void execute(String action, ActionData data) throws ActionException {
+    actionWithData.get(action).execute(data);
+  }
 }

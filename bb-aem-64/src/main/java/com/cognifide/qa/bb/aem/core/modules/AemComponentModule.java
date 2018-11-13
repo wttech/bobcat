@@ -17,13 +17,14 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.guice;
+package com.cognifide.qa.bb.aem.core.modules;
 
-import com.cognifide.qa.bb.aem.core.component.action.ComponentAction;
-import com.cognifide.qa.bb.aem.core.component.action.ComponentController;
-import com.cognifide.qa.bb.aem.core.component.actions.ComponentControllerImpl;
-import com.cognifide.qa.bb.aem.core.component.actions.ConfigureComponentAction;
-import com.cognifide.qa.bb.aem.core.component.actions.EditComponentAction;
+import java.util.Arrays;
+
+import com.cognifide.qa.bb.aem.core.api.ActionWithData;
+import com.cognifide.qa.bb.aem.core.api.Actions;
+import com.cognifide.qa.bb.aem.core.component.actions.ConfigureComponent;
+import com.cognifide.qa.bb.aem.core.component.actions.EditComponent;
 import com.cognifide.qa.bb.aem.core.component.dialog.ConfigDialog;
 import com.cognifide.qa.bb.aem.core.component.dialog.ConfigDialogImpl;
 import com.cognifide.qa.bb.aem.core.component.dialog.DialogConfigurer;
@@ -35,7 +36,6 @@ import com.cognifide.qa.bb.aem.core.component.toolbar.ComponentToolbarImpl;
 import com.cognifide.qa.bb.aem.core.component.toolbar.ToolbarOption;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.MapBinder;
-import java.util.Arrays;
 
 /**
  * Module that contains bindings for AEM 6.4 components
@@ -44,7 +44,6 @@ public class AemComponentModule extends AbstractModule {
 
   @Override
   protected void configure() {
-    bind(ComponentController.class).to(ComponentControllerImpl.class);
     bindComponentActions();
     bind(ComponentToolbar.class).to(ComponentToolbarImpl.class);
     bind(ConfigDialog.class).to(ConfigDialogImpl.class);
@@ -53,10 +52,11 @@ public class AemComponentModule extends AbstractModule {
   }
 
   private void bindComponentActions() {
-    MapBinder<String, ComponentAction> componentActions =
-        MapBinder.newMapBinder(binder(), String.class, ComponentAction.class);
-    componentActions.addBinding(EditComponentAction.EDIT_COMPONENT).to(EditComponentAction.class);
-    componentActions.addBinding(ConfigureComponentAction.CONFIGURE_COMPONENT_ACTION).to(ConfigureComponentAction.class);
+    MapBinder<String, ActionWithData> componentActions =
+        MapBinder.newMapBinder(binder(), String.class, ActionWithData.class);
+    componentActions.addBinding(Actions.Component.EDIT).to(EditComponent.class);
+    componentActions.addBinding(Actions.Component.CONFIGURE)
+        .to(ConfigureComponent.class);
   }
 
   private void bindCommonToolbarOptions() {

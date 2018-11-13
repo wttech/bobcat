@@ -2,7 +2,7 @@
  * #%L
  * Bobcat
  * %%
- * Copyright (C) 2018 Cognifide Ltd.
+ * Copyright (C) 2016 Cognifide Ltd.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,29 +17,11 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.siteadmin;
+package com.cognifide.qa.bb.aem.core.api;
 
-import java.util.Map;
-import java.util.Set;
+public interface Controller {
 
-import com.google.inject.Inject;
+  void execute(String action) throws ActionException;
 
-/**
- * SiteAdminController for AEM 6.4
- */
-public class AemSiteAdminController implements SiteAdminController {
-
-  @Inject
-  private Map<String, SiteAdminAction> siteAdminActions;
-
-  @Override
-  public Set<String> getAvailableActions() {
-    return siteAdminActions.keySet();
-  }
-
-  @Override
-  public SiteAdminAction getSiteAdminAction(String action) {
-    return siteAdminActions.get(action);
-  }
-
+  void execute(String action, ActionData data) throws ActionException;
 }

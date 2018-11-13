@@ -2,7 +2,7 @@
  * #%L
  * Bobcat
  * %%
- * Copyright (C) 2018 Cognifide Ltd.
+ * Copyright (C) 2016 Cognifide Ltd.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,20 +17,19 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.login;
+package com.cognifide.qa.bb.aem.core.login.actions;
 
-import com.cognifide.qa.bb.aem.core.constants.AemConfigKeys;
-import com.cognifide.qa.bb.aem.core.pages.AemAuthorPage;
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
-import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 
-/**
- * Implementation of {@link AemAuthenticationController} for author instance
- */
-public class AuthorAuthenticationController implements AemAuthenticationController {
+import com.cognifide.qa.bb.aem.core.api.Action;
+import com.cognifide.qa.bb.aem.core.constants.AemConfigKeys;
+import com.cognifide.qa.bb.aem.core.login.AemAuthCookieFactory;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 
+import io.qameta.allure.Step;
+
+public class LogIn implements Action {
   @Inject
   private WebDriver webDriver;
 
@@ -50,23 +49,10 @@ public class AuthorAuthenticationController implements AemAuthenticationControll
   private String authorPassword;
 
   @Override
-  @Step("Login to AEM")
-  public void login() {
+  @Step("Logging in to AEM")
+  public void execute() {
     webDriver.get(authorUrl + "/libs/granite/core/content/login.html");
     webDriver.manage()
         .addCookie(aemAuthCookieFactory.getCookie(authorUrl, authorLoginProperty, authorPassword));
-  }
-
-  @Override
-  @Step("Login to AEM and open page {aemAuthorPage.fullUrl}")
-  public void login(AemAuthorPage aemAuthorPage) {
-    this.login();
-    aemAuthorPage.open();
-  }
-
-  @Override
-  public void logout() {
-    webDriver.get(authorUrl + "/system/sling/logout.html");
-    aemAuthCookieFactory.removeCookie(authorUrl);
   }
 }

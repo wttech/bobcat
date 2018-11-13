@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.guice;
+package com.cognifide.qa.bb.aem.core.modules;
 
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Checkbox;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DialogField;
