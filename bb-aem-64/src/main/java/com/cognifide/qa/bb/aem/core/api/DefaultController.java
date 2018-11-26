@@ -19,9 +19,25 @@
  */
 package com.cognifide.qa.bb.aem.core.api;
 
-public interface Controller {
+import java.util.Map;
 
-  void execute(String action) throws ActionException;
+import com.google.inject.Inject;
 
-  void execute(String action, ActionData data) throws ActionException;
+public class DefaultController implements ActionsController {
+
+  @Inject
+  private Map<String, Action> actions;
+
+  @Inject
+  private Map<String, ActionWithData> actionWithData;
+
+  @Override
+  public void execute(String action) throws ActionException {
+    actions.get(action).execute();
+  }
+
+  @Override
+  public void execute(String action, ActionData data) throws ActionException {
+    actionWithData.get(action).execute(data);
+  }
 }

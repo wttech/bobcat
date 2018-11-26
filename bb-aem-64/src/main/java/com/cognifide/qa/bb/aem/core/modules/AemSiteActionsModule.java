@@ -21,8 +21,8 @@ package com.cognifide.qa.bb.aem.core.modules;
 
 import com.cognifide.qa.bb.aem.core.api.ActionWithData;
 import com.cognifide.qa.bb.aem.core.api.Actions;
-import com.cognifide.qa.bb.aem.core.api.BobcatController;
-import com.cognifide.qa.bb.aem.core.api.Controller;
+import com.cognifide.qa.bb.aem.core.api.DefaultController;
+import com.cognifide.qa.bb.aem.core.api.ActionsController;
 import com.cognifide.qa.bb.aem.core.siteadmin.actions.CreatePageAction;
 import com.cognifide.qa.bb.aem.core.siteadmin.internal.CreatePageProperties;
 import com.cognifide.qa.bb.aem.core.siteadmin.internal.CreatePagePropertiesImpl;
@@ -42,7 +42,7 @@ public class AemSiteActionsModule extends AbstractModule {
 
   @Override
   protected void configure() {
-    bind(Controller.class).to(BobcatController.class);
+    bind(ActionsController.class).to(DefaultController.class);
     bind(SiteToolbar.class).to(SiteToolbarImpl.class);
     bind(TemplateList.class).to(TemplateListImpl.class);
     bind(CreatePageWizard.class).to(CreatePageWizardImpl.class);
