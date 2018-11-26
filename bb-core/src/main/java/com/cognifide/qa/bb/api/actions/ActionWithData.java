@@ -17,11 +17,8 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.api;
+package com.cognifide.qa.bb.api.actions;
 
-public interface ActionsController {
-
-  void execute(String action) throws ActionException;
-
-  void execute(String action, ActionData data) throws ActionException;
+public interface ActionWithData<T extends ActionData> {
+  void execute(T data) throws ActionException;
 }

@@ -19,7 +19,7 @@
  */
 package com.cognifide.qa.bb.aem.core.siteadmin.actions;
 
-import com.cognifide.qa.bb.aem.core.api.ActionData;
+import com.cognifide.qa.bb.api.actions.ActionData;
 
 /**
  * Site Action Data for Create Page Action

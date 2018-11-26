@@ -21,7 +21,7 @@ package com.cognifide.qa.bb.aem.core.modules;
 
 import java.util.Arrays;
 
-import com.cognifide.qa.bb.aem.core.api.ActionWithData;
+import com.cognifide.qa.bb.api.actions.ActionWithData;
 import com.cognifide.qa.bb.aem.core.api.Actions;
 import com.cognifide.qa.bb.aem.core.component.actions.ConfigureComponent;
 import com.cognifide.qa.bb.aem.core.component.actions.EditComponent;

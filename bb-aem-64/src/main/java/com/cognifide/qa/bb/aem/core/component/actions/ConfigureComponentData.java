@@ -19,7 +19,7 @@
  */
 package com.cognifide.qa.bb.aem.core.component.actions;
 
-import com.cognifide.qa.bb.aem.core.api.ActionData;
+import com.cognifide.qa.bb.api.actions.ActionData;
 import com.cognifide.qa.bb.aem.core.component.configuration.ResourceFileLocation;
 
 public class ConfigureComponentData extends AbstractComponentActionData implements ActionData {

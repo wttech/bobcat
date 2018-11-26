@@ -21,7 +21,7 @@ package com.cognifide.qa.bb.aem.core.login.actions;
 
 import org.openqa.selenium.WebDriver;
 
-import com.cognifide.qa.bb.aem.core.api.Action;
+import com.cognifide.qa.bb.api.actions.Action;
 import com.cognifide.qa.bb.aem.core.constants.AemConfigKeys;
 import com.cognifide.qa.bb.aem.core.login.AemAuthCookieFactory;
 import com.google.inject.Inject;

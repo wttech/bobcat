@@ -19,7 +19,7 @@
  */
 package com.cognifide.qa.bb.aem.core.component.actions;
 
-import com.cognifide.qa.bb.aem.core.api.ActionWithData;
+import com.cognifide.qa.bb.api.actions.ActionWithData;
 import com.cognifide.qa.bb.aem.core.component.toolbar.CommonToolbarOptions;
 import com.cognifide.qa.bb.aem.core.component.toolbar.ComponentToolbar;
 import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanel;

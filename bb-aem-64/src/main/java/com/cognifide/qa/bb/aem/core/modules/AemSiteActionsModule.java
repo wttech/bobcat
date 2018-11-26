@@ -19,10 +19,10 @@
  */
 package com.cognifide.qa.bb.aem.core.modules;
 
-import com.cognifide.qa.bb.aem.core.api.ActionWithData;
+import com.cognifide.qa.bb.api.actions.ActionWithData;
 import com.cognifide.qa.bb.aem.core.api.Actions;
-import com.cognifide.qa.bb.aem.core.api.DefaultController;
-import com.cognifide.qa.bb.aem.core.api.ActionsController;
+import com.cognifide.qa.bb.api.actions.internal.DefaultController;
+import com.cognifide.qa.bb.api.actions.ActionsController;
 import com.cognifide.qa.bb.aem.core.siteadmin.actions.CreatePageAction;
 import com.cognifide.qa.bb.aem.core.siteadmin.internal.CreatePageProperties;
 import com.cognifide.qa.bb.aem.core.siteadmin.internal.CreatePagePropertiesImpl;

@@ -26,7 +26,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 
-import com.cognifide.qa.bb.aem.core.api.ActionWithData;
+import com.cognifide.qa.bb.api.actions.ActionWithData;
 import com.cognifide.qa.bb.aem.core.constants.AemConfigKeys;
 import com.cognifide.qa.bb.aem.core.pages.AemPageManipulationException;
 import com.google.inject.Inject;

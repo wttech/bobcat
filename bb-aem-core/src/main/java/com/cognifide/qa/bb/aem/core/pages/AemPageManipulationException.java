@@ -19,7 +19,7 @@
  */
 package com.cognifide.qa.bb.aem.core.pages;
 
-import com.cognifide.qa.bb.aem.core.api.ActionException;
+import com.cognifide.qa.bb.api.actions.ActionException;
 
 /**
  * Exception thrown if there is problem with page manipulation

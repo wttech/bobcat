@@ -17,10 +17,15 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.api;
+package com.cognifide.qa.bb.api.actions.internal;
 
 import java.util.Map;
 
+import com.cognifide.qa.bb.api.actions.Action;
+import com.cognifide.qa.bb.api.actions.ActionData;
+import com.cognifide.qa.bb.api.actions.ActionException;
+import com.cognifide.qa.bb.api.actions.ActionWithData;
+import com.cognifide.qa.bb.api.actions.ActionsController;
 import com.google.inject.Inject;
 
 public class DefaultController implements ActionsController {

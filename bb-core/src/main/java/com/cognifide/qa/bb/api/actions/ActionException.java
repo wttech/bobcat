@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.api;
+package com.cognifide.qa.bb.api.actions;
 
 /**
  * Exception thrown if there is problem with page manipulation

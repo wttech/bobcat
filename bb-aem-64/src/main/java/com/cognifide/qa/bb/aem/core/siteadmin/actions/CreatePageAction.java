@@ -19,7 +19,7 @@
  */
 package com.cognifide.qa.bb.aem.core.siteadmin.actions;
 
-import com.cognifide.qa.bb.aem.core.api.ActionWithData;
+import com.cognifide.qa.bb.api.actions.ActionWithData;
 import com.cognifide.qa.bb.aem.core.siteadmin.internal.SiteToolbar;
 import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.PageObject;

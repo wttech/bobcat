@@ -28,7 +28,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
-import com.cognifide.qa.bb.aem.core.api.ActionWithData;
+import com.cognifide.qa.bb.api.actions.ActionWithData;
 import com.cognifide.qa.bb.aem.core.constants.AemConfigKeys;
 import com.cognifide.qa.bb.aem.core.pages.AemPageManipulationException;
 import com.google.inject.Inject;

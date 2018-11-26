@@ -23,7 +23,7 @@ import java.util.List;
 
 import org.apache.http.message.BasicNameValuePair;
 
-import com.cognifide.qa.bb.aem.core.api.ActionData;
+import com.cognifide.qa.bb.api.actions.ActionData;
 
 /**
  * Page data that can be used by page actions executed via Sling API

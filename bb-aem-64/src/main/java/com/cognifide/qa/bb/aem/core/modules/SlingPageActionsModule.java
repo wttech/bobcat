@@ -19,7 +19,7 @@
  */
 package com.cognifide.qa.bb.aem.core.modules;
 
-import com.cognifide.qa.bb.aem.core.api.ActionWithData;
+import com.cognifide.qa.bb.api.actions.ActionWithData;
 import com.cognifide.qa.bb.aem.core.api.Actions;
 import com.cognifide.qa.bb.aem.core.pages.sling.CreatePage;
 import com.cognifide.qa.bb.aem.core.pages.sling.DeletePage;

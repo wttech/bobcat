@@ -19,7 +19,7 @@
  */
 package com.cognifide.qa.bb.aem.core.modules;
 
-import com.cognifide.qa.bb.aem.core.api.Action;
+import com.cognifide.qa.bb.api.actions.Action;
 import com.cognifide.qa.bb.aem.core.api.Actions;
 import com.cognifide.qa.bb.aem.core.login.AemAuthCookieFactory;
 import com.cognifide.qa.bb.aem.core.login.AemAuthCookieFactoryImpl;
