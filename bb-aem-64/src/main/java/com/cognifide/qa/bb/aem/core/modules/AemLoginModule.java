@@ -20,7 +20,7 @@
 package com.cognifide.qa.bb.aem.core.modules;
 
 import com.cognifide.qa.bb.api.actions.Action;
-import com.cognifide.qa.bb.aem.core.api.Actions;
+import com.cognifide.qa.bb.aem.core.api.AemActions;
 import com.cognifide.qa.bb.aem.core.login.AemAuthCookieFactory;
 import com.cognifide.qa.bb.aem.core.login.AemAuthCookieFactoryImpl;
 import com.cognifide.qa.bb.aem.core.login.actions.LogIn;
@@ -39,7 +39,7 @@ public class AemLoginModule extends AbstractModule {
 
     MapBinder<String, Action> siteAdminActions =
         MapBinder.newMapBinder(binder(), String.class, Action.class);
-    siteAdminActions.addBinding(Actions.Login.LOG_IN).to(LogIn.class);
-    siteAdminActions.addBinding(Actions.Login.LOG_OUT).to(LogOut.class);
+    siteAdminActions.addBinding(AemActions.LOG_IN).to(LogIn.class);
+    siteAdminActions.addBinding(AemActions.LOG_OUT).to(LogOut.class);
   }
 }

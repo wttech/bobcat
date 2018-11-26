@@ -19,27 +19,24 @@
  */
 package com.cognifide.qa.bb.aem.core.api;
 
-public class Actions {
-  public class Siteadmin {
-    public static final String CREATE_PAGE = "pageCreateAction";
+public class AemActions {
+
+  private AemActions() {
+    //empty
   }
 
+  //login actions
+  public static final String LOG_IN = "logIn";
+  public static final String LOG_OUT = "logOut";
 
-  public class Component {
-    public static final String EDIT = "editComponentAction";
-    public static final String CONFIGURE = "configureComponentAction";
-  }
+  //page actions
+  public static final String CREATE_PAGE = "createPage";
+  public static final String DELETE_PAGE = "deletePage";
 
+  //component actions
+  public static final String EDIT_COMPONENT = "editComponent";
+  public static final String CONFIGURE_COMPONENT = "configureComponent";
 
-  public class Page {
-    public static final String CREATE = "createAction";
-    public static final String DELETE = "deleteAction";
-  }
-
-
-  public class Login {
-
-    public static final String LOG_IN = "logInAction";
-    public static final String LOG_OUT = "logOutAction";
-  }
+  //siteadmin actions
+  public static final String CREATE_PAGE_VIA_SITEADMIN = "createPageViaSiteadmin";
 }

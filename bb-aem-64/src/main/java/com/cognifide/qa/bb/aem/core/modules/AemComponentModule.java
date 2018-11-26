@@ -22,7 +22,7 @@ package com.cognifide.qa.bb.aem.core.modules;
 import java.util.Arrays;
 
 import com.cognifide.qa.bb.api.actions.ActionWithData;
-import com.cognifide.qa.bb.aem.core.api.Actions;
+import com.cognifide.qa.bb.aem.core.api.AemActions;
 import com.cognifide.qa.bb.aem.core.component.actions.ConfigureComponent;
 import com.cognifide.qa.bb.aem.core.component.actions.EditComponent;
 import com.cognifide.qa.bb.aem.core.component.dialog.ConfigDialog;
@@ -54,8 +54,8 @@ public class AemComponentModule extends AbstractModule {
   private void bindComponentActions() {
     MapBinder<String, ActionWithData> componentActions =
         MapBinder.newMapBinder(binder(), String.class, ActionWithData.class);
-    componentActions.addBinding(Actions.Component.EDIT).to(EditComponent.class);
-    componentActions.addBinding(Actions.Component.CONFIGURE)
+    componentActions.addBinding(AemActions.EDIT_COMPONENT).to(EditComponent.class);
+    componentActions.addBinding(AemActions.CONFIGURE_COMPONENT)
         .to(ConfigureComponent.class);
   }
 

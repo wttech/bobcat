@@ -20,7 +20,7 @@
 package com.cognifide.qa.bb.aem.core.modules;
 
 import com.cognifide.qa.bb.api.actions.ActionWithData;
-import com.cognifide.qa.bb.aem.core.api.Actions;
+import com.cognifide.qa.bb.aem.core.api.AemActions;
 import com.cognifide.qa.bb.aem.core.pages.sling.CreatePage;
 import com.cognifide.qa.bb.aem.core.pages.sling.DeletePage;
 import com.google.inject.AbstractModule;
@@ -35,7 +35,7 @@ public class SlingPageActionsModule extends AbstractModule {
   protected void configure() {
     MapBinder<String, ActionWithData> siteAdminActions =
         MapBinder.newMapBinder(binder(), String.class, ActionWithData.class);
-    siteAdminActions.addBinding(Actions.Page.CREATE).to(CreatePage.class);
-    siteAdminActions.addBinding(Actions.Page.DELETE).to(DeletePage.class);
+    siteAdminActions.addBinding(AemActions.CREATE_PAGE).to(CreatePage.class);
+    siteAdminActions.addBinding(AemActions.DELETE_PAGE).to(DeletePage.class);
   }
 }

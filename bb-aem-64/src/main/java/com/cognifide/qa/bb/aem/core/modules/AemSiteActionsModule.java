@@ -20,7 +20,7 @@
 package com.cognifide.qa.bb.aem.core.modules;
 
 import com.cognifide.qa.bb.api.actions.ActionWithData;
-import com.cognifide.qa.bb.aem.core.api.Actions;
+import com.cognifide.qa.bb.aem.core.api.AemActions;
 import com.cognifide.qa.bb.api.actions.internal.DefaultController;
 import com.cognifide.qa.bb.api.actions.ActionsController;
 import com.cognifide.qa.bb.aem.core.siteadmin.actions.CreatePageAction;
@@ -50,6 +50,6 @@ public class AemSiteActionsModule extends AbstractModule {
 
     MapBinder<String, ActionWithData> siteAdminActions =
         MapBinder.newMapBinder(binder(), String.class, ActionWithData.class);
-    siteAdminActions.addBinding(Actions.Siteadmin.CREATE_PAGE).to(CreatePageAction.class);
+    siteAdminActions.addBinding(AemActions.CREATE_PAGE_VIA_SITEADMIN).to(CreatePageAction.class);
   }
 }
