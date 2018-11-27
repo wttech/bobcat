@@ -30,10 +30,10 @@ import com.google.inject.Inject;
 
 public class DefaultController implements ActionsController {
 
-  @Inject
+  @Inject(optional = true)
   private Map<String, Action> actions;
 
-  @Inject
+  @Inject(optional = true)
   private Map<String, ActionWithData> actionWithData;
 
   @Override
