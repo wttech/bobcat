@@ -22,6 +22,7 @@ package com.cognifide.qa.bb.aem.core.pages.sling;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import org.apache.http.message.BasicNameValuePair;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -31,7 +32,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * Sax parser of xml with page data.
  * It creates List<BasicNameValuePair> that contains information that can be used by page controller
  */
-public class TestPageXMLParserHandler extends DefaultHandler {
+public class PageXMLParserHandler extends DefaultHandler {
 
   private static final String ROOT = ".";
 
@@ -46,8 +47,7 @@ public class TestPageXMLParserHandler extends DefaultHandler {
   private StringBuilder entryName = new StringBuilder(ROOT);
 
   @Override
-  public void startElement(String uri, String localName, String qName, Attributes attributes)
-      throws SAXException {
+  public void startElement(String uri, String localName, String qName, Attributes attributes) {
     if (!qName.equals(IGNORE_ROOT)) {
       entryName.append(SEPARATOR);
       entryName.append(qName);
@@ -66,7 +66,7 @@ public class TestPageXMLParserHandler extends DefaultHandler {
   @Override
   public void endElement(String uri, String localName, String qName) throws SAXException {
     if (!qName.equals(IGNORE_ROOT)) {
-      entryName.delete(entryName.lastIndexOf(SEPARATOR),entryName.length());
+      entryName.delete(entryName.lastIndexOf(SEPARATOR), entryName.length());
     }
   }
 
@@ -74,7 +74,6 @@ public class TestPageXMLParserHandler extends DefaultHandler {
     return Arrays.stream(IGNORE_ATTRIBUTES).anyMatch(s ->
         s.equals(attributeName) || attributeName.startsWith(s));
   }
-
 
   /**
    * @return list of information about page to create.

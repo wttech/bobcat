@@ -19,10 +19,7 @@
  */
 package com.cognifide.qa.bb.aem.core.modules;
 
-import com.cognifide.qa.bb.api.actions.ActionWithData;
 import com.cognifide.qa.bb.aem.core.api.AemActions;
-import com.cognifide.qa.bb.api.actions.internal.DefaultController;
-import com.cognifide.qa.bb.api.actions.ActionsController;
 import com.cognifide.qa.bb.aem.core.siteadmin.actions.CreatePageAction;
 import com.cognifide.qa.bb.aem.core.siteadmin.internal.CreatePageProperties;
 import com.cognifide.qa.bb.aem.core.siteadmin.internal.CreatePagePropertiesImpl;
@@ -32,17 +29,17 @@ import com.cognifide.qa.bb.aem.core.siteadmin.internal.SiteToolbar;
 import com.cognifide.qa.bb.aem.core.siteadmin.internal.SiteToolbarImpl;
 import com.cognifide.qa.bb.aem.core.siteadmin.internal.TemplateList;
 import com.cognifide.qa.bb.aem.core.siteadmin.internal.TemplateListImpl;
+import com.cognifide.qa.bb.api.actions.ActionWithData;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.MapBinder;
 
 /**
  * Module that need to be installed to use site admin actions in AEM 6.4
  */
-public class AemSiteActionsModule extends AbstractModule {
+public class AemSitesAdminModule extends AbstractModule {
 
   @Override
   protected void configure() {
-    bind(ActionsController.class).to(DefaultController.class);
     bind(SiteToolbar.class).to(SiteToolbarImpl.class);
     bind(TemplateList.class).to(TemplateListImpl.class);
     bind(CreatePageWizard.class).to(CreatePageWizardImpl.class);

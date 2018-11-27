@@ -2,7 +2,7 @@
  * #%L
  * Bobcat
  * %%
- * Copyright (C) 2018 Cognifide Ltd.
+ * Copyright (C) 2016 Cognifide Ltd.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,27 +17,16 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.modules;
+package com.cognifide.qa.bb.modules;
 
+import com.cognifide.qa.bb.api.actions.ActionsController;
+import com.cognifide.qa.bb.api.actions.internal.DefaultController;
 import com.google.inject.AbstractModule;
 
-/**
- * Main module that need to be installed to use AEM  functions
- * It has full functionalities for AEM 6.4
- */
-public class Aem64FullModule extends AbstractModule {
+public class ActionsModule extends AbstractModule {
 
   @Override
   protected void configure() {
-    install(new AemCoreModule());
-    install(new AemLoginModule());
-    install(new AemSitesAdminModule());
-    install(new SlingPageActionsModule());
-    install(new AemComponentModule());
-    install(new AemSidePanelModule());
-    install(new AemPageModule());
-    install(new AemFieldsModule());
-    install(new AemConfigModule());
+    bind(ActionsController.class).to(DefaultController.class);
   }
-
 }

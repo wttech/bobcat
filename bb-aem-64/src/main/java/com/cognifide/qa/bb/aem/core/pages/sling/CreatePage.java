@@ -34,7 +34,7 @@ import com.google.inject.name.Named;
 
 import io.qameta.allure.Step;
 
-public class CreatePage implements ActionWithData<SlingTestPageData> {
+public class CreatePage implements ActionWithData<SlingPageData> {
 
   @Inject
   private CloseableHttpClient httpClient;
@@ -45,7 +45,7 @@ public class CreatePage implements ActionWithData<SlingTestPageData> {
 
   @Override
   @Step("Create test page {testPageData.contentPath}")
-  public void execute(SlingTestPageData data) throws AemPageManipulationException {
+  public void execute(SlingPageData data) throws AemPageManipulationException {
     HttpPost request = new HttpPost(authorIP + data.getContentPath());
     request.setEntity(new UrlEncodedFormEntity(data.getContent(), Consts.UTF_8));
     try {

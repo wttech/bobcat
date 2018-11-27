@@ -28,7 +28,7 @@ import com.cognifide.qa.bb.api.actions.ActionData;
 /**
  * Page data that can be used by page actions executed via Sling API
  */
-public class SlingTestPageData implements ActionData {
+public class SlingPageData implements ActionData {
 
   private String contentPath;
 
@@ -38,10 +38,17 @@ public class SlingTestPageData implements ActionData {
    * @param contentPath path where page (list of nodes) should be created
    * @param content     list of nodes to be created
    */
-  public SlingTestPageData(String contentPath,
+  public SlingPageData(String contentPath,
       List<BasicNameValuePair> content) {
     this.contentPath = contentPath;
     this.content = content;
+  }
+
+  /**
+   * @param contentPath path where page (list of nodes) should be created
+   */
+  public SlingPageData(String contentPath) {
+    this.contentPath = contentPath;
   }
 
   /**

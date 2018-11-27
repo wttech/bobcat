@@ -34,7 +34,7 @@ import com.cognifide.qa.bb.aem.core.pages.AemPageManipulationException;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
-public class DeletePage implements ActionWithData<SlingTestPageData> {
+public class DeletePage implements ActionWithData<SlingPageData> {
 
   @Inject
   private CloseableHttpClient httpClient;
@@ -44,7 +44,7 @@ public class DeletePage implements ActionWithData<SlingTestPageData> {
   private String authorIP;
 
   @Override
-  public void execute(SlingTestPageData data) throws AemPageManipulationException {
+  public void execute(SlingPageData data) throws AemPageManipulationException {
     HttpPost request = new HttpPost(authorIP + data.getContentPath());
     request.setEntity(new UrlEncodedFormEntity(
         Collections.singleton(new BasicNameValuePair(":operation", "delete")), Consts.UTF_8));

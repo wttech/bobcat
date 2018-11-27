@@ -33,11 +33,11 @@ import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
 /**
- * Loads xml with test data and uses {@link TestPageXMLParserHandler} to parse this xml
+ * Loads xml with test data and uses {@link PageXMLParserHandler} to parse this xml
  */
-public final class SlingTestDataXMLBuilder {
+public final class SlingDataXMLBuilder {
 
-  private static final Logger LOG = LoggerFactory.getLogger(SlingTestDataXMLBuilder.class);
+  private static final Logger LOG = LoggerFactory.getLogger(SlingDataXMLBuilder.class);
 
   /**
    * Prepares list of nodes information
@@ -45,11 +45,11 @@ public final class SlingTestDataXMLBuilder {
    * @param fileName xml filename (should be in test resources)
    * @return List of nodes to be created
    */
-  public static List<BasicNameValuePair> buildSlingTestData(String fileName) {
+  public static List<BasicNameValuePair> buildFromFile(String fileName) {
     List<BasicNameValuePair> toReturn = new ArrayList<>();
-    try (InputStream fileInputStream = SlingTestDataXMLBuilder.class.getClassLoader()
+    try (InputStream fileInputStream = SlingDataXMLBuilder.class.getClassLoader()
         .getResourceAsStream(fileName)) {
-      TestPageXMLParserHandler xmlParserHandler = new TestPageXMLParserHandler();
+      PageXMLParserHandler xmlParserHandler = new PageXMLParserHandler();
       if (fileInputStream != null) {
         SAXParserFactory.newInstance().newSAXParser().parse(fileInputStream,
             xmlParserHandler);
@@ -63,6 +63,6 @@ public final class SlingTestDataXMLBuilder {
     return toReturn;
   }
 
-  private SlingTestDataXMLBuilder() {
+  private SlingDataXMLBuilder() {
   }
 }
