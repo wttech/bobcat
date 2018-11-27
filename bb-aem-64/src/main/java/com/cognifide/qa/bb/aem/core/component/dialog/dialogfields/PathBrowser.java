@@ -67,11 +67,4 @@ public class PathBrowser implements DialogField {
     currentScope.findElement(By.className("coral-Form-fieldlabel")).click();
   }
 
-  /**
-   * @return dialog field type.
-   */
-  @Override
-  public String getType() {
-    return FieldType.PATHBROWSER.name();
-  }
 }

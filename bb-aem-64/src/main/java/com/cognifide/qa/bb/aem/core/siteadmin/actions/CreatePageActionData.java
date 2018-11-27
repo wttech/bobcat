@@ -17,23 +17,36 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.component.toolbar;
+package com.cognifide.qa.bb.aem.core.siteadmin.actions;
 
-import org.openqa.selenium.By;
+import com.cognifide.qa.bb.api.actions.ActionData;
 
 /**
- * Interface for component toolbar option
+ * Site Action Data for Create Page Action
  */
-public interface ToolbarOption {
+public class CreatePageActionData implements ActionData {
 
-  /**
-   * @return locator of option based on component toolbar
-   */
-  By getLocator();
+  private String pageName;
 
-  /**
-   * @return option title
-   */
-  String getTitle();
+  private String template;
 
+  private String title;
+
+  public CreatePageActionData(String template, String title, String pageName) {
+    this.pageName = pageName;
+    this.template = template;
+    this.title = title;
+  }
+
+  public String getPageName() {
+    return pageName;
+  }
+
+  public String getTemplate() {
+    return template;
+  }
+
+  public String getTitle() {
+    return title;
+  }
 }

@@ -17,25 +17,22 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
+package com.cognifide.qa.bb.aem.core.modules;
 
-import com.cognifide.qa.bb.qualifier.PageObject;
-import java.util.List;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import com.cognifide.qa.bb.aem.core.component.AuthorLoader;
+import com.cognifide.qa.bb.aem.core.component.AuthorLoaderImpl;
+import com.cognifide.qa.bb.aem.core.component.GlobalBar;
+import com.cognifide.qa.bb.aem.core.component.GlobalBarImpl;
+import com.google.inject.AbstractModule;
 
-@PageObject
-public class RadioGroup implements DialogField {
-
-  @FindBy(css = ".coral3-Radio-description")
-  private List<WebElement> radioOptions;
+/**
+ * Module that contains bindings for AEM 6.4 page bars
+ */
+public class AemPageModule extends AbstractModule {
 
   @Override
-  public void setValue(Object value) {
-    WebElement radioLabel = radioOptions.stream()
-        .filter(radioOption -> radioOption.getText().equals(value)).findFirst().orElse(null);
-    radioLabel.findElement(By.xpath(".//..")).click();
+  protected void configure() {
+    bind(AuthorLoader.class).to(AuthorLoaderImpl.class);
+    bind(GlobalBar.class).to(GlobalBarImpl.class);
   }
-
 }

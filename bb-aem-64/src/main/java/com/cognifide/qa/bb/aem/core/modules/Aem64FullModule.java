@@ -17,25 +17,27 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
+package com.cognifide.qa.bb.aem.core.modules;
 
-import com.cognifide.qa.bb.qualifier.PageObject;
-import java.util.List;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import com.google.inject.AbstractModule;
 
-@PageObject
-public class RadioGroup implements DialogField {
-
-  @FindBy(css = ".coral3-Radio-description")
-  private List<WebElement> radioOptions;
+/**
+ * Main module that need to be installed to use AEM  functions
+ * It has full functionalities for AEM 6.4
+ */
+public class Aem64FullModule extends AbstractModule {
 
   @Override
-  public void setValue(Object value) {
-    WebElement radioLabel = radioOptions.stream()
-        .filter(radioOption -> radioOption.getText().equals(value)).findFirst().orElse(null);
-    radioLabel.findElement(By.xpath(".//..")).click();
+  protected void configure() {
+    install(new AemCoreModule());
+    install(new AemLoginModule());
+    install(new AemSitesAdminModule());
+    install(new SlingPageActionsModule());
+    install(new AemComponentModule());
+    install(new AemSidePanelModule());
+    install(new AemPageModule());
+    install(new AemFieldsModule());
+    install(new AemConfigModule());
   }
 
 }

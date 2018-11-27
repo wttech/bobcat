@@ -17,31 +17,29 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.pages;
-
-import com.cognifide.qa.bb.api.actions.ActionException;
+package com.cognifide.qa.bb.api.actions;
 
 /**
  * Exception thrown if there is problem with page manipulation
  */
-public class AemPageManipulationException extends ActionException {
+public class ActionException extends Exception {
 
-  public AemPageManipulationException() {
+  public ActionException() {
   }
 
-  public AemPageManipulationException(String message) {
+  public ActionException(String message) {
     super(message);
   }
 
-  public AemPageManipulationException(String message, Throwable cause) {
+  public ActionException(String message, Throwable cause) {
     super(message, cause);
   }
 
-  public AemPageManipulationException(Throwable cause) {
+  public ActionException(Throwable cause) {
     super(cause);
   }
 
-  public AemPageManipulationException(String message, Throwable cause, boolean enableSuppression,
+  public ActionException(String message, Throwable cause, boolean enableSuppression,
       boolean writableStackTrace) {
     super(message, cause, enableSuppression, writableStackTrace);
   }

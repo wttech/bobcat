@@ -20,6 +20,7 @@
 package com.cognifide.qa.bb.aem.core.sidepanel.internal;
 
 import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -29,10 +30,14 @@ import org.slf4j.LoggerFactory;
 public class ComponentTreeLocatorHelper {
 
   private static final Logger LOG = LoggerFactory.getLogger(ComponentTreeLocatorHelper.class);
+  //Beautiful xpath that can be really broken in any new AEM version
+  private static final String COMPONENT_ITEM_XPATH_FORMAT =
+      "./coral-tree-item/div/div/coral-tree-item-content/span/span[@class='editor-ContentTree-itemTitle'and (text()='%s' or text()='%s: ') ]";
 
   /**
    * Search component on tree
-   * @param path how many containers is between
+   *
+   * @param path          how many containers is between
    * @param componentName component name
    * @param elementNumber which component (default 0) it there is more then one
    * @param currentScope
@@ -46,11 +51,10 @@ public class ComponentTreeLocatorHelper {
     for (String container : containers) {
       component = setComponent(component, container);
     }
-    //Beautiful xpath that can be really broken in any new AEM version
+
     List<WebElement> elements = component.findElement(By.cssSelector(".coral3-Tree-subTree"))
-        .findElements(By.xpath(
-            "./coral-tree-item/div/div/coral-tree-item-content/span/span[@class='editor-ContentTree-itemTitle'and (text()='"
-                + componentName + "' or text()='" + componentName + ": ') ]"));
+        .findElements(
+            By.xpath(String.format(COMPONENT_ITEM_XPATH_FORMAT, componentName, componentName)));
     if (!elements.isEmpty()) {
       component = elements.get(elementNumber);
     }
@@ -73,7 +77,6 @@ public class ComponentTreeLocatorHelper {
       try {
         toReturn = Integer.parseInt(elementNumber);
       } catch (NumberFormatException e) {
-        toReturn = 0;
         LOG.error("Error in component settings", e);
       }
     }

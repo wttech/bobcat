@@ -18,7 +18,6 @@ package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text;
 import org.openqa.selenium.WebElement;
 
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DialogField;
-import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.FieldType;
 import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.wait.BobcatWait;
@@ -63,14 +62,6 @@ public class FontFormat implements DialogField {
       default:
         throw new IllegalArgumentException("There is no action defined for " + rtAction);
     }
-  }
-
-  /**
-   * @return dialog field type.
-   */
-  @Override
-  public String getType() {
-    return FieldType.RICHTEXT_FONT_FORMAT.name();
   }
 
   private void clickFormatButton(WebElement button) {

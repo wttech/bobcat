@@ -17,25 +17,19 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
+package com.cognifide.qa.bb.aem.core.modules;
 
-import com.cognifide.qa.bb.qualifier.PageObject;
-import java.util.List;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanel;
+import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanelImpl;
+import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanelTabBar;
+import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanelTabBarImpl;
+import com.google.inject.AbstractModule;
 
-@PageObject
-public class RadioGroup implements DialogField {
-
-  @FindBy(css = ".coral3-Radio-description")
-  private List<WebElement> radioOptions;
+public class AemSidePanelModule extends AbstractModule {
 
   @Override
-  public void setValue(Object value) {
-    WebElement radioLabel = radioOptions.stream()
-        .filter(radioOption -> radioOption.getText().equals(value)).findFirst().orElse(null);
-    radioLabel.findElement(By.xpath(".//..")).click();
+  protected void configure() {
+    bind(SidePanel.class).to(SidePanelImpl.class);
+    bind(SidePanelTabBar.class).to(SidePanelTabBarImpl.class);
   }
-
 }

@@ -66,5 +66,6 @@ public class CoreModule extends AbstractModule {
 
     install(new CookiesModule());
 
+    install(new ActionsModule());
   }
 }

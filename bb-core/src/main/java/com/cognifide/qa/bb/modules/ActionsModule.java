@@ -17,30 +17,16 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
+package com.cognifide.qa.bb.modules;
 
-import com.cognifide.qa.bb.qualifier.PageObject;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import com.cognifide.qa.bb.api.actions.ActionsController;
+import com.cognifide.qa.bb.api.actions.internal.DefaultController;
+import com.google.inject.AbstractModule;
 
-/**
- * This class represents single line text dialog field.
- */
-@PageObject
-public class Textfield implements DialogField {
+public class ActionsModule extends AbstractModule {
 
-  @FindBy(css = ".coral3-Textfield:not([type='hidden']")
-  private WebElement input;
-
-  /**
-   * Sets text value of component.
-   *
-   * @param value desired string value.
-   */
   @Override
-  public void setValue(Object value) {
-    input.clear();
-    input.sendKeys(String.valueOf(value));
+  protected void configure() {
+    bind(ActionsController.class).to(DefaultController.class);
   }
-
 }

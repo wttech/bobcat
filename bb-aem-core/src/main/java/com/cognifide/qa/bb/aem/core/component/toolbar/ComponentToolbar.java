@@ -32,7 +32,7 @@ public interface ComponentToolbar {
    *
    * @param option option which will be clicked.
    */
-  public void clickOption(String option);
+  void clickOption(String option);
 
   /**
    * Method finds given toolbar option (which was not bind to toolbar options)
@@ -40,11 +40,11 @@ public interface ComponentToolbar {
    *
    * @param option option which will be clicked.
    */
-  public void clickOption(ToolbarOption option);
+  void clickOption(ToolbarOption option);
 
   /**
    * Method verifies if the component toolbar is visible.
    */
-  public void verifyIsDisplayed();
+  void verifyIsDisplayed();
 
 }

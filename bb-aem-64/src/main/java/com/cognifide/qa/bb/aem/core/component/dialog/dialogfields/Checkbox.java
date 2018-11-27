@@ -51,11 +51,4 @@ public class Checkbox implements DialogField {
     }
   }
 
-  /**
-   * @return dialog field type.
-   */
-  @Override
-  public String getType() {
-    return FieldType.CHECKBOX.name();
-  }
 }

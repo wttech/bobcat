@@ -17,25 +17,24 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
+package com.cognifide.qa.bb.aem.core.siteadmin.actions;
 
+import com.cognifide.qa.bb.api.actions.ActionWithData;
+import com.cognifide.qa.bb.aem.core.siteadmin.internal.SiteToolbar;
+import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.PageObject;
-import java.util.List;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+
+import io.qameta.allure.Step;
 
 @PageObject
-public class RadioGroup implements DialogField {
+public class CreatePageAction implements ActionWithData<CreatePageActionData> {
 
-  @FindBy(css = ".coral3-Radio-description")
-  private List<WebElement> radioOptions;
+  @FindPageObject
+  private SiteToolbar toolbar;
 
   @Override
-  public void setValue(Object value) {
-    WebElement radioLabel = radioOptions.stream()
-        .filter(radioOption -> radioOption.getText().equals(value)).findFirst().orElse(null);
-    radioLabel.findElement(By.xpath(".//..")).click();
+  @Step("Create page {actionData.title} with name {actionData.pageName} using {actionData.template} template")
+  public void execute(CreatePageActionData data) {
+    toolbar.createPage(data.getTemplate(), data.getTitle(), data.getPageName());
   }
-
 }

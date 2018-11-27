@@ -33,8 +33,8 @@ public class SlingTestDataXMLBuilderTest {
 
   @Test
   public void buildSlingTestData() {
-    List<BasicNameValuePair> testResults = SlingTestDataXMLBuilder
-        .buildSlingTestData("pageTest.xml");
+    List<BasicNameValuePair> testResults = SlingDataXMLBuilder
+        .buildFromFile("pageTest.xml");
     assertThat(testResults.size()).isEqualTo(11);
     List<BasicNameValuePair> expectedTestData = getExpectedTestData();
     int index = 0;

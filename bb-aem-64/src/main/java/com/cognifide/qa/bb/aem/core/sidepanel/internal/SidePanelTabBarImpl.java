@@ -19,11 +19,15 @@
  */
 package com.cognifide.qa.bb.aem.core.sidepanel.internal;
 
-import com.cognifide.qa.bb.qualifier.CurrentScope;
-import com.cognifide.qa.bb.qualifier.PageObject;
-import com.google.inject.Inject;
+import static com.cognifide.qa.bb.webelement.WebElementConditions.elementIsReady;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
+import com.cognifide.qa.bb.qualifier.CurrentScope;
+import com.cognifide.qa.bb.qualifier.PageObject;
+import com.cognifide.qa.bb.wait.BobcatWait;
+import com.google.inject.Inject;
 
 @PageObject(css = ".coral3-TabList")
 public class SidePanelTabBarImpl implements SidePanelTabBar {
@@ -32,8 +36,11 @@ public class SidePanelTabBarImpl implements SidePanelTabBar {
   @CurrentScope
   private WebElement currentScope;
 
+  @Inject
+  private BobcatWait bobcatWait;
+
   @Override
   public void switchTab(String tab) {
-    currentScope.findElement(By.className(tab)).click();
+    bobcatWait.until(elementIsReady(currentScope.findElement(By.className(tab)))).click();
   }
 }

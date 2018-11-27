@@ -17,23 +17,12 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.component.toolbar;
+package com.cognifide.qa.bb.aem.core.component.actions;
 
-import org.openqa.selenium.By;
+public class EditComponentData extends AbstractComponentActionData {
 
-/**
- * Interface for component toolbar option
- */
-public interface ToolbarOption {
-
-  /**
-   * @return locator of option based on component toolbar
-   */
-  By getLocator();
-
-  /**
-   * @return option title
-   */
-  String getTitle();
+  public EditComponentData(String componentPath, String componentName, int componentOrder) {
+    super(componentPath, componentName, componentOrder);
+  }
 
 }

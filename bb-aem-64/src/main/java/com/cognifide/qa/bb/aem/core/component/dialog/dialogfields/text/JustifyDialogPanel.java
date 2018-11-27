@@ -18,7 +18,6 @@ package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text;
 import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DialogField;
-import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.FieldType;
 import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.wait.BobcatWait;
@@ -76,14 +75,6 @@ public class JustifyDialogPanel implements DialogField {
     controlToolbar.selectText();
     bobcatWait.until(input -> controlToolbar.getToggleJustifyButton().isEnabled());
     controlToolbar.getToggleJustifyButton().click();
-  }
-
-  /**
-   * @return dialog field type.
-   */
-  @Override
-  public String getType() {
-    return FieldType.RICHTEXT_JUSTIFY.name();
   }
 
   private enum JustifyPanelActions {
