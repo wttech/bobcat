@@ -19,7 +19,6 @@
  */
 package com.cognifide.qa.bb.aem.core.component.actions;
 
-import com.cognifide.qa.bb.api.actions.ActionWithData;
 import com.cognifide.qa.bb.aem.core.component.configuration.ComponentConfigReader;
 import com.cognifide.qa.bb.aem.core.component.configuration.ComponentConfiguration;
 import com.cognifide.qa.bb.aem.core.component.dialog.ConfigDialog;
@@ -27,6 +26,7 @@ import com.cognifide.qa.bb.aem.core.component.toolbar.CommonToolbarOptions;
 import com.cognifide.qa.bb.aem.core.component.toolbar.ComponentToolbar;
 import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanel;
 import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanelTabs;
+import com.cognifide.qa.bb.api.actions.ActionWithData;
 import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
@@ -57,6 +57,7 @@ public class ConfigureComponent implements ActionWithData<ConfigureComponentData
         actionData.getComponentOrder()).click();
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   @Step("Configure component")
   public void execute(ConfigureComponentData data) {

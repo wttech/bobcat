@@ -41,6 +41,7 @@ public class DefaultController implements ActionsController {
     actions.get(action).execute();
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   public void execute(String action, ActionData data) throws ActionException {
     actionWithData.get(action).execute(data);
