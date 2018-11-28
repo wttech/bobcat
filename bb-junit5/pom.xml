@@ -31,7 +31,6 @@
     <name>Bobcat JUnit 5</name>
 
     <dependencies>
-
         <dependency>
             <groupId>com.cognifide.qa.bb</groupId>
             <artifactId>bb-core</artifactId>

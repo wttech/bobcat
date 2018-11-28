@@ -31,10 +31,6 @@
 
     <name>Bobcat Integration Tests</name>
 
-    <properties>
-        <configuration.paths>src/main/config</configuration.paths>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.cognifide.qa.bb</groupId>
@@ -44,11 +40,6 @@
         <dependency>
             <groupId>com.cognifide.qa.bb</groupId>
             <artifactId>bb-junit5</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.cognifide.qa.bb</groupId>
-            <artifactId>bb-annotations</artifactId>
             <version>${project.version}</version>
         </dependency>
 
