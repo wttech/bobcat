@@ -21,11 +21,15 @@ package com.cognifide.qa.bb.junit5;
 
 import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
 
+/**
+ * Contains common constants for the whole JUnit 5 module.
+ */
 public final class JUnit5Constants {
 
   public static final Namespace NAMESPACE =
       Namespace.create("com", "cognifide", "qa", "bb", "junit", "guice");
 
   private JUnit5Constants() {
+    //util
   }
 }

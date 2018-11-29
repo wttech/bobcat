@@ -22,15 +22,10 @@ package com.cognifide.qa.bb.junit5.allure;
 import static com.cognifide.qa.bb.junit5.JUnit5Constants.NAMESPACE;
 import static com.cognifide.qa.bb.junit5.allure.AllureConstants.ALLURE_REPORT;
 
-import com.cognifide.qa.bb.junit5.guice.InjectorUtils;
-import com.cognifide.qa.bb.provider.selenium.webdriver.close.ClosingAwareWebDriverWrapper;
-import com.google.inject.Injector;
-import com.google.inject.Key;
-import io.appium.java_client.AppiumDriver;
-import io.qameta.allure.Allure;
 import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
+
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.TestExecutionExceptionHandler;
@@ -39,8 +34,18 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.LoggerFactory;
 
+import com.cognifide.qa.bb.junit5.guice.InjectorUtils;
+import com.cognifide.qa.bb.provider.selenium.webdriver.close.ClosingAwareWebDriverWrapper;
+import com.google.inject.Injector;
+import com.google.inject.Key;
+
+import io.appium.java_client.AppiumDriver;
+import io.qameta.allure.Allure;
+
 /**
- * Adds screenshot to report if there was an exception
+ * Adds screenshot to report if there was an exception.
+ * <p>
+ * Loaded automatically by ServiceLoader.
  */
 public class ScreenshotExtension implements TestExecutionExceptionHandler {
 
@@ -48,6 +53,9 @@ public class ScreenshotExtension implements TestExecutionExceptionHandler {
 
   private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(ScreenshotExtension.class);
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void handleTestExecutionException(ExtensionContext context, Throwable throwable)
       throws Throwable {
@@ -62,7 +70,8 @@ public class ScreenshotExtension implements TestExecutionExceptionHandler {
 
   /**
    * Changes context if Appium driver is in use
-   * @param webDriver
+   *
+   * @param webDriver instance
    */
   private void prepareScreenshot(WebDriver webDriver) {
     try {
@@ -75,7 +84,6 @@ public class ScreenshotExtension implements TestExecutionExceptionHandler {
         appiumDriver.context(NATIVE_APP_CONTEXT);
         takeScreenshot(webDriver);
         appiumDriver.context(originalContext);
-
       } else {
         takeScreenshot(webDriver);
       }

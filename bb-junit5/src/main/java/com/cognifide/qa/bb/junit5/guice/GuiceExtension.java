@@ -23,11 +23,6 @@ import static com.cognifide.qa.bb.junit5.JUnit5Constants.NAMESPACE;
 import static java.util.stream.Collectors.toSet;
 import static org.junit.platform.commons.support.AnnotationSupport.findAnnotation;
 
-import com.google.common.collect.Sets;
-import com.google.inject.AbstractModule;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.Module;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -38,14 +33,23 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ExtensionContext.Store;
 import org.junit.jupiter.api.extension.TestInstancePostProcessor;
 
+import com.google.common.collect.Sets;
+import com.google.inject.AbstractModule;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Module;
+
 /**
- * Extension that will start guice and is responsible for the injections to test instance Based on
- * <a href="https://github.com/JeffreyFalgout/junit5-extensions/tree/master/guice-extension">Guice
- * Extension</a>
+ * Extension that will start Guice and is responsible for the injections to test instance
+ * <p>
+ * Based on <a href="https://github.com/JeffreyFalgout/junit5-extensions/tree/master/guice-extension">Guice Extension</a>
+ * <p>
+ * Loaded automatically by ServiceLoader.
  */
 public class GuiceExtension implements TestInstancePostProcessor {
 
@@ -61,7 +65,8 @@ public class GuiceExtension implements TestInstancePostProcessor {
    * Create {@link Injector} or get existing one from test context
    */
   private static Optional<Injector> getOrCreateInjector(ExtensionContext context)
-      throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+      throws NoSuchMethodException, InstantiationException, IllegalAccessException,
+      InvocationTargetException {
 
     Optional<AnnotatedElement> optionalAnnotatedElement = context.getElement();
     if (!optionalAnnotatedElement.isPresent()) {
@@ -84,7 +89,8 @@ public class GuiceExtension implements TestInstancePostProcessor {
    * Creates {@link Injector} from test context
    */
   private static Injector createInjector(ExtensionContext context)
-      throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+      throws NoSuchMethodException, InstantiationException, IllegalAccessException,
+      InvocationTargetException {
     Optional<Injector> parentInjector = getParentInjector(context);
     List<? extends Module> modules = getNewModules(context);
 
@@ -97,7 +103,8 @@ public class GuiceExtension implements TestInstancePostProcessor {
    * Retrieves {@link Injector} from parent test context
    */
   private static Optional<Injector> getParentInjector(ExtensionContext context)
-      throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+      throws NoSuchMethodException, InstantiationException, IllegalAccessException,
+      InvocationTargetException {
     final Optional<ExtensionContext> optionalParent = context.getParent();
     if (optionalParent.isPresent()) {
       return getOrCreateInjector(optionalParent.get());
@@ -109,7 +116,8 @@ public class GuiceExtension implements TestInstancePostProcessor {
    * Gets all new {@link Module} instances for injections
    */
   private static List<? extends Module> getNewModules(ExtensionContext context)
-      throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+      throws NoSuchMethodException, InstantiationException, IllegalAccessException,
+      InvocationTargetException {
     Set<Class<? extends Module>> moduleTypes = getNewModuleTypes(context);
     List<Module> modules = new ArrayList<>(moduleTypes.size());
     for (Class<? extends Module> moduleType : moduleTypes) {
