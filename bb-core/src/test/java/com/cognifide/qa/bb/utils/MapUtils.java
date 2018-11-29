@@ -28,6 +28,10 @@ import java.util.stream.Stream;
 
 public class MapUtils {
 
+  private MapUtils() {
+    //util
+  }
+
   public static <K, U> Collector<Map.Entry<K, U>, ?, Map<K, U>> entriesToMap() {
     return Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue);
   }

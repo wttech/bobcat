@@ -30,7 +30,7 @@ import com.cognifide.qa.bb.constants.ConfigKeys;
 public class ConfigStrategyProviderTest {
 
   @Test
-  public void get_returnsYamlConfig_byDefault() {
+  public void getReturnsYamlConfigByDefault() {
     assumeTrue(StringUtils.isBlank(System.getProperty(ConfigKeys.CONFIG_STRATEGY)));
     ConfigStrategy configStrategy = ConfigStrategyProvider.get();
     assertThat(configStrategy).isInstanceOf(YamlConfig.class);

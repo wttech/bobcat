@@ -37,7 +37,7 @@ import com.cognifide.qa.bb.scope.frame.type.NamedFrame;
 public class FramePathTest {
 
   @Test
-  public void shouldEqualsBothEmptyInstances() throws Exception {
+  public void shouldEqualsBothEmptyInstances() {
     // given
     FramePath cut = new FramePath();
     FramePath reference = new FramePath(new ArrayList<>());
@@ -48,7 +48,7 @@ public class FramePathTest {
   }
 
   @Test
-  public void shouldNonEqualTwoDifferentInstances() throws Exception {
+  public void shouldNonEqualTwoDifferentInstances() {
     // given
     FramePath cut = new FramePath();
     FramePath reference = new FramePath(Collections.singletonList(spy(FrameDescriptor.class)));
@@ -59,7 +59,7 @@ public class FramePathTest {
   }
 
   @Test
-  public void shouldHaveAnEmptyFramesCollectionWhenEmptyPathIsProvided() throws Exception {
+  public void shouldHaveAnEmptyFramesCollectionWhenEmptyPathIsProvided() {
     // when
     FramePath cut = FramePath.parsePath("");
 
@@ -68,7 +68,7 @@ public class FramePathTest {
   }
 
   @Test
-  public void shouldHaveOneNamedFrameCollectionWhenOnlyOnePathElementProvided() throws Exception {
+  public void shouldHaveOneNamedFrameCollectionWhenOnlyOnePathElementProvided() {
     // given
     String frameName = "artificial-named-frame";
 
@@ -81,7 +81,7 @@ public class FramePathTest {
   }
 
   @Test
-  public void shouldHaveOneIndexedFrameWhenOneNumberPathElementProvided() throws Exception {
+  public void shouldHaveOneIndexedFrameWhenOneNumberPathElementProvided() {
     // given
     int frameIndex = 123;
 
@@ -94,7 +94,7 @@ public class FramePathTest {
   }
 
   @Test
-  public void shouldHaveOneAemContentFrameWhenOneSpecialStringProvided() throws Exception {
+  public void shouldHaveOneAemContentFrameWhenOneSpecialStringProvided() {
     // when
     FramePath cut = FramePath.parsePath("$cq");
 
@@ -104,7 +104,7 @@ public class FramePathTest {
   }
 
   @Test
-  public void shouldRemoveTheMiddleNamedFrameIfHasDoubleDot() throws Exception {
+  public void shouldRemoveTheMiddleNamedFrameIfHasDoubleDot() {
     // given
     String firstFrameName = "first-named-frame";
     String secondFrameName = "second-named-frame";
@@ -122,7 +122,7 @@ public class FramePathTest {
   }
 
   @Test
-  public void shouldGetADiffWithEmptyFramePath() throws Exception {
+  public void shouldGetADiffWithEmptyFramePath() {
     // given
     String firstFrameName = "first-named";
     String secondFrameName = "second-named";
@@ -139,7 +139,7 @@ public class FramePathTest {
   }
 
   @Test
-  public void shouldGetADiffWithSubpathFrame() throws Exception {
+  public void shouldGetADiffWithSubpathFrame() {
     // given
     String firstFrameName = "first-named";
     String secondFrameName = "second-named";
@@ -155,7 +155,7 @@ public class FramePathTest {
   }
 
   @Test
-  public void shouldGetAFullDiffWithDifferentPaths() throws Exception {
+  public void shouldGetAFullDiffWithDifferentPaths() {
     // given
     String firstFrameName = "first-named";
     String secondFrameName = "second-named";

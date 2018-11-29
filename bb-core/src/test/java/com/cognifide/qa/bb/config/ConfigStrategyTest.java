@@ -38,7 +38,7 @@ public class ConfigStrategyTest {
   private ConfigStrategy strategy = new DefaultConfigStrategy();
 
   @Test
-  public void gatherProperties_loadsPropertiesInCorrectOrder() {
+  public void loadsPropertiesInCorrectOrder() {
     ConfigStrategy tested = mock(ConfigStrategy.class);
     InOrder inOrder = inOrder(tested);
 
@@ -56,7 +56,7 @@ public class ConfigStrategyTest {
   }
 
   @Test
-  public void gatherProperties_resolvesConfigCorrectly() {
+  public void resolvesConfigCorrectly() {
     Properties expected = new Properties();
     expected.putAll(mapOf(
         entry("webdriver.reusable", "true"),
@@ -72,7 +72,7 @@ public class ConfigStrategyTest {
   }
 
   @Test
-  public void overrideFromSystemProperties_overridesConfigProperties_whenSysPropsAreNotBlank() {
+  public void overridesConfigPropertiesWhenSysPropsAreNotBlank() {
     Properties configProperties = new Properties();
     configProperties.putAll(mapOf(
         entry("override.prop", "should-be-overriden"),
@@ -89,7 +89,7 @@ public class ConfigStrategyTest {
   }
 
   @Test
-  public void setSystemProperties_setsSystemProperties_onlyForWebdriverPropertiesInConfig() {
+  public void setsSystemPropertiesOnlyForWebdriverPropertiesInConfig() {
     Map<String, String> expected = mapOf(
         entry("webdriver.maximize", ""),
         entry("webdriver.reusable", ""));
@@ -110,7 +110,7 @@ public class ConfigStrategyTest {
   }
 
   @Test
-  public void setSystemProperties_doesNotSetSystemProperties_whenNoWebdriverPropertiesArePresentInConfig() {
+  public void doesNotSetSystemPropertiesWhenNoWebdriverPropertiesArePresentInConfig() {
     Properties configProperties = new Properties();
     configProperties.putAll(mapOf(
         entry("custom.type", "firefox"),

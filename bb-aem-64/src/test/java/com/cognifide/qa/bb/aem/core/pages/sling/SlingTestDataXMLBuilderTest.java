@@ -52,11 +52,11 @@ public class SlingTestDataXMLBuilderTest {
         "/conf/we-retail/settings/wcm/templates/content-page"));
     toReturn.add(new BasicNameValuePair("./jcr:content/jcr:description", TEST_PAGE));
     toReturn.add(new BasicNameValuePair("./jcr:content/jcr:primaryType", "cq:PageContent"));
-    toReturn.add(new BasicNameValuePair("./jcr:content/jcr:title", "Test page"));
+    toReturn.add(new BasicNameValuePair("./jcr:content/jcr:title", TEST_PAGE));
     toReturn.add(new BasicNameValuePair("./jcr:content/sling:resourceType",
         "weretail/components/structure/page"));
-    toReturn.add(new BasicNameValuePair("./jcr:content/browserTitle", "Test page"));
-    toReturn.add(new BasicNameValuePair("./jcr:content/pageTitle", "Test page"));
+    toReturn.add(new BasicNameValuePair("./jcr:content/browserTitle", TEST_PAGE));
+    toReturn.add(new BasicNameValuePair("./jcr:content/pageTitle", TEST_PAGE));
     toReturn.add(new BasicNameValuePair("./jcr:content/image/jcr:primaryType", "nt:unstructured"));
     toReturn
         .add(new BasicNameValuePair("./jcr:content/content/jcr:primaryType", "nt:unstructured"));

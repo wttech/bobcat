@@ -44,7 +44,7 @@ public class YamlConfigTest {
   private static final String OVERRIDEN = "overriden";
 
   @Test
-  public void loadDefaultConfig_shouldLoadAllDefaultProperties() {
+  public void shouldLoadAllDefaultProperties() {
     Config defaultYaml = new Config();
     DefaultConfig defConfig = new DefaultConfig();
     defConfig.setProperties(mapOf(
@@ -62,7 +62,7 @@ public class YamlConfigTest {
   }
 
   @Test
-  public void loadConfig_shouldLoadOnlySelectedContexts_whenDefaultContextsAreSet() {
+  public void shouldLoadOnlySelectedContextsWhenDefaultContextsAreSet() {
     Config userYaml = new Config();
     DefaultConfig defConfig = new DefaultConfig();
     defConfig.setContexts(Arrays.asList("context1", "context2"));
@@ -86,7 +86,7 @@ public class YamlConfigTest {
   }
 
   @Test
-  public void loadConfig_shouldLoadNoContexts_whenNoneAreSelected() {
+  public void lshouldLoadNoContextsWhenNoneAreSelected() {
     Config userYaml = new Config();
     DefaultConfig defConfig = new DefaultConfig();
     Map.Entry[] defaultEntries = {entry("property1", "value1"), entry("property2", "value2")};
@@ -109,7 +109,7 @@ public class YamlConfigTest {
   }
 
   @Test
-  public void loadConfig_shouldOverrideDefaultProperties_whenThereAreOverridesLoadedFromContexts() {
+  public void shouldOverrideDefaultPropertiesWhenThereAreOverridesLoadedFromContexts() {
     Config userYaml = new Config();
     DefaultConfig defConfig = new DefaultConfig();
     Map.Entry[] defaultEntries = {entry("property1", "value1"), entry("property2", "value2")};
@@ -133,7 +133,7 @@ public class YamlConfigTest {
   }
 
   @Test
-  public void loadConfig_shouldOverrideDefaultContexts_whenContextsAreProvidedInSysProp() {
+  public void shouldOverrideDefaultContextsWhenContextsAreProvidedInSysProp() {
     Config userYaml = new Config();
     DefaultConfig defConfig = new DefaultConfig();
     defConfig.setContexts(Arrays.asList("context1", "context2"));
@@ -158,7 +158,7 @@ public class YamlConfigTest {
   }
 
   @Test
-  public void loadConfig_shouldLoadAdditionalContexts_whenTheyAreAvailableInSeparateFilesAndActivated() {
+  public void shouldLoadAdditionalContextsWhenTheyAreAvailableInSeparateFilesAndActivated() {
     Config userYaml = new Config();
     DefaultConfig defConfig = new DefaultConfig();
     defConfig.setContexts(Arrays.asList("additional-context1", "additional-context2"));
