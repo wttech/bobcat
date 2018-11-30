@@ -25,6 +25,15 @@ import org.openqa.selenium.WebDriver;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
+/**
+ * Provider for instances of {@link JavascriptExecutor}.
+ * <p>
+ * Users are encouraged to inject instances directly:
+ * <p>
+ * {@code
+ *
+ * @Inject private JavascriptExecutor jsExecutor;}
+ */
 public class JavascriptExecutorProvider implements Provider<JavascriptExecutor> {
 
   @Inject

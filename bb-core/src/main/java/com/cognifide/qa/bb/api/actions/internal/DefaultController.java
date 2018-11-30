@@ -28,6 +28,14 @@ import com.cognifide.qa.bb.api.actions.ActionWithData;
 import com.cognifide.qa.bb.api.actions.ActionsController;
 import com.google.inject.Inject;
 
+/**
+ * Bobcat's default {@link ActionsController}.
+ * <p>
+ * It's bound in the Core module, so users can simply inject it:
+ * {@code
+ *
+ * @Inject private ActionsController controller;}
+ */
 public class DefaultController implements ActionsController {
 
   @Inject(optional = true)

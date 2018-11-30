@@ -19,5 +19,8 @@
  */
 package com.cognifide.qa.bb.api.actions;
 
+/**
+ * A marker interface for classes containing data to be processed by classes implementing {@link ActionWithData}.
+ */
 public interface ActionData {
 }

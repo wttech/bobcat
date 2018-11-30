@@ -23,6 +23,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * POJO describing {@code default} object in the YAML config file.
+ */
 public class DefaultConfig {
   private List<String> contexts = Collections.emptyList();
 

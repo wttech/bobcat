@@ -19,6 +19,9 @@
  */
 package com.cognifide.qa.bb.constants;
 
+/**
+ * Holds values of commonly used timeouts.
+ */
 public final class Timeouts {
 
   public static final int BIG = 30;

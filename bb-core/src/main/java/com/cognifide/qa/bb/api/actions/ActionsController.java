@@ -19,9 +19,21 @@
  */
 package com.cognifide.qa.bb.api.actions;
 
+/**
+ * Controller that executes provided {@link Action}s.
+ */
 public interface ActionsController {
 
+  /**
+   * @param action the key/name of the action to be executed
+   * @throws ActionException when action fails
+   */
   void execute(String action) throws ActionException;
 
+  /**
+   * @param action the key/name of the action with data to be executed
+   * @param data   data object to be consumed by the action
+   * @throws ActionException
+   */
   void execute(String action, ActionData data) throws ActionException;
 }

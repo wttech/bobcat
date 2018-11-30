@@ -26,6 +26,9 @@ import org.openqa.selenium.WebDriver;
 import com.cognifide.qa.bb.cookies.domain.CookieData;
 import com.google.inject.Inject;
 
+/**
+ * Sets all provided cookies for the active WebDriver session.
+ */
 public class CookiesSetter {
 
   private List<CookieData> cookies;
@@ -35,6 +38,9 @@ public class CookiesSetter {
     this.cookies = cookies;
   }
 
+  /**
+   * @param webDriver instance in which cookies will be set
+   */
   public void setCookies(WebDriver webDriver) {
     cookies.forEach(cookie -> {
       webDriver.get(cookie.getUrl());
@@ -42,6 +48,9 @@ public class CookiesSetter {
     });
   }
 
+  /**
+   * @return list of {@link CookieData} that are to be set for given WebDriver instance
+   */
   public List<CookieData> getCookies() {
     return cookies;
   }

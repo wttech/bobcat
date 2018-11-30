@@ -24,6 +24,9 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * POJO describing the YAML configuration file
+ */
 public class Config {
   @JsonProperty("default")
   private DefaultConfig defaultConfig;

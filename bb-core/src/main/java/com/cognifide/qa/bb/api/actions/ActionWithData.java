@@ -19,6 +19,17 @@
  */
 package com.cognifide.qa.bb.api.actions;
 
+/**
+ * Represents an action with additional data that can be executed by Bobcat's {@link ActionsController}.
+ *
+ * @param <T> type of {@link ActionData} that this action handles
+ */
 public interface ActionWithData<T extends ActionData> {
+  /**
+   * Executes the action with provided data.
+   *
+   * @param data the provided data object
+   * @throws ActionException when action fails
+   */
   void execute(T data) throws ActionException;
 }

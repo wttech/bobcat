@@ -19,6 +19,9 @@
  */
 package com.cognifide.qa.bb.constants;
 
+/**
+ * Holds all configuration keys used in Bobcat Core module.
+ */
 public final class ConfigKeys {
 
   public static final String PROXY_ENABLED = "proxy.enabled";

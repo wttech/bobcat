@@ -28,6 +28,9 @@ import com.google.inject.AbstractModule;
 import com.google.inject.TypeLiteral;
 import com.google.inject.multibindings.Multibinder;
 
+/**
+ * Guice module responsible for bindings related to the cookie setting mechanism.
+ */
 public class CookiesModule extends AbstractModule {
   @Override
   public void configure() {
