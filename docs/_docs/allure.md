@@ -22,7 +22,7 @@ This property turns on automated environment properties file to be prepared by B
 ## Manual installation
 
 1. Add dependencies and tasks to gradle file already prepared for [JUnit 5]({{site.baseurl}}/docs/modules/junit5/) 
-    ```gradle
+    ```groovy
       (...)
       buildscript {
           repositories {

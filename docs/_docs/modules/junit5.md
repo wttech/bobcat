@@ -10,11 +10,11 @@ It also allow to generate allure reports which is included in this module
 
 1. Add dependency to your `build.gradle` file:
 
-    ```gradle
-       compile group: 'com.cognifide.qa.bb', name: 'bb-junit5', version: 1.5.0
+    ```groovy
+       compile group: 'com.cognifide.qa.bb', name: 'bb-junit5', version: '<Bobcat Version>'
     ```
 2. Add JUnit platform to test task
-    ```gradle
+    ```groovy
       test {
         useJUnitPlatform()
         systemProperties = System.getProperties()

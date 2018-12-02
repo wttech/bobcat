@@ -11,7 +11,6 @@ On this page, you will find all the necessary information that will help you kic
 Before you start, please make sure you have following stuff installed on your machine:
 
 - JDK 1.8
-- Maven 3.X.X
 
 ## Generating a Bobcat project
 
