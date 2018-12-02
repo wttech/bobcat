@@ -18,15 +18,6 @@ That's it! You're ready to start writing your own tests. Enjoy!
 
 All available Bobcat templates are listed below:
 
-### JUnit Template
-
-This template provides a basic Bobcat project with [JUnit](https://junit.org) as the test runner.
-
-Modules included in this template:
-  - `bb-core`
-  - `bb-reports`
-  - `bb-junit`
-
 ### JUnit 5 Template
 
 This template provides a basic Bobcat project with [JUnit 5](https://junit.org/junit5/) as the test runner.
@@ -35,36 +26,37 @@ Modules included in this template:
   - `bb-core`
   - `bb-junit5`
 
-### BDD Template
-
-This template provides a basic Bobcat project with [Cucumber](https://docs.cucumber.io/) as the test runner.
- 
-Modules included in this template:
-  - `bb-core`
-  - `bb-reports`
-  - `bb-cumber`
-
-### AEM BDD Template
-
-This template is suitable for AEM (Adobe Experience Manager) test automation, with [Cucumber](https://docs.cucumber.io/) as the test runner. It provides sample AEM Author tests.
-
-Modules included in this template:
-  - `bb-core`
-  - `bb-reports`
-  - `bb-cumber`
-  - `bb-aem-classic`
-  - `bb-aem-touch-ui`
-
 ### AEM JUnit Template
 
 This template is suitable for AEM (Adobe Experience Manager) test automation, with JUnit as the test runner. It provides sample AEM Author tests.
 
 Modules included in this template:
   - `bb-core`
-  - `bb-reports`
-  - `bb-junit`
-  - `bb-aem-classic`
-  - `bb-aem-touch-ui`
+  - `bb-junit5`
+  - `bb-aem-core`
+  - `bb-aem-64`
+
+### BDD Template
+**Important:** We suggest to use JUnit 5 template instead. This template will work with 2.0 version but some features will not be available. Cucumber is not supporting junit5 
+{: .notice--warning}
+
+This template provides a basic Bobcat project with [Cucumber](https://docs.cucumber.io/) as the test runner.
+ 
+Modules included in this template:
+  - `bb-core`
+  - `bb-cumber`
+
+### AEM BDD Template
+**Important:** We suggest to use AEM JUnit template instead. This template will work with 2.0 version but some features will not be available. Cucumber is not supporting junit5
+{: .notice--warning}
+
+This template is suitable for AEM (Adobe Experience Manager) test automation, with [Cucumber](https://docs.cucumber.io/) as the test runner. It provides sample AEM Author tests.
+
+Modules included in this template:
+  - `bb-core`
+  - `bb-cumber`
+  - `bb-aem-core`
+  - `bb-aem-64`
 
 ### Appium Template
 

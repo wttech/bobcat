@@ -23,6 +23,5 @@ It also allow to generate allure reports which is included in this module
     }
     ```
 3. Mark test methods with JUnit 5 test annotation
-4. Mark test classes with @RunWithJunit5 
 
 This module uses [Allure](http://allure.qatools.ru/) for reports. Full documentation can be found [here]({{site.baseurl}}/docs/allure/) 
