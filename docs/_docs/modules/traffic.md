@@ -14,7 +14,8 @@ To get Traffic module to be ready to use follow these two steps:
     }
     ```
 2. Installation:
-To install this module add following into your runmode file:
+    
+    To install this module add following into your runmode file:
 
      ```yaml
      - com.cognifide.qa.bb.traffic.TrafficModule

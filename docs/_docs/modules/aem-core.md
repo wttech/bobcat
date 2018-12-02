@@ -12,8 +12,8 @@ AEM Core is the base module for any AEM Authoring tests. To configure it in your
     ```
 2. Installation:
 
-This module should not be installed alone. It should be included in instalation of required AEM version module.
-But if separate installation is required then add following into your runmode file:
+    This module should not be installed alone. It should be included in instalation of required AEM version module.
+    But if separate installation is required then add following into your runmode file:
 
      ```yaml
      - com.cognifide.qa.bb.aem.core.modules.AemCoreModule

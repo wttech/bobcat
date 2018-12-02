@@ -11,7 +11,8 @@ As mentioned in Modules description, Core is the heart of Bobcat. To configure i
     }
     ```
 2. Installation:
-To install this module add following into your runmode file:
+
+    To install this module add following into your runmode file:
 
      ```yaml
      - com.cognifide.qa.bb.modules.CoreModule

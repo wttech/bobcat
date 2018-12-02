@@ -11,7 +11,8 @@ AEM 64 is the module for AEM  version 6.4 Authoring tests. To configure it in yo
     }
     ```
 2. Installation:
-To install this module add following into your runmode file:
+    
+    To install this module add following into your runmode file:
 
      ```yaml
      - com.cognifide.qa.bb.aem.core.modules.Aem64FullModule
