@@ -7,7 +7,7 @@ If we want to represent page in Bobcat we use class with `PageObject` annotation
 
 `Page.class` and `BobcatPageFactory.class` are Bobcat response and suggested solution.
 
-### Using `Page.class`
+## Using `Page.class`
 
 `Page.class` gives us methods to open page and also includes `WebDriver` in its implementation.
 
@@ -22,7 +22,7 @@ public class TestPage extends Page<TestPage> {
 
 We don't have to add any open method or path url it is already included.
 
-### Using `BobcatPageFactory.class`
+## Using `BobcatPageFactory.class`
 
 We created class that is page representation but we still need to get instance with required url. This is where we use `BobcatPageFactory.class`
 
@@ -44,7 +44,7 @@ public class WikipediaTest {
 ```
 We need to inject `BobcatPageFactory.class` into test class and then use its create method. It requires url served as String and page object class we want to create. Instance is created with already injected url
 
-### Additional info
+## Additional info
 
 * Class that extend `Page.class` should not override methods  `open`, `getFullUrl` and field `fullUrl`
 * `bobcat.page.path` is restricted property used by page factory mechanism and should not be used in project properties
