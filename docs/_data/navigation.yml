@@ -18,6 +18,8 @@ docs:
         url: /docs/templates/
       - title: "Configuring Bobcat"
         url: /docs/configuring-bobcat/
+  - title: "Guides"
+    children:
       - title: "Writing the first test"
         url: /docs/first-test/
   - title: "Core features"
