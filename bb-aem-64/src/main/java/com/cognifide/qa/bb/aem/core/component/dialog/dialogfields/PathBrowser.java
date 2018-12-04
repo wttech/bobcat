@@ -19,6 +19,8 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
+import static org.apache.commons.lang3.StringUtils.contains;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -55,7 +57,7 @@ public class PathBrowser implements DialogField {
    */
   @Override
   public void setValue(Object value) {
-    if (currentScope.getAttribute(HtmlTags.Attributes.CLASS).contains(TEXT_FIELD_CLASS)) {
+    if (contains(currentScope.getAttribute(HtmlTags.Attributes.CLASS), TEXT_FIELD_CLASS)) {
       currentScope.clear();
       currentScope.sendKeys(String.valueOf(value));
     } else {

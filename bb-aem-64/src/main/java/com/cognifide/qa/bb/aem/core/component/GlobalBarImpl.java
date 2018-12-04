@@ -31,7 +31,7 @@ import com.cognifide.qa.bb.wait.BobcatWait;
 import com.google.inject.Inject;
 
 /**
- * Implementation of {@link GlobalBar} for AEM 6.4
+ * Default Bobcat implementation of {@link GlobalBar} for AEM 6.4
  */
 @PageObject
 public class GlobalBarImpl implements GlobalBar {

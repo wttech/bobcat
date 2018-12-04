@@ -19,6 +19,9 @@
  */
 package com.cognifide.qa.bb.aem.core.component.actions;
 
+/**
+ *
+ */
 public class EditComponentData extends AbstractComponentActionData {
 
   public EditComponentData(String componentPath, String componentName, int componentOrder) {

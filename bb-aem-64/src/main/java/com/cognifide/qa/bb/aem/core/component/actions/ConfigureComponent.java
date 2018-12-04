@@ -34,6 +34,9 @@ import com.google.inject.Inject;
 
 import io.qameta.allure.Step;
 
+/**
+ * An {@link ActionWithData} that configures an AEM component. Consumes {@link ConfigureComponentData}.
+ */
 @PageObject
 public class ConfigureComponent implements ActionWithData<ConfigureComponentData> {
 

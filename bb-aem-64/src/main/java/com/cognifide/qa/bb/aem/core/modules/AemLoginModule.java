@@ -19,17 +19,17 @@
  */
 package com.cognifide.qa.bb.aem.core.modules;
 
-import com.cognifide.qa.bb.api.actions.Action;
 import com.cognifide.qa.bb.aem.core.api.AemActions;
 import com.cognifide.qa.bb.aem.core.login.AemAuthCookieFactory;
 import com.cognifide.qa.bb.aem.core.login.AemAuthCookieFactoryImpl;
 import com.cognifide.qa.bb.aem.core.login.actions.LogIn;
 import com.cognifide.qa.bb.aem.core.login.actions.LogOut;
+import com.cognifide.qa.bb.api.actions.Action;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.MapBinder;
 
 /**
- * Module that needs to be installed to use login to AEM instance functionality
+ * Module that contains binding related to login to AEM instance functionality
  */
 public class AemLoginModule extends AbstractModule {
 

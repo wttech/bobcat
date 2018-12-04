@@ -90,5 +90,4 @@ public class ListDialogPanel implements DialogField {
     INDENT,
     OUTDENT
   }
-
 }

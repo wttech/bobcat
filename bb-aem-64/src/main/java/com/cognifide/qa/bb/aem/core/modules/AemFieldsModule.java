@@ -43,7 +43,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.MapBinder;
 
 /**
- * This module contains bindings to touch ui dialog fields
+ * This module contains bindings for TouchUI dialog fields
  */
 public class AemFieldsModule extends AbstractModule {
 
