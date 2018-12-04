@@ -19,6 +19,9 @@
  */
 package com.cognifide.qa.bb.aem.core.sidepanel.internal;
 
+/**
+ *
+ */
 public enum SidePanelTabs {
 
   ASSETS("coral3-Icon--asset"), COMPONENTS(""), CONTENT_TREE("coral3-Icon--layers");

@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
 /**
- * Loads xml with test data and uses {@link PageXMLParserHandler} to parse this xml
+ * Builder for Sling data. Loads an XML with test data and uses {@link PageXMLParserHandler} to parse it.
  */
 public final class SlingDataXMLBuilder {
 
@@ -64,5 +64,6 @@ public final class SlingDataXMLBuilder {
   }
 
   private SlingDataXMLBuilder() {
+    //util
   }
 }

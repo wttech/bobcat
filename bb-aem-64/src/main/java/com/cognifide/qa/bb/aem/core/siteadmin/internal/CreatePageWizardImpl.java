@@ -19,18 +19,24 @@
  */
 package com.cognifide.qa.bb.aem.core.siteadmin.internal;
 
+import java.util.List;
+import java.util.NoSuchElementException;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
 import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.wait.BobcatWait;
 import com.google.inject.Inject;
-import io.qameta.allure.Step;
-import java.util.List;
-import java.util.NoSuchElementException;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
+import io.qameta.allure.Step;
+
+/**
+ * Default Bobcat implementation of {@link CreatePageWizard} for AEM 6.4
+ */
 @PageObject(css = "form.cq-siteadmin-admin-createpage")
 public class CreatePageWizardImpl implements CreatePageWizard {
 

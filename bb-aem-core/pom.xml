@@ -29,6 +29,7 @@
     </parent>
 
     <artifactId>bb-aem-core</artifactId>
+    <name>Bobcat AEM Core</name>
 
     <dependencies>
         <dependency>

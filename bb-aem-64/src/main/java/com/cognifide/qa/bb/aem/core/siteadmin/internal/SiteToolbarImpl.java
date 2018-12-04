@@ -19,11 +19,6 @@
  */
 package com.cognifide.qa.bb.aem.core.siteadmin.internal;
 
-import com.cognifide.qa.bb.qualifier.CurrentScope;
-import com.cognifide.qa.bb.qualifier.FindPageObject;
-import com.cognifide.qa.bb.qualifier.Global;
-import com.cognifide.qa.bb.qualifier.PageObject;
-import com.google.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -31,6 +26,15 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
+import com.cognifide.qa.bb.qualifier.CurrentScope;
+import com.cognifide.qa.bb.qualifier.FindPageObject;
+import com.cognifide.qa.bb.qualifier.Global;
+import com.cognifide.qa.bb.qualifier.PageObject;
+import com.google.inject.Inject;
+
+/**
+ * Default Bobcat implementation of {@link SiteToolbar} for AEM 6.4
+ */
 @PageObject(css = ".foundation-collection-actionbar")
 public class SiteToolbarImpl implements SiteToolbar {
 

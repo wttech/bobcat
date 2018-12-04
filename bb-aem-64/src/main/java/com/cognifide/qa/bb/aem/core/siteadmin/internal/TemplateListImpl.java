@@ -26,6 +26,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+/**
+ * Default Bobcat implementation of {@link TemplateList} for AEM 6.4
+ */
 @PageObject(css = "coral-masonry")
 public class TemplateListImpl implements TemplateList {
 
