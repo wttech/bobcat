@@ -19,18 +19,28 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text;
 
-import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 import org.openqa.selenium.WebElement;
 
+import com.cognifide.qa.bb.qualifier.PageObjectInterface;
+
 /**
- * Interface that represents text justification options.
+ * Interface that represents text justification options of Rich Text editor.
  */
 @PageObjectInterface
 public interface JustifyControls {
 
+  /**
+   * @return {@link WebElement} representing the Justify Left button
+   */
   WebElement getJustifyLeftBtn();
 
+  /**
+   * @return {@link WebElement} representing the Justify Center button
+   */
   WebElement getJustifyCenterBtn();
 
+  /**
+   * @return {@link WebElement} representing the Justify Right button
+   */
   WebElement getJustifyRightBtn();
 }

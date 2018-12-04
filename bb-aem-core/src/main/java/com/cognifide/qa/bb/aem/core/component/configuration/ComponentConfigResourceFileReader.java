@@ -19,29 +19,34 @@
  */
 package com.cognifide.qa.bb.aem.core.component.configuration;
 
-import com.cognifide.qa.bb.utils.YamlReader;
-import com.fasterxml.jackson.core.type.TypeReference;
-import java.util.ArrayList;
-import java.util.HashMap;
+import static java.util.stream.Collectors.toList;
+
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Utils class for reading single component configuration from file in test resources
- */
-public class ComponentConfigResourceFileReader implements
-    ComponentConfigReader<ResourceFileLocation> {
+import com.cognifide.qa.bb.utils.YamlReader;
+import com.fasterxml.jackson.core.type.TypeReference;
 
+/**
+ * Utility class for reading a single component configuration from a YAML file in test resources.
+ */
+public class ComponentConfigResourceFileReader
+    implements ComponentConfigReader<ResourceFileLocation> {
+
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public ComponentConfiguration readConfiguration(ResourceFileLocation resourceFileLocation) {
     TypeReference typeReference = new TypeReference<Map<String, List<FieldConfig>>>() {
     };
-    Map<String, List<FieldConfig>> configData = new HashMap(
+    Map<String, List<FieldConfig>> configData = Collections.unmodifiableMap(
         YamlReader.readFromTestResources(resourceFileLocation.getFileName(), typeReference));
-    List<TabConfig> tabsConfig = new ArrayList<>();
-    configData.entrySet().stream().forEach(entry ->
-        tabsConfig.add(new TabConfig(entry.getKey(), entry.getValue()))
-    );
+
+    List<TabConfig> tabsConfig = configData.entrySet().stream()
+        .map(entry -> new TabConfig(entry.getKey(), entry.getValue()))
+        .collect(toList());
     return new ComponentConfiguration(tabsConfig);
   }
 

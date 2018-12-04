@@ -19,6 +19,9 @@
  */
 package com.cognifide.qa.bb.aem.core.component.configuration;
 
+/**
+ * Represents a configuration location of a resource file.
+ */
 public class ResourceFileLocation implements ConfigurationLocation {
 
   private String fileName;

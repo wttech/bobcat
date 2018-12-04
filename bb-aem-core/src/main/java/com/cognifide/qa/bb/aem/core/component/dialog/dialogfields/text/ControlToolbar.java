@@ -19,11 +19,12 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text;
 
-import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 import org.openqa.selenium.WebElement;
 
+import com.cognifide.qa.bb.qualifier.PageObjectInterface;
+
 /**
- * Interface that represents RichTexts controls toolbar.
+ * Interface that represents the controls toolbar of a RichText.
  */
 @PageObjectInterface
 public interface ControlToolbar {
@@ -33,15 +34,37 @@ public interface ControlToolbar {
    */
   void selectText();
 
+  /**
+   * This should return an element obtained from:
+   * <p>
+   * {@code @Inject @CurrentScope private WebElement currentScope}
+   *
+   * @return {@link WebElement} representing the current scope of this element
+   */
   WebElement getScope();
 
+  /**
+   * @return {@link WebElement} representing the Bold button
+   */
   WebElement getToggleBoldButton();
 
+  /**
+   * @return {@link WebElement} representing the Italic button
+   */
   WebElement getToggleItalicButton();
 
+  /**
+   * @return {@link WebElement} representing the Underline button
+   */
   WebElement getToggleUnderlineButton();
 
+  /**
+   * @return {@link WebElement} representing the Justify button
+   */
   WebElement getToggleJustifyButton();
 
+  /**
+   * @return {@link WebElement} representing the List button
+   */
   WebElement getToggleListButton();
 }

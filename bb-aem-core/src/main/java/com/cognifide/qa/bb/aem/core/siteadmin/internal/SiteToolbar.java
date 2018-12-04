@@ -21,14 +21,18 @@ package com.cognifide.qa.bb.aem.core.siteadmin.internal;
 
 import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 
+/**
+ * Represents the site toolbar in AEM authoring
+ */
 @PageObjectInterface
-public interface SiteToolbar{
+public interface SiteToolbar {
 
   /**
-   * Create page using Siteadmin (without selecting root page)
-   * @param template
-   * @param title
-   * @param name
+   * Create a page using Siteadmin (without selecting root page)
+   *
+   * @param template the template to be used during creation
+   * @param title    title of the page
+   * @param name     name of the page
    */
   void createPage(String template, String title, String name);
 }

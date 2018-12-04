@@ -59,7 +59,7 @@ public class ConfigDialogImpl implements ConfigDialog {
   private WebElement currentScope;
 
   @Inject
-  private DialogConfigurer dialogConfigurer;
+  private DialogFieldRetriever dialogConfigurer;
 
   @Inject
   @CurrentScope

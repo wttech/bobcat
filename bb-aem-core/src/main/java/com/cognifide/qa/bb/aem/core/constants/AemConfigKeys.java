@@ -19,6 +19,9 @@
  */
 package com.cognifide.qa.bb.aem.core.constants;
 
+/**
+ * Contains configuration keys of properties related to AEM
+ */
 public final class AemConfigKeys {
 
   public static final String AUTHOR_URL = "author.url";
@@ -37,6 +40,7 @@ public final class AemConfigKeys {
 
   public static final String PUBLISH_PASSWORD = "publish.password";
 
-  private AemConfigKeys() {}
+  private AemConfigKeys() {
+  }
 
 }

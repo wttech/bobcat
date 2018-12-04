@@ -21,9 +21,17 @@ package com.cognifide.qa.bb.aem.core.sidepanel.internal;
 
 import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 
+/**
+ * Represents the tabs bar of the side panel in AEM authoring
+ */
 @PageObjectInterface
 public interface SidePanelTabBar {
 
+  /**
+   * Switches to the provided tab
+   *
+   * @param tab name of the tab to be switched to
+   */
   void switchTab(String tab);
 
 }

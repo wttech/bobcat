@@ -19,9 +19,12 @@
  */
 package com.cognifide.qa.bb.aem.core.component.configuration;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import com.cognifide.qa.bb.aem.core.component.configuration.ComponentConfigResourceFileReader;
+import com.cognifide.qa.bb.aem.core.component.configuration.ComponentConfiguration;
+import com.cognifide.qa.bb.aem.core.component.configuration.ResourceFileLocation;
 
 public class ComponentConfigResourceFileReaderTest {
 
@@ -31,6 +34,6 @@ public class ComponentConfigResourceFileReaderTest {
   public void readConfigurationTest() {
     ComponentConfiguration componentConfiguration = testObject
         .readConfiguration(new ResourceFileLocation("componentConfig.yaml"));
-    assertThat(componentConfiguration.getTabs().size()).isEqualTo(2);
+    Assertions.assertThat(componentConfiguration.getTabs().size()).isEqualTo(2);
   }
 }

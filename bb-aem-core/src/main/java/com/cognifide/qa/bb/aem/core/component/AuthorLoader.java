@@ -20,7 +20,7 @@
 package com.cognifide.qa.bb.aem.core.component;
 
 /**
- * Interface for representing author loading page visual effects.
+ * Represents author loading page visual effects.
  */
 public interface AuthorLoader {
 

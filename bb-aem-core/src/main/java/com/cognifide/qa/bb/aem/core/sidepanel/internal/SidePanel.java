@@ -19,26 +19,40 @@
  */
 package com.cognifide.qa.bb.aem.core.sidepanel.internal;
 
-import com.cognifide.qa.bb.dragdrop.Draggable;
-import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 import org.openqa.selenium.WebElement;
 
+import com.cognifide.qa.bb.dragdrop.Draggable;
+import com.cognifide.qa.bb.qualifier.PageObjectInterface;
+
 /**
- * Interface that represent authoring mode side panel.
+ * Represents the side panel in AEM authoring mode.
  */
 @PageObjectInterface
 public interface SidePanel {
 
+  /**
+   * Selects the provided tab.
+   *
+   * @param tab name of the tab to be selected
+   */
   void selectTab(String tab);
 
   /**
    * Searches for assets for given asset name and return it as draggable.
    *
-   * @param asset name.
-   * @return {@link Draggable} instance of the asset.
+   * @param asset name
+   * @return a {@link Draggable} instance of the asset
    */
   Draggable searchForAsset(String asset);
 
+  /**
+   * Selects the provided component for edition
+   *
+   * @param path          path of the component to be selected
+   * @param component     component name
+   * @param elementNumber which element should be selected in case there are more than 1 of given type
+   * @return a {@link WebElement} representing the selected component
+   */
   WebElement selectComponentToEdit(String path, String component, int elementNumber);
 
 }

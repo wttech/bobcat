@@ -51,12 +51,6 @@ public class ConfigureComponent implements ActionWithData<ConfigureComponentData
   @FindPageObject
   private ComponentToolbar componentToolbar;
 
-  private void selectComponent(ConfigureComponentData actionData) {
-    sidePanel.selectTab(SidePanelTabs.CONTENT_TREE.getCssClass());
-    sidePanel.selectComponentToEdit(actionData.getComponentPath(), actionData.getComponentName(),
-        actionData.getComponentOrder()).click();
-  }
-
   @SuppressWarnings("unchecked")
   @Override
   @Step("Configure component")
@@ -66,5 +60,11 @@ public class ConfigureComponent implements ActionWithData<ConfigureComponentData
     ComponentConfiguration componentConfiguration = componentConfigReader
         .readConfiguration(data.getResourceFileLocation());
     configDialog.configureWith(componentConfiguration);
+  }
+
+  private void selectComponent(ConfigureComponentData actionData) {
+    sidePanel.selectTab(SidePanelTabs.CONTENT_TREE.getCssClass());
+    sidePanel.selectComponentToEdit(actionData.getComponentPath(), actionData.getComponentName(),
+        actionData.getComponentOrder()).click();
   }
 }

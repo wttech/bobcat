@@ -22,7 +22,7 @@ package com.cognifide.qa.bb.aem.core.pages;
 import com.cognifide.qa.bb.api.actions.ActionException;
 
 /**
- * Exception thrown if there is problem with page manipulation
+ * Exception thrown if there is a problem with page manipulation
  */
 public class AemPageManipulationException extends ActionException {
 

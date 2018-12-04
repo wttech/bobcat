@@ -30,7 +30,7 @@ import com.google.inject.Inject;
 import io.qameta.allure.Step;
 
 /**
- * Abstract class that marks page
+ * Abstract class that represents a generic page
  */
 public class Page<T extends Page> {
 

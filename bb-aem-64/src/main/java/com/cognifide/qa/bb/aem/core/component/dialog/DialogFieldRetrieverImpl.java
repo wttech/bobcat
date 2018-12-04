@@ -21,21 +21,23 @@ package com.cognifide.qa.bb.aem.core.component.dialog;
 
 import static org.apache.commons.lang3.StringUtils.containsIgnoreCase;
 
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DialogField;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Fields;
 import com.cognifide.qa.bb.utils.AopUtil;
 import com.cognifide.qa.bb.utils.PageObjectInjector;
 import com.google.inject.Inject;
-import java.util.List;
-import java.util.Map;
-import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 /**
- * This class represents TouchUI components dialog configurer.
+ * Default AEM 6.4 Bobcat implementation of the {@link DialogFieldRetriever}
  */
-public class DialogConfigurerImpl implements DialogConfigurer {
+public class DialogFieldRetrieverImpl implements DialogFieldRetriever {
 
   private static final By FIELD_LOCATOR = By.cssSelector(".coral-Form-fieldwrapper");
 
@@ -46,7 +48,8 @@ public class DialogConfigurerImpl implements DialogConfigurer {
       .cssSelector("label.coral3-Checkbox-description");
   private static final By IMAGE_LOCATOR = By.cssSelector(".coral-Form-field.cq-FileUpload");
   private static final By CHECKBOX_LOCATOR = By.cssSelector(".coral-Form-field.coral3-Checkbox");
-  private static final By RADIO_GROUP_LOCATOR = By.cssSelector(".coral-Form-field.coral-RadioGroup");
+  private static final By RADIO_GROUP_LOCATOR =
+      By.cssSelector(".coral-Form-field.coral-RadioGroup");
 
   @Inject
   private Map<String, DialogField> fieldTypeRegistry;
@@ -57,11 +60,8 @@ public class DialogConfigurerImpl implements DialogConfigurer {
   /**
    * Finds the dialog field of given type within a WebElement based on the provided label. If label
    * is not present, returns the first field from the tab.
-   *
-   * @param parentElement parent element from which DialogField will be retrieved
-   * @param label of the requested field
-   * @param type of the requested field
-   * @return DialogField of the given type based on the provided info
+   * <p>
+   * {@inheritDoc}
    */
   @Override
   public DialogField getDialogField(WebElement parentElement, String label, String type) {
@@ -79,13 +79,8 @@ public class DialogConfigurerImpl implements DialogConfigurer {
     return getFieldObject(scope, type);
   }
 
-
   /**
-   * Find the dialog input field of given type within a parent WebElement.
-   *
-   * @param parentElement parent element from which DialogField will be retrieved.
-   * @param type of the requested field.
-   * @return DialogField of the given type based on the provided info.
+   * {@inheritDoc}
    */
   @Override
   public DialogField getDialogField(WebElement parentElement, String type) {

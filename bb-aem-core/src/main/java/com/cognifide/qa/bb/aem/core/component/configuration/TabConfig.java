@@ -18,6 +18,9 @@ package com.cognifide.qa.bb.aem.core.component.configuration;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Represents a component configuration of a single dialog tab.
+ */
 public class TabConfig {
 
   private final String tabName;
@@ -30,7 +33,6 @@ public class TabConfig {
   }
 
   /**
-   *
    * @return A list of Field Configurations within the tab
    */
   public List<FieldConfig> getData() {
@@ -38,7 +40,6 @@ public class TabConfig {
   }
 
   /**
-   *
    * @return tab name
    */
   public String getTabName() {

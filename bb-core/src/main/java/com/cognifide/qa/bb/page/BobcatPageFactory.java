@@ -25,7 +25,9 @@ import com.google.inject.Injector;
 import com.google.inject.name.Names;
 
 /**
- * Factory to create pages
+ * Factory to create pages.
+ * <p>
+ * Creates dynamically instances of {@link Page}.
  */
 public class BobcatPageFactory {
 
@@ -36,6 +38,7 @@ public class BobcatPageFactory {
 
   /**
    * Create pages from selected path and selected type
+   *
    * @param path
    * @param tClass
    * @param <T>
