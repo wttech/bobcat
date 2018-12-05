@@ -60,8 +60,8 @@ public class ConfigureComponent implements ActionWithData<ConfigureComponentData
   public void execute(ConfigureComponentData data) {
     selectComponent(data);
     componentToolbar.clickOption(CommonToolbarOptions.CONFIGURE.getTitle());
-    ComponentConfiguration componentConfiguration = componentConfigReader
-        .readConfiguration(data.getResourceFileLocation());
+    ComponentConfiguration componentConfiguration =
+        componentConfigReader.readConfiguration(data.getConfigLocation());
     configDialog.configureWith(componentConfiguration);
   }
 
