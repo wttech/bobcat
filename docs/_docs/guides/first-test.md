@@ -184,4 +184,4 @@ Note: due to the fact that Bobcat needs a Guice context constructed, running sce
 
 ## Summary
 
-As you can see, the whole process of writing tests is pretty straightforward. No matter what type of runner you use, you can use all the features exposed by [Bobcat modules]({{site.baseurl}}/docs/modules/).
+As you can see, the whole process of writing tests is pretty straightforward.
