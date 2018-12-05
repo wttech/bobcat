@@ -27,8 +27,8 @@ import com.cognifide.qa.bb.aem.core.component.actions.ConfigureComponent;
 import com.cognifide.qa.bb.aem.core.component.actions.EditComponent;
 import com.cognifide.qa.bb.aem.core.component.dialog.ConfigDialog;
 import com.cognifide.qa.bb.aem.core.component.dialog.ConfigDialogImpl;
-import com.cognifide.qa.bb.aem.core.component.dialog.DialogConfigurer;
-import com.cognifide.qa.bb.aem.core.component.dialog.DialogConfigurerImpl;
+import com.cognifide.qa.bb.aem.core.component.dialog.DialogFieldRetriever;
+import com.cognifide.qa.bb.aem.core.component.dialog.DialogFieldRetrieverImpl;
 import com.cognifide.qa.bb.aem.core.component.toolbar.CommonToolbarOption;
 import com.cognifide.qa.bb.aem.core.component.toolbar.CommonToolbarOptions;
 import com.cognifide.qa.bb.aem.core.component.toolbar.ComponentToolbar;
@@ -47,7 +47,7 @@ public class AemComponentModule extends AbstractModule {
     bindComponentActions();
     bind(ComponentToolbar.class).to(ComponentToolbarImpl.class);
     bind(ConfigDialog.class).to(ConfigDialogImpl.class);
-    bind(DialogConfigurer.class).to(DialogConfigurerImpl.class);
+    bind(DialogFieldRetriever.class).to(DialogFieldRetrieverImpl.class);
     bindCommonToolbarOptions();
   }
 

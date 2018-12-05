@@ -19,12 +19,31 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog;
 
-import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DialogField;
 import org.openqa.selenium.WebElement;
 
-public interface DialogConfigurer {
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DialogField;
 
+/**
+ * Provides a way to retrieve {@link DialogField}s from a component configuration
+ */
+public interface DialogFieldRetriever {
+
+  /**
+   * Returns a dialog field from a parent {@link WebElement} based on its label and field type
+   *
+   * @param parentElement parent {@link WebElement} of the field
+   * @param label         field label
+   * @param type          field type
+   * @return a {@link DialogField}
+   */
   DialogField getDialogField(WebElement parentElement, String label, String type);
 
+  /**
+   * Returns a dialog field from a parent {@link WebElement} based on its type
+   *
+   * @param parentElement parent {@link WebElement} of the field
+   * @param type          field type
+   * @return a {@link DialogField}
+   */
   DialogField getDialogField(WebElement parentElement, String type);
 }

@@ -22,7 +22,7 @@ package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 
 /**
- * This interface represents a TouchUI components that are dialog fields.
+ * This interface represents a TouchUI element that is a dialog field.
  */
 @PageObjectInterface
 public interface DialogField {

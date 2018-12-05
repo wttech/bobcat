@@ -17,15 +17,16 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.pages.sling;
-
-import static org.assertj.core.api.Assertions.assertThat;
+package com.cognifide.qa.bb.aem.sling;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.message.BasicNameValuePair;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import com.cognifide.qa.bb.aem.core.pages.sling.SlingDataXMLBuilder;
 
 public class SlingTestDataXMLBuilderTest {
 
@@ -35,13 +36,13 @@ public class SlingTestDataXMLBuilderTest {
   public void buildSlingTestData() {
     List<BasicNameValuePair> testResults = SlingDataXMLBuilder
         .buildFromFile("pageTest.xml");
-    assertThat(testResults.size()).isEqualTo(11);
+    Assertions.assertThat(testResults.size()).isEqualTo(11);
     List<BasicNameValuePair> expectedTestData = getExpectedTestData();
     int index = 0;
     for (BasicNameValuePair testResult : testResults) {
       BasicNameValuePair expectedData = expectedTestData.get(index++);
-      assertThat(testResult.getName()).isEqualTo(expectedData.getName());
-      assertThat(testResult.getValue()).isEqualTo(expectedData.getValue());
+      Assertions.assertThat(testResult.getName()).isEqualTo(expectedData.getName());
+      Assertions.assertThat(testResult.getValue()).isEqualTo(expectedData.getValue());
     }
   }
 

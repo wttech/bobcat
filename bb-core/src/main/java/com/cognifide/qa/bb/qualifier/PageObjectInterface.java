@@ -25,23 +25,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * PageObjectInterface is used for marking intefaces which are bound to PageObject representations
+ * This interface is used for marking interfaces which are bound to {@link PageObject} representations.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE})
 public @interface PageObjectInterface {
-
-  /**
-   * Use this property to identify the page object by css selector
-   *
-   * @return page object css class
-   */
-  String css() default "";
-
-  /**
-   * Use this property to identify the page object by xpath selector
-   *
-   * @return page object xpath
-   */
-  String xpath() default "";
 }

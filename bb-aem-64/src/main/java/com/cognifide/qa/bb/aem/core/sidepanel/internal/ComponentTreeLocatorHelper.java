@@ -27,6 +27,9 @@ import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Helper that locates components in Side Panel
+ */
 public class ComponentTreeLocatorHelper {
 
   private static final Logger LOG = LoggerFactory.getLogger(ComponentTreeLocatorHelper.class);
@@ -84,6 +87,7 @@ public class ComponentTreeLocatorHelper {
   }
 
   private ComponentTreeLocatorHelper() {
+    //util
   }
 
 }

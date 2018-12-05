@@ -19,11 +19,12 @@
  */
 package com.cognifide.qa.bb.aem.core.component;
 
-import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 import org.openqa.selenium.WebElement;
 
+import com.cognifide.qa.bb.qualifier.PageObjectInterface;
+
 /**
- * Interface represents authors mode global bar.
+ * Represents the global bar in the authoring mode.
  */
 @PageObjectInterface
 public interface GlobalBar {
@@ -45,7 +46,13 @@ public interface GlobalBar {
    */
   void switchToPreviewMode();
 
+  /**
+   * @return a boolean value indicating whether the user is in the preview mode
+   */
   boolean isInPreviewMode();
 
+  /**
+   * @return a boolean value indicating whether the user is in the edit mode
+   */
   boolean isInEditMode();
 }

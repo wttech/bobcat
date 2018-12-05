@@ -21,14 +21,34 @@ package com.cognifide.qa.bb.aem.core.siteadmin.internal;
 
 import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 
+/**
+ * Represents the Create Page Wizard in AEM authoring
+ */
 @PageObjectInterface
 public interface CreatePageWizard {
 
+  /**
+   * Selects the template that is to be used during page creation process.
+   *
+   * @param templateName name of the template to be selected
+   * @return self-reference
+   */
   CreatePageWizard selectTemplate(String templateName);
 
+  /**
+   * @param name name of the page
+   * @return self-reference
+   */
   CreatePageWizard provideName(String name);
 
+  /**
+   * @param title title of the page
+   * @return self-reference
+   */
   CreatePageWizard provideTitle(String title);
 
+  /**
+   * Submits the page creation window
+   */
   void submit();
 }

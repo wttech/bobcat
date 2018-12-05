@@ -23,42 +23,48 @@ import static com.cognifide.qa.bb.junit5.JUnit5Constants.NAMESPACE;
 import static com.cognifide.qa.bb.junit5.allure.AllureConstants.ALLURE_CREATE_ENVIROMENT;
 import static com.cognifide.qa.bb.junit5.allure.AllureConstants.ALLURE_REPORT;
 
-import com.cognifide.qa.bb.junit5.guice.InjectorUtils;
-import com.google.inject.Injector;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
+
 import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.slf4j.LoggerFactory;
 
-/**
- * Creates enviroment file for report
- */
-public class EnviromentInfoExtension implements AfterAllCallback {
+import com.cognifide.qa.bb.junit5.guice.InjectorUtils;
+import com.google.inject.Injector;
 
-  private static final String ENVIROMENT_FILE = "environment.properties";
+/**
+ * Creates a file with environment details for test report.
+ * <p>
+ * Loaded automatically by ServiceLoader.
+ */
+public class EnvironmentInfoExtension implements AfterAllCallback {
+
+  private static final String ENVIRONMENT_FILE = "environment.properties";
 
   private static final org.slf4j.Logger LOG = LoggerFactory
-      .getLogger(EnviromentInfoExtension.class);
+      .getLogger(EnvironmentInfoExtension.class);
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
-  public void afterAll(ExtensionContext context) throws Exception {
+  public void afterAll(ExtensionContext context) {
     Injector injector = InjectorUtils.retrieveInjectorFromStore(context, NAMESPACE);
     if (injector != null && injector.getInstance(Properties.class)
         .getProperty(ALLURE_REPORT, "false").equals("true") && injector
         .getInstance(Properties.class).getProperty(ALLURE_CREATE_ENVIROMENT, "false")
         .equals("true")) {
-      prepareEnviromentFile(injector.getInstance(Properties.class));
+      prepareEnvironmentFile(injector.getInstance(Properties.class));
     }
   }
 
-  private void prepareEnviromentFile(Properties properties) {
-
-    File enviromentFile = new File(
-        System.getProperty("allure.results.directory"), ENVIROMENT_FILE);
-    try (FileOutputStream propertiesOutputStream = new FileOutputStream(enviromentFile)) {
+  private void prepareEnvironmentFile(Properties properties) {
+    File environmentFile = new File(
+        System.getProperty("allure.results.directory"), ENVIRONMENT_FILE);
+    try (FileOutputStream propertiesOutputStream = new FileOutputStream(environmentFile)) {
       properties.store(propertiesOutputStream, null);
     } catch (IOException e) {
       LOG.error("Can't save properties file", e);

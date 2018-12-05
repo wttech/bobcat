@@ -17,7 +17,6 @@ package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.javascriptexecutor.JsScripts;
@@ -32,9 +31,6 @@ import com.google.inject.Inject;
 public class ControlToolbarImpl implements ControlToolbar {
 
   static final String TOOLBAR_ITEM_SELECTOR = ".rte-toolbar-item";
-
-  @Inject
-  private Actions actions;
 
   @Inject
   @CurrentScope

@@ -21,8 +21,16 @@ package com.cognifide.qa.bb.aem.core.siteadmin.internal;
 
 import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 
+/**
+ * Represents the template list in Siteadmin in AEM authoring
+ */
 @PageObjectInterface
 public interface TemplateList {
 
+  /**
+   * Select the provided template
+   *
+   * @param templateName name of the template to be selected
+   */
   void selectTemplate(String templateName);
 }

@@ -22,8 +22,9 @@ package com.cognifide.qa.bb.aem.core.modules;
 import com.google.inject.AbstractModule;
 
 /**
- * Main module that need to be installed to use AEM  functions
- * It has full functionalities for AEM 6.4
+ * Main module that needs to be installed to use AEM 6.4 functions.
+ * <p>
+ * It install all sub-modules related to AEM 6.4.
  */
 public class Aem64FullModule extends AbstractModule {
 

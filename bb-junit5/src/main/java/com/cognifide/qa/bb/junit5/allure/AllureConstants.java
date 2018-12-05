@@ -19,6 +19,9 @@
  */
 package com.cognifide.qa.bb.junit5.allure;
 
+/**
+ * Contains configuration keys related to Allure report
+ */
 public final class AllureConstants {
 
   public static final String ALLURE_REPORT = "allure.report";
@@ -26,5 +29,6 @@ public final class AllureConstants {
   public static final String ALLURE_CREATE_ENVIROMENT = "allure.create.enviroment";
 
   private AllureConstants() {
+    //util
   }
 }

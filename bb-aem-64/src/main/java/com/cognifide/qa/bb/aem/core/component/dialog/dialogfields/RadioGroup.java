@@ -19,12 +19,17 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
-import com.cognifide.qa.bb.qualifier.PageObject;
 import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.cognifide.qa.bb.qualifier.PageObject;
+
+/**
+ * A {@link DialogField} representing a radio group.
+ */
 @PageObject
 public class RadioGroup implements DialogField {
 
@@ -34,7 +39,8 @@ public class RadioGroup implements DialogField {
   @Override
   public void setValue(Object value) {
     WebElement radioLabel = radioOptions.stream()
-        .filter(radioOption -> radioOption.getText().equals(value)).findFirst().orElse(null);
+        .filter(radioOption -> radioOption.getText().equals(value)).findFirst().orElseThrow(
+            () -> new IllegalStateException("Provided option is not present in the group"));
     radioLabel.findElement(By.xpath(".//..")).click();
   }
 

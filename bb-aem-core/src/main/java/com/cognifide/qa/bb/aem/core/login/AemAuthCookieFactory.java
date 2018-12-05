@@ -22,22 +22,24 @@ package com.cognifide.qa.bb.aem.core.login;
 import org.openqa.selenium.Cookie;
 
 /**
- * Interface for classes setting authentication cookies for AEM
+ * Interface for classes providing authentication cookies for AEM
  */
 public interface AemAuthCookieFactory {
 
   /**
-   * Creates cookie
-   * @param url
-   * @param login
-   * @param password
-   * @return
+   * Returns an authentication cookie for provided user and URL
+   *
+   * @param url      URL for which the cookie is supposed to be set
+   * @param login    username of the user for which auth cookie is going to be generated
+   * @param password password of the user for which auth cookie is going to be generated
+   * @return an authentication {@link Cookie} for provided user
    */
   Cookie getCookie(String url, String login, String password);
 
   /**
-   * Removes cookie
-   * @param url
+   * Removes a cookie for given URL
+   *
+   * @param url URL for which the cookie is to be removed
    */
   void removeCookie(String url);
 }

@@ -34,6 +34,9 @@ import com.google.inject.Inject;
 
 import io.qameta.allure.Step;
 
+/**
+ * An {@link ActionWithData} that configures an AEM component. Consumes {@link ConfigureComponentData}.
+ */
 @PageObject
 public class ConfigureComponent implements ActionWithData<ConfigureComponentData> {
 
@@ -51,20 +54,20 @@ public class ConfigureComponent implements ActionWithData<ConfigureComponentData
   @FindPageObject
   private ComponentToolbar componentToolbar;
 
-  private void selectComponent(ConfigureComponentData actionData) {
-    sidePanel.selectTab(SidePanelTabs.CONTENT_TREE.getCssClass());
-    sidePanel.selectComponentToEdit(actionData.getComponentPath(), actionData.getComponentName(),
-        actionData.getComponentOrder()).click();
-  }
-
   @SuppressWarnings("unchecked")
   @Override
   @Step("Configure component")
   public void execute(ConfigureComponentData data) {
     selectComponent(data);
     componentToolbar.clickOption(CommonToolbarOptions.CONFIGURE.getTitle());
-    ComponentConfiguration componentConfiguration = componentConfigReader
-        .readConfiguration(data.getResourceFileLocation());
+    ComponentConfiguration componentConfiguration =
+        componentConfigReader.readConfiguration(data.getConfigLocation());
     configDialog.configureWith(componentConfiguration);
+  }
+
+  private void selectComponent(ConfigureComponentData actionData) {
+    sidePanel.selectTab(SidePanelTabs.CONTENT_TREE.getCssClass());
+    sidePanel.selectComponentToEdit(actionData.getComponentPath(), actionData.getComponentName(),
+        actionData.getComponentOrder()).click();
   }
 }

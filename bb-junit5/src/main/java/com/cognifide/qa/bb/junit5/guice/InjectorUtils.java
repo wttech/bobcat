@@ -19,12 +19,13 @@
  */
 package com.cognifide.qa.bb.junit5.guice;
 
-
-import com.google.inject.Injector;
 import java.lang.reflect.AnnotatedElement;
 import java.util.NoSuchElementException;
+
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
+
+import com.google.inject.Injector;
 
 /**
  * Extensions helper class for retriving injector created in {@link GuiceExtension}
@@ -37,9 +38,9 @@ public final class InjectorUtils {
 
   /**
    * Retrieves injector from the context store using Namespace. If it is not present it searches in
-   * parent context until it is found or the is end of hierachy
+   * parent context until it is found or there is end of hierarchy.
    *
-   * @param context - extension context from  junit5 extensions
+   * @param context   - extension context from  junit5 extensions
    * @param namespace - Namespace for current test invocation
    * @return Injector or null if no injector is found
    */

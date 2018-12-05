@@ -28,12 +28,17 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
-import com.cognifide.qa.bb.api.actions.ActionWithData;
 import com.cognifide.qa.bb.aem.core.constants.AemConfigKeys;
 import com.cognifide.qa.bb.aem.core.pages.AemPageManipulationException;
+import com.cognifide.qa.bb.api.actions.ActionWithData;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
+/**
+ * An {@link ActionWithData} that deletes a page in AEM using Sling API.
+ * <p>
+ * Consumes {@link SlingPageData}.
+ */
 public class DeletePage implements ActionWithData<SlingPageData> {
 
   @Inject

@@ -24,6 +24,9 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.wait.BobcatWait;
 import com.google.inject.Inject;
 
+/**
+ * Default Bobcat implementation of {@link CreatePageProperties} for AEM 6.4
+ */
 @PageObject(css = "div.cq-dialog-content-page")
 public class CreatePagePropertiesImpl implements CreatePageProperties {
 

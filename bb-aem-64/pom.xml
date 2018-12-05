@@ -27,6 +27,7 @@
     </parent>
 
     <artifactId>bb-aem-64</artifactId>
+    <name>Bobcat AEM 6.4</name>
 
     <dependencies>
         <dependency>

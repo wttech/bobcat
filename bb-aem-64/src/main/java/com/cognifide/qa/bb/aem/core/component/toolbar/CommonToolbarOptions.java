@@ -20,7 +20,7 @@
 package com.cognifide.qa.bb.aem.core.component.toolbar;
 
 /**
- * Enum represents available standard component toolbar options.
+ * Enum representing all standard component toolbar options.
  */
 public enum CommonToolbarOptions {
   EDIT("Edit"), //

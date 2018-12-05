@@ -26,14 +26,19 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 
-import com.cognifide.qa.bb.api.actions.ActionWithData;
 import com.cognifide.qa.bb.aem.core.constants.AemConfigKeys;
 import com.cognifide.qa.bb.aem.core.pages.AemPageManipulationException;
+import com.cognifide.qa.bb.api.actions.ActionWithData;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
 import io.qameta.allure.Step;
 
+/**
+ * An {@link ActionWithData} that creates a page in AEM using Sling API.
+ * <p>
+ * Consumes {@link SlingPageData}.
+ */
 public class CreatePage implements ActionWithData<SlingPageData> {
 
   @Inject

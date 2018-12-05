@@ -19,6 +19,9 @@
  */
 package com.cognifide.qa.bb.aem.core.component.configuration;
 
+/**
+ * Marker interface for a {@link ComponentConfiguration} data location, that is consumed by {@link ComponentConfigReader}
+ */
 public interface ConfigurationLocation {
 
 }

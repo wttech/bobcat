@@ -15,20 +15,33 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text;
 
-import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 import org.openqa.selenium.WebElement;
 
+import com.cognifide.qa.bb.qualifier.PageObjectInterface;
+
 /**
- * Interface that represents list formatting options.
+ * Interface that represents list formatting options of a Rich Text editor.
  */
 @PageObjectInterface
 public interface ListControls {
 
+  /**
+   * @return {@link WebElement} representing the Bullet List button
+   */
   WebElement getBulletListBtn();
 
+  /**
+   * @return {@link WebElement} representing the Number List button
+   */
   WebElement getNumberListBtn();
 
+  /**
+   * @return {@link WebElement} representing the Outdent List button
+   */
   WebElement getOutdentListBtn();
 
+  /**
+   * @return {@link WebElement} representing the Indent List button
+   */
   WebElement getIndentListBtn();
 }

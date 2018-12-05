@@ -19,11 +19,17 @@
  */
 package com.cognifide.qa.bb.javascriptexecutor;
 
+/**
+ * Contains common JavaScript that might be used with {@link org.openqa.selenium.JavascriptExecutor}
+ */
 public class JsScripts {
 
   private JsScripts() {
     //empty
   }
 
+  /**
+   * Selects everything from the active contexts, useful e.g. for selecting the whole text where keyboard shortcuts may be problematic, e.g. on macOS
+   */
   public static final String SELECT_ALL = "document.execCommand('selectall',null, false)";
 }

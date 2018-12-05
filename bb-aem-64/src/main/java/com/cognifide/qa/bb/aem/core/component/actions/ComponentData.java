@@ -19,10 +19,36 @@
  */
 package com.cognifide.qa.bb.aem.core.component.actions;
 
-public class EditComponentData extends AbstractComponentActionData {
+import com.cognifide.qa.bb.api.actions.ActionData;
 
-  public EditComponentData(String componentPath, String componentName, int componentOrder) {
-    super(componentPath, componentName, componentOrder);
+/**
+ *
+ */
+public class ComponentData implements ActionData {
+
+  private String componentPath;
+
+  private String componentName;
+
+  private int componentOrder;
+
+  public ComponentData(String componentPath, String componentName,
+      int componentOrder) {
+    this.componentPath = componentPath;
+    this.componentName = componentName;
+    this.componentOrder = componentOrder;
+  }
+
+  public String getComponentPath() {
+    return componentPath;
+  }
+
+  public String getComponentName() {
+    return componentName;
+  }
+
+  public int getComponentOrder() {
+    return componentOrder;
   }
 
 }

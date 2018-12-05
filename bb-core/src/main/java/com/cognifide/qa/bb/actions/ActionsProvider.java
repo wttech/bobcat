@@ -25,6 +25,9 @@ import org.openqa.selenium.interactions.Actions;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
+/**
+ * Guice provider for {@link org.openqa.selenium.interactions.Actions}.
+ */
 public class ActionsProvider implements Provider<Actions> {
 
   @Inject

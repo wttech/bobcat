@@ -40,7 +40,9 @@ import com.google.inject.internal.LinkedBindingImpl;
 import io.qameta.allure.Step;
 
 /**
- * Abstract class that marks page as being from AEM
+ * Represents a generic AEM page. Users should use the {@link com.cognifide.qa.bb.page.BobcatPageFactory} to obtain instances of such classes.
+ *
+ * @param <T> type of the page
  */
 public class AemAuthorPage<T extends AemAuthorPage> extends Page {
 
@@ -62,7 +64,15 @@ public class AemAuthorPage<T extends AemAuthorPage> extends Page {
   @Named("author.url")
   protected String authorUrl;
 
-  public <T> T getContent(Class<T> component, int order) {
+  /**
+   * Returns the nth page object representing given component. Switches to the ContentFrame during the process.
+   *
+   * @param component class of the page object representing the component to be returned
+   * @param order     which component should be returned in case there are multiple instances
+   * @param <X>       type of the component
+   * @return a page object representing the requested component
+   */
+  public <X> X getContent(Class<X> component, int order) {
     globalBar.switchToPreviewMode();
     frameSwitcher.switchTo(CONTENT_FRAME);
     By selector = getSelectorFromComponent(component);
@@ -74,7 +84,7 @@ public class AemAuthorPage<T extends AemAuthorPage> extends Page {
   }
 
   /**
-   * open the page in browser
+   * Open the page in browser
    */
   @Step("Open page")
   @Override
@@ -83,13 +93,18 @@ public class AemAuthorPage<T extends AemAuthorPage> extends Page {
     return (T) this;
   }
 
+  /**
+   * Opens the page in the edit mode
+   *
+   * @return self-reference
+   */
   @Step("Open page in editor")
   public T openInEditor() {
     webDriver.get(authorUrl + "/editor.html" + getFullUrl());
     return (T) this;
   }
 
-  private By getSelectorFromComponent(Class component) {
+  private <X> By getSelectorFromComponent(Class<X> component) {
     By selector = null;
     if (component.isAnnotationPresent(
         PageObjectInterface.class)) {

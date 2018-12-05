@@ -31,21 +31,34 @@ import com.google.inject.Injector;
 import com.google.inject.Key;
 
 /**
- * Estension that will close webdriver after the test is executed
+ * Extension that will close WebDriver after the test is executed.
+ * <p>
+ * Loaded automatically by ServiceLoader.
  */
 public class WebdriverCloseExtension implements AfterTestExecutionCallback, AfterAllCallback {
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
-  public void afterTestExecution(ExtensionContext context) throws Exception {
-    Injector injector = InjectorUtils.retrieveInjectorFromStore(context, NAMESPACE);
+  public void afterTestExecution(ExtensionContext context) {
+    Injector injector = getInjector(context);
     if (injector != null) {
       injector.getInstance(Key.get(WebDriver.class)).quit();
     }
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   // we need this for potential failures in BeforeEach methods
-  public void afterAll(ExtensionContext context) throws Exception {
+  public void afterAll(ExtensionContext context) {
     afterTestExecution(context);
+  }
+
+  //for mocking purposes
+  Injector getInjector(ExtensionContext context) {
+    return InjectorUtils.retrieveInjectorFromStore(context, NAMESPACE);
   }
 }

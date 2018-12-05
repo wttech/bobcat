@@ -21,14 +21,17 @@ package com.cognifide.qa.bb.aem.core.login.actions;
 
 import org.openqa.selenium.WebDriver;
 
-import com.cognifide.qa.bb.api.actions.Action;
 import com.cognifide.qa.bb.aem.core.constants.AemConfigKeys;
 import com.cognifide.qa.bb.aem.core.login.AemAuthCookieFactory;
+import com.cognifide.qa.bb.api.actions.Action;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
 import io.qameta.allure.Step;
 
+/**
+ * An {@link Action} that logs a user out of AEM.
+ */
 public class LogIn implements Action {
   @Inject
   private WebDriver webDriver;

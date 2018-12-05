@@ -19,13 +19,23 @@
  */
 package com.cognifide.qa.bb.aem.core.siteadmin.internal;
 
-import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 import org.openqa.selenium.WebElement;
 
+import com.cognifide.qa.bb.qualifier.PageObjectInterface;
+
+/**
+ * Represents page properties during page creation in Create Page Wizard in AEM authoring
+ */
 @PageObjectInterface
 public interface CreatePageProperties {
 
+  /**
+   * @return a {@link WebElement} representing the Name text field
+   */
   WebElement getNameTextField();
 
+  /**
+   * @return a {@link WebElement} representing the Title text field
+   */
   WebElement getTitleTextField();
 }

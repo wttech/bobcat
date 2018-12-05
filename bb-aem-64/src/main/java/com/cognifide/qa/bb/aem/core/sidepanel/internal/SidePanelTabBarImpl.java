@@ -29,6 +29,9 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.wait.BobcatWait;
 import com.google.inject.Inject;
 
+/**
+ * The default Bobcat implementation of {@link SidePanelTabBar} for AEM 6.4
+ */
 @PageObject(css = ".coral3-TabList")
 public class SidePanelTabBarImpl implements SidePanelTabBar {
 

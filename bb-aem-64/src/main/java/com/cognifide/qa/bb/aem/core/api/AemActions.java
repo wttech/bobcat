@@ -19,6 +19,9 @@
  */
 package com.cognifide.qa.bb.aem.core.api;
 
+/**
+ * Lists all {@link com.cognifide.qa.bb.api.actions.Action}s and {@link com.cognifide.qa.bb.api.actions.ActionWithData} that are registered in AEM 6.4 module.
+ */
 public class AemActions {
 
   private AemActions() {

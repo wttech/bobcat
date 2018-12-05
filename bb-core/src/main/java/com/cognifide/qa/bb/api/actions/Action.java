@@ -19,7 +19,15 @@
  */
 package com.cognifide.qa.bb.api.actions;
 
+/**
+ * Represents an action that can be executed by Bobcat's {@link ActionsController}.
+ */
 public interface Action {
 
+  /**
+   * Executes the action.
+   *
+   * @throws ActionException when action fails
+   */
   void execute() throws ActionException;
 }

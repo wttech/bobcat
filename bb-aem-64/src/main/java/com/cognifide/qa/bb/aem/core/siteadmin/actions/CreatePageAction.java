@@ -19,13 +19,18 @@
  */
 package com.cognifide.qa.bb.aem.core.siteadmin.actions;
 
-import com.cognifide.qa.bb.api.actions.ActionWithData;
 import com.cognifide.qa.bb.aem.core.siteadmin.internal.SiteToolbar;
+import com.cognifide.qa.bb.api.actions.ActionWithData;
 import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.PageObject;
 
 import io.qameta.allure.Step;
 
+/**
+ * An {@link ActionWithData} that creates a page in AEM via Siteadmin.
+ * <p>
+ * Uses data from {@link CreatePageActionData}.
+ */
 @PageObject
 public class CreatePageAction implements ActionWithData<CreatePageActionData> {
 
@@ -33,7 +38,7 @@ public class CreatePageAction implements ActionWithData<CreatePageActionData> {
   private SiteToolbar toolbar;
 
   @Override
-  @Step("Create page {actionData.title} with name {actionData.pageName} using {actionData.template} template")
+  @Step("Create page {data.title} with name {data.pageName} using {data.template} template")
   public void execute(CreatePageActionData data) {
     toolbar.createPage(data.getTemplate(), data.getTitle(), data.getPageName());
   }

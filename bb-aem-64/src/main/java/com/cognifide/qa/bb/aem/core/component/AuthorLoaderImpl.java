@@ -28,7 +28,7 @@ import com.cognifide.qa.bb.wait.BobcatWait;
 import com.google.inject.Inject;
 
 /**
- * Implementation of {@link AuthorLoader} for AEM 6.4
+ * Default Bobcat implementation of {@link AuthorLoader} for AEM 6.4
  */
 @PageObject
 public class AuthorLoaderImpl implements AuthorLoader {

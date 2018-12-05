@@ -25,6 +25,9 @@ import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanelTabBar;
 import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanelTabBarImpl;
 import com.google.inject.AbstractModule;
 
+/**
+ * Contains binding related to AEM's Side Panel
+ */
 public class AemSidePanelModule extends AbstractModule {
 
   @Override

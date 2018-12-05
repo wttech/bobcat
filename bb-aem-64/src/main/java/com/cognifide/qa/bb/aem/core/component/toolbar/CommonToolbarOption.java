@@ -22,7 +22,7 @@ package com.cognifide.qa.bb.aem.core.component.toolbar;
 import org.openqa.selenium.By;
 
 /**
- * Toolbar option for standard available in AEM options
+ * Default implementation of {@link ToolbarOption} for AEM 6.4.
  */
 public class CommonToolbarOption implements ToolbarOption {
 

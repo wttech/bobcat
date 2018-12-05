@@ -19,11 +19,15 @@
  */
 package com.cognifide.qa.bb.constants;
 
+/**
+ * Holds constants related to HTML tags and attributes.
+ */
 public final class HtmlTags {
 
   public static final String DIV = "div";
 
-  private HtmlTags() {}
+  private HtmlTags() {
+  }
 
   public static final class Attributes {
 
@@ -43,8 +47,10 @@ public final class HtmlTags {
 
     public static final String STYLE = "style";
 
-    private Attributes() {}
+    private Attributes() {
+    }
   }
+
 
   public static final class Properties {
 
@@ -54,6 +60,7 @@ public final class HtmlTags {
 
     public static final String CLASS_NAME = "className";
 
-    private Properties() {}
+    private Properties() {
+    }
   }
 }

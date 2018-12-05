@@ -24,7 +24,7 @@ import com.cognifide.qa.bb.aem.core.component.configuration.ComponentConfigResou
 import com.google.inject.AbstractModule;
 
 /**
- * Main module that need to be installed to use AEM functions
+ * Module containing binding related to component configuration
  */
 public class AemConfigModule extends AbstractModule {
 

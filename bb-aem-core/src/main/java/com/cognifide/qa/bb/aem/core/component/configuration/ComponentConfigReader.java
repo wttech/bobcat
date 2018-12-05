@@ -19,7 +19,18 @@
  */
 package com.cognifide.qa.bb.aem.core.component.configuration;
 
+/**
+ * Describes a reader that loads a {@link ComponentConfiguration} from a {@link ConfigurationLocation}
+ *
+ * @param <T> type of the {@link ConfigurationLocation}
+ */
 public interface ComponentConfigReader<T extends ConfigurationLocation> {
 
+  /**
+   * Reads a {@link ComponentConfiguration} from a {@link ConfigurationLocation}
+   *
+   * @param configLocation configuration location
+   * @return the read configuration
+   */
   ComponentConfiguration readConfiguration(T configLocation);
 }

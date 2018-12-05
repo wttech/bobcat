@@ -40,7 +40,7 @@ import com.cognifide.qa.bb.wait.BobcatWait;
 import com.google.inject.Inject;
 
 /**
- * This class represents config dialog of the TouchUI component.
+ * Default implementation of {@link ConfigDialog} for AEM 6.4
  */
 @PageObject(css = ConfigDialogImpl.FORM_CQ_DIALOG)
 public class ConfigDialogImpl implements ConfigDialog {
@@ -59,7 +59,7 @@ public class ConfigDialogImpl implements ConfigDialog {
   private WebElement currentScope;
 
   @Inject
-  private DialogConfigurer dialogConfigurer;
+  private DialogFieldRetriever dialogConfigurer;
 
   @Inject
   @CurrentScope

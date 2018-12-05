@@ -19,16 +19,18 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
+import java.util.Iterator;
+import java.util.List;
+
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
 import com.cognifide.qa.bb.aem.core.component.configuration.MultifieldEntry;
 import com.cognifide.qa.bb.exceptions.BobcatRuntimeException;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import java.util.Iterator;
-import java.util.List;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 /**
  * This class represents TouchUI dialog multifield.
@@ -54,12 +56,12 @@ public class Multifield implements DialogField {
         mapper.convertValue(value, new TypeReference<List<MultifieldEntry>>() {
         });
 
-    items.stream().forEach(MultifieldItem::deleteItem);
+    items.forEach(MultifieldItem::deleteItem);
 
-    cfg.stream().forEach(entry -> addField());
+    cfg.forEach(entry -> addField());
 
     Iterator<MultifieldItem> itemsIterator = items.iterator();
-    cfg.stream().forEach(entry -> itemsIterator.next().setValue(entry));
+    cfg.forEach(entry -> itemsIterator.next().setValue(entry));
   }
 
   /**
@@ -77,6 +79,9 @@ public class Multifield implements DialogField {
         .format("Tried to get item at index %s but there are only %s elements", index, itemsSize));
   }
 
+  /**
+   * Adds a new {@link MultifieldItem}.
+   */
   public void addField() {
     addButton.click();
   }

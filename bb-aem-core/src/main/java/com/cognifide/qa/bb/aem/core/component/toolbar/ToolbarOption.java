@@ -22,7 +22,7 @@ package com.cognifide.qa.bb.aem.core.component.toolbar;
 import org.openqa.selenium.By;
 
 /**
- * Interface for component toolbar option
+ * Represents an option in a component toolbar
  */
 public interface ToolbarOption {
 
