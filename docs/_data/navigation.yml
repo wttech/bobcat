@@ -28,6 +28,8 @@ docs:
         url: /docs/modules/core/
       - title: "Run Modes"
         url: /docs/modules/core/runmodes/
+      - title: "PageObject and PageObjectInteface"
+        url: /docs/modules/core/pageobject/
       - title: "Page Factory"
         url: /docs/modules/core/pagefactory/
       - title: "Explicit and implicit waiting"
