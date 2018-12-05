@@ -21,7 +21,7 @@ docs:
   - title: "Guides"
     children:
       - title: "Writing the first test"
-        url: /docs/first-test/
+        url: /docs/guides/first-test/
   - title: "Core features"
     children:
       - title: "Overview"

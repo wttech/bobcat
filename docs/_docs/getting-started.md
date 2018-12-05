@@ -36,4 +36,4 @@ Now that you have the project up and running, you might want to configure it. To
 
 ## Writing your first test case
 
-Finally, the time has come to [write your first test using Bobcat!]({{site.baseurl}}/docs/first-test/)
+Finally, the time has come to [write your first test using Bobcat!]({{site.baseurl}}/docs/guides/first-test/)
