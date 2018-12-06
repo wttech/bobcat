@@ -39,10 +39,10 @@ public class BobcatPageFactory {
   /**
    * Create pages from selected path and selected type
    *
-   * @param path
-   * @param tClass
-   * @param <T>
-   * @return
+   * @param path path to the page
+   * @param tClass class of the page
+   * @param <T> type of the page
+   * @return a Page instance specified by path
    */
   public <T extends Page> T create(String path, Class<T> tClass) {
     AbstractModule module = new AbstractModule() {
