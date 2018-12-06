@@ -12,7 +12,7 @@ To use any module on the list below you need to do two things:
     
     In Gradle that would mean adding it in the project's dependencies:
     ```groovy
-    compile group: 'com.cognifide.qa.bb', name: 'bb-core', version: '2.0.0'
+    compile group: 'com.cognifide.qa.bb', name: 'bb-core', version: '2.0.1'
     ```
 2. You need to add module to your runmode file.
 

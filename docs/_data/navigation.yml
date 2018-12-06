@@ -30,7 +30,7 @@ docs:
         url: /docs/modules/core/
       - title: "Run Modes"
         url: /docs/modules/core/runmodes/
-      - title: "PageObject and PageObjectInteface"
+      - title: "PageObject and PageObjectInterface"
         url: /docs/modules/core/pageobject/
       - title: "Page Factory"
         url: /docs/modules/core/pagefactory/
@@ -40,6 +40,8 @@ docs:
         url: /docs/modules/core/cookies
   - title: "AEM features"
     children:
+      - title: "AEM compatibility"
+        url: /docs/modules/aem/compatibility/
       - title: "Components configuration"
         url: /docs/modules/aem/componentconfiguration/
   - title: "Other modules"

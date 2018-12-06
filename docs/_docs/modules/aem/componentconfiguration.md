@@ -54,3 +54,88 @@ We can have many components with the same name on the same branch. In our image 
 
 ## Configuration file
 
+As mentioned above the last parameter is an yaml file with component configuration. `ResourceFileLocation` is provider that tells Bobcat to search it in `test/resources` folder. If someone would like to keep them for example in cloud then new class that implements `ConfigurationLocation` interface should be written and replace current provider.
+
+Each yaml file can be used for one component configuration. It should contain all information we need for component dialog. It structure is:
+
+```yaml
+Tab name
+- type: dialog field type
+  value: dialog field value
+- type: dialog field type
+  value: dialog field value
+Second tab name
+- type: dialog field type
+  value: dialog field value
+```
+
+Example from Hero Image component:
+```yaml
+Asset:
+- type: IMAGE
+  value: northern-lights.jpg
+Properties:
+- label: Heading
+  type: TEXTFIELD
+  value: Heading
+- label: Title
+  type: TEXTFIELD
+  value: Title
+- label: Button label
+  type: TEXTFIELD
+  value: Button
+- label: Link to
+  type: PATHBROWSER
+  value: /content/we-retail/us
+- label: Full width
+  type: CHECKBOX
+  value: true
+```
+"Asset" and "Properties" are tab names. If component dialog has only one tab this name can be ommited. Then we have sets label type and value that fill dialog fields.
+- label - select dialog field with this label. If there is no label the fields will be selected in order.
+- type - type of dialog field. All available OOB fields are displayed in section below
+- value - what value should be set 
+
+Multifield dialog example:
+```yaml
+Properties:
+- label: Option Entries
+  type: MULTIFIELD
+  value:
+  - item:
+    - label: Active
+      type: CHECKBOX
+      value: true
+    - label: Text
+      type: TEXTFIELD
+      value: Text
+    - label: Value
+      type: TEXTFIELD
+      value: Value
+  - item:
+    - label: Text
+      type: TEXTFIELD
+      value: Text2
+    - label: Value
+      type: TEXTFIELD
+      value: Value2
+```
+This example shows how we can fill multifield dialog fields.
+
+#### Dialog fields types 
+
+| Field Type   |      Values      |  
+|----------|:-------------:|
+| CHECKBOX | true  |
+| TEXTFIELD | text  |
+| IMAGE | image name from DAM  |
+| PATHBROWSER | path  |
+| SELECT | text from dropdown  |
+| RICHTEXT | text  |
+| MULTIFIELD | list of "item" each with own fields (see example above)  |
+| RICHTEXT_FONT_FORMAT | BOLD/ITALIC/UNDERLINE   |
+| RICHTEXT_JUSTIFY |     JUSTIFY_LEFT/JUSTIFY_CENTER/JUSTIFY_RIGHT  |
+| RICHTEXT_LIST |     NUMBERED/BULLET/INDENT/OUTDENT  |
+| RADIO_GROUP | text from radio option  |
+
+
