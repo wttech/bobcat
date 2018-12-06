@@ -1,5 +1,5 @@
 ---
-title: Writing your first AEM authorin test with Bobcat
+title: Writing your first AEM authoring test with Bobcat
 ---
 
 This guide uses `bobcat-aem-junit` template to create tests. Some concepts are the same as in [first test guide]({{site.baseurl}}/docs/guides/first-test/) and we won't explain them here.
