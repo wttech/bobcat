@@ -178,10 +178,6 @@ Now you're ready to roll - trigger your test class from you IDE or execute the f
 ```
 gradlew clean test
 ```
-
-Note: due to the fact that Bobcat needs a Guice context constructed, running scenarios via in-built Cucumber plugins (e.g. in IntelliJ IDEA) will fail. You need to use the JUnit runner.
-{: .notice--warning}
-
 ## Summary
 
 As you can see, the whole process of writing tests is pretty straightforward.
