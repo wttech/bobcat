@@ -38,6 +38,10 @@ docs:
         url: /docs/modules/core/waiting
       - title: "Setting cookies"
         url: /docs/modules/core/cookies
+  - title: "AEM features"
+    children:
+      - title: "Components configuration"
+        url: /docs/modules/aem/componentconfiguration/
   - title: "Other modules"
     children:
       - title: "JUnit 5"
