@@ -24,7 +24,7 @@ public interface LoginComponent{
 }
 ```
 
-Implementation of this inteface:
+Implementation of this interface:
 ```java
 @PageObject(css = ".login-box")
 public class LoginComponentImpl extends LoginComponent{
