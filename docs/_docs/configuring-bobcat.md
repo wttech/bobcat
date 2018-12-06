@@ -5,14 +5,6 @@ title: Configuring Bobcat
 With the release of 1.4.0 version, two ways of configuring the framework are available: the new one (YAML-based) and the legacy one (properties files based). Below you can find the description of both modes.
 
 ## YAML-based configuration
-**Note:** introduced in 1.4.0
-{: .notice--info}
-
-**Note:** this configuration will become the default one in Bobcat 2.0. For now, you need to enable it. To do that, you need to run your tests with following system property: `bobcat.config=yaml`. You can set it, e.g. in Maven by adding `-Dbobcat.config=yaml` in the command line.
-{: .notice--info}
-
-**Important:** if you are using the re-run feature from bb-cumber module, then you need to stick to the legacy mode, since it relies on it a bit more heavily. Both the legacy and re-run feature are deprecated as of now and will be removed from 2.0.0, so you might reconsider using it anyway :smiley_cat:.
-{: .notice--warning}
 
 ### Configuration structure
 
@@ -106,16 +98,6 @@ context-name2:
 ```
 
 Bobcat will treat them as regular contexts in the main config file - all you have to do, to load them is to either add them to the `contexts` list in `config.yaml` or provide them via command line by setting the `bobcat.config.contexts` System property.
-
-***
-
-## Legacy configuration
-
-The legacy mode of loading Bobcat configuration relies on a set of properties files. Bobcat Maven archetypes (that are deprecated now in favor of the Gradle template) create an example configuration that you can start using in your project.
-
-To point Bobcat to your configuration files, you need to set the `configuration.paths` system property. By default it points to `src/main/config` folder. All the files are being read from such directory and applied in alphabetical order - this means that if you have duplicated properties, the one that is present as the last one in your config files is applied.
-
-***
 
 ## How Bobcat resolves its configuration
 

@@ -11,7 +11,6 @@ On this page, you will find all the necessary information that will help you kic
 Before you start, please make sure you have following stuff installed on your machine:
 
 - JDK 1.8
-- Maven 3.X.X
 
 ## Generating a Bobcat project
 
@@ -37,4 +36,4 @@ Now that you have the project up and running, you might want to configure it. To
 
 ## Writing your first test case
 
-Finally, the time has come to [write your first test using Bobcat!]({{site.baseurl}}/docs/first-test/)
+Finally, the time has come to [write your first test using Bobcat!]({{site.baseurl}}/docs/guides/first-test/)

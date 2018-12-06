@@ -18,16 +18,30 @@ docs:
         url: /docs/templates/
       - title: "Configuring Bobcat"
         url: /docs/configuring-bobcat/
+  - title: "Guides"
+    children:
       - title: "Writing the first test"
-        url: /docs/first-test/
+        url: /docs/guides/first-test/
+      - title: "Writing the first AEM Authoring Test"
+        url: /docs/guides/first-aem-test/
   - title: "Core features"
     children:
       - title: "Overview"
         url: /docs/modules/core/
+      - title: "Run Modes"
+        url: /docs/modules/core/runmodes/
+      - title: "PageObject and PageObjectInteface"
+        url: /docs/modules/core/pageobject/
+      - title: "Page Factory"
+        url: /docs/modules/core/pagefactory/
       - title: "Explicit and implicit waiting"
         url: /docs/modules/core/waiting
       - title: "Setting cookies"
         url: /docs/modules/core/cookies
+  - title: "AEM features"
+    children:
+      - title: "Components configuration"
+        url: /docs/modules/aem/componentconfiguration/
   - title: "Other modules"
     children:
       - title: "JUnit 5"
@@ -40,19 +54,10 @@ docs:
         url: /docs/modules/email/
   - title: "AEM modules"
     children:
-      - title: "New API incoming in 2.0!"
-  - title: "EOL Modules"
-    children:
-      - title: "AEM Common"
-        url: /docs/modules/aem-common/
-      - title: "AEM Touch UI"
-        url: /docs/modules/aem-touch-ui/
-      - title: "AEM Classic UI"
-        url: /docs/modules/aem-classic-ui/
-      - title: "JUnit 4"
-        url: /docs/modules/junit/
-      - title: "Reports"
-        url: /docs/modules/reports/
+      - title: "AEM Core"
+        url: /docs/modules/aem-core/
+      - title: "AEM 64"
+        url: /docs/modules/aem-64/
   - title: "Allure"
     url: "/docs/allure/"
   - title: "API docs"
