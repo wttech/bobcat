@@ -35,9 +35,11 @@ docs:
       - title: "Page Factory"
         url: /docs/modules/core/pagefactory/
       - title: "Explicit and implicit waiting"
-        url: /docs/modules/core/waiting
+        url: /docs/modules/core/waiting/
+      - title: "Actions"
+        url: /docs/modules/core/actions/
       - title: "Setting cookies"
-        url: /docs/modules/core/cookies
+        url: /docs/modules/core/cookies/
   - title: "AEM features"
     children:
       - title: "AEM compatibility"
