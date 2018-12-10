@@ -54,4 +54,21 @@ public class BobcatPageFactory {
     Injector childInjector = injector.createChildInjector(module);
     return childInjector.getInstance(tClass);
   }
+
+  /**
+   * Create pages from selected path and selected type
+   *
+   * @param path path to the page
+   * @return a Page instance specified by path
+   */
+  public EnchancedPage create(String path) {
+    AbstractModule module = new AbstractModule() {
+      @Override
+      protected void configure() {
+        bind(String.class).annotatedWith(Names.named(BOBCAT_PAGE_PATH)).toInstance(path);
+      }
+    };
+    Injector childInjector = injector.createChildInjector(module);
+    return childInjector.getInstance(EnchancedPage.class);
+  }
 }
