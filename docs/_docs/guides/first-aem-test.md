@@ -208,7 +208,7 @@ import com.cognifide.qa.bb.api.actions.ActionsController;
 ```
 - `ActionsController` allows to execute predefined actions in Bobcat. Some of them (such as the login action) are already delivered with Bobcat but they can be also developed by users. 
 
-### Creating the test page
+### Create the test page
 
 We have to make sure that the page we want to test exists in the AEM instance. The first step is preparing its definition. We create a file in `test/resources` folder and we name it ``pageTest.xml`:
 
@@ -240,7 +240,7 @@ We have to make sure that the page we want to test exists in the AEM instance. T
   </jcr:content>
 </jcr:root>
 ```
-As you can see it is an AEM page exported from crx in xml format. It contains one text component from We Retail. Now using our actions we have to add this page to our AEM instance. We do it also in the `BeforeEach` method:
+As you can see it's an AEM page exported from crx in xml format. It contains one text component from We Retail. Now using our actions we have to add this page to our AEM instance. We do it also in the `BeforeEach` method:
 ```java
 (...)
 import com.cognifide.qa.bb.aem.core.pages.sling.SlingDataXMLBuilder;
@@ -258,12 +258,12 @@ private static final String TEST_PAGE_PATH = "/content/we-retail/us/en/textcompo
   }
 (...)
 ```
-- We use here action that requires some parameters. To pass them we use class that implements `ActionData` interface. In our example this class is delivered with Bobcat but in custom actions it has to be created by users
-- We need to parameters. Path where in crx page will be created and what page will contain
-- `SlingDataXMLBuilder.class` creates page data that Sling can understand from xml file 
+- We use here an action that requires some parameters. To pass them we use a class that implements the `ActionData` interface. In our example this class is delivered with Bobcat but in custom actions it has to be created by users
+- We need to two parameters: the path where in crx the page will be created and what the page will contain
+- `SlingDataXMLBuilder.class` creates the page data, that Sling can understand, from the xml file 
 
-### Get page instance
-With all things prepared and ready we can start writing test. First lets get our page instance using and open it in our browser
+### Get an instance of the test page
+With all things prepared and ready we can start writing our test. First let's get our page instance and open it in a browser:
 
 ```java
 (...)
@@ -286,8 +286,8 @@ private final static String PAGE_TO_CREATE_TITLE = "testPage";
 (...)  
 ```
 
-### Configure component
-We can open page, it contains text component and now we need its configuration. It is also kept in yaml file in `test/resources`. In our case we name it `text.yaml`
+### Configure the component
+We can open the test page, it contains the text component and now we need its configuration. It's also kept in yaml file in `test/resources`. In our case we name it `text.yaml`:
 ```yaml
 Properties:
   - type: RICHTEXT
@@ -295,9 +295,9 @@ Properties:
   - type: RICHTEXT_FONT_FORMAT
     value: BOLD
 ```
-- Component configuration files contains information about how component dialogs should be field. Text component dialog has richtext which we want to have some text. We can also set that this text should be bold.   
+- The component configuration file contains information about how the component dialogs should be filled. The text component dialog has a richtext field in which we want to have some text. We can also set this text to be bold.   
 
-In test we will select component on page. Then we will fill it using configuration file.
+In the test we will select the component on the page. Then we will fill it out using the configuration file:
 
 ```java
 (...)
