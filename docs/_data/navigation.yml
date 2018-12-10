@@ -20,9 +20,9 @@ docs:
         url: /docs/configuring-bobcat/
   - title: "Guides"
     children:
-      - title: "Writing the first test"
+      - title: "Writing your first test"
         url: /docs/guides/first-test/
-      - title: "Writing the first AEM Authoring Test"
+      - title: "Writing your first AEM Authoring Test"
         url: /docs/guides/first-aem-test/
   - title: "Core features"
     children:

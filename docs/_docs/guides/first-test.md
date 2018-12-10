@@ -1,12 +1,12 @@
 ---
-title: Writing your first test with Bobcat
+title: Writing your first test case with Bobcat
 ---
 
-This guide uses `bobcat-junit5` template to create tests.
+This guide uses the `bobcat-junit5` template to generate a Bobcat project. [Here]({{site.baseurl}}/docs/templates/) you can find out how to use such a template.
 
 ## Context
 
-We will write a simple test that will check the following:
+We will write a simple test case that will do the following:
 
 1. Open the Wikipedia homepage.
 2. Search for 'hello world' in the search box.
@@ -15,7 +15,7 @@ We will write a simple test that will check the following:
 
 ## Our first Page Objects
 
-Always before jumping straight away into coding, it's a good habit to stop and analyze what we are going to actually need to automate on our website. When it comes to modeling the necessary parts of the page (or multiple ones) as page objects, it's a good idea to draw the relationship first. An important note here: **page object doesn't have to mean an actual page**, it can also refer to a page section, single component etc.
+Always before jumping straight away into coding, it's a good habit to stop and analyze what tests we actually need automated on our website. When it comes to modeling the necessary parts of the page (or multiple ones) as page objects, it's a good idea to draw the relationships first. An important note here: **a page object doesn't have to represent an actual page**, it can also refer to a page section, single component, etc.
 
 To automate our test case we need to tackle the following elements on their related pages:
 
