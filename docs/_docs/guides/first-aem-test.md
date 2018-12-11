@@ -174,7 +174,7 @@ public class ConfigureComponentTest {
   }
 }
 ```
- - We have an empty test method, JUnit BeforeEach and AfterEach methods
+ - We have empty JUnit BeforeEach, Test and AfterEach methods
  - `@Epic` and `@Feature` are Allure annotations
 
 ### Login to AEM
@@ -295,7 +295,7 @@ Properties:
   - type: RICHTEXT_FONT_FORMAT
     value: BOLD
 ```
-- The component configuration file contains information about how the component dialogs should be filled. The text component dialog has a richtext field in which we want to have some text. We can also set this text to be bold.   
+- The component configuration file contains information about how the component dialogs should be filled in. The text component dialog has a richtext field in which we want to have some text. We can also set this text to be bold.   
 
 In the test we will select the component on the page. Then we will fill it out using the configuration file:
 
@@ -313,20 +313,20 @@ import com.cognifide.qa.bb.aem.core.component.configuration.ResourceFileLocation
   }
 (...)
 ```
-- We of course use another here, last parameter is configuration file but what are other parameters. Lets see where component is placed:
+- We of course use another action here, the last parameter is the configuration file but what are the other parameters? Lets see where the component is placed:
   ![Login Page]({{site.baseurl}}/assets/img/aemtutorial.png)
-  Content tree is how we look for component
+  We use the Content Tree to search for the component.
 
-  First parameter is where in containers (or in which level) we can found component. If we would like to find component with text "one" path would be "container". For text "two" the path would be "container/container[1]" (we have to select nested container and second leaf).  
+  The first parameter is in which container (or on which level) we can find the component. If we would like to find the component with text "one" the path would be "container". For the componet with text "two" the path would be "container/container[1]" (we have to select the nested container and the second leaf).  
 
-  Second parameter is component name in Content tree
+  The second parameter is the component name in the Content Tree
 
-  Third parameter is which component with this name on selected level we should select. Here we want to select first so 0. If we would like to select one with "three" than the value would be '1'.
+  The third parameter is which component with this name on the selected level we should select. Here we want to select the first one, so the parameter is "0". If we would like to select the component with text "three" than the value would be "1".
   
-  We use java array numeration of place.
+  We use Java array numeration for locating elements (the first element has the index 0).
 
-### Check component
-We configured component and we would like to check if everything worked.
+### Check the component
+We configured the component and we would like to check if everything works.
 ```java
 (...)
 import static org.assertj.core.api.Assertions.assertThat;
@@ -341,12 +341,12 @@ import com.bobcat.test.pageobjects.TextComponentImpl;
   }
 (...)
 ```
-- `getContent` method from `AemAuthorPage` will switch us to preview mode. Then it will search for `TestComponent` on our page. Because we can have many text components we have to select which one. In our example first one
-- And at last we compare text from component with expected text.
+- `getContent` method from `AemAuthorPage` will switch us to preview mode. Then it will search for `TestComponent` on our page. Because we can have many text components we have to select which one is needed. In our example it's the first one
+- And at last we compare the text from the component with the expected text
 
-### Remove page
+### Remove the test page
 
-After test is finished it should clean the instance. All changes that were made should be discarded. In our example we should delete created page and we do it in `AfterEach` method
+After test is finished it should clean the AEM instance. All changes that were made should be discarded. In our example we should delete the created test page and we do it in the `AfterEach` method
 ```java
 (...)
   @AfterEach
@@ -355,9 +355,9 @@ After test is finished it should clean the instance. All changes that were made 
   }
 (...)
 ```
-- We again use one of actions with one parameter which is path to page that we want to remove. 
-### Full test
-Full test class created in this tutorial
+- We again use one of actions with one parameter which is the path to page that we want to remove 
+### The full test
+The full test class created in this tutorial:
 
 ```java
 package com.bobcat.test;
