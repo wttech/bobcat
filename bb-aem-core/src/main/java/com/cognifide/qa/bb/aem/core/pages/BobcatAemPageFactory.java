@@ -17,8 +17,9 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.page;
+package com.cognifide.qa.bb.aem.core.pages;
 
+import com.cognifide.qa.bb.page.Page;
 import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -29,7 +30,7 @@ import com.google.inject.name.Names;
  * <p>
  * Creates dynamically instances of {@link Page}.
  */
-public class BobcatPageFactory {
+public class BobcatAemPageFactory {
 
   public static final String BOBCAT_PAGE_PATH = "bobcat.page.path";
 
@@ -40,11 +41,9 @@ public class BobcatPageFactory {
    * Create pages from selected path and selected type
    *
    * @param path path to the page
-   * @param tClass class of the page
-   * @param <T> type of the page
    * @return a Page instance specified by path
    */
-  public <T extends Page> T create(String path, Class<T> tClass) {
+  public ActiveAemAuthorPage create(String path) {
     AbstractModule module = new AbstractModule() {
       @Override
       protected void configure() {
@@ -52,23 +51,6 @@ public class BobcatPageFactory {
       }
     };
     Injector childInjector = injector.createChildInjector(module);
-    return childInjector.getInstance(tClass);
-  }
-
-  /**
-   * Create pages from selected path and selected type
-   *
-   * @param path path to the page
-   * @return a Page instance specified by path
-   */
-  public ActivePage create(String path) {
-    AbstractModule module = new AbstractModule() {
-      @Override
-      protected void configure() {
-        bind(String.class).annotatedWith(Names.named(BOBCAT_PAGE_PATH)).toInstance(path);
-      }
-    };
-    Injector childInjector = injector.createChildInjector(module);
-    return childInjector.getInstance(ActivePage.class);
+    return childInjector.getInstance(ActiveAemAuthorPage.class);
   }
 }

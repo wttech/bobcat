@@ -36,4 +36,12 @@ public interface ActionsController {
    * @throws ActionException
    */
   void execute(String action, ActionData data) throws ActionException;
+
+  default void executeWithStatus(String action){
+    throw new UnsupportedOperationException();
+  }
+
+  default void executeWithStatusAndData(String action,ActionData data){
+    throw new UnsupportedOperationException();
+  }
 }

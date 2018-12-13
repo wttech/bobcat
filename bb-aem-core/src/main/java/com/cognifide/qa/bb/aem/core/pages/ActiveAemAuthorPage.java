@@ -17,21 +17,11 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.page;
+package com.cognifide.qa.bb.aem.core.pages;
 
 import com.cognifide.qa.bb.qualifier.PageObject;
-import java.util.List;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 @PageObject
-public class EnchancedPage extends Page<EnchancedPage> {
+public class ActiveAemAuthorPage extends AemAuthorPage<ActiveAemAuthorPage> {
 
-  public <X> X getPageObject(Class<X> component, int order) {
-    By selector = getSelectorFromComponent(component);
-    List<WebElement> scope = webDriver.findElements(selector);
-    return scope == null
-        ? pageObjectInjector.inject(component)
-        : pageObjectInjector.inject(component, scope.get(order));
-  }
 }

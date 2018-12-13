@@ -53,6 +53,24 @@ public class Page<T extends Page> {
   protected PageObjectInjector pageObjectInjector;
 
   /**
+   * Return first page object of given class on page
+   * @param pageObject - page object class
+   * @param <X> Class that should be return
+   * @return Instance of class
+   */
+  public <X> X getPageObject(Class<X> pageObject) {
+    return getPageObject(pageObject, 0);
+  }
+
+  public <X> X getPageObject(Class<X> pageObject, int order) {
+    By selector = getSelectorFromComponent(pageObject);
+    List<WebElement> scope = webDriver.findElements(selector);
+    return scope == null
+        ? pageObjectInjector.inject(pageObject)
+        : pageObjectInjector.inject(pageObject, scope.get(order));
+  }
+
+  /**
    * open the page in browser
    */
   @Step("Open page")
