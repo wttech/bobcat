@@ -49,7 +49,7 @@ public class CreatePage implements ActionWithData<SlingPageData> {
   private String authorIP;
 
   @Override
-  @Step("Create test page {testPageData.contentPath}")
+  @Step("Create test page {data.contentPath}")
   public void execute(SlingPageData data) throws AemPageManipulationException {
     HttpPost request = new HttpPost(authorIP + data.getContentPath());
     request.setEntity(new UrlEncodedFormEntity(data.getContent(), Consts.UTF_8));
