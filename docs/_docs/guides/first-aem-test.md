@@ -2,23 +2,23 @@
 title: Writing your first AEM authoring test with Bobcat
 ---
 
-This guide uses `bobcat-aem-junit` template to create tests. Some concepts are the same as in [first test guide]({{site.baseurl}}/docs/guides/first-test/) and we won't explain them here.
+This guide uses the `bobcat-aem-junit` template to generate a Bobcat project. Some concepts are the same as in [the first test guide]({{site.baseurl}}/docs/guides/first-test/) and we won't explain them here.
 
 ## Context
 
-We will write a test that will check the following:
+We will write a test that will do the following:
 
-1. Login to AEM author instance
-2. We create simple test page with few components
-3. Configure text component
-4. Check if component has entered values
-5. Remove created page after test is finished.
+1. Login to an AEM author instance
+2. Create a simple test page with a couple of components
+3. Configure a text component
+4. Check if a component has entered values
+5. Remove the created page after the test is finished
 
-We will use AEM 6.4 instance.
+We will use an AEM 6.4 instance.
 
 ## Setup
 
-We used gradle template so we have much of the job already done. We have already prepared default [runmode]({{site.baseurl}}docs/modules/core/runmodes/) with all required modules:
+We used the `bobcat-aem-junit` gradle template so we have a large part of the job already done. We have the default [runmode]({{site.baseurl}}docs/modules/core/runmodes/) already prepared with all required modules:
 
 ```yaml
 - com.cognifide.qa.bb.modules.CoreModule
@@ -28,11 +28,11 @@ These two modules are required to run authoring tests for AEM 6.4.
 
 ## Page Objects
 
-We will start with creating required page objects
+We will start with creating the required page objects.
 
-### Create Test Page
+### Test Page
  
-Page Object that will be representation of our test page
+This Page Object will be a representation of our test page:
 
 ```java
 package com.bobcat.test.pages;
@@ -70,11 +70,11 @@ public class TestPage extends AemAuthorPage<TestPage> {
 }
 ``` 
 
-- `AemAuthorPage` is extend version of `Page.class` it contains method to retrieving component page object from preview mode. Thanks to this we can check if configuration was correct  
+`AemAuthorPage` is an extended version of `Page.class`, it contains the method to retrieve a component page object from preview mode. Thanks to this we can check if the configuration is correct.  
 
 ### Text Component
 
-Then we will create Page Object that represents Text Component available in AEM. We will use both `PageObjectInterface` and `PageObject`
+Now we will create a Page Object that represents the Text Component available in AEM. We will use both `PageObjectInterface` and `PageObject`:
 
 ```java
 package com.bobcat.test.pageobjects;
@@ -115,7 +115,7 @@ public class TextComponentImpl implements TextComponent {
 
 ### Guice module
 
-We should bind interface to implementation so we create simple guice module
+We should bind the interface to the implementation, so we create a simple Guice module:
 ```java
 package com.bobcat.test;
 
@@ -132,7 +132,7 @@ public class ComponentModule extends AbstractModule {
 }
 ```
 
-Then we should add new module to our runmode in `default.yaml`
+After that we should add new module to our runmode in `default.yaml`:
 ```yaml
 - com.cognifide.qa.bb.modules.CoreModule
 - com.cognifide.qa.bb.aem.core.modules.Aem64FullModule
@@ -140,10 +140,10 @@ Then we should add new module to our runmode in `default.yaml`
 ```
 
 ## Test
-We prepared all required page objects and we can start writing test.
+We've prepared all required page objects and we can start writing the test.
 
 ### Test frame
-Lets start with creating a test frame which we will fill in next steps:
+Let's start with creating a test frame which we will fill out in the next steps:
 ```java
 package com.bobcat.test;
 
@@ -174,12 +174,12 @@ public class ConfigureComponentTest {
   }
 }
 ```
- - We have empty test method, JUnit BeforeEach and AfterEach methods
- - `@Epic` and `@Feature` are Allure annotations.
+ - We have empty JUnit BeforeEach, Test and AfterEach methods
+ - `@Epic` and `@Feature` are Allure annotations
 
 ### Login to AEM
 
-Our configuration already has neccessary parameters, but sometimes instance address or password have to be changed. In template project for developer instance they are kept in `dev.yaml`
+Our configuration already has the necessary parameters, but sometimes the instance address or password have to be changed. In the template project for the developer instance they are kept in `dev.yaml`:
 ```yaml
 dev:
   author.url: http://127.0.0.1:4502
@@ -189,7 +189,7 @@ dev:
   login.token.name: login-token
 ```
 
-With this parameters login to AEM requires injecting `ActionsController.class` and calling one action. We do this in `BeforeEach` method.
+With these parameters logging into AEM requires injecting `ActionsController.class` and calling one action. We do this in the `BeforeEach` method.
 
 ```java
 (...)
@@ -206,11 +206,11 @@ import com.cognifide.qa.bb.api.actions.ActionsController;
   }
 (...)  
 ```
-- `ActionsController` allow to execute predefined actions in Bobcat. Some of them (as login action) are already delivered with Bobcat but they can be also developed by users. 
+- `ActionsController` allows to execute predefined actions in Bobcat. Some of them (such as the login action) are already delivered with Bobcat but they can be also developed by users. 
 
-### Create test page
+### Create the test page
 
-We have to make sure that page we want to test exists in AEM instance. First step is prepare its definition. We create file in `test/resources` folder and we name it ``pageTest.xml`
+We have to make sure that the page we want to test exists in the AEM instance. The first step is preparing its definition. We create a file in `test/resources` folder and we name it ``pageTest.xml`:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -240,7 +240,7 @@ We have to make sure that page we want to test exists in AEM instance. First ste
   </jcr:content>
 </jcr:root>
 ```
-As you can see it is AEM page exported from crx in xml format. It contains one text component from We Retail. Now using our actions we have to add this page to instance. We do it also in `BeforeEach` method:
+As you can see it's an AEM page exported from crx in xml format. It contains one text component from We Retail. Now using our actions we have to add this page to our AEM instance. We do it also in the `BeforeEach` method:
 ```java
 (...)
 import com.cognifide.qa.bb.aem.core.pages.sling.SlingDataXMLBuilder;
@@ -258,12 +258,12 @@ private static final String TEST_PAGE_PATH = "/content/we-retail/us/en/textcompo
   }
 (...)
 ```
-- We use here action that requires some parameters. To pass them we use class that implements `ActionData` interface. In our example this class is delivered with Bobcat but in custom actions it has to be created by users
-- We need to parameters. Path where in crx page will be created and what page will contain
-- `SlingDataXMLBuilder.class` creates page data that Sling can understand from xml file 
+- We use here an action that requires some parameters. To pass them we use a class that implements the `ActionData` interface. In our example this class is delivered with Bobcat but in custom actions it has to be created by users
+- We need to two parameters: the path where in crx the page will be created and what the page will contain
+- `SlingDataXMLBuilder.class` creates the page data, that Sling can understand, from the xml file 
 
-### Get page instance
-With all things prepared and ready we can start writing test. First lets get our page instance using and open it in our browser
+### Get an instance of the test page
+With all things prepared and ready we can start writing our test. First let's get our page instance and open it in a browser:
 
 ```java
 (...)
@@ -286,8 +286,8 @@ private final static String PAGE_TO_CREATE_TITLE = "testPage";
 (...)  
 ```
 
-### Configure component
-We can open page, it contains text component and now we need its configuration. It is also kept in yaml file in `test/resources`. In our case we name it `text.yaml`
+### Configure the component
+We can open the test page, it contains the text component and now we need its configuration. It's also kept in yaml file in `test/resources`. In our case we name it `text.yaml`:
 ```yaml
 Properties:
   - type: RICHTEXT
@@ -295,9 +295,9 @@ Properties:
   - type: RICHTEXT_FONT_FORMAT
     value: BOLD
 ```
-- Component configuration files contains information about how component dialogs should be field. Text component dialog has richtext which we want to have some text. We can also set that this text should be bold.   
+- The component configuration file contains information about how the component dialogs should be filled in. The text component dialog has a richtext field in which we want to have some text. We can also set this text to be bold.   
 
-In test we will select component on page. Then we will fill it using configuration file.
+In the test we will select the component on the page. Then we will fill it out using the configuration file:
 
 ```java
 (...)
@@ -313,20 +313,20 @@ import com.cognifide.qa.bb.aem.core.component.configuration.ResourceFileLocation
   }
 (...)
 ```
-- We of course use another here, last parameter is configuration file but what are other parameters. Lets see where component is placed:
+- We of course use another action here, the last parameter is the configuration file but what are the other parameters? Lets see where the component is placed:
   ![Login Page]({{site.baseurl}}/assets/img/aemtutorial.png)
-  Content tree is how we look for component
+  We use the Content Tree to search for the component.
 
-  First parameter is where in containers (or in which level) we can found component. If we would like to find component with text "one" path would be "container". For text "two" the path would be "container/container[1]" (we have to select nested container and second leaf).  
+  The first parameter is in which container (or on which level) we can find the component. If we would like to find the component with text "one" the path would be "container". For the componet with text "two" the path would be "container/container[1]" (we have to select the nested container and the second leaf).  
 
-  Second parameter is component name in Content tree
+  The second parameter is the component name in the Content Tree
 
-  Third parameter is which component with this name on selected level we should select. Here we want to select first so 0. If we would like to select one with "three" than the value would be '1'.
+  The third parameter is which component with this name on the selected level we should select. Here we want to select the first one, so the parameter is "0". If we would like to select the component with text "three" than the value would be "1".
   
-  We use java array numeration of place.
+  We use Java array numeration for locating elements (the first element has the index 0).
 
-### Check component
-We configured component and we would like to check if everything worked.
+### Check the component
+We configured the component and we would like to check if everything works.
 ```java
 (...)
 import static org.assertj.core.api.Assertions.assertThat;
@@ -341,12 +341,12 @@ import com.bobcat.test.pageobjects.TextComponentImpl;
   }
 (...)
 ```
-- `getContent` method from `AemAuthorPage` will switch us to preview mode. Then it will search for `TestComponent` on our page. Because we can have many text components we have to select which one. In our example first one
-- And at last we compare text from component with expected text.
+- `getContent` method from `AemAuthorPage` will switch us to preview mode. Then it will search for `TestComponent` on our page. Because we can have many text components we have to select which one is needed. In our example it's the first one
+- And at last we compare the text from the component with the expected text
 
-### Remove page
+### Remove the test page
 
-After test is finished it should clean the instance. All changes that were made should be discarded. In our example we should delete created page and we do it in `AfterEach` method
+After test is finished it should clean the AEM instance. All changes that were made should be discarded. In our example we should delete the created test page and we do it in the `AfterEach` method
 ```java
 (...)
   @AfterEach
@@ -355,9 +355,9 @@ After test is finished it should clean the instance. All changes that were made 
   }
 (...)
 ```
-- We again use one of actions with one parameter which is path to page that we want to remove. 
-### Full test
-Full test class created in this tutorial
+- We again use one of actions with one parameter which is the path to page that we want to remove 
+### The full test
+The full test class created in this tutorial:
 
 ```java
 package com.bobcat.test;
