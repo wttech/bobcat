@@ -37,6 +37,8 @@ import com.google.inject.Key;
  */
 public class WebdriverCloseExtension implements AfterTestExecutionCallback, AfterAllCallback {
 
+  private WebDriver webDriver;
+
   /**
    * {@inheritDoc}
    */
@@ -44,7 +46,10 @@ public class WebdriverCloseExtension implements AfterTestExecutionCallback, Afte
   public void afterTestExecution(ExtensionContext context) {
     Injector injector = getInjector(context);
     if (injector != null) {
-      injector.getInstance(Key.get(WebDriver.class)).quit();
+      if (webDriver == null) {
+        webDriver = injector.getInstance(Key.get(WebDriver.class));
+      }
+      webDriver.quit();
     }
   }
 
