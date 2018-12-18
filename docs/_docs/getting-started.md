@@ -2,23 +2,21 @@
 title: Getting started
 ---
 
-Decided to try Bobcat out? Great!
+So you decided to try Bobcat out? Great!
 
 On this page, you will find all the necessary information that will help you kickstart your journey with Bobcat.
 
 ## Prerequisites
 
-Before you start, please make sure you have following stuff installed on your machine:
-
-- JDK 1.8
+Before you start, please make sure you have JDK 1.8 installed on your machine.
 
 ## Generating a Bobcat project
 
-To start using Bobcat, you could simply create an empty project, add the required dependencies of wanted Bobcat modules, create a Guice module, set necessary propreties... but it already sounds like a bit of work!
+To start using Bobcat, you could simply create an empty project, add the required dependencies of the Bobcat modules you need, create a Guice module, set necessary properties... but it already sounds like a bit of work!
 
 That is why we streamlined the whole setup - we provide a handy Bobcat project template, which can generate your desired flavor of Bobcat configuration. Go to the [template](https://github.com/Cognifide/bobcat-gradle-template) repository, clone it and follow the instructions in README.
 
-And that's it! You have a working Bobcat project :).
+And that's it! You have a working Bobcat project. :)
 
 ### Manual setup
 
@@ -34,6 +32,6 @@ Read more about available [Bobcat modules]({{site.baseurl}}/docs/modules/).
 
 Now that you have the project up and running, you might want to configure it. To do so, please refer to [Configuring Bobcat]({{site.baseurl}}/docs/configuring-bobcat/)
 
-## Writing your first test case
+## Writing your first test
 
 Finally, the time has come to [write your first test using Bobcat!]({{site.baseurl}}/docs/guides/first-test/)

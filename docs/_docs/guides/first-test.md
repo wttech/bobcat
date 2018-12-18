@@ -1,12 +1,12 @@
 ---
-title: Writing your first test with Bobcat
+title: Writing your first test case with Bobcat
 ---
 
-This guide uses `bobcat-junit5` template to create tests.
+This guide uses the `bobcat-junit5` template to generate a Bobcat project. [Here]({{site.baseurl}}/docs/templates/) you can find out how to use such a template.
 
 ## Context
 
-We will write a simple test that will check the following:
+We will write a simple test case that will do the following:
 
 1. Open the Wikipedia homepage.
 2. Search for 'hello world' in the search box.
@@ -15,7 +15,7 @@ We will write a simple test that will check the following:
 
 ## Our first Page Objects
 
-Always before jumping straight away into coding, it's a good habit to stop and analyze what we are going to actually need to automate on our website. When it comes to modeling the necessary parts of the page (or multiple ones) as page objects, it's a good idea to draw the relationship first. An important note here: **page object doesn't have to mean an actual page**, it can also refer to a page section, single component etc.
+Always before jumping straight away into coding, it's a good habit to stop and analyze what tests we actually need automated on our website. When it comes to modeling the necessary parts of the page (or multiple ones) as page objects, it's a good idea to draw the relationships first. An important note here: **a page object doesn't have to represent an actual page**, it can also refer to a page section, single component, etc.
 
 To automate our test case we need to tackle the following elements on their related pages:
 
@@ -56,16 +56,16 @@ public class Homepage extends Page<Homepage>{
 }
 ```
 
-Few elements probably require a bit of explanation:
+A few elements probably require a little bit of explanation:
 
-- `@PageObject` annotation on the whole class informs Bobcat that this is a... page object :)! Thanks to this, Bobcat will create a proper page object structure and handle Page Factory initialization across the whole tree. **Always remember about putting `@PageObject` annotation on your page objects!**
-- `Page.class` this class allows to use factory to create page with url required when we run test. It also gives us injected Webdriver. Guice, the dependency injection framework used in Bobcat, will create and provide a proper instance of WebDriver based on your configuration options. If you're not interested in how it's being done, you can simply stick with this information. If you're more curious, you can check `WebDriverProvider` in Bobcat source :).
+- `@PageObject` - this annotation on the whole class informs Bobcat that this is a... page object :)! Thanks to this, Bobcat will create a proper page object structure and handle Page Factory initialization across the whole tree. **Always remember about putting `@PageObject` annotation on your page objects!**
+- `Page.class` - this class allows the use of a factory to create a page with an url required when we run the test. It also gives us an injected Webdriver. Guice, the dependency injection framework used in Bobcat, will create and provide a proper instance of WebDriver based on your configuration options. If you're not interested in how it's done, you can simply stick with this information. If you're more curious, you can check `WebDriverProvider` in Bobcat source. :)
 - 
 ```java
   @FindBy(id = "p-search")
   private SearchComponent searchComponent;
 ```
-If you have worked with `@FindBy` earlier, you might noticed it's not annotating a Selenium's `WebElement` but a different class. It's one of the more powerful Bobcat features - **the ability to nest page objects in other ones**, i.e. you can put one page object inside another, using the `@FindBy` annotation! Oh, it works with Lists as well.
+If you have worked with `@FindBy` earlier, you might noticed it's not annotating a Selenium `WebElement` but a different class. It's one of the more powerful Bobcat features - **the ability to nest page objects in other ones**, i.e. you can put one page object inside another, using the `@FindBy` annotation! Oh, it works with Lists as well.
 
 #### Search component
 
@@ -94,7 +94,7 @@ This is a more regular Selenium example. One important thing to note here: **tha
 
 What does it mean?
 
-In our case, refering to the `searchField` WebElement will trigger a search for element located by the `#p-search input[type=search]` selector. As you can see, thanks to this, your selectors will be way more maintainable across more complicated page object trees.
+In our case, referring to the `searchField` WebElement will trigger a search for the element located by the `#p-search input[type=search]` selector. As you can see, thanks to this, your selectors will be way more maintainable across more complicated page object trees.
 
 #### Wikipedia article page
 
@@ -122,13 +122,13 @@ Nothing special in this page object :).
 
 We have all the necessary pieces required to write the actual test!
 
-*Note:* if you would like to read more about working with Page Objects in Bobcat, check out the [Working with Page Objects in Bobcat]({{site.baseurl}}/docs/page-objects/).
+*Note:* if you would like to read more about working with Page Objects in Bobcat, check out [Working with Page Objects in Bobcat]({{site.baseurl}}/docs/page-objects/).
 {: .notice--info}
 --------------
 
 ## JUnit
 
-When writing tests in JUnit5 Bobcat already creates Guice context what we must do is to add required modules and we do it with `BobcatRunModule.class`
+When writing tests in JUnit5, Bobcat already creates Guice context, what we must do is to add required modules and we do it with `BobcatRunModule.class`
 
 Using it looks like this:
 ```java
@@ -160,16 +160,16 @@ public class WikipediaTest {
   public void wikipediaSearchTest() {
         Homepage homePage = bobcatPageFactory.create("https://en.wikipedia.org", Homepage.class);
         homePage.open().getSearchComponent().searchForQuery(SEARCH_QUERY);
-        assertThat(definitionPage.getHeading(), is(HEADING));
+        assertThat(articlePage.getHeading(), is(HEADING));
   }
 }
 ```
 
-All it takes is adding the following annotations to your test class:
+All it takes is adding the following annotation to your test class:
 ```java
 @Modules(BobcatRunModule.class)
 ```
-The template has already created `default.yaml` file that contains all required guice modules
+The template has already created the `default.yaml` file that contains all required Guice modules
 
 
 ## Running tests
