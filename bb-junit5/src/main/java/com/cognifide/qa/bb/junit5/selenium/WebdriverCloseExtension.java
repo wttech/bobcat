@@ -23,6 +23,7 @@ import static com.cognifide.qa.bb.junit5.JUnit5Constants.NAMESPACE;
 
 import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
+import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.openqa.selenium.WebDriver;
 
@@ -35,22 +36,22 @@ import com.google.inject.Key;
  * <p>
  * Loaded automatically by ServiceLoader.
  */
-public class WebdriverCloseExtension implements AfterTestExecutionCallback, AfterAllCallback {
+public class WebdriverCloseExtension
+    implements BeforeTestExecutionCallback, AfterTestExecutionCallback, AfterAllCallback {
 
   private WebDriver webDriver;
+
+  @Override
+  public void beforeTestExecution(ExtensionContext context) {
+    webDriver = getWebDriver(context);
+  }
 
   /**
    * {@inheritDoc}
    */
   @Override
   public void afterTestExecution(ExtensionContext context) {
-    Injector injector = getInjector(context);
-    if (injector != null) {
-      if (webDriver == null) {
-        webDriver = injector.getInstance(Key.get(WebDriver.class));
-      }
-      webDriver.quit();
-    }
+    webDriver.quit();
   }
 
   /**
@@ -63,7 +64,11 @@ public class WebdriverCloseExtension implements AfterTestExecutionCallback, Afte
   }
 
   //for mocking purposes
-  Injector getInjector(ExtensionContext context) {
-    return InjectorUtils.retrieveInjectorFromStore(context, NAMESPACE);
+  WebDriver getWebDriver(ExtensionContext context) {
+    Injector injector = InjectorUtils.retrieveInjectorFromStore(context, NAMESPACE);
+    if (injector != null) {
+      return injector.getInstance(Key.get(WebDriver.class));
+    }
+    throw new IllegalStateException("Could not obtain WebDriver instance");
   }
 }
