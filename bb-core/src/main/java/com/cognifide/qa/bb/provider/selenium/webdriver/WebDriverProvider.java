@@ -19,9 +19,9 @@
  */
 package com.cognifide.qa.bb.provider.selenium.webdriver;
 
-import java.util.Properties;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
@@ -33,6 +33,7 @@ import com.cognifide.qa.bb.guice.ThreadScoped;
 import com.cognifide.qa.bb.provider.selenium.webdriver.close.ClosingAwareWebDriver;
 import com.cognifide.qa.bb.provider.selenium.webdriver.close.ClosingAwareWebDriverWrapper;
 import com.cognifide.qa.bb.provider.selenium.webdriver.close.WebDriverClosedListener;
+import com.cognifide.qa.bb.provider.selenium.webdriver.creators.WebDriverCreator;
 import com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.WebDriverModifiers;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -70,9 +71,6 @@ public class WebDriverProvider implements Provider<WebDriver> {
   private boolean maximize;
 
   @Inject
-  private Properties properties;
-
-  @Inject
   private Capabilities capabilities;
 
   @Inject
@@ -86,6 +84,9 @@ public class WebDriverProvider implements Provider<WebDriver> {
 
   @Inject
   private Set<WebDriverEventListener> listeners;
+
+  @Inject
+  private Set<WebDriverCreator> webDriverCreators;
 
   /**
    * This is the provider method that produces WebDriver instance. It returns either a cached
@@ -103,8 +104,13 @@ public class WebDriverProvider implements Provider<WebDriver> {
   private ClosingAwareWebDriver create() {
     final Capabilities modifiedCapabilities = webDriverModifiers.modifyCapabilities(capabilities);
 
-    final WebDriverType webDriverType = WebDriverType.get(type);
-    final WebDriver raw = webDriverType.create(modifiedCapabilities, properties);
+    WebDriverCreator webDriverCreator = webDriverCreators.stream()
+        .filter(creator -> StringUtils.equalsIgnoreCase(type, creator.getId()))
+        .findFirst()
+        .orElseThrow(() -> new IllegalStateException(
+            "No WebDriverCreator registered for the provided type: " + type));
+
+    final WebDriver raw = webDriverCreator.create(modifiedCapabilities);
     final WebDriver modified = webDriverModifiers.modifyWebDriver(raw);
 
     final ClosingAwareWebDriverWrapper closingAwareWebDriver =
@@ -118,11 +124,11 @@ public class WebDriverProvider implements Provider<WebDriver> {
     final ClosingAwareWebDriverWrapper closingWebDriver =
         new ClosingAwareWebDriverWrapper(webDriver,
             frameSwitcher, maximize, reusable, mobile);
-    closedListeners.stream().forEach(closingWebDriver::addListener);
+    closedListeners.forEach(closingWebDriver::addListener);
     return closingWebDriver;
   }
 
   private void registerEventListeners(final EventFiringWebDriver closingWebDriver) {
-    listeners.stream().forEach(closingWebDriver::register);
+    listeners.forEach(closingWebDriver::register);
   }
 }

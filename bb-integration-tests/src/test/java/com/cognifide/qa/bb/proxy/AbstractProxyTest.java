@@ -20,7 +20,7 @@
 package com.cognifide.qa.bb.proxy;
 
 import java.net.UnknownHostException;
-import java.util.Properties;
+import java.util.Set;
 
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
@@ -30,7 +30,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.constants.ConfigKeys;
-import com.cognifide.qa.bb.provider.selenium.webdriver.WebDriverType;
+import com.cognifide.qa.bb.provider.selenium.webdriver.creators.WebDriverCreator;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
@@ -49,7 +49,7 @@ abstract class AbstractProxyTest {
   private String type;
 
   @Inject
-  private Properties properties;
+  private Set<WebDriverCreator> webDriverCreators;
 
   void startProxyServer(BrowserMobProxy browserMobProxy) throws UnknownHostException {
     int port = browserMobProxy.getPort();
@@ -59,8 +59,11 @@ abstract class AbstractProxyTest {
 
   void visitSamplePage(DesiredCapabilities capabilities) {
     try (TextResponseEmbedHttpServer server = new TextResponseEmbedHttpServer(1234, EXAMPLE_HTML)) {
-      WebDriverType webDriverType = WebDriverType.get(type);
-      WebDriver webDriver = webDriverType.create(capabilities, properties);
+      WebDriver webDriver = webDriverCreators.stream()
+          .filter(creator -> type.equalsIgnoreCase(creator.getId()))
+          .findFirst()
+          .orElseThrow(IllegalStateException::new)
+          .create(capabilities);
       webDriver.get(server.getPath());
       LOG.debug("visited page at: '{}'", server.getPath());
       webDriver.quit();

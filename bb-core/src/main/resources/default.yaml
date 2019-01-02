@@ -19,7 +19,7 @@ default:
     webdriver.mobile: false
     webdriver.maximize: true
     webdriver.reusable: false
-    webdriver.defaultTimeout: 10 #deprecated, see ConfigKeys
+    webdriver.url: ''
 
     cookies.loadAutomatically: true
 
