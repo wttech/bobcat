@@ -19,23 +19,12 @@
  */
 package com.cognifide.qa.bb.provider.selenium.webdriver;
 
-import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
 
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxBinary;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.ie.InternetExplorerOptions;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.safari.SafariDriver;
-import org.openqa.selenium.safari.SafariOptions;
 
 import com.cognifide.qa.bb.constants.ConfigKeys;
 
@@ -47,30 +36,6 @@ import io.appium.java_client.remote.MobilePlatform;
  * Enum represent available web driver types.
  */
 public enum WebDriverType {
-  FIREFOX {
-    @Override
-    public WebDriver create(Capabilities capabilities, Properties properties) {
-      return new FirefoxDriver(new FirefoxOptions(capabilities));
-    }
-  },
-  CHROME {
-    @Override
-    public WebDriver create(Capabilities capabilities, Properties properties) {
-      return new ChromeDriver(new ChromeOptions().merge(capabilities));
-    }
-  },
-  IE {
-    @Override
-    public WebDriver create(Capabilities capabilities, Properties properties) {
-      return new InternetExplorerDriver(new InternetExplorerOptions(capabilities));
-    }
-  },
-  SAFARI {
-    @Override
-    public WebDriver create(Capabilities capabilities, Properties properties) {
-      return new SafariDriver(new SafariOptions(capabilities));
-    }
-  },
   APPIUM {
     @Override
     public WebDriver create(Capabilities capabilities, Properties properties) {
@@ -102,30 +67,6 @@ public enum WebDriverType {
               "%s is not configured correctly. Set it either to %s or %s",
               ConfigKeys.WEBDRIVER_CAP_PLATFORM_NAME, MobilePlatform.ANDROID, MobilePlatform.IOS));
       }
-    }
-  },
-  REMOTE {
-    @Override
-    public WebDriver create(Capabilities capabilities, Properties properties) {
-      final URL url;
-      try {
-        url = new URL(properties.getProperty(ConfigKeys.WEBDRIVER_URL));
-      } catch (MalformedURLException e) {
-        throw new IllegalArgumentException(e);
-      }
-      return new RemoteWebDriver(url, capabilities);
-    }
-  },
-  XVFB {
-    @Override
-    public WebDriver create(Capabilities capabilities, Properties properties) {
-      final File firefoxPath = new File(properties.getProperty(ConfigKeys.WEBDRIVER_FIREFOX_BIN));
-      FirefoxBinary firefoxBinary = new FirefoxBinary(firefoxPath);
-      firefoxBinary.setEnvironmentProperty("DISPLAY",
-          properties.getProperty(ConfigKeys.WEBDRIVER_XVFB_ID));
-      FirefoxOptions firefoxOptions = new FirefoxOptions(capabilities).setBinary(firefoxBinary);
-
-      return new FirefoxDriver(firefoxOptions);
     }
   };
 

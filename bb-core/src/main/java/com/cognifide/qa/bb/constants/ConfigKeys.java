@@ -39,8 +39,6 @@ public final class ConfigKeys {
 
   public static final String WEBDRIVER_CAP_PLATFORM_NAME = "webdriver.cap.platformName";
 
-  public static final String WEBDRIVER_FIREFOX_BIN = "webdriver.firefox.bin";
-
   public static final String WEBDRIVER_MAXIMIZE = "webdriver.maximize";
 
   public static final String WEBDRIVER_MOBILE = "webdriver.mobile";
@@ -48,8 +46,6 @@ public final class ConfigKeys {
   public static final String WEBDRIVER_REUSABLE = "webdriver.reusable";
 
   public static final String WEBDRIVER_TYPE = "webdriver.type";
-
-  public static final String WEBDRIVER_XVFB_ID = "webdriver.xvfb.id";
 
   public static final String WEBDRIVER_URL = "webdriver.url";
 

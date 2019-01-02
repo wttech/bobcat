@@ -54,6 +54,8 @@ public class CoreModule extends AbstractModule {
 
     install(new WebdriverModule());
 
+    install(new WebdriverCreatorsModule());
+
     install(new BobcatWebElementModule());
 
     install(new FrameModule());
