@@ -51,7 +51,9 @@ public class WebdriverCloseExtension
    */
   @Override
   public void afterTestExecution(ExtensionContext context) {
-    webDriver.quit();
+    if (webDriver != null) {
+      webDriver.quit();
+    }
   }
 
   /**
