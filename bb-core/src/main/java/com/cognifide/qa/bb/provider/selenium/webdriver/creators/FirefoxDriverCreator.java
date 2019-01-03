@@ -23,15 +23,22 @@ import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FirefoxDriverCreator implements WebDriverCreator {
+  private static final Logger LOG = LoggerFactory.getLogger(FirefoxDriverCreator.class);
+  private static final String ID = "firefox";
+
   @Override
   public WebDriver create(Capabilities capabilities) {
+    LOG.info("Starting the initialization of '{}' WebDriver instance", ID);
+    LOG.debug("Initializing WebDriver with following capabilities: {}", capabilities);
     return new FirefoxDriver(new FirefoxOptions(capabilities));
   }
 
   @Override
   public String getId() {
-    return "firefox";
+    return ID;
   }
 }

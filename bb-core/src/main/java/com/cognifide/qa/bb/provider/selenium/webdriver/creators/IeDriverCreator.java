@@ -23,15 +23,23 @@ import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.ie.InternetExplorerOptions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class IeDriverCreator implements WebDriverCreator {
+  private static final Logger LOG = LoggerFactory.getLogger(IeDriverCreator.class);
+
+  private static final String ID = "ie";
+
   @Override
   public WebDriver create(Capabilities capabilities) {
+    LOG.info("Starting the initialization of '{}' WebDriver instance", ID);
+    LOG.debug("Initializing WebDriver with following capabilities: {}", capabilities);
     return new InternetExplorerDriver(new InternetExplorerOptions(capabilities));
   }
 
   @Override
   public String getId() {
-    return "ie";
+    return ID;
   }
 }

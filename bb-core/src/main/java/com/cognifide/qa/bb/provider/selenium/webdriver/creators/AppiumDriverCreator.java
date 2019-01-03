@@ -25,6 +25,8 @@ import java.util.Properties;
 
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.constants.ConfigKeys;
 import com.google.inject.Inject;
@@ -35,17 +37,22 @@ import io.appium.java_client.remote.MobilePlatform;
 
 public class AppiumDriverCreator implements WebDriverCreator {
 
+  private static final Logger LOG = LoggerFactory.getLogger(AppiumDriverCreator.class);
+  private static final String ID = "appium";
+
   @Inject
   private Properties properties;
 
   @Override
   public WebDriver create(Capabilities capabilities) {
+    LOG.info("Starting the initialization of '{}' WebDriver instance", ID);
+    LOG.debug("Initializing WebDriver with following capabilities: {}", capabilities);
     return createMobileDriver(capabilities, properties);
   }
 
   @Override
   public String getId() {
-    return "appium";
+    return ID;
   }
 
   private WebDriver createMobileDriver(Capabilities capabilities, Properties properties) {

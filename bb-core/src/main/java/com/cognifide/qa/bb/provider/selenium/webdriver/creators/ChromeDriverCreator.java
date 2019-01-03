@@ -23,16 +23,23 @@ import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ChromeDriverCreator implements WebDriverCreator {
 
+  private static final Logger LOG = LoggerFactory.getLogger(ChromeDriverCreator.class);
+  private static final String ID = "chrome";
+
   @Override
   public WebDriver create(Capabilities capabilities) {
+    LOG.info("Starting the initialization of '{}' WebDriver instance", ID);
+    LOG.debug("Initializing WebDriver with following capabilities: {}", capabilities);
     return new ChromeDriver(new ChromeOptions().merge(capabilities));
   }
 
   @Override
   public String getId() {
-    return "chrome";
+    return ID;
   }
 }

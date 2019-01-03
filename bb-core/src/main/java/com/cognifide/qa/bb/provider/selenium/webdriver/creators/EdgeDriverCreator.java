@@ -23,15 +23,22 @@ import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class EdgeDriverCreator implements WebDriverCreator {
+  private static final Logger LOG = LoggerFactory.getLogger(EdgeDriverCreator.class);
+  private static final String ID = "edge";
+
   @Override
   public WebDriver create(Capabilities capabilities) {
+    LOG.info("Starting the initialization of '{}' WebDriver instance", ID);
+    LOG.debug("Initializing WebDriver with following capabilities: {}", capabilities);
     return new EdgeDriver(new EdgeOptions().merge(capabilities));
   }
 
   @Override
   public String getId() {
-    return "edge";
+    return ID;
   }
 }

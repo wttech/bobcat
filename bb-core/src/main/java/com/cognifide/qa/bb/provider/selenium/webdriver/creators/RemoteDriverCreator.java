@@ -36,6 +36,7 @@ import com.google.inject.Inject;
 public class RemoteDriverCreator implements WebDriverCreator {
 
   private static final Logger LOG = LoggerFactory.getLogger(RemoteDriverCreator.class);
+  private static final String ID = "remote";
 
   @Inject
   @Named(ConfigKeys.WEBDRIVER_URL)
@@ -43,6 +44,8 @@ public class RemoteDriverCreator implements WebDriverCreator {
 
   @Override
   public WebDriver create(Capabilities capabilities) {
+    LOG.info("Starting the initialization of '{}' WebDriver instance", ID);
+    LOG.debug("Initializing WebDriver with following capabilities: {}", capabilities);
     final URL url;
     try {
       url = new URL(webdriverUrl);
@@ -55,6 +58,6 @@ public class RemoteDriverCreator implements WebDriverCreator {
 
   @Override
   public String getId() {
-    return "remote";
+    return ID;
   }
 }

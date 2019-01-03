@@ -41,10 +41,8 @@ import com.google.inject.name.Named;
 
 /**
  * This is a provider that will produce WebDriver instances for all your PageObjects. It is
- * ThreadScoped, so
- * each thread will receive its own instance of WebDriver. WebDriverProvider caches the
- * WebDriver, so all
- * PageObjects in one thread will be using one instance of WebDriver.
+ * ThreadScoped, so each thread will receive its own instance of WebDriver. WebDriverProvider caches the
+ * WebDriver, so all PageObjects in one thread will be using one instance of WebDriver.
  */
 @ThreadScoped
 public class WebDriverProvider implements Provider<WebDriver> {
@@ -90,8 +88,7 @@ public class WebDriverProvider implements Provider<WebDriver> {
 
   /**
    * This is the provider method that produces WebDriver instance. It returns either a cached
-   * webdriver or
-   * creates a new one.
+   * webdriver or creates a new one.
    */
   @Override
   public WebDriver get() {

@@ -23,15 +23,23 @@ import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SafariDriverCreator implements WebDriverCreator {
+  private static final Logger LOG = LoggerFactory.getLogger(SafariDriverCreator.class);
+
+  private static final String ID = "safari";
+
   @Override
   public WebDriver create(Capabilities capabilities) {
+    LOG.info("Starting the initialization of '{}' WebDriver instance", ID);
+    LOG.debug("Initializing WebDriver with following capabilities: {}", capabilities);
     return new SafariDriver(new SafariOptions(capabilities));
   }
 
   @Override
   public String getId() {
-    return "safari";
+    return ID;
   }
 }
