@@ -97,19 +97,12 @@ public class WebDriverProvider implements Provider<WebDriver> {
     final WebDriver raw = webDriverCreator.create(modifiedCapabilities);
     final WebDriver modified = webDriverModifiers.modifyWebDriver(raw);
 
-    final ClosingAwareWebDriver closingAwareWebDriver = wrapInClosingAwareWebDriver(modified);
-    registerEventListeners(closingAwareWebDriver);
+    final ClosingAwareWebDriver closingAwareWebDriver =
+        closingAwareWebDriverFactory.create(modified);
+    closedListeners.forEach(closingAwareWebDriver::addListener);
+    listeners.forEach(((EventFiringWebDriver) closingAwareWebDriver)::register);
+
     registry.add(closingAwareWebDriver);
     return closingAwareWebDriver;
-  }
-
-  private ClosingAwareWebDriver wrapInClosingAwareWebDriver(final WebDriver webDriver) {
-    final ClosingAwareWebDriver closingWebDriver = closingAwareWebDriverFactory.create(webDriver);
-    closedListeners.forEach(closingWebDriver::addListener);
-    return closingWebDriver;
-  }
-
-  private void registerEventListeners(final ClosingAwareWebDriver closingWebDriver) {
-    listeners.forEach(((EventFiringWebDriver) closingWebDriver)::register);
   }
 }
