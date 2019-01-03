@@ -27,8 +27,12 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.cognifide.qa.bb.constants.ConfigKeys;
 import com.cognifide.qa.bb.frame.FrameSwitcher;
 import com.cognifide.qa.bb.provider.selenium.webdriver.WebDriverWrapper;
+import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
+import com.google.inject.name.Named;
 
 /**
  * WebDriver wrapper implementing ClosingAwareWebDriver interface.
@@ -53,9 +57,9 @@ public class ClosingAwareWebDriverWrapper extends WebDriverWrapper
   /**
    * Constructs ClosingAwareWebDriver.
    *
-   * @param driver WebDriver to be wrapped by ClosingAwareWebDriver
+   * @param driver        WebDriver to be wrapped by ClosingAwareWebDriver
    * @param frameSwitcher FrameSwitcher instance
-   * @param maximize should the browser be maximized during reset (affects reusable mode)
+   * @param maximize      should the browser be maximized during reset (affects reusable mode)
    * @param reusable      overrides behavior of close() and quit() methods.
    *                      If the browser is reusable the cookies for current domain will be deleted
    *                      and browser will navigate to about:blank page
@@ -63,9 +67,11 @@ public class ClosingAwareWebDriverWrapper extends WebDriverWrapper
    * @param mobile        denotes mobile web driver.
    *                      Mobile web drivers do not support alert checking.
    */
-  public ClosingAwareWebDriverWrapper(WebDriver driver, FrameSwitcher frameSwitcher,
-      boolean maximize,
-      boolean reusable, boolean mobile) {
+  @Inject
+  public ClosingAwareWebDriverWrapper(@Assisted WebDriver driver, FrameSwitcher frameSwitcher,
+      @Named(ConfigKeys.WEBDRIVER_MAXIMIZE) boolean maximize,
+      @Named(ConfigKeys.WEBDRIVER_REUSABLE) boolean reusable,
+      @Named(ConfigKeys.WEBDRIVER_MOBILE) boolean mobile) {
     super(driver, frameSwitcher);
     this.closedListeners = new HashSet<>();
     this.maximize = maximize;

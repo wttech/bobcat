@@ -22,9 +22,13 @@ package com.cognifide.qa.bb.modules;
 import org.openqa.selenium.support.events.WebDriverEventListener;
 
 import com.cognifide.qa.bb.frame.FrameSwitcher;
+import com.cognifide.qa.bb.provider.selenium.webdriver.close.ClosingAwareWebDriver;
+import com.cognifide.qa.bb.provider.selenium.webdriver.close.ClosingAwareWebDriverWrapper;
+import com.cognifide.qa.bb.provider.selenium.webdriver.close.ClosingAwareWebDriverFactory;
 import com.cognifide.qa.bb.provider.selenium.webdriver.close.WebDriverClosedListener;
 import com.cognifide.qa.bb.proxy.ProxyCloser;
 import com.google.inject.AbstractModule;
+import com.google.inject.assistedinject.FactoryModuleBuilder;
 import com.google.inject.multibindings.Multibinder;
 
 /**
@@ -40,5 +44,9 @@ public class WebdriverModule extends AbstractModule {
         .newSetBinder(binder(), WebDriverClosedListener.class);
     closedListeners.addBinding().to(FrameSwitcher.class);
     closedListeners.addBinding().to(ProxyCloser.class);
+
+    install(new FactoryModuleBuilder()
+        .implement(ClosingAwareWebDriver.class, ClosingAwareWebDriverWrapper.class)
+        .build(ClosingAwareWebDriverFactory.class));
   }
 }

@@ -28,10 +28,9 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.events.WebDriverEventListener;
 
 import com.cognifide.qa.bb.constants.ConfigKeys;
-import com.cognifide.qa.bb.frame.FrameSwitcher;
 import com.cognifide.qa.bb.guice.ThreadScoped;
 import com.cognifide.qa.bb.provider.selenium.webdriver.close.ClosingAwareWebDriver;
-import com.cognifide.qa.bb.provider.selenium.webdriver.close.ClosingAwareWebDriverWrapper;
+import com.cognifide.qa.bb.provider.selenium.webdriver.close.ClosingAwareWebDriverFactory;
 import com.cognifide.qa.bb.provider.selenium.webdriver.close.WebDriverClosedListener;
 import com.cognifide.qa.bb.provider.selenium.webdriver.creators.WebDriverCreator;
 import com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.WebDriverModifiers;
@@ -54,19 +53,7 @@ public class WebDriverProvider implements Provider<WebDriver> {
   private String type;
 
   @Inject
-  @Named(ConfigKeys.WEBDRIVER_REUSABLE)
-  private boolean reusable;
-
-  @Inject
-  @Named(ConfigKeys.WEBDRIVER_MOBILE)
-  private boolean mobile;
-
-  @Inject
-  private FrameSwitcher frameSwitcher;
-
-  @Inject
-  @Named(ConfigKeys.WEBDRIVER_MAXIMIZE)
-  private boolean maximize;
+  private ClosingAwareWebDriverFactory closingAwareWebDriverFactory;
 
   @Inject
   private Capabilities capabilities;
@@ -110,22 +97,19 @@ public class WebDriverProvider implements Provider<WebDriver> {
     final WebDriver raw = webDriverCreator.create(modifiedCapabilities);
     final WebDriver modified = webDriverModifiers.modifyWebDriver(raw);
 
-    final ClosingAwareWebDriverWrapper closingAwareWebDriver =
-        wrapInClosingAwareWebDriver(modified);
+    final ClosingAwareWebDriver closingAwareWebDriver = wrapInClosingAwareWebDriver(modified);
     registerEventListeners(closingAwareWebDriver);
     registry.add(closingAwareWebDriver);
     return closingAwareWebDriver;
   }
 
-  private ClosingAwareWebDriverWrapper wrapInClosingAwareWebDriver(final WebDriver webDriver) {
-    final ClosingAwareWebDriverWrapper closingWebDriver =
-        new ClosingAwareWebDriverWrapper(webDriver,
-            frameSwitcher, maximize, reusable, mobile);
+  private ClosingAwareWebDriver wrapInClosingAwareWebDriver(final WebDriver webDriver) {
+    final ClosingAwareWebDriver closingWebDriver = closingAwareWebDriverFactory.create(webDriver);
     closedListeners.forEach(closingWebDriver::addListener);
     return closingWebDriver;
   }
 
-  private void registerEventListeners(final EventFiringWebDriver closingWebDriver) {
-    listeners.forEach(closingWebDriver::register);
+  private void registerEventListeners(final ClosingAwareWebDriver closingWebDriver) {
+    listeners.forEach(((EventFiringWebDriver) closingWebDriver)::register);
   }
 }
