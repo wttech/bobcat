@@ -61,6 +61,10 @@ public final class ConfigKeys {
   public static final String TIMINGS_IMPLICIT_TIMEOUT = "timings.implicitTimeout";
   public static final String TIMINGS_POLLING_INTERVAL = "timings.pollingInterval";
 
+  //Chrome options
+  public static final String CHROME_HEADLESS = "webdriver.chrome.headless";
+  public static final String CHROME_ACCEPT_INSECURE_CERTS = "webdriver.chrome.acceptInsecureCerts";
+
   private ConfigKeys() {
   }
 }

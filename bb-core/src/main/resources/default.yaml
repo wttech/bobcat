@@ -1,7 +1,5 @@
 default:
   properties:
-    parsys.locator.format: div.parsys.%s
-    component.locator.format: div.%s
     parsys.finder.offset: 6
 
     proxy.enabled: false
@@ -27,3 +25,6 @@ default:
     timings.explicitTimeout: 10
     timings.implicitTimeout: 1
     timings.pollingInterval: 500
+
+    webdriver.chrome.headless: false
+    webdriver.chrome.acceptInsecureCerts: false

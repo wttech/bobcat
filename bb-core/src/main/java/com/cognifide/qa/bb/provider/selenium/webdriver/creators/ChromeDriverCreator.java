@@ -26,20 +26,39 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.cognifide.qa.bb.constants.ConfigKeys;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+
 public class ChromeDriverCreator implements WebDriverCreator {
 
   private static final Logger LOG = LoggerFactory.getLogger(ChromeDriverCreator.class);
   private static final String ID = "chrome";
 
+  @Inject
+  @Named(ConfigKeys.CHROME_HEADLESS)
+  private boolean headless;
+
+  @Inject
+  @Named(ConfigKeys.CHROME_ACCEPT_INSECURE_CERTS)
+  private boolean acceptInsecureCerts;
+
   @Override
   public WebDriver create(Capabilities capabilities) {
     LOG.info("Starting the initialization of '{}' WebDriver instance", ID);
     LOG.debug("Initializing WebDriver with following capabilities: {}", capabilities);
-    return new ChromeDriver(new ChromeOptions().merge(capabilities));
+    return new ChromeDriver(getOptions().merge(capabilities));
   }
 
   @Override
   public String getId() {
     return ID;
+  }
+
+  private ChromeOptions getOptions() {
+    ChromeOptions chromeOptions = new ChromeOptions();
+    chromeOptions.setHeadless(headless);
+    chromeOptions.setAcceptInsecureCerts(acceptInsecureCerts);
+    return chromeOptions;
   }
 }
