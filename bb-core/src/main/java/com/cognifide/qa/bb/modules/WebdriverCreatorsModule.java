@@ -19,11 +19,12 @@
  */
 package com.cognifide.qa.bb.modules;
 
-import com.cognifide.qa.bb.provider.selenium.webdriver.creators.AppiumDriverCreator;
+import com.cognifide.qa.bb.provider.selenium.webdriver.creators.AndroidDriverCreator;
 import com.cognifide.qa.bb.provider.selenium.webdriver.creators.ChromeDriverCreator;
 import com.cognifide.qa.bb.provider.selenium.webdriver.creators.EdgeDriverCreator;
 import com.cognifide.qa.bb.provider.selenium.webdriver.creators.FirefoxDriverCreator;
 import com.cognifide.qa.bb.provider.selenium.webdriver.creators.IeDriverCreator;
+import com.cognifide.qa.bb.provider.selenium.webdriver.creators.IosDriverCreator;
 import com.cognifide.qa.bb.provider.selenium.webdriver.creators.RemoteDriverCreator;
 import com.cognifide.qa.bb.provider.selenium.webdriver.creators.SafariDriverCreator;
 import com.cognifide.qa.bb.provider.selenium.webdriver.creators.WebDriverCreator;
@@ -36,7 +37,8 @@ public class WebdriverCreatorsModule extends AbstractModule {
     Multibinder<WebDriverCreator> creators =
         Multibinder.newSetBinder(binder(), WebDriverCreator.class);
 
-    creators.addBinding().to(AppiumDriverCreator.class);
+    creators.addBinding().to(AndroidDriverCreator.class);
+    creators.addBinding().to(IosDriverCreator.class);
     creators.addBinding().to(ChromeDriverCreator.class);
     creators.addBinding().to(EdgeDriverCreator.class);
     creators.addBinding().to(FirefoxDriverCreator.class);

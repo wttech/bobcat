@@ -32,13 +32,12 @@ import com.cognifide.qa.bb.constants.ConfigKeys;
 import com.google.inject.Inject;
 
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.remote.MobilePlatform;
 
-public class AppiumDriverCreator implements WebDriverCreator {
+public class AndroidDriverCreator implements WebDriverCreator {
 
-  private static final Logger LOG = LoggerFactory.getLogger(AppiumDriverCreator.class);
-  private static final String ID = "appium";
+  private static final Logger LOG = LoggerFactory.getLogger(AndroidDriverCreator.class);
+  private static final String ID = "android";
 
   @Inject
   private Properties properties;
@@ -64,22 +63,12 @@ public class AppiumDriverCreator implements WebDriverCreator {
     }
 
     final String platform = properties.getProperty(ConfigKeys.WEBDRIVER_CAP_PLATFORM_NAME);
-    if (platform == null) {
-      throw new IllegalStateException(String.format("%s is missing. Set it either to %s or %s",
-          ConfigKeys.WEBDRIVER_CAP_PLATFORM_NAME, MobilePlatform.ANDROID, MobilePlatform.IOS));
-    }
-    switch (platform) {
-      case MobilePlatform.ANDROID:
-        return new AndroidDriver(url, capabilities);
-
-      case MobilePlatform.IOS:
-        return new IOSDriver(url, capabilities);
-
-      default:
-        throw new IllegalArgumentException(String.format(
-            "%s is not configured correctly. Set it either to %s or %s",
-            ConfigKeys.WEBDRIVER_CAP_PLATFORM_NAME, MobilePlatform.ANDROID, MobilePlatform.IOS));
+    if (MobilePlatform.ANDROID.equals(platform)) {
+      return new AndroidDriver(url, capabilities);
+    } else {
+      throw new IllegalArgumentException(String.format(
+          "Requested Android driver but incorrect platform name was provided. %s should be set to: %s",
+          ConfigKeys.WEBDRIVER_CAP_PLATFORM_NAME, MobilePlatform.ANDROID));
     }
   }
-
 }
