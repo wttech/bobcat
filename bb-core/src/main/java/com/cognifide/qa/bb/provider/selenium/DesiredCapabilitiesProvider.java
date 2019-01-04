@@ -27,6 +27,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.capabilities.CapabilitiesModifiers;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
@@ -43,6 +44,9 @@ public class DesiredCapabilitiesProvider implements Provider<Capabilities> {
 
   @Inject
   private Properties properties;
+
+  @Inject
+  private CapabilitiesModifiers capabilitiesModifiers;
 
   /**
    * Returns new default DesiredCapabilities object.
@@ -63,7 +67,7 @@ public class DesiredCapabilitiesProvider implements Provider<Capabilities> {
       }
     }
     processMapProperties(capabilities, mapProperties);
-    return capabilities;
+    return capabilitiesModifiers.modifyCapabilities(capabilities);
   }
 
   private Object prepareType(String property) {

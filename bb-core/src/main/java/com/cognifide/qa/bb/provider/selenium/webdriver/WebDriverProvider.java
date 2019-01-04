@@ -86,15 +86,13 @@ public class WebDriverProvider implements Provider<WebDriver> {
   }
 
   private ClosingAwareWebDriver create() {
-    final Capabilities modifiedCapabilities = webDriverModifiers.modifyCapabilities(capabilities);
-
     WebDriverCreator webDriverCreator = webDriverCreators.stream()
         .filter(creator -> StringUtils.equalsIgnoreCase(type, creator.getId()))
         .findFirst()
         .orElseThrow(() -> new IllegalStateException(
             "No WebDriverCreator registered for the provided type: " + type));
 
-    final WebDriver raw = webDriverCreator.create(modifiedCapabilities);
+    final WebDriver raw = webDriverCreator.create(capabilities);
     final WebDriver modified = webDriverModifiers.modifyWebDriver(raw);
 
     final ClosingAwareWebDriver closingAwareWebDriver =
