@@ -4,6 +4,9 @@ title: Configuring Bobcat
 
 With the release of 1.4.0 version, two ways of configuring the framework are available: the new one (YAML-based) and the legacy one (properties files based). Below you can find the description of both modes.
 
+## WebDriver
+Bobcat uses Selenium and it requires drivers for browsers which we want to use. We recommend to add this drivers to your system path
+
 ## YAML-based configuration
 
 ### Configuration structure
