@@ -21,6 +21,9 @@ package com.cognifide.qa.bb.page;
 
 import com.cognifide.qa.bb.qualifier.PageObject;
 
+/**
+ * Class that can be used as general representation of page
+ */
 @PageObject
 public class ActivePage extends Page<ActivePage> {
 

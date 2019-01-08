@@ -19,14 +19,22 @@
  */
 package com.cognifide.qa.bb.modules;
 
+import com.cognifide.qa.bb.api.actions.ActionWithData;
 import com.cognifide.qa.bb.api.actions.ActionsController;
+import com.cognifide.qa.bb.api.actions.CoreActions;
 import com.cognifide.qa.bb.api.actions.internal.DefaultController;
+import com.cognifide.qa.bb.page.actions.CheckDisplayedTitleAction;
 import com.google.inject.AbstractModule;
+import com.google.inject.multibindings.MapBinder;
 
 public class ActionsModule extends AbstractModule {
 
   @Override
   protected void configure() {
     bind(ActionsController.class).to(DefaultController.class);
+
+    MapBinder<String, ActionWithData> actionsWithData =
+        MapBinder.newMapBinder(binder(), String.class, ActionWithData.class);
+    actionsWithData.addBinding(CoreActions.CHECK_DISPLAYED_TITLE).to(CheckDisplayedTitleAction.class);
   }
 }

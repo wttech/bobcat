@@ -2,7 +2,7 @@
  * #%L
  * Bobcat
  * %%
- * Copyright (C) 2016 Cognifide Ltd.
+ * Copyright (C) 2018 Cognifide Ltd.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,24 +17,26 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.api.actions;
+package com.cognifide.qa.bb.page.actions;
+
+import com.cognifide.qa.bb.api.actions.ActionResponse;
 
 /**
- * Represents an action that can be executed by Bobcat's {@link ActionsController}.
+ * Action Response that has boolean value
  */
-public interface Action {
+public class BooleanResponse implements ActionResponse<Boolean> {
+
+  private boolean response;
+
+  public BooleanResponse(boolean response) {
+    this.response = response;
+  }
 
   /**
-   * Executes the action.
-   *
-   * @throws ActionException when action fails
+   * @return true/false response
    */
-  void execute() throws ActionException;
-
-  /**
-   * @return response if action generates any
-   */
-  default ActionResponse getResponse(){
-    throw new UnsupportedOperationException();
+  @Override
+  public Boolean getResponse() {
+    return response;
   }
 }

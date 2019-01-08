@@ -19,6 +19,7 @@
  */
 package com.cognifide.qa.bb.api.actions.internal;
 
+import com.cognifide.qa.bb.api.actions.ActionResponse;
 import java.util.Map;
 
 import com.cognifide.qa.bb.api.actions.Action;
@@ -53,5 +54,20 @@ public class DefaultController implements ActionsController {
   @Override
   public void execute(String action, ActionData data) throws ActionException {
     actionWithData.get(action).execute(data);
+  }
+
+  @Override
+  public ActionResponse executeWithResponse(String action) throws ActionException {
+    Action actionObject = this.actions.get(action);
+    actionObject.execute();
+    return actionObject.getResponse();
+  }
+
+  @Override
+  public ActionResponse executeWithResponseAndData(String action, ActionData data)
+      throws ActionException {
+    ActionWithData actionWithData = this.actionWithData.get(action);
+    actionWithData.execute(data);
+    return actionWithData.getResponse();
   }
 }

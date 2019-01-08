@@ -32,4 +32,11 @@ public interface ActionWithData<T extends ActionData> {
    * @throws ActionException when action fails
    */
   void execute(T data) throws ActionException;
+
+  /**
+   * @return response if action generates any
+   */
+  default ActionResponse getResponse(){
+    throw new UnsupportedOperationException();
+  }
 }

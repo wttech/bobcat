@@ -26,7 +26,7 @@ import com.google.inject.name.Names;
 
 /**
  * Factory to create pages.
- * <p>
+ *
  * Creates dynamically instances of {@link Page}.
  */
 public class BobcatPageFactory {
@@ -56,7 +56,7 @@ public class BobcatPageFactory {
   }
 
   /**
-   * Create pages from selected path and selected type
+   * Create @link {@link ActivePage} from selected path
    *
    * @param path path to the page
    * @return a Page instance specified by path

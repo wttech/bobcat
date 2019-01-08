@@ -21,6 +21,9 @@ package com.cognifide.qa.bb.aem.core.pages;
 
 import com.cognifide.qa.bb.qualifier.PageObject;
 
+/**
+ * General representation of page that can be edited in AEM
+ */
 @PageObject
 public class ActiveAemAuthorPage extends AemAuthorPage<ActiveAemAuthorPage> {
 

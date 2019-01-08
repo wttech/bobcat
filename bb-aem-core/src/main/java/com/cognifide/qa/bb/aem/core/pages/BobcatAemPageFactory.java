@@ -26,7 +26,7 @@ import com.google.inject.Injector;
 import com.google.inject.name.Names;
 
 /**
- * Factory to create pages.
+ * Factory to create pages for AEM Authoring.
  * <p>
  * Creates dynamically instances of {@link Page}.
  */
@@ -38,7 +38,7 @@ public class BobcatAemPageFactory {
   private Injector injector;
 
   /**
-   * Create pages from selected path and selected type
+   * Create @link {@link ActiveAemAuthorPage} from selected path
    *
    * @param path path to the page
    * @return a Page instance specified by path

@@ -2,7 +2,7 @@
  * #%L
  * Bobcat
  * %%
- * Copyright (C) 2016 Cognifide Ltd.
+ * Copyright (C) 2018 Cognifide Ltd.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,21 +20,11 @@
 package com.cognifide.qa.bb.api.actions;
 
 /**
- * Represents an action that can be executed by Bobcat's {@link ActionsController}.
+ * Generic interface for action response
+ * @param <T>
  */
-public interface Action {
+public interface ActionResponse<T> {
 
-  /**
-   * Executes the action.
-   *
-   * @throws ActionException when action fails
-   */
-  void execute() throws ActionException;
+  T getResponse();
 
-  /**
-   * @return response if action generates any
-   */
-  default ActionResponse getResponse(){
-    throw new UnsupportedOperationException();
-  }
 }

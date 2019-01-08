@@ -37,11 +37,23 @@ public interface ActionsController {
    */
   void execute(String action, ActionData data) throws ActionException;
 
-  default void executeWithStatus(String action){
+  /**
+   * @param action the key/name of the action to be executed
+   * @return response from action
+   * @throws ActionException
+   */
+  default ActionResponse executeWithResponse(String action) throws ActionException {
     throw new UnsupportedOperationException();
   }
 
-  default void executeWithStatusAndData(String action,ActionData data){
+  /**
+   * @param action the key/name of the action with data to be executed
+   * @param data   data object to be consumed by the action
+   * @return response from action
+   * @throws ActionException
+   */
+  default ActionResponse executeWithResponseAndData(String action, ActionData data)
+      throws ActionException {
     throw new UnsupportedOperationException();
   }
 }
