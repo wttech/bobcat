@@ -20,6 +20,7 @@
 
 package com.cognifide.qa.bb.utils;
 
+import com.cognifide.qa.bb.activepageobjects.ConfigurablePageObject;
 import com.cognifide.qa.bb.mapper.field.PageObjectProviderHelper;
 import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.Global;
@@ -90,4 +91,9 @@ public final class AnnotationsHelper {
         .isAnnotationPresent(
             PageObjectInterface.class));
   }
+
+  public static boolean isConfigurablePageObjectAnnotationPresent(Field field) {
+    return field.isAnnotationPresent(ConfigurablePageObject.class);
+  }
+
 }

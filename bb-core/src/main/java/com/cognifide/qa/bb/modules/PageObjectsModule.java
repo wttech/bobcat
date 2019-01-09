@@ -21,6 +21,7 @@ package com.cognifide.qa.bb.modules;
 
 import static com.google.inject.matcher.Matchers.any;
 
+import com.cognifide.qa.bb.activepageobjects.ActivePageObjectProvider;
 import java.util.List;
 
 import org.openqa.selenium.WebElement;
@@ -57,6 +58,7 @@ public class PageObjectsModule extends AbstractModule {
     fieldProviders.addBinding().to(PageObjectListProxyProvider.class);
     fieldProviders.addBinding().to(CurrentFrameProvider.class);
     fieldProviders.addBinding().to(PageObjectSelectorListProxyProvider.class);
+    fieldProviders.addBinding().to(ActivePageObjectProvider.class);
 
     bind(Key.get(WebElement.class, CurrentScope.class)).toProvider(CurrentWebElementProvider.class);
     bind(new TypeLiteral<List<WebElement>>() {
