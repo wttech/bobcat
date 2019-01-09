@@ -48,4 +48,5 @@ We need to inject `BobcatPageFactory.class` into test class and then use its cre
 
 * Class that extend `Page.class` should not override methods  `open`, `getFullUrl` and field `fullUrl`
 * `bobcat.page.path` is restricted property used by page factory mechanism and should not be used in project properties
-* `AemAuthorPage.class` is more advanced version of `Page.class` and is used in AEM Authoring Tests. Its description can be found [here]({{site.baseurl}}/docs/modules/aem-core/) 
+* `AemAuthorPage.class` is more advanced version of `Page.class` and is used in AEM Authoring Tests. 
+* If you don't want to compose page from page objects you can use [`ActivePage.class`]({{site.baseurl}}/docs/modules/core/activepage/) 
