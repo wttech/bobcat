@@ -21,27 +21,21 @@ package com.cognifide.qa.bb.page;
 
 import static com.cognifide.qa.bb.page.BobcatPageFactory.BOBCAT_PAGE_PATH;
 
+import com.cognifide.qa.bb.activepageobjects.ActivePageObject;
+import com.cognifide.qa.bb.activepageobjects.PageObjectConfiguration;
+import com.cognifide.qa.bb.activepageobjects.SelectorCreator;
 import com.cognifide.qa.bb.mapper.field.PageObjectProviderHelper;
-import com.cognifide.qa.bb.activepageobjects.ConfigurablePageObject;
-import com.cognifide.qa.bb.activepageobjects.DynamicConfigurablePageObject;
 import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 import com.cognifide.qa.bb.utils.PageObjectInjector;
+import com.cognifide.qa.bb.utils.YamlReader;
 import com.google.inject.Binding;
+import com.google.inject.Inject;
 import com.google.inject.internal.LinkedBindingImpl;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import io.qameta.allure.Step;
 import java.util.List;
-import java.util.Map;
 import javax.inject.Named;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-
-import com.google.inject.Inject;
-
-import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -61,27 +55,18 @@ public class Page<T extends Page> {
 
   /**
    * Return first page object of given class on page
+   *
    * @param pageObject - page object class
-   * @param <X> Class that should be return
    * @return Instance of class
    */
 
-  public <X> X getPageObject(Class<X> pageObject,String config)
-      throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, NoSuchFieldException {
-    addAnnotation(pageObject,config);
-    return pageObjectInjector.inject(pageObject);
-  }
-
-  private <X> void addAnnotation(Class<X> pageObject,String config)
-      throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, NoSuchFieldException {
-    Method method = Class.class.getDeclaredMethod("annotationData", null);
-    method.setAccessible(true);
-    Object annotationData = method.invoke(pageObject);
-    Field annotations = annotationData.getClass().getDeclaredField("annotations");
-    annotations.setAccessible(true);
-
-    Map<Class<? extends Annotation>, Annotation> map = (Map<Class<? extends Annotation>, Annotation>) annotations.get(annotationData);
-    map.put(ConfigurablePageObject.class, new DynamicConfigurablePageObject(config));
+  public ActivePageObject getPageObject(Class<ActivePageObject> pageObject, String config) {
+    PageObjectConfiguration pageObjectConfiguration = YamlReader
+        .readFromTestResources("page-objects/" + config, PageObjectConfiguration.class);
+    ActivePageObject pageObjectInstance = getPageObject(pageObject, 0, SelectorCreator
+        .getSelector(pageObjectConfiguration.getSelectorType(),pageObjectConfiguration.getSelector()));
+    pageObjectInstance.generatePageObjectConfigMap(pageObjectConfiguration.getParts());
+    return pageObjectInstance;
   }
 
   public <X> X getPageObject(Class<X> pageObject) {
@@ -90,6 +75,11 @@ public class Page<T extends Page> {
 
   public <X> X getPageObject(Class<X> pageObject, int order) {
     By selector = getSelectorFromComponent(pageObject);
+    return getPageObject(pageObject, order, selector);
+  }
+
+
+  public <X> X getPageObject(Class<X> pageObject, int order, By selector) {
     List<WebElement> scope = webDriver.findElements(selector);
     return scope == null
         ? pageObjectInjector.inject(pageObject)

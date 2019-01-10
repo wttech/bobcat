@@ -27,6 +27,8 @@ public class PageObjectConfigPart {
 
   private String pageObjectType;
 
+  private String name;
+
   public void setSelectorType(String selectorType) {
     this.selectorType = selectorType;
   }
@@ -37,6 +39,14 @@ public class PageObjectConfigPart {
 
   public void setPageObjectType(String pageObjectType) {
     this.pageObjectType = pageObjectType;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 
   public String getSelectorType() {

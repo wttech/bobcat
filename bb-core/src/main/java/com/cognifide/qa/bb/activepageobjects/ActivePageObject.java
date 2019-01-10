@@ -21,7 +21,9 @@ package com.cognifide.qa.bb.activepageobjects;
 
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
+import com.google.inject.Inject;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -29,20 +31,21 @@ import org.openqa.selenium.WebElement;
 @PageObject
 public class ActivePageObject {
 
-  private final static String ID = "id";
+  private static final String ID = "id";
 
-  private final static String CSS = "css";
+  private static final String CSS = "css";
 
-  private final static String XPATH =  "xpath";
+  private static final String XPATH = "xpath";
 
   private Map<String, PageObjectConfigPart> pageObjectConfigMap = new HashMap<>();
 
+  @Inject
   @CurrentScope
   private WebElement currentScope;
 
-  WebElement getWebElement(String name) {
+  public WebElement getWebElement(String name) {
     PageObjectConfigPart pageObjectConfigPart = pageObjectConfigMap.get(name);
-    if (pageObjectConfigPart.getPageObjectType().equals(PageObjectType.WEB_ELEMENT)) {
+    if (pageObjectConfigPart.getPageObjectType().equalsIgnoreCase(PageObjectType.WEB_ELEMENT.name())) {
       By selector = null;
       switch (pageObjectConfigPart.getSelectorType()) {
         case ID:
@@ -54,10 +57,20 @@ public class ActivePageObject {
         case XPATH:
           selector = By.xpath(pageObjectConfigPart.getSelector());
           break;
+        default:
+          selector = By.xpath("");
       }
       return currentScope.findElement(selector);
     }
     return null;
   }
 
+  public void generatePageObjectConfigMap(
+      List<PageObjectConfigPart> pageObjectConfigList) {
+    this.pageObjectConfigMap = new HashMap<>();
+    for (PageObjectConfigPart pageObjectConfigPart : pageObjectConfigList) {
+      this.pageObjectConfigMap.put(pageObjectConfigPart.getName(), pageObjectConfigPart);
+    }
+
+  }
 }
