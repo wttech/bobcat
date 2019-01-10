@@ -9,7 +9,7 @@ Bobcat arrives with some already prepared actions that can be used in testing.
   - | **CoreActions.CHECK_DISPLAYED_TITLE** |  action allows to check if displayed page has correct title |
      |Type: | Action with Data |
      |Data: | DisplayedTitleData - keeps title |
-    | Response: | No |
+    | Response: | Boolean |
      
 ## AEM Actions
 

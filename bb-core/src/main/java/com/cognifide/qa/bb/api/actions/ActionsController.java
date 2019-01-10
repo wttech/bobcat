@@ -42,7 +42,7 @@ public interface ActionsController {
    * @return response from action
    * @throws ActionException
    */
-  default ActionResponse executeWithResponse(String action) throws ActionException {
+  default Object executeWithResponse(String action) throws ActionException {
     throw new UnsupportedOperationException();
   }
 
@@ -52,7 +52,7 @@ public interface ActionsController {
    * @return response from action
    * @throws ActionException
    */
-  default ActionResponse executeWithResponseAndData(String action, ActionData data)
+  default Object executeWithResponseAndData(String action, ActionData data)
       throws ActionException {
     throw new UnsupportedOperationException();
   }

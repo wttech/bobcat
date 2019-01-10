@@ -43,7 +43,7 @@ public class DefaultController implements ActionsController {
   private Map<String, Action> actions;
 
   @Inject(optional = true)
-  private Map<String, ActionWithData> actionWithData;
+  private Map<String, ActionWithData> actionsWithData;
 
   @Override
   public void execute(String action) throws ActionException {
@@ -53,21 +53,21 @@ public class DefaultController implements ActionsController {
   @SuppressWarnings("unchecked")
   @Override
   public void execute(String action, ActionData data) throws ActionException {
-    actionWithData.get(action).execute(data);
+    actionsWithData.get(action).execute(data);
   }
 
   @Override
-  public ActionResponse executeWithResponse(String action) throws ActionException {
+  public Object executeWithResponse(String action) throws ActionException {
     Action actionObject = this.actions.get(action);
     actionObject.execute();
-    return actionObject.getResponse();
+    return ((ActionResponse) actionObject).getResponse();
   }
 
   @Override
-  public ActionResponse executeWithResponseAndData(String action, ActionData data)
+  public Object executeWithResponseAndData(String action, ActionData data)
       throws ActionException {
-    ActionWithData actionWithData = this.actionWithData.get(action);
+    ActionWithData actionWithData = this.actionsWithData.get(action);
     actionWithData.execute(data);
-    return actionWithData.getResponse();
+    return ((ActionResponse) actionWithData).getResponse();
   }
 }

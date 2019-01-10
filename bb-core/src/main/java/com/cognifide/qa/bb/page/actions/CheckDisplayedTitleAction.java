@@ -20,6 +20,7 @@
 package com.cognifide.qa.bb.page.actions;
 
 import com.cognifide.qa.bb.api.actions.ActionException;
+import com.cognifide.qa.bb.api.actions.ActionResponse;
 import com.cognifide.qa.bb.api.actions.ActionWithData;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.wait.BobcatWait;
@@ -30,21 +31,22 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
  * Action that checks if page title is displayed
  */
 @PageObject
-public class CheckDisplayedTitleAction implements ActionWithData<DisplayedTitleData> {
+public class CheckDisplayedTitleAction implements ActionWithData<DisplayedTitleData>,
+    ActionResponse<Boolean> {
 
   @Inject
   private BobcatWait bobcatWait;
 
-  private BooleanResponse booleanResponse;
+  private Boolean response;
 
   @Override
   public void execute(DisplayedTitleData data) throws ActionException {
-    booleanResponse = new BooleanResponse(
-        bobcatWait.isConditionMet(ExpectedConditions.titleIs(data.getTitle())));
+    response =
+        bobcatWait.isConditionMet(ExpectedConditions.titleIs(data.getTitle()));
   }
 
   @Override
-  public BooleanResponse getResponse() {
-    return booleanResponse;
+  public Boolean getResponse() {
+    return response;
   }
 }

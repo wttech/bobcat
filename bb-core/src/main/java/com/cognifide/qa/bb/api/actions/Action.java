@@ -31,10 +31,4 @@ public interface Action {
    */
   void execute() throws ActionException;
 
-  /**
-   * @return response if action generates any
-   */
-  default ActionResponse getResponse(){
-    throw new UnsupportedOperationException();
-  }
 }

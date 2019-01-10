@@ -62,7 +62,7 @@ Same with `Action`, you need to provide appropriate bindings in your module:
 
 ### Responses
 
-Every action can also provide a response (for example: information if it succeded). To do this action must implement `getResponse` method and create (or use existing) implementation of `ActionResponse` interface.
+Every action can also provide a response (for example: information if it succeded). To do this action must implement additional interface `ActionResponse` and add type of response.
 Action execution should create response object that can be returned with this method
 
 There are two methods in `ActionsController` that returns these responses:
