@@ -82,17 +82,7 @@ public class ActivePageObjectProvider implements FieldProvider {
     PageObjectConfiguration pageObjectConfiguration = YamlReader
         .readFromTestResources("page-objects/" + path, PageObjectConfiguration.class);
 
-    By selector = null;
-    if (field.getType().isAnnotationPresent(
-        PageObjectInterface.class)) {
-      Binding<?> binding = injector.getBinding(field.getType());
-      if (binding instanceof LinkedBindingImpl) {
-        selector = PageObjectProviderHelper.retrieveSelectorFromPageObjectInterface(
-            ((LinkedBindingImpl) binding).getLinkedKey().getTypeLiteral().getRawType());
-      }
-    } else {
-      selector = PageObjectProviderHelper.getSelectorFromPageObject(field);
-    }
+    By selector = SelectorCreator.getSelector(pageObjectConfiguration.getSelectorType(), pageObjectConfiguration.getSelector());
     //ask for guice binding - get page object
 
     ElementLocatorFactory elementLocatorFactory =
@@ -100,9 +90,10 @@ public class ActivePageObjectProvider implements FieldProvider {
             context.getElementLocatorFactory(), AnnotationsHelper.isGlobal(field));
     final FramePath framePath = frameMap.get(pageObject);
     contextStack.push(new PageObjectContext(elementLocatorFactory, framePath));
-    Object scopedPageObject = null;
+    ActivePageObject scopedPageObject = null;
     try {
-      scopedPageObject = injector.getInstance(field.getType());
+      scopedPageObject = (ActivePageObject) injector.getInstance(field.getType());
+      scopedPageObject.generatePageObjectConfigMap(pageObjectConfiguration.getParts());
     } catch (ConfigurationException e) {
       throw new BobcatRuntimeException(
           "Configuration exception: " + e.getErrorMessages().toString(), e);
