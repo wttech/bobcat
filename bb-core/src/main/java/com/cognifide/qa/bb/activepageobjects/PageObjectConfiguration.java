@@ -29,6 +29,16 @@ public class PageObjectConfiguration {
 
   private List<PageObjectConfigPart> parts;
 
+  private boolean global;
+
+  public boolean isGlobal() {
+    return global;
+  }
+
+  public void setGlobal(boolean global) {
+    this.global = global;
+  }
+
   public String getSelectorType() {
     return selectorType;
   }

@@ -87,7 +87,7 @@ public class ActivePageObjectProvider implements FieldProvider {
 
     ElementLocatorFactory elementLocatorFactory =
         new NestedSelectorScopedLocatorFactory(webDriver, selector,
-            context.getElementLocatorFactory(), AnnotationsHelper.isGlobal(field));
+            context.getElementLocatorFactory(), AnnotationsHelper.isGlobal(field) || pageObjectConfiguration.isGlobal());
     final FramePath framePath = frameMap.get(pageObject);
     contextStack.push(new PageObjectContext(elementLocatorFactory, framePath));
     ActivePageObject scopedPageObject = null;

@@ -29,6 +29,8 @@ public class PageObjectConfigPart {
 
   private String name;
 
+  private boolean global;
+
   public void setSelectorType(String selectorType) {
     this.selectorType = selectorType;
   }
@@ -59,5 +61,13 @@ public class PageObjectConfigPart {
 
   public String getPageObjectType() {
     return pageObjectType;
+  }
+
+  public boolean isGlobal() {
+    return global;
+  }
+
+  public void setGlobal(boolean global) {
+    this.global = global;
   }
 }

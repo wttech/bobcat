@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 @PageObject
@@ -42,6 +43,9 @@ public class ActivePageObject {
   @Inject
   @CurrentScope
   private WebElement currentScope;
+
+  @Inject
+  private WebDriver webDriver;
 
   public WebElement getWebElement(String name) {
     PageObjectConfigPart pageObjectConfigPart = pageObjectConfigMap.get(name);
@@ -60,7 +64,7 @@ public class ActivePageObject {
         default:
           selector = By.xpath("");
       }
-      return currentScope.findElement(selector);
+      return pageObjectConfigPart.isGlobal() ? webDriver.findElement(selector) : currentScope.findElement(selector);
     }
     return null;
   }
