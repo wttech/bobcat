@@ -21,10 +21,11 @@ package com.cognifide.qa.bb.page;
 
 import static com.cognifide.qa.bb.page.BobcatPageFactory.BOBCAT_PAGE_PATH;
 
-import com.cognifide.qa.bb.activepageobjects.ActivePageObject;
-import com.cognifide.qa.bb.activepageobjects.PageObjectConfiguration;
-import com.cognifide.qa.bb.activepageobjects.SelectorCreator;
 import com.cognifide.qa.bb.mapper.field.PageObjectProviderHelper;
+import com.cognifide.qa.bb.pageobject.PageObjectMaker;
+import com.cognifide.qa.bb.pageobject.active.ActivePageObject;
+import com.cognifide.qa.bb.pageobject.active.PageObjectConfiguration;
+import com.cognifide.qa.bb.pageobject.active.SelectorCreator;
 import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 import com.cognifide.qa.bb.utils.PageObjectInjector;
 import com.cognifide.qa.bb.utils.YamlReader;
@@ -32,11 +33,9 @@ import com.google.inject.Binding;
 import com.google.inject.Inject;
 import com.google.inject.internal.LinkedBindingImpl;
 import io.qameta.allure.Step;
-import java.util.List;
 import javax.inject.Named;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 /**
  * Abstract class that represents a generic page
@@ -45,6 +44,9 @@ public class Page<T extends Page> {
 
   @Inject
   protected WebDriver webDriver;
+
+  @Inject
+  protected PageObjectMaker pageObjectMaker;
 
   @Inject
   @Named(BOBCAT_PAGE_PATH)
@@ -64,7 +66,8 @@ public class Page<T extends Page> {
     PageObjectConfiguration pageObjectConfiguration = YamlReader
         .readFromTestResources("page-objects/" + config, PageObjectConfiguration.class);
     ActivePageObject pageObjectInstance = getPageObject(pageObject, 0, SelectorCreator
-        .getSelector(pageObjectConfiguration.getSelectorType(),pageObjectConfiguration.getSelector()));
+        .getSelector(pageObjectConfiguration.getSelectorType(),
+            pageObjectConfiguration.getSelector()));
     pageObjectInstance.generatePageObjectConfigMap(pageObjectConfiguration.getParts());
     return pageObjectInstance;
   }
@@ -80,10 +83,7 @@ public class Page<T extends Page> {
 
 
   public <X> X getPageObject(Class<X> pageObject, int order, By selector) {
-    List<WebElement> scope = webDriver.findElements(selector);
-    return scope == null
-        ? pageObjectInjector.inject(pageObject)
-        : pageObjectInjector.inject(pageObject, scope.get(order));
+    return pageObjectMaker.getPageObject(pageObject, order, selector);
   }
 
   /**

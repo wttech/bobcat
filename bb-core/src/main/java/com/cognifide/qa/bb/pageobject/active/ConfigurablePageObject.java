@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.activepageobjects;
+package com.cognifide.qa.bb.pageobject.active;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

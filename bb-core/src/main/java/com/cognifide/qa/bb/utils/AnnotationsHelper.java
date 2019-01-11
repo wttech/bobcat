@@ -17,10 +17,9 @@
  * limitations under the License.
  * #L%
  */
-
 package com.cognifide.qa.bb.utils;
 
-import com.cognifide.qa.bb.activepageobjects.ConfigurablePageObject;
+import com.cognifide.qa.bb.pageobject.active.ConfigurablePageObject;
 import com.cognifide.qa.bb.mapper.field.PageObjectProviderHelper;
 import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.Global;

@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.activepageobjects;
+package com.cognifide.qa.bb.pageobject.active;
 
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
@@ -65,6 +65,23 @@ public class ActivePageObject {
           selector = By.xpath("");
       }
       return pageObjectConfigPart.isGlobal() ? webDriver.findElement(selector) : currentScope.findElement(selector);
+    }
+    return null;
+  }
+
+  public ActivePageObject getPageObject(String name){
+    return getPageObject(name, ActivePageObject.class);
+  }
+
+  public <X> X getPageObject(String name, Class<X> pageObject){
+    PageObjectConfigPart pageObjectConfigPart = pageObjectConfigMap.get(name);
+    if(pageObjectConfigPart.getPageObjectType().equalsIgnoreCase(PageObjectType.PAGE_OBJECT.name())){
+      if(pageObject.equals(ActivePageObject.class)){
+        //selector from file
+      } else {
+        //selector from annotation
+      }
+
     }
     return null;
   }

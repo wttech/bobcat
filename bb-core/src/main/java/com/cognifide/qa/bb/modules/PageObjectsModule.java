@@ -21,7 +21,7 @@ package com.cognifide.qa.bb.modules;
 
 import static com.google.inject.matcher.Matchers.any;
 
-import com.cognifide.qa.bb.activepageobjects.ActivePageObjectProvider;
+import com.cognifide.qa.bb.pageobject.active.ActivePageObjectProvider;
 import java.util.List;
 
 import org.openqa.selenium.WebElement;

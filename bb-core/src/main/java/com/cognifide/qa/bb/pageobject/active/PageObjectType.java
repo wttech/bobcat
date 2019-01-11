@@ -17,8 +17,8 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.activepageobjects;
+package com.cognifide.qa.bb.pageobject.active;
 
-public enum SelectorType {
-  CSS, XPATH, ID
+public enum PageObjectType {
+  WEB_ELEMENT, PAGE_OBJECT
 }

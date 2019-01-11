@@ -17,11 +17,10 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.activepageobjects;
+package com.cognifide.qa.bb.pageobject.active;
 
 import com.cognifide.qa.bb.exceptions.BobcatRuntimeException;
 import com.cognifide.qa.bb.mapper.field.FieldProvider;
-import com.cognifide.qa.bb.mapper.field.PageObjectProviderHelper;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 import com.cognifide.qa.bb.scope.ContextStack;
@@ -31,11 +30,9 @@ import com.cognifide.qa.bb.scope.frame.FramePath;
 import com.cognifide.qa.bb.scope.nestedselector.NestedSelectorScopedLocatorFactory;
 import com.cognifide.qa.bb.utils.AnnotationsHelper;
 import com.cognifide.qa.bb.utils.YamlReader;
-import com.google.inject.Binding;
 import com.google.inject.ConfigurationException;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import com.google.inject.internal.LinkedBindingImpl;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Optional;

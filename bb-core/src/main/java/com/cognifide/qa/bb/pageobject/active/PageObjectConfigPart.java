@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.activepageobjects;
+package com.cognifide.qa.bb.pageobject.active;
 
 public class PageObjectConfigPart {
 
@@ -26,6 +26,10 @@ public class PageObjectConfigPart {
   private String selector;
 
   private String pageObjectType;
+
+  private String configName;
+
+  private String className;
 
   private String name;
 
@@ -69,5 +73,21 @@ public class PageObjectConfigPart {
 
   public void setGlobal(boolean global) {
     this.global = global;
+  }
+
+  public String getConfigName() {
+    return configName;
+  }
+
+  public void setConfigName(String configName) {
+    this.configName = configName;
+  }
+
+  public String getClassName() {
+    return className;
+  }
+
+  public void setClassName(String className) {
+    this.className = className;
   }
 }
