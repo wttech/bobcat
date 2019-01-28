@@ -53,6 +53,8 @@ It would be really great if your changes would include tests checking them. They
 
 To build and test your code against existing suites, simply run `mvn clean test` from the project root.
 
+>:warning: Note about running tests in IDE: make sure that tests are run with `-Djunit.jupiter.extensions.autodetection.enabled=true` option
+
 >Unfortunately, due to the license, we cannot expose our AEM test suites, so if you would like to introduce a change related to that part of the framework, reach out to us and we will discuss a proper approach.
 
 ### Documentation
