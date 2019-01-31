@@ -55,12 +55,6 @@ public class AemAuthorPage<T extends AemAuthorPage> extends Page {
   private FrameSwitcher frameSwitcher;
 
   @Inject
-  private PageObjectInjector pageObjectInjector;
-
-  @Inject
-  private WebDriver driver;
-
-  @Inject
   @Named("author.url")
   protected String authorUrl;
 
@@ -76,7 +70,7 @@ public class AemAuthorPage<T extends AemAuthorPage> extends Page {
     globalBar.switchToPreviewMode();
     frameSwitcher.switchTo(CONTENT_FRAME);
     By selector = getSelectorFromComponent(component);
-    List<WebElement> scope = driver.findElements(selector);
+    List<WebElement> scope = webDriver.findElements(selector);
     frameSwitcher.switchBack();
     return scope == null
         ? pageObjectInjector.inject(component, CONTENT_FRAME)
@@ -104,19 +98,4 @@ public class AemAuthorPage<T extends AemAuthorPage> extends Page {
     return (T) this;
   }
 
-  private <X> By getSelectorFromComponent(Class<X> component) {
-    By selector = null;
-    if (component.isAnnotationPresent(
-        PageObjectInterface.class)) {
-      Binding<?> binding = pageObjectInjector.getOriginalInjector().getBinding(component);
-      if (binding instanceof LinkedBindingImpl) {
-        selector = PageObjectProviderHelper
-            .retrieveSelectorFromPageObjectInterface(
-                ((LinkedBindingImpl) binding).getLinkedKey().getTypeLiteral().getRawType());
-      }
-    } else {
-      selector = PageObjectProviderHelper.retrieveSelectorFromPageObjectInterface(component);
-    }
-    return selector;
-  }
 }

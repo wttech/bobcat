@@ -2,7 +2,7 @@
  * #%L
  * Bobcat
  * %%
- * Copyright (C) 2016 Cognifide Ltd.
+ * Copyright (C) 2018 Cognifide Ltd.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,18 +17,14 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.api.actions;
+package com.cognifide.qa.bb.aem.core.pages;
+
+import com.cognifide.qa.bb.qualifier.PageObject;
 
 /**
- * Represents an action that can be executed by Bobcat's {@link ActionsController}.
+ * General representation of page that can be edited in AEM
  */
-public interface Action {
-
-  /**
-   * Executes the action.
-   *
-   * @throws ActionException when action fails
-   */
-  void execute() throws ActionException;
+@PageObject
+public class ActiveAemAuthorPage extends AemAuthorPage<ActiveAemAuthorPage> {
 
 }

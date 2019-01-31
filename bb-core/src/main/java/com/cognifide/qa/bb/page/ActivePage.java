@@ -2,7 +2,7 @@
  * #%L
  * Bobcat
  * %%
- * Copyright (C) 2016 Cognifide Ltd.
+ * Copyright (C) 2018 Cognifide Ltd.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,18 +17,14 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.api.actions;
+package com.cognifide.qa.bb.page;
+
+import com.cognifide.qa.bb.qualifier.PageObject;
 
 /**
- * Represents an action that can be executed by Bobcat's {@link ActionsController}.
+ * Class that can be used as general representation of page
  */
-public interface Action {
-
-  /**
-   * Executes the action.
-   *
-   * @throws ActionException when action fails
-   */
-  void execute() throws ActionException;
+@PageObject
+public class ActivePage extends Page<ActivePage> {
 
 }

@@ -2,7 +2,7 @@
  * #%L
  * Bobcat
  * %%
- * Copyright (C) 2016 Cognifide Ltd.
+ * Copyright (C) 2018 Cognifide Ltd.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,18 +17,22 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.api.actions;
+package com.cognifide.qa.bb.page.actions;
+
+import com.cognifide.qa.bb.api.actions.ActionData;
 
 /**
- * Represents an action that can be executed by Bobcat's {@link ActionsController}.
+ * Data that keeps page title
  */
-public interface Action {
+public class DisplayedTitleData implements ActionData {
 
-  /**
-   * Executes the action.
-   *
-   * @throws ActionException when action fails
-   */
-  void execute() throws ActionException;
+  private String title;
 
+  public DisplayedTitleData(String title) {
+    this.title = title;
+  }
+
+  public String getTitle() {
+    return title;
+  }
 }

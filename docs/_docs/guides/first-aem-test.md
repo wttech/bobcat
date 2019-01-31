@@ -336,7 +336,7 @@ import com.bobcat.test.pageobjects.TextComponentImpl;
   @Test
   public void configureTextComponentTest() throws ActionException {
     (...)
-    TextComponentImpl content = (TextComponentImpl) testPage.getContent(TextComponent.class, 0);
+    TextComponent content = testPage.getContent(TextComponent.class, 0);
     assertThat(content.getInnerHTML().trim().replaceAll("\\r|\\n", "")).matches(".*<b>Bobcat test text.*</b>.*");
   }
 (...)
@@ -417,7 +417,7 @@ public class ConfigureComponentTest {
     controller.execute(AemActions.CONFIGURE_COMPONENT,
         new ConfigureComponentData("container", "Text", 0,
             new ResourceFileLocation("text.yaml")));
-    TextComponentImpl content = (TextComponentImpl) testPage.getContent(TextComponent.class, 0);
+    TextComponent content = testPage.getContent(TextComponent.class, 0);
 
     assertThat(content.getInnerHTML().trim().replaceAll("\\r|\\n", ""))
         .matches(".*<b>test test test.*</b>.*");

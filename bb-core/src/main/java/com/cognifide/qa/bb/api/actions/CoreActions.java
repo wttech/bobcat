@@ -2,7 +2,7 @@
  * #%L
  * Bobcat
  * %%
- * Copyright (C) 2016 Cognifide Ltd.
+ * Copyright (C) 2018 Cognifide Ltd.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,15 +20,13 @@
 package com.cognifide.qa.bb.api.actions;
 
 /**
- * Represents an action that can be executed by Bobcat's {@link ActionsController}.
+ * List of core actions available in bobcat
  */
-public interface Action {
+public class CoreActions {
 
-  /**
-   * Executes the action.
-   *
-   * @throws ActionException when action fails
-   */
-  void execute() throws ActionException;
+  private CoreActions() {
+    //empty
+  }
+  public static final String CHECK_DISPLAYED_TITLE = "checkDisplayedTitle";
 
 }
