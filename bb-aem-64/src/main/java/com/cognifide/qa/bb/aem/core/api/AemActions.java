@@ -37,6 +37,7 @@ public class AemActions {
   public static final String DELETE_PAGE_VIA_SLING = "deletePageViaSling";
 
   //component actions
+  public static final String EDIT_COMPONENT = "editComponent";
   public static final String CONFIGURE_COMPONENT = "configureComponent";
 
   //siteadmin actions

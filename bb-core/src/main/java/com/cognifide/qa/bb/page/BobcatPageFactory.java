@@ -26,7 +26,7 @@ import com.google.inject.name.Names;
 
 /**
  * Factory to create pages.
- *
+ * <p>
  * Creates dynamically instances of {@link Page}.
  */
 public class BobcatPageFactory {
@@ -53,22 +53,5 @@ public class BobcatPageFactory {
     };
     Injector childInjector = injector.createChildInjector(module);
     return childInjector.getInstance(tClass);
-  }
-
-  /**
-   * Create @link {@link ActivePage} from selected path
-   *
-   * @param path path to the page
-   * @return a Page instance specified by path
-   */
-  public ActivePage create(String path) {
-    AbstractModule module = new AbstractModule() {
-      @Override
-      protected void configure() {
-        bind(String.class).annotatedWith(Names.named(BOBCAT_PAGE_PATH)).toInstance(path);
-      }
-    };
-    Injector childInjector = injector.createChildInjector(module);
-    return childInjector.getInstance(ActivePage.class);
   }
 }

@@ -54,6 +54,7 @@ public class AemComponentModule extends AbstractModule {
   private void bindComponentActions() {
     MapBinder<String, ActionWithData> componentActions =
         MapBinder.newMapBinder(binder(), String.class, ActionWithData.class);
+    componentActions.addBinding(AemActions.EDIT_COMPONENT).to(EditComponent.class);
     componentActions.addBinding(AemActions.CONFIGURE_COMPONENT)
         .to(ConfigureComponent.class);
   }
