@@ -30,5 +30,4 @@ public interface Action {
    * @throws ActionException when action fails
    */
   void execute() throws ActionException;
-
 }

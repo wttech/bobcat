@@ -19,7 +19,6 @@
  */
 package com.cognifide.qa.bb.api.actions.internal;
 
-import com.cognifide.qa.bb.api.actions.ActionResponse;
 import java.util.Map;
 
 import com.cognifide.qa.bb.api.actions.Action;
@@ -43,7 +42,7 @@ public class DefaultController implements ActionsController {
   private Map<String, Action> actions;
 
   @Inject(optional = true)
-  private Map<String, ActionWithData> actionsWithData;
+  private Map<String, ActionWithData> actionWithData;
 
   @Override
   public void execute(String action) throws ActionException {
@@ -53,21 +52,6 @@ public class DefaultController implements ActionsController {
   @SuppressWarnings("unchecked")
   @Override
   public void execute(String action, ActionData data) throws ActionException {
-    actionsWithData.get(action).execute(data);
-  }
-
-  @Override
-  public Object executeWithResponse(String action) throws ActionException {
-    Action actionObject = this.actions.get(action);
-    actionObject.execute();
-    return ((ActionResponse) actionObject).getResponse();
-  }
-
-  @Override
-  public Object executeWithResponseAndData(String action, ActionData data)
-      throws ActionException {
-    ActionWithData actionWithData = this.actionsWithData.get(action);
-    actionWithData.execute(data);
-    return ((ActionResponse) actionWithData).getResponse();
+    actionWithData.get(action).execute(data);
   }
 }

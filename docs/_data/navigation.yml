@@ -18,8 +18,6 @@ docs:
         url: /docs/templates/
       - title: "Configuring Bobcat"
         url: /docs/configuring-bobcat/
-      - title: "Available Actions"
-        url: "/docs/exisiting-actions/"
   - title: "Guides"
     children:
       - title: "Writing the first test"
@@ -36,8 +34,6 @@ docs:
         url: /docs/modules/core/pageobject/
       - title: "Page Factory"
         url: /docs/modules/core/pagefactory/
-      - title: "Active Page"
-        url: /docs/modules/core/activepage/
       - title: "Explicit and implicit waiting"
         url: /docs/modules/core/waiting/
       - title: "Actions"
@@ -50,8 +46,6 @@ docs:
         url: /docs/modules/aem/compatibility/
       - title: "Components configuration"
         url: /docs/modules/aem/componentconfiguration/
-      - title: "Active AEM Page"
-        url: /docs/modules/aem/activeaempage/
   - title: "Other modules"
     children:
       - title: "JUnit 5"
