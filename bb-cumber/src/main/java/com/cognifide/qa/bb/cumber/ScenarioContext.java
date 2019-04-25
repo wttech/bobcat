@@ -27,6 +27,10 @@ import cucumber.runtime.java.guice.ScenarioScoped;
 
 /**
  * Collects the objects shared between steps.
+ *
+ * This is a similar approach to the 'world' object from Ruby implementation of Cucumber.
+ *
+ * Read more at: http://www.thinkcode.se/blog/2017/08/16/sharing-state-between-steps-in-cucumberjvm-using-guice
  */
 @ScenarioScoped
 public class ScenarioContext {
