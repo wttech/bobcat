@@ -3,7 +3,7 @@
   #%L
   Bobcat
   %%
-  Copyright (C) 2016 Cognifide Ltd.
+  Copyright (C) 2019 Cognifide Ltd.
   %%
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -54,7 +54,6 @@ limitations under the License.
     <modules>
         <module>bb-core</module>
         <module>bb-integration-tests</module>
-        <module>bb-cumber</module>
         <module>bb-email</module>
         <module>bb-traffic</module>
         <module>bb-junit5</module>
@@ -92,7 +91,6 @@ limitations under the License.
         <jacoco.version>0.8.2</jacoco.version>
         <selenium.version>3.141.0</selenium.version>
         <guice.version>4.2.0</guice.version>
-        <cucumber.version>4.2.6</cucumber.version>
         <version.logback>1.2.3</version.logback>
         <junit.jupiter.version>5.3.1</junit.jupiter.version>
     </properties>
@@ -181,23 +179,6 @@ limitations under the License.
                 <groupId>org.apache.jackrabbit</groupId>
                 <artifactId>jackrabbit-jcr2dav</artifactId>
                 <version>2.17.5</version>
-            </dependency>
-
-            <!--Cucumber-->
-            <dependency>
-                <groupId>io.cucumber</groupId>
-                <artifactId>cucumber-guice</artifactId>
-                <version>${cucumber.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.cucumber</groupId>
-                <artifactId>cucumber-java</artifactId>
-                <version>${cucumber.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.cucumber</groupId>
-                <artifactId>cucumber-java8</artifactId>
-                <version>${cucumber.version}</version>
             </dependency>
 
             <!-- logging -->
