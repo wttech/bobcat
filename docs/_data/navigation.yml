@@ -50,8 +50,6 @@ docs:
     children:
       - title: "JUnit 5"
         url: /docs/modules/junit5/
-      - title: "Cucumber"
-        url: /docs/modules/cucumber/
       - title: "Traffic"
         url: /docs/modules/traffic/
       - title: "Email"
@@ -62,7 +60,11 @@ docs:
         url: /docs/modules/aem-core/
       - title: "AEM 64"
         url: /docs/modules/aem-64/
-  - title: "Allure"
-    url: "/docs/allure/"
+  - title: Integrations
+    children:
+      - title: "Allure"
+        url: "/docs/allure/"
+      - title: "Cucumber"
+        url: "/docs/cucumber/"
   - title: "API docs"
     url: "http://www.javadoc.io/doc/com.cognifide.qa.bb/bb-core/"
