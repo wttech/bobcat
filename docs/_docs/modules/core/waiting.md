@@ -39,7 +39,7 @@ Selenium provides the `FluentWait` and its extension, `WebDriverWait`. Bobcat wr
 
 Explicit waiting relies on evaluating 'expected conditions'. They are the implementation of `ExpectedCondition` interface.
 
-Selenium provides a hefty list of predefined conditions out-of-the-box in the `ExpectedConditions` class. This will your bread-and-butter when working with dynamic elements.
+Selenium provides a hefty list of predefined conditions out-of-the-box in the `ExpectedConditions` class. This will be your bread-and-butter when working with dynamic elements.
 
 ### How to wait?
 

@@ -8,7 +8,7 @@ Run Modes system allows to run the same tests with different set of guice module
 Its power is the best seen when we are using interfaces and bind specific implementations for different enviroments or machines (desktop or mobile testing, different versions of AEM)
 
 For example we have set of AEM Authoring Tests prepared for version 6.4. We use `Aem64FullModule`, we have our own set of interfaces for components and their implementations for 6.4. 
-Now we want to run them also on 6.5 or 6.3 versions and we want to reuse already written tests. With runmodes we can define that new runmode will use `Aem64FullModule` (when it will appear) not `Aem64FullModule` and module with different implementations. We define this in one yaml file and switch tests using one system property.
+Now we want to run them also on 6.5 version and we want to reuse already written tests. With runmodes we can define that new runmode will use `Aem65FullModule` (when it will appear) not `Aem64FullModule` and module with different implementations. We define this in one yaml file and switch tests using one system property.
 Bobcat will switch modules and allow to run same tests for different version of AEM.
 
 ## Using Run Modes

@@ -18,7 +18,7 @@ We will use AEM 6.4 instance.
 
 ## Setup
 
-We used gradle template so we have much of the job already done. We have already prepared default [runmode]({{site.baseurl}}docs/modules/core/runmodes/) with all required modules:
+We used gradle template so we have much of the job already done. We have already prepared default [runmode]({{site.baseurl}}/docs/modules/core/runmodes/) with all required modules:
 
 ```yaml
 - com.cognifide.qa.bb.modules.CoreModule
