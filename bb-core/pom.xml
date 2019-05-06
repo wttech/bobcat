@@ -45,10 +45,6 @@ limitations under the License.
             <artifactId>selenium-remote-driver</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-guice</artifactId>
-        </dependency>
-        <dependency>
             <groupId>io.appium</groupId>
             <artifactId>java-client</artifactId>
         </dependency>
