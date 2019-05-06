@@ -94,6 +94,11 @@ To follow the above approach, do the following:
   ```
 - for Maven-based setups (older versions of Bobcat), please refer to Cucumber's docs: [link](https://cucumber.io/docs/tools/java/)
 
+### Migrating `@Transformer` usage
+If you have been using the `@Transformer` annotation in your Cucumber step definitions, you might encounter lots of errors. This is due to the fact that it got removed in favor of using a new approach which uses the `TypeRegistryConfigurer`.
+
+For more details, see [official docs](https://cucumber.io/docs/cucumber/configuration/).
+
 ## Known limitations
 
 - There is no integration with Allure reporting engine, hence all the additional logging informations provided by Bobcat will not be present in Cucumber's reports
