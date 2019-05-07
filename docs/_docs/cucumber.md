@@ -45,7 +45,7 @@ To follow the above approach, do the following:
   2. replace all your imports from `import com.cognifide.qa.bb.scenario.ScenarioContext;` to `import <YOUR PACKAGE>.ScenarioContext;`
 - replace the dependencies from `bb-cumber` to Cucumber's artifacts:
   ```groovy
-  def bobcatVersion = '2.0.4-SNAPSHOT'
+  def bobcatVersion = '2.0.3'
   def cucumberVersion = '4.2.6'
   
   //...
