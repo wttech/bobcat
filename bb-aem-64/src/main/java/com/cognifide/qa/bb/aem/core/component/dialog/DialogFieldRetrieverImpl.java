@@ -68,7 +68,9 @@ public class DialogFieldRetrieverImpl implements DialogFieldRetriever {
     List<WebElement> fields = getFields(parentElement, type);
 
     if (fields.isEmpty()) {
-      throw new IllegalStateException("There are no fields in the tab");
+      throw new IllegalStateException(String.format(
+          "There are no fields in the tab matching the following: type=%s, label='%s', parent element=%s",
+          type, label, parentElement));
     }
 
     WebElement scope = StringUtils.isEmpty(label) ? fields.get(0) : fields.stream() //
