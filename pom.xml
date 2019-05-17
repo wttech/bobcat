@@ -59,6 +59,7 @@ limitations under the License.
         <module>bb-junit5</module>
         <module>bb-aem-core</module>
         <module>bb-aem-64</module>
+        <module>bb-aem-64sp2</module>
     </modules>
 
     <scm>

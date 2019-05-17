@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.component.dialog;
+package com.cognifide.qa.bb.aem64sp2.core.component.dialog;
 
 import static org.apache.commons.lang3.StringUtils.containsIgnoreCase;
 
@@ -28,6 +28,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import com.cognifide.qa.bb.aem.core.component.dialog.DialogFieldRetriever;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DialogField;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Fields;
 import com.cognifide.qa.bb.utils.AopUtil;
@@ -35,7 +36,7 @@ import com.cognifide.qa.bb.utils.PageObjectInjector;
 import com.google.inject.Inject;
 
 /**
- * Default AEM 6.4 Bobcat implementation of the {@link DialogFieldRetriever}
+ * Default AEM 6.4 SP2 Bobcat implementation of the {@link DialogFieldRetriever}
  */
 public class DialogFieldRetrieverImpl implements DialogFieldRetriever {
 
@@ -50,6 +51,8 @@ public class DialogFieldRetrieverImpl implements DialogFieldRetriever {
   private static final By CHECKBOX_LOCATOR = By.cssSelector(".coral-Form-field.coral3-Checkbox");
   private static final By RADIO_GROUP_LOCATOR =
       By.cssSelector(".coral-Form-field.coral-RadioGroup");
+  private static final By RICHTEXT_LOCATOR = By.cssSelector(".coral-Form-field.cq-RichText");
+  private static final By RICHTEXT_FONT_FORMAT_LOCATOR = By.cssSelector(".rte-ui");
 
   @Inject
   private Map<String, DialogField> fieldTypeRegistry;
@@ -76,7 +79,8 @@ public class DialogFieldRetrieverImpl implements DialogFieldRetriever {
     WebElement scope = StringUtils.isEmpty(label) ? fields.get(0) : fields.stream() //
         .filter(field -> containsIgnoreCase(getFieldLabel(field, type), label)) //
         .findFirst() //
-        .orElseThrow(() -> new IllegalStateException("Dialog field not found"));
+        .orElseThrow(() -> new IllegalStateException(
+            "Dialog field not found with the provided label: " + label));
 
     return getFieldObject(scope, type);
   }
@@ -101,6 +105,14 @@ public class DialogFieldRetrieverImpl implements DialogFieldRetriever {
         break;
       case Fields.RADIO_GROUP_MULTI:
         toReturn = parentElement.findElements(RADIO_GROUP_LOCATOR);
+        break;
+      case Fields.RICHTEXT:
+        toReturn = parentElement.findElements(RICHTEXT_LOCATOR);
+        break;
+      case Fields.RICHTEXT_FONT_FORMAT:
+      case Fields.RICHTEXT_LIST:
+      case Fields.RICHTEXT_JUSTIFY:
+        toReturn = parentElement.findElements(RICHTEXT_FONT_FORMAT_LOCATOR);
         break;
       default:
         toReturn = parentElement.findElements(FIELD_LOCATOR);
