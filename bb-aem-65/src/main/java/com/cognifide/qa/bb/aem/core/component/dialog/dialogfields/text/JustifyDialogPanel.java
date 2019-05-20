@@ -26,7 +26,7 @@ import com.google.inject.Inject;
 /**
  * Represents text justification dialog field.
  */
-@PageObject
+@PageObject(css = ".rte-ui")
 public class JustifyDialogPanel implements DialogField {
 
   @FindPageObject

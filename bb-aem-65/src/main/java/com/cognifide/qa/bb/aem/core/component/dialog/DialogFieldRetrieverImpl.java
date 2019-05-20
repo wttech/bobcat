@@ -28,8 +28,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Checkbox;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DialogField;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Fields;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Image;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.RadioGroup;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.RichText;
+import com.cognifide.qa.bb.mapper.field.PageObjectProviderHelper;
 import com.cognifide.qa.bb.utils.AopUtil;
 import com.cognifide.qa.bb.utils.PageObjectInjector;
 import com.google.inject.Inject;
@@ -46,11 +51,6 @@ public class DialogFieldRetrieverImpl implements DialogFieldRetriever {
 
   private static final By CHECKBOX_LABEL_SELECTOR = By
       .cssSelector("label.coral3-Checkbox-description");
-  private static final By IMAGE_LOCATOR = By.cssSelector(".coral-Form-field.cq-FileUpload");
-  private static final By CHECKBOX_LOCATOR = By.cssSelector(".coral-Form-field.coral3-Checkbox");
-  private static final By RADIO_GROUP_LOCATOR =
-      By.cssSelector(".coral-Form-field.coral-RadioGroup");
-  private static final By RICHTEXT_LOCATOR = By.cssSelector(".coral-Form-field.cq-RichText");
   private static final By RICHTEXT_FONT_FORMAT_LOCATOR = By.cssSelector(".rte-ui");
 
   @Inject
@@ -97,16 +97,24 @@ public class DialogFieldRetrieverImpl implements DialogFieldRetriever {
     List<WebElement> toReturn;
     switch (type) {
       case Fields.IMAGE:
-        toReturn = parentElement.findElements(IMAGE_LOCATOR);
+        toReturn = parentElement
+            .findElements(PageObjectProviderHelper.retrieveSelectorFromPageObjectInterface(
+                Image.class));
         break;
       case Fields.CHECKBOX:
-        toReturn = parentElement.findElements(CHECKBOX_LOCATOR);
+        toReturn = parentElement
+            .findElements(PageObjectProviderHelper.retrieveSelectorFromPageObjectInterface(
+                Checkbox.class));
         break;
       case Fields.RADIO_GROUP_MULTI:
-        toReturn = parentElement.findElements(RADIO_GROUP_LOCATOR);
+        toReturn = parentElement
+            .findElements(PageObjectProviderHelper.retrieveSelectorFromPageObjectInterface(
+                RadioGroup.class));
         break;
       case Fields.RICHTEXT:
-        toReturn = parentElement.findElements(RICHTEXT_LOCATOR);
+        toReturn = parentElement
+            .findElements(PageObjectProviderHelper.retrieveSelectorFromPageObjectInterface(
+                RichText.class));
         break;
       case Fields.RICHTEXT_FONT_FORMAT:
       case Fields.RICHTEXT_LIST:

@@ -17,14 +17,15 @@ package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text;
 
 import static com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.ControlToolbarImpl.TOOLBAR_ITEM_SELECTOR;
 
-import com.cognifide.qa.bb.qualifier.PageObject;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import com.cognifide.qa.bb.qualifier.PageObject;
 
 /**
  * Implementation for {@link JustifyControls} for AEM 6.4
  */
-@PageObject
+@PageObject(css = ".rte-ui")
 public class JustifyControlsImpl implements JustifyControls {
 
   @FindBy(css = TOOLBAR_ITEM_SELECTOR + "[data-action='justify#justifyleft']")

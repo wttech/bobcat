@@ -27,7 +27,7 @@ import com.google.inject.Inject;
 /**
  * Represents list formatting dialog panel.
  */
-@PageObject
+@PageObject(css = ".rte-ui")
 public class ListDialogPanel implements DialogField {
 
   @FindPageObject

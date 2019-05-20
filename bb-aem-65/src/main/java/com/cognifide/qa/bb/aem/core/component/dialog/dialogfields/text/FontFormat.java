@@ -26,7 +26,7 @@ import com.google.inject.Inject;
 /**
  * Represents font format dialog
  */
-@PageObject
+@PageObject(css = ".rte-ui")
 public class FontFormat implements DialogField {
 
   @FindPageObject

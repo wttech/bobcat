@@ -19,6 +19,9 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
 import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanel;
 import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanelTabs;
 import com.cognifide.qa.bb.dragdrop.DragAndDropFactory;
@@ -29,13 +32,11 @@ import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.scope.frame.FramePath;
 import com.google.inject.Inject;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 /**
  * This class represents Image dialog field with drag'n'drop functionality.
  */
-@PageObject
+@PageObject(css = ".coral-Form-field.cq-FileUpload")
 public class Image implements DialogField {
 
   @Inject

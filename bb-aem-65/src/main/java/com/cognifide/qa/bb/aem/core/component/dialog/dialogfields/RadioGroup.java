@@ -30,7 +30,7 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 /**
  * A {@link DialogField} representing a radio group.
  */
-@PageObject
+@PageObject(css = ".coral-Form-field.coral-RadioGroup")
 public class RadioGroup implements DialogField {
 
   @FindBy(css = ".coral3-Radio-description")

@@ -19,14 +19,15 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
-import com.cognifide.qa.bb.qualifier.PageObject;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import com.cognifide.qa.bb.qualifier.PageObject;
 
 /**
  * Represents checkbox dialog field.
  */
-@PageObject
+@PageObject(css = ".coral-Form-field.coral3-Checkbox")
 public class Checkbox implements DialogField {
 
   @FindBy(css = ".coral3-Checkbox-input")
