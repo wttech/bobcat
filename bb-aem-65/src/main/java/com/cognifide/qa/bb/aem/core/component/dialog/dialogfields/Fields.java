@@ -35,7 +35,6 @@ public class Fields {
   public static final String MULTIFIELD = "MULTIFIELD";
   public static final String MULTIFIELD_ITEM = "MULTIFIELD_ITEM";
   public static final String RADIO_GROUP = "RADIO_GROUP";
-  public static final String RADIO_GROUP_MULTI = "RADIO_GROUP_MULTI";
 
   private Fields() {
     //empty

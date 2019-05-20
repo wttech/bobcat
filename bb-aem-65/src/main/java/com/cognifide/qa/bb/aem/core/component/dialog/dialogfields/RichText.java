@@ -34,11 +34,14 @@ import com.google.inject.Inject;
 /**
  * This class represents rich text dialog field.
  */
-@PageObject(css = ".coral-Form-field.cq-RichText")
+@PageObject(xpath = "//*[contains(@class,'cq-RichText')]/..")
 public class RichText implements DialogField {
 
   @FindBy(css = ".coral-RichText")
   private WebElement input;
+
+  @FindBy(css = Locators.LABEL_CSS)
+  private WebElement label;
 
   @Inject
   private Actions actions;
@@ -66,4 +69,8 @@ public class RichText implements DialogField {
     actions.perform();
   }
 
+  @Override
+  public String getLabel() {
+    return label.getText();
+  }
 }

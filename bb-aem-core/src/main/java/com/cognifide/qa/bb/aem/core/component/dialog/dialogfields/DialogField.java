@@ -32,4 +32,8 @@ public interface DialogField {
    * @param value object representing desired component value.
    */
   void setValue(Object value);
+
+  default String getLabel() { //todo refactor this, to remove the default
+    return "";
+  }
 }

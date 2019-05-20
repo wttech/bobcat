@@ -67,6 +67,5 @@ public class AemFieldsModule extends AbstractModule {
     fieldsBinder.addBinding(Fields.RICHTEXT_JUSTIFY).to(JustifyDialogPanel.class);
     fieldsBinder.addBinding(Fields.RICHTEXT_LIST).to(ListDialogPanel.class);
     fieldsBinder.addBinding(Fields.RADIO_GROUP).to(RadioGroup.class);
-    fieldsBinder.addBinding(Fields.RADIO_GROUP_MULTI).to(RadioGroup.class);
   }
 }

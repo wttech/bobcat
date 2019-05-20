@@ -20,6 +20,14 @@
 
 package com.cognifide.qa.bb.mapper.field;
 
+import java.lang.reflect.Field;
+import java.util.List;
+import java.util.Optional;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
+
 import com.cognifide.qa.bb.exceptions.BobcatRuntimeException;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.qualifier.PageObjectInterface;
@@ -34,12 +42,6 @@ import com.google.inject.ConfigurationException;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.internal.LinkedBindingImpl;
-import java.lang.reflect.Field;
-import java.util.List;
-import java.util.Optional;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 
 /**
  * This provider produces values for PageObject's fields that are annotated with FindPageObject
@@ -79,8 +81,11 @@ public class SelectorPageObjectProvider implements FieldProvider {
     if (field.getType().isAnnotationPresent(
         PageObjectInterface.class)) {
       Binding<?> binding = injector.getBinding(field.getType());
-      if(binding instanceof LinkedBindingImpl){
-        selector = PageObjectProviderHelper.retrieveSelectorFromPageObjectInterface(((LinkedBindingImpl) binding).getLinkedKey().getTypeLiteral().getRawType());
+      if (binding instanceof LinkedBindingImpl) {
+        selector = PageObjectProviderHelper.retrieveSelectorFromPageObjectInterface(
+            ((LinkedBindingImpl) binding).getLinkedKey().getTypeLiteral().getRawType())
+            .orElseThrow(() -> new IllegalArgumentException(
+                "Selector missing in the @PageObject annotation"));
       }
     } else {
       selector = PageObjectProviderHelper.getSelectorFromPageObject(field);
@@ -95,10 +100,10 @@ public class SelectorPageObjectProvider implements FieldProvider {
     Object scopedPageObject = null;
     try {
       scopedPageObject = injector.getInstance(field.getType());
-    } catch(ConfigurationException e){
+    } catch (ConfigurationException e) {
       throw new BobcatRuntimeException(
           "Configuration exception: " + e.getErrorMessages().toString(), e);
-    }catch (Exception e) {
+    } catch (Exception e) {
       throw new BobcatRuntimeException(e.getMessage(), e);
     } finally {
       contextStack.pop();

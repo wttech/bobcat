@@ -27,6 +27,7 @@ import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.aem.core.component.configuration.MultifieldEntry;
 import com.cognifide.qa.bb.exceptions.BobcatRuntimeException;
+import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,14 +36,17 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 /**
  * This class represents TouchUI dialog multifield.
  */
-@PageObject
+@PageObject(css = Locators.FIELD_WRAPPER_CSS)
 public class Multifield implements DialogField {
 
   @FindBy(css = "button.coral3-Button.coral3-Button--secondary")
   private WebElement addButton;
 
-  @FindBy(css = ".coral3-Multifield-item")
+  @FindPageObject
   private List<MultifieldItem> items;
+
+  @FindBy(css = Locators.LABEL_CSS)
+  private WebElement label;
 
   /**
    * Sets next element in dialog multifield.
@@ -62,6 +66,11 @@ public class Multifield implements DialogField {
 
     Iterator<MultifieldItem> itemsIterator = items.iterator();
     cfg.forEach(entry -> itemsIterator.next().setValue(entry));
+  }
+
+  @Override
+  public String getLabel() {
+    return label.getText();
   }
 
   /**

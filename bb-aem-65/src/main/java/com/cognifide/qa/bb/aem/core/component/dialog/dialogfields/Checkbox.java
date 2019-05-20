@@ -27,11 +27,14 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 /**
  * Represents checkbox dialog field.
  */
-@PageObject(css = ".coral-Form-field.coral3-Checkbox")
+@PageObject(xpath = "//*[contains(@class,'coral3-Checkbox')]/..")
 public class Checkbox implements DialogField {
 
   @FindBy(css = ".coral3-Checkbox-input")
   private WebElement checkboxElement;
+
+  @FindBy(css = "label.coral3-Checkbox-description")
+  private WebElement label;
 
   /**
    * Performs click action on the checkbox.
@@ -52,4 +55,8 @@ public class Checkbox implements DialogField {
     }
   }
 
+  @Override
+  public String getLabel() {
+    return label.getText();
+  }
 }

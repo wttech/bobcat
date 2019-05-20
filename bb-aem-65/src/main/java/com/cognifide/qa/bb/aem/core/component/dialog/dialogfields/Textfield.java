@@ -19,18 +19,22 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
-import com.cognifide.qa.bb.qualifier.PageObject;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import com.cognifide.qa.bb.qualifier.PageObject;
 
 /**
  * This class represents single line text dialog field.
  */
-@PageObject
+@PageObject(css = Locators.FIELD_WRAPPER_CSS)
 public class Textfield implements DialogField {
 
   @FindBy(css = ".coral3-Textfield:not([type='hidden']")
   private WebElement input;
+
+  @FindBy(css = Locators.LABEL_CSS)
+  private WebElement label;
 
   /**
    * Sets text value of component.
@@ -43,4 +47,8 @@ public class Textfield implements DialogField {
     input.sendKeys(String.valueOf(value));
   }
 
+  @Override
+  public String getLabel() {
+    return label.getText();
+  }
 }

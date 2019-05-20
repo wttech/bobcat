@@ -24,6 +24,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.WildcardType;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
@@ -61,7 +62,8 @@ public final class PageObjectProviderHelper {
       Binding<?> binding = originalInjector.getBinding(genericType);
       if (binding instanceof LinkedBindingImpl) {
         return PageObjectProviderHelper.retrieveSelectorFromPageObjectInterface(
-            ((LinkedBindingImpl) binding).getLinkedKey().getTypeLiteral().getRawType());
+            ((LinkedBindingImpl) binding).getLinkedKey().getTypeLiteral().getRawType())
+            .orElseThrow(() -> new IllegalArgumentException(ERROR_MSG));
       }
     } else {
       return retrieveSelectorFromPageObject(field, true);
@@ -96,16 +98,17 @@ public final class PageObjectProviderHelper {
     return null;
   }
 
-  public static By retrieveSelectorFromPageObjectInterface(Class<?> field) {
+  public static Optional<By> retrieveSelectorFromPageObjectInterface(Class<?> field) {
+    Optional<By> locator = Optional.empty();
     String cssValue = field.getAnnotation(PageObject.class).css();
-    if (StringUtils.isNotEmpty(cssValue)) {
-      return By.cssSelector(cssValue);
-    }
     String xpathValue = field.getAnnotation(PageObject.class).xpath();
-    if (StringUtils.isNotEmpty(xpathValue)) {
-      return By.xpath(xpathValue);
+
+    if (StringUtils.isNotEmpty(cssValue)) {
+      locator = Optional.of(By.cssSelector(cssValue));
+    } else if (StringUtils.isNotEmpty(xpathValue)) {
+      locator = Optional.of(By.xpath(xpathValue));
     }
-    throw new IllegalArgumentException(ERROR_MSG);
+    return locator;
   }
 
   private static By retrieveSelectorFromPageObject(Field field, boolean useGeneric) {

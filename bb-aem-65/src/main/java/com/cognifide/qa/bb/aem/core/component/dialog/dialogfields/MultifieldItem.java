@@ -32,7 +32,7 @@ import com.google.inject.Inject;
 /**
  * A {@link DialogField} representing a single item of {@link Multifield}
  */
-@PageObject
+@PageObject(css = ".coral3-Multifield-item")
 public class MultifieldItem implements DialogField {
 
   @Inject
@@ -44,6 +44,9 @@ public class MultifieldItem implements DialogField {
 
   @FindBy(css = "button.coral3-Multifield-remove")
   private WebElement deleteButton;
+
+  @FindBy(css = Locators.LABEL_CSS)
+  private WebElement label;
 
   @Override
   public void setValue(Object value) {
@@ -61,5 +64,10 @@ public class MultifieldItem implements DialogField {
   private void setFieldInMultifield(FieldConfig fieldConfig) {
     dialogFieldRetriever.getDialogField(item, fieldConfig.getLabel(), fieldConfig.getType())
         .setValue(fieldConfig.getValue());
+  }
+
+  @Override
+  public String getLabel() {
+    return label.getText();
   }
 }

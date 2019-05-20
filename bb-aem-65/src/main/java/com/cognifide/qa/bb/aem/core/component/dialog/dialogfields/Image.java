@@ -36,7 +36,7 @@ import com.google.inject.Inject;
 /**
  * This class represents Image dialog field with drag'n'drop functionality.
  */
-@PageObject(css = ".coral-Form-field.cq-FileUpload")
+@PageObject(xpath = "//*[contains(@class,'cq-FileUpload')]/..")
 public class Image implements DialogField {
 
   @Inject
@@ -48,6 +48,9 @@ public class Image implements DialogField {
 
   @FindBy(css = ".cq-FileUpload-thumbnail")
   private WebElement dropArea;
+
+  @FindBy(css = Locators.LABEL_CSS)
+  private WebElement label;
 
   /**
    * Sets image assets in image component.
@@ -62,4 +65,8 @@ public class Image implements DialogField {
     draggable.dropTo(droppable);
   }
 
+  @Override
+  public String getLabel() {
+    return label.getText();
+  }
 }

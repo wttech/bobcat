@@ -19,15 +19,12 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
-import static org.apache.commons.lang3.StringUtils.contains;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import com.cognifide.qa.bb.constants.HtmlTags;
-import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.wait.BobcatWait;
 import com.google.inject.Inject;
@@ -35,17 +32,14 @@ import com.google.inject.Inject;
 /**
  * This class represents path browser dialog field.
  */
-@PageObject
+@PageObject(css = Locators.FIELD_WRAPPER_CSS)
 public class PathBrowser implements DialogField {
 
-  private static final String TEXT_FIELD_CLASS = "coral3-Textfield";
-
-  @FindBy(className = TEXT_FIELD_CLASS)
+  @FindBy(className = "coral3-Textfield")
   private WebElement input;
 
-  @Inject
-  @CurrentScope
-  private WebElement currentScope;
+  @FindBy(css = Locators.LABEL_CSS)
+  private WebElement label;
 
   @Inject
   private BobcatWait bobcatWait;
@@ -57,16 +51,16 @@ public class PathBrowser implements DialogField {
    */
   @Override
   public void setValue(Object value) {
-    if (contains(currentScope.getAttribute(HtmlTags.Attributes.CLASS), TEXT_FIELD_CLASS)) {
-      currentScope.clear();
-      currentScope.sendKeys(String.valueOf(value));
-    } else {
-      input.clear();
-      input.sendKeys(String.valueOf(value));
-    }
-    bobcatWait.until(ExpectedConditions.visibilityOfElementLocated(
+    input.clear();
+    input.sendKeys(String.valueOf(value));
+
+    bobcatWait.until(visibilityOfElementLocated(
         By.cssSelector(".foundation-picker-buttonlist.coral3-Overlay.is-open")));
-    currentScope.findElement(By.className("coral-Form-fieldlabel")).click();
+    label.click();
   }
 
+  @Override
+  public String getLabel() {
+    return label.getText();
+  }
 }

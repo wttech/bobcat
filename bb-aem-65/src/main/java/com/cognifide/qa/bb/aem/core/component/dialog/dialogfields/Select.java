@@ -19,23 +19,28 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
-import com.cognifide.qa.bb.qualifier.PageObject;
 import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.cognifide.qa.bb.qualifier.PageObject;
+
 /**
  * This class represent multiple choice select dialog component.
  */
-@PageObject
+@PageObject(css = Locators.FIELD_WRAPPER_CSS)
 public class Select implements DialogField {
 
   private static final String SELECT_OPTIONS_CSS = ".coral3-SelectList-item";
 
   @FindBy(css = ".coral3-Select")
   private WebElement selectField;
+
+  @FindBy(css = Locators.LABEL_CSS)
+  private WebElement label;
 
   /**
    * Selects given options of select component.
@@ -46,10 +51,16 @@ public class Select implements DialogField {
   public void setValue(Object value) {
     selectField.click();
     List<WebElement> options = selectField.findElements(By.cssSelector(SELECT_OPTIONS_CSS));
-    options.stream().filter(o -> value.toString().equals(o.getText()))
+    options.stream()
+        .filter(o -> value.toString().equals(o.getText()))
         .findFirst()
         .orElseThrow(() -> new NoSuchElementException(
-            String.format("Option with text %s not found", value.toString()))).click();
+            String.format("Option with text %s not found", value.toString())))
+        .click();
   }
 
+  @Override
+  public String getLabel() {
+    return label.getText();
+  }
 }

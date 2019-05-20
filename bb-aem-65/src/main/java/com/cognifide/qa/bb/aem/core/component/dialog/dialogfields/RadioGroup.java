@@ -30,11 +30,14 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 /**
  * A {@link DialogField} representing a radio group.
  */
-@PageObject(css = ".coral-Form-field.coral-RadioGroup")
+@PageObject(xpath = "//*[contains(@class,'coral-RadioGroup')]/..")
 public class RadioGroup implements DialogField {
 
   @FindBy(css = ".coral3-Radio-description")
   private List<WebElement> radioOptions;
+
+  @FindBy(css = Locators.LABEL_CSS)
+  private WebElement label;
 
   @Override
   public void setValue(Object value) {
@@ -44,4 +47,8 @@ public class RadioGroup implements DialogField {
     radioLabel.findElement(By.xpath(".//..")).click();
   }
 
+  @Override
+  public String getLabel() {
+    return label.getText();
+  }
 }
