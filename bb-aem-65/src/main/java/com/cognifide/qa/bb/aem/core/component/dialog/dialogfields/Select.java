@@ -31,7 +31,7 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 /**
  * This class represent multiple choice select dialog component.
  */
-@PageObject(css = Locators.FIELD_WRAPPER_CSS)
+@PageObject(xpath = "//coral-select/..")
 public class Select implements DialogField {
 
   private static final String SELECT_OPTIONS_CSS = ".coral3-SelectList-item";
@@ -40,7 +40,7 @@ public class Select implements DialogField {
   private WebElement selectField;
 
   @FindBy(css = Locators.LABEL_CSS)
-  private WebElement label;
+  private List<WebElement> label;
 
   /**
    * Selects given options of select component.
@@ -61,6 +61,6 @@ public class Select implements DialogField {
 
   @Override
   public String getLabel() {
-    return label.getText();
+    return label.isEmpty() ? "" : label.get(0).getText();
   }
 }

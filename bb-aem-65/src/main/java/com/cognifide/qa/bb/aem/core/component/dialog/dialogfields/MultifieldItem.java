@@ -19,6 +19,8 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
+import java.util.List;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -46,7 +48,7 @@ public class MultifieldItem implements DialogField {
   private WebElement deleteButton;
 
   @FindBy(css = Locators.LABEL_CSS)
-  private WebElement label;
+  private List<WebElement> label;
 
   @Override
   public void setValue(Object value) {
@@ -68,6 +70,6 @@ public class MultifieldItem implements DialogField {
 
   @Override
   public String getLabel() {
-    return label.getText();
+    return label.isEmpty() ? "" : label.get(0).getText();
   }
 }

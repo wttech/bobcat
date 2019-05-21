@@ -19,6 +19,8 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
+import java.util.List;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -50,7 +52,7 @@ public class Image implements DialogField {
   private WebElement dropArea;
 
   @FindBy(css = Locators.LABEL_CSS)
-  private WebElement label;
+  private List<WebElement> label;
 
   /**
    * Sets image assets in image component.
@@ -67,6 +69,6 @@ public class Image implements DialogField {
 
   @Override
   public String getLabel() {
-    return label.getText();
+    return label.isEmpty() ? "" : label.get(0).getText();
   }
 }

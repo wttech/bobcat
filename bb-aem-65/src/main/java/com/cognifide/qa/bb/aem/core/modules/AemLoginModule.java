@@ -19,6 +19,9 @@
  */
 package com.cognifide.qa.bb.aem.core.modules;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.cognifide.qa.bb.aem.core.api.AemActions;
 import com.cognifide.qa.bb.aem.core.login.AemAuthCookieFactory;
 import com.cognifide.qa.bb.aem.core.login.AemAuthCookieFactoryImpl;
@@ -32,9 +35,12 @@ import com.google.inject.multibindings.MapBinder;
  * Module that contains binding related to login to AEM instance functionality
  */
 public class AemLoginModule extends AbstractModule {
+  private static final Logger LOG = LoggerFactory.getLogger(AemLoginModule.class);
 
   @Override
   protected void configure() {
+    LOG.debug("Configuring Bobcat module: {}", getClass().getSimpleName());
+
     bind(AemAuthCookieFactory.class).to(AemAuthCookieFactoryImpl.class);
 
     MapBinder<String, Action> siteAdminActions =

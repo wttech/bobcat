@@ -19,6 +19,9 @@
  */
 package com.cognifide.qa.bb.aem.core.modules;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.cognifide.qa.bb.aem.core.api.AemActions;
 import com.cognifide.qa.bb.aem.core.pages.sling.CreatePage;
 import com.cognifide.qa.bb.aem.core.pages.sling.DeletePage;
@@ -30,9 +33,12 @@ import com.google.inject.multibindings.MapBinder;
  * Module that need to be installed to use page creation in AEM
  */
 public class SlingPageActionsModule extends AbstractModule {
+  private static final Logger LOG = LoggerFactory.getLogger(SlingPageActionsModule.class);
 
   @Override
   protected void configure() {
+    LOG.debug("Configuring Bobcat module: {}", getClass().getSimpleName());
+
     MapBinder<String, ActionWithData> slingPageActions =
         MapBinder.newMapBinder(binder(), String.class, ActionWithData.class);
     slingPageActions.addBinding(AemActions.CREATE_PAGE_VIA_SLING).to(CreatePage.class);

@@ -35,7 +35,7 @@ import com.google.inject.Inject;
 import io.qameta.allure.Step;
 
 /**
- * Default Bobcat implementation of {@link CreatePageWizard} for AEM 6.4
+ * Default Bobcat implementation of {@link CreatePageWizard} for AEM 6.5
  */
 @PageObject(css = "form.cq-siteadmin-admin-createpage")
 public class CreatePageWizardImpl implements CreatePageWizard {

@@ -23,7 +23,7 @@ import org.openqa.selenium.support.FindBy;
 import com.cognifide.qa.bb.qualifier.PageObject;
 
 /**
- * Implementation for {@link JustifyControls} for AEM 6.4
+ * Implementation for {@link JustifyControls} for AEM 6.5
  */
 @PageObject(css = ".rte-ui")
 public class JustifyControlsImpl implements JustifyControls {

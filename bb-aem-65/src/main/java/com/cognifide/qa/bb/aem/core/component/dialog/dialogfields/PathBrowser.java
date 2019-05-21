@@ -21,6 +21,8 @@ package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -39,7 +41,7 @@ public class PathBrowser implements DialogField {
   private WebElement input;
 
   @FindBy(css = Locators.LABEL_CSS)
-  private WebElement label;
+  private List<WebElement> label;
 
   @Inject
   private BobcatWait bobcatWait;
@@ -56,11 +58,11 @@ public class PathBrowser implements DialogField {
 
     bobcatWait.until(visibilityOfElementLocated(
         By.cssSelector(".foundation-picker-buttonlist.coral3-Overlay.is-open")));
-    label.click();
+    label.get(0).click();
   }
 
   @Override
   public String getLabel() {
-    return label.getText();
+    return label.isEmpty() ? "" : label.get(0).getText();
   }
 }

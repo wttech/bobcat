@@ -31,7 +31,7 @@ import com.cognifide.qa.bb.wait.BobcatWait;
 import com.google.inject.Inject;
 
 /**
- * Implementation of {@link ComponentToolbar} working with AEM 6.4
+ * Implementation of {@link ComponentToolbar} working with AEM 6.5
  */
 @PageObject(css = "#EditableToolbar")
 public class ComponentToolbarImpl implements ComponentToolbar {

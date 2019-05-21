@@ -19,6 +19,9 @@
  */
 package com.cognifide.qa.bb.aem.core.modules;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.cognifide.qa.bb.aem.core.api.AemActions;
 import com.cognifide.qa.bb.aem.core.siteadmin.actions.CreatePageAction;
 import com.cognifide.qa.bb.aem.core.siteadmin.internal.CreatePageProperties;
@@ -34,12 +37,15 @@ import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.MapBinder;
 
 /**
- * Module that need to be installed to use site admin actions in AEM 6.4
+ * Module that need to be installed to use site admin actions in AEM 6.5
  */
 public class AemSitesAdminModule extends AbstractModule {
+  private static final Logger LOG = LoggerFactory.getLogger(AemSitesAdminModule.class);
 
   @Override
   protected void configure() {
+    LOG.debug("Configuring Bobcat module: {}", getClass().getSimpleName());
+
     bind(SiteToolbar.class).to(SiteToolbarImpl.class);
     bind(TemplateList.class).to(TemplateListImpl.class);
     bind(CreatePageWizard.class).to(CreatePageWizardImpl.class);

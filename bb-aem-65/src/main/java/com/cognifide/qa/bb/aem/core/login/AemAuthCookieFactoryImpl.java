@@ -44,7 +44,7 @@ import com.cognifide.qa.bb.guice.ThreadScoped;
 import com.google.inject.Inject;
 
 /**
- * Default Bobcat implementation of {@link AemAuthCookieFactory} for AEM 6.4.
+ * Default Bobcat implementation of {@link AemAuthCookieFactory} for AEM 6.5.
  * <p>
  * Provides authentication cookie for the AEM instance (default cookie name: {@literal login-token})
  */

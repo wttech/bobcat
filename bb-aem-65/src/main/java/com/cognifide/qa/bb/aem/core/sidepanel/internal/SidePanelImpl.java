@@ -44,7 +44,7 @@ import com.cognifide.qa.bb.wait.Timings;
 import com.google.inject.Inject;
 
 /**
- * The default Bobcat implementation of {@link SidePanel} for AEM 6.4
+ * The default Bobcat implementation of {@link SidePanel} for AEM 6.5
  */
 @PageObject(css = ".sidepanel")
 public class SidePanelImpl implements SidePanel {

@@ -19,6 +19,9 @@
  */
 package com.cognifide.qa.bb.aem.core.modules;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.cognifide.qa.bb.aem.core.component.AuthorLoader;
 import com.cognifide.qa.bb.aem.core.component.AuthorLoaderImpl;
 import com.cognifide.qa.bb.aem.core.component.GlobalBar;
@@ -26,12 +29,16 @@ import com.cognifide.qa.bb.aem.core.component.GlobalBarImpl;
 import com.google.inject.AbstractModule;
 
 /**
- * Module that contains bindings for AEM 6.4 page bars
+ * Module that contains bindings for AEM 6.5 page bars
  */
 public class AemPageModule extends AbstractModule {
 
+  private static final Logger LOG = LoggerFactory.getLogger(AemPageModule.class);
+
   @Override
   protected void configure() {
+    LOG.debug("Configuring Bobcat module: {}", getClass().getSimpleName());
+
     bind(AuthorLoader.class).to(AuthorLoaderImpl.class);
     bind(GlobalBar.class).to(GlobalBarImpl.class);
   }

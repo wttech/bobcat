@@ -19,6 +19,8 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
+import java.util.List;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -34,7 +36,7 @@ public class Checkbox implements DialogField {
   private WebElement checkboxElement;
 
   @FindBy(css = "label.coral3-Checkbox-description")
-  private WebElement label;
+  private List<WebElement> label;
 
   /**
    * Performs click action on the checkbox.
@@ -57,6 +59,6 @@ public class Checkbox implements DialogField {
 
   @Override
   public String getLabel() {
-    return label.getText();
+    return label.isEmpty() ? "" : label.get(0).getText();
   }
 }

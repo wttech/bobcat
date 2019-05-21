@@ -25,7 +25,7 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
 
 /**
- * Implementation of {@link ControlToolbar} for AEM 6.4
+ * Implementation of {@link ControlToolbar} for AEM 6.5
  */
 @PageObject(css = ".coral3-ButtonGroup.rte-toolbar.is-active")
 public class ControlToolbarImpl implements ControlToolbar {

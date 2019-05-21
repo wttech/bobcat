@@ -37,7 +37,7 @@ public class RadioGroup implements DialogField {
   private List<WebElement> radioOptions;
 
   @FindBy(css = Locators.LABEL_CSS)
-  private WebElement label;
+  private List<WebElement> label;
 
   @Override
   public void setValue(Object value) {
@@ -49,6 +49,6 @@ public class RadioGroup implements DialogField {
 
   @Override
   public String getLabel() {
-    return label.getText();
+    return label.isEmpty() ? "" : label.get(0).getText();
   }
 }

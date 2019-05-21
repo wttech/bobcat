@@ -19,6 +19,9 @@
  */
 package com.cognifide.qa.bb.aem.core.modules;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanel;
 import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanelImpl;
 import com.cognifide.qa.bb.aem.core.sidepanel.internal.SidePanelTabBar;
@@ -29,9 +32,12 @@ import com.google.inject.AbstractModule;
  * Contains binding related to AEM's Side Panel
  */
 public class AemSidePanelModule extends AbstractModule {
+  private static final Logger LOG = LoggerFactory.getLogger(AemSidePanelModule.class);
 
   @Override
   protected void configure() {
+    LOG.debug("Configuring Bobcat module: {}", getClass().getSimpleName());
+
     bind(SidePanel.class).to(SidePanelImpl.class);
     bind(SidePanelTabBar.class).to(SidePanelTabBarImpl.class);
   }

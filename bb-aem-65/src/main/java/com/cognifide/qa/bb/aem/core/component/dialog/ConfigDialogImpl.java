@@ -40,7 +40,7 @@ import com.cognifide.qa.bb.wait.BobcatWait;
 import com.google.inject.Inject;
 
 /**
- * Default implementation of {@link ConfigDialog} for AEM 6.4
+ * Default implementation of {@link ConfigDialog} for AEM 6.5
  */
 @PageObject(css = ConfigDialogImpl.FORM_CQ_DIALOG)
 public class ConfigDialogImpl implements ConfigDialog {

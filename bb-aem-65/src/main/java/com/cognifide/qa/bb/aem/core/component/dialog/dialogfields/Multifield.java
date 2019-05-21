@@ -46,7 +46,7 @@ public class Multifield implements DialogField {
   private List<MultifieldItem> items;
 
   @FindBy(css = Locators.LABEL_CSS)
-  private WebElement label;
+  private List<WebElement> label;
 
   /**
    * Sets next element in dialog multifield.
@@ -70,7 +70,7 @@ public class Multifield implements DialogField {
 
   @Override
   public String getLabel() {
-    return label.getText();
+    return label.isEmpty() ? "" : label.get(0).getText();
   }
 
   /**

@@ -23,7 +23,7 @@ import org.openqa.selenium.support.FindBy;
 import com.cognifide.qa.bb.qualifier.PageObject;
 
 /**
- * Implementation of {@link ListControls} for AEM 6.4
+ * Implementation of {@link ListControls} for AEM 6.5
  */
 @PageObject(css = ".rte-ui")
 public class ListControlsImpl implements ListControls {

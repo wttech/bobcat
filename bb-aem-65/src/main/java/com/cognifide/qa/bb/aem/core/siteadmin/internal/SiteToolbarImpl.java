@@ -33,7 +33,7 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
 
 /**
- * Default Bobcat implementation of {@link SiteToolbar} for AEM 6.4
+ * Default Bobcat implementation of {@link SiteToolbar} for AEM 6.5
  */
 @PageObject(css = ".foundation-collection-actionbar")
 public class SiteToolbarImpl implements SiteToolbar {

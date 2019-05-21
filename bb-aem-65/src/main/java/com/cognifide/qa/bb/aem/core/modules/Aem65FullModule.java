@@ -19,17 +19,23 @@
  */
 package com.cognifide.qa.bb.aem.core.modules;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.inject.AbstractModule;
 
 /**
- * Main module that needs to be installed to use AEM 6.4 functions.
+ * Main module that needs to be installed to use AEM 6.5 functions.
  * <p>
- * It install all sub-modules related to AEM 6.4.
+ * It install all sub-modules related to AEM 6.5.
  */
 public class Aem65FullModule extends AbstractModule {
 
+  private static final Logger LOG = LoggerFactory.getLogger(Aem65FullModule.class);
+
   @Override
   protected void configure() {
+    LOG.debug("Configuring Bobcat module: {}", getClass().getSimpleName());
     install(new AemCoreModule());
     install(new AemLoginModule());
     install(new AemSitesAdminModule());

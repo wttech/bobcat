@@ -19,6 +19,8 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
+import java.util.List;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -34,7 +36,7 @@ public class Textfield implements DialogField {
   private WebElement input;
 
   @FindBy(css = Locators.LABEL_CSS)
-  private WebElement label;
+  private List<WebElement> label;
 
   /**
    * Sets text value of component.
@@ -49,6 +51,6 @@ public class Textfield implements DialogField {
 
   @Override
   public String getLabel() {
-    return label.getText();
+    return label.isEmpty() ? "" : label.get(0).getText();
   }
 }

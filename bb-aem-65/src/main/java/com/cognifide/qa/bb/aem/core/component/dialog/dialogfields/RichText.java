@@ -41,7 +41,7 @@ public class RichText implements DialogField {
   private WebElement input;
 
   @FindBy(css = Locators.LABEL_CSS)
-  private WebElement label;
+  private List<WebElement> label;
 
   @Inject
   private Actions actions;
@@ -71,6 +71,6 @@ public class RichText implements DialogField {
 
   @Override
   public String getLabel() {
-    return label.getText();
+    return label.isEmpty() ? "" : label.get(0).getText();
   }
 }

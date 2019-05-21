@@ -19,6 +19,9 @@
  */
 package com.cognifide.qa.bb.aem.core.modules;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Checkbox;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DialogField;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Fields;
@@ -47,25 +50,36 @@ import com.google.inject.multibindings.MapBinder;
  */
 public class AemFieldsModule extends AbstractModule {
 
+  private static final Logger LOG = LoggerFactory.getLogger(AemFieldsModule.class);
+
   @Override
   protected void configure() {
+    LOG.debug("Configuring Bobcat module: {}", getClass().getSimpleName());
+
     bind(ControlToolbar.class).to(ControlToolbarImpl.class);
     bind(JustifyControls.class).to(JustifyControlsImpl.class);
     bind(ListControls.class).to(ListControlsImpl.class);
 
+    LOG.debug("Registering dialog fields...");
     MapBinder<String, DialogField> fieldsBinder = MapBinder
         .newMapBinder(binder(), String.class, DialogField.class);
-    fieldsBinder.addBinding(Fields.CHECKBOX).to(Checkbox.class);
-    fieldsBinder.addBinding(Fields.TEXTFIELD).to(Textfield.class);
-    fieldsBinder.addBinding(Fields.IMAGE).to(Image.class);
-    fieldsBinder.addBinding(Fields.PATHBROWSER).to(PathBrowser.class);
-    fieldsBinder.addBinding(Fields.SELECT).to(Select.class);
-    fieldsBinder.addBinding(Fields.RICHTEXT).to(RichText.class);
-    fieldsBinder.addBinding(Fields.MULTIFIELD).to(Multifield.class);
-    fieldsBinder.addBinding(Fields.MULTIFIELD_ITEM).to(MultifieldItem.class);
-    fieldsBinder.addBinding(Fields.RICHTEXT_FONT_FORMAT).to(FontFormat.class);
-    fieldsBinder.addBinding(Fields.RICHTEXT_JUSTIFY).to(JustifyDialogPanel.class);
-    fieldsBinder.addBinding(Fields.RICHTEXT_LIST).to(ListDialogPanel.class);
-    fieldsBinder.addBinding(Fields.RADIO_GROUP).to(RadioGroup.class);
+    registerField(fieldsBinder, Fields.CHECKBOX, Checkbox.class);
+    registerField(fieldsBinder, Fields.TEXTFIELD, Textfield.class);
+    registerField(fieldsBinder, Fields.IMAGE, Image.class);
+    registerField(fieldsBinder, Fields.PATHBROWSER, PathBrowser.class);
+    registerField(fieldsBinder, Fields.SELECT, Select.class);
+    registerField(fieldsBinder, Fields.RICHTEXT, RichText.class);
+    registerField(fieldsBinder, Fields.MULTIFIELD, Multifield.class);
+    registerField(fieldsBinder, Fields.MULTIFIELD_ITEM, MultifieldItem.class);
+    registerField(fieldsBinder, Fields.RICHTEXT_FONT_FORMAT, FontFormat.class);
+    registerField(fieldsBinder, Fields.RICHTEXT_JUSTIFY, JustifyDialogPanel.class);
+    registerField(fieldsBinder, Fields.RICHTEXT_LIST, ListDialogPanel.class);
+    registerField(fieldsBinder, Fields.RADIO_GROUP, RadioGroup.class);
+  }
+
+  private void registerField(MapBinder<String, DialogField> binder, String name,
+      Class<? extends DialogField> type) {
+    LOG.debug("Registering field: {} [{}]", name, type);
+    binder.addBinding(name).to(type);
   }
 }
