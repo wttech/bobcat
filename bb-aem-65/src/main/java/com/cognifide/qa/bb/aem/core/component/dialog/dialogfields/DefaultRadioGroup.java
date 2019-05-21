@@ -2,7 +2,7 @@
  * #%L
  * Bobcat
  * %%
- * Copyright (C) 2016 Cognifide Ltd.
+ * Copyright (C) 2018 Cognifide Ltd.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,40 +21,30 @@ package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.qualifier.PageObject;
 
 /**
- * Represents checkbox dialog field.
+ * Default implementation of {@link RadioGroup}
  */
-@PageObject(xpath = "//*[contains(@class,'coral3-Checkbox')]/..")
-public class Checkbox implements DialogField {
+@PageObject(xpath = "//*[contains(@class,'coral-RadioGroup')]/..")
+public class DefaultRadioGroup implements RadioGroup {
 
-  @FindBy(css = ".coral3-Checkbox-input")
-  private WebElement checkboxElement;
+  @FindBy(css = ".coral3-Radio-description")
+  private List<WebElement> radioOptions;
 
-  @FindBy(css = "label.coral3-Checkbox-description")
+  @FindBy(css = Locators.LABEL_CSS)
   private List<WebElement> label;
 
-  /**
-   * Performs click action on the checkbox.
-   */
-  public void select() {
-    checkboxElement.click();
-  }
-
-  /**
-   * Performs click action on the checkbox if passed param is 'true' string.
-   *
-   * @param value string boolean representation
-   */
   @Override
   public void setValue(Object value) {
-    if (Boolean.valueOf(String.valueOf(value))) {
-      select();
-    }
+    WebElement radioLabel = radioOptions.stream()
+        .filter(radioOption -> radioOption.getText().equals(value)).findFirst().orElseThrow(
+            () -> new IllegalStateException("Provided option is not present in the group"));
+    radioLabel.findElement(By.xpath(".//..")).click();
   }
 
   @Override

@@ -36,10 +36,10 @@ import com.cognifide.qa.bb.scope.frame.FramePath;
 import com.google.inject.Inject;
 
 /**
- * This class represents Image dialog field with drag'n'drop functionality.
+ * Default implementation of {@link Image}
  */
 @PageObject(xpath = "//*[contains(@class,'cq-FileUpload')]/..")
-public class Image implements DialogField {
+public class DefaultImage implements Image {
 
   @Inject
   private DragAndDropFactory dragAndDropFactory;
@@ -54,11 +54,6 @@ public class Image implements DialogField {
   @FindBy(css = Locators.LABEL_CSS)
   private List<WebElement> label;
 
-  /**
-   * Sets image assets in image component.
-   *
-   * @param value string data path to desired asset.
-   */
   @Override
   public void setValue(Object value) {
     sidePanel.selectTab(SidePanelTabs.ASSETS.getCssClass());

@@ -32,10 +32,10 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
 
 /**
- * A {@link DialogField} representing a single item of {@link Multifield}
+ * Default implementation of {@link MultifieldItem}
  */
 @PageObject(css = ".coral3-Multifield-item")
-public class MultifieldItem implements DialogField {
+public class DefaultMultifieldItem implements MultifieldItem {
 
   @Inject
   private DialogFieldRetriever dialogFieldRetriever;
@@ -56,9 +56,7 @@ public class MultifieldItem implements DialogField {
     entry.getItem().forEach(this::setFieldInMultifield);
   }
 
-  /**
-   * Deletes this item
-   */
+  @Override
   public void deleteItem() {
     deleteButton.click();
   }

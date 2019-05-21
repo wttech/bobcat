@@ -32,10 +32,10 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
 
 /**
- * This class represents rich text dialog field.
+ * Default implementation of {@link RichText}
  */
 @PageObject(xpath = "//*[contains(@class,'cq-RichText')]/..")
-public class RichText implements DialogField {
+public class DefaultRichText implements RichText {
 
   @FindBy(css = ".coral-RichText")
   private WebElement input;
@@ -46,11 +46,6 @@ public class RichText implements DialogField {
   @Inject
   private Actions actions;
 
-  /**
-   * This method deleted already set rich text value and sets new one.
-   *
-   * @param value desired string value of field. \\\\n will be replaced with RETURN key value.
-   */
   @Override
   public void setValue(Object value) {
     String text = (String) value;

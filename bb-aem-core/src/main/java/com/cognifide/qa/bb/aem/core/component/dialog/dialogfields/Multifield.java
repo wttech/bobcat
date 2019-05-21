@@ -2,7 +2,7 @@
  * #%L
  * Bobcat
  * %%
- * Copyright (C) 2016 Cognifide Ltd.
+ * Copyright (C) 2019 Cognifide Ltd.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,31 +22,22 @@ package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 
 /**
- * This interface represents a TouchUI element that is a dialog field.
- * <p>
- * Each dialog field has a following structure:
- * <ul>
- * <li>field wrapper
- * <ul>
- * <li>field label</li>
- * <li>the actual field</li>
- * </ul>
- * </li>
- * </ul>
+ * This class represents TouchUI dialog multifield.
  */
 @PageObjectInterface
-public interface DialogField {
-  /**
-   * Sets component value.
-   *
-   * @param value object representing desired component value.
-   */
-  void setValue(Object value);
+public interface Multifield extends DialogField {
 
   /**
-   * @return label of the field
+   * Returns MultifieldItem at declared index position
+   *
+   * @param index integer representing required position
+   * @return MultifieldItem
    */
-  default String getLabel() { //todo refactor this, to remove the default
-    return "";
-  }
+
+  MultifieldItem getItemAtIndex(int index);
+
+  /**
+   * Adds a new {@link MultifieldItem}.
+   */
+  void addField();
 }

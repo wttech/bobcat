@@ -17,14 +17,21 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.aem.core.modules;
+package com.cognifide.qa.bb.aem.core.modules.fields;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Checkbox;
-import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DialogField;
-import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Fields;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultCheckbox;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultImage;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultMultifield;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultMultifieldItem;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultPathBrowser;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultRadioGroup;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultRichText;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultSelect;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultTextfield;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Image;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Multifield;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.MultifieldItem;
@@ -35,22 +42,18 @@ import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Select;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Textfield;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.ControlToolbar;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.ControlToolbarImpl;
-import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.FontFormat;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.JustifyControls;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.JustifyControlsImpl;
-import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.JustifyDialogPanel;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.ListControls;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.ListControlsImpl;
-import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.ListDialogPanel;
 import com.google.inject.AbstractModule;
-import com.google.inject.multibindings.MapBinder;
 
 /**
  * This module contains bindings for TouchUI dialog fields
  */
-public class AemFieldsModule extends AbstractModule {
+public class DialogFieldsModule extends AbstractModule {
 
-  private static final Logger LOG = LoggerFactory.getLogger(AemFieldsModule.class);
+  private static final Logger LOG = LoggerFactory.getLogger(DialogFieldsModule.class);
 
   @Override
   protected void configure() {
@@ -60,26 +63,16 @@ public class AemFieldsModule extends AbstractModule {
     bind(JustifyControls.class).to(JustifyControlsImpl.class);
     bind(ListControls.class).to(ListControlsImpl.class);
 
-    LOG.debug("Registering dialog fields...");
-    MapBinder<String, DialogField> fieldsBinder = MapBinder
-        .newMapBinder(binder(), String.class, DialogField.class);
-    registerField(fieldsBinder, Fields.CHECKBOX, Checkbox.class);
-    registerField(fieldsBinder, Fields.TEXTFIELD, Textfield.class);
-    registerField(fieldsBinder, Fields.IMAGE, Image.class);
-    registerField(fieldsBinder, Fields.PATHBROWSER, PathBrowser.class);
-    registerField(fieldsBinder, Fields.SELECT, Select.class);
-    registerField(fieldsBinder, Fields.RICHTEXT, RichText.class);
-    registerField(fieldsBinder, Fields.MULTIFIELD, Multifield.class);
-    registerField(fieldsBinder, Fields.MULTIFIELD_ITEM, MultifieldItem.class);
-    registerField(fieldsBinder, Fields.RICHTEXT_FONT_FORMAT, FontFormat.class);
-    registerField(fieldsBinder, Fields.RICHTEXT_JUSTIFY, JustifyDialogPanel.class);
-    registerField(fieldsBinder, Fields.RICHTEXT_LIST, ListDialogPanel.class);
-    registerField(fieldsBinder, Fields.RADIO_GROUP, RadioGroup.class);
-  }
+    bind(Checkbox.class).to(DefaultCheckbox.class);
+    bind(Image.class).to(DefaultImage.class);
+    bind(Multifield.class).to(DefaultMultifield.class);
+    bind(MultifieldItem.class).to(DefaultMultifieldItem.class);
+    bind(PathBrowser.class).to(DefaultPathBrowser.class);
+    bind(RadioGroup.class).to(DefaultRadioGroup.class);
+    bind(RichText.class).to(DefaultRichText.class);
+    bind(Select.class).to(DefaultSelect.class);
+    bind(Textfield.class).to(DefaultTextfield.class);
 
-  private void registerField(MapBinder<String, DialogField> binder, String name,
-      Class<? extends DialogField> type) {
-    LOG.debug("Registering field: {} [{}]", name, type);
-    binder.addBinding(name).to(type);
+    install(new FieldsRegistryModule());
   }
 }

@@ -34,10 +34,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 /**
- * This class represents TouchUI dialog multifield.
+ * Default implementation of {@link Multifield}
  */
 @PageObject(css = Locators.FIELD_WRAPPER_CSS)
-public class Multifield implements DialogField {
+public class DefaultMultifield implements Multifield {
 
   @FindBy(css = "button.coral3-Button.coral3-Button--secondary")
   private WebElement addButton;
@@ -48,11 +48,6 @@ public class Multifield implements DialogField {
   @FindBy(css = Locators.LABEL_CSS)
   private List<WebElement> label;
 
-  /**
-   * Sets next element in dialog multifield.
-   *
-   * @param value yaml configuration containing list of {@link MultifieldEntry} representation.
-   */
   @Override
   public void setValue(Object value) {
     ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
@@ -73,12 +68,7 @@ public class Multifield implements DialogField {
     return label.isEmpty() ? "" : label.get(0).getText();
   }
 
-  /**
-   * Returns MultifieldItem at declared index position
-   *
-   * @param index integer representing required position
-   * @return MultifieldItem
-   */
+  @Override
   public MultifieldItem getItemAtIndex(int index) {
     int itemsSize = items.size();
     if (itemsSize > index) {
@@ -88,9 +78,7 @@ public class Multifield implements DialogField {
         .format("Tried to get item at index %s but there are only %s elements", index, itemsSize));
   }
 
-  /**
-   * Adds a new {@link MultifieldItem}.
-   */
+  @Override
   public void addField() {
     addButton.click();
   }

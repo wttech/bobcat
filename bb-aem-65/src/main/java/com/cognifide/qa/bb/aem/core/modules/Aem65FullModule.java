@@ -22,6 +22,7 @@ package com.cognifide.qa.bb.aem.core.modules;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.cognifide.qa.bb.aem.core.modules.fields.DialogFieldsModule;
 import com.google.inject.AbstractModule;
 
 /**
@@ -36,6 +37,7 @@ public class Aem65FullModule extends AbstractModule {
   @Override
   protected void configure() {
     LOG.debug("Configuring Bobcat module: {}", getClass().getSimpleName());
+
     install(new AemCoreModule());
     install(new AemLoginModule());
     install(new AemSitesAdminModule());
@@ -43,7 +45,7 @@ public class Aem65FullModule extends AbstractModule {
     install(new AemComponentModule());
     install(new AemSidePanelModule());
     install(new AemPageModule());
-    install(new AemFieldsModule());
+    install(new DialogFieldsModule());
     install(new AemConfigModule());
   }
 

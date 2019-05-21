@@ -19,46 +19,35 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
-
 import java.util.List;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.qualifier.PageObject;
-import com.cognifide.qa.bb.wait.BobcatWait;
-import com.google.inject.Inject;
 
 /**
- * This class represents path browser dialog field.
+ * Default implementation of {@link Checkbox}
  */
-@PageObject(css = Locators.FIELD_WRAPPER_CSS)
-public class PathBrowser implements DialogField {
+@PageObject(xpath = "//*[contains(@class,'coral3-Checkbox')]/..")
+public class DefaultCheckbox implements Checkbox {
 
-  @FindBy(className = "coral3-Textfield")
-  private WebElement input;
+  @FindBy(css = ".coral3-Checkbox-input")
+  private WebElement checkboxElement;
 
-  @FindBy(css = Locators.LABEL_CSS)
+  @FindBy(css = "label.coral3-Checkbox-description")
   private List<WebElement> label;
 
-  @Inject
-  private BobcatWait bobcatWait;
+  @Override
+  public void select() {
+    checkboxElement.click();
+  }
 
-  /**
-   * Sets path in path browser.
-   *
-   * @param value string path value.
-   */
   @Override
   public void setValue(Object value) {
-    input.clear();
-    input.sendKeys(String.valueOf(value));
-
-    bobcatWait.until(visibilityOfElementLocated(
-        By.cssSelector(".foundation-picker-buttonlist.coral3-Overlay.is-open")));
-    label.get(0).click();
+    if (Boolean.valueOf(String.valueOf(value))) {
+      select();
+    }
   }
 
   @Override

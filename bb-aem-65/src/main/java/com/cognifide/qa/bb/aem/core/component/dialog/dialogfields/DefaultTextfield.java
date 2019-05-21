@@ -2,7 +2,7 @@
  * #%L
  * Bobcat
  * %%
- * Copyright (C) 2018 Cognifide Ltd.
+ * Copyright (C) 2016 Cognifide Ltd.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,30 +21,27 @@ package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
 import java.util.List;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.qualifier.PageObject;
 
 /**
- * A {@link DialogField} representing a radio group.
+ * Default implementation of {@link Textfield}
  */
-@PageObject(xpath = "//*[contains(@class,'coral-RadioGroup')]/..")
-public class RadioGroup implements DialogField {
+@PageObject(css = Locators.FIELD_WRAPPER_CSS)
+public class DefaultTextfield implements Textfield {
 
-  @FindBy(css = ".coral3-Radio-description")
-  private List<WebElement> radioOptions;
+  @FindBy(css = ".coral3-Textfield:not([type='hidden']")
+  private WebElement input;
 
   @FindBy(css = Locators.LABEL_CSS)
   private List<WebElement> label;
 
   @Override
   public void setValue(Object value) {
-    WebElement radioLabel = radioOptions.stream()
-        .filter(radioOption -> radioOption.getText().equals(value)).findFirst().orElseThrow(
-            () -> new IllegalStateException("Provided option is not present in the group"));
-    radioLabel.findElement(By.xpath(".//..")).click();
+    input.clear();
+    input.sendKeys(String.valueOf(value));
   }
 
   @Override

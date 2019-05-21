@@ -17,17 +17,16 @@ package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text;
 
 import org.openqa.selenium.support.FindBy;
 
-import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DialogField;
 import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.wait.BobcatWait;
 import com.google.inject.Inject;
 
 /**
- * Represents text justification dialog field.
+ * Default implementation of {@link JustifyDialogPanel}
  */
 @PageObject(css = ".rte-ui")
-public class JustifyDialogPanel implements DialogField {
+public class DefaultJustifyDialogPanel implements JustifyDialogPanel {
 
   @FindPageObject
   private ControlToolbar controlToolbar;

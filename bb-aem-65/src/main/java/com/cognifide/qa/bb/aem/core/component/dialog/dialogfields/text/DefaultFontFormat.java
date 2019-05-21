@@ -17,17 +17,16 @@ package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text;
 
 import org.openqa.selenium.WebElement;
 
-import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DialogField;
 import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.wait.BobcatWait;
 import com.google.inject.Inject;
 
 /**
- * Represents font format dialog
+ * Default implementation of {@link FontFormat}
  */
 @PageObject(css = ".rte-ui")
-public class FontFormat implements DialogField {
+public class DefaultFontFormat implements FontFormat {
 
   @FindPageObject
   private ControlToolbar controlToolbar;

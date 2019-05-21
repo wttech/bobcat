@@ -29,10 +29,10 @@ import org.openqa.selenium.support.FindBy;
 import com.cognifide.qa.bb.qualifier.PageObject;
 
 /**
- * This class represent multiple choice select dialog component.
+ * Default implementation of {@link Select}
  */
 @PageObject(xpath = "//coral-select/..")
-public class Select implements DialogField {
+public class DefaultSelect implements Select {
 
   private static final String SELECT_OPTIONS_CSS = ".coral3-SelectList-item";
 
@@ -42,11 +42,6 @@ public class Select implements DialogField {
   @FindBy(css = Locators.LABEL_CSS)
   private List<WebElement> label;
 
-  /**
-   * Selects given options of select component.
-   *
-   * @param value String value of comma delimited field names which will be selected.
-   */
   @Override
   public void setValue(Object value) {
     selectField.click();

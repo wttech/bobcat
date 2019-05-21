@@ -2,7 +2,7 @@
  * #%L
  * Bobcat
  * %%
- * Copyright (C) 2016 Cognifide Ltd.
+ * Copyright (C) 2019 Cognifide Ltd.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,31 +22,8 @@ package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 
 /**
- * This interface represents a TouchUI element that is a dialog field.
- * <p>
- * Each dialog field has a following structure:
- * <ul>
- * <li>field wrapper
- * <ul>
- * <li>field label</li>
- * <li>the actual field</li>
- * </ul>
- * </li>
- * </ul>
+ * A {@link DialogField} representing a radio group.
  */
 @PageObjectInterface
-public interface DialogField {
-  /**
-   * Sets component value.
-   *
-   * @param value object representing desired component value.
-   */
-  void setValue(Object value);
-
-  /**
-   * @return label of the field
-   */
-  default String getLabel() { //todo refactor this, to remove the default
-    return "";
-  }
+public interface RadioGroup extends DialogField {
 }

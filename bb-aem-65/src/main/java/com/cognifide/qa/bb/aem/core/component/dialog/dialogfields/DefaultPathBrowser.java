@@ -19,34 +19,41 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.qualifier.PageObject;
+import com.cognifide.qa.bb.wait.BobcatWait;
+import com.google.inject.Inject;
 
 /**
- * This class represents single line text dialog field.
+ * Default implementation of {@link PathBrowser}
  */
 @PageObject(css = Locators.FIELD_WRAPPER_CSS)
-public class Textfield implements DialogField {
+public class DefaultPathBrowser implements PathBrowser {
 
-  @FindBy(css = ".coral3-Textfield:not([type='hidden']")
+  @FindBy(className = "coral3-Textfield")
   private WebElement input;
 
   @FindBy(css = Locators.LABEL_CSS)
   private List<WebElement> label;
 
-  /**
-   * Sets text value of component.
-   *
-   * @param value desired string value.
-   */
+  @Inject
+  private BobcatWait bobcatWait;
+
   @Override
   public void setValue(Object value) {
     input.clear();
     input.sendKeys(String.valueOf(value));
+
+    bobcatWait.until(visibilityOfElementLocated(
+        By.cssSelector(".foundation-picker-buttonlist.coral3-Overlay.is-open")));
+    label.get(0).click();
   }
 
   @Override
