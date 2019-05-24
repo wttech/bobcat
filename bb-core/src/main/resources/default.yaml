@@ -14,12 +14,9 @@ default:
     analytics.uri.prefix:  /b/ss
     analytics.call.timeout.ms:  30000
 
-    page.title.timeout: 30
-
     webdriver.mobile: false
     webdriver.maximize: true
     webdriver.reusable: false
-    webdriver.defaultTimeout: 10 #deprecated, see ConfigKeys
 
     cookies.loadAutomatically: true
 
