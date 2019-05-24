@@ -27,14 +27,11 @@ public class Fields {
   public static final String IMAGE = "IMAGE";
   public static final String PATHBROWSER = "PATHBROWSER";
   public static final String SELECT = "SELECT";
-  public static final String RICHTEXT = "RICHTEXT";
-  public static final String RICHTEXT_FONT_FORMAT = "RICHTEXT_FONT_FORMAT";
-  public static final String RICHTEXT_LIST = "RICHTEXT_LIST";
-  public static final String RICHTEXT_JUSTIFY = "RICHTEXT_JUSTIFY";
   public static final String TEXTFIELD = "TEXTFIELD";
   public static final String MULTIFIELD = "MULTIFIELD";
   public static final String MULTIFIELD_ITEM = "MULTIFIELD_ITEM";
   public static final String RADIO_GROUP = "RADIO_GROUP";
+  public static final String RICHTEXT = "RICHTEXT";
 
   private Fields() {
     //empty

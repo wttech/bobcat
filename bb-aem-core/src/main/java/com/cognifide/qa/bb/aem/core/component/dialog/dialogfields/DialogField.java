@@ -47,6 +47,6 @@ public interface DialogField {
    * @return label of the field
    */
   default String getLabel() { //todo refactor this, to remove the default
-    return "";
+    return null;
   }
 }

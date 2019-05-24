@@ -39,6 +39,8 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.wait.BobcatWait;
 import com.google.inject.Inject;
 
+import io.qameta.allure.Allure;
+
 /**
  * Default implementation of {@link ConfigDialog} for AEM 6.5
  */
@@ -194,6 +196,7 @@ public class ConfigDialogImpl implements ConfigDialog {
   }
 
   private void configure(ComponentConfiguration config) {
+    Allure.addAttachment("Component configuration", config.toString());
     config.getTabs().forEach(tab -> {
       switchTab(tab.getTabName());
       setFields(config.getConfigurationForTab(tab.getTabName()));

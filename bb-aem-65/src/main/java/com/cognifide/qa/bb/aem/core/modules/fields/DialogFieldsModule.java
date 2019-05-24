@@ -40,12 +40,6 @@ import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.RadioGroup;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.RichText;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Select;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Textfield;
-import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.ControlToolbar;
-import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.ControlToolbarImpl;
-import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.JustifyControls;
-import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.JustifyControlsImpl;
-import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.ListControls;
-import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.ListControlsImpl;
 import com.google.inject.AbstractModule;
 
 /**
@@ -58,10 +52,6 @@ public class DialogFieldsModule extends AbstractModule {
   @Override
   protected void configure() {
     LOG.debug("Configuring Bobcat module: {}", getClass().getSimpleName());
-
-    bind(ControlToolbar.class).to(ControlToolbarImpl.class);
-    bind(JustifyControls.class).to(JustifyControlsImpl.class);
-    bind(ListControls.class).to(ListControlsImpl.class);
 
     bind(Checkbox.class).to(DefaultCheckbox.class);
     bind(Image.class).to(DefaultImage.class);

@@ -33,9 +33,11 @@ import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultSelect;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultTextfield;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DialogField;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Fields;
-import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.DefaultFontFormat;
-import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.DefaultJustifyDialogPanel;
-import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.text.ListDialogPanel;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.rte.Hyperlink;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.rte.Lists;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.rte.Options;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.rte.ParagraphFormats;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.rte.RteOption;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.MapBinder;
 
@@ -54,13 +56,15 @@ public class FieldsRegistryModule extends AbstractModule {
     registerField(fieldsBinder, Fields.IMAGE, DefaultImage.class);
     registerField(fieldsBinder, Fields.PATHBROWSER, DefaultPathBrowser.class);
     registerField(fieldsBinder, Fields.SELECT, DefaultSelect.class);
-    registerField(fieldsBinder, Fields.RICHTEXT, DefaultRichText.class);
     registerField(fieldsBinder, Fields.MULTIFIELD, DefaultMultifield.class);
     registerField(fieldsBinder, Fields.MULTIFIELD_ITEM, DefaultMultifieldItem.class);
-    registerField(fieldsBinder, Fields.RICHTEXT_FONT_FORMAT, DefaultFontFormat.class);
-    registerField(fieldsBinder, Fields.RICHTEXT_JUSTIFY, DefaultJustifyDialogPanel.class);
-    registerField(fieldsBinder, Fields.RICHTEXT_LIST, ListDialogPanel.class);
     registerField(fieldsBinder, Fields.RADIO_GROUP, DefaultRadioGroup.class);
+
+    registerField(fieldsBinder, Fields.RICHTEXT, DefaultRichText.class);
+    registerField(fieldsBinder, Options.RTE_OPTIONS, RteOption.class);
+    registerField(fieldsBinder, Options.RTE_OPTIONS_HYPERLINK, Hyperlink.class);
+    registerField(fieldsBinder, Options.RTE_OPTIONS_LISTS, Lists.class);
+    registerField(fieldsBinder, Options.RTE_OPTIONS_PARAGRAPH_FORMATS, ParagraphFormats.class);
   }
 
   private void registerField(MapBinder<String, DialogField> binder, String name,
