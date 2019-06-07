@@ -20,10 +20,7 @@
 package com.cognifide.qa.bb.mapper.annotations;
 
 import com.cognifide.qa.bb.mapper.field.PageObjectProviderHelper;
-import com.cognifide.qa.bb.qualifier.PageObjectInterface;
-import com.google.inject.Binding;
 import com.google.inject.Injector;
-import com.google.inject.internal.LinkedBindingImpl;
 import java.lang.reflect.Field;
 import java.util.List;
 import org.openqa.selenium.By;
@@ -42,32 +39,14 @@ public class BobcatAnnotations extends AbstractAnnotations {
 
   @Override
   public By buildBy() {
-    By selector = null;
-    if (field.getType().equals(List.class)) {
-      selector = PageObjectProviderHelper.getSelectorFromGenericPageObject(field, injector);
-    } else {
-      selector = getPageObjectSelector(field);
-    }
-    return selector;
+    return field.getType().equals(List.class) ? PageObjectProviderHelper
+        .getSelectorFromGenericPageObject(field, injector)
+        : PageObjectProviderHelper.getSelectorFromPageObjectField(field, injector);
   }
 
   public boolean isLookupCached() {
     return false;
   }
 
-  private By getPageObjectSelector(Field field) {
-    By selector = null;
-    if (field.getType().isAnnotationPresent(
-        PageObjectInterface.class)) {
-      Binding<?> binding = injector.getBinding(field.getType());
-      if (binding instanceof LinkedBindingImpl) {
-        selector = PageObjectProviderHelper
-            .retrieveSelectorFromPageObjectInterface(
-                ((LinkedBindingImpl) binding).getLinkedKey().getTypeLiteral().getRawType());
-      }
-    } else {
-      selector = PageObjectProviderHelper.getSelectorFromPageObject(field);
-    }
-    return selector;
-  }
+
 }

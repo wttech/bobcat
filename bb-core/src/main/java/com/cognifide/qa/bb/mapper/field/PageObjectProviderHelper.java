@@ -19,20 +19,18 @@
  */
 package com.cognifide.qa.bb.mapper.field;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.lang.reflect.WildcardType;
-import java.util.Objects;
-
-import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.By;
-
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 import com.google.inject.Binding;
 import com.google.inject.Injector;
 import com.google.inject.internal.LinkedBindingImpl;
+import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.lang.reflect.WildcardType;
+import java.util.Objects;
+import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.By;
 
 /**
  * Helper class for Page Objects
@@ -46,11 +44,16 @@ public final class PageObjectProviderHelper {
     // Empty for helper class
   }
 
+  public static By getSelectorFromPageObjectField(Field field, Injector injector) {
+    return field.getType().isAnnotationPresent(
+        PageObjectInterface.class) ? getSelectorFromPageObjectInterfaceType(field.getType(), injector)
+        : PageObjectProviderHelper.getSelectorFromPageObject(field);
+  }
+
   /**
    * Gets selector from {@link PageObject} if class annotated by this annotation is used in list
    *
-   * @param field            class field
-   * @param originalInjector
+   * @param field class field
    * @return selector
    */
   public static By getSelectorFromGenericPageObject(Field field,
@@ -58,13 +61,18 @@ public final class PageObjectProviderHelper {
     Class<?> genericType = getGenericType(field);
     if (genericType != null && genericType.isAnnotationPresent(
         PageObjectInterface.class)) {
-      Binding<?> binding = originalInjector.getBinding(genericType);
-      if (binding instanceof LinkedBindingImpl) {
-        return PageObjectProviderHelper.retrieveSelectorFromPageObjectInterface(
-            ((LinkedBindingImpl) binding).getLinkedKey().getTypeLiteral().getRawType());
-      }
+      return getSelectorFromPageObjectInterfaceType(genericType, originalInjector);
     } else {
       return retrieveSelectorFromPageObject(field, true);
+    }
+  }
+
+  public static By getSelectorFromPageObjectInterfaceType(Class<?> type, Injector injector) {
+    Binding<?> binding = injector.getBinding(type);
+    if (binding instanceof LinkedBindingImpl) {
+      return PageObjectProviderHelper
+          .retrieveSelectorFromPageObjectInterface(
+              ((LinkedBindingImpl) binding).getLinkedKey().getTypeLiteral().getRawType());
     }
     throw new IllegalArgumentException(ERROR_MSG);
   }
