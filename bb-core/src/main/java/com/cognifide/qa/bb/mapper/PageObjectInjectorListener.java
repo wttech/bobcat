@@ -130,15 +130,16 @@ public class PageObjectInjectorListener implements InjectionListener<Object> {
   }
 
   private void invokePostConstruct(Object object) {
-    Method[] methods = object.getClass().getMethods();
-    for (Method m : methods) {
-      if (m.isAnnotationPresent(PostConstruct.class)) {
-        try {
-          m.invoke(object);
-        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-          LOG.error("Can't invoke PostConstruct method: {}", m.getName(), e);
-        }
-      }
+    Arrays.stream(object.getClass().getMethods())
+        .filter(method -> method.isAnnotationPresent(PostConstruct.class))
+        .forEach(method -> safeMethodInvoke(method, object));
+  }
+
+  private void safeMethodInvoke(Method method, Object object) {
+    try {
+      method.invoke(object);
+    } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+      LOG.error("Can't invoke PostConstruct method: {}", method.getName(), e);
     }
   }
 
