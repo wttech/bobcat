@@ -19,33 +19,30 @@
  */
 package com.cognifide.qa.bb.mapper;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-import javax.annotation.PostConstruct;
-
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.cognifide.qa.bb.webelement.BobcatWebElementFactory;
-import com.cognifide.qa.bb.mapper.field.FieldProvider;
 import com.cognifide.qa.bb.qualifier.Frame;
 import com.cognifide.qa.bb.scope.ContextStack;
 import com.cognifide.qa.bb.scope.PageObjectContext;
 import com.cognifide.qa.bb.scope.frame.FrameMap;
 import com.cognifide.qa.bb.scope.frame.FramePath;
 import com.cognifide.qa.bb.utils.AopUtil;
+import com.cognifide.qa.bb.webelement.BobcatWebElementFactory;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.spi.InjectionListener;
 import com.google.inject.spi.TypeEncounter;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import javax.annotation.PostConstruct;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * This class manages injection of page objects. It is registered as an injection handler in CoreModule. Users
- * should not use this class directly.
+ * This class manages injection of page objects. It is registered as an injection handler in
+ * CoreModule. Users should not use this class directly.
  */
 public class PageObjectInjectorListener implements InjectionListener<Object> {
 
@@ -75,8 +72,8 @@ public class PageObjectInjectorListener implements InjectionListener<Object> {
   }
 
   /**
-   * Guice will call this method automatically when it is done injecting the object. Don't call this method
-   * manually.
+   * Guice will call this method automatically when it is done injecting the object. Don't call this
+   * method manually.
    */
   @Override
   public void afterInjection(Object injectee) {
@@ -108,18 +105,19 @@ public class PageObjectInjectorListener implements InjectionListener<Object> {
 
   private void initPageObjectFields(Object object) {
     PageObjectContext context = getCurrentContext();
-    for (Field f : AopUtil.getBaseClassForAopObject(object).getDeclaredFields()) {
-      if (f.isAnnotationPresent(Inject.class)) {
-        continue;
-      }
-      for (FieldProvider provider : registry.get().getProviders()) {
-        if (!provider.accepts(f)) {
-          continue;
-        }
-        provider.provideValue(object, f, context)
-            .ifPresent(value -> setFieldValue(f, object, value));
-      }
-    }
+    Arrays.stream(AopUtil.getBaseClassForAopObject(object).getDeclaredFields())
+        .filter(field -> !field.isAnnotationPresent(Inject.class)).forEach(
+        field -> provideValue(object, context, field)
+    );
+
+  }
+
+  private void provideValue(Object object, PageObjectContext context, Field field) {
+    registry.get().getProviders().stream().filter(provider -> provider.accepts(field)).findFirst()
+        .ifPresent(
+            provider -> provider.provideValue(object, field, context)
+                .ifPresent(value -> setFieldValue(field, object, value))
+        );
   }
 
   private void setFieldValue(Field f, Object object, Object value) {
