@@ -19,11 +19,7 @@
  */
 package com.cognifide.qa.bb.utils;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.pagefactory.DefaultElementLocatorFactory;
-import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
-
+import com.cognifide.qa.bb.scope.BobcatDefaultElementLocatorFactory;
 import com.cognifide.qa.bb.scope.ContextStack;
 import com.cognifide.qa.bb.scope.PageObjectContext;
 import com.cognifide.qa.bb.scope.frame.FrameMap;
@@ -31,10 +27,13 @@ import com.cognifide.qa.bb.scope.frame.FramePath;
 import com.cognifide.qa.bb.scope.webelement.WebElementScopedLocatorFactory;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 
 /**
- * This class extends Guice's Injector functionality by adding a bunch of "inject" methods, with various
- * parameters that describe context of the injection.
+ * This class extends Guice's Injector functionality by adding a bunch of "inject" methods, with
+ * various parameters that describe context of the injection.
  */
 public class PageObjectInjector {
 
@@ -51,11 +50,11 @@ public class PageObjectInjector {
   private FrameMap frameMap;
 
   /**
-   * Inject in default frame. Frame parameter is sometimes unnecessary, because it will be overridden by
-   * Frame annotation on type clazz.
+   * Inject in default frame. Frame parameter is sometimes unnecessary, because it will be
+   * overridden by Frame annotation on type clazz.
    *
    * @param clazz PageObject class.
-   * @param <T>   type of PageObject class that will be returned.
+   * @param <T> type of PageObject class that will be returned.
    * @return instance of Injector.
    */
   public <T> T inject(Class<T> clazz) {
@@ -63,11 +62,12 @@ public class PageObjectInjector {
   }
 
   /**
-   * Retrieve framePath from the parameter object and then call inject(Class&lt;T&gt; clazz, FramePath framePath)
+   * Retrieve framePath from the parameter object and then call inject(Class&lt;T&gt; clazz,
+   * FramePath framePath)
    *
-   * @param clazz  PageObject class.
+   * @param clazz PageObject class.
    * @param object to retrieve framePath.
-   * @param <T>    type of PageObject class that will be returned.
+   * @param <T> type of PageObject class that will be returned.
    * @return instance of Injector.
    */
   public <T> T inject(Class<T> clazz, Object object) {
@@ -75,11 +75,12 @@ public class PageObjectInjector {
   }
 
   /**
-   * Parse the path provided as a string and then call inject(Class&lt;T&gt; clazz, FramePath framePath).
+   * Parse the path provided as a string and then call inject(Class&lt;T&gt; clazz, FramePath
+   * framePath).
    *
-   * @param clazz     PageObject class.
+   * @param clazz PageObject class.
    * @param framePath frame path to element represented by PageObject.
-   * @param <T>       type of PageObject class that will be returned.
+   * @param <T> type of PageObject class that will be returned.
    * @return instance of Injector.
    */
   public <T> T inject(Class<T> clazz, String framePath) {
@@ -87,16 +88,17 @@ public class PageObjectInjector {
   }
 
   /**
-   * This method creates the object of type clazz within context defined by the top web element and the
-   * frame path provided as the parameter.
+   * This method creates the object of type clazz within context defined by the top web element and
+   * the frame path provided as the parameter.
    *
-   * @param clazz     PageObject class.
+   * @param clazz PageObject class.
    * @param framePath instance of FramePath.
-   * @param <T>       type of PageObject class that will be returned.
+   * @param <T> type of PageObject class that will be returned.
    * @return instance of Injector.
    */
   public <T> T inject(Class<T> clazz, FramePath framePath) {
-    final ElementLocatorFactory elementLocatorFactory = new DefaultElementLocatorFactory(webDriver);
+    final ElementLocatorFactory elementLocatorFactory = new BobcatDefaultElementLocatorFactory(
+        webDriver, injector);
     stack.push(new PageObjectContext(elementLocatorFactory, framePath));
     try {
       return injector.getInstance(clazz);
@@ -106,12 +108,13 @@ public class PageObjectInjector {
   }
 
   /**
-   * Inject in default frame. Frame parameter is sometimes unnecessary, because it will be overridden by
-   * Frame annotation on type clazz. Injection will be performed in context defined by the scope parameter.
+   * Inject in default frame. Frame parameter is sometimes unnecessary, because it will be
+   * overridden by Frame annotation on type clazz. Injection will be performed in context defined by
+   * the scope parameter.
    *
    * @param clazz PageObject class.
    * @param scope WebElement for scope definition.
-   * @param <T>   type of PageObject class that will be returned.
+   * @param <T> type of PageObject class that will be returned.
    * @return instance of Injector.
    */
   public <T> T inject(Class<T> clazz, WebElement scope) {
@@ -119,13 +122,13 @@ public class PageObjectInjector {
   }
 
   /**
-   * Retrieve framePath from object and then call inject(Class&lt;T&gt; clazz, WebElement scope, FramePath
-   * framePath).
+   * Retrieve framePath from object and then call inject(Class&lt;T&gt; clazz, WebElement scope,
+   * FramePath framePath).
    *
-   * @param clazz  PageObject class.
-   * @param scope  WebElement for scope definition.
+   * @param clazz PageObject class.
+   * @param scope WebElement for scope definition.
    * @param object to retrieve framePath.
-   * @param <T>    type of PageObject class that will be returned.
+   * @param <T> type of PageObject class that will be returned.
    * @return instance of Injector.
    */
   public <T> T inject(Class<T> clazz, WebElement scope, Object object) {
@@ -133,13 +136,13 @@ public class PageObjectInjector {
   }
 
   /**
-   * First it parses framePath string parameter into FramePath and then performs injection in context
-   * defined by the provided the scope WebElement and FramePath.
+   * First it parses framePath string parameter into FramePath and then performs injection in
+   * context defined by the provided the scope WebElement and FramePath.
    *
-   * @param clazz     PageObject class.
-   * @param scope     WebElement for scope definition.
+   * @param clazz PageObject class.
+   * @param scope WebElement for scope definition.
    * @param framePath frame path to element represented by PageObject.
-   * @param <T>       type of PageObject class that will be returned.
+   * @param <T> type of PageObject class that will be returned.
    * @return instance of Injector.
    */
   public <T> T inject(Class<T> clazz, WebElement scope, String framePath) {
@@ -147,18 +150,18 @@ public class PageObjectInjector {
   }
 
   /**
-   * This method creates the object of type clazz within context defined by the "scope" WebElement parameter
-   * and frame path provided as the parameter.
+   * This method creates the object of type clazz within context defined by the "scope" WebElement
+   * parameter and frame path provided as the parameter.
    *
-   * @param clazz     PageObject class.
-   * @param scope     WebElement for scope definition.
+   * @param clazz PageObject class.
+   * @param scope WebElement for scope definition.
    * @param framePath instance of FramePath.
-   * @param <T>       type of PageObject class that will be returned.
+   * @param <T> type of PageObject class that will be returned.
    * @return instance of Injector.
    */
   public <T> T inject(Class<T> clazz, WebElement scope, FramePath framePath) {
     final ElementLocatorFactory elementLocatorFactory =
-        new WebElementScopedLocatorFactory(webDriver, scope);
+        new WebElementScopedLocatorFactory(webDriver, scope, injector);
     stack.push(new PageObjectContext(elementLocatorFactory, framePath));
     try {
       return injector.getInstance(clazz);

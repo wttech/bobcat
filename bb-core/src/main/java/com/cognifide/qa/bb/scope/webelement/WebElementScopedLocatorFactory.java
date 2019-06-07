@@ -19,17 +19,17 @@
  */
 package com.cognifide.qa.bb.scope.webelement;
 
+import com.cognifide.qa.bb.mapper.annotations.FieldAnnotationsProvider;
+import com.cognifide.qa.bb.qualifier.Global;
+import com.cognifide.qa.bb.scope.ParentElementLocatorProvider;
+import com.google.inject.Injector;
 import java.lang.reflect.Field;
-
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.pagefactory.DefaultElementLocator;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
 import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
-
-import com.cognifide.qa.bb.qualifier.Global;
-import com.cognifide.qa.bb.scope.ParentElementLocatorProvider;
 
 /**
  * Locator factory where the scope is defined by the provided webElement.
@@ -41,15 +41,19 @@ public class WebElementScopedLocatorFactory
 
   private final WebElement webElement;
 
+  private final Injector injector;
+
   /**
    * Constructs WebElementScopedLocatorFactory.
    *
-   * @param webDriver  WebDriver instance.
+   * @param webDriver WebDriver instance.
    * @param webElement Defines scope for the objects that this factory is going to produce.
    */
-  public WebElementScopedLocatorFactory(WebDriver webDriver, WebElement webElement) {
+  public WebElementScopedLocatorFactory(WebDriver webDriver, WebElement webElement,
+      Injector injector) {
     this.webDriver = webDriver;
     this.webElement = webElement;
+    this.injector = injector;
   }
 
   /**
@@ -65,7 +69,8 @@ public class WebElementScopedLocatorFactory
    */
   @Override
   public ElementLocator createLocator(Field field) {
-    return new DefaultElementLocator(resolveContext(field), field);
+    return new DefaultElementLocator(resolveContext(field),
+        FieldAnnotationsProvider.create(field, injector));
   }
 
   private SearchContext resolveContext(Field field) {

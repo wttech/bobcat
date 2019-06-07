@@ -29,9 +29,7 @@ import com.cognifide.qa.bb.mapper.PageObjectTypeListener;
 import com.cognifide.qa.bb.mapper.field.CurrentFrameProvider;
 import com.cognifide.qa.bb.mapper.field.FieldProvider;
 import com.cognifide.qa.bb.mapper.field.PageObjectListProxyProvider;
-import com.cognifide.qa.bb.mapper.field.PageObjectSelectorListProxyProvider;
-import com.cognifide.qa.bb.mapper.field.ScopedPageObjectProvider;
-import com.cognifide.qa.bb.mapper.field.SelectorPageObjectProvider;
+import com.cognifide.qa.bb.mapper.field.PageObjectProvider;
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.scope.current.CurrentScopeListProvider;
 import com.cognifide.qa.bb.scope.current.CurrentWebElementProvider;
@@ -52,11 +50,9 @@ public class PageObjectsModule extends AbstractModule {
 
     Multibinder<FieldProvider> fieldProviders =
         Multibinder.newSetBinder(binder(), FieldProvider.class);
-    fieldProviders.addBinding().to(ScopedPageObjectProvider.class);
-    fieldProviders.addBinding().to(SelectorPageObjectProvider.class);
+    fieldProviders.addBinding().to(PageObjectProvider.class);
     fieldProviders.addBinding().to(PageObjectListProxyProvider.class);
     fieldProviders.addBinding().to(CurrentFrameProvider.class);
-    fieldProviders.addBinding().to(PageObjectSelectorListProxyProvider.class);
 
     bind(Key.get(WebElement.class, CurrentScope.class)).toProvider(CurrentWebElementProvider.class);
     bind(new TypeLiteral<List<WebElement>>() {

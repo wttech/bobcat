@@ -19,11 +19,6 @@
  */
 package com.cognifide.qa.bb.mapper.field;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Proxy;
-import java.util.List;
-import java.util.Optional;
-
 import com.cognifide.qa.bb.qualifier.Cached;
 import com.cognifide.qa.bb.scope.PageObjectContext;
 import com.cognifide.qa.bb.scope.frame.FrameMap;
@@ -31,6 +26,10 @@ import com.cognifide.qa.bb.scope.frame.FramePath;
 import com.cognifide.qa.bb.utils.AnnotationsHelper;
 import com.cognifide.qa.bb.utils.PageObjectInjector;
 import com.google.inject.Inject;
+import java.lang.reflect.Field;
+import java.lang.reflect.Proxy;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * This class is a provider of Java proxies that will intercept access to PageObject fields that are
@@ -56,7 +55,8 @@ public class PageObjectListProxyProvider implements FieldProvider {
    */
   @Override
   public boolean accepts(Field field) {
-    return isList(field) && AnnotationsHelper.isFindByAnnotationPresent(field)
+    return isList(field) && (AnnotationsHelper.isFindByAnnotationPresent(field) || AnnotationsHelper
+        .isFindPageObjectAnnotationPresent(field))
         && AnnotationsHelper.isGenericTypeAnnotedWithPageObjectOrInterface(field);
   }
 
@@ -74,7 +74,7 @@ public class PageObjectListProxyProvider implements FieldProvider {
             framePath);
 
     ClassLoader classLoader = PageObjectProviderHelper.getGenericType(field).getClassLoader();
-    Object proxyInstance = Proxy.newProxyInstance(classLoader, new Class[] {List.class}, handler);
+    Object proxyInstance = Proxy.newProxyInstance(classLoader, new Class[]{List.class}, handler);
     return Optional.of(proxyInstance);
   }
 
