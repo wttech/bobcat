@@ -1,0 +1,8 @@
+default:
+  properties:
+    adobe.analytics.dataleyer: digitaldata
+    adobe.analytics.trackingScript: |
+      _satellite.track = function(eventName) {
+        var window.bobcatSatelliteTrackValues = window.bobcatSatelliteTrackEvents || [];
+        window.bobcatSatelliteTrackEvents.push(eventName);
+      }
