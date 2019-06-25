@@ -42,9 +42,6 @@ Contexts are basically groups of properties that can be activated together. What
 ```yaml
 default:
   properties:
-    webdriver.defaultTimeout: 10
-    page.title.timeout: 30
-    thread.count: 3
     webdriver.type: remote
     webdriver.url: http://1.2.3.4:4444/wd/hub
     webdriver.cap.recordVideo: false

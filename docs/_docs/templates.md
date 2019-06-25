@@ -19,6 +19,8 @@ That's it! You're ready to start writing your own tests. Enjoy!
 All available Bobcat templates are listed below:
 
 ### JUnit 5 Template
+This is the recommended template for non-AEM projects. 
+{: .notice--info}
 
 This template provides a basic Bobcat project with [JUnit 5](https://junit.org/junit5/) as the test runner.
 
@@ -27,6 +29,8 @@ Modules included in this template:
   - `bb-junit5`
 
 ### AEM JUnit Template
+This is the recommended template for AEM projects.
+{: .notice--info}
 
 This template is suitable for AEM (Adobe Experience Manager) test automation, with JUnit as the test runner. It provides sample AEM Author tests.
 
@@ -37,26 +41,32 @@ Modules included in this template:
   - `bb-aem-64`
 
 ### BDD Template
-**Important:** We suggest to use JUnit 5 template instead. This template will work with 2.0 version but some features will not be available. Cucumber is not supporting junit5 
+Please see the doc about Cucumber usage with Bobcat: [here]({{site.baseurl}}/docs/cucumber/) 
 {: .notice--warning}
 
 This template provides a basic Bobcat project with [Cucumber](https://docs.cucumber.io/) as the test runner.
  
 Modules included in this template:
   - `bb-core`
-  - `bb-cumber`
+  - additional dependencies:
+    - `cucumber-java`
+    - `cucumber-java8`
+    - `cucumber-guice`
 
 ### AEM BDD Template
-**Important:** We suggest to use AEM JUnit template instead. This template will work with 2.0 version but some features will not be available. Cucumber is not supporting junit5
+Please see the doc about Cucumber usage with Bobcat: [here]({{site.baseurl}}/docs/cucumber/) 
 {: .notice--warning}
 
 This template is suitable for AEM (Adobe Experience Manager) test automation, with [Cucumber](https://docs.cucumber.io/) as the test runner. It provides sample AEM Author tests.
 
 Modules included in this template:
   - `bb-core`
-  - `bb-cumber`
   - `bb-aem-core`
   - `bb-aem-64`
+  - additional dependencies:
+    - `cucumber-java`
+    - `cucumber-java8`
+    - `cucumber-guice`
 
 ### Appium Template
 
@@ -64,5 +74,4 @@ If you would like to write automated tests for mobile devies, this template will
 
 Modules included in this template:
   - `bb-core`
-  - `bb-reports`
-  - `bb-junit`
+  - `bb-junit5`

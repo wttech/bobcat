@@ -122,7 +122,7 @@ Nothing special in this page object :).
 
 We have all the necessary pieces required to write the actual test!
 
-*Note:* if you would like to read more about working with Page Objects in Bobcat, check out the [Working with Page Objects in Bobcat]({{site.baseurl}}/docs/page-objects/).
+*Note:* if you would like to read more about working with Page Objects in Bobcat, check out [this page]({{site.baseurl}}/docs/modules/core/pageobject/).
 {: .notice--info}
 --------------
 

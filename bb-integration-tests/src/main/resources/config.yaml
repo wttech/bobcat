@@ -2,7 +2,6 @@ default:
   contexts: [firefox, additional-context1, additional-context4]
   properties:
     webdriver.type: firefox
-    webdriver.defaultTimeout: 10
     webdriver.mobile: false
     webdriver.maximize: false
     webdriver.reusable: false

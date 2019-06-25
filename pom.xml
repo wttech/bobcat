@@ -3,7 +3,7 @@
   #%L
   Bobcat
   %%
-  Copyright (C) 2016 Cognifide Ltd.
+  Copyright (C) 2019 Cognifide Ltd.
   %%
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -44,22 +44,15 @@ limitations under the License.
         </license>
     </licenses>
 
-    <developers>
-        <developer>
-            <name>Karol Kujawiak</name>
-            <email>karol.kujawiak@cognifide.com</email>
-        </developer>
-    </developers>
-
     <modules>
         <module>bb-core</module>
         <module>bb-integration-tests</module>
-        <module>bb-cumber</module>
         <module>bb-email</module>
         <module>bb-traffic</module>
         <module>bb-junit5</module>
         <module>bb-aem-core</module>
         <module>bb-aem-64</module>
+        <module>bb-aem-64sp2</module>
         <module>bb-analytics</module>
     </modules>
 
@@ -93,7 +86,6 @@ limitations under the License.
         <jacoco.version>0.8.2</jacoco.version>
         <selenium.version>3.141.0</selenium.version>
         <guice.version>4.2.0</guice.version>
-        <cucumber.version>3.0.2</cucumber.version>
         <version.logback>1.2.3</version.logback>
         <junit.jupiter.version>5.3.1</junit.jupiter.version>
     </properties>
@@ -184,18 +176,6 @@ limitations under the License.
                 <version>2.17.5</version>
             </dependency>
 
-            <!--Cucumber-->
-            <dependency>
-                <groupId>io.cucumber</groupId>
-                <artifactId>cucumber-guice</artifactId>
-                <version>${cucumber.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.cucumber</groupId>
-                <artifactId>cucumber-junit</artifactId>
-                <version>${cucumber.version}</version>
-            </dependency>
-
             <!-- logging -->
             <dependency>
                 <groupId>org.slf4j</groupId>
@@ -254,7 +234,7 @@ limitations under the License.
             <dependency>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-server</artifactId>
-                <version>9.4.12.v20180830</version>
+                <version>9.4.17.v20190418</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
