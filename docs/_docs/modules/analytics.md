@@ -22,7 +22,25 @@ To get Analytics module to be ready to use follow these two steps:
      ```yaml
      - com.cognifide.qa.bb.analytics.AnalyticsModule
      ```
-
+3. Configuration
+    
+    Analytics module supports the Adobe Analytics as well as the Google Analytics solution. To make it work we need to define which solution has been implemented in our project (as there are some differences between those two approaches).
+    More details you may find in the [First Analytics Test]({{site.baseurl}}/docs/guides/first-analytics-test/) guide.
+    
+    Also, depending on the project implementation, the datalayer may have it's own unique name, therefore this name also needs to be defined for our tests setup.
+    To do so, add the configuration yaml file, where the Adobe or Google property needs to be defined:
+     ```yaml
+         adobe.analytics.datalayer: [name]
+     ```
+     or
+     ```yaml
+         google.analytics.datalayer: [name]
+     ```
+     The default values are defined as follows:
+     ```yaml
+         adobe.analytics.datalayer: digitalData
+         google.analytics.datalayer: dataLayer
+     ```
     
 ## What can and what cannot be tested
 

@@ -47,15 +47,15 @@ public class GoogleAnalytics implements Analytics {
   @Inject
   private WebDriver webDriver;
 
-//  @Inject
-//  @Named("google.analytics.datalayer")
-//  private String datalayer;
+  @Inject
+  @Named("google.analytics.datalayer")
+  private String datalayer;
 
   @Override
   public String getActual() {
     return (String)
         ((JavascriptExecutor) webDriver)
-            .executeScript(DATA_LAYER_OBJECT_SCRIPT.replace("DL", "dataLayer"));
+            .executeScript(DATA_LAYER_OBJECT_SCRIPT.replace("DL", datalayer));
   }
 
   @Override

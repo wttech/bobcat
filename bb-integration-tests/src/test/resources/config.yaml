@@ -12,6 +12,9 @@ default:
 
     cookies.loadAutomatically: false
 
+    adobe.analytics.datalayer: digitalData
+    google.analytics.datalayer: dataLayer
+
 contexts:
   firefox:
     webdriver.type: firefox
