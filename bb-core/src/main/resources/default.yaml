@@ -24,3 +24,6 @@ default:
     timings.explicitTimeout: 10
     timings.implicitTimeout: 1
     timings.pollingInterval: 500
+
+    adobe.analytics.datalayer: digitalData
+    google.analytics.datalayer: dataLayer

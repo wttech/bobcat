@@ -14,18 +14,13 @@ We will write a simple Google Analytics test that will verify the datalayer impl
 
 ## Setup
 
-We used the gradle template so we have much of the job already done.
-All we need to to is to add the analytics module to our [runmode]({{site.baseurl}}/docs/modules/core/runmodes/) in default.yaml
-
-```yaml
-- com.cognifide.qa.bb.analytics.AnalyticsModule
-```
+Please follow this link to find the analytics module setup in the [Getting started]({{site.baseurl}}/docs/_docs/modules/analytics/) section.
 
 
 ## Defining expected datalayers
 
 Our analytics test will compare the existing datalayer with the one defined by us. 
-Expected datalayers should be defined in json files located in the test resources folder under the \analytics\datalayers path.
+Expected datalayers should be defined in json files located in the test resources folder under the \analytics\datalayers\ path.
 
 For our test we will create a new json file with the following content:
 

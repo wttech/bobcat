@@ -75,7 +75,7 @@ public class AdobeAnalytics implements Analytics {
   public void compare(String expectedData) {
     try {
       JSONAssert.assertEquals(
-          "Data Layer is incorrect",
+          "Data Layer is incorrect:\n",
           getExpected(expectedData),
           getActual(),
           JSONCompareMode.LENIENT);
