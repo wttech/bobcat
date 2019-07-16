@@ -1,25 +1,24 @@
 if: branch !~ /^docs/
 
 language: java
+dist: trusty
 jdk:
   - oraclejdk8
 
 addons:
-  apt:
-    packages:
-      - oracle-java8-installer
-  firefox: "58.0"
+  firefox: "68.0"
   sonarcloud:
     organization: "bobcat-github"
     token:
       secure: $SONAR_TOKEN
+
+install: true
 
 cache:
   directories:
     - '$HOME/.m2/repository'
     - '$HOME/.sonar/cache'
 
-install: true
 
 before_script:
   - "export DISPLAY=:99.0"
@@ -30,7 +29,6 @@ before_script:
   - tar -xzf geckodriver-v0.19.1-linux64.tar.gz -C geckodriver
   - export PATH=$PATH:$PWD/geckodriver
 
-sudo: false
 script:
   - mvn clean install -Dwebdriver.type=firefox -Dwebdriver.firefox.bin="$(which firefox)"
   - sonar-scanner
