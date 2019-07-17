@@ -38,18 +38,24 @@ public class FieldConfig {
   }
 
   /**
-   *
    * @return Type of the field.
    */
   public String getType() {
     return type;
   }
 
-   /**
-    *
-    * @return Value of the field.
-    */
+  /**
+   * @return Value of the field.
+   */
   public Object getValue() {
     return value;
+  }
+
+  @Override
+  public String toString() {
+    return "field:\n" +
+        "\tlabel='" + label + "'\n" +
+        "\ttype='" + type + "'\n" +
+        "\tvalue=" + value + "'\n";
   }
 }
