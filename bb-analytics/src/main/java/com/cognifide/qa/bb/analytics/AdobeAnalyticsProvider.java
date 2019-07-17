@@ -25,12 +25,13 @@ import com.google.inject.Provider;
 @ThreadScoped
 public class AdobeAnalyticsProvider implements Provider<Analytics> {
 
-    private Analytics cached;
+  private Analytics cached;
 
-    @Override public Analytics get() {
-        if (cached==null){
-            cached = new AdobeAnalytics();
-        }
-        return cached;
+  @Override
+  public Analytics get() {
+    if (cached == null) {
+      cached = new AdobeAnalytics();
     }
+    return cached;
+  }
 }
