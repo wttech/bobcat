@@ -2,7 +2,7 @@
  * #%L
  * Bobcat
  * %%
- * Copyright (C) 2016 Cognifide Ltd.
+ * Copyright (C) 2019 Cognifide Ltd.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,38 +17,36 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.core.config;
+package com.cognifide.qa.bb.core.wait;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.data.MapEntry.entry;
+import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
 
-import java.util.Properties;
-
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.WebDriver;
 
 import com.cognifide.qa.bb.core.modules.TestModule;
+import com.cognifide.qa.bb.core.util.PageUtils;
 import com.cognifide.qa.bb.junit5.guice.Modules;
+import com.cognifide.qa.bb.wait.BobcatWait;
 import com.google.inject.Inject;
 
 @Modules(TestModule.class)
-public class YamlConfigTest {
+class BobcatWaitTest {
 
   @Inject
-  private Properties properties;
+  private WebDriver webDriver;
+
+  @Inject
+  private BobcatWait wait;
+
+  @BeforeEach
+  public void setUp() {
+    webDriver.get(PageUtils.buildTestPageUrl(this.getClass()));
+  }
 
   @Test
-  public void additionalContextsShouldBeLoadedWhenSelectedInConfig() {
-    assertThat(properties)
-        .contains(
-            entry("property1", "value1"),
-            entry("property2", "value2"),
-            entry("prop3", "val3"),
-            entry("prop4", "val4"))
-        .doesNotContain(
-            entry("prop1", "val1"),
-            entry("prop2", "val2"),
-            entry("property3", "value3"),
-            entry("property4", "value4")
-        );
+  void waitEvaluatesSimpleConditionsCorrectly() {
+    wait.until(titleIs("BobcatWait Test"));
   }
 }

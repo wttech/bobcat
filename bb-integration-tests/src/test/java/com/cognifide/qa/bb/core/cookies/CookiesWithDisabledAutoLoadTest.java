@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 
-import com.cognifide.qa.bb.core.TestModule;
+import com.cognifide.qa.bb.core.modules.TestModule;
 import com.cognifide.qa.bb.junit5.guice.Modules;
 import com.google.inject.Inject;
 

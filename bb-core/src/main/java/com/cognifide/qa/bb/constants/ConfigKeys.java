@@ -61,9 +61,10 @@ public final class ConfigKeys {
 
   public static final String MODIFIERS_IMPLICIT_TIMEOUT = "modifiers.implicitTimeout";
 
-  public static final String TIMINGS_EXPLICIT_TIMEOUT = "timings.explicitTimeout";
-  public static final String TIMINGS_IMPLICIT_TIMEOUT = "timings.implicitTimeout";
-  public static final String TIMINGS_POLLING_INTERVAL = "timings.pollingInterval";
+  public static final String TIMINGS_PREFIX = "timings.";
+  public static final String TIMINGS_EXPLICIT_TIMEOUT = TIMINGS_PREFIX + "explicitTimeout";
+  public static final String TIMINGS_IMPLICIT_TIMEOUT = TIMINGS_PREFIX + "implicitTimeout";
+  public static final String TIMINGS_POLLING_INTERVAL = TIMINGS_PREFIX + "pollingInterval";
 
   private ConfigKeys() {
   }

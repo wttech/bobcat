@@ -26,7 +26,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 
-import com.cognifide.qa.bb.core.TestModule;
+import com.cognifide.qa.bb.core.modules.TestModule;
 import com.cognifide.qa.bb.core.pageobjects.qualifier.findpageobject.MasterPage;
 import com.cognifide.qa.bb.core.util.PageUtils;
 import com.cognifide.qa.bb.junit5.guice.Modules;
