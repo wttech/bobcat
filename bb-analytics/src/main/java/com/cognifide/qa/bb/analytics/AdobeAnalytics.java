@@ -28,7 +28,6 @@ import java.nio.file.Paths;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONException;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.slf4j.Logger;
@@ -41,12 +40,12 @@ import com.google.inject.name.Named;
 public class AdobeAnalytics implements Analytics {
 
   private static final String DATA_LAYER_OBJECT_SCRIPT = "return JSON.stringify(DL, null, '\\t')";
-  private static final Logger LOG = LoggerFactory.getLogger(AdobeAnalytics.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(AdobeAnalytics.class);
   private static final String JSON = ".json";
   private static final String CFG_PATH = "analytics/datalayers/";
 
   @Inject
-  private WebDriver webDriver;
+  private JavascriptExecutor javascriptExecutor;
 
   @Inject
   @Named("adobe.analytics.datalayer")
@@ -55,8 +54,7 @@ public class AdobeAnalytics implements Analytics {
   @Override
   public String getActual() {
     return (String)
-        ((JavascriptExecutor) webDriver)
-            .executeScript(DATA_LAYER_OBJECT_SCRIPT.replace("DL", datalayer));
+        javascriptExecutor.executeScript(DATA_LAYER_OBJECT_SCRIPT.replace("DL", datalayer));
   }
 
   @Override
@@ -65,10 +63,9 @@ public class AdobeAnalytics implements Analytics {
       URI uri = Resources.getResource(CFG_PATH + fileName + JSON).toURI();
       File file = Paths.get(uri).toFile();
       return FileUtils.readFileToString(file, (String) null);
-    } catch (IOException | URISyntaxException e) {
-      LOG.error("Could not read JSON file: " + fileName);
+    } catch (IOException | URISyntaxException | IllegalArgumentException e) {
+      throw new IllegalStateException("JSON file could not be read", e);
     }
-    throw new IllegalStateException("JSON file could not be read");
   }
 
   @Override
@@ -80,7 +77,7 @@ public class AdobeAnalytics implements Analytics {
           getActual(),
           JSONCompareMode.LENIENT);
     } catch (JSONException e) {
-      e.printStackTrace();
+      LOGGER.error("Error when comparing Data Layers", e);
     }
   }
 }

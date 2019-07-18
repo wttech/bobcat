@@ -22,14 +22,17 @@ package com.cognifide.qa.bb.analytics;
 import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;
 
+/**
+ * Module containing bindings for the analytics solutions
+ */
 public class AnalyticsModule extends AbstractModule {
 
   @Override
   protected void configure() {
 
     bind(Analytics.class)
-            .annotatedWith(Names.named("AdobeAnalytics"))
-            .toProvider(AdobeAnalyticsProvider.class);
+        .annotatedWith(Names.named("AdobeAnalytics"))
+        .toProvider(AdobeAnalyticsProvider.class);
     bind(Analytics.class)
         .annotatedWith(Names.named("GoogleAnalytics"))
         .toProvider(GoogleAnalyticsProvider.class);

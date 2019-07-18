@@ -29,23 +29,20 @@ import javax.inject.Named;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.io.Resources;
 import com.google.inject.Inject;
 
-@Named("GoogleAnalytics")
 public class GoogleAnalytics implements Analytics {
 
   private static final String DATA_LAYER_OBJECT_SCRIPT = "return JSON.stringify(DL, null, '\\t')";
-  private static final Logger LOG = LoggerFactory.getLogger(GoogleAnalytics.class);
   private static final String JSON = ".json";
   private static final String CFG_PATH = "analytics/datalayers/";
 
   @Inject
-  private WebDriver webDriver;
+  private JavascriptExecutor javascriptExecutor;
 
   @Inject
   @Named("google.analytics.datalayer")
@@ -54,8 +51,7 @@ public class GoogleAnalytics implements Analytics {
   @Override
   public String getActual() {
     return (String)
-        ((JavascriptExecutor) webDriver)
-            .executeScript(DATA_LAYER_OBJECT_SCRIPT.replace("DL", datalayer));
+        javascriptExecutor.executeScript(DATA_LAYER_OBJECT_SCRIPT.replace("DL", datalayer));
   }
 
   @Override
@@ -64,10 +60,9 @@ public class GoogleAnalytics implements Analytics {
       URI uri = Resources.getResource(CFG_PATH + fileName + JSON).toURI();
       File file = Paths.get(uri).toFile();
       return FileUtils.readFileToString(file, (String) null);
-    } catch (IOException | URISyntaxException e) {
-      LOG.error("Could not read JSON file: " + fileName);
+    } catch (IOException | URISyntaxException | IllegalArgumentException e) {
+      throw new IllegalStateException("Could not read JSON file: " + fileName, e);
     }
-    throw new IllegalStateException("JSON file could not be read");
   }
 
   @Override

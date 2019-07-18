@@ -25,7 +25,7 @@ import org.openqa.selenium.WebDriver;
 import com.cognifide.qa.bb.junit5.guice.Modules;
 import com.google.inject.Inject;
 
-@Modules(TestModule.class)
+@Modules(AnalyticsTestModule.class)
 public class AdobeAnalyticsTest {
 
   @Inject

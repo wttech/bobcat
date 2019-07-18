@@ -22,7 +22,7 @@ package com.cognifide.qa.bb.analytics;
 import com.cognifide.qa.bb.modules.CoreModule;
 import com.google.inject.AbstractModule;
 
-public class TestModule extends AbstractModule {
+public class AnalyticsTestModule extends AbstractModule {
 
   @Override
   protected void configure() {

@@ -19,20 +19,23 @@
  */
 package com.cognifide.qa.bb.analytics;
 
+/**
+ * Interface that represents the analytics datalayer.
+ */
 public interface Analytics {
   /** @return json with actual data layer */
   String getActual();
 
   /**
-   * @param fileName
+   * @param fileName name of the json file defining the expected datalayer
    * @return json with expected data layer
    */
   String getExpected(String fileName);
 
   /**
-   * Compares data layer retrieved from the page with the expected one
+   * Compares the datalayer retrieved from the page with the expected one
    *
-   * @param expectedData
+   * @param expectedData name of the json file defining the expected datalayer
    */
   void compare(String expectedData);
 }
