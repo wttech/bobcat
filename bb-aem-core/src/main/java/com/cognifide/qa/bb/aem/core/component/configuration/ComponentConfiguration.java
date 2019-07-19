@@ -78,4 +78,8 @@ public class ComponentConfiguration {
     return Collections.unmodifiableList(data);
   }
 
+  @Override
+  public String toString() {
+    return "Component configuration:\n" + data;
+  }
 }
