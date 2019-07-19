@@ -33,12 +33,12 @@ import org.mockito.InOrder;
 
 import com.google.common.collect.Maps;
 
-public class ConfigStrategyTest {
+class ConfigStrategyTest {
 
   private ConfigStrategy strategy = new DefaultConfigStrategy();
 
   @Test
-  public void loadsPropertiesInCorrectOrder() {
+  void loadsPropertiesInCorrectOrder() {
     ConfigStrategy tested = mock(ConfigStrategy.class);
     InOrder inOrder = inOrder(tested);
 
@@ -56,7 +56,7 @@ public class ConfigStrategyTest {
   }
 
   @Test
-  public void resolvesConfigCorrectly() {
+  void resolvesConfigCorrectly() {
     Properties expected = new Properties();
     expected.putAll(mapOf(
         entry("webdriver.reusable", "true"),
@@ -72,7 +72,7 @@ public class ConfigStrategyTest {
   }
 
   @Test
-  public void overridesConfigPropertiesWhenSysPropsAreNotBlank() {
+  void overridesConfigPropertiesWhenSysPropsAreNotBlank() {
     Properties configProperties = new Properties();
     configProperties.putAll(mapOf(
         entry("override.prop", "should-be-overriden"),
@@ -89,7 +89,7 @@ public class ConfigStrategyTest {
   }
 
   @Test
-  public void setsSystemPropertiesOnlyForWebdriverPropertiesInConfig() {
+  void setsSystemPropertiesForWebdriverPropertiesInConfig() {
     Map<String, String> expected = mapOf(
         entry("webdriver.maximize", ""),
         entry("webdriver.reusable", ""));
@@ -110,7 +110,28 @@ public class ConfigStrategyTest {
   }
 
   @Test
-  public void doesNotSetSystemPropertiesWhenNoWebdriverPropertiesArePresentInConfig() {
+  void setsSystemPropertiesForTimingsPropertiesInConfig() {
+    Map<String, String> expected = mapOf(
+        entry("timings.explicitTimeout", "5"),
+        entry("timings.other", "6"));
+
+    Properties configProperties = new Properties();
+    configProperties.putAll(mapOf(
+        entry("timings.explicitTimeout", "5"),
+        entry("timings.other", "6"),
+        entry("parsys.locator.format", "%s"),
+        entry("proxy.enabled", "false")));
+
+    strategy.setSystemProperties(configProperties);
+    Properties actual = System.getProperties();
+
+    assertThat(actual)
+        .containsAllEntriesOf(expected)
+        .doesNotContainKeys(Maps.difference(configProperties, expected).entriesDiffering());
+  }
+
+  @Test
+  void doesNotSetSystemPropertiesWhenNoAllowedPropertiesArePresentInConfig() {
     Properties configProperties = new Properties();
     configProperties.putAll(mapOf(
         entry("custom.type", "firefox"),
