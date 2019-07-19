@@ -40,6 +40,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.constants.ConfigKeys;
+import com.cognifide.qa.bb.exceptions.BobcatRuntimeException;
 import com.cognifide.qa.bb.guice.ThreadScoped;
 import com.google.inject.Inject;
 
@@ -97,9 +98,7 @@ public class AemAuthCookieFactoryImpl implements AemAuthCookieFactory {
         loginPost.reset();
       }
       Cookie cookie = findAuthenticationCookie(cookieStore.getCookies());
-      if (cookie != null) {
-        cookieJar.put(url, cookie);
-      }
+      cookieJar.put(url, cookie);
     }
     return cookieJar.get(url);
   }
@@ -122,6 +121,7 @@ public class AemAuthCookieFactoryImpl implements AemAuthCookieFactory {
             cookie.getExpiryDate());
       }
     }
-    return null;
+    throw new BobcatRuntimeException(
+        "AEM Authentication cookie was not found - were correct credentials used?");
   }
 }
