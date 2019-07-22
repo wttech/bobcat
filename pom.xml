@@ -240,7 +240,7 @@ limitations under the License.
             <dependency>
                 <groupId>com.icegreen</groupId>
                 <artifactId>greenmail</artifactId>
-                <version>1.5.8</version>
+                <version>1.5.10</version>
                 <scope>test</scope>
             </dependency>
 
