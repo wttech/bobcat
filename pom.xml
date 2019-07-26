@@ -85,7 +85,7 @@ limitations under the License.
 
         <jacoco.version>0.8.4</jacoco.version>
         <selenium.version>3.141.0</selenium.version>
-        <guice.version>4.2.0</guice.version>
+        <guice.version>4.2.2</guice.version>
         <version.logback>1.2.3</version.logback>
         <junit.jupiter.version>5.5.1</junit.jupiter.version>
     </properties>
