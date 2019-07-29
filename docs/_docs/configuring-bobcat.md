@@ -4,6 +4,9 @@ title: Configuring Bobcat
 
 With the release of 1.4.0 version, two ways of configuring the framework are available: the new one (YAML-based) and the legacy one (properties files based). Below you can find the description of both modes.
 
+## WebDriver
+Bobcat uses Selenium and it requires drivers for browsers which we want to use. We recommend to add these drivers to your system path
+
 ## YAML-based configuration
 
 ### Configuration structure
@@ -39,9 +42,6 @@ Contexts are basically groups of properties that can be activated together. What
 ```yaml
 default:
   properties:
-    webdriver.defaultTimeout: 10
-    page.title.timeout: 30
-    thread.count: 3
     webdriver.type: remote
     webdriver.url: http://1.2.3.4:4444/wd/hub
     webdriver.cap.recordVideo: false

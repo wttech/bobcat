@@ -3,7 +3,7 @@
   #%L
   Bobcat
   %%
-  Copyright (C) 2016 Cognifide Ltd.
+  Copyright (C) 2019 Cognifide Ltd.
   %%
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -44,22 +44,16 @@ limitations under the License.
         </license>
     </licenses>
 
-    <developers>
-        <developer>
-            <name>Karol Kujawiak</name>
-            <email>karol.kujawiak@cognifide.com</email>
-        </developer>
-    </developers>
-
     <modules>
         <module>bb-core</module>
         <module>bb-integration-tests</module>
-        <module>bb-cumber</module>
         <module>bb-email</module>
         <module>bb-traffic</module>
         <module>bb-junit5</module>
         <module>bb-aem-core</module>
         <module>bb-aem-64</module>
+        <module>bb-aem-64sp2</module>
+        <module>bb-aem-65</module>
     </modules>
 
     <scm>
@@ -89,12 +83,11 @@ limitations under the License.
 
         <maven.javadoc.failOnError>false</maven.javadoc.failOnError>
 
-        <jacoco.version>0.8.2</jacoco.version>
+        <jacoco.version>0.8.4</jacoco.version>
         <selenium.version>3.141.0</selenium.version>
-        <guice.version>4.2.0</guice.version>
-        <cucumber.version>3.0.2</cucumber.version>
+        <guice.version>4.2.2</guice.version>
         <version.logback>1.2.3</version.logback>
-        <junit.jupiter.version>5.3.1</junit.jupiter.version>
+        <junit.jupiter.version>5.5.1</junit.jupiter.version>
     </properties>
 
     <dependencyManagement>
@@ -155,7 +148,7 @@ limitations under the License.
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
-                <version>3.8</version>
+                <version>3.9</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -165,7 +158,7 @@ limitations under the License.
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>26.0-jre</version>
+                <version>28.0-jre</version>
             </dependency>
             <dependency>
                 <groupId>javax.jcr</groupId>
@@ -175,31 +168,19 @@ limitations under the License.
             <dependency>
                 <groupId>org.apache.maven</groupId>
                 <artifactId>maven-artifact</artifactId>
-                <version>3.5.4</version>
+                <version>3.6.1</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.jackrabbit</groupId>
                 <artifactId>jackrabbit-jcr2dav</artifactId>
-                <version>2.17.5</version>
-            </dependency>
-
-            <!--Cucumber-->
-            <dependency>
-                <groupId>io.cucumber</groupId>
-                <artifactId>cucumber-guice</artifactId>
-                <version>${cucumber.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.cucumber</groupId>
-                <artifactId>cucumber-junit</artifactId>
-                <version>${cucumber.version}</version>
+                <version>2.19.3</version>
             </dependency>
 
             <!-- logging -->
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>1.7.25</version>
+                <version>1.7.26</version>
             </dependency>
             <dependency>
                 <groupId>ch.qos.logback</groupId>
@@ -242,7 +223,7 @@ limitations under the License.
             <dependency>
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
-                <version>3.11.1</version>
+                <version>3.12.2</version>
             </dependency>
             <dependency>
                 <groupId>org.mockito</groupId>
@@ -253,13 +234,13 @@ limitations under the License.
             <dependency>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-server</artifactId>
-                <version>9.4.12.v20180830</version>
+                <version>9.4.17.v20190418</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>com.icegreen</groupId>
                 <artifactId>greenmail</artifactId>
-                <version>1.5.8</version>
+                <version>1.5.10</version>
                 <scope>test</scope>
             </dependency>
 
@@ -283,7 +264,7 @@ limitations under the License.
                 <plugin>
                     <groupId>org.apache.rat</groupId>
                     <artifactId>apache-rat-plugin</artifactId>
-                    <version>0.12</version>
+                    <version>0.13</version>
                     <executions>
                         <execution>
                             <phase>validate</phase>
@@ -322,7 +303,7 @@ limitations under the License.
                 <plugin>
                     <groupId>com.github.ekryd.sortpom</groupId>
                     <artifactId>sortpom-maven-plugin</artifactId>
-                    <version>2.5.0</version>
+                    <version>2.10.0</version>
                     <executions>
                         <execution>
                             <phase>verify</phase>
@@ -341,7 +322,7 @@ limitations under the License.
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>license-maven-plugin</artifactId>
-                    <version>1.9</version>
+                    <version>2.0.0</version>
                     <executions>
                         <execution>
                             <phase>process-sources</phase>
@@ -382,7 +363,18 @@ limitations under the License.
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.22.1</version>
+                    <version>2.22.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.1</version>
+                    <configuration>
+                        <showWarnings>true</showWarnings>
+                        <compilerArgs>
+                            <arg>-Xlint:deprecation</arg>
+                        </compilerArgs>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -390,7 +382,7 @@ limitations under the License.
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
-                <version>2.5.2</version>
+                <version>2.5.3</version>
                 <configuration>
                     <username>${scm.username}</username>
                     <password>${scm.password}</password>
@@ -415,7 +407,7 @@ limitations under the License.
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
-                        <version>2.4</version>
+                        <version>3.1.0</version>
                         <executions>
                             <execution>
                                 <id>attach-sources</id>
@@ -428,7 +420,7 @@ limitations under the License.
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>2.10.3</version>
+                        <version>3.1.1</version>
                         <executions>
                             <execution>
                                 <id>attach-javadocs</id>

@@ -21,6 +21,7 @@ package com.cognifide.qa.bb.aem.core.component;
 
 import static com.cognifide.qa.bb.constants.HtmlTags.Attributes.CLASS;
 import static org.openqa.selenium.support.ui.ExpectedConditions.attributeContains;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -55,7 +56,7 @@ public class GlobalBarImpl implements GlobalBar {
 
   @Override
   public void toggleSidePanel() {
-    toggleSidePanelButton.click();
+    bobcatWait.until(visibilityOf(toggleSidePanelButton)).click();
   }
 
   @Override

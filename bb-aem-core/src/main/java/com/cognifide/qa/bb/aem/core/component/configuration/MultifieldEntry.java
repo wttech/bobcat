@@ -37,4 +37,9 @@ public class MultifieldEntry {
   public void setItem(List<FieldConfig> item) {
     this.item = item;
   }
+
+  @Override
+  public String toString() {
+    return "multifield item:\n" + item;
+  }
 }

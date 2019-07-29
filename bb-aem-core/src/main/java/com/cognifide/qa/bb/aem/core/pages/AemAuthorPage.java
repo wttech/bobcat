@@ -112,10 +112,12 @@ public class AemAuthorPage<T extends AemAuthorPage> extends Page {
       if (binding instanceof LinkedBindingImpl) {
         selector = PageObjectProviderHelper
             .retrieveSelectorFromPageObjectInterface(
-                ((LinkedBindingImpl) binding).getLinkedKey().getTypeLiteral().getRawType());
+                ((LinkedBindingImpl) binding).getLinkedKey().getTypeLiteral().getRawType())
+            .orElseThrow(() -> new IllegalArgumentException(PageObjectProviderHelper.ERROR_MSG));
       }
     } else {
-      selector = PageObjectProviderHelper.retrieveSelectorFromPageObjectInterface(component);
+      selector = PageObjectProviderHelper.retrieveSelectorFromPageObjectInterface(component)
+          .orElseThrow(() -> new IllegalArgumentException(PageObjectProviderHelper.ERROR_MSG));
     }
     return selector;
   }
