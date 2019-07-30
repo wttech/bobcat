@@ -44,6 +44,17 @@ limitations under the License.
         </license>
     </licenses>
 
+    <developers>
+        <developer>
+            <name>Michal Krzyzanowski</name>
+            <email>michal.krzyzanowski@cognifide.com</email>
+        </developer>
+        <developer>
+            <name>Daniel Madejek</name>
+            <email>daniel.madejek@cognifide.com</email>
+        </developer>
+    </developers>
+
     <modules>
         <module>bb-core</module>
         <module>bb-integration-tests</module>
