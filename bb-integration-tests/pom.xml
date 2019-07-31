@@ -81,8 +81,11 @@
             <version>3.6.2</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
+
+    <properties>
+        <test.suite>!creator</test.suite>
+    </properties>
 
     <build>
         <plugins>
@@ -102,9 +105,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <properties>
-                        <configurationParameters>junit.jupiter.extensions.autodetection.enabled = true</configurationParameters>
-                        <excludedGroups>creators</excludedGroups>
+                        <configurationParameters>junit.jupiter.extensions.autodetection.enabled=true</configurationParameters>
                     </properties>
+                    <groups>${test.suite}</groups>
                 </configuration>
             </plugin>
         </plugins>
@@ -128,20 +131,9 @@
         </profile>
         <profile>
             <id>suite-creators</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <properties>
-                                <configurationParameters>junit.jupiter.extensions.autodetection.enabled = true</configurationParameters>
-                                <groups>creators</groups>
-                            </properties>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
+            <properties>
+                <test.suite>creator</test.suite>
+            </properties>
         </profile>
     </profiles>
 
