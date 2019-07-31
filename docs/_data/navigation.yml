@@ -58,8 +58,12 @@ docs:
     children:
       - title: "AEM Core"
         url: /docs/modules/aem-core/
-      - title: "AEM 64"
+      - title: "AEM 6.4"
         url: /docs/modules/aem-64/
+      - title: "AEM 6.4 SP2"
+        url: /docs/modules/aem-64sp2/
+      - title: "AEM 6.5"
+        url: /docs/modules/aem-65/
   - title: Integrations
     children:
       - title: "Allure"
