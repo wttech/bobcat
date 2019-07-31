@@ -2,7 +2,7 @@
  * #%L
  * Bobcat
  * %%
- * Copyright (C) 2016 Cognifide Ltd.
+ * Copyright (C) 2019 Cognifide Ltd.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.provider.selenium.webdriver.creators;
+package com.cognifide.qa.bb.appium.webdriver.creators;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -29,15 +29,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.constants.ConfigKeys;
+import com.cognifide.qa.bb.provider.selenium.webdriver.creators.WebDriverCreator;
 import com.google.inject.Inject;
 
-import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.remote.MobilePlatform;
 
-public class AndroidDriverCreator implements WebDriverCreator {
+public class IosDriverCreator implements WebDriverCreator {
 
-  private static final Logger LOG = LoggerFactory.getLogger(AndroidDriverCreator.class);
-  private static final String ID = "android";
+  private static final Logger LOG = LoggerFactory.getLogger(IosDriverCreator.class);
+  private static final String ID = "ios";
 
   @Inject
   private Properties properties;
@@ -63,12 +64,16 @@ public class AndroidDriverCreator implements WebDriverCreator {
     }
 
     final String platform = properties.getProperty(ConfigKeys.WEBDRIVER_CAP_PLATFORM_NAME);
-    if (MobilePlatform.ANDROID.equals(platform)) {
-      return new AndroidDriver(url, capabilities);
+    if (platform == null) {
+      throw new IllegalStateException(String.format("%s is missing. Set it either to %s or %s",
+          ConfigKeys.WEBDRIVER_CAP_PLATFORM_NAME, MobilePlatform.ANDROID, MobilePlatform.IOS));
+    }
+    if (MobilePlatform.IOS.equals(platform)) {
+      return new IOSDriver(url, capabilities);
     } else {
       throw new IllegalArgumentException(String.format(
-          "Requested Android driver but incorrect platform name was provided. %s should be set to: %s",
-          ConfigKeys.WEBDRIVER_CAP_PLATFORM_NAME, MobilePlatform.ANDROID));
+          "Requested iOS driver but incorrect platform name was provided. %s should be set to: %s",
+          ConfigKeys.WEBDRIVER_CAP_PLATFORM_NAME, MobilePlatform.IOS));
     }
   }
 }

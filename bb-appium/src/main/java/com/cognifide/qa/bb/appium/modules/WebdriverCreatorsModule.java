@@ -2,7 +2,7 @@
  * #%L
  * Bobcat
  * %%
- * Copyright (C) 2016 Cognifide Ltd.
+ * Copyright (C) 2019 Cognifide Ltd.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,14 +17,10 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.modules;
+package com.cognifide.qa.bb.appium.modules;
 
-import com.cognifide.qa.bb.provider.selenium.webdriver.creators.ChromeDriverCreator;
-import com.cognifide.qa.bb.provider.selenium.webdriver.creators.EdgeDriverCreator;
-import com.cognifide.qa.bb.provider.selenium.webdriver.creators.FirefoxDriverCreator;
-import com.cognifide.qa.bb.provider.selenium.webdriver.creators.IeDriverCreator;
-import com.cognifide.qa.bb.provider.selenium.webdriver.creators.RemoteDriverCreator;
-import com.cognifide.qa.bb.provider.selenium.webdriver.creators.SafariDriverCreator;
+import com.cognifide.qa.bb.appium.webdriver.creators.AndroidDriverCreator;
+import com.cognifide.qa.bb.appium.webdriver.creators.IosDriverCreator;
 import com.cognifide.qa.bb.provider.selenium.webdriver.creators.WebDriverCreator;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
@@ -35,11 +31,7 @@ public class WebdriverCreatorsModule extends AbstractModule {
     Multibinder<WebDriverCreator> creators =
         Multibinder.newSetBinder(binder(), WebDriverCreator.class);
 
-    creators.addBinding().to(ChromeDriverCreator.class);
-    creators.addBinding().to(EdgeDriverCreator.class);
-    creators.addBinding().to(FirefoxDriverCreator.class);
-    creators.addBinding().to(IeDriverCreator.class);
-    creators.addBinding().to(RemoteDriverCreator.class);
-    creators.addBinding().to(SafariDriverCreator.class);
+    creators.addBinding().to(AndroidDriverCreator.class);
+    creators.addBinding().to(IosDriverCreator.class);
   }
 }
