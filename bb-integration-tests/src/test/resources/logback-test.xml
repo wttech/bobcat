@@ -23,7 +23,7 @@
     <timestamp key="day" datePattern="yyyy-MM-dd"/>
 
     <appender name="FILE_DEFAULT" class="ch.qos.logback.core.FileAppender">
-        <file>build/logs/default_${day}.log</file>
+        <file>target/logs/default_${day}.log</file>
         <append>true</append>
         <encoder>
             <charset>UTF-8</charset>
