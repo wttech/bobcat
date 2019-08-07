@@ -10,6 +10,12 @@ cache:
     - '$HOME/.m2/repository'
     - '$HOME/.sonar/cache'
 
+addons:
+  browserstack:
+    username: "michakrzyanowski1"
+    access_key:
+      secure: "nMIQLjaeC/CAFoplQRIXe01hWjorN98Yhe7AfB24Hs9DCtujJaW9eNBN4Hrku4bp7EuMrLpPcNqpcntOGU3XBf+W93A5iM0zeiuwEMmHDf/KrHr+PPD5glpcuK0f5PT9s7muQOFRpbO2R1k+oKZImpkVwdpFYgTKwO8gUcoZReV8GquPtX8gP9KMj21m7ZaDKnhvWnCflomdOlu40KRRjH0ebfo/hyMRtDgbZ5ov2jM7xy3gHCRXNYy1k3Sx4RId2f00qiMirqKW5dQKOgtQ4dowpHTIh/D6WSeQj/mPDtEyhY503bKeSgUp6HmxFckyK9ox6INnLCIETLQljNDoEPWed6QxPecvzYVle2Ln+LS4iG+dbgRwp58CDdACot6Fsi9UPM2fbqnTHdfmBsgBU7ZUEpyOrxtlkWx3Be/89AgPjqBvc1bfwaA1hs1fQGe8J5qD5ZioSsWchcVOxtdPD9Z1UWx5oo3T+SgBp1V/iUQfz7fxVPnCdlWf1A/3b6eKRnysOPuxColrYd9M2MGsMhfNOO9mRNGIhAwezifPSo5ilyoXtAOwJQf1VjcJoepkg/jNEt/WAdocCof4vgHno/HEfLf1hW7zP/Fs695QQfRNRR1Q3d5VbzwCylYv5W1CCvx0HLchrhPdQsTWVlJUIlsEZW2dSlfPX1a3aGRNQeE="
+
 env:
   - OS=Windows BROWSER=Chrome
   - OS=Windows BROWSER=Firefox
@@ -40,4 +46,4 @@ matrix:
       script: sonar-scanner
 
 script:
-  - mvn clean install -Dwebdriver.type=remote -Dwebdriver.url="https://$BROWSERSTACK_USERNAME:$BROWSERSTACK_ACCESS_TOKEN@hub-cloud.browserstack.com/wd/hub" -Dwebdriver.cap.browser="$BROWSER" -Dwebdriver.cap.os="$OS"
+  - mvn clean install -Dwebdriver.type=remote -Dwebdriver.url="https://$BROWSERSTACK_USERNAME:$BROWSERSTACK_ACCESS_TOKEN@hub-cloud.browserstack.com/wd/hub" -Dwebdriver.cap.browser="$BROWSER" -Dwebdriver.cap.os="$OS" -Dwebdriver.cap.browserstack.localIdentifier="$BROWSERSTACK_LOCAL_IDENTIFIER"
