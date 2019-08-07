@@ -21,10 +21,6 @@ package com.cognifide.qa.bb.core.util;
 
 public final class PageUtils {
 
-  private static final String FILE_PROTOCOL = "file://";
-
-  private static final String HTML_PREFIX = "html/";
-
   private static final String PAGE_NAME = "/page.html";
 
   private PageUtils() {
@@ -34,14 +30,11 @@ public final class PageUtils {
    * Builds a path to core page based on given type package name
    *
    * @param type core class
-   * @return valid file url (file:// prefixed)
+   * @return URL to the test page
    */
   public static String buildTestPageUrl(final Class<?> type) {
-    return FILE_PROTOCOL + findResourcePath(type);
-  }
-
-  private static String findResourcePath(final Class<?> type) {
-    return type.getClassLoader().getResource(HTML_PREFIX + pathFrom(type) + PAGE_NAME).getPath();
+    return System.getProperty("bobcat.tests.target", "http://localhost:4000/bobcat/tests/")
+        + pathFrom(type) + PAGE_NAME;
   }
 
   private static String pathFrom(final Class<?> type) {

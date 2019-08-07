@@ -96,6 +96,9 @@
                     <properties>
                         <configurationParameters>junit.jupiter.extensions.autodetection.enabled = true</configurationParameters>
                     </properties>
+                    <systemPropertyVariables>
+                        <bobcat.tests.target>http://127.0.0.1:4000/bobcat/tests/</bobcat.tests.target>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
         </plugins>
