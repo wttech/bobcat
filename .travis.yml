@@ -21,7 +21,7 @@ env:
   - OS=Windows BROWSER=Firefox
   - OS=Windows BROWSER=Edge
   - OS=Windows BROWSER=IE
-  - OS="'OS X'" BROWSER=Safari
+  - OS='"OS X"' BROWSER=Safari
 
 matrix:
   include:
