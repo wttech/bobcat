@@ -2,16 +2,19 @@
 title: Configuring Bobcat
 ---
 
-With the release of 1.4.0 version, two ways of configuring the framework are available: the new one (YAML-based) and the legacy one (properties files based). Below you can find the description of both modes.
+## External configuration elements
+### WebDriver
+Bobcat uses Selenium and it requires drivers for browsers which we'd like to use for testing. We recommend to add driver executables to your system's PATH environment variable.
 
-## WebDriver
-Bobcat uses Selenium and it requires drivers for browsers which we want to use. We recommend to add these drivers to your system path
+For more information, please refet to [official WebDriver docs](https://seleniumhq.github.io/docs/site/en/webdriver/driver_requirements/)
 
-## YAML-based configuration
+## YAML-based configuration mechanism
+
+Since 2.0.0 version, Bobcat uses the new configuration model: YAML-based approach.
 
 ### Configuration structure
 
-This mode is based on a single YAML file, placed at the root of your resources folder, named `config.yaml`.
+It is based on a single YAML file, placed at the root of your resources folder, named `config.yaml`.
 The configuration file has the following structure:
 
 ```yaml
@@ -144,9 +147,7 @@ public class MyTest{
 }
 ```
 
-
 Example usage:
-
 ```java
 public void myTestCase() {
 //..
