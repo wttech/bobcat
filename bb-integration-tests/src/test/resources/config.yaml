@@ -33,3 +33,13 @@ contexts:
     publish.ip: http://127.0.0.1:4503
     publish.login: admin
     publish.password: admin
+
+  creators-chrome:
+    webdriver.type: chrome
+    webdriver.chrome.headless: true
+  creators-firefox:
+    webdriver.type: firefox
+  creators-ie:
+    webdriver.type: ie
+  creators-safari:
+    webdriver.type: safari

@@ -25,9 +25,11 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 
+import com.cognifide.qa.bb.junit5.BobcatExtension;
 import com.cognifide.qa.bb.junit5.guice.Modules;
 import com.google.inject.Inject;
 
+@BobcatExtension
 @Modules(TestModuleWithEnabledAutoLoad.class)
 public class CookiesDefaultSettingsTest {
 

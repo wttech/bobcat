@@ -29,9 +29,11 @@ import org.openqa.selenium.WebDriver;
 import com.cognifide.qa.bb.core.modules.TestModule;
 import com.cognifide.qa.bb.core.pageobjects.qualifier.findpageobject.MasterPage;
 import com.cognifide.qa.bb.core.util.PageUtils;
+import com.cognifide.qa.bb.junit5.BobcatExtension;
 import com.cognifide.qa.bb.junit5.guice.Modules;
 import com.google.inject.Inject;
 
+@BobcatExtension
 @Modules({TestModule.class})
 public class FindPageObjectTest {
 

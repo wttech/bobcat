@@ -17,19 +17,26 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.provider.selenium;
+package com.cognifide.qa.bb.provider.selenium.webdriver;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 import java.util.Map;
 import java.util.Properties;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.openqa.selenium.Capabilities;
+
+import com.cognifide.qa.bb.provider.selenium.webdriver.CapabilitiesProvider;
+import com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.capabilities.CapabilitiesModifiers;
 
 @ExtendWith(MockitoExtension.class)
 public class DesiredCapabilitiesProviderTest {
@@ -37,11 +44,19 @@ public class DesiredCapabilitiesProviderTest {
   private static final String OUTERMAP = "outermap";
   private static final String THEMAP = "themap";
 
+  @Mock
+  private CapabilitiesModifiers capabilitiesModifiers;
+
   @InjectMocks
-  private DesiredCapabilitiesProvider tested;
+  private CapabilitiesProvider tested;
 
   @Spy
   private final Properties properties = new Properties();
+
+  @BeforeEach
+  void setup() {
+    when(capabilitiesModifiers.modifyCapabilities(any())).thenAnswer(i -> i.getArguments()[0]);
+  }
 
   @Test
   public void simpleCapabilitiesTest() {

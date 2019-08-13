@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.provider.selenium;
+package com.cognifide.qa.bb.provider.selenium.webdriver;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,13 +27,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.capabilities.CapabilitiesModifiers;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
 /**
  * This is a provider for the Capabilities instances.
  */
-public class DesiredCapabilitiesProvider implements Provider<Capabilities> {
+public class CapabilitiesProvider implements Provider<Capabilities> {
 
   private static final String CAPABILITIES_PREFIX = "webdriver.cap.";
 
@@ -43,6 +44,9 @@ public class DesiredCapabilitiesProvider implements Provider<Capabilities> {
 
   @Inject
   private Properties properties;
+
+  @Inject
+  private CapabilitiesModifiers capabilitiesModifiers;
 
   /**
    * Returns new default DesiredCapabilities object.
@@ -63,7 +67,7 @@ public class DesiredCapabilitiesProvider implements Provider<Capabilities> {
       }
     }
     processMapProperties(capabilities, mapProperties);
-    return capabilities;
+    return capabilitiesModifiers.modifyCapabilities(capabilities);
   }
 
   private Object prepareType(String property) {
