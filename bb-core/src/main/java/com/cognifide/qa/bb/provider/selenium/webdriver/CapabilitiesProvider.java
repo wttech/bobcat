@@ -70,7 +70,7 @@ public class CapabilitiesProvider implements Provider<Capabilities> {
     return capabilitiesModifiers.modifyCapabilities(capabilities);
   }
 
-  private java.io.Serializable prepareType(String property) {
+  private Object prepareType(String property) {
     return StringUtils.equalsAnyIgnoreCase(property, BOOLEAN_STRINGS) ? Boolean.valueOf(property)
         : property;
   }

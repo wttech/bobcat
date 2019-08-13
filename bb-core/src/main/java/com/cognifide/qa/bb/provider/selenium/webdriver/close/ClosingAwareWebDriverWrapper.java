@@ -127,7 +127,7 @@ public class ClosingAwareWebDriverWrapper extends WebDriverWrapper
   }
 
   private void sendEvent(boolean terminated) {
-    closedListeners.stream().forEach(listener -> listener.onWebDriverClosed(terminated));
+    closedListeners.forEach(listener -> listener.onWebDriverClosed(terminated));
   }
 
   private void cleanDriver() {
@@ -137,7 +137,7 @@ public class ClosingAwareWebDriverWrapper extends WebDriverWrapper
       try {
         switchTo().alert().accept();
       } catch (NoAlertPresentException e) {
-        LOG.debug("No alert was present when returnDriver was executed: {}", e);
+        LOG.debug("No alert was present when returnDriver was executed", e);
       }
     }
     if (maximize) {

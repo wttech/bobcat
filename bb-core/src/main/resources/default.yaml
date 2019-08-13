@@ -1,7 +1,5 @@
 default:
   properties:
-    parsys.finder.offset: 6
-
     proxy.enabled: false
     proxy.ip: 127.0.0.1
     proxy.port: 9000
