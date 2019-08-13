@@ -30,6 +30,9 @@ import com.cognifide.qa.bb.constants.ConfigKeys;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
+/**
+ * Creates instances of {@link ChromeDriver}
+ */
 public class ChromeDriverCreator implements WebDriverCreator {
 
   private static final Logger LOG = LoggerFactory.getLogger(ChromeDriverCreator.class);

@@ -21,6 +21,9 @@ package com.cognifide.qa.bb.appium.modules;
 
 import com.google.inject.AbstractModule;
 
+/**
+ * Main Guice module of the {@code bb-appium} module. Add it to your project's module or in your runmode file.
+ */
 public class AppiumModule extends AbstractModule {
   @Override
   protected void configure() {

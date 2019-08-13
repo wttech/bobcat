@@ -26,6 +26,9 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Creates instances of {@link FirefoxDriver}
+ */
 public class FirefoxDriverCreator implements WebDriverCreator {
   private static final Logger LOG = LoggerFactory.getLogger(FirefoxDriverCreator.class);
   private static final String ID = "firefox";

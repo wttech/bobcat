@@ -26,6 +26,9 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Creates instances of {@link EdgeDriver}
+ */
 public class EdgeDriverCreator implements WebDriverCreator {
   private static final Logger LOG = LoggerFactory.getLogger(EdgeDriverCreator.class);
   private static final String ID = "edge";

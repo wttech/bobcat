@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.provider.selenium;
+package com.cognifide.qa.bb.provider.selenium.webdriver;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +34,7 @@ import com.google.inject.Provider;
 /**
  * This is a provider for the Capabilities instances.
  */
-public class DesiredCapabilitiesProvider implements Provider<Capabilities> {
+public class CapabilitiesProvider implements Provider<Capabilities> {
 
   private static final String CAPABILITIES_PREFIX = "webdriver.cap.";
 
@@ -70,7 +70,7 @@ public class DesiredCapabilitiesProvider implements Provider<Capabilities> {
     return capabilitiesModifiers.modifyCapabilities(capabilities);
   }
 
-  private Object prepareType(String property) {
+  private java.io.Serializable prepareType(String property) {
     return StringUtils.equalsAnyIgnoreCase(property, BOOLEAN_STRINGS) ? Boolean.valueOf(property)
         : property;
   }

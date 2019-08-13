@@ -22,8 +22,21 @@ package com.cognifide.qa.bb.provider.selenium.webdriver.creators;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 
+/**
+ * Describes a creator of a specific WebDriver implementation.
+ */
 public interface WebDriverCreator {
+
+  /**
+   * Creates an instance of {@link WebDriver} with provided {@link Capabilities}
+   *
+   * @param capabilities map of capabilities passed
+   * @return an instance of WebDriver with provided capabilities
+   */
   WebDriver create(Capabilities capabilities);
 
+  /**
+   * @return ID of the creator, must match the corresponding {@code webdriver.type} System property
+   */
   String getId();
 }

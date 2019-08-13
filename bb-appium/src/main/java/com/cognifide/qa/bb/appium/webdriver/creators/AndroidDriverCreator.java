@@ -35,6 +35,9 @@ import com.google.inject.Inject;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobilePlatform;
 
+/**
+ * Creates instances of {@link AndroidDriver}
+ */
 public class AndroidDriverCreator implements WebDriverCreator {
 
   private static final Logger LOG = LoggerFactory.getLogger(AndroidDriverCreator.class);
@@ -60,7 +63,7 @@ public class AndroidDriverCreator implements WebDriverCreator {
     try {
       url = new URL(properties.getProperty(ConfigKeys.WEBDRIVER_APPIUM_URL));
     } catch (MalformedURLException e) {
-      throw new IllegalArgumentException(e);
+      throw new IllegalArgumentException("Your Appium URL seems to be malformed", e);
     }
 
     final String platform = properties.getProperty(ConfigKeys.WEBDRIVER_CAP_PLATFORM_NAME);

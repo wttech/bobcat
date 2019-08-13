@@ -26,6 +26,9 @@ import org.openqa.selenium.safari.SafariOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Creates instances of {@link SafariDriver}
+ */
 public class SafariDriverCreator implements WebDriverCreator {
   private static final Logger LOG = LoggerFactory.getLogger(SafariDriverCreator.class);
 

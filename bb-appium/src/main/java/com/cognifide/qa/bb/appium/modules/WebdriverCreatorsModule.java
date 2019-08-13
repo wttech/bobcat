@@ -25,6 +25,9 @@ import com.cognifide.qa.bb.provider.selenium.webdriver.creators.WebDriverCreator
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
 
+/**
+ * Registers WebDriverCreators from this module
+ */
 public class WebdriverCreatorsModule extends AbstractModule {
   @Override
   protected void configure() {

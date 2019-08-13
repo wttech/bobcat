@@ -26,6 +26,9 @@ import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Creates instances of {@link InternetExplorerDriver}
+ */
 public class IeDriverCreator implements WebDriverCreator {
   private static final Logger LOG = LoggerFactory.getLogger(IeDriverCreator.class);
 

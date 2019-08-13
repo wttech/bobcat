@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.provider.selenium;
+package com.cognifide.qa.bb.provider.selenium.webdriver;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -35,6 +35,7 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.openqa.selenium.Capabilities;
 
+import com.cognifide.qa.bb.provider.selenium.webdriver.CapabilitiesProvider;
 import com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.capabilities.CapabilitiesModifiers;
 
 @ExtendWith(MockitoExtension.class)
@@ -47,7 +48,7 @@ public class DesiredCapabilitiesProviderTest {
   private CapabilitiesModifiers capabilitiesModifiers;
 
   @InjectMocks
-  private DesiredCapabilitiesProvider tested;
+  private CapabilitiesProvider tested;
 
   @Spy
   private final Properties properties = new Properties();

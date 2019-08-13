@@ -33,6 +33,9 @@ import org.slf4j.LoggerFactory;
 import com.cognifide.qa.bb.constants.ConfigKeys;
 import com.google.inject.Inject;
 
+/**
+ * Creates instances of {@link RemoteWebDriver}.
+ */
 public class RemoteDriverCreator implements WebDriverCreator {
 
   private static final Logger LOG = LoggerFactory.getLogger(RemoteDriverCreator.class);

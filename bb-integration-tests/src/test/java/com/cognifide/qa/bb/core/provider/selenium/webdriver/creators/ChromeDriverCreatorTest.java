@@ -28,11 +28,13 @@ import org.openqa.selenium.WebDriver;
 
 import com.cognifide.qa.bb.core.modules.ChromeModule;
 import com.cognifide.qa.bb.core.util.PageUtils;
+import com.cognifide.qa.bb.junit5.BobcatExtension;
 import com.cognifide.qa.bb.junit5.guice.Modules;
 import com.google.inject.Inject;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
+@BobcatExtension
 @Tag("creator")
 @Modules(ChromeModule.class)
 class ChromeDriverCreatorTest {
