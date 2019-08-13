@@ -36,6 +36,7 @@ import com.cognifide.qa.bb.provider.selenium.webdriver.creators.ChromeDriverCrea
 import com.cognifide.qa.bb.provider.selenium.webdriver.creators.EdgeDriverCreator;
 import com.cognifide.qa.bb.provider.selenium.webdriver.creators.FirefoxDriverCreator;
 import com.cognifide.qa.bb.provider.selenium.webdriver.creators.IeDriverCreator;
+import com.cognifide.qa.bb.provider.selenium.webdriver.creators.RemoteDriverCreator;
 import com.cognifide.qa.bb.provider.selenium.webdriver.creators.SafariDriverCreator;
 import com.cognifide.qa.bb.provider.selenium.webdriver.creators.WebDriverCreator;
 import com.google.inject.Guice;
@@ -55,7 +56,8 @@ class CoreModuleTest {
         IeDriverCreator.class,
         ChromeDriverCreator.class,
         EdgeDriverCreator.class,
-        SafariDriverCreator.class)
+        SafariDriverCreator.class,
+        RemoteDriverCreator.class)
         .map(Class::getName)
         .collect(toList());
 
