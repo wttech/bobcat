@@ -5,10 +5,10 @@ default:
     proxy.port: 9000
 
     analytics.uri.prefix:  /b/ss
-    analytics.call.timeout.ms:  30000
+    analytics.call.timeout.ms:  10000
 
     webdriver.mobile: false
-    webdriver.maximize: true
+    webdriver.maximize: false
     webdriver.reusable: false
     webdriver.url: ''
 

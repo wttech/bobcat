@@ -46,7 +46,7 @@ public class AnalyticsWait {
   private String analyticsUriPrefix;
 
   @Inject
-  @Named(TrafficConfigKeys.AJAX_CALL_TIMEOUT_MS)
+  @Named(TrafficConfigKeys.ANALYTICS_CALL_TIMEOUT_MS)
   private long timeout;
 
   /**

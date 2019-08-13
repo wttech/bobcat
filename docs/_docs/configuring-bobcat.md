@@ -162,3 +162,29 @@ The following code is responsible for getting property object of given key:
 ```java
 properties.get("homepage.url")
 ```
+
+## Available properties
+
+Below you can find the list of properties available in Bobcat out-of-the-box:
+
+| Property | Default value | Comments |
+|----------|---------------|----------|
+| `webdriver.type` | not set | Determines which type of WebDriver is created |
+| `webdriver.maximize` | false | Maximizes the browser window |
+| `webdriver.reusable` | false | Enables reusability of `WebDriver` instances: instead of closing, browser's cookies are being cleaned up; potentially useful when creating WebDriver instances is resource-consuming|
+| `webdriver.mobile` | false | Denotes the driver is mobile. Disables alert checking when `webdriver.reusable` is set. |
+| `webdriver.url` | '' | URL of the Selenium Grid; used when `webdriver.type` is set to `remote` |
+| `webdriver.chrome.headless` | false | Chrome-specific; enables headless mode |
+| `webdriver.chrome.acceptInsecureCerts` | false | Chrome-specific; allows accepting insecure certificates |
+| `cookies.loadAutomatically` | true | Determines if the defined cookies are loaded automatically by Bobcat; more info: [link]({{site.baseurl}}/core/cookies/) |
+| `cookies.file` | not set | Determines the file with cookies definition; more info: [link]({{site.baseurl}}/core/cookies/) |
+| `modifiers.implicitTimeout` | true | Sets the implicit timeout to the value set in `timings.implicitTimeout` |
+| `timings.explicitTimeout` | 10 | Value of default explicit timeout |
+| `timings.implicitTimeout` | 1 | Value of default implicit timeout |
+| `timings.pollingInterval` | 500 | Value of default polling interval |
+| `proxy.enabled` | false | Controls if the BrowserMob proxy is enabled; enables it for the whole traffic |
+| `proxy.ip` | 127.0.0.1 | IP of the proxy service |
+| `proxy.port` | 9000 | Port of the proxy service |
+| `analytics.uri.prefix` | /b/ss | `bb-traffic`-specific; determines URI prefix for AnalyticsWait |
+| `analytics.call.timeout.ms` | 10000 | Defines default timeout for analytics calls in AnalyticsWait |
+| `login.token.name` | login-token | AEM-specific: defines the name of authentication cookie |
