@@ -28,6 +28,8 @@ docs:
     children:
       - title: "Overview"
         url: /docs/modules/core/
+      - title: "WebDriver"
+        url: /docs/modules/core/webdriver/
       - title: "Run Modes"
         url: /docs/modules/core/runmodes/
       - title: "PageObject and PageObjectInterface"
