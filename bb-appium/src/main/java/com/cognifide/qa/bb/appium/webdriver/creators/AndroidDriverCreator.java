@@ -28,6 +28,7 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.cognifide.qa.bb.appium.constants.AppiumConfigKeys;
 import com.cognifide.qa.bb.constants.ConfigKeys;
 import com.cognifide.qa.bb.provider.selenium.webdriver.creators.WebDriverCreator;
 import com.google.inject.Inject;
@@ -61,7 +62,7 @@ public class AndroidDriverCreator implements WebDriverCreator {
   private WebDriver createMobileDriver(Capabilities capabilities, Properties properties) {
     final URL url;
     try {
-      url = new URL(properties.getProperty(ConfigKeys.WEBDRIVER_APPIUM_URL));
+      url = new URL(properties.getProperty(AppiumConfigKeys.WEBDRIVER_APPIUM_URL));
     } catch (MalformedURLException e) {
       throw new IllegalArgumentException("Your Appium URL seems to be malformed", e);
     }

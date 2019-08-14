@@ -37,7 +37,11 @@
             <artifactId>bb-core</artifactId>
             <version>${project.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.cognifide.qa.bb</groupId>
+            <artifactId>bb-junit5</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>io.appium</groupId>
             <artifactId>java-client</artifactId>

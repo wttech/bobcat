@@ -24,12 +24,13 @@ import java.util.Set;
 
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.constants.ConfigKeys;
 import com.cognifide.qa.bb.frame.FrameSwitcher;
-import com.cognifide.qa.bb.provider.selenium.webdriver.WebDriverWrapper;
+import com.cognifide.qa.bb.provider.selenium.webdriver.BobcatTargetLocator;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.name.Named;
@@ -37,7 +38,7 @@ import com.google.inject.name.Named;
 /**
  * WebDriver wrapper implementing ClosingAwareWebDriver interface.
  */
-public class ClosingAwareWebDriverWrapper extends WebDriverWrapper
+public class ClosingAwareWebDriverWrapper extends EventFiringWebDriver
     implements ClosingAwareWebDriver {
 
   private static final Logger LOG = LoggerFactory.getLogger(ClosingAwareWebDriverWrapper.class);
@@ -51,6 +52,7 @@ public class ClosingAwareWebDriverWrapper extends WebDriverWrapper
   private final boolean reusable;
 
   private final boolean mobile;
+  private final FrameSwitcher frameSwitcher;
 
   private boolean alive = true;
 
@@ -72,7 +74,8 @@ public class ClosingAwareWebDriverWrapper extends WebDriverWrapper
       @Named(ConfigKeys.WEBDRIVER_MAXIMIZE) boolean maximize,
       @Named(ConfigKeys.WEBDRIVER_REUSABLE) boolean reusable,
       @Named(ConfigKeys.WEBDRIVER_MOBILE) boolean mobile) {
-    super(driver, frameSwitcher);
+    super(driver);
+    this.frameSwitcher = frameSwitcher;
     this.closedListeners = new HashSet<>();
     this.maximize = maximize;
     this.reusable = reusable;
@@ -124,6 +127,11 @@ public class ClosingAwareWebDriverWrapper extends WebDriverWrapper
     super.quit();
     alive = false;
     sendEvent(true);
+  }
+
+  @Override
+  public TargetLocator switchTo() {
+    return new BobcatTargetLocator(super.getWrappedDriver().switchTo(), frameSwitcher);
   }
 
   private void sendEvent(boolean terminated) {
