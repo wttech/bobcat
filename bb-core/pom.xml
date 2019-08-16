@@ -47,6 +47,11 @@ limitations under the License.
             <artifactId>selenium-remote-driver</artifactId>
         </dependency>
         <dependency>
+            <!--to be removed in next version - should come from its own module-->
+            <groupId>io.appium</groupId>
+            <artifactId>java-client</artifactId>
+        </dependency>
+        <dependency>
             <groupId>net.lightbody.bmp</groupId>
             <artifactId>browsermob-core</artifactId>
         </dependency>

@@ -29,12 +29,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.appium.constants.AppiumConfigKeys;
-import com.cognifide.qa.bb.constants.ConfigKeys;
 import com.cognifide.qa.bb.provider.selenium.webdriver.creators.WebDriverCreator;
 import com.google.inject.Inject;
 
 import io.appium.java_client.ios.IOSDriver;
-import io.appium.java_client.remote.MobilePlatform;
 
 /**
  * Creates instances of {@link IOSDriver}
@@ -67,17 +65,6 @@ public class IosDriverCreator implements WebDriverCreator {
       throw new IllegalArgumentException("Your Appium URL seems to be malformed", e);
     }
 
-    final String platform = properties.getProperty(ConfigKeys.WEBDRIVER_CAP_PLATFORM_NAME);
-    if (platform == null) {
-      throw new IllegalStateException(String.format("%s is missing. Set it either to %s or %s",
-          ConfigKeys.WEBDRIVER_CAP_PLATFORM_NAME, MobilePlatform.ANDROID, MobilePlatform.IOS));
-    }
-    if (MobilePlatform.IOS.equals(platform)) {
-      return new IOSDriver(url, capabilities);
-    } else {
-      throw new IllegalArgumentException(String.format(
-          "Requested iOS driver but incorrect platform name was provided. %s should be set to: %s",
-          ConfigKeys.WEBDRIVER_CAP_PLATFORM_NAME, MobilePlatform.IOS));
-    }
+    return new IOSDriver(url, capabilities);
   }
 }

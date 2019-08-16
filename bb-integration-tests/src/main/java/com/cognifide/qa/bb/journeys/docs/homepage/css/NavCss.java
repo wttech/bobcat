@@ -2,7 +2,7 @@
  * #%L
  * Bobcat
  * %%
- * Copyright (C) 2016 Cognifide Ltd.
+ * Copyright (C) 2019 Cognifide Ltd.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,20 +17,24 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.core.cookies;
+package com.cognifide.qa.bb.journeys.docs.homepage.css;
 
-import com.cognifide.qa.bb.appium.modules.AppiumModule;
-import com.cognifide.qa.bb.constants.ConfigKeys;
-import com.cognifide.qa.bb.modules.CoreModule;
-import com.google.inject.AbstractModule;
+import java.util.List;
 
-public class TestModuleWithEnabledAutoLoad extends AbstractModule {
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
+import com.cognifide.qa.bb.journeys.docs.Nav;
+import com.cognifide.qa.bb.qualifier.PageObject;
+
+@PageObject(css = "#site-nav")
+public class NavCss implements Nav {
+
+  @FindBy(css = ".masthead__menu-item")
+  private List<WebElement> items;
 
   @Override
-  protected void configure() {
-    System.setProperty(ConfigKeys.COOKIES_LOAD_AUTOMATICALLY, "true");
-    install(new CoreModule());
-    install(new AppiumModule());
+  public List<WebElement> getElements() {
+    return items;
   }
-
 }

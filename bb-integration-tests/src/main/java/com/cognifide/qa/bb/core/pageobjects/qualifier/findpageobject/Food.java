@@ -27,7 +27,7 @@ import java.util.List;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-@PageObject(css = "div[title='food']")
+@PageObject(xpath = "//div[@title='food']")
 public class Food implements Item{
 
   @Inject
