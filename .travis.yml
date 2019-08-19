@@ -22,6 +22,8 @@ env:
   - OS=Windows OS_VER=10 BROWSER=Edge
   - OS=Windows OS_VER=10 BROWSER=IE
   - OS='OS X' OS_VER='Mojave' BROWSER=Safari
+  - OS_VER='12' WEBDRIVER_TYPE=ios DEVICE="iPhone XR"
+  - OS_VER='9.0' WEBDRIVER_TYPE=android DEVICE="Samsung Galaxy S9 PlusR"
 
 matrix:
   include:

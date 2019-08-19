@@ -18,9 +18,7 @@
   limitations under the License.
   #L%
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -32,6 +30,10 @@
     <artifactId>bb-integration-tests</artifactId>
 
     <name>Bobcat Integration Tests</name>
+
+    <properties>
+        <test.suite>!creator</test.suite>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -87,10 +89,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <properties>
-        <test.suite>!creator</test.suite>
-    </properties>
 
     <build>
         <plugins>

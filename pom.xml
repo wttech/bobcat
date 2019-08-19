@@ -18,9 +18,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 #L%
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.cognifide.qa.bb</groupId>
@@ -30,8 +28,7 @@ limitations under the License.
 
     <name>Bobcat</name>
     <description>Bobcat is an automated testing framework for functional testing of web
-        applications.
-    </description>
+        applications.</description>
     <url>https://github.com/cognifide/bobcat</url>
     <inceptionYear>2016</inceptionYear>
 
