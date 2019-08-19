@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ARGS=()
 [[ -z "$DEVICE" ]] && ARGS+=("-Dwebdriver.url=https://${BROWSERSTACK_USERNAME}:${BROWSERSTACK_ACCESS_KEY}@hub-cloud.browserstack.com/wd/hub")
