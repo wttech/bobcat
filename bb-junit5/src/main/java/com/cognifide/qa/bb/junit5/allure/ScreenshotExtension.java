@@ -50,26 +50,19 @@ public class ScreenshotExtension implements TestExecutionExceptionHandler {
 
   private static final Logger LOG = LoggerFactory.getLogger(ScreenshotExtension.class);
 
-  /**
-   * Enabled when a driver is not mobile (based on the {@code webdriver.mobile} property). Dedicated extension for mobile drivers is provided in bb-appium module.
-   * {@inheritDoc}
-   */
   @Override
   public void handleTestExecutionException(ExtensionContext context, Throwable throwable)
       throws Throwable {
-    if (Boolean.valueOf(System.getProperty("webdriver.mobile", "false"))) {
-      Injector injector = InjectorUtils.retrieveInjectorFromStore(context, NAMESPACE);
-      if (injector != null && injector.getInstance(Properties.class)
-          .getProperty(ALLURE_REPORT, "false").equals("true")) {
-        WebDriver webDriver = injector.getInstance(Key.get(WebDriver.class));
-        try {
-          takeScreenshot(webDriver);
-        } catch (IOException e) {
-          LOG.error("Could not take a screenshot", e);
-        }
+    Injector injector = InjectorUtils.retrieveInjectorFromStore(context, NAMESPACE);
+    if (injector != null && Boolean
+        .valueOf(injector.getInstance(Properties.class).getProperty(ALLURE_REPORT))) {
+      WebDriver webDriver = injector.getInstance(Key.get(WebDriver.class));
+      try {
+        takeScreenshot(webDriver);
+      } catch (IOException e) {
+        LOG.error("Could not take a screenshot", e);
       }
     }
-
     throw throwable;
   }
 
