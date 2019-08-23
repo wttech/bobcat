@@ -36,7 +36,7 @@ import com.cognifide.qa.bb.junit5.selenium.WebdriverCloseExtension;
 @ExtendWith(ScreenshotExtension.class)
 @ExtendWith(WebdriverCloseExtension.class)
 @ExtendWith(EnvironmentInfoExtension.class)
-@Target(ElementType.TYPE)
+@Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 public @interface BobcatExtension {

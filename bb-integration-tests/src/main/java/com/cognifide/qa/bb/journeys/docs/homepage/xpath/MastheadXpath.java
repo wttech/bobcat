@@ -2,7 +2,7 @@
  * #%L
  * Bobcat
  * %%
- * Copyright (C) 2016 Cognifide Ltd.
+ * Copyright (C) 2019 Cognifide Ltd.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,20 +17,21 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.core.cookies;
+package com.cognifide.qa.bb.journeys.docs.homepage.xpath;
 
-import com.cognifide.qa.bb.appium.modules.AppiumModule;
-import com.cognifide.qa.bb.constants.ConfigKeys;
-import com.cognifide.qa.bb.modules.CoreModule;
-import com.google.inject.AbstractModule;
+import com.cognifide.qa.bb.journeys.docs.Masthead;
+import com.cognifide.qa.bb.journeys.docs.Nav;
+import com.cognifide.qa.bb.qualifier.FindPageObject;
+import com.cognifide.qa.bb.qualifier.PageObject;
 
-public class TestModuleWithEnabledAutoLoad extends AbstractModule {
+@PageObject(xpath = "//div[contains(@class,'masthead')]")
+public class MastheadXpath implements Masthead {
+
+  @FindPageObject
+  private Nav nav;
 
   @Override
-  protected void configure() {
-    System.setProperty(ConfigKeys.COOKIES_LOAD_AUTOMATICALLY, "true");
-    install(new CoreModule());
-    install(new AppiumModule());
+  public Nav getNav() {
+    return nav;
   }
-
 }

@@ -71,6 +71,7 @@ import io.appium.java_client.ios.ShakesDevice;
 import io.appium.java_client.windows.PressesKeyCode;
 
 /**
+ * @deprecated to be removed when we'll bump Selenium to 4.0
  * This class is a "simple" extension of Selenium's EventFiringWebDriver that additionally
  * implements several useful interfaces.
  */

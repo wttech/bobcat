@@ -31,10 +31,19 @@
 
     <name>Bobcat Integration Tests</name>
 
+    <properties>
+        <test.suite>!creator</test.suite>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.cognifide.qa.bb</groupId>
             <artifactId>bb-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.cognifide.qa.bb</groupId>
+            <artifactId>bb-appium</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -80,10 +89,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <properties>
-        <test.suite>!creator</test.suite>
-    </properties>
 
     <build>
         <plugins>

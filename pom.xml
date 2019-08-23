@@ -96,10 +96,11 @@ limitations under the License.
         <maven.javadoc.failOnError>false</maven.javadoc.failOnError>
 
         <jacoco.version>0.8.4</jacoco.version>
-        <selenium.version>3.141.0</selenium.version>
+        <selenium.version>3.141.59</selenium.version>
         <guice.version>4.2.2</guice.version>
         <version.logback>1.2.3</version.logback>
         <junit.jupiter.version>5.5.1</junit.jupiter.version>
+        <appium.version>6.1.0</appium.version>
     </properties>
 
     <dependencyManagement>
@@ -120,7 +121,7 @@ limitations under the License.
             <dependency>
                 <groupId>io.appium</groupId>
                 <artifactId>java-client</artifactId>
-                <version>6.1.0</version>
+                <version>${appium.version}</version>
             </dependency>
 
             <dependency>
@@ -165,6 +166,11 @@ limitations under the License.
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>28.0-jre</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>4.5.9</version>
             </dependency>
 
             <!-- logging -->

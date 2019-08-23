@@ -28,12 +28,11 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cognifide.qa.bb.constants.ConfigKeys;
+import com.cognifide.qa.bb.appium.constants.AppiumConfigKeys;
 import com.cognifide.qa.bb.provider.selenium.webdriver.creators.WebDriverCreator;
 import com.google.inject.Inject;
 
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.remote.MobilePlatform;
 
 /**
  * Creates instances of {@link AndroidDriver}
@@ -61,18 +60,11 @@ public class AndroidDriverCreator implements WebDriverCreator {
   private WebDriver createMobileDriver(Capabilities capabilities, Properties properties) {
     final URL url;
     try {
-      url = new URL(properties.getProperty(ConfigKeys.WEBDRIVER_APPIUM_URL));
+      url = new URL(properties.getProperty(AppiumConfigKeys.WEBDRIVER_APPIUM_URL));
     } catch (MalformedURLException e) {
       throw new IllegalArgumentException("Your Appium URL seems to be malformed", e);
     }
 
-    final String platform = properties.getProperty(ConfigKeys.WEBDRIVER_CAP_PLATFORM_NAME);
-    if (MobilePlatform.ANDROID.equals(platform)) {
-      return new AndroidDriver(url, capabilities);
-    } else {
-      throw new IllegalArgumentException(String.format(
-          "Requested Android driver but incorrect platform name was provided. %s should be set to: %s",
-          ConfigKeys.WEBDRIVER_CAP_PLATFORM_NAME, MobilePlatform.ANDROID));
-    }
+    return new AndroidDriver(url, capabilities);
   }
 }

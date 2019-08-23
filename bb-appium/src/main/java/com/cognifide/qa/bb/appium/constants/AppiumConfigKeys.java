@@ -2,7 +2,7 @@
  * #%L
  * Bobcat
  * %%
- * Copyright (C) 2016 Cognifide Ltd.
+ * Copyright (C) 2019 Cognifide Ltd.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,20 +17,15 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.core.cookies;
+package com.cognifide.qa.bb.appium.constants;
 
-import com.cognifide.qa.bb.appium.modules.AppiumModule;
-import com.cognifide.qa.bb.constants.ConfigKeys;
-import com.cognifide.qa.bb.modules.CoreModule;
-import com.google.inject.AbstractModule;
-
-public class TestModuleWithEnabledAutoLoad extends AbstractModule {
-
-  @Override
-  protected void configure() {
-    System.setProperty(ConfigKeys.COOKIES_LOAD_AUTOMATICALLY, "true");
-    install(new CoreModule());
-    install(new AppiumModule());
+/**
+ * Configuration keys for the bb-appium module
+ */
+public class AppiumConfigKeys {
+  private AppiumConfigKeys() {
+    //util
   }
 
+  public static final String WEBDRIVER_APPIUM_URL = "webdriver.appium.url";
 }

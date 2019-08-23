@@ -45,6 +45,7 @@ limitations under the License.
             <artifactId>selenium-remote-driver</artifactId>
         </dependency>
         <dependency>
+            <!--to be removed in next version - should come from its own module-->
             <groupId>io.appium</groupId>
             <artifactId>java-client</artifactId>
         </dependency>
@@ -75,6 +76,10 @@ limitations under the License.
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
         </dependency>
 
         <!-- logging -->

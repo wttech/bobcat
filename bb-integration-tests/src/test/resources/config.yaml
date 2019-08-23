@@ -11,6 +11,7 @@ default:
     proxy.port: 9000
 
     cookies.loadAutomatically: false
+    allure.report: true
 
 contexts:
   firefox:
