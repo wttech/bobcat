@@ -87,6 +87,7 @@ author:
 include:
   - .htaccess
   - _pages
+  - tests
 exclude:
   - "*.sublime-project"
   - "*.sublime-workspace"

@@ -70,6 +70,15 @@
   }
 }
 
+.archive__item-teaser-oss {
+  border-radius: $border-radius;
+  overflow: hidden;
+  img {
+    width: 50%;
+  }
+  padding: 15px;
+}
+
 /*
    List view
    ========================================================================== */

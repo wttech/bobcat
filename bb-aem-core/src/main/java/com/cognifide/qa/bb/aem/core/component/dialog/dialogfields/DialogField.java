@@ -23,6 +23,16 @@ import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 
 /**
  * This interface represents a TouchUI element that is a dialog field.
+ * <p>
+ * Each dialog field has a following structure:
+ * <ul>
+ * <li>field wrapper
+ * <ul>
+ * <li>field label</li>
+ * <li>the actual field</li>
+ * </ul>
+ * </li>
+ * </ul>
  */
 @PageObjectInterface
 public interface DialogField {
@@ -32,4 +42,11 @@ public interface DialogField {
    * @param value object representing desired component value.
    */
   void setValue(Object value);
+
+  /**
+   * @return label of the field
+   */
+  default String getLabel() {
+    return null;
+  }
 }

@@ -144,7 +144,9 @@ public class ConfigDialogImpl implements ConfigDialog {
    */
   @Override
   public DialogField getFieldOnTab(String label, String tab, String fieldType) {
-    switchTab(tab);
+    if (!"no_label".equals(tab)) {
+      switchTab(tab);
+    }
     return getField(label, fieldType);
   }
 

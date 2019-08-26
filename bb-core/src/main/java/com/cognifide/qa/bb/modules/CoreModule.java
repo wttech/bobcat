@@ -48,11 +48,11 @@ public class CoreModule extends AbstractModule {
 
     install(new PropertyModule());
 
-    install(new SeleniumModule());
-
     install(new PageObjectsModule());
 
     install(new WebdriverModule());
+
+    install(new WebdriverCreatorsModule());
 
     install(new BobcatWebElementModule());
 

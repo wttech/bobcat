@@ -26,7 +26,11 @@ Either way, each upcoming AEM version will have its own AEM module following thi
 
 ## Bobcat AEM compatibility
 
-|    Module   | Bobcat version |           AEM version          |   Status   |
-|:-----------:|:--------------:|:------------------------------:|:----------:|
-| bb-touch-ui |    <= 1.6.0    | <6.2, 6.3 (with customization) |     EOL    |
-|  bb-aem-64  |     latest     |               6.4              | Maintained |
+|    Module     | Bobcat version |       AEM version       |   Status   |
+|:-------------:|:--------------:|:-----------------------:|:----------:|
+| bb-touch-ui   |    <= 1.6.0    |       <6.2*             |     EOL    |
+|  bb-aem-64    |     latest     |        6.4              | Maintained |
+|  bb-aem-64sp2 |     latest     |  6.4.2 (Service Pack 2) | Maintained |
+|  bb-aem-65    |     latest     |        6.5              | Maintained |
+
+>* 6.3 was never officially supported, it was automated with heavy customizations by some Bobcat users

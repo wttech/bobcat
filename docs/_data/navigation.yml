@@ -28,6 +28,8 @@ docs:
     children:
       - title: "Overview"
         url: /docs/modules/core/
+      - title: "WebDriver"
+        url: /docs/modules/core/webdriver/
       - title: "Run Modes"
         url: /docs/modules/core/runmodes/
       - title: "PageObject and PageObjectInterface"
@@ -42,6 +44,8 @@ docs:
         url: /docs/modules/core/cookies/
   - title: "AEM features"
     children:
+      - title: "AEM modules"
+        url: /docs/modules/aem/
       - title: "AEM compatibility"
         url: /docs/modules/aem/compatibility/
       - title: "Components configuration"
@@ -54,17 +58,13 @@ docs:
         url: /docs/modules/traffic/
       - title: "Email"
         url: /docs/modules/email/
-  - title: "AEM modules"
-    children:
-      - title: "AEM Core"
-        url: /docs/modules/aem-core/
-      - title: "AEM 64"
-        url: /docs/modules/aem-64/
   - title: Integrations
     children:
       - title: "Allure"
         url: "/docs/allure/"
       - title: "Cucumber"
         url: "/docs/cucumber/"
+      - title: "Cloud providers"
+        url: "/docs/cloud-providers"
   - title: "API docs"
     url: "http://www.javadoc.io/doc/com.cognifide.qa.bb/bb-core/"

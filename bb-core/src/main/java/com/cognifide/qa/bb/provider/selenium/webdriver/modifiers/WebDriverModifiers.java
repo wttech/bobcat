@@ -19,57 +19,33 @@
  */
 package com.cognifide.qa.bb.provider.selenium.webdriver.modifiers;
 
-
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 
 import com.cognifide.qa.bb.guice.ThreadScoped;
-import com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.capabilities.CapabilitiesModifier;
 import com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.collectors.WebDriverModifyingCollector;
 import com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.webdriver.WebDriverModifier;
 import com.google.inject.Inject;
 
 /**
- * Gathers all Capabilities and WebDriver modifiers, sorts them and filters enabled ones only.
+ * Gathers all WebDriver modifiers, sorts them and filters enabled ones only.
  */
 @ThreadScoped
 public class WebDriverModifiers {
 
-  private final List<CapabilitiesModifier> capabilitiesModifiers;
-
   private final List<WebDriverModifier> driverModifiers;
 
   @Inject
-  public WebDriverModifiers(Set<CapabilitiesModifier> capabilitiesModifiers,
-      Set<WebDriverModifier> driverModifiers) {
-    this.capabilitiesModifiers = capabilitiesModifiers.stream() //
-        .filter(CapabilitiesModifier::shouldModify) //
-        .sorted(Comparator.comparing(CapabilitiesModifier::getOrder)) //
-        .collect(Collectors.toList());
+  public WebDriverModifiers(Set<WebDriverModifier> driverModifiers) {
     this.driverModifiers = driverModifiers.stream() //
         .filter(WebDriverModifier::shouldModify) //
         .sorted(Comparator.comparing(WebDriverModifier::getOrder))//
         .collect(Collectors.toList());
-  }
-
-  /**
-   * Modifies provided Capabilities with registered set of modifiers.
-   *
-   * @param capabilities raw Capabilities instance
-   * @return modified Capabilities instance
-   */
-  public Capabilities modifyCapabilities(Capabilities capabilities) {
-    Capabilities modifiedCapabilities = capabilities;
-    for (CapabilitiesModifier modifier : capabilitiesModifiers) {
-      modifiedCapabilities = modifier.modify(capabilities);
-    }
-    return modifiedCapabilities;
   }
 
   /**

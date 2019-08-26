@@ -22,9 +22,9 @@ limitations under the License.
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>bobcat</artifactId>
         <groupId>com.cognifide.qa.bb</groupId>
-        <version>2.0.4-SNAPSHOT</version>
+        <artifactId>bobcat</artifactId>
+        <version>2.1.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>bb-core</artifactId>
@@ -45,6 +45,7 @@ limitations under the License.
             <artifactId>selenium-remote-driver</artifactId>
         </dependency>
         <dependency>
+            <!--to be removed in next version - should come from its own module-->
             <groupId>io.appium</groupId>
             <artifactId>java-client</artifactId>
         </dependency>
@@ -71,6 +72,14 @@ limitations under the License.
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-yaml</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
         </dependency>
 
         <!-- logging -->
@@ -130,10 +139,6 @@ limitations under the License.
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <verbose>true</verbose>
-                    <showWarnings>true</showWarnings>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>

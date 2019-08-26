@@ -1,0 +1,20 @@
+<div class="feature__wrapper">
+
+    <div class="feature__item--center">
+      <div class="archive__item">
+        <div class="archive__item-body">
+            <h2 class="archive__item-title">Integrated cloud-based testing solutions</h2>
+
+            <div class="archive__item-excerpt">
+              Thanks to the support for open source communities, we have integrated with:
+            </div>
+
+            <div class="archive__item-teaser-oss">
+              <a href="https://www.browserstack.com" target="_blank" rel="noopener">
+                <img src="assets/img/oss/Browserstack-logo@2x.png" alt="BrowserStack logo">
+              </a>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>

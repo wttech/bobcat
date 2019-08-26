@@ -46,4 +46,8 @@ public class TabConfig {
     return tabName;
   }
 
+  @Override
+  public String toString() {
+    return "Tab '" + tabName + "'; config:\n" + data;
+  }
 }
