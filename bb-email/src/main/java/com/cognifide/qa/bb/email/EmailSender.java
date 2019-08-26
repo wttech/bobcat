@@ -25,9 +25,9 @@ import org.apache.commons.mail.SimpleEmail;
 
 import com.cognifide.qa.bb.email.connector.EmailException;
 import com.cognifide.qa.bb.email.constants.EmailConfigKeys;
-import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.google.inject.name.Named;
+import com.google.inject.assistedinject.Assisted;
+import com.google.inject.assistedinject.AssistedInject;
 
 /**
  * Simple class for sending emails. It uses org.apache.commons.mail library.
@@ -35,25 +35,25 @@ import com.google.inject.name.Named;
 @Singleton
 public class EmailSender {
 
-  @Inject
-  @Named(EmailConfigKeys.EMAIL_USERNAME)
   private String username;
 
-  @Inject
-  @Named(EmailConfigKeys.EMAIL_PASSWORD)
   private String password;
 
-  @Inject
-  @Named(EmailConfigKeys.SMTP_SERVER_ADDRESS)
   private String smtpServer;
 
-  @Inject
-  @Named(EmailConfigKeys.SMTP_SERVER_PORT)
   private int smtpPort;
 
-  @Inject
-  @Named(EmailConfigKeys.SMTP_SERVER_SECURE)
   private boolean secure;
+
+  @AssistedInject
+  public EmailSender(@Assisted String id, EmailConfigFactory factory) {
+    EmailConfig emailConfig = factory.create(id);
+    this.username = emailConfig.getParameter(EmailConfigKeys.EMAIL_USERNAME);
+    this.password = emailConfig.getParameter(EmailConfigKeys.EMAIL_PASSWORD);
+    this.smtpServer = emailConfig.getParameter(EmailConfigKeys.SMTP_SERVER_ADDRESS);
+    this.smtpPort = emailConfig.getParameter(Integer.class, EmailConfigKeys.SMTP_SERVER_PORT);
+    this.secure = emailConfig.getParameter(Boolean.class, EmailConfigKeys.SMTP_SERVER_SECURE);
+  }
 
   public void sendEmail(final EmailData emailData) {
     try {

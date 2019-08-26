@@ -24,10 +24,11 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cognifide.qa.bb.email.EmailConfigFactory;
 import com.cognifide.qa.bb.email.EmailData;
-import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.google.inject.name.Named;
+import com.google.inject.assistedinject.Assisted;
+import com.google.inject.assistedinject.AssistedInject;
 
 @Singleton
 public class EmailDataGenerator {
@@ -36,13 +37,15 @@ public class EmailDataGenerator {
 
   private static final int NUMBER_OF_BITS = 130;
 
-  @Inject
-  @Named("email.address")
   private String addressTo;
 
-  @Inject
-  @Named("email.address")
   private String addressFrom;
+
+  @AssistedInject
+  public EmailDataGenerator(@Assisted String id, EmailConfigFactory emailConfigFactory) {
+    this.addressTo = emailConfigFactory.create(id).getParameter("email.${id}.address");
+    this.addressFrom = addressTo;
+  }
 
   public List<EmailData> generateEmailData(int number) {
     List<EmailData> result = new ArrayList<>();

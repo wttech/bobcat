@@ -33,7 +33,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.email.connector.Connector;
-import com.google.inject.Inject;
+import com.cognifide.qa.bb.email.connector.ConnectorFactory;
+import com.google.inject.assistedinject.Assisted;
+import com.google.inject.assistedinject.AssistedInject;
 
 /**
  * This class represents email client.
@@ -49,13 +51,16 @@ public class EmailClient {
   private Folder folder;
 
   /**
-   * @param connection MailBox protocol connection.
-   * @param emailDataFactory Email data factory
+   * @param id Identification of configuration.
+   * @param connectionFactory Email config factory
+   * @param emailConfigFactory Email config factory
    */
-  @Inject
-  public EmailClient(Connector connection, EmailDataFactory emailDataFactory) {
-    this.connection = connection;
-    this.emailDataFactory = emailDataFactory;
+  @AssistedInject
+  public EmailClient(@Assisted String id, ConnectorFactory connectionFactory,
+      EmailConfigFactory emailConfigFactory) {
+    EmailConfig emailConfig = emailConfigFactory.create(id);
+    this.connection = connectionFactory.create(id).get();
+    this.emailDataFactory = new EmailDataFactory(emailConfig);
   }
 
   /**

@@ -21,26 +21,31 @@ package com.cognifide.qa.bb.email.constants;
 
 public final class EmailConfigKeys {
 
-  public static final String EMAIL_SERVER_ADDRESS = "email.server.address";
+  public static final String EMAIL_SERVER_ADDRESS = "email.${id}.server.address";
 
-  public static final String EMAIL_SERVER_PORT = "email.server.port";
+  public static final String EMAIL_SERVER_PORT = "email.${id}.server.port";
 
-  public static final String EMAIL_SERVER_PROTOCOL = "email.server.protocol";
+  public static final String EMAIL_SERVER_PROTOCOL = "email.${id}.server.protocol";
 
-  public static final String EMAIL_USERNAME = "email.username";
+  public static final String EMAIL_USERNAME = "email.${id}.username";
 
-  public static final String EMAIL_PASSWORD = "email.password";
+  public static final String EMAIL_PASSWORD = "email.${id}.password";
 
-  public static final String EMAIL_FOLDER_NAME = "email.folder.name";
+  public static final String EMAIL_ADDRESS = "email.${id}.address";
 
-  public static final String EMAIL_ADDRESS_PATTERN = "email.address.pattern";
+  public static final String EMAIL_FOLDER_NAME = "email.${id}.folder.name";
 
-  public static final String SMTP_SERVER_SECURE = "smtp.server.secure";
+  public static final String EMAIL_ADDRESS_PATTERN = "email.${id}.address.pattern";
 
-  public static final String SMTP_SERVER_PORT = "smtp.server.port";
+  public static final String SMTP_SERVER_SECURE = "smtp.${id}.server.secure";
 
-  public static final String SMTP_SERVER_ADDRESS = "smtp.server.address";
+  public static final String SMTP_SERVER_PORT = "smtp.${id}.server.port";
 
-  private EmailConfigKeys() {}
+  public static final String SMTP_SERVER_ADDRESS = "smtp.${id}.server.address";
+
+  public static final String ID = "id";
+
+  private EmailConfigKeys() {
+  }
 
 }

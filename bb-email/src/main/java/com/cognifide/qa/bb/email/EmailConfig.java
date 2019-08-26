@@ -17,33 +17,37 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.email.connector;
+package com.cognifide.qa.bb.email;
 
-import com.cognifide.qa.bb.email.EmailConfig;
-import com.cognifide.qa.bb.email.EmailConfigFactory;
+import java.util.Collections;
+import java.util.Map;
+
+import org.apache.commons.lang3.text.StrSubstitutor;
+
 import com.cognifide.qa.bb.email.constants.EmailConfigKeys;
+import com.google.inject.Injector;
+import com.google.inject.Key;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
+import com.google.inject.name.Names;
 
-/**
- * This class is a provider of mailbox connector.
- */
-public class ConnectorProvider {
+public class EmailConfig {
 
-  private ConnectorConfig configuration;
-
-  private String protocol;
+  private final Map<String, String> map;
+  private final Injector injector;
 
   @AssistedInject
-  public ConnectorProvider(@Assisted String id, EmailConfigFactory emailConfigFactory) {
-    EmailConfig emailConfig = emailConfigFactory.create(id);
-    this.configuration = new ConnectorConfig(emailConfig);
-    this.protocol = emailConfig.getParameter(EmailConfigKeys.EMAIL_SERVER_PROTOCOL);
+  public EmailConfig(@Assisted String id, Injector injector) {
+    this.map = Collections.singletonMap(EmailConfigKeys.ID, id);
+    this.injector = injector;
   }
 
-  public Connector get() {
-    ConnectorType type = ConnectorType.valueOf(protocol.trim().toUpperCase());
-    return type.getInstance(configuration);
+  public String getParameter(String name) {
+    return getParameter(String.class, name);
   }
 
+  public <T> T getParameter(Class<T> type, String name) {
+    String realId = StrSubstitutor.replace(name, map);
+    return injector.getInstance(Key.get(type, Names.named(realId)));
+  }
 }
