@@ -19,62 +19,78 @@
  */
 package com.cognifide.qa.bb.mapper.field;
 
-import com.cognifide.qa.bb.qualifier.PageObject;
-import com.cognifide.qa.bb.qualifier.PageObjectInterface;
-import com.google.inject.Binding;
-import com.google.inject.Injector;
-import com.google.inject.internal.LinkedBindingImpl;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.WildcardType;
 import java.util.Objects;
+import java.util.Optional;
+
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
+
+import com.cognifide.qa.bb.qualifier.PageObject;
+import com.cognifide.qa.bb.qualifier.PageObjectInterface;
+import com.google.inject.Binding;
+import com.google.inject.Injector;
+import com.google.inject.internal.LinkedBindingImpl;
 
 /**
  * Helper class for Page Objects
  */
 public final class PageObjectProviderHelper {
 
-  public static final String ERROR_MSG =
-      "PageObject has to have defined selector when used with FindPageObject annotation";
-
   private PageObjectProviderHelper() {
     // Empty for helper class
   }
 
-  public static By getSelectorFromPageObjectField(Field field, Injector injector) {
-    return field.getType().isAnnotationPresent(
-        PageObjectInterface.class) ? getSelectorFromPageObjectInterfaceType(field.getType(), injector)
-        : PageObjectProviderHelper.getSelectorFromPageObject(field);
+  /**
+   * Gets selector from {@link PageObject} from the provided field.
+   * Also handles the case of {@link PageObjectInterface}.
+   *
+   * @param field    class field
+   * @param injector injector in which search for proper bindings will be done in
+   * @return an {@link Optional} containing the selector
+   */
+  public static Optional<By> getSelectorFromPageObjectField(Field field, Injector injector) {
+    return field.getType().isAnnotationPresent(PageObjectInterface.class) ?
+        getSelectorFromPageObjectInterfaceType(field.getType(), injector)
+        : getSelectorFromPageObject(field);
   }
 
   /**
-   * Gets selector from {@link PageObject} if class annotated by this annotation is used in list
+   * Gets selector from {@link PageObject} if class annotated by this annotation is used in parameterized types, e.g. lists.
+   * Also handles the case of {@link PageObjectInterface}.
    *
-   * @param field class field
-   * @return selector
+   * @param field    class field
+   * @param injector injector in which search for proper bindings will be done in
+   * @return an {@link Optional} containing the selector
    */
-  public static By getSelectorFromGenericPageObject(Field field,
-      Injector originalInjector) {
+  public static Optional<By> getSelectorFromGenericPageObject(Field field, Injector injector) {
     Class<?> genericType = getGenericType(field);
-    if (genericType != null && genericType.isAnnotationPresent(
-        PageObjectInterface.class)) {
-      return getSelectorFromPageObjectInterfaceType(genericType, originalInjector);
+    if (genericType != null && genericType.isAnnotationPresent(PageObjectInterface.class)) {
+      return getSelectorFromPageObjectInterfaceType(genericType, injector);
     } else {
-      return retrieveSelectorFromPageObject(field, true);
+      return retrieveSelectorFromPageObjectField(field, true);
     }
   }
 
-  public static By getSelectorFromPageObjectInterfaceType(Class<?> type, Injector injector) {
+  /**
+   * Retrieves {@link By} selector from {@link PageObject} annotation when the provided type is a {@link PageObjectInterface}.
+   * It searches through the bindings of the provided Guice's injector.
+   *
+   * @param type     of the PageObject to retrieve the selector from
+   * @param injector used to search through its bindings to find the implementation of the provided interface
+   * @return
+   */
+  public static Optional<By> getSelectorFromPageObjectInterfaceType(Class<?> type,
+      Injector injector) {
     Binding<?> binding = injector.getBinding(type);
     if (binding instanceof LinkedBindingImpl) {
-      return PageObjectProviderHelper
-          .retrieveSelectorFromPageObjectInterface(
-              ((LinkedBindingImpl) binding).getLinkedKey().getTypeLiteral().getRawType());
+      return getSelectorFromPageObjectClass(
+          ((LinkedBindingImpl) binding).getLinkedKey().getTypeLiteral().getRawType());
     }
-    throw new IllegalArgumentException(ERROR_MSG);
+    throw new IllegalArgumentException("Could not retrieve selector from the type: " + type);
   }
 
   /**
@@ -83,8 +99,8 @@ public final class PageObjectProviderHelper {
    * @param field class field
    * @return selector
    */
-  public static By getSelectorFromPageObject(Field field) {
-    return retrieveSelectorFromPageObject(field, false);
+  public static Optional<By> getSelectorFromPageObject(Field field) {
+    return retrieveSelectorFromPageObjectField(field, false);
   }
 
   /**
@@ -104,34 +120,44 @@ public final class PageObjectProviderHelper {
     return null;
   }
 
-  public static By retrieveSelectorFromPageObjectInterface(Class<?> field) {
-    String cssValue = field.getAnnotation(PageObject.class).css();
-    if (StringUtils.isNotEmpty(cssValue)) {
-      return By.cssSelector(cssValue);
-    }
-    String xpathValue = field.getAnnotation(PageObject.class).xpath();
-    if (StringUtils.isNotEmpty(xpathValue)) {
-      return By.xpath(xpathValue);
-    }
-    throw new IllegalArgumentException(ERROR_MSG);
+  /**
+   * Retrieves {@link By} selector from {@link PageObject} annotation of the provided class.
+   *
+   * @param clazz type of the object annotated with {@link PageObject}
+   * @return an {@link Optional} that can contain following values:
+   * <ul>
+   * <li>{@link By#cssSelector}</li>
+   * <li>{@link By#xpath}</li>
+   * <li>empty if no selector was provided</li>
+   * </ul>
+   */
+  public static Optional<By> getSelectorFromPageObjectClass(Class<?> clazz) {
+    PageObject pageObject = Objects.requireNonNull(clazz.getAnnotation(PageObject.class));
+    return retrieveSelectorFromAnnotation(pageObject);
   }
 
-  private static By retrieveSelectorFromPageObject(Field field, boolean useGeneric) {
-    String cssValue = useGeneric
-        ? Objects.requireNonNull(PageObjectProviderHelper.getGenericType(field))
-        .getAnnotation(PageObject.class).css()
-        : field.getType().getAnnotation(PageObject.class).css();
-    if (StringUtils.isNotEmpty(cssValue)) {
-      return By.cssSelector(cssValue);
-    }
-    String xpathValue = useGeneric
-        ? Objects.requireNonNull(PageObjectProviderHelper.getGenericType(field))
-        .getAnnotation(PageObject.class).xpath()
-        : field.getType().getAnnotation(PageObject.class).xpath();
-    if (StringUtils.isNotEmpty(xpathValue)) {
-      return By.xpath(xpathValue);
-    }
-    throw new IllegalArgumentException(ERROR_MSG);
+  private static Optional<By> retrieveSelectorFromPageObjectField(Field field, boolean useGeneric) {
+    PageObject pageObject = useGeneric
+        ? Objects.requireNonNull(getGenericType(field)).getAnnotation(PageObject.class)
+        : field.getType().getAnnotation(PageObject.class);
+
+    return retrieveSelectorFromAnnotation(pageObject);
   }
 
+  private static Optional<By> retrieveSelectorFromAnnotation(PageObject annotation) {
+    String cssValue = annotation.css();
+    String xpathValue = annotation.xpath();
+    if (StringUtils.isNotEmpty(cssValue) && StringUtils.isNotEmpty(xpathValue)) {
+      throw new IllegalArgumentException(
+          "Please provide only CSS or XPath selector for your PageObjectL: " + annotation);
+    }
+
+    Optional<By> selector = Optional.empty();
+    if (StringUtils.isNotEmpty(cssValue)) {
+      selector = Optional.of(By.cssSelector(cssValue));
+    } else if (StringUtils.isNotEmpty(xpathValue)) {
+      selector = Optional.of(By.xpath(xpathValue));
+    }
+    return selector;
+  }
 }

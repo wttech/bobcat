@@ -79,9 +79,8 @@ public class DefaultDialogFieldRetriever implements DialogFieldRetriever {
   }
 
   private List<WebElement> getFieldElements(WebElement parentElement, String type) {
-    By selector =
-        PageObjectProviderHelper.retrieveSelectorFromPageObjectInterface(getClassForType(type))
-            .orElse(By.cssSelector(Locators.FIELD_WRAPPER_CSS));
+    By selector = PageObjectProviderHelper.getSelectorFromPageObjectClass(getClassForType(type))
+        .orElse(By.cssSelector(Locators.FIELD_WRAPPER_CSS));
 
     return parentElement.findElements(selector);
   }

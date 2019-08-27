@@ -19,12 +19,16 @@
  */
 package com.cognifide.qa.bb.mapper.annotations;
 
-import com.cognifide.qa.bb.mapper.field.PageObjectProviderHelper;
-import com.google.inject.Injector;
+import static com.cognifide.qa.bb.mapper.field.PageObjectProviderHelper.getSelectorFromGenericPageObject;
+import static com.cognifide.qa.bb.mapper.field.PageObjectProviderHelper.getSelectorFromPageObjectField;
+
 import java.lang.reflect.Field;
 import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.pagefactory.AbstractAnnotations;
+
+import com.google.inject.Injector;
 
 public class BobcatAnnotations extends AbstractAnnotations {
 
@@ -39,14 +43,15 @@ public class BobcatAnnotations extends AbstractAnnotations {
 
   @Override
   public By buildBy() {
-    return field.getType().equals(List.class) ? PageObjectProviderHelper
-        .getSelectorFromGenericPageObject(field, injector)
-        : PageObjectProviderHelper.getSelectorFromPageObjectField(field, injector);
+    return (field.getType().equals(List.class) ? getSelectorFromGenericPageObject(field, injector)
+        : getSelectorFromPageObjectField(field, injector))
+        .orElseThrow(
+            () -> new IllegalArgumentException("No locator found in PageObject annotation"));
   }
 
+  @Override
   public boolean isLookupCached() {
     return false;
   }
-
 
 }

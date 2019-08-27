@@ -103,7 +103,7 @@ public class AemAuthorPage<T extends AemAuthorPage> extends Page {
   private <X> By getSelectorFromComponent(Class<X> component) {
     return component.isAnnotationPresent(PageObjectInterface.class) ? PageObjectProviderHelper
         .getSelectorFromPageObjectInterfaceType(component, pageObjectInjector.getOriginalInjector())
-        : PageObjectProviderHelper.retrieveSelectorFromPageObjectInterface(component);
+        : PageObjectProviderHelper.getSelectorFromPageObjectClass(component);
   }
 
 }
