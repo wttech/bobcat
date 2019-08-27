@@ -19,19 +19,25 @@
  */
 package com.cognifide.qa.bb.aem.core.pages;
 
+import static com.cognifide.qa.bb.mapper.field.PageObjectProviderHelper.getSelectorFromPageObjectClass;
+import static com.cognifide.qa.bb.mapper.field.PageObjectProviderHelper.getSelectorFromPageObjectInterfaceType;
+
+import java.util.List;
+
+import javax.inject.Named;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
 import com.cognifide.qa.bb.aem.core.component.GlobalBar;
 import com.cognifide.qa.bb.frame.FrameSwitcher;
-import com.cognifide.qa.bb.mapper.field.PageObjectProviderHelper;
 import com.cognifide.qa.bb.page.Page;
 import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 import com.cognifide.qa.bb.utils.PageObjectInjector;
 import com.google.inject.Inject;
+
 import io.qameta.allure.Step;
-import java.util.List;
-import javax.inject.Named;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 /**
  * Represents a generic AEM page. Users should use the {@link com.cognifide.qa.bb.page.BobcatPageFactory}
@@ -64,8 +70,8 @@ public class AemAuthorPage<T extends AemAuthorPage> extends Page {
    * the process.
    *
    * @param component class of the page object representing the component to be returned
-   * @param order which component should be returned in case there are multiple instances
-   * @param <X> type of the component
+   * @param order     which component should be returned in case there are multiple instances
+   * @param <X>       type of the component
    * @return a page object representing the requested component
    */
   public <X> X getContent(Class<X> component, int order) {
@@ -74,7 +80,7 @@ public class AemAuthorPage<T extends AemAuthorPage> extends Page {
     By selector = getSelectorFromComponent(component);
     List<WebElement> scope = driver.findElements(selector);
     frameSwitcher.switchBack();
-    return scope == null
+    return scope.isEmpty()
         ? pageObjectInjector.inject(component, CONTENT_FRAME)
         : pageObjectInjector.inject(component, scope.get(order), CONTENT_FRAME);
   }
@@ -101,9 +107,11 @@ public class AemAuthorPage<T extends AemAuthorPage> extends Page {
   }
 
   private <X> By getSelectorFromComponent(Class<X> component) {
-    return component.isAnnotationPresent(PageObjectInterface.class) ? PageObjectProviderHelper
-        .getSelectorFromPageObjectInterfaceType(component, pageObjectInjector.getOriginalInjector())
-        : PageObjectProviderHelper.getSelectorFromPageObjectClass(component);
+    return (component.isAnnotationPresent(PageObjectInterface.class) ?
+        getSelectorFromPageObjectInterfaceType(component, pageObjectInjector.getOriginalInjector())
+        : getSelectorFromPageObjectClass(component))
+        .orElseThrow(() -> new IllegalArgumentException(
+            "Provided component does not have a locator in PageObject annotation: " + component));
   }
 
 }
