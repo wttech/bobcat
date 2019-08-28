@@ -24,6 +24,8 @@ import static com.cognifide.qa.bb.mapper.field.PageObjectProviderHelper.getGener
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.Optional;
 
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
@@ -62,13 +64,10 @@ public final class AnnotationsHelper {
    * @param field field to check
    * @return if one pf annotations is present
    */
+  @SuppressWarnings("unchecked")
   public static boolean isFindByAnnotationPresent(Field field) {
-    for (Class<?> annotation : FIND_ANNOTATIONS) {
-      if (field.isAnnotationPresent((Class<? extends Annotation>) annotation)) {
-        return true;
-      }
-    }
-    return false;
+    return Arrays.stream(FIND_ANNOTATIONS).anyMatch(
+        annotation -> field.isAnnotationPresent((Class<? extends Annotation>) annotation));
   }
 
   /**
@@ -89,11 +88,32 @@ public final class AnnotationsHelper {
    */
   public static boolean isGenericTypeAnnotatedWithPageObjectOrInterface(Field field) {
     boolean result = false;
-    if (getGenericType(field).isPresent()) {
-      Class<?> type = getGenericType(field).get();
+    Optional<Class<?>> genericType = getGenericType(field);
+    if (genericType.isPresent()) {
+      Class<?> type = genericType.get();
       result = type.isAnnotationPresent(PageObject.class) || type
           .isAnnotationPresent(PageObjectInterface.class);
     }
     return result;
+  }
+
+  /**
+   * Checks if field is decorated with {@link PageObject}
+   *
+   * @param field to be checked
+   * @return true if the field is decorated by this annotation
+   */
+  public static boolean isPageObjectAnnotationPresent(Field field) {
+    return field.getType().isAnnotationPresent(PageObject.class);
+  }
+
+  /**
+   * Checks if field is decorated with {@link PageObjectInterface}
+   *
+   * @param field to be checked
+   * @return true if the field is decorated by this annotation
+   */
+  public static boolean isPageObjectInterfaceAnnotationPresent(Field field) {
+    return field.getType().isAnnotationPresent(PageObjectInterface.class);
   }
 }

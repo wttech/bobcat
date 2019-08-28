@@ -19,23 +19,24 @@
  */
 package com.cognifide.qa.bb.mapper.field;
 
+import static com.cognifide.qa.bb.utils.AnnotationsHelper.*;
+
+import java.lang.reflect.Field;
+import java.util.List;
+import java.util.Optional;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
+
 import com.cognifide.qa.bb.exceptions.BobcatRuntimeException;
-import com.cognifide.qa.bb.qualifier.PageObject;
-import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 import com.cognifide.qa.bb.scope.ContextStack;
 import com.cognifide.qa.bb.scope.PageObjectContext;
 import com.cognifide.qa.bb.scope.frame.FrameMap;
 import com.cognifide.qa.bb.scope.frame.FramePath;
 import com.cognifide.qa.bb.scope.nested.ScopedElementLocatorFactory;
-import com.cognifide.qa.bb.utils.AnnotationsHelper;
 import com.google.inject.ConfigurationException;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import java.lang.reflect.Field;
-import java.util.List;
-import java.util.Optional;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 
 /**
  * This provider produces values for PageObject's fields. It tracks the context in which the objects
@@ -67,11 +68,9 @@ public class PageObjectProvider implements FieldProvider {
    */
   @Override
   public boolean accepts(Field field) {
-    return (field.getType().isAnnotationPresent(PageObject.class) || field.getType()
-        .isAnnotationPresent(
-            PageObjectInterface.class))
-        && (AnnotationsHelper.isFindByAnnotationPresent(field) || AnnotationsHelper
-        .isFindPageObjectAnnotationPresent(field)) && isNotList(field);
+    return (isPageObjectAnnotationPresent(field) || isPageObjectInterfaceAnnotationPresent(field))
+        && (isFindByAnnotationPresent(field) || isFindPageObjectAnnotationPresent(field))
+        && isNotList(field);
   }
 
   /**
@@ -84,7 +83,7 @@ public class PageObjectProvider implements FieldProvider {
         context.getElementLocatorFactory(), field, injector);
     final FramePath framePath = frameMap.get(pageObject);
     contextStack.push(new PageObjectContext(elementLocatorFactory, framePath));
-    Object scopedPageObject = null;
+    Object scopedPageObject;
     try {
       scopedPageObject = injector.getInstance(field.getType());
     } catch (ConfigurationException e) {
