@@ -19,8 +19,7 @@
  */
 package com.cognifide.qa.bb.aem.core.pages;
 
-import static com.cognifide.qa.bb.mapper.field.PageObjectProviderHelper.getSelectorFromPageObjectClass;
-import static com.cognifide.qa.bb.mapper.field.PageObjectProviderHelper.getSelectorFromPageObjectInterfaceType;
+import static com.cognifide.qa.bb.mapper.field.PageObjectProviderHelper.getSelectorFromClass;
 
 import java.util.List;
 
@@ -33,7 +32,6 @@ import org.openqa.selenium.WebElement;
 import com.cognifide.qa.bb.aem.core.component.GlobalBar;
 import com.cognifide.qa.bb.frame.FrameSwitcher;
 import com.cognifide.qa.bb.page.Page;
-import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 import com.cognifide.qa.bb.utils.PageObjectInjector;
 import com.google.inject.Inject;
 
@@ -107,9 +105,7 @@ public class AemAuthorPage<T extends AemAuthorPage> extends Page {
   }
 
   private <X> By getSelectorFromComponent(Class<X> component) {
-    return (component.isAnnotationPresent(PageObjectInterface.class) ?
-        getSelectorFromPageObjectInterfaceType(component, pageObjectInjector.getOriginalInjector())
-        : getSelectorFromPageObjectClass(component))
+    return getSelectorFromClass(component, pageObjectInjector.getOriginalInjector())
         .orElseThrow(() -> new IllegalArgumentException(
             "Provided component does not have a locator in PageObject annotation: " + component));
   }

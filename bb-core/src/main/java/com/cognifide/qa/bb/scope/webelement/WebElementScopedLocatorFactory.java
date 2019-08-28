@@ -19,17 +19,19 @@
  */
 package com.cognifide.qa.bb.scope.webelement;
 
-import com.cognifide.qa.bb.mapper.annotations.FieldAnnotationsProvider;
-import com.cognifide.qa.bb.qualifier.Global;
-import com.cognifide.qa.bb.scope.ParentElementLocatorProvider;
-import com.google.inject.Injector;
 import java.lang.reflect.Field;
+
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.pagefactory.DefaultElementLocator;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
 import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
+
+import com.cognifide.qa.bb.mapper.annotations.FieldAnnotationsProvider;
+import com.cognifide.qa.bb.scope.ParentElementLocatorProvider;
+import com.cognifide.qa.bb.utils.AnnotationsHelper;
+import com.google.inject.Injector;
 
 /**
  * Locator factory where the scope is defined by the provided webElement.
@@ -46,7 +48,7 @@ public class WebElementScopedLocatorFactory
   /**
    * Constructs WebElementScopedLocatorFactory.
    *
-   * @param webDriver WebDriver instance.
+   * @param webDriver  WebDriver instance.
    * @param webElement Defines scope for the objects that this factory is going to produce.
    */
   public WebElementScopedLocatorFactory(WebDriver webDriver, WebElement webElement,
@@ -74,7 +76,7 @@ public class WebElementScopedLocatorFactory
   }
 
   private SearchContext resolveContext(Field field) {
-    return field.isAnnotationPresent(Global.class) ? webDriver : webElement;
+    return AnnotationsHelper.isGlobal(field) ? webDriver : webElement;
   }
 
 }

@@ -20,16 +20,19 @@
 
 package com.cognifide.qa.bb.utils;
 
-import com.cognifide.qa.bb.mapper.field.PageObjectProviderHelper;
+import static com.cognifide.qa.bb.mapper.field.PageObjectProviderHelper.getGenericType;
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+
+import org.openqa.selenium.support.FindAll;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindBys;
+
 import com.cognifide.qa.bb.qualifier.FindPageObject;
 import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.qualifier.PageObjectInterface;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import org.openqa.selenium.support.FindAll;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.FindBys;
 
 /**
  * Helper class with methods for managing annotations.
@@ -37,7 +40,7 @@ import org.openqa.selenium.support.FindBys;
 public final class AnnotationsHelper {
 
   private static final Class<?>[] FIND_ANNOTATIONS =
-      new Class<?>[]{FindAll.class, FindBy.class, FindBys.class};
+      new Class<?>[] {FindAll.class, FindBy.class, FindBys.class};
 
   private AnnotationsHelper() {
     // class with only static methods
@@ -79,15 +82,18 @@ public final class AnnotationsHelper {
   }
 
   /**
-   * Checks if Generic Type of field is annoted with PageObject Annotation
+   * Checks if Generic Type of field is annotated with PageObject Annotation
    *
    * @param field field to check
    * @return if annotation is present
    */
-  public static boolean isGenericTypeAnnotedWithPageObjectOrInterface(Field field) {
-    Class<?> genericType = PageObjectProviderHelper.getGenericType(field);
-    return genericType != null && (genericType.isAnnotationPresent(PageObject.class) || genericType
-        .isAnnotationPresent(
-            PageObjectInterface.class));
+  public static boolean isGenericTypeAnnotatedWithPageObjectOrInterface(Field field) {
+    boolean result = false;
+    if (getGenericType(field).isPresent()) {
+      Class<?> type = getGenericType(field).get();
+      result = type.isAnnotationPresent(PageObject.class) || type
+          .isAnnotationPresent(PageObjectInterface.class);
+    }
+    return result;
   }
 }

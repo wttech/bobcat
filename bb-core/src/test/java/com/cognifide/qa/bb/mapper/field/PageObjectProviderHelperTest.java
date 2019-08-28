@@ -19,7 +19,8 @@
  */
 package com.cognifide.qa.bb.mapper.field;
 
-import static com.cognifide.qa.bb.mapper.field.PageObjectProviderHelper.*;
+import static com.cognifide.qa.bb.mapper.field.PageObjectProviderHelper.getSelector;
+import static com.cognifide.qa.bb.mapper.field.PageObjectProviderHelper.getSelectorFromClass;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
@@ -48,7 +49,7 @@ class PageObjectProviderHelperTest {
     @Test
     @DisplayName("can retrieve XPath locator when specified")
     void xpathLocatorFromPageObjectAnnotation() {
-      Optional<By> selector = getSelectorFromPageObjectClass(PageObjectXpath.class);
+      Optional<By> selector = getSelectorFromClass(PageObjectXpath.class, null);
 
       assertThat(selector).hasValue(By.xpath("//div"));
     }
@@ -56,7 +57,7 @@ class PageObjectProviderHelperTest {
     @Test
     @DisplayName("can retrieve CSS locator when specified")
     void cssLocatorFromPageObjectAnnotation() {
-      Optional<By> selector = getSelectorFromPageObjectClass(PageObjectCss.class);
+      Optional<By> selector = getSelectorFromClass(PageObjectCss.class, null);
 
       assertThat(selector).hasValue(By.cssSelector("div"));
     }
@@ -65,13 +66,13 @@ class PageObjectProviderHelperTest {
     @DisplayName("throws exception when both locators are specified")
     void throwsExceptionWhenBothSelectorsAreSpecifiedInAnnotation() {
       assertThatIllegalArgumentException()
-          .isThrownBy(() -> getSelectorFromPageObjectClass(PageObjectInvalid.class));
+          .isThrownBy(() -> getSelectorFromClass(PageObjectInvalid.class, null));
     }
 
     @Test
     @DisplayName("returns an empty Optional when no locator is specified")
     void emptyOptionalWhenNoLocatorIsSpecified() {
-      Optional<By> selector = getSelectorFromPageObjectClass(NoLocator.class);
+      Optional<By> selector = getSelectorFromClass(NoLocator.class, null);
 
       assertThat(selector).isEmpty();
     }
@@ -90,13 +91,7 @@ class PageObjectProviderHelperTest {
     @Test
     @DisplayName("can retrieve selector when specified in annotation")
     void selectorFromField() {
-      assertThat(getSelectorFromPageObject(field)).hasValue(By.xpath("//div"));
-    }
-
-    @Test
-    @DisplayName("can retrieve selector when using getSelectorFromPageObjectField()")
-    void canRetrieveSelectorFromFieldUsingGetSelectorFromPageObjectField() {
-      assertThat(getSelectorFromPageObjectField(field, null)).hasValue(By.xpath("//div"));
+      assertThat(getSelector(field, null)).hasValue(By.xpath("//div"));
     }
   }
 
@@ -109,7 +104,7 @@ class PageObjectProviderHelperTest {
     void canRetrieveSelectorFromParameterizedField() throws NoSuchFieldException {
       Field field = ExamplePO.class.getDeclaredField("cssList");
 
-      assertThat(getSelectorFromGenericPageObject(field, null)).hasValue(By.cssSelector("div"));
+      assertThat(getSelector(field, null)).hasValue(By.cssSelector("div"));
     }
   }
 
@@ -124,7 +119,7 @@ class PageObjectProviderHelperTest {
       Field css = ExamplePO.class.getDeclaredField("cssInterface");
       Injector injector = Guice.createInjector(new PoModule());
 
-      assertThat(getSelectorFromPageObjectField(css, injector)).hasValue(By.cssSelector("span"));
+      assertThat(getSelector(css, injector)).hasValue(By.cssSelector("span"));
     }
 
     @Test
@@ -134,7 +129,7 @@ class PageObjectProviderHelperTest {
       Field css = ExamplePO.class.getDeclaredField("cssInterfaceList");
       Injector injector = Guice.createInjector(new PoModule());
 
-      assertThat(getSelectorFromGenericPageObject(css, injector)).hasValue(By.cssSelector("span"));
+      assertThat(getSelector(css, injector)).hasValue(By.cssSelector("span"));
     }
   }
 
