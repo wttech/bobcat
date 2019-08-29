@@ -56,8 +56,9 @@ public class PageObjectListProxyProvider implements FieldProvider {
    */
   @Override
   public boolean accepts(Field field) {
-    return isList(field) && AnnotationsHelper.isFindByAnnotationPresent(field)
-        && AnnotationsHelper.isGenericTypeAnnotedWithPageObjectOrInterface(field);
+    return isList(field) && (AnnotationsHelper.isFindByAnnotationPresent(field) || AnnotationsHelper
+        .isFindPageObjectAnnotationPresent(field))
+        && AnnotationsHelper.isGenericTypeAnnotatedWithPageObjectOrInterface(field);
   }
 
   /**
@@ -67,13 +68,17 @@ public class PageObjectListProxyProvider implements FieldProvider {
   @Override
   public Optional<Object> provideValue(Object pageObject, Field field, PageObjectContext context) {
     FramePath framePath = frameMap.get(pageObject);
+    Class<?> genericType = PageObjectProviderHelper.getGenericType(field).orElseThrow(
+        () -> new IllegalStateException(
+            "The provided field was not a ParameterizedType: " + field));
+
     PageObjectListInvocationHandler handler =
-        new PageObjectListInvocationHandler(PageObjectProviderHelper.getGenericType(field),
+        new PageObjectListInvocationHandler(genericType,
             context.getElementLocatorFactory().createLocator(field), injector,
             shouldCacheResults(field),
             framePath);
 
-    ClassLoader classLoader = PageObjectProviderHelper.getGenericType(field).getClassLoader();
+    ClassLoader classLoader = genericType.getClassLoader();
     Object proxyInstance = Proxy.newProxyInstance(classLoader, new Class[] {List.class}, handler);
     return Optional.of(proxyInstance);
   }

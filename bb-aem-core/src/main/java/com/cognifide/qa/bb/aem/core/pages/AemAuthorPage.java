@@ -19,6 +19,8 @@
  */
 package com.cognifide.qa.bb.aem.core.pages;
 
+import static com.cognifide.qa.bb.mapper.field.PageObjectProviderHelper.getSelectorFromClass;
+
 import java.util.List;
 
 import javax.inject.Named;
@@ -29,18 +31,15 @@ import org.openqa.selenium.WebElement;
 
 import com.cognifide.qa.bb.aem.core.component.GlobalBar;
 import com.cognifide.qa.bb.frame.FrameSwitcher;
-import com.cognifide.qa.bb.mapper.field.PageObjectProviderHelper;
 import com.cognifide.qa.bb.page.Page;
-import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 import com.cognifide.qa.bb.utils.PageObjectInjector;
-import com.google.inject.Binding;
 import com.google.inject.Inject;
-import com.google.inject.internal.LinkedBindingImpl;
 
 import io.qameta.allure.Step;
 
 /**
- * Represents a generic AEM page. Users should use the {@link com.cognifide.qa.bb.page.BobcatPageFactory} to obtain instances of such classes.
+ * Represents a generic AEM page. Users should use the {@link com.cognifide.qa.bb.page.BobcatPageFactory}
+ * to obtain instances of such classes.
  *
  * @param <T> type of the page
  */
@@ -65,7 +64,8 @@ public class AemAuthorPage<T extends AemAuthorPage> extends Page {
   protected String authorUrl;
 
   /**
-   * Returns the nth page object representing given component. Switches to the ContentFrame during the process.
+   * Returns the nth page object representing given component. Switches to the ContentFrame during
+   * the process.
    *
    * @param component class of the page object representing the component to be returned
    * @param order     which component should be returned in case there are multiple instances
@@ -78,7 +78,7 @@ public class AemAuthorPage<T extends AemAuthorPage> extends Page {
     By selector = getSelectorFromComponent(component);
     List<WebElement> scope = driver.findElements(selector);
     frameSwitcher.switchBack();
-    return scope == null
+    return scope.isEmpty()
         ? pageObjectInjector.inject(component, CONTENT_FRAME)
         : pageObjectInjector.inject(component, scope.get(order), CONTENT_FRAME);
   }
@@ -105,20 +105,9 @@ public class AemAuthorPage<T extends AemAuthorPage> extends Page {
   }
 
   private <X> By getSelectorFromComponent(Class<X> component) {
-    By selector = null;
-    if (component.isAnnotationPresent(
-        PageObjectInterface.class)) {
-      Binding<?> binding = pageObjectInjector.getOriginalInjector().getBinding(component);
-      if (binding instanceof LinkedBindingImpl) {
-        selector = PageObjectProviderHelper
-            .retrieveSelectorFromPageObjectInterface(
-                ((LinkedBindingImpl) binding).getLinkedKey().getTypeLiteral().getRawType())
-            .orElseThrow(() -> new IllegalArgumentException(PageObjectProviderHelper.ERROR_MSG));
-      }
-    } else {
-      selector = PageObjectProviderHelper.retrieveSelectorFromPageObjectInterface(component)
-          .orElseThrow(() -> new IllegalArgumentException(PageObjectProviderHelper.ERROR_MSG));
-    }
-    return selector;
+    return getSelectorFromClass(component, pageObjectInjector.getOriginalInjector())
+        .orElseThrow(() -> new IllegalArgumentException(
+            "Provided component does not have a locator in PageObject annotation: " + component));
   }
+
 }

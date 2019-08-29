@@ -21,17 +21,18 @@ package com.cognifide.qa.bb.scope.nested;
 
 import static java.util.stream.Collectors.toList;
 
+import com.cognifide.qa.bb.mapper.annotations.FieldAnnotationsProvider;
+import com.google.inject.Injector;
 import java.lang.reflect.Field;
 import java.util.List;
-
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.pagefactory.DefaultElementLocator;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
 import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 
 /**
- * This is a two-step locator. First it constructs a scope out of the scope factory and the parent field, then
- * searches for the injected field in this scope.
+ * This is a two-step locator. First it constructs a scope out of the scope factory and the parent
+ * field, then searches for the injected field in this scope.
  */
 public class ScopedElementLocator implements ElementLocator {
 
@@ -41,6 +42,9 @@ public class ScopedElementLocator implements ElementLocator {
 
   private final Field searchField;
 
+  private final Injector injector;
+
+
   /**
    * Constructs ScopedElementLocator.
    *
@@ -49,30 +53,33 @@ public class ScopedElementLocator implements ElementLocator {
    * @param searchField class field
    */
   public ScopedElementLocator(ElementLocatorFactory scopeFactory,
-      Field scopeField, Field searchField) {
+      Field scopeField, Field searchField, Injector injector) {
     this.scopeFactory = scopeFactory;
     this.scopeField = scopeField;
     this.searchField = searchField;
+    this.injector = injector;
   }
 
   /**
-   * Constructs a scope out of the scope factory and the parent field, then searches for the injected field
-   * in this scope.
+   * Constructs a scope out of the scope factory and the parent field, then searches for the
+   * injected field in this scope.
    */
   @Override
   public WebElement findElement() {
     WebElement context = scopeFactory.createLocator(scopeField).findElement();
-    return new DefaultElementLocator(context, searchField).findElement();
+    return new DefaultElementLocator(context,
+        FieldAnnotationsProvider.create(searchField, injector)).findElement();
   }
 
   /**
-   * Constructs a scope out of the scope factory and the parent field, then searches for the injected field
-   * in this scope.
+   * Constructs a scope out of the scope factory and the parent field, then searches for the
+   * injected field in this scope.
    */
   @Override
   public List<WebElement> findElements() {
     return scopeFactory.createLocator(scopeField).findElements().stream()
-        .flatMap(element -> new DefaultElementLocator(element, searchField).findElements().stream())
+        .flatMap(element -> new DefaultElementLocator(element,
+            FieldAnnotationsProvider.create(searchField, injector)).findElements().stream())
         .collect(toList());
   }
 }

@@ -1,6 +1,6 @@
 /*-
  * #%L
- * Bobcat Parent
+ * Bobcat
  * %%
  * Copyright (C) 2016 Cognifide Ltd.
  * %%
@@ -17,38 +17,32 @@
  * limitations under the License.
  * #L%
  */
-
 package com.cognifide.qa.bb.mapper.field;
+
+import static com.cognifide.qa.bb.utils.AnnotationsHelper.*;
 
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Optional;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 
 import com.cognifide.qa.bb.exceptions.BobcatRuntimeException;
-import com.cognifide.qa.bb.qualifier.PageObject;
-import com.cognifide.qa.bb.qualifier.PageObjectInterface;
 import com.cognifide.qa.bb.scope.ContextStack;
 import com.cognifide.qa.bb.scope.PageObjectContext;
 import com.cognifide.qa.bb.scope.frame.FrameMap;
 import com.cognifide.qa.bb.scope.frame.FramePath;
-import com.cognifide.qa.bb.scope.nestedselector.NestedSelectorScopedLocatorFactory;
-import com.cognifide.qa.bb.utils.AnnotationsHelper;
-import com.google.inject.Binding;
+import com.cognifide.qa.bb.scope.nested.ScopedElementLocatorFactory;
 import com.google.inject.ConfigurationException;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import com.google.inject.internal.LinkedBindingImpl;
 
 /**
- * This provider produces values for PageObject's fields that are annotated with FindPageObject
- * annotation. It tracks the context in which the objects are created so that their own child
- * objects can reference their parent's creation context.
+ * This provider produces values for PageObject's fields. It tracks the context in which the objects
+ * are created so that their own child objects can reference their parent's creation context.
  */
-public class SelectorPageObjectProvider implements FieldProvider {
+public class PageObjectProvider implements FieldProvider {
 
   @Inject
   private ContextStack contextStack;
@@ -62,42 +56,34 @@ public class SelectorPageObjectProvider implements FieldProvider {
   @Inject
   private FrameMap frameMap;
 
+  /**
+   * PageObjectInjectorListener calls this method to check if the provider is able to handle
+   * currently injected field.
+   * <p>
+   * ScopedPageObjectProvider handles fields that:
+   * <ul>
+   * <li>come from classes that are annotated with PageObject annotation,
+   * <li>have one of the Find annotations.
+   * </ul>
+   */
   @Override
   public boolean accepts(Field field) {
-    return (field.getType().isAnnotationPresent(PageObject.class)
-        || field.getType().isAnnotationPresent(
-        PageObjectInterface.class))
-        && AnnotationsHelper.isFindPageObjectAnnotationPresent(field) && isNotList(field);
-
+    return (isPageObjectAnnotationPresent(field) || isPageObjectInterfaceAnnotationPresent(field))
+        && (isFindByAnnotationPresent(field) || isFindPageObjectAnnotationPresent(field))
+        && isNotList(field);
   }
 
   /**
    * This method produces value for the field. It constructs the context for the creation out of
-   * paren't context and the field's own frame info.
+   * parent's context and the field's own frame info.
    */
   @Override
   public Optional<Object> provideValue(Object pageObject, Field field, PageObjectContext context) {
-    By selector = null;
-    if (field.getType().isAnnotationPresent(
-        PageObjectInterface.class)) {
-      Binding<?> binding = injector.getBinding(field.getType());
-      if (binding instanceof LinkedBindingImpl) {
-        selector = PageObjectProviderHelper.retrieveSelectorFromPageObjectInterface(
-            ((LinkedBindingImpl) binding).getLinkedKey().getTypeLiteral().getRawType())
-            .orElseThrow(() -> new IllegalArgumentException(
-                "Selector missing in the @PageObject annotation"));
-      }
-    } else {
-      selector = PageObjectProviderHelper.getSelectorFromPageObject(field);
-    }
-    //ask for guice binding - get page object
-
-    ElementLocatorFactory elementLocatorFactory =
-        new NestedSelectorScopedLocatorFactory(webDriver, selector,
-            context.getElementLocatorFactory(), AnnotationsHelper.isGlobal(field));
+    final ElementLocatorFactory elementLocatorFactory = new ScopedElementLocatorFactory(webDriver,
+        context.getElementLocatorFactory(), field, injector);
     final FramePath framePath = frameMap.get(pageObject);
     contextStack.push(new PageObjectContext(elementLocatorFactory, framePath));
-    Object scopedPageObject = null;
+    Object scopedPageObject;
     try {
       scopedPageObject = injector.getInstance(field.getType());
     } catch (ConfigurationException e) {
