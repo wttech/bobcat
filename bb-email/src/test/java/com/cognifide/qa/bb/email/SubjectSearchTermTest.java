@@ -26,6 +26,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import javax.mail.Message;
+import javax.mail.MessagingException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Rule;
@@ -70,7 +71,7 @@ public class SubjectSearchTermTest {
   }
 
   @Test
-  public void match() throws Exception {
+  public void match() throws MessagingException {
 
     when(message.getSubject()).thenReturn(VALID_SUBJECT);
 

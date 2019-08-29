@@ -29,9 +29,9 @@ import com.google.inject.Inject;
 public class Item {
   @Inject
   @CurrentScope
-  private WebElement item;
+  private WebElement thisItem;
 
   public String getText() {
-    return item.getText();
+    return thisItem.getText();
   }
 }
