@@ -28,6 +28,9 @@ import org.openqa.selenium.support.pagefactory.AbstractAnnotations;
 
 import com.google.inject.Injector;
 
+/**
+ * Implementation of {@link AbstractAnnotations} that handles the case of Page Object fields annotated with {@link com.cognifide.qa.bb.qualifier.FindPageObject}
+ */
 public class BobcatAnnotations extends AbstractAnnotations {
 
   private Field field;
