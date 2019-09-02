@@ -79,3 +79,4 @@ hs_err_pid*
 *.log
 
 **/allure-results
+.DS_Store
