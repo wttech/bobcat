@@ -1,6 +1,7 @@
 ![Cognifide logo](http://cognifide.github.io/images/cognifide-logo.png)
 
 [![Build Status](https://travis-ci.org/Cognifide/bobcat.svg?branch=master)](https://travis-ci.org/Cognifide/bobcat)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=com.cognifide.qa.bb%3Abobcat&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.cognifide.qa.bb%3Abobcat)
 [![Maven Central](https://img.shields.io/maven-central/v/com.cognifide.qa.bb/bobcat.svg?label=Maven%20Central)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.cognifide.qa.bb%22%20AND%20a%3A%22bobcat%22)
 [![Apache License, Version 2.0, January 2004](https://img.shields.io/github/license/cognifide/bobcat.svg?label=License)](http://www.apache.org/licenses/)
 [![Gitter chat](https://badges.gitter.im/bobcat-framework/Lobby.png)](https://gitter.im/bobcat-framework/Lobby)
