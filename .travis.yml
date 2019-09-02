@@ -42,8 +42,7 @@ matrix:
         - tar -xzf geckodriver-v0.24.0-linux64.tar.gz -C geckodriver
         - export PATH=$PATH:$PWD/geckodriver
       script:
-        - mvn clean install -Dwebdriver.type=firefox -Dwebdriver.firefox.bin="$(which firefox)"
-        - sonar-scanner
+        - mvn clean test sonar:sonar -Dwebdriver.type=firefox -Dwebdriver.firefox.bin="$(which firefox)"
 
 script:
   - ./run_browserstack_tests.sh
