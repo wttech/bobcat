@@ -45,7 +45,7 @@ public class DefaultMultifield implements Multifield {
   @FindPageObject
   private List<MultifieldItem> items;
 
-  @FindBy(xpath = Locators.MULTIFIELD_LABEL_XPATH)
+  @FindBy(xpath = Locators.ALTERNATE_LABEL_XPATH)
   private List<WebElement> label;
 
   @Override
