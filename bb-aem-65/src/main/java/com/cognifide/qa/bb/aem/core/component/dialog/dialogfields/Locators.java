@@ -23,10 +23,15 @@ package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
  * Contains common locators related to dialog fields
  */
 public class Locators {
+
   private Locators() {
     //util
   }
 
   public static final String FIELD_WRAPPER_CSS = ".coral-Form-fieldwrapper";
   public static final String LABEL_CSS = ".coral-Form-fieldlabel";
+  public static final String MULTIFIELD_CSS = "coral-multifield";
+  public static final String MULTIFIELD_LABEL_XPATH = "../label";
+  public static final String PATHBROWSER_CSS = "foundation-autocomplete";
+  public static final String PATHBROWSER_LABEL_XPATH = "../label";
 }

@@ -24,6 +24,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -34,13 +35,13 @@ import com.google.inject.Inject;
 /**
  * Default implementation of {@link PathBrowser}
  */
-@PageObject(css = Locators.FIELD_WRAPPER_CSS)
+@PageObject(css = Locators.PATHBROWSER_CSS)
 public class DefaultPathBrowser implements PathBrowser {
 
   @FindBy(className = "coral3-Textfield")
   private WebElement input;
 
-  @FindBy(css = Locators.LABEL_CSS)
+  @FindBy(xpath = Locators.PATHBROWSER_LABEL_XPATH)
   private List<WebElement> label;
 
   @Inject
@@ -53,7 +54,7 @@ public class DefaultPathBrowser implements PathBrowser {
 
     bobcatWait.until(visibilityOfElementLocated(
         By.cssSelector(".foundation-picker-buttonlist.coral3-Overlay.is-open")));
-    label.get(0).click();
+    input.sendKeys(Keys.ENTER);
   }
 
   @Override
