@@ -21,6 +21,8 @@ package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.openqa.selenium.Keys;
@@ -54,13 +56,17 @@ public class DefaultTagBrowser implements TagBrowser {
 
   @Override
   public void setValue(Object value) {
+    List<String> tags = new ArrayList<>(
+        Arrays.asList(String.valueOf(value).trim().replaceAll("\\[|\\]|\\s", "").split(",")));
+
     removeTagButtons.forEach((element) -> element.sendKeys(Keys.ENTER));
 
-    input.clear();
-    input.sendKeys(String.valueOf(value));
-
-    bobcatWait.until(elementToBeClickable(firstResult));
-    firstResult.click();
+    tags.forEach((tag) -> {
+      input.clear();
+      input.sendKeys(tag);
+      bobcatWait.until(elementToBeClickable(firstResult));
+      firstResult.click();
+    });
   }
 
   @Override
