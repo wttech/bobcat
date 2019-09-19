@@ -39,7 +39,7 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 @PageObject(css = Locators.MULTIFIELD_CSS)
 public class DefaultMultifield implements Multifield {
 
-  @FindBy(css = "* button[coral-multifield-add]")
+  @FindBy(css = "button[coral-multifield-add]")
   private WebElement addButton;
 
   @FindPageObject

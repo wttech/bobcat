@@ -39,7 +39,7 @@ import com.google.inject.Inject;
 @PageObject(css = Locators.AUTOCOMPLETE_CSS)
 public class DefaultTagBrowser implements TagBrowser {
 
-  @FindBy(className = "coral3-Textfield")
+  @FindBy(css = ".coral3-Textfield")
   private WebElement input;
 
   @FindBy(xpath = Locators.ALTERNATE_LABEL_XPATH)
@@ -56,16 +56,15 @@ public class DefaultTagBrowser implements TagBrowser {
 
   @Override
   public void setValue(Object value) {
-    List<String> tags = new ArrayList<>(
-        Arrays.asList(String.valueOf(value).trim().replaceAll("\\[|\\]|\\s", "").split(",")));
+    List<String> tags = Arrays
+        .asList(String.valueOf(value).trim().replaceAll("\\[|\\]|\\s", "").split(","));
 
     removeTagButtons.forEach((element) -> element.sendKeys(Keys.ENTER));
 
     tags.forEach((tag) -> {
       input.clear();
       input.sendKeys(tag);
-      bobcatWait.until(elementToBeClickable(firstResult));
-      firstResult.click();
+      bobcatWait.until(elementToBeClickable(firstResult)).click();
     });
   }
 
