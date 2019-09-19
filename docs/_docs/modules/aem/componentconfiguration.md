@@ -178,6 +178,7 @@ Version: >= 2.1.0
 | PATHBROWSER | path  |
 | SELECT | text from dropdown  |
 | RADIO_GROUP | text from radio option  |
+| TAGBROWSER | text for each tag to select, each tag is a separate list member of "value"   |
 | MULTIFIELD | list of "item" each with own fields (see example above)  |
 | RICHTEXT | text  |
 | RTE_OPTIONS | simple fields on RTE toolbar, without any sub-options; e.g.: Bold/Underline/Italic/Unlink (just provide the title of the button)  |

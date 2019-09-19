@@ -21,8 +21,11 @@ package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -31,16 +34,19 @@ import com.cognifide.qa.bb.wait.BobcatWait;
 import com.google.inject.Inject;
 
 /**
- * Default implementation of {@link PathBrowser}
+ * Default implementation of {@link TagBrowser}
  */
 @PageObject(css = Locators.AUTOCOMPLETE_CSS)
-public class DefaultPathBrowser implements PathBrowser {
+public class DefaultTagBrowser implements TagBrowser {
 
   @FindBy(className = "coral3-Textfield")
   private WebElement input;
 
   @FindBy(xpath = Locators.ALTERNATE_LABEL_XPATH)
   private List<WebElement> label;
+
+  @FindBy(css = ".coral3-Tag-removeButton")
+  private List<WebElement> removeTagButtons;
 
   @FindBy(css = ".foundation-picker-buttonlist.coral3-Overlay.is-open")
   private WebElement firstResult;
@@ -50,11 +56,17 @@ public class DefaultPathBrowser implements PathBrowser {
 
   @Override
   public void setValue(Object value) {
-    input.clear();
-    input.sendKeys(String.valueOf(value));
+    List<String> tags = new ArrayList<>(
+        Arrays.asList(String.valueOf(value).trim().replaceAll("\\[|\\]|\\s", "").split(",")));
 
-    bobcatWait.until(elementToBeClickable(firstResult));
-    firstResult.click();
+    removeTagButtons.forEach((element) -> element.sendKeys(Keys.ENTER));
+
+    tags.forEach((tag) -> {
+      input.clear();
+      input.sendKeys(tag);
+      bobcatWait.until(elementToBeClickable(firstResult));
+      firstResult.click();
+    });
   }
 
   @Override

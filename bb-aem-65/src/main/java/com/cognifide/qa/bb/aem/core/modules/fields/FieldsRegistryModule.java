@@ -30,6 +30,7 @@ import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultPathBro
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultRadioGroup;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultRichText;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultSelect;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultTagBrowser;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultTextfield;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DialogField;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Fields;
@@ -42,6 +43,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.MapBinder;
 
 public class FieldsRegistryModule extends AbstractModule {
+
   private static final Logger LOG = LoggerFactory.getLogger(FieldsRegistryModule.class);
 
   @Override
@@ -59,6 +61,7 @@ public class FieldsRegistryModule extends AbstractModule {
     registerField(fieldsBinder, Fields.MULTIFIELD, DefaultMultifield.class);
     registerField(fieldsBinder, Fields.MULTIFIELD_ITEM, DefaultMultifieldItem.class);
     registerField(fieldsBinder, Fields.RADIO_GROUP, DefaultRadioGroup.class);
+    registerField(fieldsBinder, Fields.TAGBROWSER, DefaultTagBrowser.class);
 
     registerField(fieldsBinder, Fields.RICHTEXT, DefaultRichText.class);
     registerField(fieldsBinder, Options.RTE_OPTIONS, RteOption.class);
