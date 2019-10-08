@@ -45,7 +45,7 @@ public class DefaultCheckbox implements Checkbox {
 
   @Override
   public void setValue(Object value) {
-    if (Boolean.valueOf(String.valueOf(value))) {
+    if (Boolean.valueOf(String.valueOf(value)) != checkboxElement.isSelected()) {
       select();
     }
   }
