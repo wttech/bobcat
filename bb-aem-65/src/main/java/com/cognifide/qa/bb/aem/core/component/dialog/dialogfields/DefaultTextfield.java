@@ -38,7 +38,7 @@ public class DefaultTextfield implements Textfield {
   @CurrentScope
   private WebElement input;
 
-  @FindBy(css = Locators.ALTERNATE_LABEL_XPATH)
+  @FindBy(xpath = Locators.ALTERNATE_LABEL_XPATH)
   private List<WebElement> label;
 
   @Override

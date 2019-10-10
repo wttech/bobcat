@@ -34,4 +34,5 @@ public class Locators {
   public static final String AUTOCOMPLETE_CSS = "foundation-autocomplete";
   public static final String ALTERNATE_LABEL_XPATH = "../label";
   public static final String TEXTFIELD_CSS = ".coral3-Textfield:not([type='hidden'])";
+  public static final String SELECT_CSS = ".coral3-Select";
 }

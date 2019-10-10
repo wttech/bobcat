@@ -26,21 +26,28 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
+import com.cognifide.qa.bb.wait.BobcatWait;
+import com.google.inject.Inject;
 
 /**
  * Default implementation of {@link Select}
  */
-@PageObject(xpath = "//coral-select/..")
+@PageObject(css = Locators.SELECT_CSS)
 public class DefaultSelect implements Select {
 
   private static final String SELECT_OPTIONS_CSS = ".coral3-SelectList-item";
 
-  @FindBy(css = ".coral3-Select")
+  @Inject
+  @CurrentScope
   private WebElement selectField;
 
-  @FindBy(css = Locators.LABEL_CSS)
+  @FindBy(xpath = Locators.ALTERNATE_LABEL_XPATH)
   private List<WebElement> label;
+
+  @Inject
+  private BobcatWait wait;
 
   @Override
   public void setValue(Object value) {
