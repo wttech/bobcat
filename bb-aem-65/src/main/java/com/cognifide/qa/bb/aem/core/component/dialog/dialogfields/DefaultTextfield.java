@@ -24,18 +24,21 @@ import java.util.List;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
+import com.google.inject.Inject;
 
 /**
  * Default implementation of {@link Textfield}
  */
-@PageObject(css = Locators.FIELD_WRAPPER_CSS)
+@PageObject(css = Locators.TEXTFIELD_CSS)
 public class DefaultTextfield implements Textfield {
 
-  @FindBy(css = ".coral3-Textfield:not([type='hidden']")
+  @Inject
+  @CurrentScope
   private WebElement input;
 
-  @FindBy(css = Locators.LABEL_CSS)
+  @FindBy(css = Locators.ALTERNATE_LABEL_XPATH)
   private List<WebElement> label;
 
   @Override
