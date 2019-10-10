@@ -45,6 +45,9 @@ public class Lists implements DialogField {
   @FindBy(css = Options.TOOLBAR_ITEM_CSS + "[data-action='#lists']")
   private WebElement listsButton;
 
+  @FindBy(xpath = "..//*[contains(@class,'coral-RichText')]/..")
+  private WebElement rteInput;
+
   @FindBy(css = "coral-popover.is-open coral-popover-content button")
   private List<WebElement> options;
 
@@ -57,6 +60,7 @@ public class Lists implements DialogField {
   @Override
   public void setValue(Object value) {
     String option = (String) Objects.requireNonNull(value);
+    rteInput.click();
     javascriptExecutor.executeScript(JsScripts.SELECT_ALL);
     listsButton.click();
 
