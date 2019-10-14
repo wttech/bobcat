@@ -19,9 +19,12 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -30,6 +33,7 @@ import org.openqa.selenium.support.FindBy;
 import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.wait.BobcatWait;
+import com.cognifide.qa.bb.wait.TimingsBuilder;
 import com.google.inject.Inject;
 
 /**
@@ -48,7 +52,7 @@ public class ContentFragmentPathBrowserImpl implements ContentFragmentPathBrowse
   private WebElement firstResult;
 
   @Global
-  @FindBy(css = "coral3-Dialog--warning is-open .coral3-Button--primary")
+  @FindBy(css = ".coral3-Dialog--warning.is-open .coral3-Button--primary")
   private WebElement warningConfirmation;
 
   @Inject
@@ -60,7 +64,17 @@ public class ContentFragmentPathBrowserImpl implements ContentFragmentPathBrowse
     input.sendKeys(String.valueOf(value));
     bobcatWait.until(elementToBeClickable(firstResult));
     input.sendKeys(Keys.ENTER);
-    bobcatWait.until(elementToBeClickable(warningConfirmation)).click();
+
+    // Branching logic in tests is not OK, it's true. But this part handles an unpredictable part of
+    // the application. Sometimes a warning dialog appears and it needs to be handled.
+    if (bobcatWait
+        .tweak(new TimingsBuilder().explicitTimeout(1).build())
+        .ignoring(Stream.of(NoSuchElementException.class).collect(Collectors.toList()))
+        .isConditionMet(elementToBeClickable(warningConfirmation))) {
+      warningConfirmation.click();
+      bobcatWait.tweak(new TimingsBuilder().explicitTimeout(1).build())
+          .isConditionMet(not(elementToBeClickable(warningConfirmation)));
+    }
   }
 
   @Override
