@@ -34,6 +34,8 @@ public class Fields {
   public static final String RADIO_GROUP = "RADIO_GROUP";
   public static final String RICHTEXT = "RICHTEXT";
   public static final String TAGBROWSER = "TAGBROWSER";
+  public static final String NUMBER_INPUT = "NUMBER_INPUT";
+  public static final String CONTENT_FRAGMENT_PATHBROWSER = "CONTENT_FRAGMENT_PATHBROWSER";
 
   private Fields() {
     //empty

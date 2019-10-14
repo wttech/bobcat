@@ -27,6 +27,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.wait.BobcatWait;
 import com.google.inject.Inject;
@@ -35,7 +36,7 @@ import com.google.inject.Inject;
  * Default implementation of {@link PathBrowser}
  */
 @PageObject(css = Locators.AUTOCOMPLETE_CSS)
-public class DefaultPathBrowser implements PathBrowser {
+public class ContentFragmentPathBrowserImpl implements ContentFragmentPathBrowser {
 
   @FindBy(css = ".coral3-Textfield")
   private WebElement input;
@@ -46,6 +47,10 @@ public class DefaultPathBrowser implements PathBrowser {
   @FindBy(css = ".foundation-picker-buttonlist.coral3-Overlay.is-open")
   private WebElement firstResult;
 
+  @Global
+  @FindBy(css = "coral3-Dialog--warning is-open .coral3-Button--primary")
+  private WebElement warningConfirmation;
+
   @Inject
   private BobcatWait bobcatWait;
 
@@ -55,6 +60,7 @@ public class DefaultPathBrowser implements PathBrowser {
     input.sendKeys(String.valueOf(value));
     bobcatWait.until(elementToBeClickable(firstResult));
     input.sendKeys(Keys.ENTER);
+    bobcatWait.until(elementToBeClickable(warningConfirmation)).click();
   }
 
   @Override
