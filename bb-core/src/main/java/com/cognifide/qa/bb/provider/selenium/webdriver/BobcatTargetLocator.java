@@ -23,6 +23,7 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriver.TargetLocator;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WindowType;
 
 import com.cognifide.qa.bb.frame.FrameSwitcher;
 
@@ -91,6 +92,11 @@ public class BobcatTargetLocator implements TargetLocator {
   @Override
   public WebDriver window(String nameOrHandle) {
     return targetLocator.window(nameOrHandle);
+  }
+
+  @Override
+  public WebDriver newWindow(WindowType typeHint) {
+    return targetLocator.newWindow(typeHint);
   }
 
   /**
