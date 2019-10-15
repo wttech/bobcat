@@ -29,7 +29,7 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 /**
  * Default implementation of {@link NumberInput}
  */
-@PageObject(css = Locators.NUMBERINPUT_CSS)
+@PageObject(css = "coral-numberinput")
 public class DefaultNumberInput implements NumberInput {
 
   @FindBy(css = "input")

@@ -28,13 +28,12 @@ import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.qualifier.CurrentScope;
 import com.cognifide.qa.bb.qualifier.PageObject;
-import com.cognifide.qa.bb.wait.BobcatWait;
 import com.google.inject.Inject;
 
 /**
  * Default implementation of {@link Select}
  */
-@PageObject(css = Locators.SELECT_CSS)
+@PageObject(css = ".coral3-Select")
 public class DefaultSelect implements Select {
 
   private static final String SELECT_OPTIONS_CSS = ".coral3-SelectList-item";
@@ -45,9 +44,6 @@ public class DefaultSelect implements Select {
 
   @FindBy(xpath = Locators.ALTERNATE_LABEL_XPATH)
   private List<WebElement> label;
-
-  @Inject
-  private BobcatWait wait;
 
   @Override
   public void setValue(Object value) {

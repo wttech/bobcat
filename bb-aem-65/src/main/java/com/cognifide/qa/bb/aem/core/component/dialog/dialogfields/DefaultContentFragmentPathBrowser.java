@@ -19,12 +19,11 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.*;
+import static org.openqa.selenium.support.ui.ExpectedConditions.not;
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -37,10 +36,10 @@ import com.cognifide.qa.bb.wait.TimingsBuilder;
 import com.google.inject.Inject;
 
 /**
- * Default implementation of {@link PathBrowser}
+ * Default implementation of {@link ContentFragmentPathBrowser}
  */
 @PageObject(css = Locators.AUTOCOMPLETE_CSS)
-public class ContentFragmentPathBrowserImpl implements ContentFragmentPathBrowser {
+public class DefaultContentFragmentPathBrowser implements ContentFragmentPathBrowser {
 
   @FindBy(css = ".coral3-Textfield")
   private WebElement input;
@@ -69,7 +68,7 @@ public class ContentFragmentPathBrowserImpl implements ContentFragmentPathBrowse
     // the application. Sometimes a warning dialog appears and it needs to be handled.
     if (bobcatWait
         .tweak(new TimingsBuilder().explicitTimeout(1).build())
-        .ignoring(Stream.of(NoSuchElementException.class).collect(Collectors.toList()))
+        .ignoring(NoSuchElementException.class)
         .isConditionMet(elementToBeClickable(warningConfirmation))) {
       warningConfirmation.click();
       bobcatWait.tweak(new TimingsBuilder().explicitTimeout(1).build())

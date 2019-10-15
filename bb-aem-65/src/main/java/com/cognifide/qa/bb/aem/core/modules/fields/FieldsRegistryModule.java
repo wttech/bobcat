@@ -22,7 +22,7 @@ package com.cognifide.qa.bb.aem.core.modules.fields;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.ContentFragmentPathBrowserImpl;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultContentFragmentPathBrowser;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultCheckbox;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultImage;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultMultifield;
@@ -73,7 +73,7 @@ public class FieldsRegistryModule extends AbstractModule {
     registerField(fieldsBinder, Options.RTE_OPTIONS_PARAGRAPH_FORMATS, ParagraphFormats.class);
 
     registerField(fieldsBinder, Fields.CONTENT_FRAGMENT_PATHBROWSER,
-        ContentFragmentPathBrowserImpl.class);
+        DefaultContentFragmentPathBrowser.class);
   }
 
   private void registerField(MapBinder<String, DialogField> binder, String name,

@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Checkbox;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.ContentFragmentPathBrowser;
-import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.ContentFragmentPathBrowserImpl;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultContentFragmentPathBrowser;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultCheckbox;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultImage;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultMultifield;
@@ -67,7 +67,7 @@ public class DialogFieldsModule extends AbstractModule {
     bind(Select.class).to(DefaultSelect.class);
     bind(Textfield.class).to(DefaultTextfield.class);
     bind(NumberInput.class).to(DefaultNumberInput.class);
-    bind(ContentFragmentPathBrowser.class).to(ContentFragmentPathBrowserImpl.class);
+    bind(ContentFragmentPathBrowser.class).to(DefaultContentFragmentPathBrowser.class);
 
     install(new FieldsRegistryModule());
   }

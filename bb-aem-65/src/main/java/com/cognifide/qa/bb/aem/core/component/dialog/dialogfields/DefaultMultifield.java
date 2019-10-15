@@ -36,7 +36,7 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 /**
  * Default implementation of {@link Multifield}
  */
-@PageObject(css = Locators.MULTIFIELD_CSS)
+@PageObject(css = "coral-multifield")
 public class DefaultMultifield implements Multifield {
 
   @FindBy(css = "button[coral-multifield-add]")

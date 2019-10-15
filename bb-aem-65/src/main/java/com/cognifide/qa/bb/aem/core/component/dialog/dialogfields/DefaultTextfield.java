@@ -31,7 +31,7 @@ import com.google.inject.Inject;
 /**
  * Default implementation of {@link Textfield}
  */
-@PageObject(css = Locators.TEXTFIELD_CSS)
+@PageObject(css = ".coral3-Textfield:not([type='hidden'])")
 public class DefaultTextfield implements Textfield {
 
   @Inject
