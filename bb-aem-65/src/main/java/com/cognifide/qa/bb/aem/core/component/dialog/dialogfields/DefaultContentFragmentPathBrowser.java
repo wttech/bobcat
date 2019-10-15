@@ -63,9 +63,16 @@ public class DefaultContentFragmentPathBrowser implements ContentFragmentPathBro
     input.sendKeys(String.valueOf(value));
     bobcatWait.until(elementToBeClickable(firstResult));
     input.sendKeys(Keys.ENTER);
+    closeWarningDialogIfRequired();
+  }
 
-    // Branching logic in tests is not OK, it's true. But this part handles an unpredictable part of
-    // the application. Sometimes a warning dialog appears and it needs to be handled.
+  @Override
+  public String getLabel() {
+    return label.isEmpty() ? "" : label.get(0).getText();
+  }
+
+  //  The warning dialog doesn't always appear, so it's handled within an if-clause
+  private void closeWarningDialogIfRequired() {
     if (bobcatWait
         .tweak(new TimingsBuilder().explicitTimeout(1).build())
         .ignoring(NoSuchElementException.class)
@@ -74,10 +81,5 @@ public class DefaultContentFragmentPathBrowser implements ContentFragmentPathBro
       bobcatWait.tweak(new TimingsBuilder().explicitTimeout(1).build())
           .isConditionMet(not(elementToBeClickable(warningConfirmation)));
     }
-  }
-
-  @Override
-  public String getLabel() {
-    return label.isEmpty() ? "" : label.get(0).getText();
   }
 }

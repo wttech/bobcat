@@ -28,7 +28,6 @@ public class Locators {
     //util
   }
 
-  public static final String FIELD_WRAPPER_CSS = ".coral-Form-fieldwrapper";
   public static final String LABEL_CSS = ".coral-Form-fieldlabel";
   public static final String AUTOCOMPLETE_CSS = "foundation-autocomplete";
   public static final String ALTERNATE_LABEL_XPATH = "../label";
