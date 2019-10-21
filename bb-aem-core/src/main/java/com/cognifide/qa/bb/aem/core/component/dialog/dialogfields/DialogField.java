@@ -36,6 +36,7 @@ import com.cognifide.qa.bb.qualifier.PageObjectInterface;
  */
 @PageObjectInterface
 public interface DialogField {
+
   /**
    * Sets component value.
    *
@@ -49,4 +50,9 @@ public interface DialogField {
   default String getLabel() {
     return null;
   }
+
+  /**
+   * Clears field input.
+   */
+  void clearField();
 }

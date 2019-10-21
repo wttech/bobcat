@@ -72,4 +72,9 @@ public class DefaultTagBrowser implements TagBrowser {
   public String getLabel() {
     return label.isEmpty() ? "" : label.get(0).getText();
   }
+
+  @Override
+  public void clearField() {
+
+  }
 }

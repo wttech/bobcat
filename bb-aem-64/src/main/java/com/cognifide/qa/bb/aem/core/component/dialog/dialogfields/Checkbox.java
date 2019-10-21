@@ -20,6 +20,7 @@
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
 import com.cognifide.qa.bb.qualifier.PageObject;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -40,15 +41,19 @@ public class Checkbox implements DialogField {
   }
 
   /**
-   * Performs click action on the checkbox if passed param is 'true' string.
+   * Sets the checkbox's state with a click according to the passed boolean value.
    *
    * @param value string boolean representation
    */
   @Override
   public void setValue(Object value) {
-    if (Boolean.valueOf(String.valueOf(value))) {
+    if (Boolean.valueOf(String.valueOf(value)) != checkboxElement.isSelected()) {
       select();
     }
+  }
+
+  @Override
+  public void clearField() {
   }
 
 }

@@ -61,4 +61,9 @@ public class DefaultPathBrowser implements PathBrowser {
   public String getLabel() {
     return label.isEmpty() ? "" : label.get(0).getText();
   }
+
+  @Override
+  public void clearField() {
+
+  }
 }

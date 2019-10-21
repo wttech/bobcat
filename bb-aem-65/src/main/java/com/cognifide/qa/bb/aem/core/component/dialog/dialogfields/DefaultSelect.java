@@ -61,4 +61,9 @@ public class DefaultSelect implements Select {
   public String getLabel() {
     return label.isEmpty() ? "" : label.get(0).getText();
   }
+
+  @Override
+  public void clearField() {
+
+  }
 }

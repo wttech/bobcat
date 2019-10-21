@@ -71,6 +71,11 @@ public class DefaultContentFragmentPathBrowser implements ContentFragmentPathBro
     return label.isEmpty() ? "" : label.get(0).getText();
   }
 
+  @Override
+  public void clearField() {
+
+  }
+
   //  The warning dialog doesn't always appear, so it's handled within an if-clause
   private void closeWarningDialogIfRequired() {
     if (bobcatWait

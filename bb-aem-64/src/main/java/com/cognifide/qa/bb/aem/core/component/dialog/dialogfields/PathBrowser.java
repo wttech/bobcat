@@ -69,4 +69,8 @@ public class PathBrowser implements DialogField {
     currentScope.findElement(By.className("coral-Form-fieldlabel")).click();
   }
 
+  @Override
+  public void clearField() {
+  }
+
 }

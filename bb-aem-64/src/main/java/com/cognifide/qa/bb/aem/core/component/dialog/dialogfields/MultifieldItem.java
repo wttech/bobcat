@@ -51,6 +51,10 @@ public class MultifieldItem implements DialogField {
     entry.getItem().forEach(this::setFieldInMultifield);
   }
 
+  @Override
+  public void clearField() {
+  }
+
   /**
    * Deletes this item
    */

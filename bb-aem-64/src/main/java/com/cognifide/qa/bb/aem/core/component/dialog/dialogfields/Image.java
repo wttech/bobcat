@@ -29,6 +29,7 @@ import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.scope.frame.FramePath;
 import com.google.inject.Inject;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -59,6 +60,10 @@ public class Image implements DialogField {
     Draggable draggable = sidePanel.searchForAsset(String.valueOf(value));
     Droppable droppable = dragAndDropFactory.createDroppable(dropArea, FramePath.parsePath("/"));
     draggable.dropTo(droppable);
+  }
+
+  @Override
+  public void clearField() {
   }
 
 }

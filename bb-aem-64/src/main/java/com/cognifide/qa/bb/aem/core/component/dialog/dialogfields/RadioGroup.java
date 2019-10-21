@@ -44,4 +44,8 @@ public class RadioGroup implements DialogField {
     radioLabel.findElement(By.xpath(".//..")).click();
   }
 
+  @Override
+  public void clearField() {
+  }
+
 }

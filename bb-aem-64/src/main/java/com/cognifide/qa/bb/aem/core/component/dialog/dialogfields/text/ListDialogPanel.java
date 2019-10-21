@@ -77,6 +77,11 @@ public class ListDialogPanel implements DialogField {
     }
   }
 
+  @Override
+  public void clearField() {
+
+  }
+
   private void openListPopover() {
     controlToolbar.selectText();
     bobcatWait.until((ExpectedCondition<Object>) input -> controlToolbar.

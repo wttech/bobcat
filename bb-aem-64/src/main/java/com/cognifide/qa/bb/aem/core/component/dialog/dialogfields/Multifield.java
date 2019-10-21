@@ -56,12 +56,17 @@ public class Multifield implements DialogField {
         mapper.convertValue(value, new TypeReference<List<MultifieldEntry>>() {
         });
 
-    items.forEach(MultifieldItem::deleteItem);
-
-    cfg.forEach(entry -> addField());
+    while(items.size() < cfg.size()) {
+      addField();
+    }
 
     Iterator<MultifieldItem> itemsIterator = items.iterator();
     cfg.forEach(entry -> itemsIterator.next().setValue(entry));
+  }
+
+  @Override
+  public void clearField() {
+    items.forEach(MultifieldItem::deleteItem);
   }
 
   /**

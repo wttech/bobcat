@@ -83,6 +83,11 @@ public class Hyperlink implements DialogField {
     hyperlinkPopover.confirm();
   }
 
+  @Override
+  public void clearField() {
+
+  }
+
   @SuppressWarnings("UnstableApiUsage")
   @VisibleForTesting
   protected Map<String, String> parseValue(String value) {

@@ -72,4 +72,9 @@ public class Lists implements DialogField {
             "Following option not found in Lists popover: " + option))
         .click();
   }
+
+  @Override
+  public void clearField() {
+
+  }
 }
