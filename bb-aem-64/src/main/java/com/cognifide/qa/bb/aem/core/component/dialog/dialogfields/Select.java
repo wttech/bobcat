@@ -53,10 +53,4 @@ public class Select implements DialogField {
         .orElseThrow(() -> new NoSuchElementException(
             String.format("Option with text %s not found", value.toString()))).click();
   }
-
-  @Override
-  public void clearField() {
-
-  }
-
 }

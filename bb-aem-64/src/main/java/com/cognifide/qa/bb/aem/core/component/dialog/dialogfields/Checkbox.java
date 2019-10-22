@@ -51,9 +51,4 @@ public class Checkbox implements DialogField {
       select();
     }
   }
-
-  @Override
-  public void clearField() {
-  }
-
 }

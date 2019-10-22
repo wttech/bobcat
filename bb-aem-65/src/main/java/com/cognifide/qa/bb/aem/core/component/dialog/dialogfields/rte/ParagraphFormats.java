@@ -67,9 +67,4 @@ public class ParagraphFormats implements DialogField {
             "Following option not found in Paragraph Formats popover: " + option))
         .click();
   }
-
-  @Override
-  public void clearField() {
-
-  }
 }

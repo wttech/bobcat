@@ -43,9 +43,4 @@ public class Textfield implements DialogField {
     input.clear();
     input.sendKeys(String.valueOf(value));
   }
-
-  @Override
-  public void clearField() {
-  }
-
 }

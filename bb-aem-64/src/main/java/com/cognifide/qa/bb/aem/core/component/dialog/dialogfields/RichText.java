@@ -67,9 +67,4 @@ public class RichText implements DialogField {
     }
     actions.perform();
   }
-
-  @Override
-  public void clearField() {
-  }
-
 }

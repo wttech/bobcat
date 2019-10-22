@@ -71,11 +71,6 @@ public class JustifyDialogPanel implements DialogField {
     }
   }
 
-  @Override
-  public void clearField() {
-
-  }
-
   private void openJustifyPopover() {
     controlToolbar.selectText();
     bobcatWait.until(input -> controlToolbar.getToggleJustifyButton().isEnabled());

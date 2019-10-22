@@ -64,11 +64,6 @@ public class FontFormat implements DialogField {
     }
   }
 
-  @Override
-  public void clearField() {
-
-  }
-
   private void clickFormatButton(WebElement button) {
     controlToolbar.selectText();
     bobcatWait.until(input -> button.isEnabled());

@@ -54,5 +54,6 @@ public interface DialogField {
   /**
    * Clears field input.
    */
-  void clearField();
+  default void clearField() {
+  }
 }

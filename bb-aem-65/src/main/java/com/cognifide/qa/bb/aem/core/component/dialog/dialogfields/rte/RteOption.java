@@ -62,9 +62,4 @@ public class RteOption implements DialogField {
             "Could not find the requested button on the toolbar: " + option))
         .click();
   }
-
-  @Override
-  public void clearField() {
-
-  }
 }

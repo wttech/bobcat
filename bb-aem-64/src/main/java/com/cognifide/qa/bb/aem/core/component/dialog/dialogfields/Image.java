@@ -61,9 +61,4 @@ public class Image implements DialogField {
     Droppable droppable = dragAndDropFactory.createDroppable(dropArea, FramePath.parsePath("/"));
     draggable.dropTo(droppable);
   }
-
-  @Override
-  public void clearField() {
-  }
-
 }

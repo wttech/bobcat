@@ -68,9 +68,4 @@ public class PathBrowser implements DialogField {
         By.cssSelector(".foundation-picker-buttonlist.coral3-Overlay.is-open")));
     currentScope.findElement(By.className("coral-Form-fieldlabel")).click();
   }
-
-  @Override
-  public void clearField() {
-  }
-
 }
