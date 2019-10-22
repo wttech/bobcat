@@ -25,8 +25,10 @@ import static org.openqa.selenium.Keys.RETURN;
 
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.google.inject.Inject;
+
 import java.util.Arrays;
 import java.util.List;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -52,18 +54,17 @@ public class RichText implements DialogField {
   public void setValue(Object value) {
     String text = (String) value;
     actions.keyDown(input, CONTROL) //
-          .sendKeys("a") //
-          .keyUp(CONTROL) //
-          .sendKeys(BACK_SPACE);
+        .sendKeys("a") //
+        .keyUp(CONTROL) //
+        .sendKeys(BACK_SPACE);
 
     List<String> textDividedByLines = Arrays.asList(text.split("\\\\n"));
     for (int i = 0; i < textDividedByLines.size(); i++) {
-      if(i!=0) {
+      if (i != 0) {
         actions.sendKeys(RETURN);
       }
       actions.sendKeys(textDividedByLines.get(i).trim());
     }
     actions.perform();
   }
-
 }

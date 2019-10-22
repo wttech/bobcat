@@ -82,7 +82,7 @@ public class DefaultDialogFieldRetriever implements DialogFieldRetriever {
   private List<WebElement> getFieldElements(WebElement parentElement, String type) {
     By selector =
         getSelectorFromClass(getClassForType(type), pageObjectInjector.getOriginalInjector())
-            .orElse(By.cssSelector(Locators.FIELD_WRAPPER_CSS));
+            .orElse(By.cssSelector(".coral-Form-fieldwrapper"));
 
     return parentElement.findElements(selector);
   }

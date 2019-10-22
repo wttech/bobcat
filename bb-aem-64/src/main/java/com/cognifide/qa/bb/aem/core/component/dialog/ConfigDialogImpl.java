@@ -137,8 +137,8 @@ public class ConfigDialogImpl implements ConfigDialog {
   /**
    * Method used to access DialogField for further configuration.
    *
-   * @param label     Label of element to access
-   * @param tab       Name of a tab that element is placed on
+   * @param label Label of element to access
+   * @param tab Name of a tab that element is placed on
    * @param fieldType Type of field we would like to access
    * @return DialogField with our field
    */
@@ -153,9 +153,9 @@ public class ConfigDialogImpl implements ConfigDialog {
   /**
    * Method used to configure a field on a dialog.
    *
-   * @param label     Label of field to configure
+   * @param label Label of field to configure
    * @param fieldType Type of field to configure
-   * @param value     Value that field will be filled with
+   * @param value Value that field will be filled with
    * @return ConfigDialog this instance
    */
   @Override
@@ -167,7 +167,7 @@ public class ConfigDialogImpl implements ConfigDialog {
   /**
    * Method can be used to access a field on currently opened tab
    *
-   * @param label     Field's label to access
+   * @param label Field's label to access
    * @param fieldType Type of field to access
    * @return DialogField with our field
    */
@@ -204,9 +204,14 @@ public class ConfigDialogImpl implements ConfigDialog {
 
   private void setFields(List<FieldConfig> value) {
     WebElement parent = determineParentScope();
-    value.forEach(fieldConfig -> dialogConfigurer
-        .getDialogField(parent, fieldConfig.getLabel(), fieldConfig.getType())
-        .setValue(fieldConfig.getValue()));
+    value.forEach(fieldConfig -> {
+      DialogField field = dialogConfigurer
+          .getDialogField(parent, fieldConfig.getLabel(), fieldConfig.getType());
+      if (fieldConfig.getClear()) {
+        field.clearField();
+      }
+      field.setValue(fieldConfig.getValue());
+    });
   }
 
   private WebElement determineParentScope() {

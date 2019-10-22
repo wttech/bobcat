@@ -30,6 +30,8 @@ public class FieldConfig {
 
   private Object value;
 
+  private boolean clear = false;
+
   /**
    * @return Label of the field.
    */
@@ -51,11 +53,19 @@ public class FieldConfig {
     return value;
   }
 
+  /**
+   * @return Whether the field should be cleared before the value is set
+   */
+  public boolean getClear() {
+    return clear;
+  }
+
   @Override
   public String toString() {
     return "field:\n" +
         "\tlabel='" + label + "'\n" +
         "\ttype='" + type + "'\n" +
-        "\tvalue=" + value + "'\n";
+        "\tvalue=" + value + "'\n" +
+        "\tclear='" + clear + "'\n";
   }
 }

@@ -19,16 +19,11 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
+import com.cognifide.qa.bb.qualifier.PageObjectInterface;
+
 /**
- * Contains common locators related to dialog fields
+ * This class represents single line number input dialog field.
  */
-public class Locators {
-
-  private Locators() {
-    //util
-  }
-
-  public static final String LABEL_CSS = ".coral-Form-fieldlabel";
-  public static final String AUTOCOMPLETE_CSS = "foundation-autocomplete";
-  public static final String ALTERNATE_LABEL_XPATH = "../label";
+@PageObjectInterface
+public interface NumberInput extends DialogField {
 }

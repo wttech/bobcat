@@ -19,42 +19,29 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
-
 import java.util.List;
 
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import com.cognifide.qa.bb.qualifier.PageObject;
-import com.cognifide.qa.bb.wait.BobcatWait;
-import com.google.inject.Inject;
 
 /**
- * Default implementation of {@link PathBrowser}
+ * Default implementation of {@link NumberInput}
  */
-@PageObject(css = Locators.AUTOCOMPLETE_CSS)
-public class DefaultPathBrowser implements PathBrowser {
+@PageObject(css = "coral-numberinput")
+public class DefaultNumberInput implements NumberInput {
 
-  @FindBy(css = ".coral3-Textfield")
+  @FindBy(css = "input")
   private WebElement input;
 
   @FindBy(xpath = Locators.ALTERNATE_LABEL_XPATH)
   private List<WebElement> label;
 
-  @FindBy(css = ".foundation-picker-buttonlist.coral3-Overlay.is-open")
-  private WebElement firstResult;
-
-  @Inject
-  private BobcatWait bobcatWait;
-
   @Override
   public void setValue(Object value) {
     input.clear();
     input.sendKeys(String.valueOf(value));
-    bobcatWait.until(elementToBeClickable(firstResult));
-    input.sendKeys(Keys.ENTER);
   }
 
   @Override

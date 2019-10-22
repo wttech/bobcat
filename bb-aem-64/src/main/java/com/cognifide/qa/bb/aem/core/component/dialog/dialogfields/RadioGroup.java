@@ -43,5 +43,4 @@ public class RadioGroup implements DialogField {
             () -> new IllegalStateException("Provided option is not present in the group"));
     radioLabel.findElement(By.xpath(".//..")).click();
   }
-
 }

@@ -19,23 +19,27 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.not;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.cognifide.qa.bb.qualifier.Global;
 import com.cognifide.qa.bb.qualifier.PageObject;
 import com.cognifide.qa.bb.wait.BobcatWait;
+import com.cognifide.qa.bb.wait.TimingsBuilder;
 import com.google.inject.Inject;
 
 /**
- * Default implementation of {@link PathBrowser}
+ * Default implementation of {@link ContentFragmentPathBrowser}
  */
 @PageObject(css = Locators.AUTOCOMPLETE_CSS)
-public class DefaultPathBrowser implements PathBrowser {
+public class DefaultContentFragmentPathBrowser implements ContentFragmentPathBrowser {
 
   @FindBy(css = ".coral3-Textfield")
   private WebElement input;
@@ -46,6 +50,10 @@ public class DefaultPathBrowser implements PathBrowser {
   @FindBy(css = ".foundation-picker-buttonlist.coral3-Overlay.is-open")
   private WebElement firstResult;
 
+  @Global
+  @FindBy(css = ".coral3-Dialog--warning.is-open .coral3-Button--primary")
+  private WebElement warningConfirmation;
+
   @Inject
   private BobcatWait bobcatWait;
 
@@ -55,10 +63,23 @@ public class DefaultPathBrowser implements PathBrowser {
     input.sendKeys(String.valueOf(value));
     bobcatWait.until(elementToBeClickable(firstResult));
     input.sendKeys(Keys.ENTER);
+    closeWarningDialogIfRequired();
   }
 
   @Override
   public String getLabel() {
     return label.isEmpty() ? "" : label.get(0).getText();
+  }
+
+  //  The warning dialog doesn't always appear, so it's handled within an if-clause
+  private void closeWarningDialogIfRequired() {
+    if (bobcatWait
+        .tweak(new TimingsBuilder().explicitTimeout(1).build())
+        .ignoring(NoSuchElementException.class)
+        .isConditionMet(elementToBeClickable(warningConfirmation))) {
+      warningConfirmation.click();
+      bobcatWait.tweak(new TimingsBuilder().explicitTimeout(1).build())
+          .isConditionMet(not(elementToBeClickable(warningConfirmation)));
+    }
   }
 }
