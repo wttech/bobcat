@@ -46,7 +46,7 @@ import net.lightbody.bmp.util.HttpMessageInfo;
 
 @ExtendWith(MockitoExtension.class)
 @Modules({CoreModule.class})
-public class RequestFilterRegistryTest extends AbstractProxyTest {
+public class RequestFilterRegistryTestOld extends AbstractProxyTest {
 
   @Inject
   private RequestFilterRegistry requestFilterRegistry;
