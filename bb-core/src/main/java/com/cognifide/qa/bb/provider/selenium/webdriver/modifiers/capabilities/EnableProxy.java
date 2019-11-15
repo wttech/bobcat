@@ -19,21 +19,14 @@
  */
 package com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.capabilities;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import com.cognifide.qa.bb.constants.ConfigKeys;
-import com.cognifide.qa.bb.proxy.ProxyController;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-
-import net.lightbody.bmp.BrowserMobProxy;
-import net.lightbody.bmp.client.ClientUtil;
 
 public class EnableProxy implements CapabilitiesModifier {
 
@@ -42,11 +35,7 @@ public class EnableProxy implements CapabilitiesModifier {
   private boolean proxyEnabled;
 
   @Inject
-  @Named(ConfigKeys.PROXY_IP)
-  private String proxyIp;
-
-  @Inject
-  private ProxyController proxyController;
+  private Proxy proxy;
 
   @Override
   public boolean shouldModify() {
@@ -60,14 +49,7 @@ public class EnableProxy implements CapabilitiesModifier {
 
   private DesiredCapabilities enableProxy(Capabilities capabilities) {
     DesiredCapabilities caps = new DesiredCapabilities(capabilities);
-    try {
-      InetAddress proxyInetAddress = InetAddress.getByName(proxyIp);
-      BrowserMobProxy browserMobProxy = proxyController.startProxyServer(proxyInetAddress);
-      Proxy seleniumProxy = ClientUtil.createSeleniumProxy(browserMobProxy, proxyInetAddress);
-      caps.setCapability(CapabilityType.PROXY, seleniumProxy);
-    } catch (UnknownHostException e) {
-      throw new IllegalStateException(e);
-    }
+    caps.setCapability(CapabilityType.PROXY, proxy);
     return caps;
   }
 }

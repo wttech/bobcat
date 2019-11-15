@@ -19,9 +19,12 @@
  */
 package com.cognifide.qa.bb.modules;
 
+import org.openqa.selenium.Proxy;
+
 import com.cognifide.qa.bb.proxy.ProxyController;
 import com.cognifide.qa.bb.proxy.ProxyControllerProvider;
 import com.cognifide.qa.bb.proxy.ProxyEventListener;
+import com.cognifide.qa.bb.proxy.providers.DefaultProxyProvider;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
 
@@ -31,5 +34,7 @@ public class ProxyModule extends AbstractModule {
   protected void configure() {
     bind(ProxyController.class).toProvider(ProxyControllerProvider.class);
     Multibinder.newSetBinder(binder(), ProxyEventListener.class);
+
+    bind(Proxy.class).toProvider(DefaultProxyProvider.class);
   }
 }
