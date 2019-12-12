@@ -29,7 +29,7 @@ import com.cognifide.qa.bb.qualifier.PageObject;
 /**
  * Default implementation of {@link Checkbox}
  */
-@PageObject(xpath = "//*[contains(@class,'coral3-Checkbox')]/..")
+@PageObject(css = "coral-checkbox")
 public class DefaultCheckbox implements Checkbox {
 
   @FindBy(css = ".coral3-Checkbox-input")
