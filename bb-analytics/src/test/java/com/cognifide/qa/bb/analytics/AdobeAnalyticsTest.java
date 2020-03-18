@@ -14,29 +14,38 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class GoogleAnalyticsTest {
+class AdobeAnalyticsTest {
 
   private static final String EMPTY_FILE_PATH = "";
   private static final String NON_EXISTENT_FILE_PATH = "i-dont-exist";
   private static final String INVALID_FILE_PATH_URI = ">>  << ## %";
-  private static final String VALID_FILE_PATH = "ga_valid";
+  private static final String VALID_FILE_PATH = "aa_valid";
   private static final String EXPECTED_DATA_LAYER_STRING =
-      "[\r\n"
-          + "  {\r\n"
-          + "    \"pageName\": \"Home\",\r\n"
-          + "    \"pageURL\": \"https://www.cognifide.com/\"\r\n"
+      "{\r\n"
+          + "  \"pageInfo\": {\r\n"
+          + "    \"pageName\": \"SPP\",\r\n"
+          + "    \"language\": \"en_us\",\r\n"
+          + "    \"siteName\": \"spp\"\r\n"
+          + "  },\r\n"
+          + "  \"userInfo\": {\r\n"
+          + "    \"loginStatus\": \"NotSignedIn\"\r\n"
+          + "  },\r\n"
+          + "  \"eventInfo\": {\r\n"
+          + "    \"eventLabel\": \"pageview\",\r\n"
+          + "    \"eventType\": \"pageload\"\r\n"
           + "  }\r\n"
-          + "]\r\n";
+          + "}\r\n";
   private static final String UNEXPECTED_DATA_LAYER_STRING =
-      "[\r\n"
-          + "  {\r\n"
-          + "    \"pageName\": \"i am\",\r\n"
-          + "    \"pageURL\": \"very unexpected\"\r\n"
+      "{\r\n"
+          + "  \"pageInfo\": {\r\n"
+          + "    \"pageName\": \"this\",\r\n"
+          + "    \"language\": \"is\",\r\n"
+          + "    \"siteName\": \"wrong\"\r\n"
           + "  }\r\n"
-          + "]\r\n";
+          + "}\r\n";
 
   @Spy
-  private GoogleAnalytics testedObject;
+  private AdobeAnalytics testedObject;
 
   @ParameterizedTest
   @ValueSource(strings = {
