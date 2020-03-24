@@ -19,11 +19,8 @@
  */
 package com.cognifide.qa.bb.analytics;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doReturn;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -44,13 +41,6 @@ class GoogleAnalyticsTest {
           + "  {\r\n"
           + "    \"pageName\": \"Home\",\r\n"
           + "    \"pageURL\": \"https://www.cognifide.com/\"\r\n"
-          + "  }\r\n"
-          + "]\r\n";
-  private static final String UNEXPECTED_DATA_LAYER_STRING =
-      "[\r\n"
-          + "  {\r\n"
-          + "    \"pageName\": \"i am\",\r\n"
-          + "    \"pageURL\": \"very unexpected\"\r\n"
           + "  }\r\n"
           + "]\r\n";
 
@@ -74,20 +64,6 @@ class GoogleAnalyticsTest {
   @Test
   void getExpected_whenFilePathIsValid_thenReturnExpectedString() {
     assertEquals(EXPECTED_DATA_LAYER_STRING, testedObject.getExpected(VALID_FILE_PATH));
-  }
-
-  @Test
-  void compare_whenDataLayersAreEqual_thenDoNotThrowExceptions() {
-    doReturn(EXPECTED_DATA_LAYER_STRING).when(testedObject).getActual();
-    doReturn(EXPECTED_DATA_LAYER_STRING).when(testedObject).getExpected(any());
-    assertDoesNotThrow(() -> testedObject.compare(EXPECTED_DATA_LAYER_STRING));
-  }
-
-  @Test
-  void compare_whenDataLayersAreDifferent_thenThrowAssertionErrorException() {
-    doReturn(UNEXPECTED_DATA_LAYER_STRING).when(testedObject).getActual();
-    doReturn(EXPECTED_DATA_LAYER_STRING).when(testedObject).getExpected(any());
-    assertThrows(AssertionError.class, () -> testedObject.compare(EXPECTED_DATA_LAYER_STRING));
   }
 
 }
