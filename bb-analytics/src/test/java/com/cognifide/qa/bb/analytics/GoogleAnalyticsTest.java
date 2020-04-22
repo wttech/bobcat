@@ -37,12 +37,12 @@ class GoogleAnalyticsTest {
   private static final String INVALID_FILE_PATH_URI = ">>  << ## %";
   private static final String VALID_FILE_PATH = "ga_valid";
   private static final String EXPECTED_DATA_LAYER_STRING =
-      "[\r\n"
-          + "  {\r\n"
-          + "    \"pageName\": \"Home\",\r\n"
-          + "    \"pageURL\": \"https://www.cognifide.com/\"\r\n"
-          + "  }\r\n"
-          + "]\r\n";
+      "[\n"
+          + "  {\n"
+          + "    \"pageName\": \"Home\",\n"
+          + "    \"pageURL\": \"https://www.cognifide.com/\"\n"
+          + "  }\n"
+          + "]\n";
 
   @Spy
   private GoogleAnalytics testedObject;

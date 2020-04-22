@@ -37,20 +37,20 @@ class AdobeAnalyticsTest {
   private static final String INVALID_FILE_PATH_URI = ">>  << ## %";
   private static final String VALID_FILE_PATH = "aa_valid";
   private static final String EXPECTED_DATA_LAYER_STRING =
-      "{\r\n"
-          + "  \"pageInfo\": {\r\n"
-          + "    \"pageName\": \"SPP\",\r\n"
-          + "    \"language\": \"en_us\",\r\n"
-          + "    \"siteName\": \"spp\"\r\n"
-          + "  },\r\n"
-          + "  \"userInfo\": {\r\n"
-          + "    \"loginStatus\": \"NotSignedIn\"\r\n"
-          + "  },\r\n"
-          + "  \"eventInfo\": {\r\n"
-          + "    \"eventLabel\": \"pageview\",\r\n"
-          + "    \"eventType\": \"pageload\"\r\n"
-          + "  }\r\n"
-          + "}\r\n";
+      "{\n"
+          + "  \"pageInfo\": {\n"
+          + "    \"pageName\": \"SPP\",\n"
+          + "    \"language\": \"en_us\",\n"
+          + "    \"siteName\": \"spp\"\n"
+          + "  },\n"
+          + "  \"userInfo\": {\n"
+          + "    \"loginStatus\": \"NotSignedIn\"\n"
+          + "  },\n"
+          + "  \"eventInfo\": {\n"
+          + "    \"eventLabel\": \"pageview\",\n"
+          + "    \"eventType\": \"pageload\"\n"
+          + "  }\n"
+          + "}\n";
 
   @Spy
   private AdobeAnalytics testedObject;
