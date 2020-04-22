@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 
@@ -51,8 +52,9 @@ public final class SlingDataXMLBuilder {
         .getResourceAsStream(fileName)) {
       PageXMLParserHandler xmlParserHandler = new PageXMLParserHandler();
       if (fileInputStream != null) {
-        SAXParserFactory.newInstance().newSAXParser().parse(fileInputStream,
-            xmlParserHandler);
+        SAXParserFactory factory = SAXParserFactory.newInstance();
+        factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, Boolean.TRUE);
+        factory.newSAXParser().parse(fileInputStream, xmlParserHandler);
       }
       toReturn = xmlParserHandler.getParserResults();
     } catch (IOException e) {

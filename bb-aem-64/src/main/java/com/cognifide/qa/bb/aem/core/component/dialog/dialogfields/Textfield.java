@@ -20,6 +20,7 @@
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
 import com.cognifide.qa.bb.qualifier.PageObject;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -42,5 +43,4 @@ public class Textfield implements DialogField {
     input.clear();
     input.sendKeys(String.valueOf(value));
   }
-
 }

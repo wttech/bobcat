@@ -20,7 +20,9 @@
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
 import com.cognifide.qa.bb.qualifier.PageObject;
+
 import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
@@ -51,5 +53,4 @@ public class Select implements DialogField {
         .orElseThrow(() -> new NoSuchElementException(
             String.format("Option with text %s not found", value.toString()))).click();
   }
-
 }

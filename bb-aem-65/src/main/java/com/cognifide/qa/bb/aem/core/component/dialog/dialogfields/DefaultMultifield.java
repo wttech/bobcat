@@ -36,16 +36,16 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 /**
  * Default implementation of {@link Multifield}
  */
-@PageObject(css = Locators.FIELD_WRAPPER_CSS)
+@PageObject(css = "coral-multifield")
 public class DefaultMultifield implements Multifield {
 
-  @FindBy(css = "button.coral3-Button.coral3-Button--secondary")
+  @FindBy(css = "button[coral-multifield-add]")
   private WebElement addButton;
 
   @FindPageObject
   private List<MultifieldItem> items;
 
-  @FindBy(css = Locators.LABEL_CSS)
+  @FindBy(xpath = Locators.ALTERNATE_LABEL_XPATH)
   private List<WebElement> label;
 
   @Override
@@ -55,9 +55,9 @@ public class DefaultMultifield implements Multifield {
         mapper.convertValue(value, new TypeReference<List<MultifieldEntry>>() {
         });
 
-    items.forEach(MultifieldItem::deleteItem);
-
-    cfg.forEach(entry -> addField());
+    while(items.size() < cfg.size()) {
+      addField();
+    }
 
     Iterator<MultifieldItem> itemsIterator = items.iterator();
     cfg.forEach(entry -> itemsIterator.next().setValue(entry));
@@ -66,6 +66,11 @@ public class DefaultMultifield implements Multifield {
   @Override
   public String getLabel() {
     return label.isEmpty() ? "" : label.get(0).getText();
+  }
+
+  @Override
+  public void clearField() {
+    items.forEach(MultifieldItem::deleteItem);
   }
 
   @Override

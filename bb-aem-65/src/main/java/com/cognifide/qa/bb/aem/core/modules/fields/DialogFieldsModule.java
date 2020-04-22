@@ -23,10 +23,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Checkbox;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.ContentFragmentPathBrowser;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultContentFragmentPathBrowser;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultCheckbox;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultImage;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultMultifield;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultMultifieldItem;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultNumberInput;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultPathBrowser;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultRadioGroup;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultRichText;
@@ -35,6 +38,7 @@ import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultTextfie
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Image;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Multifield;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.MultifieldItem;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.NumberInput;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.PathBrowser;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.RadioGroup;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.RichText;
@@ -62,6 +66,8 @@ public class DialogFieldsModule extends AbstractModule {
     bind(RichText.class).to(DefaultRichText.class);
     bind(Select.class).to(DefaultSelect.class);
     bind(Textfield.class).to(DefaultTextfield.class);
+    bind(NumberInput.class).to(DefaultNumberInput.class);
+    bind(ContentFragmentPathBrowser.class).to(DefaultContentFragmentPathBrowser.class);
 
     install(new FieldsRegistryModule());
   }

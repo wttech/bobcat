@@ -57,6 +57,8 @@ public class DeletePage implements ActionWithData<SlingPageData> {
       httpClient.execute(request);
     } catch (IOException e) {
       throw new AemPageManipulationException(e);
+    } finally {
+      request.releaseConnection();
     }
   }
 }

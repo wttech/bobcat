@@ -21,7 +21,7 @@ package com.cognifide.qa.bb.traffic.constants;
 
 public final class TrafficConfigKeys {
 
-  public static final String AJAX_CALL_TIMEOUT_MS = "ajax.traffic.call.timeout.ms";
+  public static final String ANALYTICS_CALL_TIMEOUT_MS = "analytics.call.timeout.ms";
 
   public static final String ANALYTICS_URI_PREFIX = "analytics.uri.prefix";
 

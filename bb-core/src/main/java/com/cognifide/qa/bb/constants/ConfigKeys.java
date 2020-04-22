@@ -35,11 +35,7 @@ public final class ConfigKeys {
 
   public static final String LOGIN_TOKEN = "login.token.name";
 
-  public static final String WEBDRIVER_APPIUM_URL = "webdriver.appium.url";
-
   public static final String WEBDRIVER_CAP_PLATFORM_NAME = "webdriver.cap.platformName";
-
-  public static final String WEBDRIVER_FIREFOX_BIN = "webdriver.firefox.bin";
 
   public static final String WEBDRIVER_MAXIMIZE = "webdriver.maximize";
 
@@ -48,8 +44,6 @@ public final class ConfigKeys {
   public static final String WEBDRIVER_REUSABLE = "webdriver.reusable";
 
   public static final String WEBDRIVER_TYPE = "webdriver.type";
-
-  public static final String WEBDRIVER_XVFB_ID = "webdriver.xvfb.id";
 
   public static final String WEBDRIVER_URL = "webdriver.url";
 
@@ -61,9 +55,14 @@ public final class ConfigKeys {
 
   public static final String MODIFIERS_IMPLICIT_TIMEOUT = "modifiers.implicitTimeout";
 
-  public static final String TIMINGS_EXPLICIT_TIMEOUT = "timings.explicitTimeout";
-  public static final String TIMINGS_IMPLICIT_TIMEOUT = "timings.implicitTimeout";
-  public static final String TIMINGS_POLLING_INTERVAL = "timings.pollingInterval";
+  public static final String TIMINGS_PREFIX = "timings.";
+  public static final String TIMINGS_EXPLICIT_TIMEOUT = TIMINGS_PREFIX + "explicitTimeout";
+  public static final String TIMINGS_IMPLICIT_TIMEOUT = TIMINGS_PREFIX + "implicitTimeout";
+  public static final String TIMINGS_POLLING_INTERVAL = TIMINGS_PREFIX + "pollingInterval";
+
+  //Chrome options
+  public static final String CHROME_HEADLESS = "webdriver.chrome.headless";
+  public static final String CHROME_ACCEPT_INSECURE_CERTS = "webdriver.chrome.acceptInsecureCerts";
 
   private ConfigKeys() {
   }

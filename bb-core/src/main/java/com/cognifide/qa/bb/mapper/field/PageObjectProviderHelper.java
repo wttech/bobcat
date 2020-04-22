@@ -40,93 +40,83 @@ import com.google.inject.internal.LinkedBindingImpl;
  */
 public final class PageObjectProviderHelper {
 
-  public static final String ERROR_MSG =
-      "PageObject has to have defined selector when used with FindPageObject annotation";
-
   private PageObjectProviderHelper() {
     // Empty for helper class
   }
 
   /**
-   * Gets selector from {@link PageObject} if class annotated by this annotation is used in list
+   * Retrieves the selector from the provided field. It handles cases when the field uses generics or is a {@link PageObjectInterface}
    *
-   * @param field            class field
-   * @param originalInjector
-   * @return selector
+   * @param field    from which we want to retrieve the selector
+   * @param injector necessary for retrieving bindings in case the field is a {@link PageObjectInterface}
+   * @return an {@link Optional} that:
+   * <ul>
+   * <li>contains {@link By} selector specified in the underlying {@link PageObject} annotation</li>
+   * <li>is empty in case no selector was specified</li>
+   * </ul>
    */
-  public static By getSelectorFromGenericPageObject(Field field,
-      Injector originalInjector) {
-    Class<?> genericType = getGenericType(field);
-    if (genericType != null && genericType.isAnnotationPresent(
-        PageObjectInterface.class)) {
-      Binding<?> binding = originalInjector.getBinding(genericType);
-      if (binding instanceof LinkedBindingImpl) {
-        return PageObjectProviderHelper.retrieveSelectorFromPageObjectInterface(
-            ((LinkedBindingImpl) binding).getLinkedKey().getTypeLiteral().getRawType())
-            .orElseThrow(() -> new IllegalArgumentException(ERROR_MSG));
-      }
-    } else {
-      return retrieveSelectorFromPageObject(field, true);
+  public static Optional<By> getSelector(Field field, Injector injector) {
+    Class<?> type = getGenericType(field).orElse(field.getType());
+    return getSelectorFromClass(type, injector);
+  }
+
+  public static Optional<By> getSelectorFromClass(Class<?> type, Injector injector) {
+    if (type.isAnnotationPresent(PageObjectInterface.class)) {
+      type = retrieveBindingOfPageObjectInterface(type, injector);
     }
-    throw new IllegalArgumentException(ERROR_MSG);
+    return getSelectorFromPageObjectClass(type);
   }
 
   /**
-   * Gets selector from {@link PageObject}
+   * Serves as a check if the field is generic. In case it is, retrieves the type from the parameterized field.
    *
-   * @param field class field
-   * @return selector
+   * @param field from which we would like to retrieve
+   * @return an {@link Optional} that:
+   * <ul>
+   * <li>contains the generic type from the provided (if field type is {@link ParameterizedType})</li>
+   * <li>is empty otherwise</li>
+   * </ul>
    */
-  public static By getSelectorFromPageObject(Field field) {
-    return retrieveSelectorFromPageObject(field, false);
-  }
-
-  /**
-   * Gets generic type from field (if field type is {@link ParameterizedType})
-   *
-   * @param field class field
-   * @return generic type
-   */
-  public static Class<?> getGenericType(Field field) {
+  public static Optional<Class<?>> getGenericType(Field field) {
+    Optional<Class<?>> genericType = Optional.empty();
     Type type = field.getGenericType();
     if (type instanceof ParameterizedType) {
       Type firstParameter = ((ParameterizedType) type).getActualTypeArguments()[0];
       if (!(firstParameter instanceof WildcardType)) {
-        return (Class<?>) firstParameter;
+        genericType = Optional.of((Class<?>) firstParameter);
       }
     }
-    return null;
+    return genericType;
   }
 
-  public static Optional<By> retrieveSelectorFromPageObjectInterface(Class<?> field) {
-    Optional<By> locator = Optional.empty();
-    String cssValue = field.getAnnotation(PageObject.class).css();
-    String xpathValue = field.getAnnotation(PageObject.class).xpath();
+  private static Class<?> retrieveBindingOfPageObjectInterface(Class<?> type, Injector injector) {
+    Binding<?> binding = injector.getBinding(type);
+    if (binding instanceof LinkedBindingImpl) {
+      type = ((LinkedBindingImpl) binding).getLinkedKey().getTypeLiteral().getRawType();
+    }
+    return type;
+  }
 
+  //private to enforce users to handle the case of PageObjectInterface
+  private static Optional<By> getSelectorFromPageObjectClass(Class<?> clazz) {
+    PageObject pageObject = Objects.requireNonNull(clazz.getAnnotation(PageObject.class));
+    return retrieveSelectorFromAnnotation(pageObject);
+  }
+
+  private static Optional<By> retrieveSelectorFromAnnotation(PageObject annotation) {
+    String cssValue = annotation.css();
+    String xpathValue = annotation.xpath();
+    if (StringUtils.isNotEmpty(cssValue) && StringUtils.isNotEmpty(xpathValue)) {
+      throw new IllegalArgumentException(
+          "Please provide only CSS or XPath selector for your PageObject: " + annotation);
+    }
+
+    Optional<By> selector = Optional.empty();
     if (StringUtils.isNotEmpty(cssValue)) {
-      locator = Optional.of(By.cssSelector(cssValue));
+      selector = Optional.of(By.cssSelector(cssValue));
     } else if (StringUtils.isNotEmpty(xpathValue)) {
-      locator = Optional.of(By.xpath(xpathValue));
+      selector = Optional.of(By.xpath(xpathValue));
     }
-    return locator;
+    return selector;
   }
-
-  private static By retrieveSelectorFromPageObject(Field field, boolean useGeneric) {
-    String cssValue = useGeneric
-        ? Objects.requireNonNull(PageObjectProviderHelper.getGenericType(field))
-        .getAnnotation(PageObject.class).css()
-        : field.getType().getAnnotation(PageObject.class).css();
-    if (StringUtils.isNotEmpty(cssValue)) {
-      return By.cssSelector(cssValue);
-    }
-    String xpathValue = useGeneric
-        ? Objects.requireNonNull(PageObjectProviderHelper.getGenericType(field))
-        .getAnnotation(PageObject.class).xpath()
-        : field.getType().getAnnotation(PageObject.class).xpath();
-    if (StringUtils.isNotEmpty(xpathValue)) {
-      return By.xpath(xpathValue);
-    }
-    throw new IllegalArgumentException(ERROR_MSG);
-  }
-
 }

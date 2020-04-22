@@ -57,9 +57,13 @@ public class PageXMLParserHandler extends DefaultHandler {
       if (isIgnoredAttribute(attributeName)) {
         continue;
       }
+      String value = attributes.getValue(attributeName);
+      if (value.startsWith("[") && value.endsWith("]")) {
+        value = value.replaceAll("[\\[\\]]", "");
+      }
       parserResults
           .add(new BasicNameValuePair(entryName.toString() + SEPARATOR + attributeName,
-              attributes.getValue(attributeName)));
+              value));
     }
   }
 

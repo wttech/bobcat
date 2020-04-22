@@ -91,7 +91,7 @@ public interface ConfigStrategy {
   default void setSystemProperties(Properties properties) {
     properties.stringPropertyNames().stream()
         .filter(key -> StringUtils.isBlank(System.getProperty(key)))
-        .filter(key -> key.startsWith(ConfigKeys.WEBDRIVER_PROP_PREFIX))
+        .filter(key -> key.startsWith(ConfigKeys.WEBDRIVER_PROP_PREFIX) || key.startsWith(ConfigKeys.TIMINGS_PREFIX))
         .forEach(key -> System.setProperty(key, properties.getProperty(key)));
   }
 }

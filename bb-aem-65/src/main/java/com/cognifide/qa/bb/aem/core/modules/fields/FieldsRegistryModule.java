@@ -22,14 +22,17 @@ package com.cognifide.qa.bb.aem.core.modules.fields;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultContentFragmentPathBrowser;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultCheckbox;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultImage;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultMultifield;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultMultifieldItem;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultNumberInput;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultPathBrowser;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultRadioGroup;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultRichText;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultSelect;
+import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultTagBrowser;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DefaultTextfield;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DialogField;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Fields;
@@ -42,6 +45,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.MapBinder;
 
 public class FieldsRegistryModule extends AbstractModule {
+
   private static final Logger LOG = LoggerFactory.getLogger(FieldsRegistryModule.class);
 
   @Override
@@ -59,12 +63,17 @@ public class FieldsRegistryModule extends AbstractModule {
     registerField(fieldsBinder, Fields.MULTIFIELD, DefaultMultifield.class);
     registerField(fieldsBinder, Fields.MULTIFIELD_ITEM, DefaultMultifieldItem.class);
     registerField(fieldsBinder, Fields.RADIO_GROUP, DefaultRadioGroup.class);
+    registerField(fieldsBinder, Fields.TAGBROWSER, DefaultTagBrowser.class);
+    registerField(fieldsBinder, Fields.NUMBER_INPUT, DefaultNumberInput.class);
 
     registerField(fieldsBinder, Fields.RICHTEXT, DefaultRichText.class);
     registerField(fieldsBinder, Options.RTE_OPTIONS, RteOption.class);
     registerField(fieldsBinder, Options.RTE_OPTIONS_HYPERLINK, Hyperlink.class);
     registerField(fieldsBinder, Options.RTE_OPTIONS_LISTS, Lists.class);
     registerField(fieldsBinder, Options.RTE_OPTIONS_PARAGRAPH_FORMATS, ParagraphFormats.class);
+
+    registerField(fieldsBinder, Fields.CONTENT_FRAGMENT_PATHBROWSER,
+        DefaultContentFragmentPathBrowser.class);
   }
 
   private void registerField(MapBinder<String, DialogField> binder, String name,

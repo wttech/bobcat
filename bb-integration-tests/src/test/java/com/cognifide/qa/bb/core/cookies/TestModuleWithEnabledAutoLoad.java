@@ -19,6 +19,7 @@
  */
 package com.cognifide.qa.bb.core.cookies;
 
+import com.cognifide.qa.bb.appium.modules.AppiumModule;
 import com.cognifide.qa.bb.constants.ConfigKeys;
 import com.cognifide.qa.bb.modules.CoreModule;
 import com.google.inject.AbstractModule;
@@ -29,6 +30,7 @@ public class TestModuleWithEnabledAutoLoad extends AbstractModule {
   protected void configure() {
     System.setProperty(ConfigKeys.COOKIES_LOAD_AUTOMATICALLY, "true");
     install(new CoreModule());
+    install(new AppiumModule());
   }
 
 }

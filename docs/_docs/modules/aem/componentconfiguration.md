@@ -96,6 +96,7 @@ Properties:
 - label - select dialog field with this label. If there is no label the fields will be selected in order.
 - type - type of dialog field. All available OOB fields are displayed in section below
 - value - what value should be set
+- clear - true/false, currently viable only for Multifields, you decide if the field's state should be set to a blank before entering the new value. This translates to deleting all existing items in a Multifield before adding any new ones.
 
 ### Components without tabs in the dialog
 
@@ -127,6 +128,7 @@ This example shows how we can fill multifield dialog fields:
 Properties:
 - label: Option Entries
   type: MULTIFIELD
+  clear: false
   value:
   - item:
     - label: Active
@@ -178,6 +180,7 @@ Version: >= 2.1.0
 | PATHBROWSER | path  |
 | SELECT | text from dropdown  |
 | RADIO_GROUP | text from radio option  |
+| TAGBROWSER | text for each tag to select, each tag is a separate list member of "value"   |
 | MULTIFIELD | list of "item" each with own fields (see example above)  |
 | RICHTEXT | text  |
 | RTE_OPTIONS | simple fields on RTE toolbar, without any sub-options; e.g.: Bold/Underline/Italic/Unlink (just provide the title of the button)  |

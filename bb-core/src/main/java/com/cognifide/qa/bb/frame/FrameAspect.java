@@ -22,6 +22,7 @@ package com.cognifide.qa.bb.frame;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 
+import com.cognifide.qa.bb.exceptions.BobcatRuntimeException;
 import com.cognifide.qa.bb.qualifier.Frame;
 import com.cognifide.qa.bb.scope.frame.FrameMap;
 import com.cognifide.qa.bb.scope.frame.FramePath;
@@ -62,12 +63,14 @@ public class FrameAspect implements MethodInterceptor {
     return methodInvocation.getMethod().getDeclaringClass().equals(Object.class);
   }
 
-  private Object switchFrameAndProceed(MethodInvocation methodInvocation) throws Throwable {
+  private Object switchFrameAndProceed(MethodInvocation methodInvocation) {
     final FrameSwitcher switcher = provider.get();
     final FramePath framePath = getFramePath(methodInvocation);
     switcher.switchTo(framePath);
     try {
       return methodInvocation.proceed();
+    } catch (Throwable throwable) {
+      throw new BobcatRuntimeException(throwable);
     } finally {
       switcher.switchBack();
     }

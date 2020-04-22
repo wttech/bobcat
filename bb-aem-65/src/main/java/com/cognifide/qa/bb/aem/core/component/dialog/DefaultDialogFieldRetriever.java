@@ -19,6 +19,8 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog;
 
+import static com.cognifide.qa.bb.mapper.field.PageObjectProviderHelper.getSelectorFromClass;
+
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +30,6 @@ import org.openqa.selenium.WebElement;
 
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.DialogField;
 import com.cognifide.qa.bb.aem.core.component.dialog.dialogfields.Locators;
-import com.cognifide.qa.bb.mapper.field.PageObjectProviderHelper;
 import com.cognifide.qa.bb.utils.AopUtil;
 import com.cognifide.qa.bb.utils.PageObjectInjector;
 import com.google.inject.Inject;
@@ -80,8 +81,8 @@ public class DefaultDialogFieldRetriever implements DialogFieldRetriever {
 
   private List<WebElement> getFieldElements(WebElement parentElement, String type) {
     By selector =
-        PageObjectProviderHelper.retrieveSelectorFromPageObjectInterface(getClassForType(type))
-            .orElse(By.cssSelector(Locators.FIELD_WRAPPER_CSS));
+        getSelectorFromClass(getClassForType(type), pageObjectInjector.getOriginalInjector())
+            .orElse(By.cssSelector(".coral-Form-fieldwrapper"));
 
     return parentElement.findElements(selector);
   }

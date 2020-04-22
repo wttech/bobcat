@@ -28,7 +28,6 @@ import com.cognifide.qa.bb.frame.FrameSwitcher;
 
 /**
  * Target locator that uses {@link FrameSwitcher}.
- * Used by {@link WebDriverWrapper}
  */
 public class BobcatTargetLocator implements TargetLocator {
 

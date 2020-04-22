@@ -19,22 +19,25 @@
  */
 package com.cognifide.qa.bb.scope;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.pagefactory.DefaultElementLocatorFactory;
-import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
-
 import com.cognifide.qa.bb.guice.ThreadScoped;
 import com.cognifide.qa.bb.scope.frame.FramePath;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 
 /**
- * This thread-scoped class queues PageObjectContext objects to keep track of frames and WebElements as we
- * move down the hierarchy of PageObjects.
+ * This thread-scoped class queues PageObjectContext objects to keep track of frames and WebElements
+ * as we move down the hierarchy of PageObjects.
  */
 @ThreadScoped
 public class ContextStack {
+
+  @Inject
+  private Injector injector;
+
   private final Deque<PageObjectContext> deque;
 
   /**
@@ -79,19 +82,21 @@ public class ContextStack {
   }
 
   /**
-   * This is like peek, but returns the default context when the context stack is empty. Default context
-   * means top frame and whole page.
+   * This is like peek, but returns the default context when the context stack is empty. Default
+   * context means top frame and whole page.
    *
-   * @param webDriver WebDriver instance that will serve as a base for creating the default context in case
-   *                  the context stack is empty.
-   * @return Current context, either taken from the context stack or the default context if stack is empty.
+   * @param webDriver WebDriver instance that will serve as a base for creating the default context
+   * in case the context stack is empty.
+   * @return Current context, either taken from the context stack or the default context if stack is
+   * empty.
    */
   public PageObjectContext getCurrentContext(WebDriver webDriver) {
     return isEmpty() ? getDefaultPageObjectContext(webDriver) : peek();
   }
 
   private PageObjectContext getDefaultPageObjectContext(WebDriver webDriver) {
-    ElementLocatorFactory elementLocatorFactory = new DefaultElementLocatorFactory(webDriver);
+    ElementLocatorFactory elementLocatorFactory = new BobcatDefaultElementLocatorFactory(webDriver,
+        injector);
     FramePath framePath = new FramePath();
     return new PageObjectContext(elementLocatorFactory, framePath);
   }

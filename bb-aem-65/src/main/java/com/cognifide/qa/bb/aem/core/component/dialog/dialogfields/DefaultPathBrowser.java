@@ -19,11 +19,11 @@
  */
 package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 import java.util.List;
 
-import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -34,14 +34,17 @@ import com.google.inject.Inject;
 /**
  * Default implementation of {@link PathBrowser}
  */
-@PageObject(css = Locators.FIELD_WRAPPER_CSS)
+@PageObject(css = Locators.AUTOCOMPLETE_CSS)
 public class DefaultPathBrowser implements PathBrowser {
 
-  @FindBy(className = "coral3-Textfield")
+  @FindBy(css = ".coral3-Textfield")
   private WebElement input;
 
-  @FindBy(css = Locators.LABEL_CSS)
+  @FindBy(xpath = Locators.ALTERNATE_LABEL_XPATH)
   private List<WebElement> label;
+
+  @FindBy(css = ".foundation-picker-buttonlist.coral3-Overlay.is-open")
+  private WebElement firstResult;
 
   @Inject
   private BobcatWait bobcatWait;
@@ -50,10 +53,8 @@ public class DefaultPathBrowser implements PathBrowser {
   public void setValue(Object value) {
     input.clear();
     input.sendKeys(String.valueOf(value));
-
-    bobcatWait.until(visibilityOfElementLocated(
-        By.cssSelector(".foundation-picker-buttonlist.coral3-Overlay.is-open")));
-    label.get(0).click();
+    bobcatWait.until(elementToBeClickable(firstResult));
+    input.sendKeys(Keys.ENTER);
   }
 
   @Override

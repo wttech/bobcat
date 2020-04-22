@@ -19,20 +19,20 @@
  */
 package com.cognifide.qa.bb.provider.selenium.webdriver;
 
-import java.util.Properties;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.events.WebDriverEventListener;
 
 import com.cognifide.qa.bb.constants.ConfigKeys;
-import com.cognifide.qa.bb.frame.FrameSwitcher;
 import com.cognifide.qa.bb.guice.ThreadScoped;
 import com.cognifide.qa.bb.provider.selenium.webdriver.close.ClosingAwareWebDriver;
-import com.cognifide.qa.bb.provider.selenium.webdriver.close.ClosingAwareWebDriverWrapper;
+import com.cognifide.qa.bb.provider.selenium.webdriver.close.ClosingAwareWebDriverFactory;
 import com.cognifide.qa.bb.provider.selenium.webdriver.close.WebDriverClosedListener;
+import com.cognifide.qa.bb.provider.selenium.webdriver.creators.WebDriverCreator;
 import com.cognifide.qa.bb.provider.selenium.webdriver.modifiers.WebDriverModifiers;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -40,10 +40,8 @@ import com.google.inject.name.Named;
 
 /**
  * This is a provider that will produce WebDriver instances for all your PageObjects. It is
- * ThreadScoped, so
- * each thread will receive its own instance of WebDriver. WebDriverProvider caches the
- * WebDriver, so all
- * PageObjects in one thread will be using one instance of WebDriver.
+ * ThreadScoped, so each thread will receive its own instance of WebDriver. WebDriverProvider caches the
+ * WebDriver, so all PageObjects in one thread will be using one instance of WebDriver.
  */
 @ThreadScoped
 public class WebDriverProvider implements Provider<WebDriver> {
@@ -55,22 +53,7 @@ public class WebDriverProvider implements Provider<WebDriver> {
   private String type;
 
   @Inject
-  @Named(ConfigKeys.WEBDRIVER_REUSABLE)
-  private boolean reusable;
-
-  @Inject
-  @Named(ConfigKeys.WEBDRIVER_MOBILE)
-  private boolean mobile;
-
-  @Inject
-  private FrameSwitcher frameSwitcher;
-
-  @Inject
-  @Named(ConfigKeys.WEBDRIVER_MAXIMIZE)
-  private boolean maximize;
-
-  @Inject
-  private Properties properties;
+  private ClosingAwareWebDriverFactory closingAwareWebDriverFactory;
 
   @Inject
   private Capabilities capabilities;
@@ -87,10 +70,12 @@ public class WebDriverProvider implements Provider<WebDriver> {
   @Inject
   private Set<WebDriverEventListener> listeners;
 
+  @Inject
+  private Set<WebDriverCreator> webDriverCreators;
+
   /**
    * This is the provider method that produces WebDriver instance. It returns either a cached
-   * webdriver or
-   * creates a new one.
+   * webdriver or creates a new one.
    */
   @Override
   public WebDriver get() {
@@ -101,28 +86,21 @@ public class WebDriverProvider implements Provider<WebDriver> {
   }
 
   private ClosingAwareWebDriver create() {
-    final Capabilities modifiedCapabilities = webDriverModifiers.modifyCapabilities(capabilities);
+    WebDriverCreator webDriverCreator = webDriverCreators.stream()
+        .filter(creator -> StringUtils.equalsIgnoreCase(type, creator.getId()))
+        .findFirst()
+        .orElseThrow(() -> new IllegalStateException(
+            "No WebDriverCreator registered for the provided type: " + type));
 
-    final WebDriverType webDriverType = WebDriverType.get(type);
-    final WebDriver raw = webDriverType.create(modifiedCapabilities, properties);
+    final WebDriver raw = webDriverCreator.create(capabilities);
     final WebDriver modified = webDriverModifiers.modifyWebDriver(raw);
 
-    final ClosingAwareWebDriverWrapper closingAwareWebDriver =
-        wrapInClosingAwareWebDriver(modified);
-    registerEventListeners(closingAwareWebDriver);
+    final ClosingAwareWebDriver closingAwareWebDriver =
+        closingAwareWebDriverFactory.create(modified);
+    closedListeners.forEach(closingAwareWebDriver::addListener);
+    listeners.forEach(((EventFiringWebDriver) closingAwareWebDriver)::register);
+
     registry.add(closingAwareWebDriver);
     return closingAwareWebDriver;
-  }
-
-  private ClosingAwareWebDriverWrapper wrapInClosingAwareWebDriver(final WebDriver webDriver) {
-    final ClosingAwareWebDriverWrapper closingWebDriver =
-        new ClosingAwareWebDriverWrapper(webDriver,
-            frameSwitcher, maximize, reusable, mobile);
-    closedListeners.stream().forEach(closingWebDriver::addListener);
-    return closingWebDriver;
-  }
-
-  private void registerEventListeners(final EventFiringWebDriver closingWebDriver) {
-    listeners.stream().forEach(closingWebDriver::register);
   }
 }

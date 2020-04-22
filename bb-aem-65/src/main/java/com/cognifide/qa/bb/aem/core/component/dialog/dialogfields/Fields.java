@@ -23,6 +23,7 @@ package com.cognifide.qa.bb.aem.core.component.dialog.dialogfields;
  * This class contains names of all available field types.
  */
 public class Fields {
+
   public static final String CHECKBOX = "CHECKBOX";
   public static final String IMAGE = "IMAGE";
   public static final String PATHBROWSER = "PATHBROWSER";
@@ -32,6 +33,9 @@ public class Fields {
   public static final String MULTIFIELD_ITEM = "MULTIFIELD_ITEM";
   public static final String RADIO_GROUP = "RADIO_GROUP";
   public static final String RICHTEXT = "RICHTEXT";
+  public static final String TAGBROWSER = "TAGBROWSER";
+  public static final String NUMBER_INPUT = "NUMBER_INPUT";
+  public static final String CONTENT_FRAGMENT_PATHBROWSER = "CONTENT_FRAGMENT_PATHBROWSER";
 
   private Fields() {
     //empty

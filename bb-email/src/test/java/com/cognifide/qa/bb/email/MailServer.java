@@ -36,7 +36,7 @@ public class MailServer {
   @Named("email.address")
   private String address;
 
-  private GreenMail mailServer;
+  private GreenMail server;
 
   public void start() {
     Security.setProperty("ssl.SocketFactory.provider", DummySSLSocketFactory.class.getName());
@@ -47,12 +47,12 @@ public class MailServer {
     // pop3s 3995
     // imap 3143
     // imaps 3993
-    mailServer = new GreenMail();
-    mailServer.start();
-    mailServer.setUser(address, config.getUsername(), config.getPassword());
+    server = new GreenMail();
+    server.start();
+    server.setUser(address, config.getUsername(), config.getPassword());
   }
 
   public void stop() {
-    mailServer.stop();
+    server.stop();
   }
 }

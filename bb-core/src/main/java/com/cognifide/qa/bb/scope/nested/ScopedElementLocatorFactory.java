@@ -26,12 +26,14 @@ import org.openqa.selenium.support.pagefactory.DefaultElementLocator;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
 import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 
-import com.cognifide.qa.bb.qualifier.Global;
+import com.cognifide.qa.bb.mapper.annotations.FieldAnnotationsProvider;
 import com.cognifide.qa.bb.scope.ParentElementLocatorProvider;
+import com.cognifide.qa.bb.utils.AnnotationsHelper;
+import com.google.inject.Injector;
 
 /**
- * Locator factory that produces locators within parent scope, or in global scope,
- * if the Global annotation is present.
+ * Locator factory that produces locators within parent scope, or in global scope, if the Global
+ * annotation is present.
  */
 public class ScopedElementLocatorFactory
     implements ElementLocatorFactory, ParentElementLocatorProvider {
@@ -42,20 +44,23 @@ public class ScopedElementLocatorFactory
 
   private final WebDriver webDriver;
 
+  private final Injector injector;
+
   /**
    * Creates an element-scoped locator factory.
    *
-   * @param webDriver     WebDriver instance that will serve as a global scope
-   *                      for Global-annotated fields
+   * @param webDriver     WebDriver instance that will serve as a global scope for Global-annotated
+   *                      fields
    * @param parentFactory Factory that represents scope for elements without Global annotation
-   * @param parentField   Field that contains current field,
-   *                      reducing the scope indicated by parentFactory
+   * @param parentField   Field that contains current field, reducing the scope indicated by
+   *                      parentFactory
    */
   public ScopedElementLocatorFactory(WebDriver webDriver,
-      ElementLocatorFactory parentFactory, Field parentField) {
+      ElementLocatorFactory parentFactory, Field parentField, Injector injector) {
     this.parentFactory = parentFactory;
     this.parentField = parentField;
     this.webDriver = webDriver;
+    this.injector = injector;
   }
 
   @Override
@@ -65,8 +70,8 @@ public class ScopedElementLocatorFactory
 
   @Override
   public ElementLocator createLocator(final Field field) {
-    return field.isAnnotationPresent(Global.class) ?
-        new DefaultElementLocator(webDriver, field) :
-        new ScopedElementLocator(parentFactory, parentField, field);
+    return AnnotationsHelper.isGlobal(field) ?
+        new DefaultElementLocator(webDriver, FieldAnnotationsProvider.create(field, injector)) :
+        new ScopedElementLocator(parentFactory, parentField, field, injector);
   }
 }
