@@ -1,8 +1,10 @@
 {
-  "pageInfo": {
-    "pageName": "SPP",
-    "language": "en_us",
-    "siteName": "spp"
+  "page": {
+    "pageInfo": {
+      "pageName": "SPP",
+      "language": "en-US",
+      "siteName": "spp"
+    }
   },
   "userInfo": {
     "loginStatus": "NotSignedIn"
