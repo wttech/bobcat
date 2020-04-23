@@ -24,7 +24,7 @@
     <parent>
         <groupId>com.cognifide.qa.bb</groupId>
         <artifactId>bobcat</artifactId>
-        <version>2.3.0</version>
+        <version>2.3.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>bb-traffic</artifactId>
