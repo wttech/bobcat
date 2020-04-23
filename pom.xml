@@ -66,6 +66,7 @@ limitations under the License.
         <module>bb-aem-64sp2</module>
         <module>bb-aem-65</module>
         <module>bb-appium</module>
+        <module>bb-analytics</module>
     </modules>
 
     <scm>

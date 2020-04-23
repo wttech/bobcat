@@ -1,0 +1,16 @@
+{
+  "page": {
+    "pageInfo": {
+      "pageName": "SPP",
+      "language": "en-US",
+      "siteName": "spp"
+    }
+  },
+  "userInfo": {
+    "loginStatus": "NotSignedIn"
+  },
+  "eventInfo": {
+    "eventLabel": "pageview",
+    "eventType": "pageload"
+  }
+}

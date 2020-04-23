@@ -21,3 +21,6 @@ default:
 
     webdriver.chrome.headless: false
     webdriver.chrome.acceptInsecureCerts: false
+
+    adobe.analytics.datalayer: digitalData
+    google.analytics.datalayer: dataLayer

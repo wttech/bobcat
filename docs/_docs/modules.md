@@ -82,3 +82,10 @@ This module contains implementation of AEM Core interfaces and utils for AEM 6.4
 
 More about its features: [here]({{site.baseurl}}/docs/modules/aem-64/)
 {: .notice--info}
+
+### Module: Analytics
+
+This module contains utilities dedicated to the Adobe Analytics and Google Analytics testing
+
+More about its features: [here]({{site.baseurl}}/docs/modules/analytics/)
+{: .notice--info}

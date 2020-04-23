@@ -51,6 +51,11 @@
             <artifactId>bb-junit5</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.cognifide.qa.bb</groupId>
+            <artifactId>bb-analytics</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
@@ -100,6 +105,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
+                    <properties>
+                        <configurationParameters>junit.jupiter.extensions.autodetection.enabled = true</configurationParameters>
+                    </properties>
                     <systemPropertyVariables>
                         <bobcat.tests.target>https://cognifide.github.io/bobcat/tests/</bobcat.tests.target>
                     </systemPropertyVariables>
