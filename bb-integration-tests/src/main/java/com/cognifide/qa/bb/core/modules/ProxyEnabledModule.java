@@ -2,7 +2,7 @@
  * #%L
  * Bobcat
  * %%
- * Copyright (C) 2016 Cognifide Ltd.
+ * Copyright (C) 2019 Cognifide Ltd.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,24 +17,16 @@
  * limitations under the License.
  * #L%
  */
-package com.cognifide.qa.bb.modules;
+package com.cognifide.qa.bb.core.modules;
 
-import org.openqa.selenium.Proxy;
-
-import com.cognifide.qa.bb.proxy.ProxyController;
-import com.cognifide.qa.bb.proxy.ProxyControllerProvider;
-import com.cognifide.qa.bb.proxy.ProxyEventListener;
-import com.cognifide.qa.bb.proxy.providers.DefaultProxyProvider;
+import com.cognifide.qa.bb.constants.ConfigKeys;
+import com.cognifide.qa.bb.modules.CoreModule;
 import com.google.inject.AbstractModule;
-import com.google.inject.multibindings.Multibinder;
 
-public class ProxyModule extends AbstractModule {
-
+public class ProxyEnabledModule extends AbstractModule {
   @Override
   protected void configure() {
-    bind(ProxyController.class).toProvider(ProxyControllerProvider.class);
-    Multibinder.newSetBinder(binder(), ProxyEventListener.class);
-
-    bind(Proxy.class).toProvider(DefaultProxyProvider.class);
+    System.setProperty(ConfigKeys.PROXY_ENABLED, "true");
+    install(new CoreModule());
   }
 }
