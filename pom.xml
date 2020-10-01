@@ -96,7 +96,7 @@ limitations under the License.
 
         <maven.javadoc.failOnError>false</maven.javadoc.failOnError>
 
-        <jacoco.version>0.8.4</jacoco.version>
+        <jacoco.version>0.8.6</jacoco.version>
         <selenium.version>3.141.59</selenium.version>
         <guice.version>4.2.2</guice.version>
         <version.logback>1.2.3</version.logback>
