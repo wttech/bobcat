@@ -1,5 +1,5 @@
 # Introduction
-This document describes Bobcat release procedure for Bobcat contributors. To become a contributor, please check our [contribution guidelines](https://github.com/Cognifide/bobcat/blob/master/CONTRIBUTING.md).
+This document describes Bobcat release procedure for Bobcat contributors. To become a contributor, please check our [contribution guidelines](https://github.com/wttech/bobcat/blob/master/CONTRIBUTING.md).
 
 Original guide by @Shaihuludus.
 
@@ -7,7 +7,7 @@ Original guide by @Shaihuludus.
 
 ## Sonatype's OSS Nexus deployment rights
 
-You are required to have an authorized account to release Bobcat artifacts to Sonatype's Nexus. To obtain such rights, create an account at https://issues.sonatype.org and ask for permissions to group com.cognifide. If you are Cognifide employee, use your company email address - otherwise, you need to contact us first.
+You are required to have an authorized account to release Bobcat artifacts to Sonatype's Nexus. To obtain such rights, create an account at https://issues.sonatype.org and ask for permissions to group com.cognifide. If you are Wunderman Thompson Technology employee, use your company email address - otherwise, you need to contact us first.
 >Make sure you are using Community Support - Open Source Project Repository Hosting for the issue. Example JIRA: [link](https://issues.sonatype.org/browse/OSSRH-26531)
 
 ## GPG Signatures
@@ -87,7 +87,7 @@ If staging release with Maven ended successfully, then:
   
 ## Gradle template
 
-1. Bump Bobcat's version in the https://github.com/Cognifide/bobcat-gradle-template/
+1. Bump Bobcat's version in the https://github.com/wttech/bobcat-gradle-template/
 
 
 # References

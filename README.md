@@ -1,4 +1,4 @@
-![Cognifide logo](http://cognifide.github.io/images/cognifide-logo.png)
+![WTT logo](assets/wtt-logo.png)
 
 [![Build Status](https://travis-ci.org/Cognifide/bobcat.svg?branch=master)](https://travis-ci.org/Cognifide/bobcat)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=com.cognifide.qa.bb%3Abobcat&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.cognifide.qa.bb%3Abobcat)
@@ -21,7 +21,7 @@ To start your adventure with Bobcat, please refer to our documentation: [Getting
 
 ## AEM Support
 
-Since Cognifide expertises in development on top of [Adobe Experience Manager (AEM)](https://www.adobe.com/marketing-cloud/experience-manager.html), Bobcat accelerates test development for this platform, especially when it comes to AEM authoring. The framework provides dedicated modules which allow you to automate almost every action on the AEM author side. This includes:
+Since Wunderman Thompson Technology (formerly Cognifide) expertises in development on top of [Adobe Experience Manager (AEM)](https://www.adobe.com/marketing-cloud/experience-manager.html), Bobcat accelerates test development for this platform, especially when it comes to AEM authoring. The framework provides dedicated modules which allow you to automate almost every action on the AEM author side. This includes:
 - Site Admin,
 - dialogs,
 - parsyses,
@@ -33,18 +33,18 @@ For information about compatibility with specific AEM versions, please refer to 
 
 ## What's so special about Bobcat?
 
-We created this framework at Cognifide after years of experience with multiple simpler solutions. After reaching a certain point of maturity, we have decided it was time for a tool developed properly, by bringing the knowledge of both our QA engineers and developers. We wanted our framework to be maintainable, stable and scalable.
+We created this framework at Wunderman Thompson Technology (formerly Cognifide) after years of experience with multiple simpler solutions. After reaching a certain point of maturity, we have decided it was time for a tool developed properly, by bringing the knowledge of both our QA engineers and developers. We wanted our framework to be maintainable, stable and scalable.
 
-Bobcat relies heavily on the Page Object pattern, which is an embedded concept in most of its internals. We can model our websites easily and create a neat Page Object tree structure, scoping Page Objects inside other Page Objects, reducing the effort of selector maintenance. You can read more about it [here](https://github.com/Cognifide/bobcat/wiki/PageObject). We make all the magic possible thanks to dependency injection with Google's Guice. Additionally, we wanted to make it as scalable as possible, so thread-safety was one of the key principles during the development.
+Bobcat relies heavily on the Page Object pattern, which is an embedded concept in most of its internals. We can model our websites easily and create a neat Page Object tree structure, scoping Page Objects inside other Page Objects, reducing the effort of selector maintenance. You can read more about it [here](https://github.com/wttech/bobcat/wiki/PageObject). We make all the magic possible thanks to dependency injection with Google's Guice. Additionally, we wanted to make it as scalable as possible, so thread-safety was one of the key principles during the development.
 
 ## Documentation
-See our [Quick-start guide](https://cognifide.github.io/bobcat/docs/getting-started/) and [Bobcat Wiki](https://github.com/Cognifide/bobcat/wiki) for examples and documentation of all features.
+See our [Quick-start guide](https://cognifide.github.io/bobcat/docs/getting-started/) and [Bobcat Wiki](https://github.com/wttech/bobcat/wiki) for examples and documentation of all features.
 
 You might also want to check latest [Bobcat API docs](http://www.javadoc.io/doc/com.cognifide.qa.bb/bb-core).
 
 ## Contributing
 
-You can help make Bobcat more awesome by raising any encountered issues or feature requests here on [Github](https://github.com/Cognifide/bobcat/issues). For any questions, please contact us on [Gitter](https://gitter.im/bobcat-framework/Lobby) or via [email](mailto:bobcat@cognifide.com). See our [contribution guidelines](https://github.com/Cognifide/bobcat/blob/master/CONTRIBUTING.md) for more details.
+You can help make Bobcat more awesome by raising any encountered issues or feature requests here on [Github](https://github.com/wttech/bobcat/issues). For any questions, please contact us on [Gitter](https://gitter.im/bobcat-framework/Lobby) or via [email](mailto:bobcat@cognifide.com). See our [contribution guidelines](https://github.com/wttech/bobcat/blob/master/CONTRIBUTING.md) for more details.
 
 ## License
 

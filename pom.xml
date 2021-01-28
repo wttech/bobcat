@@ -3,7 +3,7 @@
   #%L
   Bobcat
   %%
-  Copyright (C) 2019 Cognifide Ltd.
+  Copyright (C) 2019 Wunderman Thompson Technology
   %%
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -29,11 +29,11 @@ limitations under the License.
     <name>Bobcat</name>
     <description>Bobcat is an automated testing framework for functional testing of web
         applications.</description>
-    <url>https://github.com/cognifide/bobcat</url>
+    <url>https://github.com/wttech/bobcat</url>
     <inceptionYear>2016</inceptionYear>
 
     <organization>
-        <name>Cognifide Ltd.</name>
+        <name>Wunderman Thompson Technology</name>
         <url>http://www.cognifide.com</url>
     </organization>
 
@@ -70,10 +70,10 @@ limitations under the License.
     </modules>
 
     <scm>
-        <connection>scm:git:git@github.com:Cognifide/bobcat.git</connection>
-        <developerConnection>scm:git:git@github.com:Cognifide/bobcat.git</developerConnection>
+        <connection>scm:git:git@github.com:wttech/bobcat.git</connection>
+        <developerConnection>scm:git:git@github.com:wttech/bobcat.git</developerConnection>
         <tag>HEAD</tag>
-        <url>https://github.com/Cognifide/bobcat</url>
+        <url>https://github.com/wttech/bobcat</url>
     </scm>
 
     <distributionManagement>

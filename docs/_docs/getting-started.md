@@ -16,7 +16,7 @@ Before you start, please make sure you have following stuff installed on your ma
 
 To start using Bobcat, you could simply create an empty project, add the required dependencies of wanted Bobcat modules, create a Guice module, set necessary propreties... but it already sounds like a bit of work!
 
-That is why we streamlined the whole setup - we provide a handy Bobcat project template, which can generate your desired flavor of Bobcat configuration. Go to the [template](https://github.com/Cognifide/bobcat-gradle-template) repository, clone it and follow the instructions in README.
+That is why we streamlined the whole setup - we provide a handy Bobcat project template, which can generate your desired flavor of Bobcat configuration. Go to the [template](https://github.com/wttech/bobcat-gradle-template) repository, clone it and follow the instructions in README.
 
 And that's it! You have a working Bobcat project :).
 

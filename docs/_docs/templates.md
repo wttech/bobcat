@@ -8,9 +8,9 @@ Aim of the templates is to easily and fast provide a way to create a Bobcat proj
 
 To use any Bobcat template listed below you need to:
 
-1. Clone [bobcat-gradle-template repository](https://github.com/Cognifide/bobcat-gradle-template)
+1. Clone [bobcat-gradle-template repository](https://github.com/wttech/bobcat-gradle-template)
 2. Choose one of the templates from the list below
-3. Generate your local template as it is described in [README](https://github.com/Cognifide/bobcat-gradle-template/blob/master/README.md)
+3. Generate your local template as it is described in [README](https://github.com/wttech/bobcat-gradle-template/blob/master/README.md)
 
 That's it! You're ready to start writing your own tests. Enjoy!
 

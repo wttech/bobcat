@@ -2,7 +2,7 @@
 title: "Waiting"
 ---
 
-Available in `bb-core` since version `1.6.0`. Mechanism from previous versions: [link](https://github.com/Cognifide/bobcat/wiki/Explicit-Waits)
+Available in `bb-core` since version `1.6.0`. Mechanism from previous versions: [link](https://github.com/wttech/bobcat/wiki/Explicit-Waits)
 {: .notice--info}
 
 ## Overview
