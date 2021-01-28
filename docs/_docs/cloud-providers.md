@@ -37,5 +37,5 @@ In case of Gradle:
 ./gradlew clean test -Dwebdriver.url=https://${BROWSERSTACK_USERNAME}:${BROWSERSTACK_ACCESS_KEY}@hub-cloud.browserstack.com/wd/hub
 ```
 
-You can check out example configuration of BrowserStack in Bobcat's test suites. Tests are run on Travis: [build](https://travis-ci.org/Cognifide/bobcat), [config](https://github.com/Cognifide/bobcat/blob/master/.travis.yml).
+You can check out example configuration of BrowserStack in Bobcat's test suites. Tests are run on Travis: [build](https://travis-ci.org/Cognifide/bobcat), [config](https://github.com/wttech/bobcat/blob/master/.travis.yml).
 {: .notice--info}

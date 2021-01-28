@@ -6,7 +6,7 @@ main:
   - title: "Contact us"
     url: /contact/
   - title: "GitHub"
-    url: https://github.com/Cognifide/bobcat
+    url: https://github.com/wttech/bobcat
 docs:
   - title: "Essentials"
     children:

@@ -4,7 +4,7 @@ Are you interested in contributing to Bobcat? Great!
 
 ## Reporting bugs
 
-If you encounter a bug when using Bobcat, first, please check the existing [issues](https://github.com/Cognifide/bobcat/issues) - perhaps someone already had the same problem. If there is one, don't hesitate to add a comment with additional information!
+If you encounter a bug when using Bobcat, first, please check the existing [issues](https://github.com/wttech/bobcat/issues) - perhaps someone already had the same problem. If there is one, don't hesitate to add a comment with additional information!
 
 If not, report the issue according to the template and set the label to `bug`.
 
