@@ -11,6 +11,8 @@
   <img src="assets/bobcat-logo-caption-180x180.png" alt="Bobcat Logo"/>
 </p>
 
+[Please read this before you start](https://wttech.blog/blog/2021/bobcat-retirement/)
+
 Bobcat is an automated testing framework for functional testing of web applications. It wraps [Selenium](https://github.com/SeleniumHQ/selenium), so anything possible in raw Selenium can be done with Bobcat, including running it on all supported browsers, Selenium Grid, cloud providers like SauceLabs, Cross Browser Testing, BrwoserStack etc. You can also utilize [Appium](http://appium.io/) for mobile testing. Bobcat comes with a handy set of utilities and accelerators that will help you develop your tests faster.
 
 Bobcat is implemented in Java and allows the test development in pure JUnit or via Cucumber-JVM for BDD-oriented people.
