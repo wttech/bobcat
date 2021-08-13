@@ -17,7 +17,7 @@
 <!--- Go over all the following points, and put an `x` in all the boxes that apply. -->
 <!--- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->
 - [ ] I have read the **CONTRIBUTING** document.
-- [ ] My code follows the [code styleguide](https://github.com/Cognifide/bobcat/blob/master/CONTRIBUTING.md#styleguide) of this project.
+- [ ] My code follows the [code styleguide](https://github.com/wttech/bobcat/blob/master/CONTRIBUTING.md#styleguide) of this project.
 - [ ] My change requires a change to the documentation.
 - [ ] I have updated the documentation accordingly.
 - [ ] I have added tests to cover my changes.
