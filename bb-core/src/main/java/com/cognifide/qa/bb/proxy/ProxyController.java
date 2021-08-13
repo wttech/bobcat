@@ -60,6 +60,7 @@ public class ProxyController {
   }
 
   public BrowserMobProxy startProxyServer(InetAddress proxyAddress) {
+    LOG.info("Starting BrowserMobProxy...");
     if (!browserMobProxy.isStarted()) {
       try {
         browserMobProxy.start(port, proxyAddress);
@@ -72,6 +73,7 @@ public class ProxyController {
   }
 
   public void stopProxyServer() {
+    LOG.info("Stopping BrowserMobProxy...");
     if (browserMobProxy.isStarted()) {
       try {
         browserMobProxy.stop();

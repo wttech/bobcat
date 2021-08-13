@@ -2,7 +2,7 @@
  * #%L
  * Bobcat
  * %%
- * Copyright (C) 2016 Cognifide Ltd.
+ * Copyright (C) 2019 Cognifide Ltd.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,65 +19,65 @@
  */
 package com.cognifide.qa.bb.proxy;
 
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.verify;
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import java.io.IOException;
-
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.WebDriver;
 
+import com.cognifide.qa.bb.core.modules.ProxyEnabledModule;
+import com.cognifide.qa.bb.junit5.BobcatExtension;
 import com.cognifide.qa.bb.junit5.guice.Modules;
-import com.cognifide.qa.bb.modules.CoreModule;
+import com.github.tomakehurst.wiremock.WireMockServer;
 import com.google.inject.Inject;
 
-import io.netty.handler.codec.http.HttpRequest;
-import net.lightbody.bmp.BrowserMobProxy;
-import net.lightbody.bmp.BrowserMobProxyServer;
-import net.lightbody.bmp.filters.RequestFilter;
-import net.lightbody.bmp.util.HttpMessageContents;
-import net.lightbody.bmp.util.HttpMessageInfo;
-
-@ExtendWith(MockitoExtension.class)
-@Modules({CoreModule.class})
-public class RequestFilterRegistryTest extends AbstractProxyTest {
+@BobcatExtension
+@Modules({ProxyEnabledModule.class})
+class RequestFilterRegistryTest {
 
   @Inject
-  private RequestFilterRegistry requestFilterRegistry;
+  private WebDriver webDriver;
 
   @Inject
-  private RequestFilterRegistry requestFilterRegistryAlias;
+  private RequestFilterRegistry filters;
 
-  @Mock
-  private RequestFilter requestFilter;
+  private WireMockServer wireMockServer;
 
-  @Test
-  public void requestFilterRegistryShouldBeSingleton() {
-    assertSame(requestFilterRegistry, requestFilterRegistryAlias,
-        "RequestFilterRegistry should be thread-scoped");
+  @BeforeEach
+  void setup() {
+    wireMockServer = new WireMockServer();
+    wireMockServer.start();
   }
 
-  @Disabled("TODO - some problems with timing (works in debug mode)")
   @Test
-  public void shouldCallFilterByRegistry() throws IOException {
-    // given
-    BrowserMobProxy browserMobProxy = new BrowserMobProxyServer();
-    startProxyServer(browserMobProxy);
-    requestFilterRegistry.add(requestFilter);
-    browserMobProxy.addRequestFilter(requestFilterRegistry);
-    // when
-    DesiredCapabilities capabilities = proxyCapabilities(browserMobProxy);
-    visitSamplePage(capabilities);
-    browserMobProxy.stop();
-    // then
-    verify(requestFilter, atLeastOnce()).filterRequest(any(HttpRequest.class),
-        any(HttpMessageContents.class), any(HttpMessageInfo.class));
+  void bobcatUserCanAddHeaderWhenUsingProxy() {
+    //given
+    stubFor(get(urlEqualTo("/proxy-test"))
+        .withHeader("Bobcat-Header", equalTo("present"))
+        .willReturn(aResponse()
+            .withStatus(200)
+            .withBody("works correctly")));
 
+    filters.add((request, contents, messageInfo) -> {
+      request.headers().add("Bobcat-Header", "present");
+      return null;
+    });
+
+    //when
+    String url = String.format("http://%s:%s/proxy-test", wireMockServer.getOptions().bindAddress(),
+        wireMockServer.getOptions().portNumber());
+    webDriver.get(url);
+
+    //then
+    assertThat(webDriver.getPageSource()).contains("works correctly");
+  }
+
+  @AfterEach
+  void teardown() {
+    if (wireMockServer != null) {
+      wireMockServer.stop();
+    }
   }
 }
