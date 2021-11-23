@@ -1,4 +1,9 @@
-![Cognifide logo](http://cognifide.github.io/images/cognifide-logo.png)
+> ## This repository is no longer actively maintained, please [read this article for more details](https://wttech.blog/blog/2021/bobcat-retirement/).
+<hr>
+
+<p align="center">
+    <img src="https://github.com/wttech/aet/raw/master/misc/img/WT_Logo_Blue_Positive_RGB.png" alt="Wunderman Thompson Logo" width="150"/>
+</p>
 
 [![Build Status](https://travis-ci.org/Cognifide/bobcat.svg?branch=master)](https://travis-ci.org/Cognifide/bobcat)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=com.cognifide.qa.bb%3Abobcat&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.cognifide.qa.bb%3Abobcat)
@@ -11,7 +16,7 @@
   <img src="assets/bobcat-logo-caption-180x180.png" alt="Bobcat Logo"/>
 </p>
 
-[Please read this before you start](https://wttech.blog/blog/2021/bobcat-retirement/)
+
 
 Bobcat is an automated testing framework for functional testing of web applications. It wraps [Selenium](https://github.com/SeleniumHQ/selenium), so anything possible in raw Selenium can be done with Bobcat, including running it on all supported browsers, Selenium Grid, cloud providers like SauceLabs, Cross Browser Testing, BrwoserStack etc. You can also utilize [Appium](http://appium.io/) for mobile testing. Bobcat comes with a handy set of utilities and accelerators that will help you develop your tests faster.
 
